@@ -1,137 +1,63 @@
-/* MAIN interactions: brand reveal, project previews, contact & audio lazy load */
+// Helpers
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
 
-// helpers
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
+// BRAND reveal actions
+const brand = $('#ANDZ');
+const brandActions = $('#brandActions');
+brand.addEventListener('mouseenter', ()=>{ brandActions.classList.add('show'); brandActions.classList.remove('hidden'); brandActions.setAttribute('aria-hidden','false'); });
+brand.addEventListener('mouseleave', ()=>{ brandActions.classList.remove('show'); brandActions.classList.add('hidden'); brandActions.setAttribute('aria-hidden','true'); });
+brand.addEventListener('focus', ()=>{ brandActions.classList.add('show'); brandActions.classList.remove('hidden'); });
+brand.addEventListener('blur', ()=>{ brandActions.classList.remove('show'); brandActions.classList.add('hidden'); });
 
-// BRAND reveal (hover & keyboard)
-const brand = $('#brand');
-const brandMenu = $('#brandMenu');
-
-function showBrand(){ brandMenu.classList.add('show'); brandMenu.setAttribute('aria-hidden','false'); }
-function hideBrand(){ brandMenu.classList.remove('show'); brandMenu.setAttribute('aria-hidden','true'); }
-
-brand.addEventListener('mouseenter', showBrand);
-brand.addEventListener('focus', showBrand);
-brand.addEventListener('mouseleave', hideBrand);
-brand.addEventListener('blur', hideBrand);
-brand.addEventListener('keydown', e=>{
-  if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); brandMenu.classList.toggle('show'); }
-});
-
-// BRAND buttons -> scroll
-$$('.big-btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const tgt = btn.dataset.target;
-    if(tgt === 'work') document.getElementById('work').scrollIntoView({behavior:'smooth'});
-    if(tgt === 'gta') document.querySelector('.left-col')?.scrollIntoView({behavior:'smooth'});
-    if(tgt === 'vfx') document.querySelector('.right-col')?.scrollIntoView({behavior:'smooth'});
-    if(btn.id === 'openContact') toggleContact(true);
+// NAV quick open: scroll to columns
+$$('.nav-btn').forEach(b=>{
+  b.addEventListener('click', ()=> {
+    const target = b.dataset.open;
+    if(!target) return;
+    const el = document.getElementById(target);
+    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
   });
 });
 
-// CONTACT panel open/close
-const contactPanel = $('#contactPanel');
-const btnContactMini = $('#btnContactMini');
-const openContact = $('#openContact');
-const closeContact = $('#closeContact');
+// Inline player modal (for GTA / VFX preview)
+const modal = $('#playerModal');
+const playerWrap = $('#playerWrap');
+const closePlayer = $('#closePlayer');
 
-function toggleContact(forceOpen){
-  if(forceOpen === true){ contactPanel.classList.remove('hidden'); contactPanel.style.display='block'; return; }
-  if(contactPanel.classList.contains('hidden') || getComputedStyle(contactPanel).display === 'none'){
-    contactPanel.classList.remove('hidden'); contactPanel.style.display='block';
-  } else {
-    contactPanel.classList.add('hidden'); contactPanel.style.display='none';
-  }
+function openPlayer(youtubeEmbedUrl){
+  // create iframe (lazy)
+  playerWrap.innerHTML = `<iframe width="100%" height="100%" src="${youtubeEmbedUrl}&rel=0&autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  modal.classList.remove('hidden');
+  modal.classList.add('visible');
+  modal.setAttribute('aria-hidden','false');
 }
-btnContactMini?.addEventListener('click', ()=> toggleContact(true));
-openContact?.addEventListener('click', ()=> toggleContact(true));
-closeContact?.addEventListener('click', ()=> toggleContact(false));
+function closePlayerFn(){
+  playerWrap.innerHTML = '';
+  modal.classList.add('hidden');
+  modal.classList.remove('visible');
+  modal.setAttribute('aria-hidden','true');
+}
+closePlayer.addEventListener('click', closePlayerFn);
+modal.addEventListener('click', (e)=>{ if(e.target===modal) closePlayerFn(); });
 
-// PROJECT previews (floating box that follows cursor)
-const projects = $$('.project');
-const preview = $('#preview');
-const previewImg = $('#previewImg');
-const previewTitle = $('#previewTitle');
-const previewDesc = $('#previewDesc');
-
-projects.forEach(p=>{
-  // set background quick preview as low-contrast cover (for visual feedback)
-  const img = p.dataset.img;
-  if(img) p.style.setProperty('--preview', `url(${img})`);
-
-  p.addEventListener('mouseenter', (e)=>{
-    previewImg.src = img || '';
-    previewTitle.textContent = p.dataset.title || '';
-    previewDesc.textContent = p.dataset.desc || '';
-    preview.classList.remove('hidden'); preview.classList.add('visible');
+// Attach playInline buttons
+$$('.playInline').forEach(btn=>{
+  btn.addEventListener('click', ()=> {
+    const url = btn.dataset.youtube;
+    openPlayer(url);
   });
-  p.addEventListener('mousemove', (e)=>{
-    const pad = 18;
-    const boxW = preview.offsetWidth;
-    const boxH = preview.offsetHeight;
-    let left = e.clientX + pad;
-    let top = e.clientY + pad;
-    if(left + boxW > window.innerWidth) left = e.clientX - boxW - pad;
-    if(top + boxH > window.innerHeight) top = e.clientY - boxH - pad;
-    preview.style.left = left + 'px';
-    preview.style.top = top + 'px';
-  });
-  p.addEventListener('mouseleave', ()=>{
-    preview.classList.add('hidden'); preview.classList.remove('visible');
-  });
-
-  // allow keyboard focus to show preview (accessibility)
-  p.addEventListener('focus', (e)=>{
-    const rect = p.getBoundingClientRect();
-    previewImg.src = img || '';
-    previewTitle.textContent = p.dataset.title || '';
-    previewDesc.textContent = p.dataset.desc || '';
-    preview.classList.remove('hidden'); preview.classList.add('visible');
-    // position near element center
-    let left = rect.left + rect.width + 12;
-    let top = rect.top + 12;
-    if(left + preview.offsetWidth > window.innerWidth) left = rect.left - preview.offsetWidth - 12;
-    preview.style.left = left + 'px'; preview.style.top = top + 'px';
-  });
-  p.addEventListener('blur', ()=> { preview.classList.add('hidden'); preview.classList.remove('visible'); });
 });
 
-// AUDIO lazy-load toggle using provided YouTube track
-const audioBtn = $('#btnAudio');
-const audioFrame = $('#audioFrame');
-let audioOn = false;
-// URL from user (track)
-const audioURL = "https://www.youtube.com/embed/nfrHH4I1qNQ?autoplay=1&loop=1&playlist=nfrHH4I1qNQ&enablejsapi=1";
-
-audioBtn.addEventListener('click', ()=>{
-  if(!audioOn){
-    audioFrame.src = audioURL;
-    audioFrame.style.display = 'block';
-    audioBtn.textContent = '⏸ Muzică';
-    audioBtn.setAttribute('aria-pressed','true');
-  } else {
-    audioFrame.src = '';
-    audioFrame.style.display = 'none';
-    audioBtn.textContent = '▶ Muzică';
-    audioBtn.setAttribute('aria-pressed','false');
-  }
-  audioOn = !audioOn;
-});
-
-// small parallax bg on mouse move
-const bg = $('#bg');
-document.addEventListener('mousemove', (e)=>{
-  const cx = (e.clientX / window.innerWidth - 0.5) * 10;
-  const cy = (e.clientY / window.innerHeight - 0.5) * 6;
-  bg.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-});
-
-// keyboard esc closes contact & previews
-document.addEventListener('keydown', (e)=>{
-  if(e.key === 'Escape'){
-    toggleContact(false);
-    preview.classList.add('hidden'); preview.classList.remove('visible');
-    brandMenu.classList.remove('show');
-  }
-});
+// WORK buttons: preview inside button (background image) on hover, click opens repo
+$$('.work-btn').forEach(btn=>{
+  const img = btn.dataset.img;
+  btn.addEventListener('mouseenter', ()=> {
+    btn.classList.add('hovered');
+    btn.style.setProperty('--img', `url(${img})`);
+    // set pseudo-element background via inline style on ::before using CSS variable approach
+    btn.style.setProperty('background-image', `linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url(${img})`);
+    btn.style.backgroundSize = 'cover';
+    btn.style.backgroundPosition = 'center';
+  });
+  btn.addEventListener('mouseleave', ()=>
