@@ -1,7 +1,6 @@
 // === CONTACT PANEL ===
 const contactBtn = document.getElementById('contactBtn');
 const contactPanel = document.getElementById('contactPanel');
-
 contactBtn.addEventListener('click', () => {
   contactPanel.style.display = contactPanel.style.display === 'block' ? 'none' : 'block';
 });
@@ -14,7 +13,6 @@ function scrollToSection(id) {
 // === BURGER MENU ===
 const menuToggle = document.getElementById('menuToggle');
 const navMenu = document.getElementById('navMenu');
-
 menuToggle.addEventListener('click', () => {
   menuToggle.classList.toggle('active');
   navMenu.classList.toggle('active');
@@ -23,7 +21,6 @@ menuToggle.addEventListener('click', () => {
 // === BACKGROUND PARTICLES ===
 const canvas = document.getElementById("background");
 const ctx = canvas.getContext("2d");
-
 let particles = [];
 let w, h;
 
@@ -57,7 +54,25 @@ function draw() {
   });
   requestAnimationFrame(draw);
 }
-
 window.addEventListener("resize", resize);
 resize();
 draw();
+
+// === MY WORK PREVIEW ===
+const previewBox = document.getElementById("previewBox");
+const previewText = document.getElementById("previewText");
+
+document.querySelectorAll(".projects li").forEach(li => {
+  li.addEventListener("mouseenter", (e) => {
+    const text = li.getAttribute("data-preview");
+    previewText.textContent = text;
+    previewBox.classList.remove("hidden");
+  });
+  li.addEventListener("mousemove", (e) => {
+    previewBox.style.left = e.pageX + 15 + "px";
+    previewBox.style.top = e.pageY + 15 + "px";
+  });
+  li.addEventListener("mouseleave", () => {
+    previewBox.classList.add("hidden");
+  });
+});
