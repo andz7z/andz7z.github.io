@@ -1,149 +1,87 @@
-<!doctype html>
-<html lang="ro">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ANDZ | Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANDZ Portfolio</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Animated background layers -->
-  <div id="bg-stars" aria-hidden="true"></div>
-  <div id="bg-smoke" aria-hidden="true"></div>
+<!-- Background -->
+<div class="background"></div>
 
-  <!-- Top bar -->
-  <header class="topbar">
-    <div class="left">
-      <button id="btnBrand" class="ghost">ANDZ</button>
+<!-- Center Brand -->
+<div class="brand-container">
+  <h1 id="brand">ANDZ</h1>
+  <div id="main-buttons" class="hidden">
+    <button class="btn" data-section="vfx">VFX</button>
+    <button class="btn" data-section="gta">GTA San Andreas</button>
+    <button class="btn" data-section="work">My Work</button>
+    <button class="btn" data-section="contact">Contact</button>
+  </div>
+</div>
+
+<!-- Sections -->
+<div id="sections">
+
+  <!-- VFX / Valorant -->
+  <div id="vfx" class="section">
+    <h2>VFX Content</h2>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/8bU_tI3SKmA?autoplay=0" 
+              title="VFX Preview" frameborder="0" allowfullscreen></iframe>
     </div>
-    <nav class="nav">
-      <button class="nav-btn" data-open="vfxCard">VFX</button>
-      <button class="nav-btn" data-open="gtaCard">GTA</button>
-      <button class="nav-btn" data-open="work">My Work</button>
-      <button id="btnContact" class="nav-btn">Contact</button>
-    </nav>
-    <div class="right">
-      <button id="audioControl" class="mini" aria-pressed="false">⏵ Muzică</button>
+  </div>
+
+  <!-- GTA San Andreas -->
+  <div id="gta" class="section">
+    <h2>GTA San Andreas</h2>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/Kp3XfO1PtHY?autoplay=0" 
+              title="GTA Preview" frameborder="0" allowfullscreen></iframe>
     </div>
-  </header>
+  </div>
 
-  <!-- Hero: left (GTA) - center (brand) - right (VFX) -->
-  <main class="hero">
-    <section class="col left-col">
-      <div id="gtaCard" class="channel-card">
-        <img class="ch-thumb" src="https://yt3.googleusercontent.com/qbK4iXzID0o8TdL5iYVwAv1A7uJvV5VJb2u9jtmfbiqzSOJwS4bzSm8GhjsT7tWfTEOqQQ4bbQ=s900-c-k-c0x00ffffff-no-rj" alt="GTA channel">
-        <div class="ch-meta">
-          <h3>GTA San Andreas</h3>
-          <a href="https://www.youtube.com/watch?v=Kp3XfO1PtHY" target="_blank" rel="noreferrer">@visuals_mods</a>
-          <button class="playInline" data-youtube="https://www.youtube.com/embed/Kp3XfO1PtHY?autoplay=1&rel=0">▶ Play</button>
-        </div>
-      </div>
-    </section>
-
-    <section class="col center-col">
-      <div class="brand-wrap">
-        <h1 id="ANDZ" tabindex="0" aria-label="ANDZ">ANDZ</h1>
-
-        <div id="brandActions" class="brand-actions hidden" aria-hidden="true">
-          <button class="action" data-scroll="vfxCard">VFX</button>
-          <button class="action" data-scroll="gtaCard">GTA San Andreas</button>
-          <button class="action" data-scroll="work">My Work</button>
-          <button class="action" id="contactOpen">Contact</button>
-        </div>
-
-        <p class="slogan">creative mods • cinematic vfx</p>
-      </div>
-    </section>
-
-    <section class="col right-col">
-      <div id="vfxCard" class="channel-card">
-        <img class="ch-thumb" src="https://yt3.googleusercontent.com/ytc/AIdro_mnH4ApgA7l3Z0G6xPVHH5TT3d0U7Uy9m0sR0-qbA=s900-c-k-c0x00ffffff-no-rj" alt="VFX channel">
-        <div class="ch-meta">
-          <h3>VFX Content</h3>
-          <a href="https://www.youtube.com/watch?v=8bU_tI3SKmA&t=3s" target="_blank" rel="noreferrer">@andz79</a>
-          <button class="playInline" data-youtube="https://www.youtube.com/embed/8bU_tI3SKmA?autoplay=1&rel=0">▶ Play</button>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Work: centered, buttons under title with image-inside-button on hover -->
-  <section id="work" class="work">
+  <!-- My Work -->
+  <div id="work" class="section">
     <h2>My Work</h2>
-    <div class="work-grid">
-      <div class="work-buttons">
-        <button class="work-btn" data-img="https://i.imgur.com/ik14PFa.jpeg" data-link="https://github.com/andz7z/SEASONS-GTA-SA">
-          <span class="emoji-left">❄️</span>
-          <span class="label">Season Changer</span>
-          <span class="emoji-right">🌴</span>
-        </button>
-
-        <button class="work-btn" data-img="https://i.imgur.com/nstY5n2.jpeg" data-link="https://github.com/andz7z/TIMECHANGER-GTA-SA">
-          <span class="emoji-left">☀️</span>
-          <span class="label">Time Changer</span>
-          <span class="emoji-right">🌙</span>
-        </button>
-
-        <button class="work-btn" data-img="https://i.imgur.com/rSWDHs2.jpeg" data-link="https://github.com/andz7z/SKINCHANGER-GTA-SA">
-          <span class="emoji-left">👕</span>
-          <span class="label">Skin Changer</span>
-          <span class="emoji-right">👕</span>
-        </button>
-
-        <button class="work-btn" data-img="https://i.imgur.com/8keZiOp.jpeg" data-link="https://github.com/andz7z/NAMETAGS-GTA-SA">
-          <span class="emoji-left">🏷️</span>
-          <span class="label">Nametags</span>
-          <span class="emoji-right">✨</span>
-        </button>
-      </div>
-
-      <!-- small hint -->
-      <p class="work-hint">Ține cursorul pe un buton pentru mini-preview în interiorul butonului — click pentru repo</p>
-    </div>
-  </section>
-
-  <!-- Inline player modal (used for channel play & fallback autoplay) -->
-  <div id="playerModal" class="modal hidden" aria-hidden="true">
-    <div class="modal-inner">
-      <button id="closePlayer" class="modal-close">✕</button>
-      <div class="player-wrap" id="playerWrap"></div>
+    <div class="work-buttons">
+      <a href="https://github.com/andz7z/SEASONS-GTA-SA" class="work-btn">
+        ❄️ Season Changer 🌴
+        <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Season Changer Preview">
+      </a>
+      <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" class="work-btn">
+        ☀️ Time Changer 🌙
+        <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Time Changer Preview">
+      </a>
+      <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" class="work-btn">
+        👕 Skin Changer 👕
+        <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skin Changer Preview">
+      </a>
+      <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" class="work-btn">
+        🏷️ Nametags 🏷️
+        <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags Preview">
+      </a>
     </div>
   </div>
 
-  <!-- Contact modal (only opens on demand) -->
-  <div id="contactModal" class="modal hidden" aria-hidden="true">
-    <div class="modal-inner contact-inner">
-      <button id="closeContact" class="modal-close">✕</button>
-      <h3>Contact</h3>
-      <div class="contact-cards">
-        <div class="card">
-          <div class="card-title">Email</div>
-          <div class="card-body"><code id="emailText">lehadus04@gmail.com</code></div>
-          <button class="copy" data-copy="lehadus04@gmail.com">Copy</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">GitHub</div>
-          <div class="card-body"><code id="githubText">github.com/andz7z</code></div>
-          <button class="copy" data-copy="https://github.com/andz7z">Open</button>
-        </div>
-
-        <div class="card">
-          <div class="card-title">Discord</div>
-          <div class="card-body"><code id="discordText">andz7z</code></div>
-          <button class="copy" data-copy="andz7z">Copy</button>
-        </div>
-      </div>
-      <p class="contact-tip">Trimite un mesaj pe GitHub sau pune email — răspund rapid.</p>
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal hidden">
+    <div class="modal-content">
+      <span id="close-modal">&times;</span>
+      <h2>Contact Me</h2>
+      <p>Email: <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+      <p>GitHub: <a href="https://github.com/andz7z" target="_blank">andz7z</a></p>
+      <p>Discord: andz7z</p>
     </div>
   </div>
+</div>
 
-  <footer class="footer">
-    <div>© 2025 andz7z</div>
-    <div class="small">Designed & coded — ANDZ</div>
-  </footer>
+<!-- Background Music -->
+<iframe style="display:none" 
+        src="https://www.youtube.com/embed/nfrHH4I1qNQ?autoplay=1&loop=1&playlist=nfrHH4I1qNQ" 
+        allow="autoplay"></iframe>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
