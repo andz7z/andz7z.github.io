@@ -1,15 +1,147 @@
-// ---------- make project thumbnails more interactive (keyboard accessible) ----------
-$$('.card').forEach(card=>{
-  card.addEventListener('focus', ()=> card.classList.add('hover'));
-  card.addEventListener('blur', ()=> card.classList.remove('hover'));
-  card.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ' ') { card.click(); }
-  });
-});
-
-// ---------- small perf note: reduce particle count on low-power devices ----------
-if (navigator.connection && navigator.connection.saveData) {
-  // reduce tsParticles if user prefers reduced data
-  const el = document.getElementById('tsparticles');
-  if (el && el.tsParticles) el.tsParticles.domItem(0).options.particles.number.value = 12;
+:root{
+  --bg-accent: 220, 255, 255; /* cyan-ish for glow */
+  --glass: rgba(255,255,255,0.04);
+  --glass-border: rgba(255,255,255,0.08);
+  --accent: #8ff0ff;
+  --white-80: rgba(255,255,255,0.9);
+  --muted: rgba(255,255,255,0.6);
+  --card-w: 300px;
 }
+
+/* Reset & base */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:#fff;
+  background:#000;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+
+/* Background GIF container (speed/blur to be chill) */
+#bg-gif{
+  position:fixed;
+  inset:0;
+  z-index:-4;
+  background-image: url('https://i.imgur.com/3y8XG2f.gif'); /* fallback chill gif */
+  background-size: cover;
+  background-position:center;
+  filter: grayscale(10%) contrast(90%) brightness(0.35);
+  transform: scale(1.03);
+}
+
+/* tsParticles container */
+#tsparticles{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  mix-blend-mode: screen;
+  opacity:0.9;
+}
+
+/* Frost overlay (ice shards/blur) */
+.frost{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.3));
+  backdrop-filter: blur(4px) saturate(120%);
+  pointer-events:none;
+}
+
+/* Header */
+.top{
+  position:relative;
+  display:flex;
+  gap:20px;
+  align-items:center;
+  justify-content:space-between;
+  padding:36px 48px;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.brand{flex:1}
+.andz{
+  font-family: 'Orbitron', sans-serif;
+  font-size:4.4rem;
+  margin:0;
+  letter-spacing:6px;
+  line-height:0.9;
+  transform-style:preserve-3d;
+  text-transform:uppercase;
+  color: #fff;
+  text-shadow:
+    0 1px 0 rgba(0,0,0,0.6),
+    0 4px 30px rgba(0,255,240,0.06),
+    0 0 18px rgba(0,255,240,0.08);
+  perspective:800px;
+}
+
+/* 3D subtle tilt on mount (gsap will animate more) */
+.glitch-3d{
+  position:relative;
+  display:inline-block;
+  transform-origin:center center;
+}
+
+/* small subtitle */
+.sub{margin:6px 0 0; color:var(--muted); font-size:0.95rem}
+
+/* nav */
+.nav{display:flex; gap:12px; align-items:center}
+.btn{
+  background:transparent;
+  border:1.5px solid rgba(var(--bg-accent),0.25);
+  color:var(--accent);
+  padding:10px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:600;
+  letter-spacing:0.6px;
+  transition:all .28s cubic-bezier(.2,.9,.2,1);
+  backdrop-filter: blur(4px);
+}
+.btn:hover{
+  transform:translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 40px rgba(0,255,240,0.06), 0 0 24px rgba(0,255,240,0.08);
+  background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+}
+
+/* controls */
+.icon-btn{
+  background:transparent;
+  color:var(--muted);
+  border:none;
+  font-size:1.1rem;
+  cursor:pointer;
+}
+
+/* Main panels */
+#main{max-width:1100px;margin:36px auto;padding:12px;}
+.panel{display:none;padding:36px;border-radius:16px;backdrop-filter: blur(6px); margin-bottom:22px}
+.panel.active{display:block; animation:panelIn .6s cubic-bezier(.2,.9,.3,1)}
+@keyframes panelIn{from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:none}}
+
+/* Hero */
+.hero-inner{
+  display:flex;
+  gap:30px;
+  align-items:center;
+  justify-content:space-between;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+  padding:28px;
+  border-radius:14px;
+  border:1px solid var(--glass-border);
+}
+.hero-inner h2{margin:0;font-size:1.8rem; font-family: 'Orbitron', sans-serif}
+.lead{color:var(--muted); margin:12px 0 0; max-width:720px}
+.cta-row{margin-top:16px;display:flex;gap:12px}
+.cta{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);text-decoration:none;color:var(--accent);font-weight:600}
+
+/* Showcase and preview */
+.showcase{margin-top:18px;display:flex;gap:14px;align-items:center}
