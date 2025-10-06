@@ -118,3 +118,19 @@ soundToggle.addEventListener('click', ()=>{
 // ---------- small entrance GSAP for header/title ----------
 gsap.from('.andz', {y:-10, opacity:0, duration:1.2, ease:'elastic.out(1,0.6)', delay:0.2});
 gsap.from('.nav .btn', {y:8, opacity:0, duration:0.8, stagger:0.06, delay:0.5});
+
+// ---------- make project thumbnails more interactive (keyboard accessible) ----------
+$$('.card').forEach(card=>{
+  card.addEventListener('focus', ()=> card.classList.add('hover'));
+  card.addEventListener('blur', ()=> card.classList.remove('hover'));
+  card.addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter' || e.key === ' ') { card.click(); }
+  });
+});
+
+// ---------- small perf note: reduce particle count on low-power devices ----------
+if (navigator.connection && navigator.connection.saveData) {
+  // reduce tsParticles if user prefers reduced data
+  const el = document.getElementById('tsparticles');
+  if (el && el.tsParticles) el.tsParticles.domItem(0).options.particles.number.value = 12;
+}
