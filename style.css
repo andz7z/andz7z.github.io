@@ -1,107 +1,102 @@
+/* BASE */
 :root{
   --bg:#000;
   --fg:#fff;
-  --muted:#bfbfbf;
-  --accent: #fff;
-  --glass: rgba(255,255,255,0.04);
+  --muted:#bfc3c6;
+  --glass: rgba(255,255,255,0.03);
+  --card: rgba(255,255,255,0.02);
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:"Poppins",system-ui,-apple-system; -webkit-font-smoothing:antialiased}
-a{color:var(--fg);text-decoration:none}
-.topbar{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;z-index:60;backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.04)}
-.mini-btn{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--fg);padding:8px 12px;border-radius:8px;cursor:pointer;transition:all .18s ease;font-weight:600}
-.mini-btn:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.18)}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:"Poppins", "Montserrat", system-ui, -apple-system; -webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
 
-#bg-layer{
-  position:fixed;inset:0;z-index:-1;
+/* subtle textured background */
+#bg{
+  position:fixed;inset:0;z-index:-2;
   background:
-    radial-gradient(800px 400px at 10% 20%, rgba(255,255,255,0.03), transparent 8%),
-    radial-gradient(700px 300px at 90% 80%, rgba(255,255,255,0.02), transparent 8%),
+    radial-gradient(800px 400px at 10% 20%, rgba(255,255,255,0.02), transparent 8%),
+    radial-gradient(700px 300px at 90% 80%, rgba(255,255,255,0.01), transparent 8%),
     linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));
-  filter:contrast(1.05);
-  transform:translateZ(0);
+  filter:contrast(1.02);
 }
 
-/* STAGE layout */
-.stage{display:grid;grid-template-columns:1fr 420px 1fr;align-items:center;height:60vh;padding:40px 24px;gap:18px}
-.side{display:flex;align-items:center;justify-content:center}
-.left-side{justify-content:flex-start;padding-left:40px}
-.right-side{justify-content:flex-end;padding-right:40px}
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;z-index:60;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border-bottom:1px solid rgba(255,255,255,0.03)}
+.mini{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:8px;color:var(--fg);cursor:pointer;font-weight:700;transition:transform .15s ease,box-shadow .15s ease}
+.mini:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(255,255,255,0.03)}
 
-/* CHANNEL CARD */
-.channel-card{width:320px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:14px;display:flex;gap:12px;align-items:center;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
-.channel-thumb{width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.08)}
-.channel-meta{display:flex;flex-direction:column}
-.channel-title{font-weight:800;font-size:1.05rem;letter-spacing:1px;text-shadow: 0 6px 18px rgba(255,255,255,0.03)}
-.channel-handle{color:var(--muted);font-size:.9rem;margin-top:2px}
+/* HERO layout: 3 columns */
+.hero{display:grid;grid-template-columns:1fr 420px 1fr;gap:26px;align-items:center;min-height:58vh;padding:110px 28px 40px}
+.col{display:flex;align-items:center;justify-content:center}
 
-/* CENTER BRAND */
-.center{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px}
-#brandWrap{position:relative}
-#brand{font-size:84px;line-height:1;font-weight:800;letter-spacing:6px;margin:0;padding:0;color:var(--fg);
+/* CHANNEL CARD (left/right) */
+.channel{display:flex;gap:12px;align-items:center;background:var(--card);padding:12px;border-radius:14px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 14px 40px rgba(0,0,0,0.6)}
+.channel-img{width:84px;height:84px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
+.channel-info{display:flex;flex-direction:column}
+.ch-title{font-weight:900;font-size:1.05rem;letter-spacing:1px;text-shadow:0 8px 22px rgba(0,0,0,0.6)}
+.ch-handle{color:var(--muted);font-size:.92rem;margin-top:6px}
+
+/* BRAND center */
+.center-col{text-align:center}
+#brandWrap{position:relative;display:inline-block}
+#brand{font-size:92px;margin:0;font-weight:900;letter-spacing:8px;cursor:pointer;padding:12px 28px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);
+  color:var(--fg);
   text-shadow:
-   0 2px 0 rgba(255,255,255,0.02),
-   0 10px 30px rgba(0,0,0,0.7),
-   0 6px 18px rgba(255,255,255,0.04);
-  transition:transform .25s cubic-bezier(.2,.9,.2,1),text-shadow .25s ease;
-  cursor:pointer;padding:18px 40px;border-radius:12px;
-  background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-  border:1px solid rgba(255,255,255,0.04);
-  box-shadow: 0 18px 40px rgba(0,0,0,0.6);
-  transform: translateY(0);
+    0 2px 0 rgba(255,255,255,0.02),
+    0 6px 18px rgba(0,0,0,0.8),
+    0 12px 36px rgba(255,255,255,0.02);
+  transform:translateZ(0);
+  transition:transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s ease;
 }
+#brand:active{transform:translateY(2px)}
+.subtitle{color:var(--muted);margin-top:12px;font-weight:600}
 
-/* small tagline */
-.tagline{color:var(--muted);margin-top:12px;font-size:.95rem}
+/* Brand menu (revealed on hover/focus) */
+.brand-menu{position:absolute;left:50%;top:110%;transform:translateX(-50%);display:flex;gap:12px;opacity:0;pointer-events:none;transition:all .22s ease}
+.brand-menu.show{opacity:1;pointer-events:auto}
+.big-btn{background:var(--fg);color:var(--bg);padding:12px 14px;border-radius:10px;border:none;font-weight:800;cursor:pointer;box-shadow:0 12px 40px rgba(0,0,0,0.6);transition:transform .15s ease}
+.big-btn:hover{transform:translateY(-4px)}
 
-/* ACTIONS (reveal on hover) */
-#brandActions{position:absolute;top:110%;left:50%;transform:translateX(-50%);display:flex;gap:12px;opacity:0;pointer-events:none;transition:all .28s cubic-bezier(.2,.9,.2,1)}
-#brandActions.show{opacity:1;pointer-events:auto}
-.action-btn{background:var(--fg);color:var(--bg);padding:10px 14px;border-radius:10px;font-weight:700;border:none;cursor:pointer;box-shadow:0 8px 30px rgba(0,0,0,0.5);transform:translateY(6px);transition:all .18s ease}
-.action-btn:focus{outline:3px solid rgba(255,255,255,0.06)}
-.action-btn:hover{transform:translateY(0) scale(1.02)}
+/* WORK section */
+.work{padding:44px 28px 80px;border-top:1px solid rgba(255,255,255,0.03)}
+.work-head{display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:18px}
+.work-head h2{margin:0;font-weight:900;letter-spacing:1px}
+.hint{color:var(--muted);font-size:.95rem}
 
-/* Work section */
-.work-section{padding:50px 40px;background:transparent;border-top:1px solid rgba(255,255,255,0.03)}
-.work-section h2{font-size:1.6rem;margin:0 0 6px 0;font-weight:800}
-.work-sub{color:var(--muted);margin:6px 0 22px 0}
+/* Projects grid */
+.projects{display:flex;flex-wrap:wrap;gap:20px;justify-content:center}
+.project{width:260px;height:160px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));border:1px solid rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;transition:transform .16s ease,box-shadow .16s ease}
+.project:hover{transform:translateY(-10px);box-shadow:0 30px 80px rgba(0,0,0,0.6)}
+.project a{z-index:2;padding:10px 14px;background:rgba(0,0,0,0.6);border-radius:10px;border:2px solid rgba(255,255,255,0.06);font-weight:800}
+.project::before{content:"";position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .22s ease}
+/* JS will set ::before with style attribute on project for preview effect; the separate floating preview box is used for title/desc */
 
-.projects{display:flex;flex-wrap:wrap;gap:18px}
-.project{width:260px;height:160px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);overflow:hidden;position:relative;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015));cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .22s ease, box-shadow .22s ease}
-.project .proj-link{position:relative;z-index:2;padding:8px 12px;border-radius:8px;background:rgba(0,0,0,0.5);color:var(--fg);font-weight:700;border:2px solid rgba(255,255,255,0.06)}
-.project:focus,.project:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(0,0,0,0.6);border-color:rgba(255,255,255,0.08)}
-.project::after{content:'';position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity .28s ease}
-/* preview image via inline style set by JS for accessibility */
-#previewBox{position:fixed;z-index:80;pointer-events:none;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.06);padding:12px;border-radius:10px;max-width:320px;display:flex;gap:12px;align-items:flex-start;box-shadow:0 20px 60px rgba(0,0,0,0.7)}
-#previewBox img{width:140px;height:90px;object-fit:cover;border-radius:8px}
-.previewText{color:var(--fg);max-width:160px}
-.previewText strong{display:block;font-weight:800;margin-bottom:6px}
-
-/* preview hidden by default */
+/* floating preview box (follows cursor) */
+.preview{position:fixed;z-index:120;display:flex;gap:12px;align-items:flex-start;background:var(--card);padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 30px 80px rgba(0,0,0,0.8);max-width:360px;pointer-events:none}
+.preview img{width:160px;height:96px;object-fit:cover;border-radius:8px}
+.preview-text{max-width:180px}
+.preview-text strong{display:block;margin-bottom:6px;font-weight:900}
 .hidden{opacity:0;visibility:hidden;transform:translateY(8px)}
-#previewBox.visible{opacity:1;visibility:visible;transform:translateY(0)}
+.visible{opacity:1;visibility:visible;transform:translateY(0)}
 
-/* contact panel */
-#contactPanel{position:fixed;right:28px;top:84px;background:var(--bg);border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:12px;z-index:90;box-shadow:0 20px 60px rgba(0,0,0,0.6);min-width:220px}
-#contactPanel .x{position:absolute;right:8px;top:8px;background:transparent;border:none;color:var(--muted);cursor:pointer}
-#contactPanel h3{margin:0 0 8px 0;font-size:1.05rem}
+/* Contact panel */
+.contact{position:fixed;right:28px;top:84px;width:260px;background:var(--bg);border:1px solid rgba(255,255,255,0.05);padding:16px;border-radius:12px;z-index:110;box-shadow:0 30px 80px rgba(0,0,0,0.7)}
+.close{background:transparent;border:none;color:var(--muted);float:right;font-size:16px;cursor:pointer}
+.contact h3{margin:4px 0 10px 0}
 
 /* footer */
-.footer{display:flex;justify-content:space-between;gap:18px;padding:16px 28px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);font-size:.92rem;align-items:center}
+.footer{display:flex;justify-content:space-between;padding:16px 28px;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted);font-size:.95rem}
 
 /* responsive */
-@media (max-width:960px){
-  .stage{grid-template-columns:1fr;grid-auto-rows:auto;padding:22px;height:56vh}
-  .left-side,.right-side{justify-content:center;padding:0}
-  #brand{font-size:64px}
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr;gap:12px;padding:140px 18px 30px}
+  #brand{font-size:68px}
+  .channel{width:320px;justify-content:flex-start}
   .projects{justify-content:center}
-  #brandActions{top:110%}
-  .channel-card{width:260px}
-  #previewBox{display:none}
+  .preview{display:none}
 }
 @media (max-width:520px){
-  #brand{font-size:44px}
-  .mini-btn{padding:6px 10px;font-size:.9rem}
-  .channel-thumb{width:56px;height:56px}
-  .project{width:220px}
+  #brand{font-size:44px;letter-spacing:4px}
+  .project{width:220px;height:140px}
+  .channel-img{width:64px;height:64px}
 }
