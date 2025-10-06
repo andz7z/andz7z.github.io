@@ -76,3 +76,32 @@ document.querySelectorAll(".projects li").forEach(li => {
     previewBox.classList.add("hidden");
   });
 });
+// Smooth scroll
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// Contact toggle
+const contactBtn = document.getElementById('contactBtn');
+const contactPanel = document.getElementById('contactPanel');
+
+contactBtn.addEventListener('click', () => {
+  contactPanel.style.display = contactPanel.style.display === 'block' ? 'none' : 'block';
+});
+
+// Music toggle
+const musicFrame = document.getElementById('musicFrame');
+const musicToggle = document.getElementById('musicToggle');
+let isPlaying = true;
+
+musicToggle.addEventListener('click', () => {
+  if (isPlaying) {
+    musicFrame.src = "";
+    musicToggle.textContent = "▶️ Music";
+  } else {
+    musicFrame.src = "https://www.youtube.com/embed/2vjPBrBU-TM?autoplay=1&loop=1";
+    musicToggle.textContent = "⏸️ Music";
+  }
+  isPlaying = !isPlaying;
+});
+
