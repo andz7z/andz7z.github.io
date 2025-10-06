@@ -13,7 +13,6 @@ body {
   background: radial-gradient(ellipse at bottom, #1a000d 0%, #000 100%);
 }
 
-/* ===== BACKGROUND CANVAS ===== */
 canvas#background {
   position: fixed;
   top: 0;
@@ -49,7 +48,6 @@ header {
   to { text-shadow: 0 0 25px #ff004b; }
 }
 
-/* ===== NAVIGATION ===== */
 nav button {
   margin-left: 15px;
   padding: 10px 18px;
@@ -80,30 +78,55 @@ nav button:hover {
   font-size: 1.8rem;
 }
 
-.yt-link {
-  display: inline-block;
-  margin-bottom: 15px;
+/* ===== CHANNEL PREVIEWS ===== */
+.channel-card {
+  margin: 30px auto;
+  padding: 20px;
+  border: 2px solid #b30b3b;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  background: rgba(15, 0, 10, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: 0.4s;
+}
+
+.channel-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #b30b3b;
+}
+
+.channel-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #b30b3b;
+}
+
+.channel-info h3 {
+  color: #b30b3b;
   font-size: 1.2rem;
+}
+
+.visit-btn {
+  margin-top: 10px;
+  display: inline-block;
+  padding: 8px 14px;
+  border: 2px solid #b30b3b;
+  border-radius: 8px;
   text-decoration: none;
   color: #fff;
-  border-bottom: 2px solid #b30b3b;
   transition: 0.3s;
 }
 
-.yt-link:hover {
-  color: #b30b3b;
-  text-shadow: 0 0 10px #b30b3b;
+.visit-btn:hover {
+  background: #b30b3b;
+  box-shadow: 0 0 15px #b30b3b;
 }
 
-.yt-preview iframe {
-  border-radius: 15px;
-  margin-top: 10px;
-  box-shadow: 0 0 25px #b30b3b70;
-  width: 90%;
-  max-width: 560px;
-}
-
-/* ===== PROJECTS ===== */
+/* ===== MY WORK ===== */
 .projects {
   list-style: none;
   display: flex;
@@ -125,6 +148,28 @@ nav button:hover {
   background: #b30b3b;
   box-shadow: 0 0 20px #b30b3b;
   transform: scale(1.05);
+}
+
+#previewBox {
+  position: absolute;
+  background: rgba(15, 0, 10, 0.95);
+  border: 2px solid #b30b3b;
+  padding: 15px;
+  border-radius: 10px;
+  pointer-events: none;
+  box-shadow: 0 0 20px #b30b3b;
+  max-width: 250px;
+  z-index: 200;
+}
+
+#previewBox img {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+.hidden {
+  display: none;
 }
 
 /* ===== FOOTER ===== */
@@ -153,15 +198,6 @@ footer {
   color: #b30b3b;
 }
 
-.hidden {
-  display: none;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* ===== BURGER MENU ===== */
 .menu-toggle {
   display: none;
@@ -178,6 +214,11 @@ footer {
   background: #b30b3b;
   border-radius: 3px;
   transition: 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (max-width: 768px) {
