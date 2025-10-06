@@ -145,3 +145,76 @@ body{
 
 /* Showcase and preview */
 .showcase{margin-top:18px;display:flex;gap:14px;align-items:center}
+.preview.big{
+  min-height:180px;
+  min-width:320px;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.05);
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.28));
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 0 40px rgba(255,255,255,0.01);
+  font-weight:600;color:var(--muted);
+}
+
+/* Projects grid */
+.projects{
+  display:flex;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-top:20px;
+}
+.card{
+  width:var(--card-w);
+  min-height:220px;
+  border-radius:14px;
+  overflow:hidden;
+  text-decoration:none;
+  color:inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
+  border:1px solid var(--glass-border);
+  transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s;
+  display:flex;flex-direction:column;
+}
+.card:hover{
+  transform:translateY(-12px) rotateX(6deg) scale(1.03);
+  box-shadow: 0 30px 80px rgba(0,255,240,0.06);
+}
+.thumb{
+  height:150px;
+  background-size:cover;
+  background-position:center;
+  filter: saturate(1.1) contrast(1.02);
+  transform-origin:center;
+  transition: transform .8s cubic-bezier(.2,.9,.2,1);
+}
+.card:hover .thumb{ transform: scale(1.08) translateY(-6px) rotateZ(-1deg) }
+.card h4{margin:12px 16px 0;font-size:1.05rem; font-family:'Orbitron',sans-serif}
+.card small{color:var(--muted); margin:6px 16px 18px; display:block}
+
+/* Contact */
+.contact-list{list-style:none;padding:0;color:var(--muted)}
+.contact-list li{margin:8px 0}
+
+/* Footer */
+.foot{max-width:1200px;margin:28px auto;padding:12px 48px;display:flex;justify-content:space-between;color:var(--muted);font-size:0.95rem}
+
+/* Custom cursor */
+#cursor{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;mix-blend-mode:normal}
+.cursor-inner{
+  width:16px;height:16px;border-radius:50%;
+  background:transparent;border:2px solid rgba(var(--bg-accent),0.9);
+  transform:translate(-50%,-50%);transition:transform .12s linear;
+  box-shadow:0 0 12px rgba(0,255,240,0.07), 0 0 28px rgba(0,255,240,0.03);
+}
+
+/* small responsive */
+@media (max-width:900px){
+  .top{flex-direction:column;gap:18px;padding:20px}
+  .andz{font-size:3rem}
+  .hero-inner{flex-direction:column;align-items:flex-start}
+  .projects{justify-content:center}
+}
+
+/* little utility classes */
+.muted{color:var(--muted)}
+.mono{font-family:monospace}
