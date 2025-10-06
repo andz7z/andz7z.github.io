@@ -1,136 +1,70 @@
-/* PORTFOLIO JS
-   - panel switching
-   - tsParticles smoke/ice effect config
-   - custom cursor
-   - ambient sound toggle
-   - subtle GSAP entrance animations
-*/
+// Show main buttons when hovering ANDZ
+const brand = document.getElementById('brand');
+const mainButtons = document.getElementById('main-buttons');
+brand.addEventListener('mouseenter', () => mainButtons.classList.remove('hidden'));
+brand.addEventListener('mouseleave', () => mainButtons.classList.add('hidden'));
 
-// ---------- helpers ----------
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
+// Section content
+const buttons = document.querySelectorAll('#main-buttons .btn');
+const sections = document.querySelectorAll('.section');
 
-// year
-document.getElementById('year').textContent = new Date().getFullYear();
+// Stories text
+const storyTexts = {
+  vfx: "Hi! If you’re interested in VFX services or just want to see my journey, welcome to my YouTube channel @andz79. Below is a preview of my latest video, but you can find them all on the channel!",
+  gta: "When I was little playing this game, I watched all kinds of tutorials on YouTube. I didn’t understand much at first, but later I started changing colors or names using CTRL+F. Thanks to studying Automation at university, I created 4 interesting mods for this 2004 game.",
+  work: "The mods are available on my GitHub @andz7z, but here are the 4 mods you can try with one click each. Each mod brings unique features like season changes, time control, skins, and nametags to GTA San Andreas!"
+};
 
-// panel nav
-$$('.btn').forEach(btn=>{
-  btn.addEventListener('click', ()=>{
-    const t = btn.dataset.target;
-    switchPanel(t);
-  });
-});
-function switchPanel(id){
-  // hide all panels
-  $$('.panel').forEach(p=>p.classList.remove('active'));
-  // if id exists show, otherwise show hero
-  const target = document.getElementById(id) || $('#hero');
-  target.classList.add('active');
-
-  // small gsap pulse when switching
-  gsap.fromTo(target, {opacity:0, y:12}, {opacity:1, y:0, duration:0.6, ease:'power2.out'});
+// Typing effect
+function typeText(element, text, speed = 20) {
+  element.textContent = "";
+  let i = 0;
+  let timer = setInterval(() => {
+    element.textContent += text.charAt(i);
+    i++;
+    if (i >= text.length) clearInterval(timer);
+  }, speed);
 }
 
-// initial
-switchPanel('hero');
+// Transition effect
+function transitionToSection(targetId) {
+  document.body.style.pointerEvents = "none"; // disable click
+  const overlay = document.createElement("div");
+  overlay.style.position="fixed";
+  overlay.style.top=0;
+  overlay.style.left=0;
+  overlay.style.width="100%";
+  overlay.style.height="100%";
+  overlay.style.background="rgba(0,0,0,0.9)";
+  overlay.style.zIndex=50;
+  overlay.style.transition="opacity 1s ease";
+  overlay.style.opacity=0;
+  document.body.appendChild(overlay);
+  requestAnimationFrame(()=>{ overlay.style.opacity=1; });
+  setTimeout(()=>{
+    sections.forEach(sec=>sec.style.display="none");
+    const target = document.getElementById(targetId);
+    target.style.display="block";
+    typeText(target.querySelector(".story"), storyTexts[targetId]);
+    overlay.style.opacity=0;
+    setTimeout(()=>{ overlay.remove(); document.body.style.pointerEvents="auto"; },1000);
+  },1000);
+}
 
-
-// ---------- tsParticles (smoke + ice particulate) ----------
-window.addEventListener('DOMContentLoaded', async () => {
-  // config: slow drifting gray particles to mimic smoke + tiny bright particles for icy sparkles
-  tsParticles.load("tsparticles", {
-    fpsLimit: 60,
-    detectRetina: true,
-    background: { opacity: 0 },
-    particles: {
-      number: { value: 40, density: { enable: true, area: 800 } },
-      color: { value: ["#cbeef3", "#ffffff", "#8ff0ff", "#bfc6cc"] },
-      shape: { type: "circle" },
-      opacity: {
-        value: 0.06,
-        random: { enable: true, minimumValue: 0.02 },
-        animation: { enable: true, speed: 0.2, minimumValue: 0.02, sync: false }
-      },
-      size: {
-        value: { min: 8, max: 60 },
-        animation: { enable: true, speed: 2, minimumValue: 8, sync: false }
-      },
-      move: {
-        enable: true,
-        speed: 0.8,
-        direction: "none",
-        random: true,
-        straight: false,
-        outModes: { default: "out" },
-        trail: { enable: false }
-      }
-    },
-    interactivity: {
-      detectsOn: "canvas",
-      events: { onHover: { enable: false }, onClick: { enable: false }, resize: true }
+// Button click
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.getAttribute('data-section');
+    if(target==="contact"){
+      contactModal.classList.remove('hidden');
+    } else {
+      transitionToSection(target);
     }
   });
-
-  // small sparkles overlay: add another emitter of tiny fast particles (ice glints)
-  tsParticles.domItem(0).particles.array.push(); // no-op to ensure lib ready
 });
 
-// ---------- Cursor ----------
-const cursor = $('#cursor');
-const cursorInner = document.querySelector('.cursor-inner');
-document.addEventListener('mousemove', (e) => {
-  cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
-});
-$$('a, .btn, .card, .cta').forEach(el=>{
-  el.addEventListener('mouseenter', ()=> {
-    cursorInner.style.transform = 'translate(-50%,-50%) scale(1.9)';
-    cursorInner.style.borderWidth = '1px';
-  });
-  el.addEventListener('mouseleave', ()=> {
-    cursorInner.style.transform = 'translate(-50%,-50%) scale(1)';
-    cursorInner.style.borderWidth = '2px';
-  });
-});
-
-// hide default cursor for big screens
-if (window.matchMedia('(min-width:768px)').matches){
-  document.documentElement.style.cursor = 'none';
-}
-
-// ---------- Ambient sound toggle ----------
-const ambient = $('#ambient');
-const soundToggle = $('#soundToggle');
-let soundOn = false;
-soundToggle.addEventListener('click', ()=>{
-  soundOn = !soundOn;
-  if(soundOn){
-    ambient.volume = 0.25;
-    ambient.play().catch(()=>{/* autoplay might be blocked on some browsers */});
-    soundToggle.textContent = '🔈';
-    soundToggle.setAttribute('aria-pressed','true');
-  } else {
-    ambient.pause();
-    soundToggle.textContent = '🔊';
-    soundToggle.setAttribute('aria-pressed','false');
-  }
-});
-
-// ---------- small entrance GSAP for header/title ----------
-gsap.from('.andz', {y:-10, opacity:0, duration:1.2, ease:'elastic.out(1,0.6)', delay:0.2});
-gsap.from('.nav .btn', {y:8, opacity:0, duration:0.8, stagger:0.06, delay:0.5});
-
-// ---------- make project thumbnails more interactive (keyboard accessible) ----------
-$$('.card').forEach(card=>{
-  card.addEventListener('focus', ()=> card.classList.add('hover'));
-  card.addEventListener('blur', ()=> card.classList.remove('hover'));
-  card.addEventListener('keydown', (e)=>{
-    if(e.key === 'Enter' || e.key === ' ') { card.click(); }
-  });
-});
-
-// ---------- small perf note: reduce particle count on low-power devices ----------
-if (navigator.connection && navigator.connection.saveData) {
-  // reduce tsParticles if user prefers reduced data
-  const el = document.getElementById('tsparticles');
-  if (el && el.tsParticles) el.tsParticles.domItem(0).options.particles.number.value = 12;
-}
+// Contact modal
+const contactModal = document.getElementById('contact-modal');
+const closeModal = document.getElementById('close-modal');
+closeModal.addEventListener('click', () => contactModal.classList.add('hidden'));
+contactModal.addEventListener('click', e => { if(e.target === contactModal) contactModal.classList.add('hidden'); });
