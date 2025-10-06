@@ -26,31 +26,52 @@
     <section id="valorant" class="section">
       <h2>Valorant</h2>
       <p>My YouTube channel for Valorant content:</p>
-      <a href="https://www.youtube.com/@andz79" target="_blank" class="yt-link">@andz79</a>
-      <div class="yt-preview">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed?listType=user_uploads&list=andz79" 
-          title="YouTube channel preview" frameborder="0" allowfullscreen></iframe>
+
+      <div class="channel-card">
+        <img src="https://yt3.googleusercontent.com/ytc/AIf8zZSDP5r-yt-user-channel-photo=s176-c-k-c0x00ffffff-no-rj" alt="ANDZ79 Channel Logo" class="channel-logo">
+        <div class="channel-info">
+          <h3>@andz79</h3>
+          <p>Competitive gameplay, edits & creative Valorant content.</p>
+          <a href="https://www.youtube.com/@andz79" target="_blank" class="visit-btn">Visit Channel</a>
+        </div>
       </div>
     </section>
 
     <section id="gta" class="section">
       <h2>GTA San Andreas</h2>
       <p>Mods and Visual content for GTA SA:</p>
-      <a href="https://www.youtube.com/@visuals_mods" target="_blank" class="yt-link">@visuals_mods</a>
-      <div class="yt-preview">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed?listType=user_uploads&list=visuals_mods" 
-          title="YouTube channel preview" frameborder="0" allowfullscreen></iframe>
+
+      <div class="channel-card">
+        <img src="https://yt3.googleusercontent.com/ytc/AIf8zZStmYx-user-channel-photo=s176-c-k-c0x00ffffff-no-rj" alt="Visuals Mods Logo" class="channel-logo">
+        <div class="channel-info">
+          <h3>@visuals_mods</h3>
+          <p>Enhancing GTA San Andreas visuals with high-quality mods and shaders.</p>
+          <a href="https://www.youtube.com/@visuals_mods" target="_blank" class="visit-btn">Visit Channel</a>
+        </div>
       </div>
     </section>
 
     <section id="work" class="section">
       <h2>My Work</h2>
       <ul class="projects">
-        <li><a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">SEASONS-GTA-SA</a></li>
-        <li><a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">TIMECHANGER-GTA-SA</a></li>
-        <li><a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">NAMETAGS-GTA-SA</a></li>
-        <li><a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">SKINCHANGER-GTA-SA</a></li>
+        <li data-preview="SEASONS: schimbă atmosfera și anotimpurile în GTA SA.">
+          <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">SEASONS-GTA-SA</a>
+        </li>
+        <li data-preview="TIMECHANGER: modifică ora și efectele de lumină din joc.">
+          <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">TIMECHANGER-GTA-SA</a>
+        </li>
+        <li data-preview="NAMETAGS: adaugă un design nou, curat și modern pentru tag-urile din multiplayer.">
+          <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">NAMETAGS-GTA-SA</a>
+        </li>
+        <li data-preview="SKINCHANGER: îți permite să schimbi skinul rapid, fără meniuri plictisitoare.">
+          <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">SKINCHANGER-GTA-SA</a>
+        </li>
       </ul>
+
+      <div id="previewBox" class="hidden">
+        <img id="previewImage" src="" alt="Preview" />
+        <p id="previewText"></p>
+      </div>
     </section>
   </main>
 
