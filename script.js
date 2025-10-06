@@ -1,238 +1,120 @@
-// Loader
-window.onload = function() {
-  setTimeout(() => {
-    document.getElementById('loader').style.opacity = 0;
-    setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
-  }, 1200);
-}
+/* PORTFOLIO JS
+   - panel switching
+   - tsParticles smoke/ice effect config
+   - custom cursor
+   - ambient sound toggle
+   - subtle GSAP entrance animations
+*/
 
-// Elemente
-const brand = document.getElementById('brand');
-const mainButtons = document.getElementById('main-buttons');
-const sections = document.querySelectorAll('.section');
-const buttons = document.querySelectorAll('#main-buttons .btn');
-const closeBtns = document.querySelectorAll('.close-btn');
-const volumeSlider = document.getElementById('volumeSlider');
-const muteBtn = document.getElementById('muteBtn');
-const visualizer = document.getElementById('music-visualizer');
-const ctx = visualizer.getContext('2d');
-const volIcon = document.getElementById('vol-icon');
-const contactModal = document.getElementById('contact-modal');
-const closeModal = document.getElementById('close-modal');
+// ---------- helpers ----------
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-// Poveste cu highlight
-const storyTexts = {
-  vfx: "✨ <span class='key'>VFX services</span> & progress: <a href='https://www.youtube.com/@andz79' target='_blank'>andz79 YouTube Channel</a>. <br>Preview video below, more on channel!",
-  gta: "🚗 Childhood with <span class='key'>GTA San Andreas</span> & modding. Automation studies helped me create <span class='key'>4 unique mods</span> for this classic. <br>Channel: <a href='https://www.youtube.com/@visuals_mods' target='_blank'>visuals_mods</a>.",
-  work: "🛠️ All mods are open-source on <a href='https://github.com/andz7z' target='_blank'>GitHub</a>. <br>Explore the cards below & flip for details."
-};
+// year
+document.getElementById('year').textContent = new Date().getFullYear();
 
-// Typing premium effect
-function typePremium(el, html, speed=22) {
-  el.innerHTML = '';
-  let i = 0, tag = false, cursor = document.createElement('span');
-  cursor.className = 'cursor'; cursor.textContent = '|';
-  el.appendChild(cursor);
-  function type() {
-    if (i < html.length) {
-      if (html[i] === '<') tag = true;
-      if (!tag) {
-        cursor.insertAdjacentHTML('beforebegin', `<span class="typing-letter">${html[i]}</span>`);
-      }
-      if (html[i] === '>') tag = false;
-      if (tag) {
-        let close = html.indexOf('>', i);
-        cursor.insertAdjacentHTML('beforebegin', html.slice(i, close+1));
-        i = close;
-        tag = false;
-      }
-      i++;
-      setTimeout(type, (html[i-1] === ' ' ? speed*2 : speed) + Math.random()*20);
-    } else {
-      cursor.classList.add('done');
-    }
-  }
-  type();
-}
-
-// Remove ANDZ & show section
-function showSection(id) {
-  document.querySelector('.brand-container').style.opacity = 0;
-  setTimeout(() => document.querySelector('.brand-container').style.display = 'none', 700);
-  sections.forEach(s => s.style.display = 'none');
-  document.getElementById(id).style.display = 'block';
-  const storyElem = document.getElementById('story-' + id);
-  storyElem.style.display = "block";
-  typePremium(storyElem, storyTexts[id]);
-}
-
-// Brand click
-brand.addEventListener('click', () => {
-  mainButtons.classList.remove('hidden');
-  brand.classList.add('hide'); // pentru fade
-});
-
-// Butoane click
-buttons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.getAttribute('data-section');
-    if(target==="contact"){
-      contactModal.classList.remove('hidden');
-    } else {
-      showSection(target);
-    }
+// panel nav
+$$('.btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const t = btn.dataset.target;
+    switchPanel(t);
   });
 });
+function switchPanel(id){
+  // hide all panels
+  $$('.panel').forEach(p=>p.classList.remove('active'));
+  // if id exists show, otherwise show hero
+  const target = document.getElementById(id) || $('#hero');
+  target.classList.add('active');
 
-// Inchidere modal contact
-closeModal.addEventListener('click', () => contactModal.classList.add('hidden'));
-
-// Buton Home (close-btn)
-closeBtns.forEach(btn => btn.addEventListener('click', () => {
-  sections.forEach(s => s.style.display = 'none');
-  document.querySelector('.brand-container').style.display = '';
-  setTimeout(() => document.querySelector('.brand-container').style.opacity = 1, 50);
-  mainButtons.classList.add('hidden');
-  brand.classList.remove('hide');
-}));
-
-// Glass effect la hover pe carduri
-document.querySelectorAll('.work-card').forEach(card=>{
-  card.addEventListener('mouseenter',()=>card.classList.add('active'));
-  card.addEventListener('mouseleave',()=>card.classList.remove('active'));
-});
-
-// Vizualizare volum + icon animat
-let lastVol = 50;
-volumeSlider.addEventListener('input', ()=>{
-  lastVol = volumeSlider.value;
-  if (lastVol == 0) volIcon.textContent = '🔇';
-  else if (lastVol < 30) volIcon.textContent = '🔈';
-  else if (lastVol < 70) volIcon.textContent = '🔉';
-  else volIcon.textContent = '🔊';
-  setYTVolume(lastVol, isMuted);
-});
-
-// Mute btn
-let isMuted = false;
-muteBtn.addEventListener('click', ()=>{
-  isMuted = !isMuted;
-  muteBtn.textContent = isMuted ? "Unmute" : "Mute";
-  volIcon.textContent = isMuted ? "🔇" : (lastVol>70?"🔊":(lastVol>30?"🔉":"🔈"));
-  setYTVolume(lastVol, isMuted);
-});
-
-// Visualizer (fake bars)
-function drawVisualizer(){
-  ctx.clearRect(0,0,80,28);
-  for(let i=0;i<7;i++){
-    const h = Math.random()*visualizer.height*0.8 + 6;
-    ctx.fillStyle = "rgba(127,0,255,0.65)";
-    ctx.fillRect(i*11, visualizer.height-h, 8, h);
-  }
-  requestAnimationFrame(drawVisualizer);
+  // small gsap pulse when switching
+  gsap.fromTo(target, {opacity:0, y:12}, {opacity:1, y:0, duration:0.6, ease:'power2.out'});
 }
-drawVisualizer();
 
-// Loader spinner anim
-let loaderDots = document.querySelector('.loader-text');
-let dotCount = 0;
-setInterval(()=>{
-  if(loaderDots){
-    loaderDots.textContent = "ANDZ Portfolio" + ".".repeat(dotCount%4);
-    dotCount++;
-  }
-},340);
+// initial
+switchPanel('hero');
 
-// Animated BG particles
-const canvas = document.getElementById('bg-canvas');
-const c = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-let particles = [];
-function resizeBg() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeBg);
 
-function createParticles(){
-  particles=[];
-  for(let i=0;i<90;i++){
-    particles.push({
-      x: Math.random()*canvas.width,
-      y: Math.random()*canvas.height,
-      r: Math.random()*2.2+1.2,
-      dx: (Math.random()-0.5)*0.7,
-      dy: (Math.random()-0.5)*0.7,
-      color: `rgba(${127+Math.random()*80|0},0,${255-Math.random()*60|0},${0.18+Math.random()*0.22})`
-    });
-  }
-}
-createParticles();
-
-function animateParticles(){
-  c.clearRect(0,0,canvas.width,canvas.height);
-  for(let p of particles){
-    p.x += p.dx; p.y += p.dy;
-    if(p.x<0||p.x>canvas.width) p.dx*=-1;
-    if(p.y<0||p.y>canvas.height) p.dy*=-1;
-    c.beginPath();
-    c.arc(p.x,p.y,p.r,0,2*Math.PI);
-    c.fillStyle = p.color;
-    c.shadowColor = "#ff00ff";
-    c.shadowBlur = 10;
-    c.fill();
-  }
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
-
-// --- YOUTUBE MUSIC PLAYER (FUNCȚIONAL CONTROL VOLUM) ---
-let ytReady = false;
-let ytPlayer = null;
-
-// Inject YouTube iframe via API
-function injectYT() {
-  if (document.getElementById('yt-music-iframe')) return;
-  let wrapper = document.getElementById('youtube-wrapper');
-  wrapper.innerHTML = `
-    <div id="yt-music-iframe"></div>
-  `;
-  // Load YouTube API
-  let tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.body.appendChild(tag);
-}
-injectYT();
-
-// API callback
-window.onYouTubeIframeAPIReady = function() {
-  ytPlayer = new YT.Player('yt-music-iframe', {
-    height: '0', width: '0',
-    videoId: 'nfrHH4I1qNQ',
-    playerVars: {
-      autoplay: 1,
-      loop: 1,
-      controls: 0,
-      modestbranding: 1,
-      playlist: 'nfrHH4I1qNQ'
+// ---------- tsParticles (smoke + ice particulate) ----------
+window.addEventListener('DOMContentLoaded', async () => {
+  // config: slow drifting gray particles to mimic smoke + tiny bright particles for icy sparkles
+  tsParticles.load("tsparticles", {
+    fpsLimit: 60,
+    detectRetina: true,
+    background: { opacity: 0 },
+    particles: {
+      number: { value: 40, density: { enable: true, area: 800 } },
+      color: { value: ["#cbeef3", "#ffffff", "#8ff0ff", "#bfc6cc"] },
+      shape: { type: "circle" },
+      opacity: {
+        value: 0.06,
+        random: { enable: true, minimumValue: 0.02 },
+        animation: { enable: true, speed: 0.2, minimumValue: 0.02, sync: false }
+      },
+      size: {
+        value: { min: 8, max: 60 },
+        animation: { enable: true, speed: 2, minimumValue: 8, sync: false }
+      },
+      move: {
+        enable: true,
+        speed: 0.8,
+        direction: "none",
+        random: true,
+        straight: false,
+        outModes: { default: "out" },
+        trail: { enable: false }
+      }
     },
-    events: { 'onReady': function(event){
-      ytReady = true;
-      setYTVolume(lastVol, isMuted);
-    }}
+    interactivity: {
+      detectsOn: "canvas",
+      events: { onHover: { enable: false }, onClick: { enable: false }, resize: true }
+    }
   });
+
+  // small sparkles overlay: add another emitter of tiny fast particles (ice glints)
+  tsParticles.domItem(0).particles.array.push(); // no-op to ensure lib ready
+});
+
+// ---------- Cursor ----------
+const cursor = $('#cursor');
+const cursorInner = document.querySelector('.cursor-inner');
+document.addEventListener('mousemove', (e) => {
+  cursor.style.transform = translate3d(${e.clientX}px, ${e.clientY}px, 0);
+});
+$$('a, .btn, .card, .cta').forEach(el=>{
+  el.addEventListener('mouseenter', ()=> {
+    cursorInner.style.transform = 'translate(-50%,-50%) scale(1.9)';
+    cursorInner.style.borderWidth = '1px';
+  });
+  el.addEventListener('mouseleave', ()=> {
+    cursorInner.style.transform = 'translate(-50%,-50%) scale(1)';
+    cursorInner.style.borderWidth = '2px';
+  });
+});
+
+// hide default cursor for big screens
+if (window.matchMedia('(min-width:768px)').matches){
+  document.documentElement.style.cursor = 'none';
 }
 
-// Set volume function
-function setYTVolume(vol, muted) {
-  if (ytPlayer && ytReady) {
-    if (muted || vol == 0) {
-      ytPlayer.mute();
-    } else {
-      ytPlayer.unMute();
-      ytPlayer.setVolume(vol);
-    }
+// ---------- Ambient sound toggle ----------
+const ambient = $('#ambient');
+const soundToggle = $('#soundToggle');
+let soundOn = false;
+soundToggle.addEventListener('click', ()=>{
+  soundOn = !soundOn;
+  if(soundOn){
+    ambient.volume = 0.25;
+    ambient.play().catch(()=>{/* autoplay might be blocked on some browsers */});
+    soundToggle.textContent = '🔈';
+    soundToggle.setAttribute('aria-pressed','true');
+  } else {
+    ambient.pause();
+    soundToggle.textContent = '🔊';
+    soundToggle.setAttribute('aria-pressed','false');
   }
-}
+});
+
+// ---------- small entrance GSAP for header/title ----------
+gsap.from('.andz', {y:-10, opacity:0, duration:1.2, ease:'elastic.out(1,0.6)', delay:0.2});
+gsap.from('.nav .btn', {y:8, opacity:0, duration:0.8, stagger:0.06, delay:0.5});
