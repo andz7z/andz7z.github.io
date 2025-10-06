@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- Background -->
+<!-- Background GIF -->
 <div class="background"></div>
 
 <!-- Center Brand -->
@@ -25,7 +25,7 @@
 <!-- Sections -->
 <div id="sections">
 
-  <!-- VFX / Valorant -->
+  <!-- VFX -->
   <div id="vfx" class="section hidden">
     <h2>VFX Content</h2>
     <div class="story" id="story-vfx"></div>
@@ -36,7 +36,7 @@
     <a class="visit-btn" href="https://www.youtube.com/@andz79" target="_blank">Visit Channel</a>
   </div>
 
-  <!-- GTA San Andreas -->
+  <!-- GTA -->
   <div id="gta" class="section hidden">
     <h2>GTA San Andreas</h2>
     <div class="story" id="story-gta"></div>
@@ -71,7 +71,7 @@
     </div>
   </div>
 
-  <!-- Contact Modal -->
+  <!-- Contact -->
   <div id="contact-modal" class="modal hidden">
     <div class="modal-content">
       <span id="close-modal">&times;</span>
@@ -84,10 +84,15 @@
 
 </div>
 
-<!-- Background Music -->
-<iframe style="display:none" 
+<!-- Background Music + Volume Control -->
+<iframe id="bg-music" style="display:none" 
         src="https://www.youtube.com/embed/nfrHH4I1qNQ?autoplay=1&loop=1&playlist=nfrHH4I1qNQ" 
         allow="autoplay"></iframe>
+<div class="volume-control">
+  <label for="volumeSlider">Volume 🔊</label>
+  <input type="range" id="volumeSlider" min="0" max="100" value="50">
+  <button id="muteBtn">Mute</button>
+</div>
 
 <script src="script.js"></script>
 </body>
