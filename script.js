@@ -79,7 +79,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 const cursor = $('#cursor');
 const cursorInner = document.querySelector('.cursor-inner');
 document.addEventListener('mousemove', (e) => {
-  cursor.style.transform = translate3d(${e.clientX}px, ${e.clientY}px, 0);
+  cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`;
 });
 $$('a, .btn, .card, .cta').forEach(el=>{
   el.addEventListener('mouseenter', ()=> {
