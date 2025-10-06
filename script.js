@@ -1,107 +1,131 @@
-// === CONTACT PANEL ===
-const contactBtn = document.getElementById('contactBtn');
-const contactPanel = document.getElementById('contactPanel');
-contactBtn.addEventListener('click', () => {
-  contactPanel.style.display = contactPanel.style.display === 'block' ? 'none' : 'block';
-});
+// ====== basic helpers ======
+const $ = sel => document.querySelector(sel);
+const $$ = sel => Array.from(document.querySelectorAll(sel));
 
-// === SMOOTH SCROLL ===
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+// ====== brand reveal (hover or keyboard focus) ======
+const brand = $('#brand');
+const brandActions = $('#brandActions');
+
+function showBrandActions() {
+  brandActions.classList.add('show');
+}
+function hideBrandActions() {
+  brandActions.classList.remove('show');
 }
 
-// === BURGER MENU ===
-const menuToggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
-menuToggle.addEventListener('click', () => {
-  menuToggle.classList.toggle('active');
-  navMenu.classList.toggle('active');
-});
+brand.addEventListener('mouseenter', showBrandActions);
+brand.addEventListener('focus', showBrandActions);
+brand.addEventListener('mouseleave', hideBrandActions);
+brand.addEventListener('blur', hideBrandActions);
 
-// === BACKGROUND PARTICLES ===
-const canvas = document.getElementById("background");
-const ctx = canvas.getContext("2d");
-let particles = [];
-let w, h;
-
-function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-  particles = [];
-  for (let i = 0; i < 80; i++) {
-    particles.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      r: Math.random() * 2 + 1,
-      dx: (Math.random() - 0.5) * 0.8,
-      dy: (Math.random() - 0.5) * 0.8
-    });
-  }
-}
-
-function draw() {
-  ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
-  ctx.fillRect(0, 0, w, h);
-  particles.forEach(p => {
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = "#b30b3b";
-    ctx.fill();
-    p.x += p.dx;
-    p.y += p.dy;
-    if (p.x < 0 || p.x > w) p.dx *= -1;
-    if (p.y < 0 || p.y > h) p.dy *= -1;
-  });
-  requestAnimationFrame(draw);
-}
-window.addEventListener("resize", resize);
-resize();
-draw();
-
-// === MY WORK PREVIEW ===
-const previewBox = document.getElementById("previewBox");
-const previewText = document.getElementById("previewText");
-
-document.querySelectorAll(".projects li").forEach(li => {
-  li.addEventListener("mouseenter", (e) => {
-    const text = li.getAttribute("data-preview");
-    previewText.textContent = text;
-    previewBox.classList.remove("hidden");
-  });
-  li.addEventListener("mousemove", (e) => {
-    previewBox.style.left = e.pageX + 15 + "px";
-    previewBox.style.top = e.pageY + 15 + "px";
-  });
-  li.addEventListener("mouseleave", () => {
-    previewBox.classList.add("hidden");
+// clicking action buttons scrolls to section
+$$('.action-btn').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    const key = btn.dataset.scroll;
+    if(key === 'work') document.getElementById('work').scrollIntoView({behavior:'smooth'});
+    if(key === 'gta') document.getElementById('gtaCol')?.scrollIntoView({behavior:'smooth'});
+    if(key === 'vfx') document.getElementById('vfxCol')?.scrollIntoView({behavior:'smooth'});
+    if(btn.id === 'contactAction') toggleContact(true);
   });
 });
-// Smooth scroll
-function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-}
 
-// Contact toggle
-const contactBtn = document.getElementById('contactBtn');
-const contactPanel = document.getElementById('contactPanel');
+// ====== contact panel ======
+const contactPanel = $('#contactPanel');
+const openContact = $('#openContact');
+const closeContact = $('#closeContact');
 
-contactBtn.addEventListener('click', () => {
-  contactPanel.style.display = contactPanel.style.display === 'block' ? 'none' : 'block';
-});
-
-// Music toggle
-const musicFrame = document.getElementById('musicFrame');
-const musicToggle = document.getElementById('musicToggle');
-let isPlaying = true;
-
-musicToggle.addEventListener('click', () => {
-  if (isPlaying) {
-    musicFrame.src = "";
-    musicToggle.textContent = "▶️ Music";
+function toggleContact(forceOpen){
+  if(forceOpen===true){ contactPanel.classList.remove('hidden'); contactPanel.style.display='block'; return; }
+  if(contactPanel.classList.contains('hidden') || getComputedStyle(contactPanel).display==='none'){
+    contactPanel.classList.remove('hidden');contactPanel.style.display='block';
   } else {
-    musicFrame.src = "https://www.youtube.com/embed/2vjPBrBU-TM?autoplay=1&loop=1";
-    musicToggle.textContent = "⏸️ Music";
+    contactPanel.classList.add('hidden');contactPanel.style.display='none';
   }
-  isPlaying = !isPlaying;
+}
+openContact?.addEventListener('click', ()=> toggleContact(true));
+closeContact?.addEventListener('click', ()=> toggleContact(false));
+
+// ====== projects preview (hover -> show previewBox) ======
+const previewBox = document.getElementById('previewBox');
+const previewImg = document.getElementById('previewImg');
+const previewTitle = document.getElementById('previewTitle');
+const previewDesc = document.getElementById('previewDesc');
+
+$$('.project').forEach(proj=>{
+  proj.addEventListener('mouseenter', e=>{
+    const img = proj.dataset.img;
+    const title = proj.dataset.title;
+    const desc = proj.dataset.desc;
+    previewImg.src = img || '';
+    previewTitle.textContent = title || '';
+    previewDesc.textContent = desc || '';
+    previewBox.classList.remove('hidden');
+    previewBox.classList.add('visible');
+  });
+  proj.addEventListener('mousemove', e=>{
+    // position preview near cursor but keep inside screen
+    const pad = 18;
+    let left = e.clientX + pad;
+    let top = e.clientY + pad;
+    const boxW = previewBox.offsetWidth;
+    const boxH = previewBox.offsetHeight;
+    if(left + boxW > window.innerWidth) left = e.clientX - boxW - pad;
+    if(top + boxH > window.innerHeight) top = e.clientY - boxH - pad;
+    previewBox.style.left = left + 'px';
+    previewBox.style.top = top + 'px';
+  });
+  proj.addEventListener('mouseleave', e=>{
+    previewBox.classList.add('hidden');
+    previewBox.classList.remove('visible');
+  });
 });
 
+// hide preview on touch (mobile)
+document.addEventListener('touchstart', ()=> {
+  previewBox.classList.add('hidden'); previewBox.classList.remove('visible');
+});
+
+// ====== audio player toggle (lazy load) ======
+const audioToggle = $('#audioToggle');
+const audioFrame = $('#audioFrame');
+let audioPlaying = false;
+const audioURL = "https://www.youtube.com/embed/nfrHH4I1qNQ?autoplay=1&loop=1&playlist=nfrHH4I1qNQ&enablejsapi=1";
+
+audioToggle?.addEventListener('click', ()=>{
+  if(!audioPlaying){
+    // start music (lazy set src)
+    audioFrame.src = audioURL;
+    audioFrame.style.display='block';
+    audioToggle.textContent = '⏸ Music';
+    audioToggle.setAttribute('aria-pressed','true');
+  } else {
+    // stop by clearing src (works cross-browser)
+    audioFrame.src = '';
+    audioFrame.style.display='none';
+    audioToggle.textContent = '▶ Music';
+    audioToggle.setAttribute('aria-pressed','false');
+  }
+  audioPlaying = !audioPlaying;
+});
+
+// ====== small accessibility: keyboard toggle for brand actions ======
+brand.tabIndex = 0;
+brand.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter' || e.key === ' '){
+    e.preventDefault();
+    brandActions.classList.toggle('show');
+  }
+});
+
+// ====== small parallax on mouse move for bg (subtle) ======
+const bg = $('#bg-layer');
+document.addEventListener('mousemove', (e)=>{
+  const cx = e.clientX / window.innerWidth - 0.5;
+  const cy = e.clientY / window.innerHeight - 0.5;
+  bg.style.transform = `translate3d(${cx * 8}px, ${cy * 6}px, 0)`;
+});
+
+// ====== initial focus states (neat entrance) ======
+window.addEventListener('load', ()=>{
+  setTimeout(()=> brand.classList.add('loaded'), 150);
+});
