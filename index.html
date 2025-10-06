@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANDZ | Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="background"></canvas>
+
+  <header>
+    <h1 class="logo">ANDZ</h1>
+    <nav id="navMenu">
+      <button onclick="scrollToSection('valorant')">Valorant</button>
+      <button onclick="scrollToSection('gta')">GTA San Andreas</button>
+      <button onclick="scrollToSection('work')">My Work</button>
+      <button id="contactBtn">Contact</button>
+    </nav>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <main>
+    <section id="valorant" class="section">
+      <h2>Valorant</h2>
+      <p>My YouTube channel for Valorant content:</p>
+      <a href="https://www.youtube.com/@andz79" target="_blank" class="yt-link">@andz79</a>
+      <div class="yt-preview">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed?listType=user_uploads&list=andz79" 
+          title="YouTube channel preview" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="gta" class="section">
+      <h2>GTA San Andreas</h2>
+      <p>Mods and Visual content for GTA SA:</p>
+      <a href="https://www.youtube.com/@visuals_mods" target="_blank" class="yt-link">@visuals_mods</a>
+      <div class="yt-preview">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed?listType=user_uploads&list=visuals_mods" 
+          title="YouTube channel preview" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <h2>My Work</h2>
+      <ul class="projects">
+        <li><a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">SEASONS-GTA-SA</a></li>
+        <li><a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">TIMECHANGER-GTA-SA</a></li>
+        <li><a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">NAMETAGS-GTA-SA</a></li>
+        <li><a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">SKINCHANGER-GTA-SA</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 andz7z | All rights reserved</p>
+  </footer>
+
+  <div id="contactPanel" class="hidden">
+    <h3>Contact</h3>
+    <p>Email: <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+    <p>GitHub: <a href="https://github.com/andz7z" target="_blank">andz7z</a></p>
+    <p>Discord: andz7z</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
