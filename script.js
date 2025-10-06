@@ -1,133 +1,238 @@
+// Loader
+window.onload = function() {
+  setTimeout(() => {
+    document.getElementById('loader').style.opacity = 0;
+    setTimeout(() => document.getElementById('loader').style.display = 'none', 600);
+  }, 1200);
+}
+
 // Elemente
 const brand = document.getElementById('brand');
 const mainButtons = document.getElementById('main-buttons');
-const buttons = document.querySelectorAll('#main-buttons .btn');
 const sections = document.querySelectorAll('.section');
+const buttons = document.querySelectorAll('#main-buttons .btn');
+const closeBtns = document.querySelectorAll('.close-btn');
+const volumeSlider = document.getElementById('volumeSlider');
+const muteBtn = document.getElementById('muteBtn');
+const visualizer = document.getElementById('music-visualizer');
+const ctx = visualizer.getContext('2d');
+const volIcon = document.getElementById('vol-icon');
 const contactModal = document.getElementById('contact-modal');
 const closeModal = document.getElementById('close-modal');
 
-// Texte poveste
+// Poveste cu highlight
 const storyTexts = {
-  vfx: "Hello! If you are interested in VFX services or just want to see my progress, check my YouTube channel: https://www.youtube.com/@andz79\nBelow you can see the latest preview video, all others are on the channel!",
-  gta: "When I was little playing GTA San Andreas, I watched tutorials on YouTube but didn't understand much.\nThanks to my automation studies, I managed to create 4 interesting mods for this 2004 game!\nCheck my channel: https://www.youtube.com/@visuals_mods",
-  work: "These mods are presented on my GitHub account (https://github.com/andz7z)\nBelow are the 4 mods ready to click!"
+  vfx: "✨ <span class='key'>VFX services</span> & progress: <a href='https://www.youtube.com/@andz79' target='_blank'>andz79 YouTube Channel</a>. <br>Preview video below, more on channel!",
+  gta: "🚗 Childhood with <span class='key'>GTA San Andreas</span> & modding. Automation studies helped me create <span class='key'>4 unique mods</span> for this classic. <br>Channel: <a href='https://www.youtube.com/@visuals_mods' target='_blank'>visuals_mods</a>.",
+  work: "🛠️ All mods are open-source on <a href='https://github.com/andz7z' target='_blank'>GitHub</a>. <br>Explore the cards below & flip for details."
 };
 
-// Typing effect
-function typeText(element, text, speed=40){
-  element.innerHTML = "";
-  let i=0;
-  function typing(){
-    if(i<text.length){
-      element.innerHTML += text[i];
+// Typing premium effect
+function typePremium(el, html, speed=22) {
+  el.innerHTML = '';
+  let i = 0, tag = false, cursor = document.createElement('span');
+  cursor.className = 'cursor'; cursor.textContent = '|';
+  el.appendChild(cursor);
+  function type() {
+    if (i < html.length) {
+      if (html[i] === '<') tag = true;
+      if (!tag) {
+        cursor.insertAdjacentHTML('beforebegin', `<span class="typing-letter">${html[i]}</span>`);
+      }
+      if (html[i] === '>') tag = false;
+      if (tag) {
+        let close = html.indexOf('>', i);
+        cursor.insertAdjacentHTML('beforebegin', html.slice(i, close+1));
+        i = close;
+        tag = false;
+      }
       i++;
-      setTimeout(typing,speed);
+      setTimeout(type, (html[i-1] === ' ' ? speed*2 : speed) + Math.random()*20);
+    } else {
+      cursor.classList.add('done');
     }
   }
-  typing();
+  type();
 }
 
-// Arata butoanele cand dai click pe ANDZ
+// Remove ANDZ & show section
+function showSection(id) {
+  document.querySelector('.brand-container').style.opacity = 0;
+  setTimeout(() => document.querySelector('.brand-container').style.display = 'none', 700);
+  sections.forEach(s => s.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+  const storyElem = document.getElementById('story-' + id);
+  storyElem.style.display = "block";
+  typePremium(storyElem, storyTexts[id]);
+}
+
+// Brand click
 brand.addEventListener('click', () => {
-  brand.classList.add('shrink');
   mainButtons.classList.remove('hidden');
+  brand.classList.add('hide'); // pentru fade
 });
 
-// Click pe butoane
+// Butoane click
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
     const target = btn.getAttribute('data-section');
-    // Shrink ANDZ
-    brand.classList.add('shrink');
-
     if(target==="contact"){
       contactModal.classList.remove('hidden');
     } else {
-      transitionToSection(target);
+      showSection(target);
     }
   });
 });
 
-// Inchidere contact modal
+// Inchidere modal contact
 closeModal.addEventListener('click', () => contactModal.classList.add('hidden'));
 
-// Tranziție blend/fum
-function transitionToSection(targetId){
-  document.body.style.pointerEvents="none";
-  const overlay = document.createElement("div");
-  overlay.style.position="fixed";
-  overlay.style.top=0;
-  overlay.style.left=0;
-  overlay.style.width="100%";
-  overlay.style.height="100%";
-  overlay.style.background="rgba(0,0,0,0.95)";
-  overlay.style.zIndex=50;
-  overlay.style.transition="opacity 0.8s ease";
-  overlay.style.opacity=0;
-  document.body.appendChild(overlay);
-  requestAnimationFrame(()=>{ overlay.style.opacity=1; });
+// Buton Home (close-btn)
+closeBtns.forEach(btn => btn.addEventListener('click', () => {
+  sections.forEach(s => s.style.display = 'none');
+  document.querySelector('.brand-container').style.display = '';
+  setTimeout(() => document.querySelector('.brand-container').style.opacity = 1, 50);
+  mainButtons.classList.add('hidden');
+  brand.classList.remove('hide');
+}));
 
-  setTimeout(()=>{
-    sections.forEach(sec => sec.style.display="none");
-    const target = document.getElementById(targetId);
-    target.style.display="block";
+// Glass effect la hover pe carduri
+document.querySelectorAll('.work-card').forEach(card=>{
+  card.addEventListener('mouseenter',()=>card.classList.add('active'));
+  card.addEventListener('mouseleave',()=>card.classList.remove('active'));
+});
 
-    // Afiseaza text typing
-    const storyElem = target.querySelector(".story");
-    storyElem.style.display = "block";
-    typeText(storyElem, storyTexts[targetId]);
+// Vizualizare volum + icon animat
+let lastVol = 50;
+volumeSlider.addEventListener('input', ()=>{
+  lastVol = volumeSlider.value;
+  if (lastVol == 0) volIcon.textContent = '🔇';
+  else if (lastVol < 30) volIcon.textContent = '🔈';
+  else if (lastVol < 70) volIcon.textContent = '🔉';
+  else volIcon.textContent = '🔊';
+  setYTVolume(lastVol, isMuted);
+});
 
-    overlay.style.opacity=0;
-    setTimeout(()=>{
-      overlay.remove();
-      document.body.style.pointerEvents="auto";
-    },800);
-  },800);
+// Mute btn
+let isMuted = false;
+muteBtn.addEventListener('click', ()=>{
+  isMuted = !isMuted;
+  muteBtn.textContent = isMuted ? "Unmute" : "Mute";
+  volIcon.textContent = isMuted ? "🔇" : (lastVol>70?"🔊":(lastVol>30?"🔉":"🔈"));
+  setYTVolume(lastVol, isMuted);
+});
+
+// Visualizer (fake bars)
+function drawVisualizer(){
+  ctx.clearRect(0,0,80,28);
+  for(let i=0;i<7;i++){
+    const h = Math.random()*visualizer.height*0.8 + 6;
+    ctx.fillStyle = "rgba(127,0,255,0.65)";
+    ctx.fillRect(i*11, visualizer.height-h, 8, h);
+  }
+  requestAnimationFrame(drawVisualizer);
 }
+drawVisualizer();
 
-// YouTube Background Music + Volume Control
-let player;
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('bg-music', {
-    events: { 'onReady': onPlayerReady }
+// Loader spinner anim
+let loaderDots = document.querySelector('.loader-text');
+let dotCount = 0;
+setInterval(()=>{
+  if(loaderDots){
+    loaderDots.textContent = "ANDZ Portfolio" + ".".repeat(dotCount%4);
+    dotCount++;
+  }
+},340);
+
+// Animated BG particles
+const canvas = document.getElementById('bg-canvas');
+const c = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+let particles = [];
+function resizeBg() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeBg);
+
+function createParticles(){
+  particles=[];
+  for(let i=0;i<90;i++){
+    particles.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*2.2+1.2,
+      dx: (Math.random()-0.5)*0.7,
+      dy: (Math.random()-0.5)*0.7,
+      color: `rgba(${127+Math.random()*80|0},0,${255-Math.random()*60|0},${0.18+Math.random()*0.22})`
+    });
+  }
+}
+createParticles();
+
+function animateParticles(){
+  c.clearRect(0,0,canvas.width,canvas.height);
+  for(let p of particles){
+    p.x += p.dx; p.y += p.dy;
+    if(p.x<0||p.x>canvas.width) p.dx*=-1;
+    if(p.y<0||p.y>canvas.height) p.dy*=-1;
+    c.beginPath();
+    c.arc(p.x,p.y,p.r,0,2*Math.PI);
+    c.fillStyle = p.color;
+    c.shadowColor = "#ff00ff";
+    c.shadowBlur = 10;
+    c.fill();
+  }
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// --- YOUTUBE MUSIC PLAYER (FUNCȚIONAL CONTROL VOLUM) ---
+let ytReady = false;
+let ytPlayer = null;
+
+// Inject YouTube iframe via API
+function injectYT() {
+  if (document.getElementById('yt-music-iframe')) return;
+  let wrapper = document.getElementById('youtube-wrapper');
+  wrapper.innerHTML = `
+    <div id="yt-music-iframe"></div>
+  `;
+  // Load YouTube API
+  let tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  document.body.appendChild(tag);
+}
+injectYT();
+
+// API callback
+window.onYouTubeIframeAPIReady = function() {
+  ytPlayer = new YT.Player('yt-music-iframe', {
+    height: '0', width: '0',
+    videoId: 'nfrHH4I1qNQ',
+    playerVars: {
+      autoplay: 1,
+      loop: 1,
+      controls: 0,
+      modestbranding: 1,
+      playlist: 'nfrHH4I1qNQ'
+    },
+    events: { 'onReady': function(event){
+      ytReady = true;
+      setYTVolume(lastVol, isMuted);
+    }}
   });
 }
 
-function onPlayerReady(event){
-  player.setVolume(50);
-}
-
-// Slider Volume
-const volumeSlider = document.getElementById('volumeSlider');
-const muteBtn = document.getElementById('muteBtn');
-let isMuted = false;
-
-volumeSlider.addEventListener('input', ()=>{
-  if(player){
-    player.setVolume(volumeSlider.value);
-    if(isMuted && volumeSlider.value>0){
-      player.unMute();
-      isMuted=false;
-      muteBtn.textContent="Mute";
-    }
-  }
-});
-
-muteBtn.addEventListener('click', ()=>{
-  if(player){
-    if(isMuted){
-      player.unMute();
-      muteBtn.textContent="Mute";
-      isMuted=false;
+// Set volume function
+function setYTVolume(vol, muted) {
+  if (ytPlayer && ytReady) {
+    if (muted || vol == 0) {
+      ytPlayer.mute();
     } else {
-      player.mute();
-      muteBtn.textContent="Unmute";
-      isMuted=true;
+      ytPlayer.unMute();
+      ytPlayer.setVolume(vol);
     }
   }
-});
-
-// Load YouTube API
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-document.body.appendChild(tag);
+}
