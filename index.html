@@ -1,150 +1,85 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ANDZ — Portfolio</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css">
-
-  <!-- Libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js" defer></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.11.1/tsparticles.bundle.min.js" defer></script>
-
-  <!-- Main JS -->
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANDZ</title>
+  <link rel="stylesheet" href="style.css" />
+  <script defer src="script.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- Background GIF (chill) -->
-  <div id="bg-gif" aria-hidden="true"></div>
+  <video autoplay muted loop id="bg-video">
+    <source src="https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4" type="video/mp4">
+  </video>
 
-  <!-- Particles / smoke canvas -->
-  <div id="tsparticles"></div>
+  <div class="overlay"></div>
 
-  <!-- Frost overlay -->
-  <div class="frost"></div>
-
-  <!-- Custom cursor -->
-  <div id="cursor">
-    <div class="cursor-inner"></div>
-  </div>
-
-  <!-- Header / nav -->
-  <header class="top">
-    <div class="brand">
-      <h1 class="andz glitch-3d">ANDZ</h1>
-      <p class="sub">VFX • GTA San Andreas • Mods • Visuals</p>
-    </div>
-
-    <nav class="nav">
-      <button class="btn" data-target="vfx">VFX Design</button>
-      <button class="btn" data-target="gta">GTA San Andreas</button>
-      <button class="btn" data-target="work">My Work</button>
-      <button class="btn" data-target="contact">Contact Me</button>
+  <header>
+    <h1 class="title">ANDZ</h1>
+    <nav class="nav-buttons">
+      <button onclick="openSection('vfx')">VFX Design</button>
+      <button onclick="openSection('gta')">GTA San Andreas</button>
+      <button onclick="openSection('work')">My Work</button>
+      <button onclick="openSection('contact')">Contact Me</button>
     </nav>
-
-    <div class="controls">
-      <button id="soundToggle" class="icon-btn" aria-pressed="false" title="Toggle ambient sound">🔊</button>
-    </div>
   </header>
 
-  <!-- Main content panels -->
-  <main id="main">
-    <!-- intro / hero -->
-    <section id="hero" class="panel active">
-      <div class="hero-inner">
-        <h2>Hi — I'm <span class="accent">ANDZ</span></h2>
-        <p class="lead">VFX artist &amp; GTA:SA modder. I create immersive visual experiences, tools and mods that change the vibe of the game.</p>
-        <div class="cta-row">
-          <a class="cta" href="https://youtube.com/@andz79" target="_blank" rel="noopener">VFX Design</a>
-          <a class="cta" href="https://youtube.com/@visuals_mods" target="_blank" rel="noopener">GTA San Andreas</a>
-        </div>
+  <!-- VFX DESIGN -->
+  <section id="vfx" class="hidden section">
+    <h2>🎬 VFX Design</h2>
+    <p>Check out my VFX projects and cinematic edits.</p>
+    <a href="https://youtube.com/@andz79" target="_blank" class="link">YouTube Channel</a>
+  </section>
+
+  <!-- GTA SAN ANDREAS -->
+  <section id="gta" class="hidden section">
+    <h2>🚗 GTA San Andreas Mods</h2>
+    <p>Visual and gameplay mods for GTA:SA</p>
+    <a href="https://youtube.com/@visuals_mods" target="_blank" class="link">YouTube Channel</a>
+  </section>
+
+  <!-- MY WORK -->
+  <section id="work" class="hidden section">
+    <h2>🧠 My Projects</h2>
+    <div class="projects">
+      <div class="card">
+        <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Seasons" />
+        <h3>SEASONS GTA SA</h3>
+        <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">View on GitHub</a>
       </div>
-    </section>
-
-    <!-- VFX section -->
-    <section id="vfx" class="panel">
-      <h3>VFX Design — YouTube</h3>
-      <p>My channel: <a href="https://youtube.com/@andz79" target="_blank" rel="noopener">youtube.com/@andz79</a></p>
-      <div class="showcase">
-        <div class="preview big">VFX reels, breakdowns and tutorials.</div>
+      <div class="card">
+        <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Timechanger" />
+        <h3>TIMECHANGER GTA SA</h3>
+        <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">View on GitHub</a>
       </div>
-    </section>
-
-    <!-- GTA section -->
-    <section id="gta" class="panel">
-      <h3>GTA San Andreas — Visual Mods</h3>
-      <p>Channel: <a href="https://youtube.com/@visuals_mods" target="_blank" rel="noopener">youtube.com/@visuals_mods</a></p>
-      <div class="showcase">
-        <div class="preview big">Visual mod showcases, comparisons, installs.</div>
+      <div class="card">
+        <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags" />
+        <h3>NAMETAGS GTA SA</h3>
+        <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">View on GitHub</a>
       </div>
-    </section>
-
-    <!-- My Work -->
-    <section id="work" class="panel">
-      <h3>My Work</h3>
-      <p class="muted">Click a card to open the repo on GitHub. Hover to preview.</p>
-
-      <div class="projects">
-        <!-- SEASONS -->
-        <a class="card" href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank" rel="noopener">
-          <div class="thumb" style="background-image:url('https://i.imgur.com/ik14PFa.jpeg')"></div>
-          <h4>SEASONS-GTA-SA</h4>
-          <small>Season/weather transitions for GTA:SA</small>
-        </a>
-
-        <!-- TIMECHANGER -->
-        <a class="card" href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank" rel="noopener">
-          <div class="thumb" style="background-image:url('https://i.imgur.com/nstY5n2.jpeg')"></div>
-          <h4>TIMECHANGER-GTA-SA</h4>
-          <small>Dynamic daytime/nighttime changer</small>
-        </a>
-
-        <!-- NAMETAGS -->
-        <a class="card" href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank" rel="noopener">
-          <div class="thumb" style="background-image:url('https://i.imgur.com/8keZiOp.jpeg')"></div>
-          <h4>NAMETAGS-GTA-SA</h4>
-          <small>Stylish nametags and HUD elements</small>
-        </a>
-
-        <!-- SKINCHANGER -->
-        <a class="card" href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank" rel="noopener">
-          <div class="thumb" style="background-image:url('https://i.imgur.com/rSWDHs2.jpeg')"></div>
-          <h4>SKINCHANGER-GTA-SA</h4>
-          <small>Swap player skins / models</small>
-        </a>
+      <div class="card">
+        <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skinchanger" />
+        <h3>SKINCHANGER GTA SA</h3>
+        <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">View on GitHub</a>
       </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="panel">
-      <h3>Contact Me</h3>
-      <ul class="contact-list">
-        <li>Email: <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></li>
-        <li>Discord: <span class="mono">anz7z</span> (or <span class="mono">andz7z</span>)</li>
-        <li>GitHub: <a href="https://github.com/andz7z" target="_blank" rel="noopener">github.com/andz7z</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <!-- small footer -->
-  <footer class="foot">
-    <div>© <span id="year"></span> ANDZ — Crafted with VFX & love.</div>
-    <div class="foot-links">
-      <a href="https://youtube.com/@andz79" target="_blank" rel="noopener">YouTube</a> ·
-      <a href="https://github.com/andz7z" target="_blank" rel="noopener">GitHub</a>
     </div>
-  </footer>
+  </section>
 
-  <!-- Ambient audio (optional) -->
-  <audio id="ambient" loop preload="auto">
-    <source src="https://assets.mixkit.co/sfx/preview/mixkit-ambient-pad-2233.mp3" type="audio/mpeg">
-  </audio>
+  <!-- CONTACT -->
+  <section id="contact" class="hidden section">
+    <h2>📞 Contact Me</h2>
+    <ul>
+      <li>Email: <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></li>
+      <li>Discord: <span>andz7z</span></li>
+      <li>GitHub: <a href="https://github.com/andz7z" target="_blank">@andz7z</a></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>© 2025 ANDZ | Crafted with passion 🧊</p>
+  </footer>
 
 </body>
 </html>
