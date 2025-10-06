@@ -7,92 +7,137 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<!-- Loader -->
+<div id="loader">
+  <div class="loader-spinner"></div>
+  <span class="loader-text">ANDZ Portfolio</span>
+</div>
 
-<!-- Background GIF -->
-<div class="background"></div>
+<!-- Animated Gradient BG + Particles -->
+<canvas id="bg-canvas"></canvas>
+<div class="gradient-bg"></div>
 
 <!-- Center Brand -->
 <div class="brand-container">
-  <h1 id="brand">ANDZ</h1>
+  <h1 id="brand" class="neon">ANDZ</h1>
   <div id="main-buttons" class="hidden">
-    <button class="btn" data-section="vfx">VFX</button>
-    <button class="btn" data-section="gta">GTA San Andreas</button>
-    <button class="btn" data-section="work">My Work</button>
-    <button class="btn" data-section="contact">Contact</button>
+    <button class="btn glass" data-section="vfx"><span class="btn-icon">✨</span>VFX</button>
+    <button class="btn glass" data-section="gta"><span class="btn-icon">🚗</span>GTA San Andreas</button>
+    <button class="btn glass" data-section="work"><span class="btn-icon">🛠️</span>My Work</button>
+    <button class="btn glass" data-section="contact"><span class="btn-icon">📞</span>Contact</button>
   </div>
 </div>
 
 <!-- Sections -->
 <div id="sections">
 
-  <!-- VFX -->
+  <!-- VFX Section -->
   <div id="vfx" class="section hidden">
-    <h2>VFX Content</h2>
-    <div class="story" id="story-vfx"></div>
+    <button class="close-btn">⟵ Home</button>
+    <h2 class="neon">VFX Content</h2>
+    <div class="story premium-story" id="story-vfx"></div>
     <div class="video-container">
       <iframe src="https://www.youtube.com/embed/8bU_tI3SKmA?autoplay=0" 
               title="VFX Preview" frameborder="0" allowfullscreen></iframe>
     </div>
-    <a class="visit-btn" href="https://www.youtube.com/@andz79" target="_blank">Visit Channel</a>
+    <a class="visit-btn neon-btn" href="https://www.youtube.com/@andz79" target="_blank">Visit Channel</a>
   </div>
 
-  <!-- GTA -->
+  <!-- GTA Section -->
   <div id="gta" class="section hidden">
-    <h2>GTA San Andreas</h2>
-    <div class="story" id="story-gta"></div>
+    <button class="close-btn">⟵ Home</button>
+    <h2 class="neon">GTA San Andreas</h2>
+    <div class="story premium-story" id="story-gta"></div>
     <div class="video-container">
       <iframe src="https://www.youtube.com/embed/Kp3XfO1PtHY?autoplay=0" 
               title="GTA Preview" frameborder="0" allowfullscreen></iframe>
     </div>
-    <a class="visit-btn" href="https://www.youtube.com/@visuals_mods" target="_blank">Visit Channel</a>
+    <a class="visit-btn neon-btn" href="https://www.youtube.com/@visuals_mods" target="_blank">Visit Channel</a>
   </div>
 
-  <!-- My Work -->
+  <!-- My Work Section -->
   <div id="work" class="section hidden">
-    <h2>My Work</h2>
-    <div class="story" id="story-work"></div>
-    <div class="work-buttons">
-      <a href="https://github.com/andz7z/SEASONS-GTA-SA" class="work-btn">
-        ❄️ Season Changer 🌴
-        <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Season Changer Preview">
-      </a>
-      <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" class="work-btn">
-        ☀️ Time Changer 🌙
-        <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Time Changer Preview">
-      </a>
-      <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" class="work-btn">
-        👕 Skin Changer 👕
-        <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skin Changer Preview">
-      </a>
-      <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" class="work-btn">
-        🏷️ Nametags 🏷️
-        <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags Preview">
-      </a>
+    <button class="close-btn">⟵ Home</button>
+    <h2 class="neon">My Work</h2>
+    <div class="story premium-story" id="story-work"></div>
+    <div class="work-cards">
+      <div class="work-card glass">
+        <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Season Changer">
+        <div class="work-info">
+          <span class="emoji">❄️</span>
+          <h3>Season Changer</h3>
+          <p>Change seasons instantly in GTA San Andreas!</p>
+          <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">View on GitHub</a>
+        </div>
+      </div>
+      <div class="work-card glass">
+        <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Time Changer">
+        <div class="work-info">
+          <span class="emoji">☀️</span>
+          <h3>Time Changer</h3>
+          <p>Switch between day and night with style!</p>
+          <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">View on GitHub</a>
+        </div>
+      </div>
+      <div class="work-card glass">
+        <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skin Changer">
+        <div class="work-info">
+          <span class="emoji">👕</span>
+          <h3>Skin Changer</h3>
+          <p>Change your character's skin fast and easy!</p>
+          <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">View on GitHub</a>
+        </div>
+      </div>
+      <div class="work-card glass">
+        <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags">
+        <div class="work-info">
+          <span class="emoji">🏷️</span>
+          <h3>Nametags</h3>
+          <p>Customizable nametags for multiplayer action!</p>
+          <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">View on GitHub</a>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Contact -->
+  <!-- Contact Modal -->
   <div id="contact-modal" class="modal hidden">
-    <div class="modal-content">
+    <div class="modal-content glass">
       <span id="close-modal">&times;</span>
-      <h2>Contact Me</h2>
-      <p><img src="https://img.icons8.com/color/48/000000/gmail.png"/> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
-      <p><img src="https://img.icons8.com/ios-glyphs/48/000000/github.png"/> <a href="https://github.com/andz7z" target="_blank">andz7z</a></p>
-      <p><img src="https://img.icons8.com/color/48/000000/discord-logo.png"/> andz7z</p>
+      <h2 class="neon">Contact Me</h2>
+      <div class="contact-items">
+        <div class="contact-item">
+          <img src="https://img.icons8.com/color/48/000000/gmail.png"/>
+          <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <img src="https://img.icons8.com/ios-glyphs/48/000000/github.png"/>
+          <a href="https://github.com/andz7z" target="_blank">andz7z</a>
+        </div>
+        <div class="contact-item">
+          <img src="https://img.icons8.com/color/48/000000/discord-logo.png"/>
+          <span>andz7z</span>
+        </div>
+      </div>
+      <div class="contact-socials">
+        <a href="https://www.youtube.com/@andz79" target="_blank"><img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="YouTube"></a>
+        <a href="https://www.youtube.com/@visuals_mods" target="_blank"><img src="https://img.icons8.com/color/48/000000/youtube-play.png" alt="YouTube"></a>
+      </div>
+      <p class="contact-desc">Let’s collab or just say hi! 🚀</p>
     </div>
   </div>
 
 </div>
 
-<!-- Background Music + Volume Control -->
-<iframe id="bg-music" style="display:none" 
-        src="https://www.youtube.com/embed/nfrHH4I1qNQ?autoplay=1&loop=1&playlist=nfrHH4I1qNQ" 
-        allow="autoplay"></iframe>
-<div class="volume-control">
-  <label for="volumeSlider">Volume 🔊</label>
+<!-- Volume Control + Visualizer -->
+<div class="volume-control glass">
+  <label for="volumeSlider"><span id="vol-icon">🔊</span> Volume</label>
   <input type="range" id="volumeSlider" min="0" max="100" value="50">
   <button id="muteBtn">Mute</button>
+  <canvas id="music-visualizer" width="80" height="28"></canvas>
 </div>
+<!-- Actual YouTube background music (hidden, controlled by JS) -->
+<div id="youtube-wrapper" style="display:none;"></div>
 
 <script src="script.js"></script>
 </body>
