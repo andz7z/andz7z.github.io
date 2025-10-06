@@ -1,86 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ANDZ | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="background"></div>
+  <!-- Background layers (parallax-ish) -->
+  <div id="bg-layer" aria-hidden="true"></div>
 
-  <header>
-    <h1 class="logo">ANDZ</h1>
-    <nav>
-      <button onclick="scrollToSection('valorant')">Valorant</button>
-      <button onclick="scrollToSection('gta')">GTA San Andreas</button>
-      <button onclick="scrollToSection('work')">My Work</button>
-      <button id="contactBtn">Contact</button>
-    </nav>
+  <header class="topbar">
+    <div class="top-left">
+      <button class="mini-btn" id="openContact">Contact</button>
+    </div>
+    <div class="top-right">
+      <button class="mini-btn" id="audioToggle" aria-pressed="false">▶ Music</button>
+    </div>
   </header>
 
-  <main>
-    <section id="valorant" class="section">
-      <h2>Valorant</h2>
-      <p>My Valorant content on YouTube:</p>
-      <div class="yt-preview">
-        <a href="https://www.youtube.com/@andz79" target="_blank">
-          <img src="https://yt3.googleusercontent.com/ytc/AIdro_mnH4ApgA7l3Z0G6xPVHH5TT3d0U7Uy9m0sR0-qbA=s900-c-k-c0x00ffffff-no-rj" alt="Valorant Channel Preview">
+  <main class="stage">
+    <!-- LEFT: GTA column -->
+    <aside class="side left-side" id="gtaCol">
+      <div class="channel-card">
+        <a class="channel-link" href="https://www.youtube.com/watch?v=Kp3XfO1PtHY" target="_blank" rel="noreferrer">
+          <img class="channel-thumb" src="https://yt3.googleusercontent.com/qbK4iXzID0o8TdL5iYVwAv1A7uJvV5VJb2u9jtmfbiqzSOJwS4bzSm8GhjsT7tWfTEOqQQ4bbQ=s900-c-k-c0x00ffffff-no-rj" alt="Visuals Mods channel">
+          <div class="channel-meta">
+            <div class="channel-title">GTA San Andreas</div>
+            <div class="channel-handle">@visuals_mods</div>
+          </div>
         </a>
-        <p>@andz79</p>
       </div>
+    </aside>
+
+    <!-- CENTER: BIG BRAND -->
+    <section class="center">
+      <div id="brandWrap">
+        <h1 id="brand">ANDZ</h1>
+
+        <div id="brandActions" class="hidden">
+          <button class="action-btn" data-scroll="vfx">VFX</button>
+          <button class="action-btn" data-scroll="gta">GTA San Andreas</button>
+          <button class="action-btn" data-scroll="work">My Work</button>
+          <button class="action-btn" id="contactAction">Contact</button>
+        </div>
+      </div>
+
+      <!-- subtle tagline / micro interactions -->
+      <p class="tagline">creative mods & cinematic vfx — portfolio</p>
     </section>
 
-    <section id="gta" class="section">
-      <h2>GTA San Andreas</h2>
-      <p>Mods & visual content for GTA SA:</p>
-      <div class="yt-preview">
-        <a href="https://www.youtube.com/@visuals_mods" target="_blank">
-          <img src="https://yt3.googleusercontent.com/qbK4iXzID0o8TdL5iYVwAv1A7uJvV5VJb2u9jtmfbiqzSOJwS4bzSm8GhjsT7tWfTEOqQQ4bbQ=s900-c-k-c0x00ffffff-no-rj" alt="GTA Channel Preview">
+    <!-- RIGHT: VFX column -->
+    <aside class="side right-side" id="vfxCol">
+      <div class="channel-card">
+        <a class="channel-link" href="https://www.youtube.com/watch?v=8bU_tI3SKmA&t=3s" target="_blank" rel="noreferrer">
+          <img class="channel-thumb" src="https://yt3.googleusercontent.com/ytc/AIdro_mnH4ApgA7l3Z0G6xPVHH5TT3d0U7Uy9m0sR0-qbA=s900-c-k-c0x00ffffff-no-rj" alt="ANDZ79 channel">
+          <div class="channel-meta">
+            <div class="channel-title">VFX Content</div>
+            <div class="channel-handle">@andz79</div>
+          </div>
         </a>
-        <p>@visuals_mods</p>
       </div>
-    </section>
-
-    <section id="work" class="section">
-      <h2>My Work</h2>
-      <div class="projects">
-        <div class="project">
-          <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">SEASONS-GTA-SA</a>
-          <img src="https://camo.githubusercontent.com/cf9b91570297f91aba99fad0358cb52112e4f45c4a619eb2442a8d41c227ca86/68747470733a2f2f692e696d6775722e636f6d2f7567674f7642632e6a706567" alt="Seasons Mod Preview">
-        </div>
-        <div class="project">
-          <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">TIMECHANGER-GTA-SA</a>
-          <img src="https://i.imgur.com/3gkYzQ1.jpeg" alt="Timechanger Preview">
-        </div>
-        <div class="project">
-          <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">NAMETAGS-GTA-SA</a>
-          <img src="https://i.imgur.com/Fe86QzM.jpeg" alt="Nametags Preview">
-        </div>
-        <div class="project">
-          <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">SKINCHANGER-GTA-SA</a>
-          <img src="https://i.imgur.com/aZqvwZI.jpeg" alt="Skinchanger Preview">
-        </div>
-      </div>
-    </section>
+    </aside>
   </main>
 
-  <footer>
-    <p>© 2025 andz7z | All rights reserved</p>
+  <!-- WORK SECTION (full width under hero) -->
+  <section id="work" class="work-section">
+    <h2>My Work</h2>
+    <p class="work-sub">hover or focus a tile to preview →</p>
+
+    <div class="projects">
+      <div class="project" data-title="Season Changer" data-desc="SEASONS: schimbă atmosfera & anotimpurile în GTA SA." data-img="https://i.imgur.com/ik14PFa.jpeg">
+        <a class="proj-link" href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank" rel="noreferrer">❄️ Season Changer 🌴</a>
+      </div>
+
+      <div class="project" data-title="Time Changer" data-desc="TIMECHANGER: modifică ora, lumina și ambianța." data-img="https://i.imgur.com/nstY5n2.jpeg">
+        <a class="proj-link" href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank" rel="noreferrer">☀️ Time Changer 🌙</a>
+      </div>
+
+      <div class="project" data-title="Skin Changer" data-desc="SKINCHANGER: schimbă rapid skin-urile jucătorilor." data-img="https://i.imgur.com/rSWDHs2.jpeg">
+        <a class="proj-link" href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank" rel="noreferrer">👕 Skin Changer 👕</a>
+      </div>
+
+      <div class="project" data-title="Nametags" data-desc="NAMETAGS: UI clar și modern pentru tag-uri." data-img="https://i.imgur.com/8keZiOp.jpeg">
+        <a class="proj-link" href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank" rel="noreferrer">🏷️ Nametags ✨</a>
+      </div>
+    </div>
+
+    <!-- preview box -->
+    <div id="previewBox" class="hidden" aria-hidden="true">
+      <img id="previewImg" src="" alt="preview image">
+      <div class="previewText">
+        <strong id="previewTitle"></strong>
+        <p id="previewDesc"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-left">© 2025 andz7z</div>
+    <div class="footer-right">Email: <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a> • GitHub: <a href="https://github.com/andz7z" target="_blank">andz7z</a> • Discord: andz7z</div>
   </footer>
 
-  <div id="contactPanel" class="hidden">
+  <!-- Hidden contact panel -->
+  <div id="contactPanel" class="hidden" role="dialog" aria-modal="true">
+    <button id="closeContact" class="x">✕</button>
     <h3>Contact</h3>
-    <p>Email: <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
-    <p>GitHub: <a href="https://github.com/andz7z" target="_blank">andz7z</a></p>
-    <p>Discord: andz7z</p>
+    <p><a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+    <p><a href="https://github.com/andz7z" target="_blank">github.com/andz7z</a></p>
+    <p>Discord: <strong>andz7z</strong></p>
   </div>
 
-  <!-- Background Music -->
-  <div id="music-player">
-    <iframe id="musicFrame" width="0" height="0" src="https://www.youtube.com/embed/2vjPBrBU-TM?autoplay=1&loop=1" frameborder="0"></iframe>
-    <button id="musicToggle">⏸️ Music</button>
+  <!-- Audio iframe (lazy-load) -->
+  <div id="audioPlayer" aria-hidden="true">
+    <!-- src set in JS when play -->
+    <iframe id="audioFrame" src="" title="music" allow="autoplay" style="display:none"></iframe>
   </div>
 
   <script src="script.js"></script>
