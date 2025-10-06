@@ -5,72 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ANDZ | Portfolio</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <canvas id="background"></canvas>
+  <div id="background"></div>
 
   <header>
     <h1 class="logo">ANDZ</h1>
-    <nav id="navMenu">
+    <nav>
       <button onclick="scrollToSection('valorant')">Valorant</button>
       <button onclick="scrollToSection('gta')">GTA San Andreas</button>
       <button onclick="scrollToSection('work')">My Work</button>
       <button id="contactBtn">Contact</button>
     </nav>
-    <div class="menu-toggle" id="menuToggle">
-      <span></span><span></span><span></span>
-    </div>
   </header>
 
   <main>
     <section id="valorant" class="section">
       <h2>Valorant</h2>
-      <p>My YouTube channel for Valorant content:</p>
-
-      <div class="channel-card">
-        <img src="https://yt3.googleusercontent.com/ytc/AIf8zZSDP5r-yt-user-channel-photo=s176-c-k-c0x00ffffff-no-rj" alt="ANDZ79 Channel Logo" class="channel-logo">
-        <div class="channel-info">
-          <h3>@andz79</h3>
-          <p>Competitive gameplay, edits & creative Valorant content.</p>
-          <a href="https://www.youtube.com/@andz79" target="_blank" class="visit-btn">Visit Channel</a>
-        </div>
+      <p>My Valorant content on YouTube:</p>
+      <div class="yt-preview">
+        <a href="https://www.youtube.com/@andz79" target="_blank">
+          <img src="https://yt3.googleusercontent.com/ytc/AIdro_mnH4ApgA7l3Z0G6xPVHH5TT3d0U7Uy9m0sR0-qbA=s900-c-k-c0x00ffffff-no-rj" alt="Valorant Channel Preview">
+        </a>
+        <p>@andz79</p>
       </div>
     </section>
 
     <section id="gta" class="section">
       <h2>GTA San Andreas</h2>
-      <p>Mods and Visual content for GTA SA:</p>
-
-      <div class="channel-card">
-        <img src="https://yt3.googleusercontent.com/ytc/AIf8zZStmYx-user-channel-photo=s176-c-k-c0x00ffffff-no-rj" alt="Visuals Mods Logo" class="channel-logo">
-        <div class="channel-info">
-          <h3>@visuals_mods</h3>
-          <p>Enhancing GTA San Andreas visuals with high-quality mods and shaders.</p>
-          <a href="https://www.youtube.com/@visuals_mods" target="_blank" class="visit-btn">Visit Channel</a>
-        </div>
+      <p>Mods & visual content for GTA SA:</p>
+      <div class="yt-preview">
+        <a href="https://www.youtube.com/@visuals_mods" target="_blank">
+          <img src="https://yt3.googleusercontent.com/qbK4iXzID0o8TdL5iYVwAv1A7uJvV5VJb2u9jtmfbiqzSOJwS4bzSm8GhjsT7tWfTEOqQQ4bbQ=s900-c-k-c0x00ffffff-no-rj" alt="GTA Channel Preview">
+        </a>
+        <p>@visuals_mods</p>
       </div>
     </section>
 
     <section id="work" class="section">
       <h2>My Work</h2>
-      <ul class="projects">
-        <li data-preview="SEASONS: schimbă atmosfera și anotimpurile în GTA SA.">
+      <div class="projects">
+        <div class="project">
           <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">SEASONS-GTA-SA</a>
-        </li>
-        <li data-preview="TIMECHANGER: modifică ora și efectele de lumină din joc.">
+          <img src="https://camo.githubusercontent.com/cf9b91570297f91aba99fad0358cb52112e4f45c4a619eb2442a8d41c227ca86/68747470733a2f2f692e696d6775722e636f6d2f7567674f7642632e6a706567" alt="Seasons Mod Preview">
+        </div>
+        <div class="project">
           <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">TIMECHANGER-GTA-SA</a>
-        </li>
-        <li data-preview="NAMETAGS: adaugă un design nou, curat și modern pentru tag-urile din multiplayer.">
+          <img src="https://i.imgur.com/3gkYzQ1.jpeg" alt="Timechanger Preview">
+        </div>
+        <div class="project">
           <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">NAMETAGS-GTA-SA</a>
-        </li>
-        <li data-preview="SKINCHANGER: îți permite să schimbi skinul rapid, fără meniuri plictisitoare.">
+          <img src="https://i.imgur.com/Fe86QzM.jpeg" alt="Nametags Preview">
+        </div>
+        <div class="project">
           <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">SKINCHANGER-GTA-SA</a>
-        </li>
-      </ul>
-
-      <div id="previewBox" class="hidden">
-        <img id="previewImage" src="" alt="Preview" />
-        <p id="previewText"></p>
+          <img src="https://i.imgur.com/aZqvwZI.jpeg" alt="Skinchanger Preview">
+        </div>
       </div>
     </section>
   </main>
@@ -84,6 +75,12 @@
     <p>Email: <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
     <p>GitHub: <a href="https://github.com/andz7z" target="_blank">andz7z</a></p>
     <p>Discord: andz7z</p>
+  </div>
+
+  <!-- Background Music -->
+  <div id="music-player">
+    <iframe id="musicFrame" width="0" height="0" src="https://www.youtube.com/embed/2vjPBrBU-TM?autoplay=1&loop=1" frameborder="0"></iframe>
+    <button id="musicToggle">⏸️ Music</button>
   </div>
 
   <script src="script.js"></script>
