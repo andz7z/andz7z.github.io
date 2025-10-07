@@ -58,13 +58,44 @@ header {
     transform: translateY(-30px) scale(0.9);
 }
 
-/* Descriere sub titlu */
 .title-desc {
     margin-top: 10px;
     font-size: 1.3rem;
     padding: 10px 20px;
-    background: rgba(0,0,0,0.1); /* 10% black */
     border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    max-width: 800px;
+    text-align: center;
+}
+
+/* Fum subtil animat în spatele descrierii */
+.title-desc::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03), transparent 70%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03), transparent 70%);
+    animation: smokeAnim 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(20px);
+}
+
+.title-desc * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Refolosim keyframes-ul existent */
+@keyframes smokeAnim {
+    0% { transform: rotate(0deg) translate(0,0); }
+    50% { transform: rotate(180deg) translate(20px, -20px); }
+    100% { transform: rotate(360deg) translate(0,0); }
 }
 
 /* Nav buttons dedesubt */
