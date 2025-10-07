@@ -50,9 +50,14 @@ window.addEventListener('click', ()=>{ startMusic(); }); // 🎵 pornește la pr
 window.addEventListener('load', ()=>{ document.getElementById('audio-icon').textContent = '🔇'; });
 
 // Slider volum
+const volumePercent = document.getElementById('volume-percent'); // span-ul care arată 0%, 50%, 100%
+
 volumeSlider.addEventListener('input', e=>{
-    music.volume = e.target.value;
+    let vol = e.target.value;
+    music.volume = vol;
+    if(volumePercent) volumePercent.textContent = Math.round(vol * 100) + '%';
 });
+
 
 // ======== Click Sound ========
 const clickSound = new Audio("https://andz7z.github.io/click.MP3");
