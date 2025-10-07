@@ -85,3 +85,15 @@ footer { margin-top:auto; padding:40px 0; font-size:0.9rem; opacity:0.6; }
   .yt-card img { width:90px; height:90px; }
   .title { font-size:3.4rem; }
 }
+/* Smooth fade effect for sections */
+.section.fade {
+  animation: fadeIn 0.6s ease-in-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Visible section on load */
+.visible { display: block; }
+
