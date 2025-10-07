@@ -16,7 +16,13 @@ if(id === 'vfx') {
     setTimeout(()=> ytCard.classList.add('pulse'), 700);
   }
 }
-
+window.addEventListener('load', () => {
+  document.body.classList.add('loaded');
+  music.play().catch(()=>{});
+  fadeInMusic();
+  playing = true;
+  document.getElementById('audio-icon').textContent = '🔊';
+});
 // ======== Music Control ========
 let music = new Audio("https://andz7z.github.io/song.mp3");
 music.loop = true; music.volume = 0;
