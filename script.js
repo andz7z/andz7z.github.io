@@ -7,6 +7,7 @@ function openSection(id){
 }
 
 // ======== Music Control ========
+// ======== Music Control ========
 let music = new Audio("https://andz7z.github.io/song.MP3");
 music.loop = true;
 music.volume = 0;
@@ -46,17 +47,23 @@ function toggleMusic(){
     playing ? music.play() : music.pause();
 }
 
-window.addEventListener('click', ()=>{ startMusic(); }); // 🎵 pornește la primul click
-window.addEventListener('load', ()=>{ document.getElementById('audio-icon').textContent = '🔇'; });
-
-// Slider volum
-const volumePercent = document.getElementById('volume-percent'); // span-ul care arată 0%, 50%, 100%
-
-volumeSlider.addEventListener('input', e=>{
-    let vol = e.target.value;
-    music.volume = vol;
-    if(volumePercent) volumePercent.textContent = Math.round(vol * 100) + '%';
+// pornește muzica doar la click pe pagină (nu pe butoane)
+window.addEventListener('click', (e)=>{
+    if(!musicStarted && !e.target.closest('button, a')){ 
+        startMusic();
+    }
 });
+
+// setăm emoji-ul la load
+window.addEventListener('load', ()=>{ 
+    document.getElementById('audio-icon').textContent = '🔇'; 
+});
+
+// ======== Slider Volum (fără procentaj) ========
+volumeSlider.addEventListener('input', e=>{
+    music.volume = e.target.value; // doar slider, fără text
+});
+
 
 
 // ======== Click Sound ========
