@@ -56,11 +56,11 @@ volumeSlider.addEventListener('input', e=>{
 
 // ======== Click Sound ========
 const clickSound = new Audio("https://andz7z.github.io/click.MP3");
-clickSound.volume = 0.15; // 🎚 volum subtil
+clickSound.volume = 0.05; // 🎚 volum subtil
 
 function playClick(){
     const sound = clickSound.cloneNode(); // creează instanță nouă pentru redare rapidă
-    sound.volume = 0.15;
+    sound.volume = 0.05;
     sound.play();
 }
 
