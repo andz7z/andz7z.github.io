@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
 /* ===== YouTube Live Stats (client-side) ===== */
 /* NOTE: Replace placeholder with your API key here or use server proxy.
    const YT_API_KEY = "AIza...."; */
-const YT_API_KEY = "YOUR_API_KEY_HERE";
+const YT_API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
 const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
 
 async function fetchYouTubeStats(){
