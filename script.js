@@ -5,6 +5,33 @@ function openSection(id){
     document.getElementById(id).classList.remove('hidden');
     window.scrollTo({ top: document.getElementById(id).offsetTop-50, behavior:'smooth' });
 }
+// ===== YouTube API =====
+const API_KEY = "YOUR_API_KEY_HERE"; // pune aici API Key-ul tău
+const CHANNEL_ID = "YOUR_CHANNEL_ID_HERE"; // pune aici Channel ID-ul
+
+async function fetchYouTubeStats() {
+    try {
+        const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+        const data = await res.json();
+
+        if (data.items && data.items.length > 0) {
+            const channel = data.items[0];
+
+            // update card
+            document.getElementById('yt-name').textContent = channel.snippet.title;
+            document.getElementById('yt-subscribers').textContent = Number(channel.statistics.subscriberCount).toLocaleString();
+            document.getElementById('yt-videos').textContent = Number(channel.statistics.videoCount).toLocaleString();
+            document.getElementById('yt-views').textContent = Number(channel.statistics.viewCount).toLocaleString();
+            document.getElementById('yt-thumbnail').src = channel.snippet.thumbnails.high.url;
+            document.getElementById('yt-link').href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
+        }
+    } catch (err) {
+        console.error("YouTube API Error:", err);
+    }
+}
+
+// Apelează la încărcarea paginii
+window.addEventListener('load', fetchYouTubeStats);
 
 // ======== Music Control ========
 let music = new Audio("https://andz7z.github.io/song.MP3");
