@@ -221,4 +221,68 @@ header {
   position: fixed;
   top: 15px;
   right: 20px;
-  background: rgba(255,255,255,0.05
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.audio-control:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+#audio-icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#volume-slider {
+  width: 100px;
+  cursor: pointer;
+}
+
+/* Particle canvas */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  padding: 40px 0;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+/* Responsive */
+@media(max-width:520px){
+  .yt-card {
+    flex-direction: column;
+    gap: 12px;
+    max-width: 90%;
+    padding: 15px;
+  }
+  .yt-card img {
+    width: 90px;
+    height: 90px;
+  }
+  .title {
+    font-size: 3.4rem;
+  }
+}
+
+/* FadeIn Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
