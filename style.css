@@ -264,27 +264,35 @@ footer {
   opacity: 0.6;
 }
 /* My Work Grid */
+/* My Work Grid: toate pe un rând, responsive */
 .projects {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  display: flex;
+  justify-content: center;
   gap: 25px;
+  flex-wrap: wrap;
   margin-top: 30px;
-  justify-items: center;
 }
 
 /* Card */
 .work-card {
-  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.3));
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
   transition: all 0.4s ease;
-  max-width: 250px;
+  width: 220px;
   backdrop-filter: blur(10px);
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+.work-card:hover {
+  transform: scale(1.05);
+}
+
+/* Imagine */
 .work-card img {
   width: 100%;
   height: 150px;
@@ -292,23 +300,20 @@ footer {
   transition: transform 0.4s ease;
 }
 
-.work-card:hover img {
-  transform: scale(1.1);
-}
-
+/* Card content */
 .card-content {
   padding: 15px;
-  background: rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  text-align: center;
 }
 
 .card-content h3 {
   font-size: 1rem;
   color: #fff;
-  text-align: center;
 }
 
 .card-content a {
@@ -326,20 +331,17 @@ footer {
   color: black;
   transform: scale(1.05);
 }
+
 /* Responsive */
-@media(max-width:520px){
-  .yt-card {
-    flex-direction: column;
-    gap: 12px;
-    max-width: 90%;
-    padding: 15px;
+@media(max-width: 800px) {
+  .work-card {
+    width: 45%;
   }
-  .yt-card img {
-    width: 90px;
-    height: 90px;
-  }
-  .title {
-    font-size: 3.4rem;
+}
+
+@media(max-width: 520px) {
+  .work-card {
+    width: 90%;
   }
 }
 
