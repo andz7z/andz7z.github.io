@@ -3,15 +3,13 @@ body {
     color: white;
     text-align: center;
     overflow-x: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* centrăm ANDZ vertical */
+    margin: 0;
+    padding: 0;
 }
 
 header {
-    transition: transform 0.8s ease;
+    position: relative;
+    padding-top: 150px; /* pentru a centra ANDZ initial */
     display: flex;
     flex-direction: column;
     align-items: center;
