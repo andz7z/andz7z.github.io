@@ -49,7 +49,7 @@ title.addEventListener('mouseenter', () => {
     if (!moved) {
         title.classList.add('move-up');  // ANDZ urcă puțin
         nav.classList.remove('hidden');
-        setTimeout(() => nav.classList.add('move-down'), 50); // butoanele coboară
+        nav.classList.add('show-buttons'); // butoanele devin vizibile dedesubt
         moved = true;
     }
 });
