@@ -1,19 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     color: white;
     text-align: center;
     overflow-x: hidden;
-    margin: 0;
-    padding: 0;
 }
 
+/* Background video + overlay */
+#bg-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -3;
+    object-fit: cover;
+    filter: brightness(0.25) contrast(1.2);
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.05), rgba(0,0,0,0.85));
+    z-index: -2;
+}
+
+/* Header centrat */
 header {
     position: relative;
-    padding-top: 150px; /* pentru a centra ANDZ initial */
+    padding-top: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 /* Titlu */
@@ -27,10 +51,10 @@ header {
 }
 
 .title.move-up {
-    transform: translateY(-50px) scale(0.9); /* ANDZ urcă puțin */
+    transform: translateY(-50px) scale(0.9);
 }
 
-/* Butoane */
+/* Nav buttons */
 .nav-buttons {
     margin-top: 20px;
     display: flex;
@@ -43,5 +67,126 @@ header {
 
 .nav-buttons.move-down {
     opacity: 1;
-    transform: translateY(40px); /* butoanele coboară */
+    transform: translateY(40px);
+}
+
+.nav-buttons button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-buttons button:hover {
+    background: white;
+    color: black;
+    transform: scale(1.1);
+}
+
+/* Sections */
+.section {
+    padding: 60px 20px;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.hidden {
+    display: none;
+}
+
+.projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.card a {
+    display: inline-block;
+    margin: 10px 0 20px;
+    color: white;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.card a:hover {
+    border-bottom: 1px solid white;
+}
+
+footer {
+    padding: 40px 0;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* Audio control */
+.audio-control {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 5px 10px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.audio-control:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+#audio-icon {
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+#volume-slider {
+    width: 100px;
+    cursor: pointer;
+}
+
+/* Particles */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
