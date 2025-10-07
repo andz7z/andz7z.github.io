@@ -1,109 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A N D Z | Portfolio</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A N D Z | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <script defer src="script.js"></script>
 </head>
 <body>
-
-<!-- Background video -->
-<video autoplay muted loop id="bg-video">
+  <!-- Background video -->
+  <video autoplay muted loop id="bg-video">
     <source src="https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4" type="video/mp4">
-</video>
-<div class="overlay"></div>
-<canvas id="particle-canvas"></canvas>
+  </video>
+  <div class="overlay"></div>
+  <canvas id="particle-canvas"></canvas>
 
-<!-- Audio control -->
-<div class="audio-control">
-    <span id="audio-icon">🔇</span>
+  <!-- Audio control -->
+  <div class="audio-control">
+    <span id="audio-icon" onclick="toggleMusic()">🔇</span>
     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0">
-</div>
+  </div>
 
-<!-- Header -->
-<header>
+  <!-- Header -->
+  <header>
     <h1 class="title" id="main-title">andzFX</h1>
     <p class="title-desc">professional services in video & photo editing, and game modding</p>
     <nav class="nav-buttons hidden">
-        <button data-section="vfx">VFX Design</button>
-        <button data-section="lua">LUA Modding</button>
-        <button data-section="work">My Work</button>
-        <button data-section="contact">Contact Me</button>
+      <button onclick="openSection('vfx')">VFX Design</button>
+      <button onclick="openSection('lua')">LUA Modding</button>
+      <button onclick="openSection('work')">My Work</button>
+      <button onclick="openSection('contact')">Contact Me</button>
     </nav>
-</header>
+  </header>
 
-<!-- VFX DESIGN -->
-<section id="vfx" class="section visible">
+  <!-- VFX DESIGN -->
+  <section id="vfx" class="hidden section">
     <div class="section-bg"></div>
     <h2>🎬 VFX Design</h2>
     <p class="section-desc">Explore my VFX projects...</p>
 
+    <!-- YouTube Card -->
     <div id="yt-stats" class="yt-card show">
-        <img id="yt-thumbnail" src="https://via.placeholder.com/120" alt="Channel Thumbnail">
-        <div class="yt-info">
-            <h3 id="yt-name">Loading channel...</h3>
-            <p><span id="yt-subscribers">0</span> subscribers</p>
-            <p><span id="yt-videos">0</span> videos</p>
-            <p><span id="yt-views">0</span> total views</p>
-            <a id="yt-link" href="#" target="_blank" class="yt-button">Visit Channel</a>
-        </div>
+      <img id="yt-thumbnail" src="https://via.placeholder.com/120" alt="Channel Thumbnail">
+      <div class="yt-info">
+        <h3 id="yt-name">Loading channel...</h3>
+        <p><span id="yt-subscribers">0</span> subscribers</p>
+        <p><span id="yt-videos">0</span> videos</p>
+        <p><span id="yt-views">0</span> total views</p>
+        <a id="yt-link" href="#" target="_blank" class="yt-button">Visit Channel</a>
+      </div>
     </div>
-    <a href="https://youtube.com/@andz79" target="_blank" class="link">@andz79 on YouTube</a>
-</section>
 
-<!-- LUA MODDING -->
-<section id="lua" class="section hidden">
+    <a href="https://youtube.com/@andz79" target="_blank" class="link">@andz79 on YouTube</a>
+  </section>
+
+  <!-- LUA MODDING -->
+  <section id="lua" class="hidden section">
     <div class="section-bg"></div>
     <h2>💻 Modding</h2>
     <p class="section-desc">My GTA: San Andreas Lua mods...</p>
     <a href="https://youtube.com/@visuals_mods" target="_blank" class="link">@visuals_mods on YouTube</a>
-</section>
+  </section>
 
-<!-- MY WORK -->
-<section id="work" class="section hidden">
+  <!-- MY WORK -->
+  <section id="work" class="hidden section">
     <div class="section-bg"></div>
     <h2>My Projects</h2>
     <div class="projects">
-        <div class="card">
-            <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Seasons">
-            <h3>🏝 SEASON CHANGER ☃️</h3>
-            <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-        <div class="card">
-            <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Timechanger">
-            <h3>☀️ TIME CHANGER 🌜</h3>
-            <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-        <div class="card">
-            <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags">
-            <h3>🎫 NAMETAGS CUSTOM 🎟</h3>
-            <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-        <div class="card">
-            <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skinchanger">
-            <h3>🙎‍♂️ SKIN CHANGER 🤵‍♂️</h3>
-            <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-    </div>
-</section>
+      <div class="card">
+        <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Seasons">
+        <h3>🏝 SEASON CHANGER ☃️</h3>
+        <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
 
-<!-- CONTACT -->
-<section id="contact" class="section hidden">
+      <div class="card">
+        <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Timechanger">
+        <h3>☀️ TIME CHANGER 🌜</h3>
+        <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags">
+        <h3>🎫 NAMETAGS CUSTOM 🎟</h3>
+        <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
+
+      <div class="card">
+        <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skinchanger">
+        <h3>🙎‍♂️ SKIN CHANGER 🤵‍♂️</h3>
+        <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="hidden section">
     <div class="section-bg"></div>
     <h2>📞 Contact Me</h2>
     <div class="contact-card">
-        <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
-        <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
-        <p><strong>Discord:</strong> <span>andz7z</span></p>
+      <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+      <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
+      <p><strong>Discord:</strong> <span>andz7z</span></p>
     </div>
-</section>
+  </section>
 
-<footer>
+  <footer>
     <p>© 2025 ANDZ | Crafted with passion 🧊</p>
-</footer>
-
-<script src="script.js" defer></script>
+  </footer>
 </body>
 </html>
