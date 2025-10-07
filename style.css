@@ -190,27 +190,36 @@ header {
   display: none;
 }
 /* Contact Section */
-/* Contact Section – Premium Glow Alb */
+/* CONTACT SECTION – GRI PREMIUM CU HOVER ÎNTUNECAT */
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 25px;
+  margin-top: 40px;
+  flex-direction: row;
+}
+
 .contact-card {
-  background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.65) 100%);
+  background: linear-gradient(135deg, rgba(160,160,160,0.15) 0%, rgba(100,100,100,0.25) 100%);
   border-radius: 20px;
-  padding: 20px 25px;
-  min-width: 200px;
-  max-width: 250px;
+  padding: 25px 30px;
+  width: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 4px 20px rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 4px 15px rgba(255,255,255,0.05);
   position: relative;
   overflow: hidden;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
   cursor: pointer;
 }
 
-/* Animatie subtila shine */
+/* Shine diagonal animat subtil */
 .contact-card::before {
   content: '';
   position: absolute;
@@ -218,7 +227,7 @@ header {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.05) 100%);
+  background: linear-gradient(120deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.03) 100%);
   transform: rotate(25deg) translateX(-100%);
   transition: all 0.6s ease;
 }
@@ -227,25 +236,28 @@ header {
   transform: rotate(25deg) translateX(100%);
 }
 
-/* Glow alb si hover */
+/* Hover efect – se întunecă, devine gri mai închis + glow alb */
 .contact-card:hover {
-  transform: scale(1.08) translateY(-5px);
-  box-shadow: 0 0 30px rgba(255,255,255,0.4);
+  background: linear-gradient(135deg, rgba(60,60,60,0.45) 0%, rgba(30,30,30,0.55) 100%);
+  transform: scale(1.07) translateY(-5px);
+  box-shadow: 0 0 25px rgba(255,255,255,0.35);
 }
 
 /* Icon + text */
 .contact-icon {
   font-size: 2rem;
-  transition: transform 0.35s ease, color 0.35s ease, text-shadow 0.35s ease;
+  color: #fff;
+  transition: transform 0.35s ease, text-shadow 0.35s ease;
 }
 
 .contact-card:hover .contact-icon {
-  transform: scale(1.15) rotate(-5deg);
-  color: #fff;
-  text-shadow: 0 0 12px rgba(255,255,255,0.6);
+  transform: scale(1.1) rotate(-3deg);
+  text-shadow: 0 0 10px rgba(255,255,255,0.6);
 }
 
-.contact-card p, .contact-card a, .contact-card span {
+.contact-card p,
+.contact-card a,
+.contact-card span {
   font-size: 0.95rem;
   color: #fff;
   text-align: center;
@@ -254,37 +266,27 @@ header {
 }
 
 .contact-card a:hover {
-  color: #fff;
-  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+  text-shadow: 0 0 10px rgba(255,255,255,0.7);
 }
 
-.contact-note {
-  margin-top: 20px;
-  font-size: 0.9rem;
-  opacity: 0.7;
-  color: #fff;
-  animation: fadeSlideIn 1s ease forwards 1s;
+/* RESPONSIVE */
+@media(max-width: 1100px) {
+  .contact-cards {
+    flex-wrap: wrap;
+  }
 }
 
+@media(max-width: 600px) {
+  .contact-card {
+    width: 90%;
+  }
+}
 /* Optional fade + slide animation */
 @keyframes fadeSlideIn {
   0% { opacity: 0; transform: translateY(15px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive – Mobile */
-@media(max-width: 1000px) {
-  .contact-card {
-    width: 45%; /* 2 pe rând pe ecrane medii */
-  }
-}
-
-@media(max-width: 600px) {
-  .contact-card {
-    width: 90%; /* 1 pe rând pe mobil */
-  }
-}
-/* YouTube Card */
 .yt-card {
   display: flex;
   align-items: center;
