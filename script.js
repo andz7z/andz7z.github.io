@@ -1,11 +1,12 @@
+// ======== Section Switcher ========
 function openSection(id) {
   document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
   window.scrollTo({ top: document.getElementById(id).offsetTop - 50, behavior: 'smooth' });
 }
 
-// Music Control
-let music = new Audio("https://files.catbox.moe/3wj8tz.mp3"); // mp3 reupload of ambient track
+// ======== Music Control ========
+let music = new Audio("https://andz7z.github.io/song.mp3");
 music.loop = true;
 music.volume = 0.4;
 let playing = false;
@@ -16,7 +17,26 @@ function toggleMusic() {
   playing ? music.play() : music.pause();
 }
 
-// Particle effect (no lag)
+const volumeSlider = document.getElementById('volume-slider');
+volumeSlider.addEventListener('input', e => {
+  music.volume = e.target.value;
+});
+
+// ======== Title Animation ========
+const title = document.getElementById('main-title');
+const nav = document.querySelector('.nav-buttons');
+let moved = false;
+
+title.addEventListener('mouseenter', () => {
+  if (!moved) {
+    title.classList.add('move-up');
+    nav.classList.remove('hidden');
+    setTimeout(() => nav.classList.add('show'), 200);
+    moved = true;
+  }
+});
+
+// ======== Particle Effect ========
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [];
@@ -52,7 +72,7 @@ class Particle {
     this.alpha -= 0.02;
   }
   draw() {
-    ctx.fillStyle = rgba(255,255,255,${this.alpha});
+    ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
     ctx.beginPath();
     ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
     ctx.fill();
