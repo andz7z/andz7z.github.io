@@ -263,7 +263,69 @@ footer {
   font-size: 0.9rem;
   opacity: 0.6;
 }
+/* My Work Grid */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+  justify-items: center;
+}
 
+/* Card */
+.work-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.3));
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  max-width: 250px;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.work-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.work-card:hover img {
+  transform: scale(1.1);
+}
+
+.card-content {
+  padding: 15px;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-content h3 {
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+}
+
+.card-content a {
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.card-content a:hover {
+  background: white;
+  color: black;
+  transform: scale(1.05);
+}
 /* Responsive */
 @media(max-width:520px){
   .yt-card {
