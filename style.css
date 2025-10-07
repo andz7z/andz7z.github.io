@@ -110,6 +110,16 @@ main{ padding:20px 6vw 80px; display:block; z-index:3; position:relative; }
 .contact-card h4{ margin:0 0 6px 0; color:var(--text); }
 .contact-card a{ color:var(--accent); text-decoration:none; }
 
+@media (max-width: 768px) {
+  #bg-video {
+    display: none !important;
+  }
+  .bg-fallback {
+    background: radial-gradient(circle at 50% 40%, #111 0%, #000 100%) !important;
+    display: block !important;
+  }
+}
+
 /* Footer */
 footer{ text-align:center; padding:28px 0; color:var(--muted); }
 
