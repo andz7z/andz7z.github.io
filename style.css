@@ -85,6 +85,8 @@ footer { margin-top:auto; padding:40px 0; font-size:0.9rem; opacity:0.6; }
 /* Visible state triggers animation */
 .yt-card.show {
   animation: ytAppear 700ms cubic-bezier(.2,.9,.3,1) forwards;
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
 }
 
 /* slide up + fade */
