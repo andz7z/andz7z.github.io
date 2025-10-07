@@ -101,15 +101,40 @@ header {
     transform: scale(1.1);
 }
 
-/* Sections */
+/* Sections cu background subtil + fum animat */
 .section {
     padding: 60px 20px;
     animation: fadeIn 0.5s ease forwards;
+    background: rgba(0,0,0,0.1);
+    margin: 20px auto;
+    border-radius: 15px;
+    max-width: 1000px;
+    position: relative;
+    overflow: hidden;
 }
 
-.hidden {
-    display: none;
+.section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.03), transparent 70%),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.03), transparent 70%);
+    animation: smokeAnim 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(20px);
 }
+
+.section * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Restul CSS-ului */
+.hidden { display: none; }
 
 .projects {
     display: grid;
@@ -132,11 +157,7 @@ header {
     box-shadow: 0 0 20px rgba(255,255,255,0.2);
 }
 
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-}
+.card img { width: 100%; height: 180px; object-fit: cover; }
 
 .card a {
     display: inline-block;
@@ -147,11 +168,8 @@ header {
     transition: all 0.3s ease;
 }
 
-.card a:hover {
-    border-bottom: 1px solid white;
-}
+.card a:hover { border-bottom: 1px solid white; }
 
-/* Footer fix jos */
 footer {
     margin-top: auto;
     padding: 40px 0;
@@ -177,31 +195,20 @@ footer {
     z-index: 10;
 }
 
-.audio-control:hover {
-    background: rgba(255,255,255,0.2);
-}
+.audio-control:hover { background: rgba(255,255,255,0.2); }
 
-#audio-icon {
-    cursor: pointer;
-    font-size: 1.2rem;
-}
-
-#volume-slider {
-    width: 100px;
-    cursor: pointer;
-}
+#audio-icon { cursor: pointer; font-size: 1.2rem; }
+#volume-slider { width: 100px; cursor: pointer; }
 
 /* Particles */
-#particle-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
+#particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+/* Scrollbar custom */
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; transition: all 0.3s ease; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+
+/* Animatii */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes smokeAnim { 0% { transform: rotate(0deg) translate(0,0); } 50% { transform: rotate(180deg) translate(20px, -20px); } 100% { transform: rotate(360deg) translate(0,0); } }
