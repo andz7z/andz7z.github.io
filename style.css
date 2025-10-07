@@ -34,10 +34,10 @@ body {
     z-index: -2;
 }
 
-/* Header centrat */
+/* Header centrat vertical */
 header {
     position: relative;
-    padding-top: 150px;
+    padding-top: 100px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -55,10 +55,19 @@ header {
 }
 
 .title.move-up {
-    transform: translateY(-50px) scale(0.9);
+    transform: translateY(-30px) scale(0.9);
 }
 
-/* Nav buttons */
+/* Descriere sub titlu */
+.title-desc {
+    margin-top: 10px;
+    font-size: 1.3rem;
+    padding: 10px 20px;
+    background: rgba(0,0,0,0.1); /* 10% black */
+    border-radius: 10px;
+}
+
+/* Nav buttons dedesubt */
 .nav-buttons {
     margin-top: 20px;
     display: flex;
@@ -69,9 +78,8 @@ header {
     transition: all 0.6s ease;
 }
 
-.nav-buttons.move-down {
+.nav-buttons.show-buttons {
     opacity: 1;
-    transform: translateY(40px);
 }
 
 .nav-buttons button {
