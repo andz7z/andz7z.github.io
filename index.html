@@ -6,7 +6,6 @@
 <title>A N D Z | Portfolio</title>
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<script defer src="script.js"></script>
 </head>
 <body>
 
@@ -19,7 +18,7 @@
 
 <!-- Audio control -->
 <div class="audio-control">
-    <span id="audio-icon" onclick="toggleMusic()">🔇</span>
+    <span id="audio-icon">🔇</span>
     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0">
 </div>
 
@@ -28,20 +27,19 @@
     <h1 class="title" id="main-title">andzFX</h1>
     <p class="title-desc">professional services in video & photo editing, and game modding</p>
     <nav class="nav-buttons hidden">
-        <button onclick="openSection('vfx')">VFX Design</button>
-        <button onclick="openSection('lua')">LUA Modding</button>
-        <button onclick="openSection('work')">My Work</button>
-        <button onclick="openSection('contact')">Contact Me</button>
+        <button data-section="vfx">VFX Design</button>
+        <button data-section="lua">LUA Modding</button>
+        <button data-section="work">My Work</button>
+        <button data-section="contact">Contact Me</button>
     </nav>
 </header>
 
 <!-- VFX DESIGN -->
-<section id="vfx" class="hidden section">
+<section id="vfx" class="section visible">
     <div class="section-bg"></div>
     <h2>🎬 VFX Design</h2>
     <p class="section-desc">Explore my VFX projects...</p>
 
-    <!-- YouTube Card -->
     <div id="yt-stats" class="yt-card show">
         <img id="yt-thumbnail" src="https://via.placeholder.com/120" alt="Channel Thumbnail">
         <div class="yt-info">
@@ -56,7 +54,7 @@
 </section>
 
 <!-- LUA MODDING -->
-<section id="lua" class="hidden section">
+<section id="lua" class="section hidden">
     <div class="section-bg"></div>
     <h2>💻 Modding</h2>
     <p class="section-desc">My GTA: San Andreas Lua mods...</p>
@@ -64,7 +62,7 @@
 </section>
 
 <!-- MY WORK -->
-<section id="work" class="hidden section">
+<section id="work" class="section hidden">
     <div class="section-bg"></div>
     <h2>My Projects</h2>
     <div class="projects">
@@ -92,7 +90,7 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="hidden section">
+<section id="contact" class="section hidden">
     <div class="section-bg"></div>
     <h2>📞 Contact Me</h2>
     <div class="contact-card">
@@ -106,5 +104,6 @@
     <p>© 2025 ANDZ | Crafted with passion 🧊</p>
 </footer>
 
+<script src="script.js" defer></script>
 </body>
 </html>
