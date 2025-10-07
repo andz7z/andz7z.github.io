@@ -1,4 +1,4 @@
-// 🎵 Muzică de fundal cu fade-in
+// 🎵 Muzica de fundal cu fade-in
 const music = document.getElementById("bgMusic");
 const volumeSlider = document.getElementById("volume");
 const volumeLabel = document.getElementById("volumeLabel");
@@ -25,9 +25,9 @@ volumeSlider.addEventListener("input", () => {
 });
 
 // 💬 Typewriter Effect
-const text = "I provide video, photo editing & modding services for games.";
+const text = "I provide professional video, photo editing & modding services for games.";
 let index = 0;
-const speed = 70;
+const speed = 50;
 
 function typeWriter() {
   if (index < text.length) {
@@ -39,9 +39,10 @@ function typeWriter() {
 
 window.onload = () => {
   typeWriter();
+  music.play();
 };
 
-// 📁 Deschidere secțiuni (butoane)
+// 🖱️ Arată secțiuni la click
 function showInfo(id) {
   const items = document.querySelectorAll(".info-item");
   items.forEach((item) => {
@@ -58,7 +59,7 @@ function showInfo(id) {
   });
 }
 
-// 🖱️ Mic efect de click pe butoane
+// 🎨 Butoane efect click
 document.querySelectorAll("button").forEach((btn) => {
   btn.addEventListener("click", () => {
     btn.style.transform = "scale(0.9)";
