@@ -185,6 +185,20 @@ class Particle {
     ctx.fill();
   }
 }
+const titleEl = document.getElementById("main-title");
+
+titleEl.addEventListener("mousemove", e => {
+  const rect = titleEl.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  titleEl.style.setProperty("--x", `${x}px`);
+  titleEl.style.setProperty("--y", `${y}px`);
+  titleEl.classList.add("hovering");
+});
+
+titleEl.addEventListener("mouseleave", () => {
+  titleEl.classList.remove("hovering");
+});
 
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
