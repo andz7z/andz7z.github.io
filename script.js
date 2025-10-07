@@ -25,19 +25,19 @@ volumeSlider.addEventListener('input', e => {
     music.volume = e.target.value;
 });
 
-// Autoplay + volum gradual până la 0.3
+// Autoplay + volum gradual până la 0.3 (~30%)
 window.addEventListener('load', () => {
     music.play().catch(() => {}); 
     let vol = 0;
     const interval = setInterval(() => {
         if (vol < 0.3) {
-            vol += 0.005; // crește treptat mai lent
+            vol += 0.005;
             music.volume = vol;
             volumeSlider.value = vol;
         } else {
             clearInterval(interval);
         }
-    }, 100); 
+    }, 100);
 });
 
 // ======== Title Animation ========
