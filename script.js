@@ -1,75 +1,129 @@
 // ======== Section Switcher ========
 function openSection(id){
+    playClick(); // 🔊 sunet click
     document.querySelectorAll('.section').forEach(sec=>sec.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
     window.scrollTo({ top: document.getElementById(id).offsetTop-50, behavior:'smooth' });
 }
 
 // ======== Music Control ========
-let music = new Audio("https://andz7z.github.io/song.mp3");
-music.loop = true; music.volume = 0;
-let playing=false;
+let music = new Audio("https://andz7z.github.io/song.MP3");
+music.loop = true;
+music.volume = 0;
+let playing = false;
 
 const volumeSlider = document.getElementById('volume-slider');
 
+// fade-in lent (0 → 0.2)
 function fadeInMusic(){
     let vol = 0;
     const interval = setInterval(()=>{
-        vol+=0.004;
-        if(vol>=0.2){ vol=0.2; clearInterval(interval); }
-        music.volume=vol;
-        volumeSlider.value=vol;
-    },100);
+        vol += 0.01;
+        if(vol >= 0.2){ vol = 0.2; clearInterval(interval); }
+        music.volume = vol;
+        volumeSlider.value = vol;
+    }, 1000); // crește la fiecare secundă (≈ 20 secunde fade total)
 }
 
 function toggleMusic(){
+    playClick(); // 🔊 sunet click
     playing = !playing;
-    document.getElementById('audio-icon').textContent = playing?'🔊':'🔇';
-    playing? music.play():music.pause();
+    document.getElementById('audio-icon').textContent = playing ? '🔊' : '🔇';
+    playing ? music.play() : music.pause();
 }
 
-window.addEventListener('load',()=>{
+window.addEventListener('load', ()=>{
+    music.currentTime = 0; // începe de la începutul melodiei
     music.play();
     fadeInMusic();
-    playing=true;
-    document.getElementById('audio-icon').textContent='🔊';
+    playing = true;
+    document.getElementById('audio-icon').textContent = '🔊';
 });
 
-// Slider
-volumeSlider.addEventListener('input', e=>{ music.volume = e.target.value; });
+// Slider volum
+volumeSlider.addEventListener('input', e=>{
+    music.volume = e.target.value;
+});
+
+// ======== Click Sound ========
+const clickSound = new Audio("https://andz7z.github.io/click.MP3");
+clickSound.volume = 0.5;
+
+function playClick(){
+    const sound = clickSound.cloneNode(); // creează instanță nouă pt. redare rapidă
+    sound.play();
+}
+
+// atașăm click sound la toate butoanele
+document.addEventListener('DOMContentLoaded', ()=>{
+    document.querySelectorAll('button, .nav-buttons button, .nav-buttons a')
+        .forEach(btn=>{
+            btn.addEventListener('click', ()=> playClick());
+        });
+});
 
 // ======== Title Animation ========
 const title = document.getElementById('main-title');
 const nav = document.querySelector('.nav-buttons');
-let moved=false;
+let moved = false;
 
 title.addEventListener('mouseenter', ()=>{
     if(!moved){
+        playClick(); // 🔊 efect subtil la deschiderea meniului
         title.classList.add('move-up');
         nav.classList.remove('hidden');
-        setTimeout(()=> nav.classList.add('show-buttons'),200);
-        moved=true;
+        setTimeout(()=> nav.classList.add('show-buttons'), 200);
+        moved = true;
     }
 });
 
 // ======== Particle Effect ========
-const canvas=document.getElementById('particle-canvas');
-const ctx=canvas.getContext('2d');
-let particles=[], mouse={x:0,y:0};
-canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [], mouse = {x:0,y:0};
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-window.addEventListener('resize',()=>{ canvas.width=window.innerWidth; canvas.height=window.innerHeight; });
-window.addEventListener('mousemove', e=>{ mouse.x=e.x; mouse.y=e.y; for(let i=0;i<2;i++) particles.push(new Particle()); });
+window.addEventListener('resize', ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+window.addEventListener('mousemove', e=>{
+    mouse.x = e.x;
+    mouse.y = e.y;
+    for(let i=0;i<2;i++) particles.push(new Particle());
+});
 
 class Particle{
-    constructor(){ this.x=mouse.x; this.y=mouse.y; this.size=Math.random()*3+1; this.speedX=(Math.random()*2)-1; this.speedY=(Math.random()*2)-1; this.alpha=1; }
-    update(){ this.x+=this.speedX; this.y+=this.speedY; this.alpha-=0.02; }
-    draw(){ ctx.fillStyle=`rgba(255,255,255,${this.alpha})`; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill(); }
+    constructor(){
+        this.x = mouse.x;
+        this.y = mouse.y;
+        this.size = Math.random()*3 + 1;
+        this.speedX = (Math.random()*2) - 1;
+        this.speedY = (Math.random()*2) - 1;
+        this.alpha = 1;
+    }
+    update(){
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.alpha -= 0.02;
+    }
+    draw(){
+        ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+        ctx.fill();
+    }
 }
 
 function animateParticles(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach((p,i)=>{ p.update(); p.draw(); if(p.alpha<=0) particles.splice(i,1); });
+    particles.forEach((p,i)=>{
+        p.update();
+        p.draw();
+        if(p.alpha <= 0) particles.splice(i,1);
+    });
     requestAnimationFrame(animateParticles);
 }
 
