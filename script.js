@@ -11,7 +11,7 @@ function openSection(id) {
 // ======== Music Control ========
 let music = new Audio("https://andz7z.github.io/song.mp3");
 music.loop = true;
-music.volume = 0; // start 0
+music.volume = 0; // start de la 0
 let playing = true;
 
 function toggleMusic() {
@@ -25,19 +25,19 @@ volumeSlider.addEventListener('input', e => {
     music.volume = e.target.value;
 });
 
-// autoplay + volum gradual
+// Autoplay + volum gradual până la 0.3
 window.addEventListener('load', () => {
-    music.play().catch(() => {}); // some browsers block autoplay, ignora
+    music.play().catch(() => {}); 
     let vol = 0;
     const interval = setInterval(() => {
-        if (vol < 0.5) {
-            vol += 0.01;
+        if (vol < 0.3) {
+            vol += 0.005; // crește treptat mai lent
             music.volume = vol;
             volumeSlider.value = vol;
         } else {
             clearInterval(interval);
         }
-    }, 100); // creste treptat la fiecare 0.1 secunde
+    }, 100); 
 });
 
 // ======== Title Animation ========
@@ -47,10 +47,9 @@ let moved = false;
 
 title.addEventListener('mouseenter', () => {
     if (!moved) {
-        // muta mai jos titlul + butoanele
-        title.classList.add('move-down');
+        title.classList.add('move-up');  // ANDZ urcă puțin
         nav.classList.remove('hidden');
-        setTimeout(() => nav.classList.add('show'), 200);
+        setTimeout(() => nav.classList.add('move-down'), 50); // butoanele coboară
         moved = true;
     }
 });
