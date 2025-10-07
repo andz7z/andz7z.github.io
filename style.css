@@ -190,85 +190,88 @@ header {
   display: none;
 }
 /* Contact Section */
-/* Contact Section Premium */
-.contact-cards {
+/* My Work Cards – Premium Layout */
+.projects {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 25px;
+  gap: 20px;
   margin-top: 30px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeSlideIn 1s ease forwards 0.5s; /* apare elegant */
 }
 
-.contact-card {
-  background: linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.75));
-  border-radius: 25px;
-  padding: 25px 30px;
-  min-width: 220px;
-  max-width: 260px;
+.projects .card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(0,0,0,0.6));
+  border-radius: 20px;
+  padding: 15px;
+  width: 220px; /* mic ca să încapă 4 pe rând */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4), 0 0 15px rgba(255,140,60,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 4px 15px rgba(255,255,255,0.05);
   transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
   cursor: pointer;
 }
 
-.contact-card:hover {
-  transform: scale(1.07) translateY(-5px);
-  box-shadow: 0 10px 35px rgba(0,0,0,0.5), 0 0 20px rgba(255,140,60,0.2);
-  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.85));
+.projects .card:hover {
+  transform: scale(1.08) translateY(-5px);
+  box-shadow: 0 0 25px rgba(255,255,255,0.4); /* glow alb */
+  background: linear-gradient(180deg, rgba(255,255,255,0.1), rgba(0,0,0,0.7));
 }
 
-.contact-icon {
-  font-size: 2.2rem;
-  display: block;
-  margin-bottom: 8px;
-  transition: transform 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
+.projects .card img {
+  width: 100%;
+  height: 130px;
+  border-radius: 15px;
+  border: 2px solid rgba(255,255,255,0.12);
+  object-fit: cover;
+  transition: transform 0.35s ease;
 }
 
-.contact-card:hover .contact-icon {
-  transform: rotate(-10deg) scale(1.15);
-  color: #ff8c3c;
-  text-shadow: 0 0 15px rgba(255,140,60,0.6);
+.projects .card:hover img {
+  transform: scale(1.05);
 }
 
-.contact-card p {
-  font-size: 0.95rem;
+.projects .card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  margin: 5px 0;
   color: #fff;
   text-align: center;
-  margin: 0;
 }
 
-.contact-card a {
+.projects .card a {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.08);
   color: #fff;
+  border-radius: 10px;
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
 }
 
-.contact-card a:hover {
-  color: #ff8c3c;
-  text-shadow: 0 0 8px rgba(255,140,60,0.6);
-}
-
-.contact-note {
-  margin-top: 25px;
-  font-size: 0.9rem;
-  opacity: 0.7;
+.projects .card a:hover {
   color: #fff;
-  animation: fadeSlideIn 1s ease forwards 1s;
+  background: rgba(255,255,255,0.2);
+  box-shadow: 0 0 15px rgba(255,255,255,0.3); /* glow alb link */
 }
 
-/* Fade + slide animation */
-@keyframes fadeSlideIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Responsive – pentru mobil */
+@media(max-width: 1000px) {
+  .projects .card {
+    width: 45%; /* 2 pe rând pe ecrane medii */
+  }
+}
+
+@media(max-width: 600px) {
+  .projects .card {
+    width: 90%; /* 1 pe rând pe mobil */
+  }
 }
 /* YouTube Card */
 .yt-card {
