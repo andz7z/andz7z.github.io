@@ -1,99 +1,119 @@
-/* Reset & font */
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:'Poppins',sans-serif; color:white; text-align:center; overflow-x:hidden; min-height:100vh; display:flex; flex-direction:column; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 
-/* Background video + overlay */
-#bg-video { position:fixed; right:0; bottom:0; min-width:100%; min-height:100%; z-index:-3; object-fit:cover; filter:brightness(0.25) contrast(1.2); }
-.overlay { position:fixed; width:100%; height:100%; background: radial-gradient(circle at center, rgba(255,255,255,0.05), rgba(0,0,0,0.85)); z-index:-2; }
+body {
+  background-color: #0c0c0c;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+#bgVideo {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(30%);
+}
 
 /* Header */
-header { position:relative; padding-top:100px; display:flex; flex-direction:column; align-items:center; z-index:1; }
-.title { font-family:'Orbitron',sans-serif; font-size:6rem; letter-spacing:5px; text-shadow:0 0 20px rgba(255,255,255,0.6),0 0 40px rgba(180,180,180,0.3); transition:transform 0.6s ease; cursor:pointer; }
-.title.move-up { transform:translateY(-30px) scale(0.9); }
-.title-desc { margin-top:10px; font-size:1rem; padding:5px 15px; border-radius:10px; position:relative; overflow:hidden; color: rgba(255,255,255,0.8); max-width:600px; text-align:center; z-index:1; transition:all 0.3s ease; }
-.title-desc:hover { background:rgba(0,0,0,0.1); backdrop-filter:blur(3px); }
-
-/* Nav buttons */
-.nav-buttons { margin-top:20px; display:flex; justify-content:center; gap:20px; opacity:0; flex-wrap:wrap; transition:all 0.6s ease; }
-.nav-buttons.show-buttons { opacity:1; }
-.nav-buttons button { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); color:white; padding:10px 25px; border-radius:50px; font-size:1rem; backdrop-filter:blur(10px); cursor:pointer; transition:all 0.3s ease; z-index:2; }
-.nav-buttons button:hover { background:white; color:black; transform:scale(1.1); }
-
-/* Sections */
-.section { padding:60px 20px; animation:fadeIn 0.5s ease forwards; border-radius:15px; max-width:1000px; margin:20px auto; position:relative; overflow:hidden; }
-.section-bg { position:absolute; top:0; left:0; width:100%; height:100%; background:url('https://i.imgur.com/0Zqk0Sx.gif') center/cover no-repeat; opacity:0.06; pointer-events:none; z-index:0; }
-.section * { position:relative; z-index:1; }
-.section-desc { background:rgba(0,0,0,0.1); padding:10px 15px; border-radius:10px; margin-top:10px; display:inline-block; transition:all 0.3s ease; }
-.section-desc:hover { background:rgba(0,0,0,0.2); }
-.hidden { display:none; }
-
-/* YouTube Card Modern */
-.yt-card {
-  display:flex;
-  align-items:center;
-  gap:20px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:20px;
-  padding:20px;
-  max-width:420px;
-  margin:30px auto;
-  backdrop-filter:blur(10px);
-  position:relative;
-  z-index:2;
-  opacity:1;
-  transition: all 0.4s ease;
+header {
+  text-align: center;
+  margin-top: 15vh;
+  position: relative;
 }
-.yt-card img {
-  width:120px;
-  height:120px;
-  border-radius:12px;
-  border:2px solid rgba(255,255,255,0.12);
-  object-fit:cover;
-}
-.yt-info { text-align:left; flex:1; }
-.yt-info h3 { font-family: 'Orbitron', sans-serif; font-size:1.2rem; margin-bottom:5px; }
-.yt-info p { font-size:0.9rem; opacity:0.9; margin:3px 0; }
-.yt-button {
-  display:inline-block;
-  margin-top:8px;
-  padding:6px 12px;
-  background: rgba(255,255,255,0.1);
-  color:white;
-  border-radius:12px;
-  text-decoration:none;
-  font-weight:600;
-  transition:all 0.3s ease;
-}
-.yt-button:hover { background:white; color:black; transform:scale(1.05); }
 
-/* Audio */
-.audio-control { position:fixed; top:15px; right:20px; background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.2); border-radius:50px; display:flex; align-items:center; gap:10px; padding:5px 10px; backdrop-filter:blur(8px); z-index:10; }
-.audio-control:hover { background: rgba(255,255,255,0.2); }
-#audio-icon{ cursor:pointer; font-size:1.2rem; } 
-#volume-slider{ width:100px; cursor:pointer; }
-
-/* Particle canvas */
-#particle-canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
-
-/* Footer */
-footer { margin-top:auto; padding:40px 0; font-size:0.9rem; opacity:0.6; }
-
-/* Responsive */
-@media(max-width:520px){
-  .yt-card { flex-direction:column; gap:12px; max-width:90%; padding:15px; }
-  .yt-card img { width:90px; height:90px; }
-  .title { font-size:3.4rem; }
+#main-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  color: #fff;
+  transition: transform 0.4s ease, color 0.4s ease;
 }
-/* Smooth fade effect for sections */
-.section.fade {
-  animation: fadeIn 0.6s ease-in-out;
+
+#main-title:hover {
+  color: #a00045;
 }
+
+/* Move up when nav appears */
+.move-up {
+  transform: translateY(-60px);
+}
+
+/* NAV buttons (hidden by default) */
+.nav-buttons {
+  position: absolute;
+  top: 110px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  display: flex;
+  gap: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 50;
+}
+
+.nav-buttons.show-buttons {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.nav-buttons button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 30px;
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.nav-buttons button:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
+
+/* Section content */
+main {
+  text-align: center;
+  margin-top: 15vh;
+}
+
+.section {
+  display: none;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  animation: fadeIn 0.6s ease;
+}
+
+.section:not(.hidden) {
+  display: block;
+}
+
+.hidden {
+  display: none !important;
+}
+
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(15px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Visible section on load */
-.visible { display: block; }
-
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 10vh;
+  font-size: 0.9rem;
+  color: #aaa;
+}
