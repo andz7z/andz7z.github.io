@@ -25,13 +25,13 @@ volumeSlider.addEventListener('input', e => {
     music.volume = e.target.value;
 });
 
-// Autoplay + volum gradual până la 0.3 (~30%)
+// Autoplay + volum gradual până la 0.2 (~20%)
 window.addEventListener('load', () => {
-    music.play().catch(() => {}); 
+    music.play().catch(() => {});
     let vol = 0;
     const interval = setInterval(() => {
-        if (vol < 0.3) {
-            vol += 0.005;
+        if (vol < 0.2) {
+            vol += 0.002;
             music.volume = vol;
             volumeSlider.value = vol;
         } else {
