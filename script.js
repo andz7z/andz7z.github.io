@@ -1,92 +1,71 @@
-/* ========== Basic helpers & DOM ========== */
-const $ = sel => document.querySelector(sel);
-const $$ = sel => Array.from(document.querySelectorAll(sel));
-
-/* --- Intro cinematic --- */
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    const intro = $('#intro');
-    if (!intro) return;
-    intro.style.transition = 'opacity 700ms ease, transform 700ms ease';
-    intro.style.opacity = 0;
-    intro.style.transform = 'scale(0.98)';
-    setTimeout(()=> intro.remove(), 750);
-  }, 2000);
-
-  // fallback absolut: închide intro după 5 secunde indiferent
-  setTimeout(() => {
-    const intro = $('#intro');
-    if (intro) intro.remove();
-  }, 5000);
-});
-
-/* --- Theme toggle (dark <-> ice) --- */
-const themeToggle = $('#theme-toggle');
-themeToggle.addEventListener('click', () => {
-  const body = document.body;
-  const current = body.getAttribute('data-theme');
-  const next = current === 'dark' ? 'ice' : 'dark';
-  body.setAttribute('data-theme', next);
-  // small icon flip
-  themeToggle.textContent = next === 'dark' ? '❄️' : '🌙';
-});
-
-/* --- Sections nav --- */
-$$('.nav-buttons button').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const target = btn.dataset.target;
-    $$('.panel').forEach(p => p.classList.add('hidden'));
-    const el = document.getElementById(target);
-    if (el) el.classList.remove('hidden');
-    window.scrollTo({ top: (el ? el.offsetTop - 60 : 0), behavior: 'smooth' });
-  });
-});
-
-/* open default hero visible (already visible) */
-
-/* --- Parallax hover on cards (3D subtle) --- */
-$$('.card').forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width; // 0..1
-    const y = (e.clientY - rect.top) / rect.height;
-    const rotY = (x - 0.5) * 10; // degrees
-    const rotX = (0.5 - y) * 6;
-    card.style.transform = `perspective(800px) rotateY(${rotY}deg) rotateX(${rotX}deg) translateZ(6px)`;
-  });
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
-});
-
-/* ========== Particles (very light) ========== */
-const pCanvas = document.getElementById('particle-canvas');
-const pCtx = pCanvas.getContext('2d');
-let particles = [];
-function resizeCanvas() {
-  pCanvas.width = innerWidth;
-  pCanvas.height = innerHeight;
+function openSection(id) {
+  document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  window.scrollTo({ top: document.getElementById(id).offsetTop - 50, behavior: 'smooth' });
 }
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
 
-window.addEventListener('mousemove', (e) => {
-  // push small number of particles
-  for (let i=0;i<2;i++){
-    particles.push({
-      x: e.clientX + (Math.random()-0.5)*30,
-      y: e.clientY + (Math.random()-0.5)*30,
-      vx: (Math.random()-0.5)*0.6,
-      vy: (Math.random()-0.3)*0.6,
-      life: 1.0,
-      size: 1 + Math.random()*2
-    });
+// Music Control
+let music = new Audio("https://files.catbox.moe/3wj8tz.mp3"); // mp3 reupload of ambient track
+music.loop = true;
+music.volume = 0.4;
+let playing = false;
+
+function toggleMusic() {
+  playing = !playing;
+  document.getElementById('audio-icon').textContent = playing ? '🔊' : '🔇';
+  playing ? music.play() : music.pause();
+}
+
+// Particle effect (no lag)
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let mouse = { x: 0, y: 0 };
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+window.addEventListener('mousemove', e => {
+  mouse.x = e.x;
+  mouse.y = e.y;
+  for (let i = 0; i < 2; i++) {
+    particles.push(new Particle());
   }
 });
 
-function renderParticles(){
-  pCtx.clearRect(0,0,pCanvas.width,pCanvas.height);
-  for (let i = particles.length - 1; i >= 0; i--){
-    const pt = particles[i];
-    pt.x += pt.vx;
-    pt.y += pt.vy
+class Particle {
+  constructor() {
+    this.x = mouse.x;
+    this.y = mouse.y;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() * 2) - 1;
+    this.speedY = (Math.random() * 2) - 1;
+    this.alpha = 1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.alpha -= 0.02;
+  }
+  draw() {
+    ctx.fillStyle = rgba(255,255,255,${this.alpha});
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
