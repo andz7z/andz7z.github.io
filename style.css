@@ -9,6 +9,9 @@ body {
     color: white;
     text-align: center;
     overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Background video + overlay */
@@ -38,6 +41,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
 }
 
 /* Titlu */
@@ -80,6 +84,7 @@ header {
     backdrop-filter: blur(10px);
     cursor: pointer;
     transition: all 0.3s ease;
+    z-index: 2;
 }
 
 .nav-buttons button:hover {
@@ -138,7 +143,9 @@ header {
     border-bottom: 1px solid white;
 }
 
+/* Footer fix jos */
 footer {
+    margin-top: auto;
     padding: 40px 0;
     font-size: 0.9rem;
     opacity: 0.6;
