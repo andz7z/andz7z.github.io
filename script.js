@@ -1,3 +1,27 @@
+// ===== Loading Screen =====
+window.addEventListener('load', () => {
+  const loaderBar = document.getElementById('loader-bar');
+  const loaderPercent = document.getElementById('loader-percent');
+  const loadingScreen = document.getElementById('loading-screen');
+  
+  let percent = 0;
+  const interval = setInterval(() => {
+    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
+    if (percent > 100) percent = 100;
+    loaderBar.style.width = percent + '%';
+    loaderPercent.textContent = percent + '%';
+    
+    if (percent === 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loadingScreen.style.opacity = '0';
+        loadingScreen.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => loadingScreen.style.display = 'none', 500);
+      }, 300); // mic delay după 100%
+    }
+  }, 50); // update la fiecare 50ms → ~2-3 secunde
+});
+
 // ======== Section Switcher ========
 function openSection(id) {
   playClick();
