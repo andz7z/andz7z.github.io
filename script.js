@@ -24,7 +24,7 @@ function openSection(id){
 }
 
 // ======== Music Control ========
-let music = new Audio("https://andz7z.github.io/song.MP3");
+let music = new Audio("https://github.com/andz7z/andz7z.github.io/song.MP3");
 music.loop = true; 
 music.volume = 0;
 let playing=false;
@@ -108,7 +108,7 @@ function animateParticles(){
 animateParticles();
 
 // ======== Click Sound ========
-const clickSound = new Audio("https://andz7z.github.io/click.MP3");
+const clickSound = new Audio("https://github.com/andz7z/andz7z.github.io/click.MP3");
 clickSound.volume = 0.4;
 
 function playClickSound() {
