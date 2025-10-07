@@ -7,7 +7,6 @@ function openSection(id){
 }
 
 // ======== Music Control ========
-// ======== Music Control ========
 let music = new Audio("https://andz7z.github.io/song.MP3");
 music.loop = true;
 music.volume = 0;
@@ -59,12 +58,10 @@ window.addEventListener('load', ()=>{
     document.getElementById('audio-icon').textContent = '🔇'; 
 });
 
-// ======== Slider Volum (fără procentaj) ========
+// ======== Slider Volum (fără procentaj numeric) ========
 volumeSlider.addEventListener('input', e=>{
     music.volume = e.target.value; // doar slider, fără text
 });
-
-
 
 // ======== Click Sound ========
 const clickSound = new Audio("https://andz7z.github.io/click.MP3");
