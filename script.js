@@ -1,10 +1,20 @@
 // ======== Section Switcher ========
+// ======== Section Switcher ========
 function openSection(id){
-    playClick(); // 🔊 sunet click
-    document.querySelectorAll('.section').forEach(sec=>sec.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
-    window.scrollTo({ top: document.getElementById(id).offsetTop-50, behavior:'smooth' });
+    playClick(); // sunet click
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(sec => sec.classList.add('hidden'));
+
+    const sectionToShow = document.getElementById(id);
+    if(sectionToShow){
+        sectionToShow.classList.remove('hidden');
+        // scroll animat către secțiune
+        sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+        console.warn("Section not found:", id);
+    }
 }
+
 // ===== YouTube API =====
 const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE"; // pune aici API Key-ul tău
 const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA"; // pune aici Channel ID-ul
