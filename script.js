@@ -6,8 +6,8 @@ function openSection(id){
     window.scrollTo({ top: document.getElementById(id).offsetTop-50, behavior:'smooth' });
 }
 // ===== YouTube API =====
-const API_KEY = "YOUR_API_KEY_HERE"; // pune aici API Key-ul tău
-const CHANNEL_ID = "YOUR_CHANNEL_ID_HERE"; // pune aici Channel ID-ul
+const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE"; // pune aici API Key-ul tău
+const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA"; // pune aici Channel ID-ul
 
 async function fetchYouTubeStats() {
     try {
