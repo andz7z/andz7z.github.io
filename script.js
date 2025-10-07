@@ -1,5 +1,7 @@
 // ======== Section Switcher ========
 function openSection(id){
+    playClickSound(); // 🔊 Sunet click
+
     document.querySelectorAll('.section').forEach(sec=>sec.classList.add('hidden'));
     const target = document.getElementById(id);
     if(!target) return;
@@ -12,12 +14,9 @@ function openSection(id){
     if(id === 'vfx') {
       const ytCard = document.getElementById('yt-stats');
       if(ytCard){
-        // reset classes to retrigger
         ytCard.classList.remove('show','pulse');
-        // small delay so animation feels natural after opening
         setTimeout(()=>{
           ytCard.classList.add('show');
-          // add glow pulse shortly after appear
           setTimeout(()=> ytCard.classList.add('pulse'), 700);
         }, 250);
       }
@@ -25,8 +24,9 @@ function openSection(id){
 }
 
 // ======== Music Control ========
-let music = new Audio("https://andz7z.github.io/song.mp3");
-music.loop = true; music.volume = 0;
+let music = new Audio("https://andz7z.github.io/song.MP3");
+music.loop = true; 
+music.volume = 0;
 let playing=false;
 
 const volumeSlider = document.getElementById('volume-slider');
@@ -44,6 +44,8 @@ function fadeInMusic(){
 }
 
 function toggleMusic(){
+    playClickSound(); // 🔊 Sunet click
+
     playing = !playing;
     document.getElementById('audio-icon').textContent = playing?'🔊':'🔇';
     playing? music.play():music.pause();
@@ -72,6 +74,7 @@ let moved=false;
 
 title.addEventListener('mouseenter', ()=>{
     if(!moved){
+        playClickSound(); // 🔊 Sunet la hover titlu
         title.classList.add('move-up');
         nav.classList.remove('hidden');
         setTimeout(()=> nav.classList.add('show-buttons'),200);
@@ -104,8 +107,20 @@ function animateParticles(){
 
 animateParticles();
 
+// ======== Click Sound ========
+const clickSound = new Audio("https://andz7z.github.io/click.MP3");
+clickSound.volume = 0.4;
+
+function playClickSound() {
+    try {
+        clickSound.currentTime = 0; // Repornește sunetul
+        clickSound.play();
+    } catch(e) {
+        console.warn("Click sound blocked:", e);
+    }
+}
+
 // ======== YouTube Live Stats ========
-// NOTE: Replace YOUR_API_KEY_HERE with your actual API key (or better: call your server that stores the key)
 const YT_API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
 const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
 
@@ -113,12 +128,10 @@ async function fetchYouTubeStats() {
   const nameEl = document.getElementById('yt-name');
   try {
     if(!YT_API_KEY || YT_API_KEY === "YOUR_API_KEY_HERE") {
-      // Show placeholder/mock values if API key not set
       if(nameEl) nameEl.textContent = "andz79 (demo)";
       document.getElementById('yt-subscribers').textContent = '175';
       document.getElementById('yt-videos').textContent = '4';
       document.getElementById('yt-views').textContent = '23,000';
-      // keep thumbnail as placeholder or your avatar URL
       return;
     }
 
@@ -128,7 +141,6 @@ async function fetchYouTubeStats() {
     if(!data || !data.items || data.items.length === 0) throw new Error('No channel data');
 
     const channel = data.items[0];
-    // Thumbnail
     const thumbUrl = (channel.snippet.thumbnails && (channel.snippet.thumbnails.high || channel.snippet.thumbnails.default)) ? (channel.snippet.thumbnails.high.url || channel.snippet.thumbnails.default.url) : '';
     if(thumbUrl) document.getElementById('yt-thumbnail').src = thumbUrl;
     if(nameEl) nameEl.textContent = channel.snippet.title || 'Channel';
@@ -138,12 +150,10 @@ async function fetchYouTubeStats() {
   } catch (err) {
     console.error("YouTube API error:", err);
     if(nameEl) nameEl.textContent = "Unable to load stats";
-    // fallback demo values
     document.getElementById('yt-subscribers').textContent = '175';
     document.getElementById('yt-videos').textContent = '4';
     document.getElementById('yt-views').textContent = '23,000';
   }
 }
 
-// Fetch on load
 window.addEventListener('load', fetchYouTubeStats);
