@@ -10,8 +10,9 @@ body {
   min-height:100vh;
   display:flex;
   flex-direction:column;
-  background: #000;
-  transition: background 450ms ease, color 450ms ease; /* global transition */
+  background: radial-gradient(circle at center, #1a1a1a 0%, #0e0e0e 100%);
+  background-attachment: fixed;
+  transition: background 450ms ease, color 450ms ease;
 }
 
 /* Preloader */
