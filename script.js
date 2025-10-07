@@ -11,7 +11,13 @@ window.addEventListener('load', () => {
     intro.style.opacity = 0;
     intro.style.transform = 'scale(0.98)';
     setTimeout(()=> intro.remove(), 750);
-  }, 2000); // 2s intro then fade
+  }, 2000);
+
+  // fallback absolut: închide intro după 5 secunde indiferent
+  setTimeout(() => {
+    const intro = $('#intro');
+    if (intro) intro.remove();
+  }, 5000);
 });
 
 /* --- Theme toggle (dark <-> ice) --- */
