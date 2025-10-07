@@ -1,91 +1,42 @@
-// ======== Section Switcher ========
+// === MUSIC CONTROL ===
+const bgMusic = document.getElementById("bgMusic");
+const volumeControl = document.getElementById("volumeControl");
+bgMusic.volume = 0.5;
+
+volumeControl.addEventListener("input", () => {
+  bgMusic.volume = volumeControl.value;
+});
+
+// === CLICK SOUND ===
+const clickSound = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+
+// === MENU LOGIC ===
+const title = document.getElementById("title");
+const menu = document.getElementById("menu");
+const sections = document.querySelectorAll(".section");
+
+title.addEventListener("mouseenter", () => {
+  title.style.transform = "translateY(-100px)";
+  menu.classList.remove("hidden");
+});
+
 function openSection(id) {
-  document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  window.scrollTo({ top: document.getElementById(id).offsetTop - 50, behavior: 'smooth' });
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  sections.forEach(sec => sec.style.display = "none");
+  const active = document.getElementById(id);
+  active.style.display = "block";
+  active.style.opacity = "1";
 }
 
-// ======== Music Control ========
-let music = new Audio("https://andz7z.github.io/song.mp3");
-music.loop = true;
-music.volume = 0.4;
-let playing = false;
-
-function toggleMusic() {
-  playing = !playing;
-  document.getElementById('audio-icon').textContent = playing ? '🔊' : '🔇';
-  playing ? music.play() : music.pause();
-}
-
-const volumeSlider = document.getElementById('volume-slider');
-volumeSlider.addEventListener('input', e => {
-  music.volume = e.target.value;
+// === LOADER ===
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").style.opacity = "0";
+    setTimeout(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("main-content").style.display = "block";
+    }, 600);
+  }, 1500);
 });
-
-// ======== Title Animation ========
-const title = document.getElementById('main-title');
-const nav = document.querySelector('.nav-buttons');
-let moved = false;
-
-title.addEventListener('mouseenter', () => {
-  if (!moved) {
-    title.classList.add('move-up');
-    nav.classList.remove('hidden');
-    setTimeout(() => nav.classList.add('show'), 200);
-    moved = true;
-  }
-});
-
-// ======== Particle Effect ========
-const canvas = document.getElementById('particle-canvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let mouse = { x: 0, y: 0 };
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
-
-window.addEventListener('mousemove', e => {
-  mouse.x = e.x;
-  mouse.y = e.y;
-  for (let i = 0; i < 2; i++) {
-    particles.push(new Particle());
-  }
-});
-
-class Particle {
-  constructor() {
-    this.x = mouse.x;
-    this.y = mouse.y;
-    this.size = Math.random() * 3 + 1;
-    this.speedX = (Math.random() * 2) - 1;
-    this.speedY = (Math.random() * 2) - 1;
-    this.alpha = 1;
-  }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    this.alpha -= 0.02;
-  }
-  draw() {
-    ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
-
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach((p, i) => {
-    p.update();
-    p.draw();
-    if (p.alpha <= 0) particles.splice(i, 1);
-  });
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
