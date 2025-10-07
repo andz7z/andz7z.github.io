@@ -124,4 +124,11 @@ main{ padding:20px 6vw 80px; display:block; z-index:3; position:relative; }
 footer{ text-align:center; padding:28px 0; color:var(--muted); }
 
 /* responsive */
-@media (max-width
+@media (max-width: 768px) {
+  .glitch {
+    font-size: 52px;
+  }
+  .sub {
+    font-size: 12px;
+  }
+}
