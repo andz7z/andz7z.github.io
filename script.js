@@ -9,19 +9,12 @@ function openSection(id){
     window.scrollTo({ top: target.offsetTop - 50, behavior:'smooth' });
 
     // If opening VFX, show YouTube card with animation
-    if(id === 'vfx') {
-      const ytCard = document.getElementById('yt-stats');
-      if(ytCard){
-        // reset classes to retrigger
-        ytCard.classList.remove('show','pulse');
-        // small delay so animation feels natural after opening
-        setTimeout(()=>{
-          ytCard.classList.add('show');
-          // add glow pulse shortly after appear
-          setTimeout(()=> ytCard.classList.add('pulse'), 700);
-        }, 250);
-      }
-    }
+if(id === 'vfx') {
+  const ytCard = document.getElementById('yt-stats');
+  if(ytCard && !ytCard.classList.contains('show')){
+    ytCard.classList.add('show');
+    setTimeout(()=> ytCard.classList.add('pulse'), 700);
+  }
 }
 
 // ======== Music Control ========
