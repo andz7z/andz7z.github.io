@@ -11,10 +11,10 @@ let music = new Audio("https://andz7z.github.io/song.MP3");
 music.loop = true;
 music.volume = 0;
 let playing = false;
+let musicStarted = false;
 
 const volumeSlider = document.getElementById('volume-slider');
 
-// fade-in lent (0 → 0.2)
 function fadeInMusic(){
     let vol = 0;
     const interval = setInterval(()=>{
@@ -22,7 +22,21 @@ function fadeInMusic(){
         if(vol >= 0.2){ vol = 0.2; clearInterval(interval); }
         music.volume = vol;
         volumeSlider.value = vol;
-    }, 1000); // crește la fiecare secundă (≈ 20 secunde fade total)
+    }, 1000); // fade-in de ~20 secunde
+}
+
+function startMusic(){
+    if(!musicStarted){
+        music.currentTime = 0;
+        music.play().then(()=>{
+            fadeInMusic();
+            playing = true;
+            musicStarted = true;
+            document.getElementById('audio-icon').textContent = '🔊';
+        }).catch(err=>{
+            console.log("Autoplay blocat:", err);
+        });
+    }
 }
 
 function toggleMusic(){
@@ -32,13 +46,8 @@ function toggleMusic(){
     playing ? music.play() : music.pause();
 }
 
-window.addEventListener('load', ()=>{
-    music.currentTime = 0; // începe de la începutul melodiei
-    music.play();
-    fadeInMusic();
-    playing = true;
-    document.getElementById('audio-icon').textContent = '🔊';
-});
+window.addEventListener('click', ()=>{ startMusic(); }); // 🎵 pornește la primul click
+window.addEventListener('load', ()=>{ document.getElementById('audio-icon').textContent = '🔇'; });
 
 // Slider volum
 volumeSlider.addEventListener('input', e=>{
@@ -47,10 +56,11 @@ volumeSlider.addEventListener('input', e=>{
 
 // ======== Click Sound ========
 const clickSound = new Audio("https://andz7z.github.io/click.MP3");
-clickSound.volume = 0.5;
+clickSound.volume = 0.15; // 🎚 volum subtil
 
 function playClick(){
-    const sound = clickSound.cloneNode(); // creează instanță nouă pt. redare rapidă
+    const sound = clickSound.cloneNode(); // creează instanță nouă pentru redare rapidă
+    sound.volume = 0.15;
     sound.play();
 }
 
