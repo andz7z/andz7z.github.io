@@ -44,8 +44,8 @@ header {
     cursor: pointer;
 }
 
-.title.move-up {
-    transform: translateY(-80px) scale(0.8);
+.title.move-down {
+    transform: translateY(120px) scale(0.8); /* muta mai jos titlul și butoanele */
 }
 
 .nav-buttons {
