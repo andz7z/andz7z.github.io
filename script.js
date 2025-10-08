@@ -215,7 +215,7 @@ setTimeout(() => {
       notif.classList.remove('show');
     }, 12000);
   }
-}, 3000); // appears after 3s
+}, 10000); // appears after 10s
 
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
