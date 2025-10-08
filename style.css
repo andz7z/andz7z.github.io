@@ -40,6 +40,7 @@
   font-size: 1.2rem;
 }
 
+/* Body */
 body {
   font-family: 'Poppins', sans-serif;
   color: white;
@@ -157,9 +158,6 @@ header {
   overflow: hidden;
 }
 
-/* Am eliminat complet .section-bg */
-
-/* Section content */
 .section * {
   position: relative;
   z-index: 1;
@@ -273,7 +271,13 @@ header {
   }
 }
 
-/* YT Card */
+/* Fade + slide animation */
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* YouTube card */
 .yt-card {
   display: flex;
   align-items: center;
