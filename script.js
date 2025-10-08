@@ -202,6 +202,18 @@ setTimeout(() => {
     }, 10000);
   }
 }, 7000); // appears after 3s
+.section {
+  padding: 60px 20px;
+  animation: fadeIn 0.5s ease forwards;
+  border-radius: 15px;
+  max-width: 1000px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+  background: rgba(30,30,30,0.6); /* fundal opac pentru Services */
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach((p, i) => {
