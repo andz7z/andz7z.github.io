@@ -382,3 +382,59 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
+// ===== Reviews Logic =====
+let selectedRating = 0;
+
+const stars = document.querySelectorAll(".review-form .stars span");
+const submitBtn = document.getElementById("submit-review");
+const nameInput = document.getElementById("review-name");
+const messageInput = document.getElementById("review-message");
+const reviewsList = document.getElementById("reviews-list");
+const emptyMsg = document.querySelector(".empty-msg");
+
+// Select stars
+stars.forEach(star => {
+  star.addEventListener("click", () => {
+    selectedRating = star.getAttribute("data-value");
+    stars.forEach(s => s.classList.remove("selected"));
+    for (let i = 0; i < selectedRating; i++) {
+      stars[i].classList.add("selected");
+    }
+  });
+});
+
+// Submit review
+submitBtn.addEventListener("click", () => {
+  const name = nameInput.value.trim();
+  const message = messageInput.value.trim();
+
+  if (!name || !message || selectedRating === 0) {
+    alert("Please fill all fields and select a rating ⭐");
+    return;
+  }
+
+  // Hide "no reviews yet"
+  if (emptyMsg) emptyMsg.style.display = "none";
+
+  // Create review card
+  const card = document.createElement("div");
+  card.className = "review-card";
+
+  let starsHTML = "";
+  for (let i = 0; i < selectedRating; i++) starsHTML += "★";
+  for (let i = selectedRating; i < 5; i++) starsHTML += "☆";
+
+  card.innerHTML = `
+    <h4>${name}</h4>
+    <div class="stars-display">${starsHTML}</div>
+    <p>${message}</p>
+  `;
+
+  reviewsList.prepend(card);
+
+  // Reset form
+  nameInput.value = "";
+  messageInput.value = "";
+  selectedRating = 0;
+  stars.forEach(s => s.classList.remove("selected"));
+});
