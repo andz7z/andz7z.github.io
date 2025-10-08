@@ -49,7 +49,7 @@ body {
   flex-direction: column;
 }
 
-/* Background video + overlay */
+/* Background video (rămâne) */
 #bg-video {
   position: fixed;
   right: 0;
@@ -61,13 +61,10 @@ body {
   filter: brightness(0.25) contrast(1.2);
 }
 
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.05), rgba(0,0,0,0.85));
-  z-index: -2;
-}
+/* overlay eliminat complet */
+/* .overlay {
+  display: none;
+} */
 
 /* Header */
 header {
@@ -189,8 +186,8 @@ header {
 .hidden {
   display: none;
 }
+
 /* Contact Section */
-/* CONTACT SECTION – GRI PREMIUM CU HOVER ÎNTUNECAT */
 .contact-cards {
   display: flex;
   justify-content: center;
@@ -206,10 +203,10 @@ header {
   border-radius: 20px;
   padding: 25px 30px;
   width: 220px;
-  height: 180px; /* ✅ adăugăm o înălțime fixă */
+  height: 180px;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* ✅ centrează conținutul pe verticală */
+  justify-content: center;
   align-items: center;
   gap: 10px;
   backdrop-filter: blur(12px);
@@ -221,7 +218,6 @@ header {
   cursor: pointer;
 }
 
-/* Shine diagonal animat subtil */
 .contact-card::before {
   content: '';
   position: absolute;
@@ -238,14 +234,12 @@ header {
   transform: rotate(25deg) translateX(100%);
 }
 
-/* Hover efect – se întunecă, devine gri mai închis + glow alb */
 .contact-card:hover {
   background: linear-gradient(135deg, rgba(60,60,60,0.45) 0%, rgba(30,30,30,0.55) 100%);
   transform: scale(1.07) translateY(-5px);
   box-shadow: 0 0 25px rgba(255,255,255,0.35);
 }
 
-/* Icon + text */
 .contact-icon {
   font-size: 2rem;
   color: #fff;
@@ -271,7 +265,7 @@ header {
   text-shadow: 0 0 10px rgba(255,255,255,0.7);
 }
 
-/* RESPONSIVE */
+/* Responsive */
 @media(max-width: 1100px) {
   .contact-cards {
     flex-wrap: wrap;
@@ -283,12 +277,8 @@ header {
     width: 90%;
   }
 }
-/* Optional fade + slide animation */
-@keyframes fadeSlideIn {
-  0% { opacity: 0; transform: translateY(15px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
 
+/* YouTube Card */
 .yt-card {
   display: flex;
   align-items: center;
@@ -396,8 +386,8 @@ footer {
   font-size: 0.9rem;
   opacity: 0.6;
 }
+
 /* My Work Grid */
-/* My Work Grid: toate pe un rând, responsive */
 .projects {
   display: flex;
   justify-content: center;
@@ -425,7 +415,6 @@ footer {
   transform: scale(1.05);
 }
 
-/* Imagine */
 .work-card img {
   width: 100%;
   height: 150px;
@@ -433,7 +422,6 @@ footer {
   transition: transform 0.4s ease;
 }
 
-/* Card content */
 .card-content {
   padding: 15px;
   display: flex;
@@ -451,7 +439,7 @@ footer {
 
 .card-content a {
   padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.05); /* mai transparent decât înainte */
+  background: rgba(255, 255, 255, 0.05);
   color: white;
   border-radius: 12px;
   text-decoration: none;
@@ -460,7 +448,7 @@ footer {
 }
 
 .card-content a:hover {
-  background: rgba(255, 255, 255, 0.15); /* puțin mai vizibil la hover */
+  background: rgba(255, 255, 255, 0.15);
   color: white;
   transform: scale(1.05);
 }
@@ -477,7 +465,8 @@ footer {
     width: 90%;
   }
 }
-/* ===== Notification Style ===== */
+
+/* Notification */
 .notification {
   position: fixed;
   bottom: 20px;
