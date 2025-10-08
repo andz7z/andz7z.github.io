@@ -233,11 +233,28 @@ function animateParticles() {
 }
 animateParticles();
 // ==== Expand/Collapse project cards ====
+// ==== Expand/Collapse project cards with smooth animation ====
 function toggleProject(card) {
   playClick();
-  const allCards = document.querySelectorAll('.work-card');
-  allCards.forEach(c => {
-    if (c !== card) c.classList.remove('active');
+  
+  const details = card.querySelector('.work-details');
+  const isOpen = card.classList.contains('active');
+
+  // Închide toate celelalte carduri
+  document.querySelectorAll('.work-card').forEach(c => {
+    if (c !== card) {
+      c.classList.remove('active');
+      const d = c.querySelector('.work-details');
+      d.style.height = 0;
+    }
   });
-  card.classList.toggle('active');
+
+  // Deschide / închide cel curent cu animație
+  if (!isOpen) {
+    card.classList.add('active');
+    details.style.height = details.scrollHeight + "px"; // măsoară conținutul real
+  } else {
+    card.classList.remove('active');
+    details.style.height = 0;
+  }
 }
