@@ -25,15 +25,28 @@ window.addEventListener('load', () => {
 // ======== Section Switcher ========
 function openSection(id) {
   playClick();
+
   const sections = document.querySelectorAll('.section');
-  sections.forEach(sec => sec.classList.add('hidden'));
-  const sectionToShow = document.getElementById(id);
-  if (sectionToShow) {
-    sectionToShow.classList.remove('hidden');
-    sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    console.warn("Section not found:", id);
+  const target = document.getElementById(id);
+
+  sections.forEach(sec => {
+    if (sec.classList.contains('active')) {
+      sec.classList.remove('active');
+    }
+  });
+
+  if (target) {
+    setTimeout(() => {
+      target.classList.add('active');
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 200); // mic delay pentru a face tranziția smooth
   }
+
+  // marchează butonul selectat
+  const buttons = document.querySelectorAll('.nav-buttons button');
+  buttons.forEach(btn => btn.classList.remove('active-btn'));
+  const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
+  if (activeBtn) activeBtn.classList.add('active-btn');
 }
 
 // ======== YouTube API ========
