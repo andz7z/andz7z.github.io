@@ -13,6 +13,7 @@
 <div id="notification" class="notification">
   👋 Hello! Thanks for visiting my website — make yourself at 🏠 home!
 </div>
+
   <!-- Loading Screen -->
 <div id="loading-screen">
   <div class="loader-container">
@@ -37,21 +38,19 @@
   <!-- Header -->
   <header>
     <h1 class="title" id="main-title">andzFX</h1>
-    <p class="title-desc">professional services in video & photo editing, and game modding</p>
+    <p class="title-desc">professional services in video & photo editing, game modding & web development</p>
     <nav class="nav-buttons hidden">
-      <button onclick="openSection('vfx')">VFX Design</button>
-      <button onclick="openSection('lua')">LUA Modding</button>
+      <button onclick="openSection('services')">Services & YouTube</button>
       <button onclick="openSection('work')">My Work</button>
       <button onclick="openSection('contact')">Contact Me</button>
     </nav>
   </header>
 
-  <!-- VFX DESIGN -->
-  <section id="vfx" class="hidden section">
+  <!-- SERVICES & YOUTUBE -->
+  <section id="services" class="hidden section">
     <div class="section-bg"></div>
-    <h2>🎬 VFX Design</h2>
-    <p class="section-desc">Explore my VFX projects...</p>
-
+    <h2>🚀 My Services & YouTube</h2>
+    
     <!-- YouTube Card -->
     <div id="yt-stats" class="yt-card show">
       <img id="yt-thumbnail" src="https://via.placeholder.com/120" alt="Channel Thumbnail">
@@ -65,14 +64,19 @@
     </div>
 
     <a href="https://youtube.com/@andz79" target="_blank" class="link">@andz79 on YouTube</a>
-  </section>
 
-  <!-- LUA MODDING -->
-  <section id="lua" class="hidden section">
-    <div class="section-bg"></div>
-    <h2>💻 Modding</h2>
-    <p class="section-desc">My GTA: San Andreas Lua mods...</p>
-    <a href="https://youtube.com/@visuals_mods" target="_blank" class="link">@visuals_mods on YouTube</a>
+    <!-- Description Card -->
+    <div class="skills-card">
+      <h3>💡 What I Do</h3>
+      <p>
+        🎬 <strong>Photo/Video Editing</strong> – CapCut Pro, DaVinci Resolve, Canva for professional video content.<br><br>
+        🕹 <strong>Game Modding</strong> – programming mods for GTA: San Andreas and other games in Lua & Python.<br><br>
+        🌐 <strong>Web Development</strong> – building modern, responsive websites with HTML, CSS, JavaScript.<br><br>
+        🎨 <strong>Graphic Design</strong> – logos, banners, overlays for social media and gaming communities.<br><br>
+        🔊 <strong>SFX & VFX</strong> – custom sound effects, motion graphics, and video effects for projects.<br><br>
+        🚀 <strong>Future Skills</strong> – I’m constantly learning and expanding in AI tools, automation scripts, and interactive design.
+      </p>
+    </div>
   </section>
 
   <!-- MY WORK -->
@@ -110,7 +114,6 @@
     </div>
   </div>
 </section>
-
 
   <!-- CONTACT -->
 <section id="contact" class="hidden section">
