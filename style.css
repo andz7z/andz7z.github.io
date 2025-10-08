@@ -529,6 +529,62 @@ footer {
   color: black;
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(255,255,255,0.6);
+  /* ==== MY WORK interactive cards ==== */
+.work-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  width: 230px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.work-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+
+.work-card h3 {
+  margin: 10px 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+}
+
+.work-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: rgba(0,0,0,0.4);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0 0 15px 15px;
+  padding: 0 15px;
+  transition: all 0.5s ease;
+}
+
+.work-card.active .work-details {
+  max-height: 200px;
+  opacity: 1;
+  padding: 15px;
+}
+
+.work-details a {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.1);
+  padding: 6px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.work-details a:hover {
+  background: white;
+  color: black;
+  transform: scale(1.05);
+}
 /* FadeIn Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
