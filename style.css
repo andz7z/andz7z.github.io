@@ -464,7 +464,28 @@ footer {
   color: white;
   transform: scale(1.05);
 }
-
+/* ===== Notification Style ===== */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(25, 25, 25, 0.9);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px 22px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 /* Responsive */
 @media(max-width: 800px) {
   .work-card {
