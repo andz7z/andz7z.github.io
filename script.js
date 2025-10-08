@@ -193,7 +193,7 @@ setTimeout(() => {
 
     // Play notification sound
     const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
-    notifSound.volume = 0.2;
+    notifSound.volume = 0.1;
     notifSound.play().catch(() => {});
 
     // Hide after 12 seconds
