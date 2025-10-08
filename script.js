@@ -123,43 +123,34 @@
     }
 
     function resize() {
-      W = canvasEl.width = innerWidth;
-      H = canvasEl.height = innerHeight;
-    }
-    addEventListener('resize', resize);
+// ==== LOADING SCREEN SCRIPT ====
 
-    let last = performance.now();
-    function frame(now) {
-      const dt = now - last;
-      last = now;
-      ctx.clearRect(0, 0, W, H);
+// Elemente din loader
+const loaderFill = document.getElementById("loader-fill");
+const loaderPercent = document.getElementById("loader-percent");
+const loaderScreen = document.getElementById("loading-screen");
 
-      // subtle vignette background dots
-      ctx.fillStyle = 'rgba(255,255,255,0.01)';
-      for (let p of particles) {
-        p.x += p.vx * (dt * 0.06);
-        p.y += p.vy * (dt * 0.06);
+// Simulare progres
+let progress = 0;
+const interval = setInterval(() => {
+  // Crește progresul random între 1-10%
+  progress += Math.floor(Math.random() * 10) + 1;
+  if (progress > 100) progress = 100;
 
-        if (p.y > H + 8) { p.y = -8; p.x = Math.random() * W; }
-        if (p.x > W + 8) { p.x = -8; }
-        if (p.x < -8) { p.x = W + 8; }
+  // Actualizează progres vizual
+  loaderFill.style.height = progress + "%";
+  loaderPercent.textContent = progress + "%";
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
-        ctx.fill();
-      }
-
-      // stop animating when loader hidden
-      if (!document.body.contains(screen) || screen.classList.contains('hidden')) {
-        ctx.clearRect(0,0,W,H);
-        return;
-      }
-      requestAnimationFrame(frame);
-    }
-    requestAnimationFrame(frame);
+  // Când ajunge la 100% → dispare loading screen-ul
+  if (progress >= 100) {
+    clearInterval(interval);
+    setTimeout(() => {
+      loaderScreen.style.opacity = "0";
+      loaderScreen.style.transition = "opacity 0.8s ease";
+      setTimeout(() => loaderScreen.style.display = "none", 800);
+    }, 500);
   }
-})();
+}, 300);
 
 // ======== Section Switcher ========
 function openSection(id) {
