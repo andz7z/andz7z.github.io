@@ -232,15 +232,14 @@ function animateParticles() {
   requestAnimationFrame(animateParticles);
 }
 animateParticles();
-// ==== Expand/Collapse project cards ====
-// ==== Expand/Collapse project cards with smooth animation ====
+// === Animated dropdown for "My Work" ===
 function toggleProject(card) {
   playClick();
-  
   const details = card.querySelector('.work-details');
+  const arrow = card.querySelector('.arrow');
   const isOpen = card.classList.contains('active');
 
-  // Închide toate celelalte carduri
+  // Închide toate celelalte
   document.querySelectorAll('.work-card').forEach(c => {
     if (c !== card) {
       c.classList.remove('active');
@@ -249,11 +248,13 @@ function toggleProject(card) {
     }
   });
 
-  // Deschide / închide cel curent cu animație
   if (!isOpen) {
+    // Deschide
     card.classList.add('active');
-    details.style.height = details.scrollHeight + "px"; // măsoară conținutul real
+    const fullHeight = details.scrollHeight + "px";
+    details.style.height = fullHeight;
   } else {
+    // Închide
     card.classList.remove('active');
     details.style.height = 0;
   }
