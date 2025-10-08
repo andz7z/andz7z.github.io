@@ -232,3 +232,12 @@ function animateParticles() {
   requestAnimationFrame(animateParticles);
 }
 animateParticles();
+// ==== Expand/Collapse project cards ====
+function toggleProject(card) {
+  playClick();
+  const allCards = document.querySelectorAll('.work-card');
+  allCards.forEach(c => {
+    if (c !== card) c.classList.remove('active');
+  });
+  card.classList.toggle('active');
+}
