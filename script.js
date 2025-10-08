@@ -222,6 +222,61 @@ function openSection(id) {
   const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
   if (activeBtn) activeBtn.classList.add('active-btn');
 }
+// Project data
+const projects = {
+  seasons: {
+    title: "🏝 SEASON CHANGER ☃️",
+    desc: "A GTA:SA mod that lets you switch between Summer, Winter, Autumn and Spring instantly with visual changes.",
+    reqs: "Requirements: CLEO Library, GTA San Andreas 1.0",
+    download: "https://github.com/andz7z/SEASONS-GTA-SA"
+  },
+  timechanger: {
+    title: "☀️ TIME CHANGER 🌜",
+    desc: "Instantly change the time of day in GTA:SA with smooth transitions between morning, noon, evening and night.",
+    reqs: "Requirements: CLEO Library, GTA San Andreas 1.0",
+    download: "https://github.com/andz7z/TIMECHANGER-GTA-SA"
+  },
+  nametags: {
+    title: "🎫 NAMETAGS CUSTOM 🎟",
+    desc: "Custom nametags for multiplayer servers, with special fonts, outlines and customizable colors.",
+    reqs: "Requirements: SAMP 0.3.7 / CLEO",
+    download: "https://github.com/andz7z/NAMETAGS-GTA-SA"
+  },
+  skinchanger: {
+    title: "🙎‍♂️ SKIN CHANGER 🤵‍♂️",
+    desc: "Switch between player skins easily using a menu. Includes custom animations and skin previews.",
+    reqs: "Requirements: CLEO Library, GTA San Andreas 1.0",
+    download: "https://github.com/andz7z/SKINCHANGER-GTA-SA"
+  }
+};
+
+function openProject(key) {
+  const modal = document.getElementById("project-modal");
+  const body = document.getElementById("modal-body");
+
+  if (projects[key]) {
+    const p = projects[key];
+    body.innerHTML = 
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+      <p><strong>${p.reqs}</strong></p>
+      <p><a href="${p.download}" target="_blank">🔗 Download / GitHub</a></p>
+    ;
+    modal.style.display = "block";
+  }
+}
+
+function closeProject() {
+  document.getElementById("project-modal").style.display = "none";
+}
+
+// Close modal on background click
+window.onclick = function(event) {
+  const modal = document.getElementById("project-modal");
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+}
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach((p, i) => {
