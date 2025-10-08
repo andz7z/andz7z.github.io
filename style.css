@@ -125,79 +125,83 @@
   top: -40%;
   left: -25%;
   width: 20%;
-  height: 220%;
-  transform: skewX(-18deg) translateX(-120%);
-  background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.05) 60%);
-  filter: blur(6px);
-  opacity: 0.7;
-  transition: transform 0.65s ease;
-  pointer-events: none;
-}
-.progress-track:hover .progress-sheen { transform: skewX(-18deg) translateX(120%); }
-
-/* meta line: percent + hint */
-.progress-meta {
+/* ==== LIQUID GLASS LOADING SCREEN ==== */
+#loading-screen {
+  position: fixed;
+  inset: 0;
+  background: #0b0b0b;
   display: flex;
-  gap: 18px;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-#loader-percent {
-  font-weight: 600;
-  color: #fff;
-  font-size: 1.05rem;
-  letter-spacing: 1px;
-}
-.micro-hint {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.58);
+  z-index: 99999;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  color: white;
 }
 
-/* skip button */
-.skip-btn {
-  background: transparent;
-  border: none;
-  color: rgba(255,255,255,0.7);
-  font-size: 0.85rem;
-  margin-top: 6px;
-  cursor: pointer;
-  text-decoration: underline;
-}
-.skip-btn:hover { color: #fff; transform: translateY(-2px); transition: .22s; }
-
-/* cinematic smoke overlay (subtle, blurred, animated) */
-.smoke {
+/* Light gradient aurora effect */
+#loading-screen::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  z-index: 3;
-  pointer-events: none;
-  background-image:
-    radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.02) 0%, transparent 20%),
-    radial-gradient(ellipse at 80% 90%, rgba(255,255,255,0.02) 0%, transparent 18%);
-  opacity: 0.13;
-  filter: blur(12px) saturate(0.9);
-  mix-blend-mode: screen;
-  animation: smokeDrift 14s linear infinite;
+  inset: -50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.07), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(255,255,255,0.05), transparent 60%);
+  filter: blur(80px);
+  animation: moveAurora 10s infinite alternate ease-in-out;
 }
-@keyframes smokeDrift {
-  0% { transform: translateY(0) scale(1); opacity: 0.12; }
-  50% { transform: translateY(-6px) scale(1.02); opacity: 0.14; }
-  100% { transform: translateY(0) scale(1); opacity: 0.12; }
+@keyframes moveAurora {
+  from { transform: translate(0,0) scale(1); }
+  to { transform: translate(-50px,20px) scale(1.1); }
 }
 
-/* hide after finished */
-#loading-screen.hidden {
+/* Logo gravat */
+.loader-logo {
+  font-size: 2.5rem;
+  font-weight: 600;
+  letter-spacing: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #888 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   opacity: 0;
-  pointer-events: none;
-  transition: opacity .6s ease;
+  animation: fadeIn 2s ease forwards;
+  margin-bottom: 50px;
 }
 
-/* responsive */
-@media (max-width:720px) {
-  .logo-plate { padding: 10px 12px; gap: 12px; }
-  .wordmark .brand { font-size: 1.6rem; letter-spacing: 4px; }
-  .progress-track { width: 92%; height: 7px; }
+/* Liquid circle progress */
+.loader-circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.2);
 }
+.loader-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.4) 100%);
+  transition: height 0.3s ease;
+}
+
+/* Percentage elegant */
+#loader-percent {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: #ccc;
+}
+
+/* Fade in anim */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   color: white;
