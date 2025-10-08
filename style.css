@@ -529,6 +529,39 @@ footer {
   color: black;
   transform: scale(1.1);
   box-shadow: 0 0 15px rgba(255,255,255,0.6);
+  .section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease;
+  pointer-events: none;
+}
+
+.section.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Pentru carduri (My Work + Contact), animație treptată */
+.section.active .work-card,
+.section.active .contact-card {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeUp 0.6s forwards;
+}
+
+.section.active .work-card:nth-child(1),
+.section.active .contact-card:nth-child(1) { animation-delay: 0.1s; }
+.section.active .work-card:nth-child(2),
+.section.active .contact-card:nth-child(2) { animation-delay: 0.2s; }
+.section.active .work-card:nth-child(3),
+.section.active .contact-card:nth-child(3) { animation-delay: 0.3s; }
+.section.active .work-card:nth-child(4),
+.section.active .contact-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
 /* FadeIn Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
