@@ -578,40 +578,58 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 /* ===== MY WORK animated dropdown cards ===== */
-.work-card {
-  width: 260px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 18px;
-  backdrop-filter: blur(10px);
-  overflow: hidden;
-  transition: all 0.4s ease;
-  cursor: pointer;
-}
-
-.work-header {
+/* ====== MY WORK – wide animated cards ====== */
+.projects {
   display: flex;
   flex-direction: column;
+  gap: 25px;
   align-items: center;
-  transition: transform 0.3s ease;
+}
+
+.work-card {
+  width: 90%;
+  max-width: 650px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.work-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 25px rgba(255,255,255,0.15);
+}
+
+/* Header – imagine + titlu */
+.work-header {
+  position: relative;
 }
 
 .work-header img {
   width: 100%;
-  height: 160px;
+  height: 200px;
   object-fit: cover;
   border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .work-header h3 {
+  position: absolute;
+  bottom: 10px;
+  left: 20px;
   font-family: 'Orbitron', sans-serif;
-  font-size: 1rem;
-  margin: 10px 0;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .arrow {
-  font-size: 0.8rem;
-  margin-left: 5px;
+  font-size: 1rem;
   transition: transform 0.4s cubic-bezier(0.25, 1.25, 0.5, 1);
 }
 
@@ -619,16 +637,16 @@ footer {
   transform: rotate(180deg);
 }
 
-/* Detaliile proiectului */
+/* Detalii ascunse cu slide */
 .work-details {
   overflow: hidden;
   height: 0;
   opacity: 0;
-  padding: 0 20px;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0, 0, 0, 0.45);
   border-top: 1px solid rgba(255,255,255,0.1);
-  transition: height 0.6s cubic-bezier(0.25, 1.25, 0.5, 1), 
-              opacity 0.4s ease;
+  padding: 0 25px;
+  text-align: left;
+  transition: height 0.6s cubic-bezier(0.25, 1.25, 0.5, 1), opacity 0.4s ease;
 }
 
 .work-card.active .work-details {
@@ -636,15 +654,14 @@ footer {
 }
 
 .work-details p {
-  text-align: left;
-  margin: 8px 0;
-  font-size: 0.9rem;
-  color: #eee;
+  margin: 12px 0;
+  font-size: 0.95rem;
+  color: #f1f1f1;
 }
 
 .work-details a {
   display: inline-block;
-  margin: 10px 0 15px;
+  margin: 10px 0 20px;
   padding: 8px 14px;
   background: rgba(255,255,255,0.1);
   border-radius: 12px;
@@ -657,6 +674,16 @@ footer {
   background: white;
   color: black;
   transform: scale(1.05);
+}
+
+/* Responsive */
+@media(max-width: 700px) {
+  .work-card {
+    width: 95%;
+  }
+  .work-header h3 {
+    font-size: 1rem;
+  }
 }
 /* ===== Active Image Glow Effect ===== */
 .work-card.active .work-header img {
