@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
   
   let percent = 0;
   const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
+    percent += Math.floor(Math.random() * 5) + 1;
     if (percent > 100) percent = 100;
     loaderBar.style.width = percent + '%';
     loaderPercent.textContent = percent + '%';
@@ -17,12 +17,12 @@ window.addEventListener('load', () => {
         loadingScreen.style.opacity = '0';
         loadingScreen.style.transition = 'opacity 0.5s ease';
         setTimeout(() => loadingScreen.style.display = 'none', 500);
-      }, 300); // mic delay după 100%
+      }, 300);
     }
-  }, 50); // update la fiecare 50ms → ~2-3 secunde
+  }, 50);
 });
 
-// ======== Section Switcher ========
+// ===== Section Switcher =====
 function openSection(id) {
   playClick();
   const sections = document.querySelectorAll('.section');
@@ -31,12 +31,10 @@ function openSection(id) {
   if (sectionToShow) {
     sectionToShow.classList.remove('hidden');
     sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    console.warn("Section not found:", id);
   }
 }
 
-// ======== YouTube API ========
+// ===== YouTube API =====
 const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
 const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
 
@@ -60,7 +58,7 @@ async function fetchYouTubeStats() {
 }
 window.addEventListener('load', fetchYouTubeStats);
 
-// ======== Music Control ========
+// ===== Music Control =====
 let music = new Audio("https://andz7z.github.io/song.MP3");
 music.loop = true;
 music.volume = 0;
@@ -78,7 +76,7 @@ function fadeInMusic() {
     }
     music.volume = vol;
     volumeSlider.value = vol;
-  }, 1000);
+  }, 100);
 }
 
 function startMusic() {
@@ -101,20 +99,14 @@ function toggleMusic() {
 }
 
 window.addEventListener('click', e => {
-  if (!musicStarted && !e.target.closest('button, a')) {
-    startMusic();
-  }
-});
-
-window.addEventListener('load', () => {
-  document.getElementById('audio-icon').textContent = '🔇';
+  if (!musicStarted && !e.target.closest('button, a')) startMusic();
 });
 
 volumeSlider.addEventListener('input', e => {
   music.volume = e.target.value;
 });
 
-// ======== Click Sound ========
+// ===== Click Sound =====
 const clickSound = new Audio("https://andz7z.github.io/click.MP3");
 clickSound.volume = 0.05;
 function playClick() {
@@ -122,15 +114,12 @@ function playClick() {
   sound.volume = 0.05;
   sound.play();
 }
-
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('button, .nav-buttons button, .nav-buttons a')
-    .forEach(btn => {
-      btn.addEventListener('click', () => playClick());
-    });
+    .forEach(btn => btn.addEventListener('click', playClick));
 });
 
-// ======== Title Animation ========
+// ===== Title Animation + Nav =====
 const title = document.getElementById('main-title');
 const nav = document.querySelector('.nav-buttons');
 let moved = false;
@@ -145,7 +134,7 @@ title.addEventListener('mouseenter', () => {
   }
 });
 
-// ======== Particle Effect ========
+// ===== Particle Effect =====
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
 let particles = [], mouse = { x: 0, y: 0 };
@@ -185,35 +174,7 @@ class Particle {
     ctx.fill();
   }
 }
-// ===== Notification System =====
-setTimeout(() => {
-  const notif = document.getElementById('notification');
-  if (notif) {
-    notif.classList.add('show');
 
-    // Play notification sound
-    const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
-    notifSound.volume = 0.1;
-    notifSound.play().catch(() => {});
-
-    // Hide after 12 seconds
-    setTimeout(() => {
-      notif.classList.remove('show');
-    }, 10000);
-  }
-}, 7000); // appears after 3s
-.section {
-  padding: 60px 20px;
-  animation: fadeIn 0.5s ease forwards;
-  border-radius: 15px;
-  max-width: 1000px;
-  margin: 20px auto;
-  position: relative;
-  overflow: hidden;
-  background: rgba(30,30,30,0.6); /* fundal opac pentru Services */
-  backdrop-filter: blur(8px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
-}
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach((p, i) => {
@@ -224,3 +185,22 @@ function animateParticles() {
   requestAnimationFrame(animateParticles);
 }
 animateParticles();
+
+// ===== Notification =====
+setTimeout(() => {
+  const notif = document.getElementById('notification');
+  if (notif) {
+    notif.classList.add('show');
+    const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
+    notifSound.volume = 0.1;
+    notifSound.play().catch(() => {});
+    setTimeout(() => notif.classList.remove('show'), 10000);
+  }
+}, 7000);
+
+// ===== Section Background Opacity (Services) =====
+document.querySelectorAll('.section').forEach(sec => {
+  sec.style.background = 'rgba(30,30,30,0.6)';
+  sec.style.backdropFilter = 'blur(8px)';
+  sec.style.boxShadow = '0 8px 25px rgba(0,0,0,0.4)';
+});
