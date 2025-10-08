@@ -348,23 +348,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-// ===== Theme Toggle =====
-const themeToggle = document.getElementById("theme-toggle");
-const bulbIcon = document.getElementById("bulb-icon");
-
-// Încarcă tema preferată
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark-mode");
-  themeToggle.classList.add("active");
-  bulbIcon.textContent = "🌙";
-}
-
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-  themeToggle.classList.toggle("active");
-  playClick();
-
-  const isDark = document.body.classList.contains("dark-mode");
-  bulbIcon.textContent = isDark ? "🌙" : "💡";
-  localStorage.setItem("theme", isDark ? "dark" : "light");
-});
