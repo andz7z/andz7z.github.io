@@ -210,10 +210,10 @@ setTimeout(() => {
     notifSound.volume = 0.2;
     notifSound.play().catch(() => {});
 
-    // Hide after 12 seconds
+    // Hide after 10 seconds
     setTimeout(() => {
       notif.classList.remove('show');
-    }, 12000);
+    }, 10000);
   }
 }, 10000); // appears after 10s
 
