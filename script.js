@@ -232,29 +232,23 @@ function animateParticles() {
   requestAnimationFrame(animateParticles);
 }
 animateParticles();
-// === Animated dropdown for "My Work" ===
+// === Cinematic My Work Animation ===
 function toggleProject(card) {
   playClick();
-  const details = card.querySelector('.work-details');
-  const arrow = card.querySelector('.arrow');
+  const details = card.querySelector('.project-details');
   const isOpen = card.classList.contains('active');
 
-  // Închide toate celelalte
-  document.querySelectorAll('.work-card').forEach(c => {
+  document.querySelectorAll('.project-item').forEach(c => {
     if (c !== card) {
       c.classList.remove('active');
-      const d = c.querySelector('.work-details');
-      d.style.height = 0;
+      c.querySelector('.project-details').style.height = 0;
     }
   });
 
   if (!isOpen) {
-    // Deschide
     card.classList.add('active');
-    const fullHeight = details.scrollHeight + "px";
-    details.style.height = fullHeight;
+    details.style.height = details.scrollHeight + 'px';
   } else {
-    // Închide
     card.classList.remove('active');
     details.style.height = 0;
   }
