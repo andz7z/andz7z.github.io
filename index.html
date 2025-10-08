@@ -48,6 +48,7 @@
       <button onclick="openSection('services')">Services 🤝🏽</button>
       <button onclick="openSection('work')">Projects 📁</button>
       <button onclick="openSection('contact')">Contact Me 📞</button>
+      <button onclick="openSection('reviews')">Reviews ⭐️</button>
     </nav>
   </header>
 
@@ -138,7 +139,28 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
+  <section id="reviews" class="section hidden">
+  <h2 class="section-title">Reviews</h2>
+  <!-- Review Form -->
+  <div class="review-form">
+    <h3>Leave a Review</h3>
+    <div class="stars">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+    <input type="text" id="review-name" placeholder="Your name" />
+    <textarea id="review-message" placeholder="Your review..."></textarea>
+    <button id="submit-review">Submit Review</button>
+  </div>
 
+  <!-- Reviews List -->
+  <div id="reviews-list" class="reviews-list">
+    <p class="empty-msg">No reviews yet. Be the first! ⭐</p>
+  </div>
+  </section>
   <footer>
     <p>© 2025 ANDZ | Crafted with passion 🧊</p>
   </footer>
