@@ -185,6 +185,18 @@ class Particle {
     ctx.fill();
   }
 }
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
 const titleEl = document.getElementById("main-title");
 
 titleEl.addEventListener("mousemove", e => {
@@ -199,95 +211,49 @@ titleEl.addEventListener("mousemove", e => {
 titleEl.addEventListener("mouseleave", () => {
   titleEl.classList.remove("hovering");
 });
-// ===== Notification System =====
-setTimeout(() => {
-  const notif = document.getElementById('notification');
-  if (notif) {
-    notif.classList.add('show');
 
-    // Play notification sound
-    const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
-    notifSound.volume = 0.2;
-    notifSound.play().catch(() => {});
+// ======== === NEW FEATURES (All 3) ===
+window.addEventListener('load', () => {
+  // Now Playing Card
+  const nowPlaying = document.getElementById('now-playing');
+  const npStatus = document.getElementById('np-status');
 
-    // Hide after 10 seconds
-    setTimeout(() => {
-      notif.classList.remove('show');
-    }, 10000);
+  function updateNowPlaying() {
+    npStatus.textContent = playing ? 'Playing 🎧' : 'Paused ⏸️';
   }
-}, 10000); // appears after 10s
-/* ===== Now Playing Card ===== */
-#now-playing {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(0,0,0,0.65);
-  color: white;
-  padding: 10px 18px;
-  border-radius: 12px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
-  z-index: 20;
-  backdrop-filter: blur(5px);
-  transition: all 0.3s ease, opacity 0.5s ease;
-  opacity: 0;
-}
-#now-playing.show {
-  opacity: 1;
-}
+  volumeSlider.addEventListener('input', updateNowPlaying);
+  document.getElementById('audio-icon').addEventListener('click', updateNowPlaying);
 
-/* ===== Floating Profile Card ===== */
-#profile-card {
-  position: fixed;
-  top: 100px;
-  left: 20px;
-  background: rgba(0,0,0,0.7);
-  color: white;
-  padding: 15px 20px;
-  border-radius: 12px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.9rem;
-  box-shadow: 0 4px 20px rgba(255,255,255,0.1);
-  z-index: 20;
-  opacity: 0;
-  transition: all 0.3s ease, transform 0.3s ease;
-  transform: translateY(-10px);
-}
-#profile-card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+  setTimeout(() => nowPlaying.classList.add('show'), 1000);
 
-/* ===== Welcome Notification ===== */
-#welcome-notif {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(0,0,0,0.75);
-  color: white;
-  padding: 12px 20px;
-  border-radius: 15px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 20px rgba(255,255,255,0.1);
-  z-index: 30;
-  opacity: 0;
-  transform: translateX(50px);
-  transition: all 0.5s ease;
-}
-#welcome-notif.show {
-  opacity: 1;
-  transform: translateX(0);
-}
+  // Floating Profile Card
+  const profileCard = document.getElementById('profile-card');
+  const logo = document.getElementById('main-title');
 
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach((p, i) => {
-    p.update();
-    p.draw();
-    if (p.alpha <= 0) particles.splice(i, 1);
-  });
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
+  logo.addEventListener('mouseenter', () => profileCard.classList.add('show'));
+  logo.addEventListener('mouseleave', () => profileCard.classList.remove('show'));
+
+  // Welcome Notification
+  const welcomeNotif = document.getElementById('welcome-notif');
+  const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/notification.MP3");
+  notifSound.volume = 0.3;
+
+  const hasVisited = localStorage.getItem('hasVisited');
+
+  if (!hasVisited) {
+    setTimeout(() => {
+      welcomeNotif.classList.add('show');
+      notifSound.play().catch(err => console.log("Notification sound blocked:", err));
+      setTimeout(() => welcomeNotif.classList.remove('show'), 12000);
+      localStorage.setItem('hasVisited', 'true');
+    }, 4000);
+  } else {
+    setTimeout(() => {
+      welcomeNotif.textContent = '👋 Welcome back! Great to see you again.';
+      welcomeNotif.classList.add('show');
+      setTimeout(() => welcomeNotif.classList.remove('show'), 12000);
+    }, 3000);
+  }
+
+  welcomeNotif.addEventListener('click', () => welcomeNotif.classList.remove('show'));
+});
