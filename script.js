@@ -348,3 +348,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+// ======== Dark / Light Mode Toggle ========
+const themeToggle = document.getElementById("theme-toggle");
+const body = document.body;
+
+// Verificăm preferința salvată
+if (localStorage.getItem("theme") === "dark") {
+  body.classList.add("dark-mode");
+  themeToggle.textContent = "🌙";
+}
+
+themeToggle.addEventListener("click", () => {
+  playClick();
+  body.classList.toggle("dark-mode");
+  
+  if (body.classList.contains("dark-mode")) {
+    themeToggle.textContent = "🌙";
+    localStorage.setItem("theme", "dark");
+  } else {
+    themeToggle.textContent = "💡";
+    localStorage.setItem("theme", "light");
+  }
+});
