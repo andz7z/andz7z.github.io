@@ -1,26 +1,165 @@
-// ===== Loading Screen =====
-window.addEventListener('load', () => {
-  const loaderBar = document.getElementById('loader-bar');
-  const loaderPercent = document.getElementById('loader-percent');
-  const loadingScreen = document.getElementById('loading-screen');
-  
-  let percent = 0;
-  const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
-    if (percent > 100) percent = 100;
-    loaderBar.style.width = percent + '%';
-    loaderPercent.textContent = percent + '%';
-    
-    if (percent === 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        loadingScreen.style.opacity = '0';
-        loadingScreen.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => loadingScreen.style.display = 'none', 500);
-      }, 300); // mic delay după 100%
+// ==== INNOVATIVE LOADING SCRIPT ====
+// Targets: #loader-bar, #loader-percent, #loading-screen, #loader-particles, #skip-loader
+
+(function () {
+  const bar = document.getElementById('loader-bar');
+  const percentText = document.getElementById('loader-percent');
+  const screen = document.getElementById('loading-screen');
+  const canvas = document.getElementById('loader-particles');
+  const skipBtn = document.getElementById('skip-loader');
+
+  // Controlled progress model (smooth, non-linear)
+  let progress = 0;
+  let done = false;
+
+  // Simulate staged loading phases (for realism)
+  const phases = [
+    { label: 'Initializing', max: 18, speed: 700 },
+    { label: 'Warming assets', max: 52, speed: 1100 },
+    { label: 'Applying styles', max: 78, speed: 800 },
+    { label: 'Finalizing', max: 98, speed: 900 }
+  ];
+
+  let phaseIndex = 0;
+  function stepPhase() {
+    if (phaseIndex >= phases.length) return;
+    const ph = phases[phaseIndex];
+    // animate to a random point within phase.max over ph.speed
+    const target = ph.max - Math.random() * 6;
+    const start = progress;
+    const duration = ph.speed;
+    const startTs = performance.now();
+
+    function animate(ts) {
+      const t = Math.min(1, (ts - startTs) / duration);
+      // easing - easeOutCubic
+      const eased = 1 - Math.pow(1 - t, 3);
+      progress = start + (target - start) * eased;
+      updateUI(Math.round(progress));
+      if (t < 1) requestAnimationFrame(animate);
+      else {
+        phaseIndex++;
+        if (phaseIndex < phases.length) {
+          setTimeout(stepPhase, 120 + Math.random() * 320);
+        } else {
+          // final fill to 100
+          setTimeout(() => finishLoading(), 300 + Math.random() * 700);
+        }
+      }
     }
-  }, 50); // update la fiecare 50ms → ~2-3 secunde
-});
+    requestAnimationFrame(animate);
+  }
+
+  function updateUI(p) {
+    p = Math.max(0, Math.min(100, p));
+    bar.style.width = p + '%';
+    percentText.textContent = p + '%';
+    bar.parentElement.setAttribute('aria-valuenow', p);
+    // sheen position: move when >3%
+    const sheen = bar.parentElement.querySelector('.progress-sheen');
+    if (sheen) {
+      sheen.style.transform = `skewX(-18deg) translateX(${(-120 + p * 2.6)}%)`;
+    }
+  }
+
+  function finishLoading() {
+    progress = 100;
+    updateUI(100);
+    // small pause for aesthetic
+    setTimeout(() => {
+      // add fade out
+      screen.classList.add('hidden');
+      // mark hidden to screen readers
+      screen.setAttribute('aria-hidden', 'true');
+      // remove element after transition
+      setTimeout(() => {
+        screen.style.display = 'none';
+      }, 700);
+    }, 420);
+  }
+
+  // skip button
+  skipBtn.addEventListener('click', () => {
+    if (!done) {
+      finishLoading();
+      done = true;
+    }
+  });
+
+  // Kick off phases on DOM ready (or window.load if you prefer)
+  window.addEventListener('load', () => {
+    // start particle system
+    initParticles(canvas);
+    // small delay to feel 'purposeful'
+    setTimeout(stepPhase, 180);
+  });
+
+  // Safety: if load never fires (rare), finish after 5.5s
+  setTimeout(() => { if (!done && progress < 100) finishLoading(); }, 5500);
+
+  /* -------------------------
+     Subtle particle system (snow / dust)
+     lightweight, performant
+     ------------------------- */
+  function initParticles(canvasEl) {
+    if (!canvasEl) return;
+    const ctx = canvasEl.getContext('2d');
+    let W = canvasEl.width = innerWidth;
+    let H = canvasEl.height = innerHeight;
+    const particles = [];
+    const count = Math.min(75, Math.floor((W * H) / 50000)); // scale with viewport
+
+    for (let i = 0; i < count; i++) particles.push(createParticle());
+
+    function createParticle() {
+      return {
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.8 + Math.random() * 2.2,
+        vx: -0.3 + Math.random() * 0.6,
+        vy: 0.2 + Math.random() * 1.1,
+        alpha: 0.05 + Math.random() * 0.12
+      };
+    }
+
+    function resize() {
+      W = canvasEl.width = innerWidth;
+      H = canvasEl.height = innerHeight;
+    }
+    addEventListener('resize', resize);
+
+    let last = performance.now();
+    function frame(now) {
+      const dt = now - last;
+      last = now;
+      ctx.clearRect(0, 0, W, H);
+
+      // subtle vignette background dots
+      ctx.fillStyle = 'rgba(255,255,255,0.01)';
+      for (let p of particles) {
+        p.x += p.vx * (dt * 0.06);
+        p.y += p.vy * (dt * 0.06);
+
+        if (p.y > H + 8) { p.y = -8; p.x = Math.random() * W; }
+        if (p.x > W + 8) { p.x = -8; }
+        if (p.x < -8) { p.x = W + 8; }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+        ctx.fill();
+      }
+
+      // stop animating when loader hidden
+      if (!document.body.contains(screen) || screen.classList.contains('hidden')) {
+        ctx.clearRect(0,0,W,H);
+        return;
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+})();
 
 // ======== Section Switcher ========
 function openSection(id) {
