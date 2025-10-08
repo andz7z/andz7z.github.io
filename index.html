@@ -14,53 +14,12 @@
   👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
 </div>
 
-<!-- ==== INOVATIVE BRAND LOADING SCREEN ==== -->
-<div id="loading-screen" aria-hidden="false">
-  <canvas id="loader-particles" aria-hidden="true"></canvas>
-
-  <div class="loader-wrap">
-    <div class="logo-plate" role="img" aria-label="ANDZ logo">
-      <!-- subtle metallic SVG mark + wordmark -->
-      <svg class="mark" width="86" height="86" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="mg" x1="0" x2="1">
-            <stop offset="0" stop-color="#f7f7f7"/>
-            <stop offset="1" stop-color="#bfbfbf"/>
-          </linearGradient>
-          <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
-            <feGaussianBlur stdDeviation="6" result="b"/>
-            <feBlend in="SourceGraphic" in2="b"/>
-          </filter>
-        </defs>
-        <circle cx="50" cy="50" r="44" fill="url(#mg)" opacity="0.06" />
-        <g transform="translate(13,13)" fill="none" stroke="white" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.98">
-          <path d="M6 62 L24 6 L44 62 Z" stroke="url(#mg)"/>
-        </g>
-      </svg>
-
-      <div class="wordmark">
-        <div class="brand">ANDZ</div>
-        <div class="sub">creative studio</div>
-      </div>
-    </div>
-
-    <div class="glass-bar">
-      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="progress-fill" id="loader-bar"></div>
-        <div class="progress-sheen" aria-hidden="true"></div>
-      </div>
-
-      <div class="progress-meta">
-        <div id="loader-percent">0%</div>
-        <div class="micro-hint">Warming assets · Preparing canvas</div>
-      </div>
-    </div>
-
-    <button id="skip-loader" class="skip-btn" aria-label="Skip loading">Skip</button>
+  <!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loader-container">
+    <div class="loader-bar" id="loader-bar"></div>
+    <span id="loader-percent">0%</span>
   </div>
-
-  <!-- cinematic smoke layer -->
-  <div class="smoke" aria-hidden="true"></div>
 </div>
 
   <!-- Background video -->
