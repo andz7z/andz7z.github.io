@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>A N D Z | Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
@@ -10,17 +10,15 @@
 </head>
 <body>
   <!-- Notification -->
-<div id="notification" class="notification">
-  👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
-</div>
+  <div id="notification" class="notification">👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!</div>
 
   <!-- Loading Screen -->
-<div id="loading-screen">
-  <div class="loader-container">
-    <div class="loader-bar" id="loader-bar"></div>
-    <span id="loader-percent">0%</span>
+  <div id="loading-screen">
+    <div class="loader-container">
+      <div class="loader-bar" id="loader-bar"></div>
+      <span id="loader-percent">0%</span>
+    </div>
   </div>
-</div>
 
   <!-- Background video -->
   <video autoplay muted loop id="bg-video">
@@ -50,7 +48,7 @@
   <section id="services" class="hidden section">
     <div class="section-bg"></div>
     <h2>🚀 My Services </h2>
-    
+
     <!-- YouTube Card -->
     <div id="yt-stats" class="yt-card show">
       <img id="yt-thumbnail" src="https://via.placeholder.com/120" alt="Channel Thumbnail">
@@ -78,107 +76,65 @@
   </section>
 
   <!-- MY WORK -->
-<section id="work" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>💼 My Work</h2>
+  <section id="work" class="hidden section">
+    <div class="section-bg"></div>
+    <h2>My Projects</h2>
 
-  <div class="projects-new">
+    <!-- Buttons grid -->
+    <div class="work-buttons" aria-label="Work buttons">
+      <!-- Season Flow -->
+      <button class="work-btn" data-key="season" aria-expanded="false">
+        <img class="work-logo" src="https://i.imgur.com/ik14PFa.jpeg" alt="Season Flow logo">
+        <span class="work-name">Season Flow</span>
+      </button>
 
-    <div class="project-item" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div class="wave-overlay"></div>
-        <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Season Flow">
-        <div class="project-info">
-          <h3>🏝 Season Flow ☃️</h3>
-          <p class="short-desc">Dynamic seasonal textures & weather system</p>
-        </div>
-        <span class="arrow">▼</span>
-      </div>
-      <div class="project-details">
-        <p><strong>About:</strong> Adds dynamic seasonal textures, ambient changes, and weather transitions to GTA: San Andreas.</p>
-        <p><strong>Requires:</strong> CLEO 4.4, ModLoader, GTA SA 1.0 US</p>
-        <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">⬇️ Download / View on GitHub</a>
-      </div>
+      <!-- Weather Shift -->
+      <button class="work-btn" data-key="weather" aria-expanded="false">
+        <img class="work-logo" src="https://i.imgur.com/nstY5n2.jpeg" alt="Weather Shift logo">
+        <span class="work-name">Weather Shift</span>
+      </button>
+
+      <!-- Modern Tags -->
+      <button class="work-btn" data-key="tags" aria-expanded="false">
+        <img class="work-logo" src="https://i.imgur.com/8keZiOp.jpeg" alt="Modern Tags logo">
+        <span class="work-name">Modern Tags</span>
+      </button>
+
+      <!-- Look Changer -->
+      <button class="work-btn" data-key="look" aria-expanded="false">
+        <img class="work-logo" src="https://i.imgur.com/rSWDHs2.jpeg" alt="Look Changer logo">
+        <span class="work-name">Look Changer</span>
+      </button>
     </div>
 
-    <div class="project-item" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div class="wave-overlay"></div>
-        <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Weather Shift">
-        <div class="project-info">
-          <h3>☀️ Weather Shift 🌜</h3>
-          <p class="short-desc">Realtime weather & time changer</p>
-        </div>
-        <span class="arrow">▼</span>
-      </div>
-      <div class="project-details">
-        <p><strong>About:</strong> Control the in-game weather and time dynamically with smooth transitions.</p>
-        <p><strong>Requires:</strong> CLEO 4.3+, GTA SA 1.0</p>
-        <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">⬇️ Download / View on GitHub</a>
-      </div>
-    </div>
-
-    <div class="project-item" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div class="wave-overlay"></div>
-        <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Modern Tags">
-        <div class="project-info">
-          <h3>🎫 Modern Tags 🎟</h3>
-          <p class="short-desc">Stylish nametag system for SAMP</p>
-        </div>
-        <span class="arrow">▼</span>
-      </div>
-      <div class="project-details">
-        <p><strong>About:</strong> Replaces old nametags with glowing modern UI elements.</p>
-        <p><strong>Requires:</strong> SAMP 0.3.7, CLEO 4.1+</p>
-        <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">⬇️ Download / View on GitHub</a>
-      </div>
-    </div>
-
-    <div class="project-item" onclick="toggleProject(this)">
-      <div class="project-header">
-        <div class="wave-overlay"></div>
-        <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Look Changer">
-        <div class="project-info">
-          <h3>🙎‍♂️ Look Changer 🤵‍♂️</h3>
-          <p class="short-desc">Instant skin & outfit switcher</p>
-        </div>
-        <span class="arrow">▼</span>
-      </div>
-      <div class="project-details">
-        <p><strong>About:</strong> Instantly switch player skins and outfits with smooth transitions.</p>
-        <p><strong>Requires:</strong> CLEO 4.4, ModLoader</p>
-        <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">⬇️ Download / View on GitHub</a>
-      </div>
-    </div>
-
-  </div>
-</section>
+    <!-- Detail panels (hidden by default) -->
+    <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
+  </section>
 
   <!-- CONTACT -->
-<section id="contact" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>📞 Contact Me</h2>
-  <div class="contact-cards">
-    <div class="contact-card">
-      <span class="contact-icon">📧</span>
-      <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+  <section id="contact" class="hidden section">
+    <div class="section-bg"></div>
+    <h2>📞 Contact Me</h2>
+    <div class="contact-cards">
+      <div class="contact-card">
+        <span class="contact-icon">📧</span>
+        <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">📱</span>
+        <p><strong>Phone:</strong> <a href="tel:+40748594335">+40 748 594 335</a></p>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">🐙</span>
+        <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">💬</span>
+        <p><strong>Discord:</strong> <span>andz7z</span></p>
+      </div>
     </div>
-    <div class="contact-card">
-      <span class="contact-icon">📱</span>
-      <p><strong>Phone:</strong> <a href="tel:+40748594335">+40 748 594 335</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">🐙</span>
-      <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">💬</span>
-      <p><strong>Discord:</strong> <span>andz7z</span></p>
-    </div>
-  </div>
-  <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
-</section>
+    <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
+  </section>
 
   <footer>
     <p>© 2025 ANDZ | Crafted with passion 🧊</p>
