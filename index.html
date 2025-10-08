@@ -82,64 +82,21 @@
   <div class="section-bg"></div>
   <h2>🛠 My Projects</h2>
 
-  <div class="projects-grid">
-    <!-- Project 1 -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Seasons">
-          <h3>🏝 SEASON CHANGER ☃️</h3>
-        </div>
-        <div class="flip-back">
-          <p>A GTA:SA mod that lets you change seasons dynamically (summer, winter, autumn, spring).</p>
-          <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 2 -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Timechanger">
-          <h3>☀️ TIME CHANGER 🌜</h3>
-        </div>
-        <div class="flip-back">
-          <p>Change time of day instantly in GTA:SA with smooth transitions from day to night.</p>
-          <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 3 -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags">
-          <h3>🎫 NAMETAGS CUSTOM 🎟</h3>
-        </div>
-        <div class="flip-back">
-          <p>Customizable nametags mod with unique fonts and colors for multiplayer servers.</p>
-          <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Project 4 -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skinchanger">
-          <h3>🙎‍♂️ SKIN CHANGER 🤵‍♂️</h3>
-        </div>
-        <div class="flip-back">
-          <p>Switch between character skins on-the-fly with smooth animations in GTA:SA.</p>
-          <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">View on GitHub</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ul class="project-list">
+    <li onclick="openProject('seasons')">🏝 SEASON CHANGER ☃️</li>
+    <li onclick="openProject('timechanger')">☀️ TIME CHANGER 🌜</li>
+    <li onclick="openProject('nametags')">🎫 NAMETAGS CUSTOM 🎟</li>
+    <li onclick="openProject('skinchanger')">🙎‍♂️ SKIN CHANGER 🤵‍♂️</li>
+  </ul>
 </section>
+
+<!-- Project Modal -->
+<div id="project-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeProject()">&times;</span>
+    <div id="modal-body"><!-- Content injected by JS --></div>
+  </div>
+</div>
 
   <!-- CONTACT -->
 <section id="contact" class="hidden section">
