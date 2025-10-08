@@ -3,57 +3,201 @@
   padding: 0;
   box-sizing: border-box;
 }
-/* ==== BRANDISH LOADING SCREEN ==== */
+/* ==== BRAND / STUDIO LOADING SCREEN (innovative) ==== */
 #loading-screen {
   position: fixed;
   inset: 0;
-  background: #0d0d0d;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(180deg, rgba(5,5,5,0.98) 0%, rgba(10,10,10,0.92) 60%);
   z-index: 99999;
+  overflow: hidden;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   font-family: 'Poppins', sans-serif;
-  color: white;
 }
 
-/* Logo clean */
-.loader-logo {
-  font-size: 2.5rem;
-  font-weight: 600;
+/* canvas full screen for particles (snow / dust) */
+#loader-particles {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.9;
+  mix-blend-mode: screen;
+}
+
+/* main content */
+.loader-wrap {
+  position: relative;
+  z-index: 5;
+  width: min(760px, 92%);
+  max-width: 760px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+/* logo plate */
+.logo-plate {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+  border-radius: 14px;
+  padding: 14px 20px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+  transform: translateY(-6px);
+}
+
+/* metallic SVG mark scale & sheen */
+.logo-plate .mark {
+  width: 72px;
+  height: 72px;
+  transform-origin: center;
+  filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6));
+  animation: markFloat 3.2s ease-in-out infinite;
+}
+@keyframes markFloat {
+  0% { transform: translateY(0) rotate(0deg) scale(1); }
+  50% { transform: translateY(-4px) rotate(-2deg) scale(1.02); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); }
+}
+
+/* wordmark styling */
+.wordmark .brand {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.1rem;
   letter-spacing: 6px;
-  margin-bottom: 40px;
-  opacity: 0;
-  animation: fadeInUp 1.2s ease forwards;
+  color: #ffffff;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0.98;
+}
+.wordmark .sub {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.65);
+  margin-top: 6px;
 }
 
-/* Subțire, clean progress bar */
-.loader-container {
-  width: 260px;
-  max-width: 80%;
-  margin-bottom: 18px;
+/* glass progress area */
+.glass-bar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
 }
-.loader-bar {
-  height: 4px;
+
+/* track */
+.progress-track {
+  width: 86%;
+  height: 8px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius: 999px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+}
+
+/* fill */
+.progress-fill {
+  height: 100%;
   width: 0%;
-  background: white;
-  border-radius: 2px;
-  transition: width 0.4s ease;
+  background: linear-gradient(90deg, #e6e6e6 0%, rgba(255,255,255,0.9) 28%, rgba(200,200,200,0.7) 60%);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.4), 0 0 28px rgba(255,255,255,0.02) inset;
+  transition: width 320ms cubic-bezier(.2,.9,.25,1);
+  transform-origin: left center;
 }
 
-/* Procentaj simplu */
+/* moving sheen layer */
+.progress-sheen {
+  position: absolute;
+  top: -40%;
+  left: -25%;
+  width: 20%;
+  height: 220%;
+  transform: skewX(-18deg) translateX(-120%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.45), rgba(255,255,255,0.05) 60%);
+  filter: blur(6px);
+  opacity: 0.7;
+  transition: transform 0.65s ease;
+  pointer-events: none;
+}
+.progress-track:hover .progress-sheen { transform: skewX(-18deg) translateX(120%); }
+
+/* meta line: percent + hint */
+.progress-meta {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  justify-content: center;
+}
 #loader-percent {
-  font-size: 0.9rem;
-  letter-spacing: 2px;
-  color: #aaa;
+  font-weight: 600;
+  color: #fff;
+  font-size: 1.05rem;
+  letter-spacing: 1px;
+}
+.micro-hint {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.58);
 }
 
-/* Animatie aparitie logo */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* skip button */
+.skip-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.85rem;
+  margin-top: 6px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.skip-btn:hover { color: #fff; transform: translateY(-2px); transition: .22s; }
+
+/* cinematic smoke overlay (subtle, blurred, animated) */
+.smoke {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.02) 0%, transparent 20%),
+    radial-gradient(ellipse at 80% 90%, rgba(255,255,255,0.02) 0%, transparent 18%);
+  opacity: 0.13;
+  filter: blur(12px) saturate(0.9);
+  mix-blend-mode: screen;
+  animation: smokeDrift 14s linear infinite;
+}
+@keyframes smokeDrift {
+  0% { transform: translateY(0) scale(1); opacity: 0.12; }
+  50% { transform: translateY(-6px) scale(1.02); opacity: 0.14; }
+  100% { transform: translateY(0) scale(1); opacity: 0.12; }
 }
 
+/* hide after finished */
+#loading-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .6s ease;
+}
+
+/* responsive */
+@media (max-width:720px) {
+  .logo-plate { padding: 10px 12px; gap: 12px; }
+  .wordmark .brand { font-size: 1.6rem; letter-spacing: 4px; }
+  .progress-track { width: 92%; height: 7px; }
+}
 body {
   font-family: 'Poppins', sans-serif;
   color: white;
