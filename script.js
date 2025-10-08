@@ -202,6 +202,26 @@ setTimeout(() => {
     }, 10000);
   }
 }, 7000); // appears after 3s
+function openSection(id) {
+  playClick();
+
+  // ascunde toate secțiunile
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(sec => sec.classList.add('hidden'));
+
+  // arată secțiunea selectată
+  const sectionToShow = document.getElementById(id);
+  if (sectionToShow) {
+    sectionToShow.classList.remove('hidden');
+    sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // marchează butonul selectat
+  const buttons = document.querySelectorAll('.nav-buttons button');
+  buttons.forEach(btn => btn.classList.remove('active-btn'));
+  const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
+  if (activeBtn) activeBtn.classList.add('active-btn');
+}
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   particles.forEach((p, i) => {
