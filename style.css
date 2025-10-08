@@ -524,6 +524,11 @@ footer {
   font-size: 1rem;
   color: #f1f1f1;
 }
+.nav-buttons button.active-btn {
+  background: white;
+  color: black;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255,255,255,0.6);
 /* FadeIn Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
