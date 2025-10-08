@@ -406,31 +406,73 @@ footer {
   margin-top: 30px;
 }
 
-/* Card */
+/* ==== MY WORK Interactive Animated ==== */
 .work-card {
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 18px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.4s ease;
-  width: 220px;
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 230px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .work-card:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
 }
 
-/* Imagine */
-.work-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+.work-card h3 {
+  margin: 10px 0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+}
+
+/* Container ascuns inițial */
+.work-details {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: height 0.6s cubic-bezier(0.25, 1.25, 0.5, 1), 
+              opacity 0.5s ease, 
+              transform 0.5s ease;
+  background: rgba(0,0,0,0.4);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0 0 15px 15px;
+  padding: 0 15px;
+}
+
+/* Activ → se extinde */
+.work-card.active .work-details {
+  opacity: 1;
+  transform: translateY(0);
+  padding: 15px;
+}
+
+/* Conținutul din interior */
+.work-details p {
+  margin: 5px 0;
+  font-size: 0.9rem;
+  color: #f1f1f1;
+}
+
+.work-details a {
+  display: inline-block;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.1);
+  padding: 6px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.work-details a:hover {
+  background: white;
+  color: black;
+  transform: scale(1.05);
 }
 
 /* Card content */
