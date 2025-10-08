@@ -733,7 +733,7 @@ footer {
 *,
 *::before,
 *::after {
-  transition: background 1.2s ease, color 1.2s ease, box-shadow 1.2s ease, border 1.2s ease, transform 1.2s ease, filter 1.2s ease, opacity 1.2s ease;
+  transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease, transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
 }
 
 /* Toggle button */
