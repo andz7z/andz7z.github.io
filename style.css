@@ -486,6 +486,67 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+// ===== Now Playing Card =====
+const nowPlaying = document.getElementById('now-playing');
+const npStatus = document.getElementById('np-status');
+
+function updateNowPlaying() {
+  npStatus.textContent = playing ? 'Playing 🎧' : 'Paused ⏸️';
+}
+volumeSlider.addEventListener('input', updateNowPlaying);
+document.getElementById('audio-icon').addEventListener('click', updateNowPlaying);
+
+// Show Now Playing on page load
+setTimeout(() => {
+  nowPlaying.classList.add('show');
+}, 1000); // apare după 1 sec
+
+// ===== Floating Profile Card on logo hover =====
+const profileCard = document.getElementById('profile-card');
+const logo = document.getElementById('main-title');
+
+logo.addEventListener('mouseenter', () => {
+  profileCard.classList.add('show');
+});
+logo.addEventListener('mouseleave', () => {
+  profileCard.classList.remove('show');
+});
+
+// ===== Welcome Notification =====
+const welcomeNotif = document.getElementById('welcome-notif');
+const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/notification.MP3");
+notifSound.volume = 0.3;
+
+// Check if visitor is new
+const hasVisited = localStorage.getItem('hasVisited');
+
+if (!hasVisited) {
+  setTimeout(() => {
+    welcomeNotif.classList.add('show');
+    notifSound.play().catch(err => console.log("Notification sound blocked:", err));
+
+    // Hide after 12 seconds
+    setTimeout(() => {
+      welcomeNotif.classList.remove('show');
+    }, 12000);
+    
+    localStorage.setItem('hasVisited', 'true'); // mark as visited
+  }, 4000); // apare după 4 sec
+} else {
+  setTimeout(() => {
+    welcomeNotif.textContent = '👋 Welcome back! Great to see you again.';
+    welcomeNotif.classList.add('show');
+    setTimeout(() => {
+      welcomeNotif.classList.remove('show');
+    }, 12000);
+  }, 3000);
+}
+
+// ===== Optional: Close notification on click =====
+welcomeNotif.addEventListener('click', () => {
+  welcomeNotif.classList.remove('show');
+});
+
 /* Responsive */
 @media(max-width: 800px) {
   .work-card {
