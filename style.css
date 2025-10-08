@@ -618,125 +618,163 @@ footer {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* ===== MY WORK animated dropdown cards ===== */
-/* ====== MY WORK – wide animated cards ====== */
-.projects {
+/* ==== MY WORK – Glassy Cinematic Redesign ==== */
+.projects-new {
   display: flex;
   flex-direction: column;
   gap: 25px;
   align-items: center;
+  margin-top: 40px;
 }
 
-.work-card {
+.project-item {
   width: 90%;
-  max-width: 650px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
+  max-width: 950px;
+  background: rgba(20, 20, 20, 0.75);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  transition: all 0.4s ease;
+  backdrop-filter: blur(14px) saturate(180%);
+  box-shadow: 0 0 25px rgba(255,255,255,0.05);
   cursor: pointer;
-  box-shadow: 0 0 15px rgba(0,0,0,0.4);
-}
-
-.work-card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 25px rgba(255,255,255,0.15);
-}
-
-/* Header – imagine + titlu */
-.work-header {
+  transition: all 0.4s ease;
   position: relative;
 }
 
-.work-header img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+.project-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 35px rgba(255,255,255,0.1);
 }
 
-.work-header h3 {
-  position: absolute;
-  bottom: 10px;
-  left: 20px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.2rem;
-  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+/* HEADER */
+.project-header {
   display: flex;
   align-items: center;
-  gap: 5px;
+  justify-content: space-between;
+  padding: 15px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-header img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.6);
+  transition: all 0.4s ease;
+}
+
+.project-info {
+  flex: 1;
+  margin-left: 20px;
+  text-align: left;
+}
+
+.project-info h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 5px;
+}
+
+.short-desc {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.6);
 }
 
 .arrow {
   font-size: 1rem;
-  transition: transform 0.4s cubic-bezier(0.25, 1.25, 0.5, 1);
+  color: rgba(255,255,255,0.5);
+  transition: transform 0.4s cubic-bezier(0.25, 1.25, 0.5, 1), color 0.3s ease;
 }
 
-.work-card.active .arrow {
+.project-item.active .arrow {
   transform: rotate(180deg);
+  color: white;
 }
 
-/* Detalii ascunse cu slide */
-.work-details {
+/* Cinematic light wave */
+.wave-overlay {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: skewX(-25deg);
+  filter: blur(10px);
+  opacity: 0;
+}
+
+.project-item.active .wave-overlay {
+  animation: waveMove 1.2s ease forwards;
+}
+
+@keyframes waveMove {
+  0% { left: -120%; opacity: 0; }
+  40% { opacity: 1; }
+  100% { left: 120%; opacity: 0; }
+}
+
+/* DETALII */
+.project-details {
   overflow: hidden;
   height: 0;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.45);
-  border-top: 1px solid rgba(255,255,255,0.1);
   padding: 0 25px;
+  background: rgba(255,255,255,0.03);
+  border-top: 1px solid rgba(255,255,255,0.08);
   text-align: left;
   transition: height 0.6s cubic-bezier(0.25, 1.25, 0.5, 1), opacity 0.4s ease;
 }
 
-.work-card.active .work-details {
+.project-item.active .project-details {
   opacity: 1;
 }
 
-.work-details p {
-  margin: 12px 0;
+.project-details p {
+  margin: 14px 0;
   font-size: 0.95rem;
-  color: #f1f1f1;
+  color: rgba(255,255,255,0.9);
 }
 
-.work-details a {
+.project-details a {
   display: inline-block;
   margin: 10px 0 20px;
   padding: 8px 14px;
   background: rgba(255,255,255,0.1);
-  border-radius: 12px;
+  border-radius: 10px;
   text-decoration: none;
   color: white;
   transition: all 0.3s ease;
 }
 
-.work-details a:hover {
+.project-details a:hover {
   background: white;
   color: black;
   transform: scale(1.05);
 }
 
+/* Glow when active */
+.project-item.active .project-header img {
+  filter: brightness(1.3);
+  box-shadow: 0 0 25px rgba(255,255,255,0.25);
+  transform: scale(1.05);
+}
+
 /* Responsive */
 @media(max-width: 700px) {
-  .work-card {
-    width: 95%;
+  .project-header {
+    flex-direction: column;
+    text-align: center;
   }
-  .work-header h3 {
-    font-size: 1rem;
+  .project-info {
+    margin-left: 0;
   }
-}
-/* ===== Active Image Glow Effect ===== */
-.work-card.active .work-header img {
-  filter: brightness(1.2) blur(1px);
-  box-shadow: 0 0 25px rgba(120, 180, 255, 0.7);
-  transition: all 0.6s ease;
-}
-
-.work-card.active .work-header h3 {
-  text-shadow: 0 0 15px rgba(120, 180, 255, 0.8), 0 0 30px rgba(120, 180, 255, 0.6);
-}
-
-.work-card:hover .work-header img:not(.active) {
-  filter: brightness(1.05);
+  .arrow {
+    margin-top: 10px;
+  }
 }
