@@ -253,7 +253,7 @@ const WORK_ITEMS = {
   },
   tags: {
     title: "Modern Tags",
-    img: "https://i.imgur.com/8keZiOp.jpeg",
+    img: "https://i.imgur.com/nsrK2GW.jpeg",
     desc: "Modern, stylable nametags for multiplayer servers. Clean design, color-coded roles, and smooth fading for readability and aesthetics.",
     github: "https://github.com/andz7z/NAMETAGS-GTA-SA",
     features: ["Role colors", "Smooth fades", "Custom fonts support"]
