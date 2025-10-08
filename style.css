@@ -658,3 +658,17 @@ footer {
   color: black;
   transform: scale(1.05);
 }
+/* ===== Active Image Glow Effect ===== */
+.work-card.active .work-header img {
+  filter: brightness(1.2) blur(1px);
+  box-shadow: 0 0 25px rgba(120, 180, 255, 0.7);
+  transition: all 0.6s ease;
+}
+
+.work-card.active .work-header h3 {
+  text-shadow: 0 0 15px rgba(120, 180, 255, 0.8), 0 0 30px rgba(120, 180, 255, 0.6);
+}
+
+.work-card:hover .work-header img:not(.active) {
+  filter: brightness(1.05);
+}
