@@ -11,7 +11,7 @@
 <body>
   <!-- Notification -->
 <div id="notification" class="notification">
-  👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
+  👋 Hello! Thanks for visiting my website — make yourself at 🏠 home!
 </div>
 
   <!-- Loading Screen -->
@@ -37,12 +37,12 @@
 
   <!-- Header -->
   <header>
-    <h1 class="title" id="main-title">A N D Z</h1>
+    <h1 class="title" id="main-title">andzFX</h1>
+    <p class="title-desc">professional services in video & photo editing, game modding & web development</p>
     <nav class="nav-buttons hidden">
-    <p class="title-desc">● video & photo editing ● game modding ● web development ●</p>
-      <button onclick="openSection('services')">Services 🤝🏽</button>
-      <button onclick="openSection('work')">My Projects 💻</button>
-      <button onclick="openSection('contact')">Contact Me 📞</button>
+      <button onclick="openSection('services')">Services</button>
+      <button onclick="openSection('work')">My Work</button>
+      <button onclick="openSection('contact')">Contact Me</button>
     </nav>
   </header>
 
@@ -77,36 +77,40 @@
     </div>
   </section>
 
-  <!-- MY WORK (REFACUT) -->
+  <!-- MY WORK -->
 <section id="work" class="hidden section">
   <div class="section-bg"></div>
   <h2>My Projects</h2>
-
-  <!-- Buttons row — logos minimal, transparent PNGs -->
-  <div class="work-buttons" aria-label="Work buttons">
-    <button class="work-btn" data-key="season" aria-expanded="false" title="Season Flow">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/11087/11087571.png" alt="Season Flow logo">
-      <span class="work-name">Season Flow</span>
-    </button>
-
-    <button class="work-btn" data-key="weather" aria-expanded="false" title="Weather Shift">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Weather Shift logo">
-      <span class="work-name">Weather Shift</span>
-    </button>
-
-    <button class="work-btn" data-key="tags" aria-expanded="false" title="Modern Tags">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/18904/18904123.png" alt="Modern Tags logo">
-      <span class="work-name">Modern Tags</span>
-    </button>
-
-    <button class="work-btn" data-key="look" aria-expanded="false" title="Look Changer">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/10725/10725435.png" alt="Look Changer logo">
-      <span class="work-name">Look Changer</span>
-    </button>
+  <div class="projects">
+    <div class="work-card">
+      <img src="https://i.imgur.com/ik14PFa.jpeg" alt="Seasons">
+      <div class="card-content">
+        <h3>🏝 SEASON CHANGER ☃️</h3>
+        <a href="https://github.com/andz7z/SEASONS-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="https://i.imgur.com/nstY5n2.jpeg" alt="Timechanger">
+      <div class="card-content">
+        <h3>☀️ TIME CHANGER 🌜</h3>
+        <a href="https://github.com/andz7z/TIMECHANGER-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="https://i.imgur.com/8keZiOp.jpeg" alt="Nametags">
+      <div class="card-content">
+        <h3>🎫 NAMETAGS CUSTOM 🎟</h3>
+        <a href="https://github.com/andz7z/NAMETAGS-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+    <div class="work-card">
+      <img src="https://i.imgur.com/rSWDHs2.jpeg" alt="Skinchanger">
+      <div class="card-content">
+        <h3>🙎‍♂️ SKIN CHANGER 🤵‍♂️</h3>
+        <a href="https://github.com/andz7z/SKINCHANGER-GTA-SA" target="_blank">View on GitHub</a>
+      </div>
+    </div>
   </div>
-
-  <!-- container where panels appear -->
-  <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
 </section>
 
   <!-- CONTACT -->
