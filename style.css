@@ -84,14 +84,20 @@ header {
   font-size: 7rem;
   font-weight: 900;
   letter-spacing: 6px;
-  color: white;
   text-transform: uppercase;
+
+  /* efect metalic */
+  background: linear-gradient(180deg, #fff 0%, #aaa 50%, #fff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* glow alb + umbră 3D */
   text-shadow: 
-    0 0 12px rgba(255,255,255,0.9),
-    0 0 28px rgba(255,255,255,0.6),
-    0 0 45px rgba(255,255,255,0.3),
-    3px 3px 6px rgba(0,0,0,0.9); /* efect 3D întunecat */
-  transition: transform 0.4s ease, text-shadow 0.3s ease;
+    0 0 15px rgba(255,255,255,0.9),
+    0 0 35px rgba(255,255,255,0.6),
+    3px 3px 6px rgba(0,0,0,0.9);
+
+  transition: transform 0.4s ease, text-shadow 0.3s ease, letter-spacing 0.4s ease;
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -100,11 +106,11 @@ header {
 
 .title:hover {
   transform: scale(1.05);
+  letter-spacing: 12px; /* se deschid literele */
   text-shadow: 
-    0 0 20px rgba(255,255,255,1),
-    0 0 40px rgba(255,255,255,0.8),
-    0 0 70px rgba(255,255,255,0.6),
-    5px 5px 12px rgba(0,0,0,1); /* mai puternic */
+    0 0 25px rgba(255,255,255,1),
+    0 0 50px rgba(255,255,255,0.8),
+    5px 5px 12px rgba(0,0,0,1);
 }
 
 /* Fundal negru interactiv doar pe titlu */
