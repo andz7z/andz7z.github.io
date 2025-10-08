@@ -1,29 +1,42 @@
-// ---------- consolidated script.js (includes loading, audio, particles, youtube fetch + new Work behavior) ----------
-
 // ===== Loading Screen =====
 window.addEventListener('load', () => {
   const loaderBar = document.getElementById('loader-bar');
   const loaderPercent = document.getElementById('loader-percent');
   const loadingScreen = document.getElementById('loading-screen');
-
+  
   let percent = 0;
   const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1;
+    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
     if (percent > 100) percent = 100;
     loaderBar.style.width = percent + '%';
     loaderPercent.textContent = percent + '%';
+    
     if (percent === 100) {
       clearInterval(interval);
       setTimeout(() => {
         loadingScreen.style.opacity = '0';
         loadingScreen.style.transition = 'opacity 0.5s ease';
         setTimeout(() => loadingScreen.style.display = 'none', 500);
-      }, 300);
+      }, 300); // mic delay după 100%
     }
-  }, 50);
+  }, 50); // update la fiecare 50ms → ~2-3 secunde
 });
 
-// ======== YouTube API (kept) ========
+// ======== Section Switcher ========
+function openSection(id) {
+  playClick();
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(sec => sec.classList.add('hidden'));
+  const sectionToShow = document.getElementById(id);
+  if (sectionToShow) {
+    sectionToShow.classList.remove('hidden');
+    sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    console.warn("Section not found:", id);
+  }
+}
+
+// ======== YouTube API ========
 const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
 const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
 
@@ -31,6 +44,7 @@ async function fetchYouTubeStats() {
   try {
     const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
     const data = await res.json();
+
     if (data.items && data.items.length > 0) {
       const channel = data.items[0];
       document.getElementById('yt-name').textContent = channel.snippet.title;
@@ -46,7 +60,7 @@ async function fetchYouTubeStats() {
 }
 window.addEventListener('load', fetchYouTubeStats);
 
-// ======== Audio control (kept) ========
+// ======== Music Control ========
 let music = new Audio("https://andz7z.github.io/song.MP3");
 music.loop = true;
 music.volume = 0;
@@ -63,7 +77,7 @@ function fadeInMusic() {
       clearInterval(interval);
     }
     music.volume = vol;
-    if (volumeSlider) volumeSlider.value = vol;
+    volumeSlider.value = vol;
   }, 1000);
 }
 
@@ -87,111 +101,141 @@ function toggleMusic() {
 }
 
 window.addEventListener('click', e => {
-  if (!musicStarted && !e.target.closest('button, a')) startMusic();
+  if (!musicStarted && !e.target.closest('button, a')) {
+    startMusic();
+  }
 });
-window.addEventListener('load', () => { if (document.getElementById('audio-icon')) document.getElementById('audio-icon').textContent = '🔇'; });
-if (volumeSlider) volumeSlider.addEventListener('input', e => { music.volume = e.target.value; });
 
-// ======== Click sound (kept) ========
+window.addEventListener('load', () => {
+  document.getElementById('audio-icon').textContent = '🔇';
+});
+
+volumeSlider.addEventListener('input', e => {
+  music.volume = e.target.value;
+});
+
+// ======== Click Sound ========
 const clickSound = new Audio("https://andz7z.github.io/click.MP3");
 clickSound.volume = 0.05;
 function playClick() {
   const sound = clickSound.cloneNode();
   sound.volume = 0.05;
-  sound.play().catch(()=>{});
+  sound.play();
 }
+
 document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('button, .nav-buttons button, .nav-buttons a').forEach(btn => {
-    btn.addEventListener('click', () => playClick());
-  });
+  document.querySelectorAll('button, .nav-buttons button, .nav-buttons a')
+    .forEach(btn => {
+      btn.addEventListener('click', () => playClick());
+    });
 });
 
-// ======== Title animation (kept) ========
+// ======== Title Animation ========
 const title = document.getElementById('main-title');
 const nav = document.querySelector('.nav-buttons');
 let moved = false;
-if (title){
-  title.addEventListener('mouseenter', () => {
-    if (!moved) {
-      playClick();
-      title.classList.add('move-up');
-      nav.classList.remove('hidden');
-      setTimeout(() => nav.classList.add('show-buttons'), 200);
-      moved = true;
-    }
-  });
-}
 
-// ======== Particle Effect (kept) ========
+title.addEventListener('mouseenter', () => {
+  if (!moved) {
+    playClick();
+    title.classList.add('move-up');
+    nav.classList.remove('hidden');
+    setTimeout(() => nav.classList.add('show-buttons'), 200);
+    moved = true;
+  }
+});
+
+// ======== Particle Effect ========
 const canvas = document.getElementById('particle-canvas');
-let ctx, particles = [], mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
-if (canvas){
-  ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d');
+let particles = [], mouse = { x: 0, y: 0 };
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
-  window.addEventListener('mousemove', e => {
-    mouse.x = e.x; mouse.y = e.y;
-    for (let i = 0; i < 2; i++) particles.push(new Particle());
-  });
+});
 
-  class Particle {
-    constructor() {
-      this.x = mouse.x; this.y = mouse.y;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = (Math.random() * 2) - 1;
-      this.speedY = (Math.random() * 2) - 1;
-      this.alpha = 1;
-    }
-    update() { this.x += this.speedX; this.y += this.speedY; this.alpha -= 0.02; }
-    draw() { ctx.fillStyle = `rgba(255,255,255,${this.alpha})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
-  }
+window.addEventListener('mousemove', e => {
+  mouse.x = e.x;
+  mouse.y = e.y;
+  for (let i = 0; i < 2; i++) particles.push(new Particle());
+});
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach((p, i) => { p.update(); p.draw(); if (p.alpha <= 0) particles.splice(i, 1); });
-    requestAnimationFrame(animateParticles);
+class Particle {
+  constructor() {
+    this.x = mouse.x;
+    this.y = mouse.y;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() * 2) - 1;
+    this.speedY = (Math.random() * 2) - 1;
+    this.alpha = 1;
   }
-  animateParticles();
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.alpha -= 0.02;
+  }
+  draw() {
+    ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
 }
-
-// ======== Notification System (kept) ========
+// ===== Notification System =====
 setTimeout(() => {
   const notif = document.getElementById('notification');
   if (notif) {
     notif.classList.add('show');
+
+    // Play notification sound
     const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
     notifSound.volume = 0.1;
-    notifSound.play().catch(()=>{});
-    setTimeout(()=>{ notif.classList.remove('show'); }, 10000);
-  }
-}, 7000);
+    notifSound.play().catch(() => {});
 
-// ======== Section Switcher (consolidated) ========
+    // Hide after 12 seconds
+    setTimeout(() => {
+      notif.classList.remove('show');
+    }, 10000);
+  }
+}, 7000); // appears after 3s
+
 function openSection(id) {
   playClick();
+
+  // ascunde toate secțiunile
   const sections = document.querySelectorAll('.section');
   sections.forEach(sec => sec.classList.add('hidden'));
+
+  // arată secțiunea selectată
   const sectionToShow = document.getElementById(id);
   if (sectionToShow) {
     sectionToShow.classList.remove('hidden');
     sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else { console.warn("Section not found:", id); }
+  }
 
-  // mark active nav button
+  // marchează butonul selectat
   const buttons = document.querySelectorAll('.nav-buttons button');
   buttons.forEach(btn => btn.classList.remove('active-btn'));
-  const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick") && btn.getAttribute("onclick").includes(id));
+  const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
   if (activeBtn) activeBtn.classList.add('active-btn');
 }
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
 
 // ======== NEW: Work buttons behavior & detail panels ========
 
-/*
-  Data structure for work items.
-  You can change descriptions, features or images here.
-  Keys correspond to data-key attributes in HTML buttons.
-*/
 const WORK_ITEMS = {
   season: {
     title: "Season Flow",
@@ -227,7 +271,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const buttons = document.querySelectorAll('.work-btn');
   const detailContainer = document.getElementById('work-detail-container');
 
-  // helper: close all panels and remove active state
   function closeAllPanels() {
     detailContainer.innerHTML = '';
     buttons.forEach(b => {
@@ -236,7 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // create panel HTML node
   function createPanel(itemKey) {
     const item = WORK_ITEMS[itemKey];
     if (!item) return null;
@@ -259,7 +301,6 @@ document.addEventListener('DOMContentLoaded', () => {
       <button class="panel-close" aria-label="Close details">✕</button>
     `;
 
-    // close button
     panel.querySelector('.panel-close').addEventListener('click', () => {
       closeAllPanels();
     });
@@ -267,17 +308,15 @@ document.addEventListener('DOMContentLoaded', () => {
     return panel;
   }
 
-  // handle button click
   buttons.forEach(btn => {
     btn.addEventListener('click', (e) => {
       const key = btn.getAttribute('data-key');
       if (!key || !WORK_ITEMS[key]) return;
 
-      // if clicked item is already active -> close
       const isActive = btn.classList.contains('active');
       playClick();
 
-      // play press glow animation on the button
+      // press glow
       btn.classList.add('glow-press');
       setTimeout(()=> btn.classList.remove('glow-press'), 800);
 
@@ -286,16 +325,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // otherwise close existing and open new
       closeAllPanels();
       btn.classList.add('active');
       btn.setAttribute('aria-expanded', 'true');
 
       const panel = createPanel(key);
       if (panel) {
-        // insert panel under the button row
         detailContainer.appendChild(panel);
-        // scroll to panel smoothly
         setTimeout(()=> {
           panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }, 150);
@@ -303,14 +339,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // click outside panels to close
+  // click outside to close panels (but keep navigation safe)
   document.addEventListener('click', (ev) => {
     const insideBtnRow = ev.target.closest('.work-buttons');
     const insidePanel = ev.target.closest('.work-panel');
     if (!insideBtnRow && !insidePanel) {
-      // don't close if clicking nav buttons etc.
       closeAllPanels();
     }
   });
-
 });
