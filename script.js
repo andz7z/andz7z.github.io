@@ -216,6 +216,70 @@ setTimeout(() => {
     }, 10000);
   }
 }, 10000); // appears after 10s
+/* ===== Now Playing Card ===== */
+#now-playing {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.65);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 15px rgba(255,255,255,0.1);
+  z-index: 20;
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease, opacity 0.5s ease;
+  opacity: 0;
+}
+#now-playing.show {
+  opacity: 1;
+}
+
+/* ===== Floating Profile Card ===== */
+#profile-card {
+  position: fixed;
+  top: 100px;
+  left: 20px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+  z-index: 20;
+  opacity: 0;
+  transition: all 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
+}
+#profile-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Welcome Notification ===== */
+#welcome-notif {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.75);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 15px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 20px rgba(255,255,255,0.1);
+  z-index: 30;
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 0.5s ease;
+}
+#welcome-notif.show {
+  opacity: 1;
+  transform: translateX(0);
+}
 
 function animateParticles() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
