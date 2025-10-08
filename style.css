@@ -705,3 +705,97 @@ footer {
   .panel-img{ width:90%; height:180px; }
   .panel-info{ align-items:center; }
 }
+/* ===== Theme Toggle ===== */
+#theme-toggle {
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10000;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  box-shadow: 0 0 10px rgba(255,255,255,0.2);
+}
+#theme-toggle:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+}
+#bulb-icon {
+  font-size: 1.5rem;
+  transition: transform 0.5s ease, text-shadow 0.5s ease;
+}
+#theme-toggle.active #bulb-icon {
+  transform: rotate(180deg);
+  text-shadow: 0 0 15px #ffcc00;
+}
+
+/* ===== DARK MODE ===== */
+body.dark-mode {
+  background-color: #0a0a0a;
+  color: #e6e6e6;
+}
+body.dark-mode #bg-video {
+  filter: brightness(0.15) contrast(1.1) saturate(0.9);
+}
+body.dark-mode .overlay {
+  background: radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,0.95));
+}
+body.dark-mode .title {
+  text-shadow: 0 0 25px rgba(0,255,170,0.8), 0 0 60px rgba(0,255,255,0.4);
+}
+body.dark-mode .title-desc {
+  color: #bdf;
+  background: rgba(0,255,255,0.05);
+}
+body.dark-mode .nav-buttons button {
+  background: rgba(0,255,255,0.05);
+  border: 1px solid rgba(0,255,255,0.3);
+  color: #bff;
+}
+body.dark-mode .nav-buttons button:hover {
+  background: rgba(0,255,255,0.8);
+  color: #000;
+  box-shadow: 0 0 20px rgba(0,255,255,0.8);
+}
+body.dark-mode .contact-card {
+  background: linear-gradient(135deg, rgba(0,255,255,0.05), rgba(0,180,180,0.2));
+  border: 1px solid rgba(0,255,255,0.2);
+}
+body.dark-mode .contact-card:hover {
+  background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(0,180,180,0.35));
+  box-shadow: 0 0 25px rgba(0,255,255,0.4);
+}
+body.dark-mode .yt-card,
+body.dark-mode .skills-card,
+body.dark-mode .work-card,
+body.dark-mode .work-btn,
+body.dark-mode .work-panel {
+  background: linear-gradient(135deg, rgba(0,255,255,0.03), rgba(0,180,255,0.15));
+  border: 1px solid rgba(0,255,255,0.15);
+  box-shadow: 0 0 15px rgba(0,255,255,0.08);
+}
+body.dark-mode a,
+body.dark-mode .yt-button,
+body.dark-mode .panel-meta a {
+  color: #8ff;
+}
+body.dark-mode footer {
+  opacity: 0.8;
+  color: #9ff;
+}
+body.dark-mode #theme-toggle {
+  background: rgba(0,255,255,0.05);
+  border-color: rgba(0,255,255,0.3);
+  box-shadow: 0 0 15px rgba(0,255,255,0.3);
+}
+body.dark-mode #theme-toggle:hover {
+  background: rgba(0,255,255,0.2);
+}
