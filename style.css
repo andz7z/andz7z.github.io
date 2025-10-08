@@ -1,0 +1,536 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+/* Loading Screen */
+#loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 9999;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.loader-container {
+  width: 300px;
+  max-width: 80%;
+  text-align: center;
+}
+
+.loader-bar {
+  width: 0%;
+  height: 8px;
+  background: linear-gradient(90deg, #ff3c3c, #ff8c3c);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  transition: width 0.1s ease;
+}
+
+#loader-percent {
+  font-size: 1.2rem;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Background video + overlay */
+#bg-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -3;
+  object-fit: cover;
+  filter: brightness(0.25) contrast(1.2);
+}
+
+.overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.05), rgba(0,0,0,0.85));
+  z-index: -2;
+}
+
+/* Header */
+header {
+  position: relative;
+  padding-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1;
+}
+
+.title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 6rem;
+  letter-spacing: 5px;
+  text-shadow: 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(180,180,180,0.3);
+  transition: transform 0.6s ease;
+  cursor: pointer;
+}
+
+.title.move-up {
+  transform: translateY(-30px) scale(0.9);
+}
+
+.title-desc {
+  margin-top: 10px;
+  font-size: 1rem;
+  padding: 5px 15px;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+  color: rgba(255,255,255,0.8);
+  max-width: 600px;
+  text-align: center;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+.title-desc:hover {
+  background: rgba(0,0,0,0.1);
+  backdrop-filter: blur(3px);
+}
+
+/* Nav buttons */
+.nav-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  opacity: 0;
+  flex-wrap: wrap;
+  transition: all 0.6s ease;
+}
+
+.nav-buttons.show-buttons {
+  opacity: 1;
+}
+
+.nav-buttons button {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-size: 1rem;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.nav-buttons button:hover {
+  background: white;
+  color: black;
+  transform: scale(1.1);
+}
+
+/* Sections */
+.section {
+  padding: 60px 20px;
+  animation: fadeIn 0.5s ease forwards;
+  border-radius: 15px;
+  max-width: 1000px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.section-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://i.imgur.com/0Zqk0Sx.gif') center/cover no-repeat;
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section * {
+  position: relative;
+  z-index: 1;
+}
+
+.section-desc {
+  background: rgba(0,0,0,0.1);
+  padding: 10px 15px;
+  border-radius: 10px;
+  margin-top: 10px;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.section-desc:hover {
+  background: rgba(0,0,0,0.2);
+}
+
+.hidden {
+  display: none;
+}
+/* Contact Section */
+/* CONTACT SECTION – GRI PREMIUM CU HOVER ÎNTUNECAT */
+.contact-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 25px;
+  margin-top: 40px;
+  flex-direction: row;
+}
+
+.contact-card {
+  background: linear-gradient(135deg, rgba(160,160,160,0.15) 0%, rgba(100,100,100,0.25) 100%);
+  border-radius: 20px;
+  padding: 25px 30px;
+  width: 220px;
+  height: 180px; /* ✅ adăugăm o înălțime fixă */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* ✅ centrează conținutul pe verticală */
+  align-items: center;
+  gap: 10px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 4px 15px rgba(255,255,255,0.05);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+  cursor: pointer;
+}
+
+/* Shine diagonal animat subtil */
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.03) 100%);
+  transform: rotate(25deg) translateX(-100%);
+  transition: all 0.6s ease;
+}
+
+.contact-card:hover::before {
+  transform: rotate(25deg) translateX(100%);
+}
+
+/* Hover efect – se întunecă, devine gri mai închis + glow alb */
+.contact-card:hover {
+  background: linear-gradient(135deg, rgba(60,60,60,0.45) 0%, rgba(30,30,30,0.55) 100%);
+  transform: scale(1.07) translateY(-5px);
+  box-shadow: 0 0 25px rgba(255,255,255,0.35);
+}
+
+/* Icon + text */
+.contact-icon {
+  font-size: 2rem;
+  color: #fff;
+  transition: transform 0.35s ease, text-shadow 0.35s ease;
+}
+
+.contact-card:hover .contact-icon {
+  transform: scale(1.1) rotate(-3deg);
+  text-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+
+.contact-card p,
+.contact-card a,
+.contact-card span {
+  font-size: 0.95rem;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.contact-card a:hover {
+  text-shadow: 0 0 10px rgba(255,255,255,0.7);
+}
+
+/* RESPONSIVE */
+@media(max-width: 1100px) {
+  .contact-cards {
+    flex-wrap: wrap;
+  }
+}
+
+@media(max-width: 600px) {
+  .contact-card {
+    width: 90%;
+  }
+}
+/* Optional fade + slide animation */
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(15px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.yt-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 20px;
+  max-width: 420px;
+  margin: 30px auto;
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  transition: all 0.4s ease;
+}
+
+.yt-card img {
+  width: 120px;
+  height: 120px;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.12);
+  object-fit: cover;
+}
+
+.yt-info {
+  text-align: left;
+  flex: 1;
+}
+
+.yt-info h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.yt-info p {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin: 3px 0;
+}
+
+.yt-button {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.yt-button:hover {
+  background: white;
+  color: black;
+  transform: scale(1.05);
+}
+
+/* Audio */
+.audio-control {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.audio-control:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+#audio-icon {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+#volume-slider {
+  width: 100px;
+  cursor: pointer;
+}
+
+/* Particle canvas */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* Footer */
+footer {
+  margin-top: auto;
+  padding: 40px 0;
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+/* My Work Grid */
+/* My Work Grid: toate pe un rând, responsive */
+.projects {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+/* Card */
+.work-card {
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  width: 220px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.work-card:hover {
+  transform: scale(1.05);
+}
+
+/* Imagine */
+.work-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Card content */
+.card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.card-content h3 {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.card-content a {
+  padding: 6px 12px;
+  background: rgba(255, 255, 255, 0.05); /* mai transparent decât înainte */
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.card-content a:hover {
+  background: rgba(255, 255, 255, 0.15); /* puțin mai vizibil la hover */
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media(max-width: 800px) {
+  .work-card {
+    width: 45%;
+  }
+}
+
+@media(max-width: 520px) {
+  .work-card {
+    width: 90%;
+  }
+}
+/* ===== Notification Style ===== */
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: rgba(25, 25, 25, 0.9);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 14px 22px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Skills Card */
+.skills-card {
+  background: rgba(80, 80, 80, 0.4); 
+  padding: 25px;
+  border-radius: 15px;
+  max-width: 800px;
+  margin: 40px auto 0;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  text-align: left;
+}
+
+.skills-card h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.skills-card p {
+  line-height: 1.7;
+  font-size: 1rem;
+  color: #f1f1f1;
+}
+.nav-buttons button.active-btn {
+  background: white;
+  color: black;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255,255,255,0.6);
+/* FadeIn Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
