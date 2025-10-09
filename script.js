@@ -1,3 +1,27 @@
+// ===== Loading Screen =====
+window.addEventListener('load', () => {
+  const loaderBar = document.getElementById('loader-bar');
+  const loaderPercent = document.getElementById('loader-percent');
+  const loadingScreen = document.getElementById('loading-screen');
+  
+  let percent = 0;
+  const interval = setInterval(() => {
+    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
+    if (percent > 100) percent = 100;
+    loaderBar.style.width = percent + '%';
+    loaderPercent.textContent = percent + '%';
+    
+    if (percent === 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loadingScreen.style.opacity = '0';
+        loadingScreen.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => loadingScreen.style.display = 'none', 500);
+      }, 300); // mic delay după 100%
+    }
+  }, 50); // update la fiecare 50ms → ~2-3 secunde
+});
+
 // ======== Section Switcher ========
 function openSection(id) {
   playClick();
@@ -358,74 +382,3 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-// Setup scene, camera, renderer
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
-
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('intro-3d-root').appendChild(renderer.domElement);
-
-// Lighting
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
-
-const pointLight = new THREE.PointLight(0xffffff, 1);
-pointLight.position.set(5,5,5);
-scene.add(pointLight);
-
-// Diamond geometry
-const diamondGeo = new THREE.OctahedronGeometry(1,0);
-const diamondMat = new THREE.MeshStandardMaterial({
-  color: 0xaaaaff,
-  metalness: 1,
-  roughness: 0,
-  transparent: true,
-  opacity: 0.9,
-  envMapIntensity: 1,
-});
-const diamond = new THREE.Mesh(diamondGeo, diamondMat);
-scene.add(diamond);
-
-// Text Λ N D Z
-const loader = new THREE.FontLoader();
-loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
-  const textGeo = new THREE.TextGeometry('Λ N D Z', {
-    font: font,
-    size: 0.5,
-    height: 0.1,
-    curveSegments: 12,
-    bevelEnabled: true,
-    bevelThickness: 0.02,
-    bevelSize: 0.02,
-    bevelOffset: 0,
-    bevelSegments: 5
-  });
-  const textMat = new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0.8, roughness: 0.2});
-  const textMesh = new THREE.Mesh(textGeo, textMat);
-  textGeo.center();
-  textMesh.position.y = -1.5;
-  scene.add(textMesh);
-});
-
-// Animation loop
-function animate(){
-  requestAnimationFrame(animate);
-  diamond.rotation.y += 0.01;
-  diamond.rotation.x += 0.005;
-  renderer.render(scene, camera);
-}
-animate();
-
-// Responsive
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth/window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
-
-// Skip button
-document.getElementById('intro-3d-skip').addEventListener('click', () => {
-  document.getElementById('intro-3d-overlay').style.display = 'none';
-});

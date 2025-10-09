@@ -9,16 +9,6 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- ===== INTRO 3D DIAMOND (Three.js cinematic) ===== -->
-  <div id="intro-3d-overlay" role="dialog" aria-label="Intro animation">
-    <div id="intro-3d-root"></div>
-    <button id="intro-3d-skip" aria-label="Skip intro">Skip ⏭</button>
-  </div>
-
-  <!-- Three.js CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-  <!-- GSAP for animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/gsap.min.js"></script>
   <!-- Starfield background (only visible in dark mode) -->
 <div class="starfield"></div>
   <!-- Theme Toggle -->
@@ -28,6 +18,15 @@
 <div id="notification" class="notification">
   👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
 </div>
+
+  <!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loader-container">
+    <div class="loader-bar" id="loader-bar"></div>
+    <span id="loader-percent">0%</span>
+  </div>
+</div>
+
   <!-- Background video -->
   <video autoplay muted loop id="bg-video">
     <source src="https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4" type="video/mp4">
@@ -159,7 +158,5 @@
   <footer>
     <p>© 2025 ANDZ | Crafted with passion 🧊</p>
   </footer>
-  <script src="intro.js"></script>
 </body>
-
 </html>
