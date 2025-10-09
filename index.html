@@ -9,13 +9,16 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- ===== INTRO CINEMATIC Λ N D Z ===== -->
-<div id="intro-overlay">
-  <div class="intro-bg"></div>
-  <div class="intro-diamond"></div>
-  <div class="intro-glow"></div>
+<!-- ===== INTRO 3D DIAMOND (Three.js) ===== -->
+<div id="intro-3d-overlay" role="dialog" aria-label="Intro animation">
+  <div id="intro-3d-root"></div>
+  <button id="intro-3d-skip" aria-label="Skip intro">Skip ⏭</button>
+  <div id="intro-3d-flare" aria-hidden="true"></div>
 </div>
-<!-- ===== END INTRO ===== -->
+
+<!-- three.js CDN (placed once) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+
   <!-- Starfield background (only visible in dark mode) -->
 <div class="starfield"></div>
   <!-- Theme Toggle -->
