@@ -358,98 +358,74 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-document.addEventListener('DOMContentLoaded', () => {
-  const overlay = document.getElementById('intro-3d-overlay');
-  const skipBtn = document.getElementById('intro-3d-skip');
-  const container = document.getElementById('intro-3d-root');
+// Setup scene, camera, renderer
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
 
-  // Skip functionality
-  skipBtn.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    // Opri animatie
-    cancelAnimationFrame(animationId);
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.getElementById('intro-3d-root').appendChild(renderer.domElement);
+
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambientLight);
+
+const pointLight = new THREE.PointLight(0xffffff, 1);
+pointLight.position.set(5,5,5);
+scene.add(pointLight);
+
+// Diamond geometry
+const diamondGeo = new THREE.OctahedronGeometry(1,0);
+const diamondMat = new THREE.MeshStandardMaterial({
+  color: 0xaaaaff,
+  metalness: 1,
+  roughness: 0,
+  transparent: true,
+  opacity: 0.9,
+  envMapIntensity: 1,
+});
+const diamond = new THREE.Mesh(diamondGeo, diamondMat);
+scene.add(diamond);
+
+// Text Λ N D Z
+const loader = new THREE.FontLoader();
+loader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function(font) {
+  const textGeo = new THREE.TextGeometry('Λ N D Z', {
+    font: font,
+    size: 0.5,
+    height: 0.1,
+    curveSegments: 12,
+    bevelEnabled: true,
+    bevelThickness: 0.02,
+    bevelSize: 0.02,
+    bevelOffset: 0,
+    bevelSegments: 5
   });
+  const textMat = new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0.8, roughness: 0.2});
+  const textMesh = new THREE.Mesh(textGeo, textMat);
+  textGeo.center();
+  textMesh.position.y = -1.5;
+  scene.add(textMesh);
+});
 
-  // Scene
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x0a0a0a);
+// Animation loop
+function animate(){
+  requestAnimationFrame(animate);
+  diamond.rotation.y += 0.01;
+  diamond.rotation.x += 0.005;
+  renderer.render(scene, camera);
+}
+animate();
 
-  // Camera
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
-  camera.position.set(0, 0, 5);
-
-  // Renderer
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+// Responsive
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
-  container.appendChild(renderer.domElement);
+});
 
-  // Lights
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
-  scene.add(ambientLight);
-
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-  directionalLight.position.set(5,5,5);
-  scene.add(directionalLight);
-
-  // Diamond geometry (octahedron) + glassy material
-  const diamondGeo = new THREE.OctahedronGeometry(1.2, 2);
-  const diamondMat = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
-    metalness: 0.5,
-    roughness: 0,
-    clearcoat: 1,
-    clearcoatRoughness: 0,
-    transmission: 1, // glass effect
-    thickness: 1,
-    reflectivity: 1
-  });
-  const diamond = new THREE.Mesh(diamondGeo, diamondMat);
-  scene.add(diamond);
-
-  // Λ N D Z Text
-  const loader = new THREE.FontLoader();
-  loader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', function(font){
-    const textGeo = new THREE.TextGeometry('Λ N D Z', {
-      font: font,
-      size: 0.8,
-      height: 0.2,
-      bevelEnabled: true,
-      bevelThickness: 0.03,
-      bevelSize: 0.02,
-      bevelSegments: 5
-    });
-    const textMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.7, roughness: 0.2 });
-    const textMesh = new THREE.Mesh(textGeo, textMat);
-    textMesh.position.set(-2.2, -2, 0);
-    textMesh.visible = false;
-    scene.add(textMesh);
-
-    // Animate diamond rotation
-    let t = 0;
-    let animationId;
-
-    function animate(){
-      animationId = requestAnimationFrame(animate);
-      t += 0.01;
-      diamond.rotation.x = t;
-      diamond.rotation.y = t * 0.7;
-      renderer.render(scene, camera);
-    }
-    animate();
-
-    // After 3 sec, show text cinematic
-    setTimeout(()=>{
-      gsap.to(textMesh.position, {y:0, duration:1, ease:"power2.out"});
-      textMesh.visible = true;
-      gsap.fromTo(textMesh.scale, {x:0, y:0, z:0}, {x:1, y:1, z:1, duration:1.2, ease:"back.out(1.7)"});
-    }, 3000);
-
-  });
-
-  // Responsiveness
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+// Skip button
+document.getElementById('intro-3d-skip').addEventListener('click', () => {
+  document.getElementById('intro-3d-overlay').style.display = 'none';
 });
