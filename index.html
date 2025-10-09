@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A N D Z | Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Syne+Tactile:wght@400;700&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">  <script defer src="script.js"></script>
+</head>
+<body>
+  <!-- Starfield background (only visible in dark mode) -->
+<div class="starfield"></div>
+  <!-- Theme Toggle -->
+<div id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">💡</div>
+  
+  <!-- Notification -->
+<div id="notification" class="notification">
+  👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
+</div>
+
+  <!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loader-container">
+    <div class="loader-bar" id="loader-bar"></div>
+    <span id="loader-percent">0%</span>
+  </div>
+</div>
+
+  <!-- Background video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- Audio control -->
+  <div class="audio-control">
+    <span id="audio-icon" onclick="toggleMusic()">🔇</span>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0">
+  </div>
+
+  <!-- Header -->
+  <header>
+    <h1 class="title" id="main-title">Λ N D Z</h1>
+    <p class="title-desc">professional services in video & photo editing, game modding & web development</p>
+    <nav class="nav-buttons hidden">
+      <button onclick="openSection('services')">Services 🤝🏽</button>
+      <button onclick="openSection('work')">Projects 📁</button>
+      <button onclick="openSection('contact')">Contact Me 📞</button>
+    </nav>
+  </header>
+
+  <!-- SERVICES & YOUTUBE -->
+  <section id="services" class="hidden section">
+    <div class="section-bg"></div>
+    <h2>🖥️ My Services </h2>
+    
+    <!-- YouTube Card -->
+    <div id="yt-stats" class="yt-card show">
+      <img id="yt-thumbnail" src="https://via.placeholder.com/120" alt="Channel Thumbnail">
+      <div class="yt-info">
+        <h3 id="yt-name">Loading channel...</h3>
+        <p><span id="yt-subscribers">0</span> subscribers</p>
+        <p><span id="yt-videos">0</span> videos</p>
+        <p><span id="yt-views">0</span> total views</p>
+        <a id="yt-link" href="#" target="_blank" class="yt-button">Visit Channel</a>
+      </div>
+    </div>
+
+    <!-- Description Card -->
+    <div class="skills-card">
+      <h3>💡 What I Do</h3>
+      <p>
+        🎬 <strong>Photo/Video Editing</strong> – CapCut Pro, DaVinci Resolve, Canva for professional video content.<br><br>
+        🕹 <strong>Game Modding</strong> – programming mods for GTA: San Andreas and other games in Lua & Python.<br><br>
+        🌐 <strong>Web Development</strong> – building modern, responsive websites with HTML, CSS, JavaScript.<br><br>
+        🎨 <strong>Graphic Design</strong> – logos, banners, overlays for social media and gaming communities.<br><br>
+        🔊 <strong>SFX & VFX</strong> – custom sound effects, motion graphics, and video effects for projects.
+      </p>
+    </div>
+  </section>
+
+  <!-- MY WORK (REFACUT) -->
+<section id="work" class="hidden section">
+  <div class="section-bg"></div>
+  <h2>💎 My Works</h2>
+
+  <!-- Buttons row — logos minimal, transparent PNGs -->
+  <div class="work-buttons" aria-label="Work buttons">
+    <button class="work-btn" data-key="season" aria-expanded="false" title="Season Flow">
+      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/11087/11087571.png" alt="Season Flow logo">
+      <span class="work-name">Season Flow</span>
+    </button>
+
+    <button class="work-btn" data-key="weather" aria-expanded="false" title="Weather Shift">
+      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Weather Shift logo">
+      <span class="work-name">Weather Shift</span>
+    </button>
+
+    <button class="work-btn" data-key="tags" aria-expanded="false" title="Modern Tags">
+      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/18904/18904123.png" alt="Modern Tags logo">
+      <span class="work-name">Modern Tags</span>
+    </button>
+
+    <button class="work-btn" data-key="look" aria-expanded="false" title="Look Changer">
+      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/10725/10725435.png" alt="Look Changer logo">
+      <span class="work-name">Look Changer</span>
+    </button>
+  </div>
+
+  <!-- container where panels appear -->
+  <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
+</section>
+
+  <!-- CONTACT -->
+<section id="contact" class="hidden section">
+  <div class="section-bg"></div>
+  <h2>📩 Contact Me</h2>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <span class="contact-icon">📧</span>
+      <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="contact-icon">📱</span>
+      <p><strong>Phone:</strong> <a href="tel:+40748594335">+40 748 594 335</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="contact-icon">🐙</span>
+      <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="contact-icon">💬</span>
+      <p><strong>Discord:</strong> <span>andz7z</span></p>
+    </div>
+  </div>
+  <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
+</section>
+  <footer>
+    <p>© 2025 ANDZ | Crafted with passion 🧊</p>
+  </footer>
+</body>
+</html>
