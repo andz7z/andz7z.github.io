@@ -4,41 +4,210 @@
   box-sizing: border-box;
 }
 
-/* Loading Screen */
-#loading-screen {
+/* ===== Intro styles (diamond / metal / glass) ===== */
+#intro-screen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
+  inset: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-direction: column;
-  z-index: 9999;
-  color: white;
-  font-family: 'BBH Sans Bartle', sans-serif; /* schimbat din Lora */
+  justify-content: center;
+  z-index: 99995;
+  pointer-events: auto;
+  background: linear-gradient(180deg, rgba(10,10,12,0.88), rgba(25,25,28,0.95));
+  -webkit-font-smoothing: antialiased;
+  transition: opacity 0.8s ease, visibility 0.4s ease;
 }
 
-.loader-container {
-  width: 300px;
-  max-width: 80%;
-  text-align: center;
+/* backdrop for depth */
+.intro-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.02), transparent 15%),
+              radial-gradient(circle at 70% 70%, rgba(255,255,255,0.01), transparent 12%);
+  filter: blur(6px);
+  pointer-events: none;
+  z-index: 1;
 }
 
-.loader-bar {
-  width: 0%;
-  height: 8px;
-  background: linear-gradient(90deg, #ff3c3c, #ff8c3c);
-  border-radius: 4px;
-  margin-bottom: 10px;
-  transition: width 0.1s ease;
+/* center stage */
+.intro-stage {
+  position: relative;
+  z-index: 2;
+  width: min(920px, 92%);
+  max-width: 1100px;
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px; /* 3D depth */
+  transform-style: preserve-3d;
 }
 
-#loader-percent {
-  font-size: 1.2rem;
-  font-family: 'BBH Sans Bartle', sans-serif; /* tot Comfortaa */
+/* metal plate */
+.metal-plate {
+  width: clamp(220px, 30vw, 360px);
+  height: clamp(220px, 30vw, 360px);
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  transform-origin: center;
+  background: linear-gradient(145deg, #2b2b2f, #161618);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.7), inset 0 2px 20px rgba(255,255,255,0.03);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  overflow: visible;
+  z-index: 3;
+}
+
+/* plate glass reflection */
+.plate-reflection {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  pointer-events: none;
+  background: linear-gradient(120deg, rgba(255,255,255,0.02), rgba(255,255,255,0.0) 30%);
+  mix-blend-mode: screen;
+  opacity: 0.9;
+}
+
+/* diamond svg sizing */
+.diamond-svg {
+  width: 68%;
+  height: auto;
+  transform-origin: center;
+  transition: transform 0.6s cubic-bezier(.2,.9,.3,1);
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.6));
+}
+
+/* diamond facet subtle stroke */
+.diamond-facet {
+  stroke: rgba(255,255,255,0.06);
+  stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
+  transition: fill 0.4s ease, opacity 0.35s ease;
+}
+
+/* shine overlay */
+.diamond-shine {
+  mix-blend-mode: screen;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* intro text */
+.intro-text {
+  margin-left: clamp(18px, 3vw, 34px);
+  text-align: left;
+  color: rgba(255,255,255,0.9);
+  transform: translateZ(40px) rotateX(6deg);
+}
+
+/* hidden until revealed */
+.visually-hidden {
+  opacity: 0;
+  transform: translateY(10px) translateZ(20px);
+}
+
+/* big title style (will animate in) */
+.intro-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(32px, 6vw, 68px);
+  letter-spacing: 0.28em;
+  font-weight: 800;
+  color: #e6e9ee;
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+}
+
+/* subtitle */
+.intro-sub {
+  font-family: 'Raleway', sans-serif;
+  font-size: clamp(12px, 1.6vw, 14px);
+  color: rgba(230,230,230,0.7);
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+/* Skip button */
+.intro-skip {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  z-index: 6;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform .18s ease, opacity .25s ease;
+}
+.intro-skip:hover{ transform: translateY(-2px) scale(1.02); }
+
+/* animation classes added by JS (timeline) */
+.intro--plate-raise {
+  animation: plateRaise 900ms cubic-bezier(.2,.85,.2,1) forwards;
+}
+@keyframes plateRaise {
+  0% { transform: translateY(18px) rotateX(8deg) scale(.96); filter: blur(1px); opacity: 0; }
+  60% { transform: translateY(-8px) rotateX(3deg) scale(1.02); opacity: 1; filter: blur(0); }
+  100% { transform: translateY(0) rotateX(0) scale(1); opacity: 1; }
+}
+
+/* diamond rotate/flip reveal */
+.intro--diamond-spin .diamond-svg {
+  animation: diamondSpin 1200ms cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes diamondSpin {
+  0% { transform: rotateX(60deg) rotateY(30deg) scale(.6) translateY(10px); opacity: 0; filter: blur(2px); }
+  60% { transform: rotateX(10deg) rotateY(-10deg) scale(.98) translateY(-6px); opacity: 1; filter: blur(0); }
+  100% { transform: rotateX(0) rotateY(0) scale(1); opacity: 1; }
+}
+
+/* shine sweep */
+.intro--shine .diamond-shine {
+  opacity: 1;
+  transform: translateX(80%) rotate(-20deg);
+}
+
+/* title reveal */
+.intro--reveal .intro-title {
+  opacity: 1;
+  transform: translateY(0) translateZ(40px);
+  transition: opacity .6s ease .12s, transform .6s cubic-bezier(.2,.9,.3,1) .12s;
+}
+
+/* final glass pulse */
+.intro--pulse .metal-plate {
+  box-shadow: 0 36px 120px rgba(0,0,0,0.7), inset 0 2px 28px rgba(255,255,255,0.02);
+  transform: translateZ(4px) scale(1.02);
+  transition: transform .45s ease;
+}
+
+/* Hide intro (fade out) */
+#intro-screen.outro {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .9s ease, visibility 0s linear .9s;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .intro-stage, .diamond-svg, .metal-plate, .intro-title {
+    transition: none !important;
+    animation: none !important;
+  }
+  .intro-skip { display: none; }
+}
+
+/* ensure intro is mobile friendly */
+@media(max-width:700px){
+  .intro-stage { aspect-ratio: 1/1; width: 92%; }
+  .intro-text { margin-left: 12px; text-align: center; transform: translateZ(22px); }
+  .intro-skip { right: 12px; top: 12px; padding: 6px 10px; }
 }
 
 body {
