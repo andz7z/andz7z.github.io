@@ -1,25 +1,12 @@
-// ===== Smart Loading Screen (Light/Dark themed) =====
-
-// Detectează tema curentă salvată
-const savedTheme = localStorage.getItem("theme");
-const loadingScreen = document.getElementById('loading-screen');
-
-// Aplică clasa potrivită înainte să pornească animația
-if (loadingScreen) {
-  if (savedTheme === "dark") {
-    loadingScreen.classList.add("dark-loading");
-  } else {
-    loadingScreen.classList.add("light-loading");
-  }
-}
-
+// ===== Loading Screen =====
 window.addEventListener('load', () => {
   const loaderBar = document.getElementById('loader-bar');
   const loaderPercent = document.getElementById('loader-percent');
+  const loadingScreen = document.getElementById('loading-screen');
   
   let percent = 0;
   const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1;
+    percent += Math.floor(Math.random() * 5) + 1; // creČte uČor aleator
     if (percent > 100) percent = 100;
     loaderBar.style.width = percent + '%';
     loaderPercent.textContent = percent + '%';
@@ -28,11 +15,11 @@ window.addEventListener('load', () => {
       clearInterval(interval);
       setTimeout(() => {
         loadingScreen.style.opacity = '0';
-        loadingScreen.style.transition = 'opacity 0.7s ease';
-        setTimeout(() => loadingScreen.style.display = 'none', 700);
-      }, 400);
+        loadingScreen.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => loadingScreen.style.display = 'none', 500);
+      }, 300); // mic delay dupÄ 100%
     }
-  }, 60);
+  }, 50); // update la fiecare 50ms â ~2-3 secunde
 });
 
 // ======== Section Switcher ========
@@ -101,7 +88,7 @@ function startMusic() {
       fadeInMusic();
       playing = true;
       musicStarted = true;
-      document.getElementById('audio-icon').textContent = '🔊';
+      document.getElementById('audio-icon').textContent = 'đ';
     }).catch(err => console.log("Autoplay blocked:", err));
   }
 }
@@ -109,7 +96,7 @@ function startMusic() {
 function toggleMusic() {
   playClick();
   playing = !playing;
-  document.getElementById('audio-icon').textContent = playing ? '🔊' : '🔇';
+  document.getElementById('audio-icon').textContent = playing ? 'đ' : 'đ';
   playing ? music.play() : music.pause();
 }
 
@@ -120,7 +107,7 @@ window.addEventListener('click', e => {
 });
 
 window.addEventListener('load', () => {
-  document.getElementById('audio-icon').textContent = '🔇';
+  document.getElementById('audio-icon').textContent = 'đ';
 });
 
 volumeSlider.addEventListener('input', e => {
@@ -219,18 +206,18 @@ setTimeout(() => {
 function openSection(id) {
   playClick();
 
-  // ascunde toate secțiunile
+  // ascunde toate secČiunile
   const sections = document.querySelectorAll('.section');
   sections.forEach(sec => sec.classList.add('hidden'));
 
-  // arată secțiunea selectată
+  // aratÄ secČiunea selectatÄ
   const sectionToShow = document.getElementById(id);
   if (sectionToShow) {
     sectionToShow.classList.remove('hidden');
     sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // marchează butonul selectat
+  // marcheazÄ butonul selectat
   const buttons = document.querySelectorAll('.nav-buttons button');
   buttons.forEach(btn => btn.classList.remove('active-btn'));
   const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
@@ -253,7 +240,7 @@ const WORK_ITEMS = {
   season: {
     title: "Season Flow",
     img: "https://i.imgur.com/ik14PFa.jpeg",
-    desc: "Seamlessly transitions map seasons in GTA:SA — snow in winter, green fields in summer, leaves falling in autumn. Easy install, configurable times and regions.",
+    desc: "Seamlessly transitions map seasons in GTA:SA â snow in winter, green fields in summer, leaves falling in autumn. Easy install, configurable times and regions.",
     github: "https://github.com/andz7z/SEASONS-GTA-SA",
     features: ["Auto day/night aware", "Configurable zones", "Low perf impact"]
   },
@@ -311,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <a class="download-link" href="${item.github}/archive/refs/heads/main.zip" target="_blank" rel="noopener">Download ZIP</a>
         </div>
       </div>
-      <button class="panel-close" aria-label="Close details">✕</button>
+      <button class="panel-close" aria-label="Close details">â</button>
     `;
 
     panel.querySelector('.panel-close').addEventListener('click', () => {
@@ -368,7 +355,7 @@ const body = document.body;
 // Load saved theme
 if (localStorage.getItem("theme") === "dark") {
   body.classList.add("dark-mode");
-  themeToggle.textContent = "🌙";
+  themeToggle.textContent = "đ";
 }
 
 themeToggle.addEventListener("click", () => {
@@ -376,10 +363,10 @@ themeToggle.addEventListener("click", () => {
   body.classList.toggle("dark-mode");
 
   if (body.classList.contains("dark-mode")) {
-    themeToggle.textContent = "🌙";
+    themeToggle.textContent = "đ";
     localStorage.setItem("theme", "dark");
   } else {
-    themeToggle.textContent = "💡";
+    themeToggle.textContent = "đĄ";
     localStorage.setItem("theme", "light");
   }
 });
@@ -395,7 +382,7 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-// === Ascunde toate secțiunile la pornire, lasă doar header-ul ===
+// === Ascunde toate secČiunile la pornire, lasÄ doar header-ul ===
 window.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
 });
