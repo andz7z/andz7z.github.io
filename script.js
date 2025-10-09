@@ -382,3 +382,7 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
+// === Ascunde toate secțiunile la pornire, lasă doar header-ul ===
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.section').forEach(sec => sec.classList.add('hidden'));
+});
