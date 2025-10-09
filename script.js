@@ -382,28 +382,23 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-// ===== Reviews Logic =====
-let selectedRating = 0;
+function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
 
-const stars = document.querySelectorAll(".review-form .stars span");
-const submitBtn = document.getElementById("submit-review");
-const nameInput = document.getElementById("review-name");
-const messageInput = document.getElementById("review-message");
-const reviewsList = document.getElementById("reviews-list");
-const emptyMsg = document.querySelector(".empty-msg");
+  sheet.appendRow([
+    new Date(),
+    data.name,
+    data.rating,
+    data.message
+  ]);
 
-// Select stars
-stars.forEach(star => {
-  star.addEventListener("click", () => {
-    selectedRating = star.getAttribute("data-value");
-    stars.forEach(s => s.classList.remove("selected"));
-    for (let i = 0; i < selectedRating; i++) {
-      stars[i].classList.add("selected");
-    }
-  });
-});
+  return ContentService.createTextOutput(
+    JSON.stringify({ result: "success" })
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwzD7c9du93q8HWfQQn1pmHLCrIH6-eprIEABmwHOauEFNOvxCzvpId_2YDNqD-6z-w/exec";
 
-// Submit review
 submitBtn.addEventListener("click", () => {
   const name = nameInput.value.trim();
   const message = messageInput.value.trim();
@@ -413,28 +408,52 @@ submitBtn.addEventListener("click", () => {
     return;
   }
 
-  // Hide "no reviews yet"
+  const review = {
+    name,
+    rating: selectedRating,
+    message
+  };
+
+  // Trimite spre Google Sheets
+  fetch(SHEET_URL, {
+    method: "POST",
+    body: JSON.stringify(review),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(res => res.json())
+  .then(() => {
+    alert("Review submitted successfully!");
+    
+    // Adaugă și pe pagină (live update)
+    addReviewToPage(review);
+
+    // Reset form
+    nameInput.value = "";
+    messageInput.value = "";
+    selectedRating = 0;
+    stars.forEach(s => s.classList.remove("selected"));
+  })
+  .catch(err => alert("Error: " + err));
+});
+
+// Funcție de afișare review pe pagină
+function addReviewToPage(review) {
   if (emptyMsg) emptyMsg.style.display = "none";
 
-  // Create review card
   const card = document.createElement("div");
   card.className = "review-card";
 
   let starsHTML = "";
-  for (let i = 0; i < selectedRating; i++) starsHTML += "★";
-  for (let i = selectedRating; i < 5; i++) starsHTML += "☆";
+  for (let i = 0; i < review.rating; i++) starsHTML += "★";
+  for (let i = review.rating; i < 5; i++) starsHTML += "☆";
 
   card.innerHTML = `
-    <h4>${name}</h4>
+    <h4>${review.name}</h4>
     <div class="stars-display">${starsHTML}</div>
-    <p>${message}</p>
+    <p>${review.message}</p>
   `;
 
   reviewsList.prepend(card);
-
-  // Reset form
-  nameInput.value = "";
-  messageInput.value = "";
-  selectedRating = 0;
-  stars.forEach(s => s.classList.remove("selected"));
-});
+}
