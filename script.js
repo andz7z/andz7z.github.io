@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
   
   let percent = 0;
   const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
+    percent += Math.floor(Math.random() * 5) + 1;
     if (percent > 100) percent = 100;
     loaderBar.style.width = percent + '%';
     loaderPercent.textContent = percent + '%';
@@ -17,9 +17,9 @@ window.addEventListener('load', () => {
         loadingScreen.style.opacity = '0';
         loadingScreen.style.transition = 'opacity 0.5s ease';
         setTimeout(() => loadingScreen.style.display = 'none', 500);
-      }, 300); // mic delay după 100%
+      }, 300);
     }
-  }, 50); // update la fiecare 50ms → ~2-3 secunde
+  }, 50);
 });
 
 // ======== Section Switcher ========
@@ -185,6 +185,17 @@ class Particle {
     ctx.fill();
   }
 }
+
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
 // ===== Notification System =====
 setTimeout(() => {
   const notif = document.getElementById('notification');
@@ -196,46 +207,14 @@ setTimeout(() => {
     notifSound.volume = 0.1;
     notifSound.play().catch(() => {});
 
-    // Hide after 12 seconds
+    // Hide after 10 seconds
     setTimeout(() => {
       notif.classList.remove('show');
     }, 10000);
   }
-}, 7000); // appears after 3s
-
-function openSection(id) {
-  playClick();
-
-  // ascunde toate secțiunile
-  const sections = document.querySelectorAll('.section');
-  sections.forEach(sec => sec.classList.add('hidden'));
-
-  // arată secțiunea selectată
-  const sectionToShow = document.getElementById(id);
-  if (sectionToShow) {
-    sectionToShow.classList.remove('hidden');
-    sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  // marchează butonul selectat
-  const buttons = document.querySelectorAll('.nav-buttons button');
-  buttons.forEach(btn => btn.classList.remove('active-btn'));
-  const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
-  if (activeBtn) activeBtn.classList.add('active-btn');
-}
-function animateParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach((p, i) => {
-    p.update();
-    p.draw();
-    if (p.alpha <= 0) particles.splice(i, 1);
-  });
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
+}, 7000);
 
 // ======== NEW: Work buttons behavior & detail panels ========
-
 const WORK_ITEMS = {
   season: {
     title: "Season Flow",
@@ -316,7 +295,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const isActive = btn.classList.contains('active');
       playClick();
 
-      // press glow
       btn.classList.add('glow-press');
       setTimeout(()=> btn.classList.remove('glow-press'), 800);
 
@@ -339,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // click outside to close panels (but keep navigation safe)
   document.addEventListener('click', (ev) => {
     const insideBtnRow = ev.target.closest('.work-buttons');
     const insidePanel = ev.target.closest('.work-panel');
@@ -348,16 +325,87 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-// ======== Dark / Light Mode Toggle ========
+
+// ======== Dark / Light Mode Toggle + Cinematic Diamond/Moon ========
 const themeToggle = document.getElementById("theme-toggle");
 const body = document.body;
+const titleWrapper = document.getElementById("main-title-wrapper"); // wrapper pentru animație
+let diamond, moon, titleVisible = true;
 
-// Load saved theme
+// Creează diamant/glassy
+diamond = document.createElement("div");
+diamond.id = "diamond";
+diamond.style.width = "50px";
+diamond.style.height = "50px";
+diamond.style.borderRadius = "10%";
+diamond.style.background = "linear-gradient(145deg, #ffffffaa, #ccccccff)";
+diamond.style.boxShadow = "0 0 15px rgba(255,255,255,0.6)";
+diamond.style.position = "absolute";
+diamond.style.top = "0";
+diamond.style.left = "50%";
+diamond.style.transform = "translateX(-50%) rotateY(0deg)";
+diamond.style.transition = "opacity 0.5s ease";
+diamond.style.opacity = 0;
+diamond.style.zIndex = 10;
+titleWrapper.appendChild(diamond);
+
+// Creează lună
+moon = document.createElement("div");
+moon.id = "moon";
+moon.style.width = "50px";
+moon.style.height = "50px";
+moon.style.borderRadius = "50%";
+moon.style.background = "radial-gradient(circle at 25% 25%, #FFD700, #FFA500)";
+moon.style.position = "absolute";
+moon.style.top = "0";
+moon.style.left = "50%";
+moon.style.transform = "translateX(-50%)";
+moon.style.transition = "opacity 0.5s ease";
+moon.style.opacity = 0;
+moon.style.zIndex = 10;
+titleWrapper.appendChild(moon);
+
+// Animatie diamant rotativ
+let diamondAngle = 0;
+function animateDiamond() {
+  if (diamond.style.opacity == 1) {
+    diamondAngle += 0.3;
+    diamond.style.transform = `translateX(-50%) rotateY(${diamondAngle}deg)`;
+  }
+  requestAnimationFrame(animateDiamond);
+}
+animateDiamond();
+
+// Functii pentru toggle cinematic
+function showDiamond() {
+  diamond.style.opacity = 1;
+  moon.style.opacity = 0;
+  title.style.opacity = 1;
+  titleVisible = true;
+}
+function showMoon() {
+  diamond.style.opacity = 0;
+  moon.style.opacity = 1;
+  // efect de fum pentru title
+  if (titleVisible) {
+    title.style.transition = "opacity 1s ease, transform 1s ease";
+    title.style.opacity = 0;
+    title.style.transform = "translateY(-20px) scale(0.8)";
+    titleVisible = false;
+  }
+}
+// ======== Toggle cinematic diamond/moon & title ========
+
+// Detectare tema salvata
 if (localStorage.getItem("theme") === "dark") {
   body.classList.add("dark-mode");
   themeToggle.textContent = "🌙";
+  showMoon();
+} else {
+  showDiamond();
 }
 
+// Toggle prin butonul Light/Dark
 themeToggle.addEventListener("click", () => {
   playClick();
   body.classList.toggle("dark-mode");
@@ -365,20 +413,32 @@ themeToggle.addEventListener("click", () => {
   if (body.classList.contains("dark-mode")) {
     themeToggle.textContent = "🌙";
     localStorage.setItem("theme", "dark");
+    showMoon();
   } else {
     themeToggle.textContent = "💡";
     localStorage.setItem("theme", "light");
+    showDiamond();
   }
 });
-// ===== Starfield Generator =====
-const starfield = document.querySelector(".starfield");
-if (starfield) {
-  for (let i = 0; i < 120; i++) {
-    const star = document.createElement("div");
-    star.className = "star";
-    star.style.top = Math.random() * 100 + "%";
-    star.style.left = Math.random() * 100 + "%";
-    star.style.animationDuration = (2 + Math.random() * 3) + "s";
-    starfield.appendChild(star);
+
+// Toggle prin click pe titlu
+title.addEventListener("click", () => {
+  playClick();
+  if (!body.classList.contains("dark-mode")) {
+    // Light mode active → afiseaza diamant
+    showDiamond();
+  } else {
+    // Dark mode active → afiseaza luna
+    showMoon();
   }
+});
+
+// Daca Light mode e activ, apasarea pe darkmode face luna automat
+// Daca Dark mode e activ, apasarea pe lightmode face diamant automat
+// deja sincronizat cu functiile showDiamond/showMoon
+
+// Optional: reset transform cand revine title
+function resetTitleTransform() {
+  title.style.transform = "translateY(0px) scale(1)";
+  title.style.transition = "opacity 0.5s ease, transform 0.5s ease";
 }
