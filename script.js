@@ -1,12 +1,25 @@
-// ===== Loading Screen =====
+// ===== Smart Loading Screen (Light/Dark themed) =====
+
+// Detectează tema curentă salvată
+const savedTheme = localStorage.getItem("theme");
+const loadingScreen = document.getElementById('loading-screen');
+
+// Aplică clasa potrivită înainte să pornească animația
+if (loadingScreen) {
+  if (savedTheme === "dark") {
+    loadingScreen.classList.add("dark-loading");
+  } else {
+    loadingScreen.classList.add("light-loading");
+  }
+}
+
 window.addEventListener('load', () => {
   const loaderBar = document.getElementById('loader-bar');
   const loaderPercent = document.getElementById('loader-percent');
-  const loadingScreen = document.getElementById('loading-screen');
   
   let percent = 0;
   const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
+    percent += Math.floor(Math.random() * 5) + 1;
     if (percent > 100) percent = 100;
     loaderBar.style.width = percent + '%';
     loaderPercent.textContent = percent + '%';
@@ -15,11 +28,11 @@ window.addEventListener('load', () => {
       clearInterval(interval);
       setTimeout(() => {
         loadingScreen.style.opacity = '0';
-        loadingScreen.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => loadingScreen.style.display = 'none', 500);
-      }, 300); // mic delay după 100%
+        loadingScreen.style.transition = 'opacity 0.7s ease';
+        setTimeout(() => loadingScreen.style.display = 'none', 700);
+      }, 400);
     }
-  }, 50); // update la fiecare 50ms → ~2-3 secunde
+  }, 60);
 });
 
 // ======== Section Switcher ========
