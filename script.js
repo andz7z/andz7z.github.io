@@ -382,21 +382,3 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-// Altele
-const siteTitle = document.getElementById('siteTitle');
-const symbolContainer = document.getElementById('symbolContainer');
-
-siteTitle.addEventListener('click', () => {
-  // animăm dispariția textului
-  siteTitle.classList.add('fade-out');
-
-  setTimeout(() => {
-    siteTitle.style.display = 'none';
-    symbolContainer.style.display = 'block';
-
-    // verifică dacă e activ dark mode
-    const isDark = document.body.classList.contains('dark-mode');
-
-    symbolContainer.innerHTML = `<div class="${isDark ? 'moon' : 'diamond'}"></div>`;
-  }, 600);
-});
