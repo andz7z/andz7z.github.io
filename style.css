@@ -1012,33 +1012,3 @@ body.dark-mode .starfield {
 .stars span:hover ~ span {
   color: #ffd95a;
 }
-
-/* Reviews List */
-.reviews-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.review-card {
-  background: rgba(30,30,30,0.8);
-  border: 1px solid rgba(255,217,90,0.2);
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.6);
-}
-.review-card h4 {
-  margin-bottom: 5px;
-  color: #ffd95a;
-}
-.review-card p {
-  color: #eaeaea;
-  font-size: 0.95rem;
-}
-.review-card .stars-display {
-  color: #ffd95a;
-  margin-bottom: 8px;
-}
-.empty-msg {
-  text-align: center;
-  color: #999;
-}
