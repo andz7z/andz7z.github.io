@@ -9,16 +9,20 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-<!-- ===== INTRO 3D DIAMOND (Three.js) ===== -->
-<div id="intro-3d-overlay" role="dialog" aria-label="Intro animation">
-  <div id="intro-3d-root"></div>
-  <button id="intro-3d-skip" aria-label="Skip intro">Skip ⏭</button>
-  <div id="intro-3d-flare" aria-hidden="true"></div>
-</div>
+  <!-- ===== INTRO 3D DIAMOND (Three.js cinematic) ===== -->
+  <div id="intro-3d-overlay" role="dialog" aria-label="Intro animation">
+    <div id="intro-3d-root"></div>
+    <button id="intro-3d-skip" aria-label="Skip intro">Skip ⏭</button>
+  </div>
 
-<!-- three.js CDN (placed once) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
-<script src="script.js"></script>
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r152/three.min.js"></script>
+  <!-- GSAP for animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.14.0/gsap.min.js"></script>
+
+  <!-- Scriptul principal -->
+  <script src="intro.js"></script>
+</body>
 
   <!-- Starfield background (only visible in dark mode) -->
 <div class="starfield"></div>
