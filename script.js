@@ -382,3 +382,56 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
+// ======== ANDZ Toggle System (Updated with Spin) ========
+
+document.addEventListener('DOMContentLoaded', () => {
+  const title = document.getElementById('main-title');
+  const header = document.querySelector('header');
+  let icon = null;
+  let showingIcon = false;
+
+  function createIcon() {
+    const span = document.createElement('span');
+    span.className = 'icon-toggle';
+    span.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '💎';
+    header.appendChild(span);
+    setTimeout(() => span.classList.add('show'), 10);
+    return span;
+  }
+
+  // Actualizează simbolul dacă se schimbă tema
+  const observer = new MutationObserver(() => {
+    if (icon && showingIcon) {
+      icon.textContent = document.body.classList.contains('dark-mode') ? '🌙' : '💎';
+    }
+  });
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  title.addEventListener('click', () => {
+    playClick();
+    if (showingIcon) return;
+    showingIcon = true;
+
+    title.classList.add('evaporate');
+
+    setTimeout(() => {
+      title.style.display = 'none';
+      icon = createIcon();
+
+      icon.addEventListener('click', () => {
+        playClick();
+        icon.classList.add('hide');
+        setTimeout(() => {
+          icon.remove();
+          title.style.display = 'inline-block';
+          title.classList.remove('evaporate');
+          title.classList.add('appear');
+          setTimeout(() => {
+            title.classList.remove('appear');
+            showingIcon = false;
+          }, 600);
+        }, 400);
+      });
+    }, 600);
+  });
+});
