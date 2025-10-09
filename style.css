@@ -5,40 +5,92 @@
 }
 
 /* Loading Screen */
+/* ================= REVOLUTIONIZED LOADING SCREEN ================= */
 #loading-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   z-index: 9999;
-  color: white;
-  font-family: 'BBH Sans Bartle', sans-serif; /* schimbat din Lora */
+  transition: opacity 0.6s ease;
+  font-family: 'Raleway', sans-serif;
+  overflow: hidden;
 }
 
+/* ===== Light Mode Style (Glass/Metal/Smoke) ===== */
+#loading-screen.light-loading {
+  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.2), rgba(180,180,180,0.05) 80%);
+  backdrop-filter: blur(15px) brightness(1.1);
+  color: #222;
+}
+#loading-screen.light-loading::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url('https://i.imgur.com/Y3tVZbi.png') center/cover no-repeat;
+  opacity: 0.15;
+  filter: contrast(1.2) brightness(1.1);
+}
+
+/* ===== Dark Mode Style (Moonlight Gold) ===== */
+#loading-screen.dark-loading {
+  background: radial-gradient(circle at 50% 40%, rgba(20,20,25,1), rgba(0,0,0,0.9));
+  color: #ffd95a;
+  box-shadow: inset 0 0 120px rgba(255,217,90,0.08);
+}
+#loading-screen.dark-loading::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 70% 30%, rgba(255,217,90,0.15), transparent 60%);
+  animation: moonPulse 6s infinite ease-in-out;
+  opacity: 0.5;
+}
+
+/* Loading bar core design */
 .loader-container {
   width: 300px;
   max-width: 80%;
   text-align: center;
+  position: relative;
+  z-index: 10;
 }
 
 .loader-bar {
   width: 0%;
-  height: 8px;
-  background: linear-gradient(90deg, #ff3c3c, #ff8c3c);
-  border-radius: 4px;
-  margin-bottom: 10px;
-  transition: width 0.1s ease;
+  height: 10px;
+  background: linear-gradient(90deg, #ffd95a, #fff);
+  border-radius: 5px;
+  margin-bottom: 15px;
+  transition: width 0.25s ease;
+}
+#loading-screen.light-loading .loader-bar {
+  background: linear-gradient(90deg, #aaa, #fff);
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+#loading-screen.dark-loading .loader-bar {
+  background: linear-gradient(90deg, #ffda6b, #fff4c2);
+  box-shadow: 0 0 15px rgba(255,217,90,0.4);
 }
 
 #loader-percent {
-  font-size: 1.2rem;
-  font-family: 'BBH Sans Bartle', sans-serif; /* tot Comfortaa */
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+@keyframes moonPulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
 }
 
 body {
