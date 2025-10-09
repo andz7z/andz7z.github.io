@@ -1,987 +1,384 @@
-/* ================== IMPORT FONTS ================== */
-@import url('https://fonts.googleapis.com/css2?family=Charmonman&family=Zalando+Sans+Expanded:wght@400;700&display=swap');
-
-/* ================== RESET GLOBAL ================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ================== LOADING SCREEN ================== */
-#loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 9999;
-  color: white;
-  font-family: 'Zalando Sans Expanded', sans-serif;
-}
-
-.loader-container {
-  width: 300px;
-  max-width: 80%;
-  text-align: center;
-}
-
-.loader-bar {
-  width: 0%;
-  height: 8px;
-  background: linear-gradient(90deg, #ff3c3c, #ff8c3c);
-  border-radius: 4px;
-  margin-bottom: 10px;
-  transition: width 0.1s ease;
-}
-
-#loader-percent {
-  font-size: 1.2rem;
-  font-family: 'Zalando Sans Expanded', sans-serif;
-}
-
-/* ================== BODY ================== */
-body {
-  font-family: 'Charmonman', cursive;
-  color: white;
-  text-align: center;
-  overflow-x: hidden;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-/* ================== BACKGROUND VIDEO + OVERLAY ================== */
-#bg-video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -3;
-  object-fit: cover;
-  filter: brightness(0.25) contrast(1.2);
-}
-
-.overlay {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at center, rgba(255,255,255,0.05), rgba(0,0,0,0.85));
-  z-index: -2;
-}
-
-/* ================== HEADER ================== */
-header {
-  position: relative;
-  padding-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1;
-}
-
-header .title {
-  font-family: 'Zalando Sans Expanded', sans-serif;
-  font-weight: 700;
-  font-size: 4.5rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  position: relative;
-  display: inline-block;
-  transition: all 0.6s ease;
-  color: #222;
-}
-
-body.dark-mode header .title {
-  color: #ffd95a;
-  text-shadow: 0 0 20px rgba(255, 217, 90, 0.7), 
-               0 0 40px rgba(255, 204, 51, 0.4),
-               0 0 60px rgba(255, 217, 90, 0.2);
-}
-
-.title::after {
-  content: "";
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70%;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, #ffd95a, transparent);
-  opacity: 0;
-  transition: opacity 1s ease;
-}
-
-body.dark-mode header .title::after {
-  opacity: 1;
-}
-
-.title.move-up {
-  transform: translateY(-30px) scale(0.9);
-}
-
-.title-desc {
-  margin-top: 10px;
-  font-size: 1rem;
-  padding: 5px 15px;
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
-  color: rgba(255,255,255,0.8);
-  max-width: 600px;
-  text-align: center;
-  z-index: 1;
-  transition: all 0.3s ease;
-}
-
-.title-desc:hover {
-  background: rgba(0,0,0,0.1);
-  backdrop-filter: blur(3px);
-}
-
-/* ================== NAV BUTTONS ================== */
-.nav-buttons {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  opacity: 0;
-  flex-wrap: wrap;
-  transition: all 0.6s ease;
-}
-
-.nav-buttons.show-buttons {
-  opacity: 1;
-}
-
-.nav-buttons button {
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.2);
-  color: white;
-  padding: 10px 25px;
-  border-radius: 50px;
-  font-size: 1rem;
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 2;
-}
-
-.nav-buttons button:hover {
-  background: white;
-  color: black;
-  transform: scale(1.1);
-}
-
-.nav-buttons button.active-btn {
-  background: white;
-  color: black;
-  transform: scale(1.1);
-  box-shadow: 0 0 15px rgba(255,255,255,0.6);
-}
-
-/* ================== SECTIONS ================== */
-.section {
-  padding: 60px 20px;
-  animation: fadeIn 0.5s ease forwards;
-  border-radius: 15px;
-  max-width: 1000px;
-  margin: 20px auto;
-  position: relative;
-  overflow: hidden;
-}
-
-.section-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://i.imgur.com/0Zqk0Sx.gif') center/cover no-repeat;
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.section * {
-  position: relative;
-  z-index: 1;
-}
-
-.section-desc {
-  background: rgba(0,0,0,0.1);
-  padding: 10px 15px;
-  border-radius: 10px;
-  margin-top: 10px;
-  display: inline-block;
-  transition: all 0.3s ease;
-}
-
-.section-desc:hover {
-  background: rgba(0,0,0,0.2);
-}
-
-.hidden {
-  display: none;
-}
-
-/* ================== CONTACT CARDS ================== */
-.contact-cards {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: 25px;
-  margin-top: 40px;
-  flex-direction: row;
-}
-
-.contact-card {
-  background: linear-gradient(135deg, rgba(160,160,160,0.15) 0%, rgba(100,100,100,0.25) 100%);
-  border-radius: 20px;
-  padding: 25px 30px;
-  width: 220px;
-  height: 180px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.15);
-  box-shadow: 0 4px 15px rgba(255,255,255,0.05);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
-  cursor: pointer;
-}
-
-.contact-card::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.03) 100%);
-  transform: rotate(25deg) translateX(-100%);
-  transition: all 0.6s ease;
-}
-
-.contact-card:hover::before {
-  transform: rotate(25deg) translateX(100%);
-}
-
-.contact-card:hover {
-  background: linear-gradient(135deg, rgba(60,60,60,0.45) 0%, rgba(30,30,30,0.55) 100%);
-  transform: scale(1.07) translateY(-5px);
-  box-shadow: 0 0 25px rgba(255,255,255,0.35);
-}
-
-.contact-icon {
-  font-size: 2rem;
-  color: #fff;
-  transition: transform 0.35s ease, text-shadow 0.35s ease;
-}
-
-.contact-card:hover .contact-icon {
-  transform: scale(1.1) rotate(-3deg);
-  text-shadow: 0 0 10px rgba(255,255,255,0.6);
-}
-
-.contact-card p,
-.contact-card a,
-.contact-card span {
-  font-size: 0.95rem;
-  color: #fff;
-  text-align: center;
-  margin: 0;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.contact-card a:hover {
-  text-shadow: 0 0 10px rgba(255,255,255,0.7);
-}
-
-/* ================== RESPONSIVE ================== */
-@media(max-width: 1100px) {
-  .contact-cards {
-    flex-wrap: wrap;
-  }
-}
-
-@media(max-width: 600px) {
-  .contact-card {
-    width: 90%;
-  }
-}
-
-/* ================== FADE ANIMATION ================== */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-/* ================== YOUTUBE CARD ================== */
-.yt-card {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
-  padding: 20px;
-  max-width: 420px;
-  margin: 30px auto;
-  backdrop-filter: blur(10px);
-  position: relative;
-  z-index: 2;
-  opacity: 1;
-  transition: all 0.4s ease;
-}
-
-.yt-card img {
-  width: 120px;
-  height: 120px;
-  border-radius: 12px;
-  border: 2px solid rgba(255,255,255,0.12);
-  object-fit: cover;
-}
-
-.yt-info {
-  text-align: left;
-  flex: 1;
-}
-
-.yt-info h3 {
-  font-family: 'Zalando Sans Expanded', sans-serif;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-
-.yt-info p {
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin: 3px 0;
-}
-
-.yt-button {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 6px 12px;
-  background: rgba(255,255,255,0.1);
-  color: white;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.yt-button:hover {
-  background: white;
-  color: black;
-  transform: scale(1.05);
-}
-
-/* ================== AUDIO CONTROL ================== */
-.audio-control {
-  position: fixed;
-  top: 15px;
-  right: 20px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 5px 10px;
-  backdrop-filter: blur(8px);
-  z-index: 10;
-}
-
-.audio-control:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-#audio-icon {
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-#volume-slider {
-  width: 100px;
-  cursor: pointer;
-}
-
-/* ================== PARTICLE CANVAS ================== */
-#particle-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-}
-
-/* ================== FOOTER ================== */
-footer {
-  margin-top: auto;
-  padding: 40px 0;
-  font-size: 0.9rem;
-  opacity: 0.6;
-}
-
-/* ================== MY WORK GRID ================== */
-.projects {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.work-card {
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.7) 100%);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 20px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  width: 220px;
-  backdrop-filter: blur(10px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.work-card:hover {
-  transform: scale(1.05);
-}
-
-.work-card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  transition: transform 0.4s ease;
-}
-
-.card-content {
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  text-align: center;
-}
-
-.card-content h3 {
-  font-size: 1rem;
-  color: #fff;
-}
-
-.card-content a {
-  padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.05);
-  color: white;
-  border-radius: 12px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.card-content a:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  transform: scale(1.05);
-}
-
-/* ================== RESPONSIVE WORK GRID ================== */
-@media(max-width: 800px) {
-  .work-card {
-    width: 45%;
-  }
-}
-
-@media(max-width: 520px) {
-  .work-card {
-    width: 90%;
-  }
-}
-
-/* ================== NOTIFICATION ================== */
-.notification {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: rgba(25, 25, 25, 0.9);
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-  padding: 14px 22px;
-  border-radius: 14px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease;
-  z-index: 9999;
-  pointer-events: none;
-}
-
-.notification.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ================== SKILLS CARD ================== */
-.skills-card {
-  background: rgba(80, 80, 80, 0.4); 
-  padding: 25px;
-  border-radius: 15px;
-  max-width: 800px;
-  margin: 40px auto 0;
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-  text-align: left;
-}
-
-.skills-card h3 {
-  font-family: 'Zalando Sans Expanded', sans-serif;
-  font-size: 1.5rem;
-  margin-bottom: 15px;
-  color: #fff;
-}
-
-.skills-card p {
-  line-height: 1.7;
-  font-size: 1rem;
-  color: #f1f1f1;
-}
-
-/* ================== WORK BUTTONS ================== */
-.work-buttons {
-  display: flex;
-  gap: 22px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 30px;
-  z-index: 2;
-}
-
-.work-btn {
-  --size: 220px;
-  width: var(--size);
-  height: var(--size);
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.45));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 12px;
-  cursor: pointer;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  backdrop-filter: blur(8px);
-  position: relative;
-  overflow: visible;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-}
-
-.work-btn::before {
-  content: '';
-  position: absolute;
-  inset: -40%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.02) 100%);
-  transform: rotate(25deg) translateX(-120%);
-  transition: transform 0.7s ease;
-  pointer-events: none;
-}
-
-.work-btn:hover::before {
-  transform: rotate(25deg) translateX(20%);
-}
-
-.work-logo {
-  width: 84px;
-  height: 84px;
-  border-radius: 14px;
-  object-fit: contain;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  background: transparent;
-}
-
-.work-name {
-  font-size: 0.95rem;
-  color: #fff;
-  font-weight: 600;
-  text-align: center;
-}
-
-.work-btn:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 10px 30px rgba(255,255,255,0.03);
-}
-
-.work-btn.active {
-  box-shadow: 0 10px 40px rgba(255,255,255,0.15), 0 0 28px rgba(255,255,255,0.06) inset;
-  transform: translateY(-8px) scale(1.04);
-}
-
-.work-btn.active .work-logo {
-  transform: scale(1.06);
-  box-shadow: 0 0 20px rgba(255,255,255,0.18);
-}
-
-.work-btn.glow-press::after {
-  content: '';
-  position: absolute;
-  inset: -6px;
-  border-radius: 20px;
-  box-shadow: 0 0 28px rgba(255,255,255,0.85);
-  opacity: 0;
-  animation: pressGlow 700ms forwards;
-  pointer-events: none;
-}
-
-@keyframes pressGlow {
-  0% { opacity: 1; transform: scale(.96); }
-  100% { opacity: 0; transform: scale(1.12); }
+// ===== Loading Screen =====
+window.addEventListener('load', () => {
+  const loaderBar = document.getElementById('loader-bar');
+  const loaderPercent = document.getElementById('loader-percent');
+  const loadingScreen = document.getElementById('loading-screen');
+  
+  let percent = 0;
+  const interval = setInterval(() => {
+    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
+    if (percent > 100) percent = 100;
+    loaderBar.style.width = percent + '%';
+    loaderPercent.textContent = percent + '%';
+    
+    if (percent === 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        loadingScreen.style.opacity = '0';
+        loadingScreen.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => loadingScreen.style.display = 'none', 500);
+      }, 300); // mic delay după 100%
     }
-/* ================== WORK DETAIL PANELS ================== */
-.work-detail-container {
-  margin-top: 22px;
-  max-width: 980px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
+  }, 50); // update la fiecare 50ms → ~2-3 secunde
+});
 
-.work-panel {
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-  background: linear-gradient(135deg, rgba(255,255,255,0.03), rgba(0,0,0,0.6));
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 16px;
-  overflow: hidden;
-  transform-origin: top center;
-  animation: panelIn 0.4s cubic-bezier(.2,.9,.2,1);
-  backdrop-filter: blur(8px);
-}
-
-.panel-img {
-  width: 220px;
-  height: 140px;
-  border-radius: 12px;
-  object-fit: cover;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.panel-info {
-  text-align: left;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.panel-info h3 {
-  font-family: 'Zalando Sans Expanded', sans-serif;
-  font-size: 1.2rem;
-  margin-bottom: 4px;
-}
-
-.panel-info p {
-  color: #eaeaea;
-  line-height: 1.5;
-  font-size: 0.95rem;
-}
-
-.panel-meta {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-top: 6px;
-}
-
-.panel-meta a {
-  padding: 8px 12px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.06);
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.25s ease;
-}
-
-.panel-meta a:hover {
-  transform: scale(1.03);
-  background: rgba(255,255,255,0.12);
-  color: black;
-}
-
-.panel-close {
-  margin-left: 12px;
-  cursor: pointer;
-  align-self: flex-start;
-  color: rgba(255,255,255,0.9);
-  font-weight: 700;
-  border-radius: 8px;
-  padding: 6px 8px;
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.03);
-  transition: all 0.18s ease;
-}
-
-.panel-close:hover {
-  background: rgba(255,255,255,0.06);
-  transform: translateY(-3px);
-}
-
-.panel-features {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.feature-pill {
-  padding: 6px 10px;
-  background: rgba(255,255,255,0.03);
-  border-radius: 999px;
-  font-size: 0.85rem;
-  border: 1px solid rgba(255,255,255,0.03);
-}
-
-/* Animations */
-@keyframes panelIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px) scale(.995);
-  }
-  to {
-    opacity: 1;
-    transform: none;
+// ======== Section Switcher ========
+function openSection(id) {
+  playClick();
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(sec => sec.classList.add('hidden'));
+  const sectionToShow = document.getElementById(id);
+  if (sectionToShow) {
+    sectionToShow.classList.remove('hidden');
+    sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    console.warn("Section not found:", id);
   }
 }
 
-/* ================== RESPONSIVE PANELS ================== */
-@media(max-width:1000px) {
-  .work-btn {
-    width: 180px;
-    height: 180px;
-  }
-  .panel-img {
-    width: 180px;
-    height: 120px;
-  }
-}
+// ======== YouTube API ========
+const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
+const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
 
-@media(max-width:720px) {
-  .work-buttons {
-    gap: 14px;
-  }
-  .work-btn {
-    width: 42%;
-    height: 150px;
-  }
-  .work-panel {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .panel-img {
-    width: 90%;
-    height: 180px;
-  }
-  .panel-info {
-    align-items: center;
-  }
-}
+async function fetchYouTubeStats() {
+  try {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+    const data = await res.json();
 
-/* ================== THEME TOGGLE BUTTON ================== */
-.theme-toggle {
-  position: fixed;
-  top: 15px;
-  left: 20px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.3);
-  border-radius: 50%;
-  width: 42px;
-  height: 42px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.3rem;
-  backdrop-filter: blur(8px);
-  z-index: 11;
-  transition: all 0.5s ease;
-}
-
-.theme-toggle:hover {
-  background: rgba(255,255,255,0.2);
-  transform: scale(1.1);
-}
-
-/* ================== SMOOTH TRANSITIONS ================== */
-*,
-*::before,
-*::after {
-  transition: background 0.5s ease, color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease, transform 0.5s ease, filter 0.5s ease, opacity 0.5s ease;
-}
-
-/* ================== DARK MODE ================== */
-body.dark-mode {
-  color: #eaeaea;
-  background: #121212;
-}
-
-body.dark-mode header .title {
-  color: #fff8e1;
-  text-shadow: 0 0 15px rgba(255, 217, 90, 0.6), 0 0 35px rgba(255, 204, 51, 0.4);
-  animation: moonGlow 3s infinite alternate;
-}
-
-body.dark-mode .title-desc {
-  color: #f5e6c5;
-  background: rgba(255, 217, 90, 0.05);
-}
-
-body.dark-mode #bg-video {
-  filter: brightness(0.3) contrast(1.3);
-}
-
-body.dark-mode .overlay {
-  background: radial-gradient(circle at center, rgba(30,30,30,0.4), rgba(10,10,10,0.9));
-}
-
-body.dark-mode .section {
-  background: rgba(30,30,30,0.6);
-  border: 1px solid rgba(255, 217, 90, 0.1);
-}
-
-body.dark-mode .section-bg {
-  background: none;
-  opacity: 0.03;
-}
-
-body.dark-mode .nav-buttons button {
-  background: rgba(40,40,40,0.8);
-  border: 1px solid rgba(255, 217, 90, 0.2);
-  color: #f5f5f5;
-}
-
-body.dark-mode .nav-buttons button:hover {
-  background: #ffd95a;
-  color: #121212;
-  box-shadow: 0 0 20px rgba(255, 217, 90, 0.6);
-}
-
-body.dark-mode .skills-card {
-  background: rgba(25,25,25,0.9);
-  border: 1px solid rgba(255, 217, 90, 0.15);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-}
-
-body.dark-mode .contact-card {
-  background: linear-gradient(135deg, rgba(35,35,35,0.9), rgba(20,20,20,0.95));
-  border: 1px solid rgba(255, 217, 90, 0.2);
-}
-
-body.dark-mode .contact-card:hover {
-  background: linear-gradient(135deg, rgba(55,55,55,0.95), rgba(30,30,30,0.95));
-  box-shadow: 0 0 25px rgba(255, 217, 90, 0.4);
-}
-
-body.dark-mode .contact-icon {
-  color: #ffd95a;
-  text-shadow: 0 0 6px rgba(255, 217, 90, 0.6);
-}
-
-body.dark-mode .work-btn {
-  background: linear-gradient(180deg, rgba(40,40,40,0.8), rgba(20,20,20,0.9));
-  border: 1px solid rgba(255, 217, 90, 0.2);
-}
-
-body.dark-mode .work-btn:hover {
-  transform: translateY(-6px) scale(1.03);
-  box-shadow: 0 10px 25px rgba(255, 217, 90, 0.35);
-}
-
-body.dark-mode .work-btn.active {
-  box-shadow: 0 0 30px rgba(255, 217, 90, 0.6);
-}
-
-body.dark-mode .work-logo {
-  box-shadow: 0 0 12px rgba(255, 217, 90, 0.25);
-}
-
-body.dark-mode .work-panel {
-  background: linear-gradient(135deg, rgba(35,35,35,0.9), rgba(20,20,20,0.95));
-  border: 1px solid rgba(255, 217, 90, 0.15);
-}
-
-body.dark-mode .panel-info h3 {
-  color: #ffe599;
-  text-shadow: 0 0 5px rgba(255, 217, 90, 0.6);
-}
-
-body.dark-mode .panel-info p,
-body.dark-mode .panel-meta a {
-  color: #eaeaea;
-}
-
-body.dark-mode footer {
-  opacity: 0.8;
-  color: #ffd95a;
-}
-
-/* ================== TITLE GLOW ANIMATION ================== */
-@keyframes moonGlow {
-  0% { text-shadow: 0 0 10px rgba(255, 217, 90, 0.5), 0 0 20px rgba(255, 204, 51, 0.3); }
-  50% { text-shadow: 0 0 25px rgba(255, 217, 90, 0.8), 0 0 40px rgba(255, 204, 51, 0.5); }
-  100% { text-shadow: 0 0 10px rgba(255, 217, 90, 0.5), 0 0 20px rgba(255, 204, 51, 0.3); }
-}
-
-/* ================== STARFIELD BACKGROUND ================== */
-.starfield {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-  opacity: 0;
-  transition: opacity 1.2s ease;
-}
-
-body.dark-mode .starfield {
-  opacity: 1;
-}
-
-.star {
-  position: absolute;
-  width: 2px; height: 2px;
-  background: #fff8e1;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: twinkle 3s infinite ease-in-out;
-}
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.4); }
+    if (data.items && data.items.length > 0) {
+      const channel = data.items[0];
+      document.getElementById('yt-name').textContent = channel.snippet.title;
+      document.getElementById('yt-subscribers').textContent = Number(channel.statistics.subscriberCount).toLocaleString();
+      document.getElementById('yt-videos').textContent = Number(channel.statistics.videoCount).toLocaleString();
+      document.getElementById('yt-views').textContent = Number(channel.statistics.viewCount).toLocaleString();
+      document.getElementById('yt-thumbnail').src = channel.snippet.thumbnails.high.url;
+      document.getElementById('yt-link').href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
     }
+  } catch (err) {
+    console.error("YouTube API Error:", err);
+  }
+}
+window.addEventListener('load', fetchYouTubeStats);
+
+// ======== Music Control ========
+let music = new Audio("https://andz7z.github.io/song.MP3");
+music.loop = true;
+music.volume = 0;
+let playing = false;
+let musicStarted = false;
+const volumeSlider = document.getElementById('volume-slider');
+
+function fadeInMusic() {
+  let vol = 0;
+  const interval = setInterval(() => {
+    vol += 0.01;
+    if (vol >= 0.2) {
+      vol = 0.2;
+      clearInterval(interval);
+    }
+    music.volume = vol;
+    volumeSlider.value = vol;
+  }, 1000);
+}
+
+function startMusic() {
+  if (!musicStarted) {
+    music.currentTime = 0;
+    music.play().then(() => {
+      fadeInMusic();
+      playing = true;
+      musicStarted = true;
+      document.getElementById('audio-icon').textContent = '🔊';
+    }).catch(err => console.log("Autoplay blocked:", err));
+  }
+}
+
+function toggleMusic() {
+  playClick();
+  playing = !playing;
+  document.getElementById('audio-icon').textContent = playing ? '🔊' : '🔇';
+  playing ? music.play() : music.pause();
+}
+
+window.addEventListener('click', e => {
+  if (!musicStarted && !e.target.closest('button, a')) {
+    startMusic();
+  }
+});
+
+window.addEventListener('load', () => {
+  document.getElementById('audio-icon').textContent = '🔇';
+});
+
+volumeSlider.addEventListener('input', e => {
+  music.volume = e.target.value;
+});
+
+// ======== Click Sound ========
+const clickSound = new Audio("https://andz7z.github.io/click.MP3");
+clickSound.volume = 0.05;
+function playClick() {
+  const sound = clickSound.cloneNode();
+  sound.volume = 0.05;
+  sound.play();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('button, .nav-buttons button, .nav-buttons a')
+    .forEach(btn => {
+      btn.addEventListener('click', () => playClick());
+    });
+});
+
+// ======== Title Animation ========
+const title = document.getElementById('main-title');
+const nav = document.querySelector('.nav-buttons');
+let moved = false;
+
+title.addEventListener('mouseenter', () => {
+  if (!moved) {
+    playClick();
+    title.classList.add('move-up');
+    nav.classList.remove('hidden');
+    setTimeout(() => nav.classList.add('show-buttons'), 200);
+    moved = true;
+  }
+});
+
+// ======== Particle Effect ========
+const canvas = document.getElementById('particle-canvas');
+const ctx = canvas.getContext('2d');
+let particles = [], mouse = { x: 0, y: 0 };
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
+window.addEventListener('mousemove', e => {
+  mouse.x = e.x;
+  mouse.y = e.y;
+  for (let i = 0; i < 2; i++) particles.push(new Particle());
+});
+
+class Particle {
+  constructor() {
+    this.x = mouse.x;
+    this.y = mouse.y;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() * 2) - 1;
+    this.speedY = (Math.random() * 2) - 1;
+    this.alpha = 1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.alpha -= 0.02;
+  }
+  draw() {
+    ctx.fillStyle = `rgba(255,255,255,${this.alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+// ===== Notification System =====
+setTimeout(() => {
+  const notif = document.getElementById('notification');
+  if (notif) {
+    notif.classList.add('show');
+
+    // Play notification sound
+    const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
+    notifSound.volume = 0.1;
+    notifSound.play().catch(() => {});
+
+    // Hide after 12 seconds
+    setTimeout(() => {
+      notif.classList.remove('show');
+    }, 10000);
+  }
+}, 7000); // appears after 3s
+
+function openSection(id) {
+  playClick();
+
+  // ascunde toate secțiunile
+  const sections = document.querySelectorAll('.section');
+  sections.forEach(sec => sec.classList.add('hidden'));
+
+  // arată secțiunea selectată
+  const sectionToShow = document.getElementById(id);
+  if (sectionToShow) {
+    sectionToShow.classList.remove('hidden');
+    sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // marchează butonul selectat
+  const buttons = document.querySelectorAll('.nav-buttons button');
+  buttons.forEach(btn => btn.classList.remove('active-btn'));
+  const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
+  if (activeBtn) activeBtn.classList.add('active-btn');
+}
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ======== NEW: Work buttons behavior & detail panels ========
+
+const WORK_ITEMS = {
+  season: {
+    title: "Season Flow",
+    img: "https://i.imgur.com/ik14PFa.jpeg",
+    desc: "A method that helps switch the season from the standard (summer) to winter. The game normally doesn’t have this season, but with the help of mods, it has become possible.",
+    github: "https://github.com/andz7z/SEASONS-GTA-SA",
+    features: ["Auto day/night aware", "Configurable zones", "Low perf impact"]
+  },
+  weather: {
+    title: "Weather Shift",
+    img: "https://i.imgur.com/nstY5n2.jpeg",
+    desc: "A mod to instantly change the time from day to night or from afternoon to morning. The transition is smooth, taking you through every minute/hour in just one second.",
+    github: "https://github.com/andz7z/TIMECHANGER-GTA-SA",
+    features: ["Custom time scale", "Weather presets", "Hotkey ready"]
+  },
+  tags: {
+    title: "Modern Tags",
+    img: "https://i.imgur.com/nsrK2GW.jpeg",
+    desc: "A mod that changes the classic nametags in the game, giving them a more modern, minimalist, and interactive look.",
+    github: "https://github.com/andz7z/NAMETAGS-GTA-SA",
+    features: ["Role colors", "Smooth fades", "Custom fonts support"]
+  },
+  look: {
+    title: "Look Changer",
+    img: "https://i.imgur.com/rSWDHs2.jpeg",
+    desc: "It is a mod that lets you change your skin to any skin you want from the game. The mod is simple to understand, without too many additions.",
+    github: "https://github.com/andz7z/SKINCHANGER-GTA-SA",
+    features: ["Preset outfits", "Command & menu", "Save custom skins"]
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const buttons = document.querySelectorAll('.work-btn');
+  const detailContainer = document.getElementById('work-detail-container');
+
+  function closeAllPanels() {
+    detailContainer.innerHTML = '';
+    buttons.forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  function createPanel(itemKey) {
+    const item = WORK_ITEMS[itemKey];
+    if (!item) return null;
+
+    const panel = document.createElement('div');
+    panel.className = 'work-panel';
+    panel.innerHTML = `
+      <img class="panel-img" src="${item.img}" alt="${item.title} image" />
+      <div class="panel-info">
+        <h3>${item.title}</h3>
+        <p>${item.desc}</p>
+        <div class="panel-features">
+          ${item.features.map(f => `<span class="feature-pill">${f}</span>`).join('')}
+        </div>
+        <div class="panel-meta">
+          <a class="github-link" href="${item.github}" target="_blank" rel="noopener">View on GitHub</a>
+          <a class="download-link" href="${item.github}/archive/refs/heads/main.zip" target="_blank" rel="noopener">Download ZIP</a>
+        </div>
+      </div>
+      <button class="panel-close" aria-label="Close details">✕</button>
+    `;
+
+    panel.querySelector('.panel-close').addEventListener('click', () => {
+      closeAllPanels();
+    });
+
+    return panel;
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const key = btn.getAttribute('data-key');
+      if (!key || !WORK_ITEMS[key]) return;
+
+      const isActive = btn.classList.contains('active');
+      playClick();
+
+      // press glow
+      btn.classList.add('glow-press');
+      setTimeout(()=> btn.classList.remove('glow-press'), 800);
+
+      if (isActive) {
+        closeAllPanels();
+        return;
+      }
+
+      closeAllPanels();
+      btn.classList.add('active');
+      btn.setAttribute('aria-expanded', 'true');
+
+      const panel = createPanel(key);
+      if (panel) {
+        detailContainer.appendChild(panel);
+        setTimeout(()=> {
+          panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+      }
+    });
+  });
+
+  // click outside to close panels (but keep navigation safe)
+  document.addEventListener('click', (ev) => {
+    const insideBtnRow = ev.target.closest('.work-buttons');
+    const insidePanel = ev.target.closest('.work-panel');
+    if (!insideBtnRow && !insidePanel) {
+      closeAllPanels();
+    }
+  });
+});
+// ======== Dark / Light Mode Toggle ========
+const themeToggle = document.getElementById("theme-toggle");
+const body = document.body;
+
+// Load saved theme
+if (localStorage.getItem("theme") === "dark") {
+  body.classList.add("dark-mode");
+  themeToggle.textContent = "🌙";
+}
+
+themeToggle.addEventListener("click", () => {
+  playClick();
+  body.classList.toggle("dark-mode");
+
+  if (body.classList.contains("dark-mode")) {
+    themeToggle.textContent = "🌙";
+    localStorage.setItem("theme", "dark");
+  } else {
+    themeToggle.textContent = "💡";
+    localStorage.setItem("theme", "light");
+  }
+});
+// ===== Starfield Generator =====
+const starfield = document.querySelector(".starfield");
+if (starfield) {
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.left = Math.random() * 100 + "%";
+    star.style.animationDuration = (2 + Math.random() * 3) + "s";
+    starfield.appendChild(star);
+  }
+}
