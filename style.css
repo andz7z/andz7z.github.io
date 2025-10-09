@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 /* Loading Screen */
 #loading-screen {
   position: fixed;
@@ -17,7 +18,7 @@
   flex-direction: column;
   z-index: 9999;
   color: white;
-  font-family: 'Lora', sans-serif;
+  font-family: 'Comfortaa', sans-serif; /* schimbat din Lora */
 }
 
 .loader-container {
@@ -37,10 +38,11 @@
 
 #loader-percent {
   font-size: 1.2rem;
+  font-family: 'Comfortaa', sans-serif; /* tot Comfortaa */
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Comfortaa', sans-serif; /* schimbat din Poppins */
   color: white;
   text-align: center;
   overflow-x: hidden;
@@ -70,6 +72,8 @@ body {
 }
 
 /* Header */
+
+/* Header */
 header {
   position: relative;
   padding-top: 100px;
@@ -79,7 +83,7 @@ header {
   z-index: 1;
 }
 header .title {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Oswald', sans-serif; /* schimbat din Playfair Display */
   font-weight: 700;
   font-size: 4.5rem;
   letter-spacing: 0.25em;
@@ -87,7 +91,7 @@ header .title {
   position: relative;
   display: inline-block;
   transition: all 0.6s ease;
-  color: #222; /* default light mode */
+  color: #222;
 }
 
 /* Dark mode glow */
@@ -347,7 +351,7 @@ body.dark-mode header .title::after {
 }
 
 .yt-info h3 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 1.2rem;
   margin-bottom: 5px;
 }
@@ -540,7 +544,7 @@ footer {
 }
 
 .skills-card h3 {
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 1.5rem;
   margin-bottom: 15px;
   color: #fff;
@@ -692,7 +696,7 @@ footer {
   flex-direction:column;
   gap:8px;
 }
-.panel-info h3{ font-family:'Orbitron',sans-serif; font-size:1.2rem; margin-bottom:4px; }
+.panel-info h3{ font-family:'Comfortaa',sans-serif; font-size:1.2rem; margin-bottom:4px; }
 .panel-info p{ color:#eaeaea; line-height:1.5; font-size:0.95rem; }
 .panel-meta{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:6px; }
 .panel-meta a{ padding:8px 12px; border-radius:10px; background:rgba(255,255,255,0.06); color:white; text-decoration:none; font-weight:600; transition:all .25s ease; }
@@ -957,50 +961,7 @@ body.dark-mode .starfield {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.4); }
 }
-/* ===== REVIEWS SECTION ===== */
-.review-form {
-  background: rgba(25,25,25,0.85);
-  border: 1px solid rgba(255,217,90,0.2);
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 30px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-  text-align: center;
-}
-
-.review-form h3 {
-  color: #ffd95a;
-  margin-bottom: 10px;
-}
-
-.review-form input,
-.review-form textarea {
-  width: 90%;
-  margin: 8px 0;
-  padding: 10px;
-  border: 1px solid rgba(255,217,90,0.3);
-  border-radius: 8px;
-  background: rgba(20,20,20,0.9);
-  color: #f0f0f0;
-}
-
-.review-form button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background: #ffd95a;
-  border: none;
-  border-radius: 8px;
-  color: #121212;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.review-form button:hover {
-  background: #ffe599;
-  box-shadow: 0 0 15px rgba(255,217,90,0.5);
-}
-
-/* Stars */
+* Stars */
 .stars span {
   font-size: 1.8rem;
   cursor: pointer;
