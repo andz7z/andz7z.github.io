@@ -1,26 +1,118 @@
-// ===== Loading Screen =====
-window.addEventListener('load', () => {
-  const loaderBar = document.getElementById('loader-bar');
-  const loaderPercent = document.getElementById('loader-percent');
-  const loadingScreen = document.getElementById('loading-screen');
-  
-  let percent = 0;
-  const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
-    if (percent > 100) percent = 100;
-    loaderBar.style.width = percent + '%';
-    loaderPercent.textContent = percent + '%';
-    
-    if (percent === 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        loadingScreen.style.opacity = '0';
-        loadingScreen.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => loadingScreen.style.display = 'none', 500);
-      }, 300); // mic delay după 100%
+// ===== Intro orchestration (diamond / metal / glass) =====
+(() => {
+  const introScreen = document.getElementById('intro-screen');
+  const plate = document.getElementById('metal-plate');
+  const diamondSvg = document.getElementById('diamond-svg');
+  const introTitle = document.getElementById('intro-title');
+  const skipBtn = document.getElementById('intro-skip');
+
+  // If user previously skipped, immediately remove intro
+  if (localStorage.getItem('andz_intro_skipped') === '1') {
+    introScreen.classList.add('outro');
+    introScreen.setAttribute('aria-hidden', 'true');
+    // small delay to keep DOM consistent
+    setTimeout(() => { introScreen.remove(); }, 950);
+    return;
+  }
+
+  // Helper to end intro (remove overlay and allow interactions)
+  function endIntro(saveSkip = false) {
+    // mark as done
+    if (saveSkip) localStorage.setItem('andz_intro_skipped', '1');
+
+    // add outro class (fade)
+    introScreen.classList.add('outro');
+    introScreen.setAttribute('aria-hidden', 'true');
+
+    // enable main title interactions (pointer events)
+    const mainTitle = document.getElementById('main-title');
+    if (mainTitle) {
+      mainTitle.style.pointerEvents = 'auto';
+      mainTitle.classList.add('move-up-ready');
     }
-  }, 50); // update la fiecare 50ms → ~2-3 secunde
-});
+
+    // remove DOM after fade to free memory
+    setTimeout(() => {
+      try { introScreen.remove(); } catch (e) {}
+    }, 1000);
+  }
+
+  // Skip action
+  skipBtn.addEventListener('click', () => {
+    playClick();
+    endIntro(true);
+  });
+
+  // If user prefers reduced motion, skip animations gracefully
+  const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    // quick reveal
+    plate.classList.add('intro--plate-raise');
+    diamondSvg.style.opacity = 1;
+    introTitle.classList.remove('visually-hidden');
+    introTitle.style.opacity = 1;
+    setTimeout(() => endIntro(false), 700);
+    return;
+  }
+
+  // Timeline:
+  // 0ms -> plate raises
+  // 700ms -> diamond spin appear
+  // 2000ms -> shine sweep + title reveal
+  // 3200ms -> subtle pulse
+  // 4200ms -> enable clicking on title (but keep intro visible)
+  // 4800ms -> fade out intro
+
+  // start plate animation
+  setTimeout(() => plate.classList.add('intro--plate-raise'), 80);
+
+  // diamond spin reveal
+  setTimeout(() => {
+    plate.classList.add('intro--diamond-spin');
+    // small extra shine prep
+    setTimeout(()=> plate.classList.add('intro--shine'), 200);
+  }, 700);
+
+  // reveal title and subtitle
+  setTimeout(() => {
+    introTitle.classList.remove('visually-hidden');
+    // make the visible title the same text as main title (keeps consistent)
+    const mainTitleText = document.getElementById('main-title')?.textContent || 'Λ N D Z';
+    introTitle.textContent = mainTitleText;
+    plate.classList.add('intro--reveal');
+  }, 2000);
+
+  // subtle pulse (finish)
+  setTimeout(() => {
+    plate.classList.add('intro--pulse');
+  }, 3200);
+
+  // allow interactivity - click on intro title will also end intro and trigger normal title handler
+  setTimeout(() => {
+    introTitle.style.cursor = 'pointer';
+    introTitle.addEventListener('click', (e) => {
+      playClick();
+      // simulate user pressing the main title (keep existing code handling mouseenter/click)
+      endIntro(false);
+      // small delay to allow the intro to fade then reveal nav via existing title events
+      setTimeout(() => {
+        const mainTitle = document.getElementById('main-title');
+        if (mainTitle) {
+          // trigger the same effects as hover/click
+          mainTitle.classList.add('move-up');
+          const nav = document.querySelector('.nav-buttons');
+          if (nav) nav.classList.remove('hidden');
+          setTimeout(()=> nav?.classList.add('show-buttons'), 200);
+        }
+      }, 450);
+    });
+  }, 4200);
+
+  // automatically finish intro after full timeline (safety)
+  setTimeout(() => {
+    endIntro(false);
+  }, 5200);
+})();
 
 // ======== Section Switcher ========
 function openSection(id) {
