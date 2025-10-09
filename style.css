@@ -5,92 +5,40 @@
 }
 
 /* Loading Screen */
-/* ================= REVOLUTIONIZED LOADING SCREEN ================= */
 #loading-screen {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   z-index: 9999;
-  transition: opacity 0.6s ease;
-  font-family: 'Raleway', sans-serif;
-  overflow: hidden;
+  color: white;
+  font-family: 'BBH Sans Bartle', sans-serif; /* schimbat din Lora */
 }
 
-/* ===== Light Mode Style (Glass/Metal/Smoke) ===== */
-#loading-screen.light-loading {
-  background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.2), rgba(180,180,180,0.05) 80%);
-  backdrop-filter: blur(15px) brightness(1.1);
-  color: #222;
-}
-#loading-screen.light-loading::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: url('https://i.imgur.com/Y3tVZbi.png') center/cover no-repeat;
-  opacity: 0.15;
-  filter: contrast(1.2) brightness(1.1);
-}
-
-/* ===== Dark Mode Style (Moonlight Gold) ===== */
-#loading-screen.dark-loading {
-  background: radial-gradient(circle at 50% 40%, rgba(20,20,25,1), rgba(0,0,0,0.9));
-  color: #ffd95a;
-  box-shadow: inset 0 0 120px rgba(255,217,90,0.08);
-}
-#loading-screen.dark-loading::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 70% 30%, rgba(255,217,90,0.15), transparent 60%);
-  animation: moonPulse 6s infinite ease-in-out;
-  opacity: 0.5;
-}
-
-/* Loading bar core design */
 .loader-container {
   width: 300px;
   max-width: 80%;
   text-align: center;
-  position: relative;
-  z-index: 10;
 }
 
 .loader-bar {
   width: 0%;
-  height: 10px;
-  background: linear-gradient(90deg, #ffd95a, #fff);
-  border-radius: 5px;
-  margin-bottom: 15px;
-  transition: width 0.25s ease;
-}
-#loading-screen.light-loading .loader-bar {
-  background: linear-gradient(90deg, #aaa, #fff);
-  box-shadow: 0 0 10px rgba(255,255,255,0.3);
-}
-#loading-screen.dark-loading .loader-bar {
-  background: linear-gradient(90deg, #ffda6b, #fff4c2);
-  box-shadow: 0 0 15px rgba(255,217,90,0.4);
+  height: 8px;
+  background: linear-gradient(90deg, #ff3c3c, #ff8c3c);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  transition: width 0.1s ease;
 }
 
 #loader-percent {
-  font-size: 1.3rem;
-  font-weight: 600;
-  text-shadow: 0 0 10px rgba(255,255,255,0.3);
-}
-
-@keyframes moonPulse {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.05); }
+  font-size: 1.2rem;
+  font-family: 'BBH Sans Bartle', sans-serif; /* tot Comfortaa */
 }
 
 body {
@@ -273,7 +221,7 @@ body.dark-mode header .title::after {
   display: none;
 }
 /* Contact Section */
-/* CONTACT SECTION – GRI PREMIUM CU HOVER ÎNTUNECAT */
+/* CONTACT SECTION ā€“ GRI PREMIUM CU HOVER ĆˇNTUNECAT */
 .contact-cards {
   display: flex;
   justify-content: center;
@@ -289,10 +237,10 @@ body.dark-mode header .title::after {
   border-radius: 20px;
   padding: 25px 30px;
   width: 220px;
-  height: 180px; /* ✅ adăugăm o înălțime fixă */
+  height: 180px; /* ā… adÄugÄm o Ć®nÄlČ›ime fixÄ */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* ✅ centrează conținutul pe verticală */
+  justify-content: center; /* ā… centreazÄ conČ›inutul pe verticalÄ */
   align-items: center;
   gap: 10px;
   backdrop-filter: blur(12px);
@@ -321,7 +269,7 @@ body.dark-mode header .title::after {
   transform: rotate(25deg) translateX(100%);
 }
 
-/* Hover efect – se întunecă, devine gri mai închis + glow alb */
+/* Hover efect ā€“ se Ć®ntunecÄ, devine gri mai Ć®nchis + glow alb */
 .contact-card:hover {
   background: linear-gradient(135deg, rgba(60,60,60,0.45) 0%, rgba(30,30,30,0.55) 100%);
   transform: scale(1.07) translateY(-5px);
@@ -480,7 +428,7 @@ footer {
   opacity: 0.6;
 }
 /* My Work Grid */
-/* My Work Grid: toate pe un rând, responsive */
+/* My Work Grid: toate pe un rĆ¢nd, responsive */
 .projects {
   display: flex;
   justify-content: center;
@@ -534,7 +482,7 @@ footer {
 
 .card-content a {
   padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.05); /* mai transparent decât înainte */
+  background: rgba(255, 255, 255, 0.05); /* mai transparent decĆ¢t Ć®nainte */
   color: white;
   border-radius: 12px;
   text-decoration: none;
@@ -543,7 +491,7 @@ footer {
 }
 
 .card-content a:hover {
-  background: rgba(255, 255, 255, 0.15); /* puțin mai vizibil la hover */
+  background: rgba(255, 255, 255, 0.15); /* puČ›in mai vizibil la hover */
   color: white;
   transform: scale(1.05);
 }
@@ -619,7 +567,7 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===================== ADĂUGĂRI PENTRU "MY WORK" (only this block appended) ===================== */
+/* ===================== ADÄ‚UGÄ‚RI PENTRU "MY WORK" (only this block appended) ===================== */
 
 /* Work buttons row */
 .work-buttons{
