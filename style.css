@@ -144,7 +144,132 @@ body.dark-mode header .title::after {
   background: rgba(0,0,0,0.1);
   backdrop-filter: blur(3px);
 }
+/* ---------- TITLE SYMBOLS & SMOKE EFFECT ---------- */
+.title-wrap { position: relative; display: inline-block; z-index: 2; }
 
+/* container for diamond/moon placed visually *deasupra* titlului */
+.title-symbol {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(-130%); /* deasupra titlului */
+  top: 0;
+  pointer-events: none; /* by default disabled until active */
+  z-index: 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* symbol generic */
+.symbol { display: none; width: 110px; height: 110px; cursor: pointer; pointer-events: auto; }
+
+/* diamond animation (light-mode) */
+.diamond {
+  transform-origin: 50% 50%;
+  animation: diamondRotate 9s linear infinite;
+  filter: drop-shadow(0 6px 10px rgba(255,255,255,0.06));
+  opacity: 0;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+/* moon animation (dark-mode) */
+.moon {
+  transform-origin: 50% 50%;
+  animation: moonFloat 4s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 400ms ease, transform 400ms ease;
+}
+
+/* show symbol when active */
+.title-symbol.active .symbol { display: block; opacity: 1; pointer-events: auto; }
+
+/* small pulsing/glow for moon */
+@keyframes moonFloat {
+  0% { transform: translateY(0) rotate(0deg) scale(1); filter: drop-shadow(0 8px 18px rgba(244,193,80,0.08)); }
+  50% { transform: translateY(-4px) rotate(2deg) scale(1.02); filter: drop-shadow(0 12px 26px rgba(244,193,80,0.12)); }
+  100% { transform: translateY(0) rotate(0deg) scale(1); filter: drop-shadow(0 8px 18px rgba(244,193,80,0.08)); }
+}
+
+/* slow rotation for diamond */
+@keyframes diamondRotate {
+  0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+  50% { transform: rotateX(12deg) rotateY(180deg) rotateZ(6deg) scale(1.02); }
+  100% { transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg) scale(1); }
+}
+
+/* SMOKE / DISPERSE animations for the title text */
+#title-text {
+  display: inline-block;
+  transition: opacity 420ms ease, transform 420ms ease, filter 420ms ease;
+  will-change: opacity, transform, filter;
+}
+
+/* smoke out (disappear) */
+#title-text.smoke-out {
+  animation: smokeOut 520ms forwards;
+}
+
+/* smoke in (reappear) */
+#title-text.smoke-in {
+  animation: smokeIn 520ms forwards;
+}
+
+@keyframes smokeOut {
+  0% {
+    opacity: 1; transform: translateY(0) scale(1); filter: blur(0px) saturate(1);
+    letter-spacing: 0.24em;
+  }
+  60% {
+    opacity: 0.35; transform: translateY(-8px) scale(0.985); filter: blur(2px) saturate(0.8);
+    letter-spacing: 0.42em;
+  }
+  100% {
+    opacity: 0; transform: translateY(-22px) scale(0.98) skewX(-6deg); filter: blur(6px) saturate(0.6);
+    letter-spacing: 0.6em;
+  }
+}
+
+@keyframes smokeIn {
+  0% {
+    opacity: 0; transform: translateY(10px) scale(0.98) skewX(-4deg); filter: blur(6px) saturate(0.6);
+    letter-spacing: 0.6em;
+  }
+  60% {
+    opacity: 0.6; transform: translateY(-6px) scale(0.99); filter: blur(2px) saturate(0.9);
+    letter-spacing: 0.36em;
+  }
+  100% {
+    opacity: 1; transform: translateY(0) scale(1); filter: blur(0px) saturate(1);
+    letter-spacing: 0.24em;
+  }
+}
+
+/* ensure symbols show/hide per theme */
+body:not(.dark-mode) .diamond { display: block; } /* default diamond available */
+body.dark-mode .diamond { display: none; }
+body.dark-mode .moon { display: block; }
+body:not(.dark-mode) .moon { display: none; }
+
+/* but we only show whichever is active in .title-symbol.active */
+.title-symbol:not(.active) .diamond,
+.title-symbol:not(.active) .moon {
+  opacity: 0; pointer-events: none; transform: translateY(-6px) scale(0.98);
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+/* when active, show diamond in light-mode or moon in dark-mode */
+body:not(.dark-mode) .title-symbol.active .diamond { opacity: 1; transform: translateY(0) scale(1); }
+body.dark-mode .title-symbol.active .moon { opacity: 1; transform: translateY(0) scale(1); }
+
+/* clickable visual hint */
+.title-symbol:focus, .title-symbol:hover { transform: translateX(-50%) translateY(-135%); }
+
+/* small responsive tweak */
+@media (max-width: 600px) {
+  .symbol { width: 84px; height: 84px; }
+  .title-symbol { transform: translateX(-50%) translateY(-145%); }
+}
 /* ================== NAV BUTTONS ================== */
 .nav-buttons {
   margin-top: 20px;
