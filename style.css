@@ -17,7 +17,7 @@
   flex-direction: column;
   z-index: 9999;
   color: white;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'Lora', sans-serif;
 }
 
 .loader-container {
@@ -79,7 +79,7 @@ header {
   z-index: 1;
 }
 header .title {
-  font-family: 'Cinzel Decorative', serif;
+  font-family: 'Playfair Display', serif;
   font-weight: 700;
   font-size: 4.5rem;
   letter-spacing: 0.25em;
