@@ -221,7 +221,7 @@ body.dark-mode header .title::after {
   display: none;
 }
 /* Contact Section */
-/* CONTACT SECTION ā€“ GRI PREMIUM CU HOVER ĆˇNTUNECAT */
+/* CONTACT SECTION – GRI PREMIUM CU HOVER ÎNTUNECAT */
 .contact-cards {
   display: flex;
   justify-content: center;
@@ -237,10 +237,10 @@ body.dark-mode header .title::after {
   border-radius: 20px;
   padding: 25px 30px;
   width: 220px;
-  height: 180px; /* ā… adÄugÄm o Ć®nÄlČ›ime fixÄ */
+  height: 180px; /* ✅ adăugăm o înălțime fixă */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* ā… centreazÄ conČ›inutul pe verticalÄ */
+  justify-content: center; /* ✅ centrează conținutul pe verticală */
   align-items: center;
   gap: 10px;
   backdrop-filter: blur(12px);
@@ -269,7 +269,7 @@ body.dark-mode header .title::after {
   transform: rotate(25deg) translateX(100%);
 }
 
-/* Hover efect ā€“ se Ć®ntunecÄ, devine gri mai Ć®nchis + glow alb */
+/* Hover efect – se întunecă, devine gri mai închis + glow alb */
 .contact-card:hover {
   background: linear-gradient(135deg, rgba(60,60,60,0.45) 0%, rgba(30,30,30,0.55) 100%);
   transform: scale(1.07) translateY(-5px);
@@ -428,7 +428,7 @@ footer {
   opacity: 0.6;
 }
 /* My Work Grid */
-/* My Work Grid: toate pe un rĆ¢nd, responsive */
+/* My Work Grid: toate pe un rând, responsive */
 .projects {
   display: flex;
   justify-content: center;
@@ -482,7 +482,7 @@ footer {
 
 .card-content a {
   padding: 6px 12px;
-  background: rgba(255, 255, 255, 0.05); /* mai transparent decĆ¢t Ć®nainte */
+  background: rgba(255, 255, 255, 0.05); /* mai transparent decât înainte */
   color: white;
   border-radius: 12px;
   text-decoration: none;
@@ -491,7 +491,7 @@ footer {
 }
 
 .card-content a:hover {
-  background: rgba(255, 255, 255, 0.15); /* puČ›in mai vizibil la hover */
+  background: rgba(255, 255, 255, 0.15); /* puțin mai vizibil la hover */
   color: white;
   transform: scale(1.05);
 }
@@ -567,7 +567,7 @@ footer {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===================== ADÄ‚UGÄ‚RI PENTRU "MY WORK" (only this block appended) ===================== */
+/* ===================== ADĂUGĂRI PENTRU "MY WORK" (only this block appended) ===================== */
 
 /* Work buttons row */
 .work-buttons{
