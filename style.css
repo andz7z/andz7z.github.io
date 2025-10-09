@@ -18,7 +18,7 @@
   flex-direction: column;
   z-index: 9999;
   color: white;
-  font-family: 'Comfortaa', sans-serif; /* schimbat din Lora */
+  font-family: 'BBH Sans Bartle', sans-serif; /* schimbat din Lora */
 }
 
 .loader-container {
@@ -38,11 +38,11 @@
 
 #loader-percent {
   font-size: 1.2rem;
-  font-family: 'Comfortaa', sans-serif; /* tot Comfortaa */
+  font-family: 'BBH Sans Bartle', sans-serif; /* tot Comfortaa */
 }
 
 body {
-  font-family: 'Comfortaa', sans-serif; /* schimbat din Poppins */
+  font-family: 'Raleway', sans-serif; /* schimbat din Poppins */
   color: white;
   text-align: center;
   overflow-x: hidden;
@@ -83,7 +83,7 @@ header {
   z-index: 1;
 }
 header .title {
-  font-family: 'Oswald', sans-serif; /* schimbat din Playfair Display */
+  font-family: 'Raleway', sans-serif; /* schimbat din Playfair Display */
   font-weight: 700;
   font-size: 4.5rem;
   letter-spacing: 0.25em;
@@ -351,7 +351,7 @@ body.dark-mode header .title::after {
 }
 
 .yt-info h3 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 1.2rem;
   margin-bottom: 5px;
 }
@@ -544,7 +544,7 @@ footer {
 }
 
 .skills-card h3 {
-  font-family: 'Comfortaa', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 1.5rem;
   margin-bottom: 15px;
   color: #fff;
@@ -696,7 +696,7 @@ footer {
   flex-direction:column;
   gap:8px;
 }
-.panel-info h3{ font-family:'Comfortaa',sans-serif; font-size:1.2rem; margin-bottom:4px; }
+.panel-info h3{ font-family:'Raleway',sans-serif; font-size:1.2rem; margin-bottom:4px; }
 .panel-info p{ color:#eaeaea; line-height:1.5; font-size:0.95rem; }
 .panel-meta{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:6px; }
 .panel-meta a{ padding:8px 12px; border-radius:10px; background:rgba(255,255,255,0.06); color:white; text-decoration:none; font-weight:600; transition:all .25s ease; }
@@ -960,16 +960,4 @@ body.dark-mode .starfield {
 @keyframes twinkle {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.4); }
-}
-* Stars */
-.stars span {
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #777;
-  transition: color 0.3s ease;
-}
-.stars span.selected,
-.stars span:hover,
-.stars span:hover ~ span {
-  color: #ffd95a;
 }
