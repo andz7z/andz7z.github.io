@@ -4,89 +4,71 @@
   box-sizing: border-box;
 }
 
-/* ===== CINEMATIC INTRO Λ N D Z ===== */
-#intro-overlay {
+/* ===== Intro 3D Diamond (Three.js) styles ===== */
+#intro-3d-overlay {
   position: fixed;
   inset: 0;
   z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 60%, #0e0e0e 0%, #000 100%);
+  background: radial-gradient(circle at 50% 40%, #08080a 0%, #000 55%);
   overflow: hidden;
-  animation: introFadeOut 1s ease 4.5s forwards;
+  pointer-events: auto;
 }
 
-/* lumină ambientală */
-.intro-bg {
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(from 120deg, #ffffff08, #000000, #ffffff08);
-  filter: blur(60px);
-  opacity: 0.2;
-  animation: bgRotate 6s linear infinite;
+/* container for WebGL canvas */
+#intro-3d-root {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  max-width: 100vw;
+  display: block;
 }
 
-@keyframes bgRotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* skip button */
+#intro-3d-skip {
+  position: fixed;
+  right: 22px;
+  top: 18px;
+  z-index: 100000;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: transform .12s ease, background .15s ease;
 }
+#intro-3d-skip:hover { transform: translateY(-3px) scale(1.02); }
 
-/* diamant abstract */
-.intro-diamond {
-  width: 180px;
-  height: 180px;
-  background: radial-gradient(circle at 30% 30%, #e6e6e6 0%, #9fa4a8 40%, #666 100%);
-  clip-path: polygon(50% 0%, 100% 35%, 75% 100%, 25% 100%, 0% 35%);
-  box-shadow: inset 0 0 25px rgba(255,255,255,0.3),
-              0 0 60px rgba(255,255,255,0.2);
-  transform: scale(0) rotateX(70deg);
-  animation: diamondForm 1.8s ease-out 0.3s forwards;
-}
-
-@keyframes diamondForm {
-  0% { transform: scale(0) rotateX(70deg); opacity: 0; }
-  50% { transform: scale(1.1) rotateX(30deg); opacity: 1; }
-  100% { transform: scale(1) rotateX(0); opacity: 1; }
-}
-
-/* efect de lumină care trece peste Λ N D Z */
-.intro-glow {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent 40%, rgba(255,255,255,0.3) 50%, transparent 60%);
-  transform: translateX(-100%);
-  animation: lightSweep 1.4s ease-in-out 2.8s forwards;
+/* subtle lens-flare overlay for cinematic effect */
+#intro-3d-flare {
+  position: fixed;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  z-index: 99998;
   pointer-events: none;
-}
-
-@keyframes lightSweep {
-  to { transform: translateX(100%); opacity: 0; }
-}
-
-/* fade out la final */
-@keyframes introFadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
-}
-
-/* ===== integrare titlu Λ N D Z ===== */
-#main-title {
+  background: radial-gradient(circle at 30% 35%, rgba(255,255,255,0.04) 0%, transparent 10%),
+              radial-gradient(circle at 75% 60%, rgba(255,200,120,0.02) 0%, transparent 8%);
+  mix-blend-mode: screen;
   opacity: 0;
-  transform: scale(1.2);
-  transition: opacity 0.8s ease, transform 1.2s cubic-bezier(.2,.9,.3,1);
+  transition: opacity 0.6s ease;
 }
 
-/* când intro-ul se termină */
-body.intro-done #main-title {
-  opacity: 1;
-  transform: scale(1);
+/* when the stage reveals the title, fade out overlay smoothly */
+#intro-3d-overlay.fadeout {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.9s ease, visibility 0s linear .9s;
 }
 
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  #intro-3d-skip { display: none; }
+}
 
 body {
   font-family: 'Raleway', sans-serif; /* schimbat din Poppins */
