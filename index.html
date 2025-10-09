@@ -9,6 +9,13 @@
   <script defer src="script.js"></script>
 </head>
 <body>
+  <!-- ===== INTRO CINEMATIC Λ N D Z ===== -->
+<div id="intro-overlay">
+  <div class="intro-bg"></div>
+  <div class="intro-diamond"></div>
+  <div class="intro-glow"></div>
+</div>
+<!-- ===== END INTRO ===== -->
   <!-- Starfield background (only visible in dark mode) -->
 <div class="starfield"></div>
   <!-- Theme Toggle -->
@@ -18,52 +25,6 @@
 <div id="notification" class="notification">
   👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
 </div>
-
-<!-- ===== INTRO: DIAMOND / METAL / GLASS (replace old loading-screen) ===== -->
-<div id="intro-screen" aria-hidden="false">
-  <div class="intro-backdrop"></div>
-
-  <div class="intro-stage" role="dialog" aria-label="Intro animation">
-    <div class="metal-plate" id="metal-plate" aria-hidden="true">
-      <div class="plate-reflection"></div>
-      <!-- Diamond SVG (scalable) -->
-      <svg id="diamond-svg" class="diamond-svg" viewBox="0 0 200 200" role="img" aria-label="ANDZ diamond logo">
-        <defs>
-          <linearGradient id="metGrad" x1="0" x2="1">
-            <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-            <stop offset="40%" stop-color="#d6d9de" stop-opacity="0.9"/>
-            <stop offset="100%" stop-color="#9aa0a6" stop-opacity="0.95"/>
-          </linearGradient>
-          <linearGradient id="shineGrad" x1="0" x2="1">
-            <stop offset="0%" stop-color="rgba(255,255,255,0.0)"/>
-            <stop offset="50%" stop-color="rgba(255,255,255,0.7)"/>
-            <stop offset="100%" stop-color="rgba(255,255,255,0.0)"/>
-          </linearGradient>
-          <filter id="glassBlur">
-            <feGaussianBlur stdDeviation="0.6" />
-          </filter>
-        </defs>
-
-        <!-- stylized multifaceted diamond -->
-        <g transform="translate(10,10) scale(0.9)">
-          <polygon class="diamond-facet back" points="90,5 110,5 185,80 100,170 15,80" fill="url(#metGrad)"></polygon>
-          <polygon class="diamond-facet mid" points="90,5 100,30 110,5 100,170" fill="#cdd2d6" opacity="0.95"></polygon>
-          <polygon class="diamond-facet side" points="15,80 100,170 90,5" fill="#9aa0a6" opacity="0.9"></polygon>
-          <rect class="diamond-shine" x="-20" y="-30" width="240" height="60" fill="url(#shineGrad)" opacity="0.0" transform="rotate(-20)"></rect>
-        </g>
-      </svg>
-    </div>
-
-    <div class="intro-text">
-      <h1 id="intro-title" class="intro-title visually-hidden">Λ N D Z</h1>
-      <p class="intro-sub">craft · metal · glass</p>
-    </div>
-
-    <button id="intro-skip" class="intro-skip" aria-label="Skip intro">Skip ⏭</button>
-  </div>
-</div>
-<!-- ===== end intro ===== -->
-
   <!-- Background video -->
   <video autoplay muted loop id="bg-video">
     <source src="https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4" type="video/mp4">
