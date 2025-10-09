@@ -358,271 +358,98 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-// ===== INTRO 3D DIAMOND (Three.js) =====
-(() => {
+document.addEventListener('DOMContentLoaded', () => {
   const overlay = document.getElementById('intro-3d-overlay');
-  const root = document.getElementById('intro-3d-root');
   const skipBtn = document.getElementById('intro-3d-skip');
-  const flare = document.getElementById('intro-3d-flare');
-  const mainTitle = document.getElementById('main-title');
+  const container = document.getElementById('intro-3d-root');
 
-  // Safety: if overlay not present, nothing to do
-  if (!overlay || !root) return;
-
-  // disable main title interactions during intro
-  if (mainTitle) mainTitle.style.pointerEvents = 'none';
-
-  // quick fallback if WebGL not available
-  if (!window.WebGLRenderingContext) {
-    // fallback: short CSS reveal
-    setTimeout(() => {
-      overlay.classList.add('fadeout');
-      overlay.remove();
-      if (mainTitle) mainTitle.style.pointerEvents = 'auto';
-    }, 800);
-    return;
-  }
-
-  // Three.js vars
-  let renderer, scene, camera, diamondMesh, sparklePoints, animationId, composer;
-  let startTime = performance.now();
-  let finished = false;
-  const DURATION = 5000; // total intro time in ms
-
-  // Initialize renderer
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-  renderer.setSize(root.clientWidth, root.clientHeight, false);
-  renderer.outputEncoding = THREE.sRGBEncoding;
-  renderer.physicallyCorrectLights = true;
-  root.appendChild(renderer.domElement);
-
-  // Scene & Camera
-  scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(38, root.clientWidth / root.clientHeight, 0.1, 2000);
-  camera.position.set(0, 0.04, 1.6);
-
-  // Create a subtle environment: large sphere with a soft gradient to reflect
-  const envGeo = new THREE.SphereGeometry(40, 32, 32);
-  const envMat = new THREE.MeshBasicMaterial({ color: 0x000000, side: THREE.BackSide, transparent: true, opacity: 0.6 });
-  const envSphere = new THREE.Mesh(envGeo, envMat);
-  scene.add(envSphere);
-
-  // Lights: cinematic trio
-  const keyLight = new THREE.PointLight(0xffffff, 1.2, 6, 2);
-  keyLight.position.set(1.8, 0.8, 2.2);
-  scene.add(keyLight);
-
-  const rimLight = new THREE.PointLight(0xffe8d0, 0.55, 8, 2);
-  rimLight.position.set(-1.8, -0.6, 1.8);
-  scene.add(rimLight);
-
-  const fill = new THREE.AmbientLight(0xffffff, 0.18);
-  scene.add(fill);
-
-  // Subtle moving colored light for cinematic shimmer
-  const colorLight = new THREE.PointLight(0x8fb6ff, 0.5, 8, 2);
-  colorLight.position.set(0.6, -0.8, 1.6);
-  scene.add(colorLight);
-
-  // Build a detailed "diamond" using OctahedronGeometry + subdivide for facets
-  // Use BufferGeometryUtils subdivision if not available: we will approximate by using high-detail Icosahedron
-  const geo = new THREE.OctahedronGeometry(0.55, 4); // second param increases detail
-  // Make the geometry slightly sharpened by scaling Y of certain vertices (subtle)
-  // Material: MeshPhysicalMaterial with transmission & clearcoat to mimic glass/diamond
-  const mat = new THREE.MeshPhysicalMaterial({
-    color: 0xf7f9fb,
-    metalness: 0.0,
-    roughness: 0.05,
-    transmission: 0.95,       // glass-like transparency
-    thickness: 0.8,
-    clearcoat: 1.0,
-    clearcoatRoughness: 0.05,
-    reflectivity: 0.7,
-    envMapIntensity: 1.0,
-    opacity: 1.0,
-    transparent: true,
-    side: THREE.DoubleSide,
+  // Skip functionality
+  skipBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    // Opri animatie
+    cancelAnimationFrame(animationId);
   });
 
-  diamondMesh = new THREE.Mesh(geo, mat);
-  diamondMesh.rotation.set(0.25, 0.9, 0.06);
-  diamondMesh.scale.setScalar(0.0001); // start tiny -> will animate in
-  scene.add(diamondMesh);
+  // Scene
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0a0a0a);
 
-  // add inner core glow: a smaller emissive mesh to simulate depth
-  const innerMat = new THREE.MeshBasicMaterial({ color: 0xfff9ee, transparent: true, opacity: 0.06, blending: THREE.AdditiveBlending });
-  const inner = new THREE.Mesh(new THREE.OctahedronGeometry(0.34, 3), innerMat);
-  scene.add(inner);
+  // Camera
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 5);
 
-  // Sparkle particles around diamond (Points)
-  const sparkleCount = 200;
-  const sparklePositions = new Float32Array(sparkleCount * 3);
-  for (let i = 0; i < sparkleCount; i++) {
-    const r = 0.75 + Math.random() * 0.9;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = (Math.random() - 0.5) * Math.PI;
-    sparklePositions[i * 3] = Math.cos(theta) * Math.cos(phi) * r;
-    sparklePositions[i * 3 + 1] = Math.sin(phi) * r * 0.7;
-    sparklePositions[i * 3 + 2] = Math.sin(theta) * Math.cos(phi) * r;
-  }
-  const sparkleGeo = new THREE.BufferGeometry();
-  sparkleGeo.setAttribute('position', new THREE.BufferAttribute(sparklePositions, 3));
-  const sparkleMat = new THREE.PointsMaterial({
-    size: 0.014,
-    sizeAttenuation: true,
-    color: 0xfff9fb,
-    transparent: true,
-    opacity: 0.9,
-    depthWrite: false,
-    blending: THREE.AdditiveBlending
+  // Renderer
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  container.appendChild(renderer.domElement);
+
+  // Lights
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+  scene.add(ambientLight);
+
+  const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+  directionalLight.position.set(5,5,5);
+  scene.add(directionalLight);
+
+  // Diamond geometry (octahedron) + glassy material
+  const diamondGeo = new THREE.OctahedronGeometry(1.2, 2);
+  const diamondMat = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: 0.5,
+    roughness: 0,
+    clearcoat: 1,
+    clearcoatRoughness: 0,
+    transmission: 1, // glass effect
+    thickness: 1,
+    reflectivity: 1
   });
-  sparklePoints = new THREE.Points(sparkleGeo, sparkleMat);
-  sparklePoints.frustumCulled = false;
-  scene.add(sparklePoints);
+  const diamond = new THREE.Mesh(diamondGeo, diamondMat);
+  scene.add(diamond);
 
-  // resize handler
-  function onResize() {
-    const w = root.clientWidth;
-    const h = root.clientHeight;
-    renderer.setSize(w, h, false);
-    camera.aspect = w / h;
+  // Λ N D Z Text
+  const loader = new THREE.FontLoader();
+  loader.load('https://threejs.org/examples/fonts/helvetiker_bold.typeface.json', function(font){
+    const textGeo = new THREE.TextGeometry('Λ N D Z', {
+      font: font,
+      size: 0.8,
+      height: 0.2,
+      bevelEnabled: true,
+      bevelThickness: 0.03,
+      bevelSize: 0.02,
+      bevelSegments: 5
+    });
+    const textMat = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0.7, roughness: 0.2 });
+    const textMesh = new THREE.Mesh(textGeo, textMat);
+    textMesh.position.set(-2.2, -2, 0);
+    textMesh.visible = false;
+    scene.add(textMesh);
+
+    // Animate diamond rotation
+    let t = 0;
+    let animationId;
+
+    function animate(){
+      animationId = requestAnimationFrame(animate);
+      t += 0.01;
+      diamond.rotation.x = t;
+      diamond.rotation.y = t * 0.7;
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // After 3 sec, show text cinematic
+    setTimeout(()=>{
+      gsap.to(textMesh.position, {y:0, duration:1, ease:"power2.out"});
+      textMesh.visible = true;
+      gsap.fromTo(textMesh.scale, {x:0, y:0, z:0}, {x:1, y:1, z:1, duration:1.2, ease:"back.out(1.7)"});
+    }, 3000);
+
+  });
+
+  // Responsiveness
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth/window.innerHeight;
     camera.updateProjectionMatrix();
-  }
-  window.addEventListener('resize', onResize);
-
-  // Animation timeline control (ms)
-  const t0 = performance.now();
-
-  // play small whoosh sound if allowed (optional comment out if not using)
-  function tryPlaySound() {
-    try {
-      // small embedded audio data (silent fallback). We won't include big audio here to avoid CORS.
-      // If you want sound, set `const sUrl = "path/to/sound.mp3"; new Audio(sUrl).play();`
-    } catch (e) {}
-  }
-
-  tryPlaySound();
-
-  // animate function
-  function animate(now) {
-    animationId = requestAnimationFrame(animate);
-    const elapsed = now - t0;
-
-    // Diamond formation: scale from tiny to full in first 1600ms with elastic ease
-    const formEnd = 1600;
-    if (elapsed < formEnd) {
-      const p = elapsed / formEnd;
-      // easeOutElastic-like approximation
-      const eased = Math.sin((p * Math.PI) / 2) * (1 - Math.pow(1 - p, 3));
-      const s = THREE.MathUtils.lerp(0.0001, 1.0, eased);
-      diamondMesh.scale.setScalar(s);
-      inner.scale.setScalar(THREE.MathUtils.lerp(0.02, 1.0, p * 0.95));
-      inner.material.opacity = THREE.MathUtils.lerp(0.12, 0.03, p);
-    } else {
-      diamondMesh.scale.setScalar(1);
-      inner.scale.setScalar(1);
-    }
-
-    // Rotation gentle
-    diamondMesh.rotation.y += 0.0028 + Math.sin(now / 1200) * 0.0008;
-    diamondMesh.rotation.x += 0.0009;
-
-    // sparkle twinkle
-    const positions = sparkleGeo.attributes.position.array;
-    for (let i = 0; i < sparkleCount; i++) {
-      const i3 = i * 3;
-      // small pulsating
-      positions[i3 + 1] += Math.sin(now / (600 + (i % 7) * 80) + i) * 0.0006;
-    }
-    sparkleGeo.attributes.position.needsUpdate = true;
-
-    // dynamic lights movement for cinematic shimmer
-    const cycle = (now / 1000) % 6;
-    keyLight.position.x = 1.8 * Math.cos(cycle * 0.7);
-    keyLight.position.y = 0.85 + Math.sin(cycle * 0.6) * 0.14;
-    colorLight.position.x = 0.6 * Math.cos(cycle * 1.3);
-    colorLight.intensity = 0.45 + Math.max(0, Math.sin(now / 450)) * 0.4;
-
-    // flare opacity: ramp up during mid intro
-    const flareOn = (elapsed > 1800 && elapsed < 3600);
-    if (flareOn) {
-      flare.style.opacity = Math.min(1, (elapsed - 1800) / 600);
-    } else {
-      flare.style.opacity = Math.max(0, 1 - (elapsed - 3600) / 400);
-    }
-
-    renderer.render(scene, camera);
-
-    // finish after DURATION
-    if (elapsed >= DURATION && !finished) {
-      finished = true;
-      endIntro(false);
-    }
-  }
-
-  // End intro: fade overlay, re-enable title and cleanup
-  function endIntro(saveSkip) {
-    if (finished && overlay.classList.contains('fadeout')) return;
-    finished = true;
-
-    // mark skip preference if requested
-    if (saveSkip) localStorage.setItem('andz_intro_skipped', '1');
-
-    // visual fade
-    overlay.classList.add('fadeout');
-
-    // re-enable main title
-    if (mainTitle) {
-      mainTitle.style.pointerEvents = 'auto';
-      // gently reveal main title if hidden by CSS
-      mainTitle.style.opacity = '1';
-      mainTitle.classList.add('move-up');
-      const nav = document.querySelector('.nav-buttons');
-      if (nav) {
-        nav.classList.remove('hidden');
-        setTimeout(()=> nav.classList.add('show-buttons'), 200);
-      }
-    }
-
-    // cleanup three after fade
-    setTimeout(() => {
-      try {
-        cancelAnimationFrame(animationId);
-      } catch (e) {}
-      try {
-        // dispose geometries & materials
-        geo.dispose && geo.dispose();
-        mat.dispose && mat.dispose();
-        sparkleGeo.dispose && sparkleGeo.dispose();
-        sparkleMat.dispose && sparkleMat.dispose();
-      } catch (e) {}
-      // remove renderer canvas
-      try { renderer.domElement.remove(); } catch (e) {}
-      try { overlay.remove(); } catch (e) {}
-    }, 900);
-  }
-
-  // Skip button behavior
-  skipBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    playClick && playClick();
-    endIntro(true);
+    renderer.setSize(window.innerWidth, window.innerHeight);
   });
-
-  // Clicking diamond overlay will also end intro early and trigger title reveal
-  renderer.domElement.addEventListener('pointerdown', (e) => {
-    // avoid accidental drag
-    playClick && playClick();
-    endIntro(false);
-  });
-
-  // If user cleared intro previously, skip entirely
-  if (localStorage.getItem('andz_intro_skipped') === '1') {
-    endIntro(false);
-    return;
-  }
-
-  // start animation loop
-  animationId = requestAnimationFrame(animate);
-})();
+});
