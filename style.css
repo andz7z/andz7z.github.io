@@ -964,3 +964,21 @@ body.dark-mode .starfield {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.4); }
 }
+/* Diamond Intro */
+#diamond-intro {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  overflow: hidden;
+}
+
+#diamond-intro.fade-out {
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  pointer-events: none;
+}
