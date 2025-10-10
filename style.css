@@ -1008,3 +1008,73 @@ body.dark-mode .intro-ring {
 .hidden {
   display: none;
 }
+/* === REVIEWS SECTION === */
+#reviews {
+  padding: 40px;
+  text-align: center;
+  color: #fff;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  width: 80%;
+  max-width: 400px;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.review-form button {
+  background: #fff;
+  color: #111;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.review-form button:hover {
+  background: #999;
+  color: #fff;
+}
+
+.reviews-list {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.review {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 15px 20px;
+  max-width: 500px;
+  width: 90%;
+  text-align: left;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+  transition: transform 0.3s;
+}
+
+.review:hover {
+  transform: scale(1.02);
+}
+
+.review strong {
+  color: #fff;
+  font-size: 1.1em;
+}
