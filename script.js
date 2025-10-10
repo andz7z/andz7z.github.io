@@ -382,3 +382,72 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
+// ===== Diamond Intro (Three.js) =====
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.module.js";
+
+const intro = document.getElementById("diamond-intro");
+const canvas = document.getElementById("diamond-canvas");
+const scene = new THREE.Scene();
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.z = 3;
+
+const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
+
+// Diamond geometry
+const geometry = new THREE.OctahedronGeometry(1, 2); // diamond-like shape
+const material = new THREE.MeshPhysicalMaterial({
+  color: 0xffffff,
+  roughness: 0.1,
+  metalness: 0.6,
+  transmission: 0.9, // glass effect
+  thickness: 0.8,
+  clearcoat: 1,
+  clearcoatRoughness: 0.05
+});
+const diamond = new THREE.Mesh(geometry, material);
+scene.add(diamond);
+
+// Lighting
+const light1 = new THREE.PointLight(0xffffff, 1);
+light1.position.set(2, 2, 3);
+scene.add(light1);
+
+const light2 = new THREE.PointLight(0xaaaaaa, 0.8);
+light2.position.set(-2, -2, -3);
+scene.add(light2);
+
+// Particles
+const particlesGeometry = new THREE.BufferGeometry();
+const particlesCount = 150;
+const positions = new Float32Array(particlesCount * 3);
+for (let i = 0; i < particlesCount * 3; i++) {
+  positions[i] = (Math.random() - 0.5) * 6;
+}
+particlesGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+const particlesMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.02 });
+const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+scene.add(particles);
+
+// Animate
+function animate() {
+  requestAnimationFrame(animate);
+  diamond.rotation.y += 0.01;
+  diamond.rotation.x += 0.003;
+  renderer.render(scene, camera);
+}
+animate();
+
+// Resize
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// Fade out intro after 4s
+setTimeout(() => {
+  intro.classList.add("fade-out");
+}, 4000);
