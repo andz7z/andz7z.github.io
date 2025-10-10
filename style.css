@@ -18,7 +18,7 @@ button {
 #bg-video{
   position:fixed;right:0;bottom:0;
   min-width:100%;min-height:100%;
-  z-index:-2;object-fit:cover;
+  z-index:-2;object-fit:contain;
   filter:brightness(1.2) contrast(1.2);
 }
 .overlay{
