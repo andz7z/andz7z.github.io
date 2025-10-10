@@ -162,7 +162,23 @@ document.addEventListener("DOMContentLoaded", () => {
       moved = true;
     }
   });
-
+// ======== Interactive 3D Tilt for Logo ========
+const logo3D = document.getElementById("main-logo");
+if (logo3D) {
+  let timeout;
+  logo3D.addEventListener("mousemove", e => {
+    const rect = logo3D.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotateX = (y / rect.height) * 12;
+    const rotateY = -(x / rect.width) * 12;
+    logo3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+    clearTimeout(timeout);
+  });
+  logo3D.addEventListener("mouseleave", () => {
+    logo3D.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+  });
+}
   // ===========================================================
   // ======== Particle Effect ========
   // ===========================================================
