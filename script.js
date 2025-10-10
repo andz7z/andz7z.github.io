@@ -389,13 +389,16 @@ if (reviewForm) {
     const message = document.getElementById("message").value;
 
     const data = { name, rating, message };
+    
+await fetch(REVIEW_API, {
+  method: "POST",
+  mode: "no-cors",
+  body: JSON.stringify(data),
+  headers: {
+    "Content-Type": "application/json"
+  }
+});
 
-    try {
-      const res = await fetch(REVIEW_API, {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: { "Content-Type": "application/json" },
-      });
 
       if (res.ok) {
         alert("✅ Mulțumim pentru review!");
