@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>A N D Z | Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle:wght@400;500;600;700&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=BBH+Sans+Bartle:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script defer src="script.js"></script>
 </head>
 <body>
@@ -17,6 +17,14 @@
   <!-- Notification -->
 <div id="notification" class="notification">
   👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
+</div>
+
+  <!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="loader-container">
+    <div class="loader-bar" id="loader-bar"></div>
+    <span id="loader-percent">0%</span>
+  </div>
 </div>
 
   <!-- Background video -->
@@ -33,17 +41,15 @@
   </div>
 
   <!-- Header -->
-<header>
-  <img src="https://github.com/andz7z/andz7z.github.io/raw/main/logo.gif" 
-       alt="ANDZ Logo" 
-       id="logo">
-  <p class="title-desc">professional services in video & photo editing, game modding & web development</p>
-  <nav class="nav-buttons hidden">
-    <button onclick="openSection('services')">Services 🤝🏽</button>
-    <button onclick="openSection('work')">Projects 📁</button>
-    <button onclick="openSection('contact')">Contact Me 📞</button>
-  </nav>
-</header>
+  <header>
+    <h1 class="title" id="main-title">Λ N D Z</h1>
+    <p class="title-desc">professional services in video & photo editing, game modding & web development</p>
+    <nav class="nav-buttons hidden">
+      <button onclick="openSection('services')">Services 🤝🏽</button>
+      <button onclick="openSection('work')">Projects 📁</button>
+      <button onclick="openSection('contact')">Contact Me 📞</button>
+    </nav>
+  </header>
 
   <!-- SERVICES & YOUTUBE -->
   <section id="services" class="hidden section">
