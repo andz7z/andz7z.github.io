@@ -240,30 +240,30 @@ const WORK_ITEMS = {
   season: {
     title: "Season Flow",
     img: "https://i.imgur.com/ik14PFa.jpeg",
-    desc: "Seamlessly transitions map seasons in GTA:SA — snow in winter, green fields in summer, leaves falling in autumn. Easy install, configurable times and regions.",
+    desc: "A LUA mod, easy to install, that lets you choose between summer or winter. The game has only summer by default, but thanks to technology, we can now also have winter.",
     github: "https://github.com/andz7z/SEASONS-GTA-SA",
-    features: ["Auto day/night aware", "Configurable zones", "Low perf impact"]
+    features: ["No FPS Drop", "Easy to configure", "Unique"]
   },
   weather: {
     title: "Weather Shift",
     img: "https://i.imgur.com/nstY5n2.jpeg",
     desc: "Advanced time & weather changer: set custom day lengths, sudden storms, fog, or permanent weather presets. Works with Season Flow for best results.",
     github: "https://github.com/andz7z/TIMECHANGER-GTA-SA",
-    features: ["Custom time scale", "Weather presets", "Hotkey ready"]
+    features: ["Custom time scale", "Weather presets", "No FPS Drop"]
   },
   tags: {
     title: "Modern Tags",
     img: "https://i.imgur.com/nsrK2GW.jpeg",
-    desc: "Modern, stylable nametags for multiplayer servers. Clean design, color-coded roles, and smooth fading for readability and aesthetics.",
+    desc: "A modern tags mod that helps you style them in any way. You can change the icons, the font, or even the color.",
     github: "https://github.com/andz7z/NAMETAGS-GTA-SA",
-    features: ["Role colors", "Smooth fades", "Custom fonts support"]
+    features: ["Easy to configure", "Custom colors support", "Custom fonts support"]
   },
   look: {
     title: "Look Changer",
     img: "https://i.imgur.com/rSWDHs2.jpeg",
-    desc: "Quickly change player skins and outfits with a simple menu or commands. Includes many presets and supports costume saving/loading.",
+    desc: "A mod that lets you change your skin however you want, with the new feature that it stays saved locally even after logging out.",
     github: "https://github.com/andz7z/SKINCHANGER-GTA-SA",
-    features: ["Preset outfits", "Command & menu", "Save custom skins"]
+    features: ["Local Saving", "Easdy to understand", "No FPS Drop"]
   }
 };
 
