@@ -292,7 +292,7 @@ body.dark-mode .starfield{opacity:1}
 /* Responsive for project cards */
 @media(max-width:800px){.work-card{width:45%}} @media(max-width:520px){.work-card{width:90%}}
 
-/* ===== ICE & GOLD LOGO ===== */
+/* ===== ICE & GOLD CINEMATIC LOGO ===== */
 .main-logo-text {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 700;
@@ -307,6 +307,7 @@ body.dark-mode .starfield{opacity:1}
   transition: all 1s ease;
   cursor: pointer;
   text-rendering: geometricPrecision;
+  z-index: 5;
 }
 
 /* Light Mode — ICE SILVER */
@@ -315,8 +316,8 @@ body:not(.dark-mode) .main-logo-text {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow:
-    0 2px 4px rgba(200,220,255,0.5),
-    0 10px 20px rgba(180,200,255,0.3),
+    0 2px 4px rgba(200,220,255,0.45),
+    0 10px 20px rgba(180,200,255,0.25),
     0 0 60px rgba(210,230,255,0.25);
   filter: drop-shadow(0 0 10px rgba(255,255,255,0.15));
 }
@@ -333,18 +334,17 @@ body.dark-mode .main-logo-text {
   filter: drop-shadow(0 0 8px rgba(255,217,90,0.1));
 }
 
-/* Show animation */
+/* Subtle breathing animation */
 .main-logo-text.show {
   opacity: 1;
   transform: scale(1);
   animation: subtleDepth 6s ease-in-out infinite alternate;
 }
 
-/* depth shimmer breathing */
 @keyframes subtleDepth {
-  0% { text-shadow: 0 3px 6px rgba(255,255,255,0.2); transform: scale(1) translateY(0); }
-  50% { text-shadow: 0 6px 12px rgba(255,255,255,0.3); transform: scale(1.015) translateY(-2px); }
-  100% { text-shadow: 0 3px 6px rgba(255,255,255,0.2); transform: scale(1) translateY(0); }
+  0% { text-shadow: 0 3px 6px rgba(255,255,255,0.25); transform: scale(1) translateY(0); }
+  50% { text-shadow: 0 6px 12px rgba(255,255,255,0.35); transform: scale(1.015) translateY(-1.5px); }
+  100% { text-shadow: 0 3px 6px rgba(255,255,255,0.25); transform: scale(1) translateY(0); }
 }
 
 /* Reflection (static mirror) */
@@ -364,8 +364,24 @@ body.dark-mode .main-logo-text {
   pointer-events: none;
 }
 
-/* Hover 3D tilt */
+/* Hover 3D tilt + cinematic halo */
 .main-logo-text:hover {
   transform: scale(1.05) rotateX(6deg) rotateY(-4deg);
   transition: transform 0.6s ease;
+}
+
+.main-logo-text::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 70%);
+  opacity: 0;
+  filter: blur(30px);
+  transition: opacity 0.6s ease, transform 0.8s ease;
+  z-index: -1;
+}
+
+.main-logo-text:hover::before {
+  opacity: 1;
+  transform: scale(1.15);
 }
