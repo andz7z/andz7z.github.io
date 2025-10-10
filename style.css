@@ -292,79 +292,81 @@ body.dark-mode .starfield{opacity:1}
 /* Responsive for project cards */
 @media(max-width:800px){.work-card{width:45%}} @media(max-width:520px){.work-card{width:90%}}
 
-/* ===== MINIMALISTIC GLASS 3D LOGO ===== */
+/* ======= PREMIUM LIQUID METAL LOGO ======= */
 .main-logo-text {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Rajdhani', sans-serif;
   font-weight: 700;
-  font-size: clamp(3rem, 9vw, 6rem);
-  letter-spacing: 0.35em;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   display: inline-block;
   position: relative;
   user-select: none;
-  color: rgba(255, 255, 255, 0.85);
   opacity: 0;
-  transform: scale(0.9) rotateX(15deg);
-  transition:
-    opacity 1.2s ease,
-    transform 1.2s ease,
-    text-shadow 1.5s ease,
-    filter 1.5s ease;
-  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
-  backdrop-filter: blur(8px);
+  color: #fdfdfd;
+  background: linear-gradient(135deg, #ffffff, #e2e2e2 30%, #c7a85a 60%, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 8px rgba(255, 220, 120, 0.25))
+          drop-shadow(0 0 25px rgba(255, 255, 255, 0.1));
+  text-shadow:
+    0 2px 4px rgba(255,255,255,0.3),
+    0 0 35px rgba(255,220,150,0.2);
+  transform: scale(0.9);
+  transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
+  perspective: 800px;
 }
 
 .main-logo-text.show {
   opacity: 1;
-  transform: scale(1) rotateX(0deg);
-  animation: logoGlow 4s ease-in-out infinite alternate;
+  transform: scale(1);
+  animation: logoLuxPulse 5s ease-in-out infinite alternate;
 }
 
-/* Light glass reflection */
-.main-logo-text::before {
+/* Subtil shine reflex */
+.main-logo-text::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, rgba(255,255,255,0.6), rgba(255,255,255,0.05), rgba(255,255,255,0.4));
-  mix-blend-mode: overlay;
-  opacity: 0.2;
-  filter: blur(8px);
-  transform: translateY(-10%) skewY(-5deg);
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.8), transparent);
+  transform: skewX(-25deg);
+  animation: shineSweep 8s linear infinite;
   pointer-events: none;
-  animation: glassShift 8s ease-in-out infinite;
 }
 
-/* Gentle pulse */
-@keyframes logoGlow {
+@keyframes shineSweep {
+  0% { left: -100%; opacity: 0; }
+  45% { left: 120%; opacity: 0.5; }
+  100% { left: 120%; opacity: 0; }
+}
+
+/* Pulsarea luminii aurii */
+@keyframes logoLuxPulse {
   0% {
-    text-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 30px rgba(200,200,255,0.15);
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+    filter: drop-shadow(0 0 10px rgba(255,220,120,0.2))
+            drop-shadow(0 0 20px rgba(255,255,255,0.15));
   }
   50% {
-    text-shadow: 0 0 20px rgba(255,255,255,0.45), 0 0 40px rgba(180,220,255,0.3);
-    filter: drop-shadow(0 0 20px rgba(255,255,255,0.25));
+    filter: drop-shadow(0 0 25px rgba(255,220,120,0.4))
+            drop-shadow(0 0 35px rgba(255,255,255,0.3));
   }
   100% {
-    text-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 30px rgba(200,200,255,0.15);
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+    filter: drop-shadow(0 0 10px rgba(255,220,120,0.2))
+            drop-shadow(0 0 20px rgba(255,255,255,0.15));
   }
 }
 
-@keyframes glassShift {
-  0% { opacity: 0.15; transform: translateY(-10%) skewY(-5deg); }
-  50% { opacity: 0.3; transform: translateY(10%) skewY(5deg); }
-  100% { opacity: 0.15; transform: translateY(-10%) skewY(-5deg); }
-}
-
-/* Dark mode – colder glass glow */
+/* ===== Dark Mode Variant ===== */
 body.dark-mode .main-logo-text {
-  color: rgba(235, 235, 255, 0.9);
+  background: linear-gradient(135deg, #d7d7d7, #9a8d55 25%, #cfcfcf 70%, #fdfdfd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(255,220,120,0.25))
+          drop-shadow(0 0 30px rgba(255,255,255,0.15));
   text-shadow:
-    0 0 25px rgba(180,180,255,0.3),
-    0 0 55px rgba(140,180,255,0.2);
-  filter: drop-shadow(0 0 18px rgba(180,180,255,0.2));
-}
-body.dark-mode .main-logo-text::before {
-  background: linear-gradient(120deg, rgba(160,180,255,0.25), rgba(255,255,255,0.05), rgba(120,140,255,0.3));
-  opacity: 0.25;
+    0 2px 5px rgba(255,255,255,0.15),
+    0 0 25px rgba(255,217,90,0.15);
 }
