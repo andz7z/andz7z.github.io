@@ -374,50 +374,231 @@ if (starfield) {
     star.style.animationDuration = (2 + Math.random() * 3) + "s";
     starfield.appendChild(star);
   }
-}
-<!-- ================= REVIEWS (Glass / Diamond style) ================= -->
-<section id="reviews" class="section">
-  <div class="section-bg"></div>
-  <div class="reviews-panel">
-    <div class="panel-header">
-      <div class="diamond-accent" aria-hidden="true"></div>
-      <div>
-        <h2>⭐ Reviews</h2>
-        <p class="sub">What people say — real feedback</p>
-      </div>
-      <div class="avg-box" id="avg-box" aria-hidden="true">
-        <div class="avg-value" id="avg-value">—</div>
-        <div class="avg-label">Avg</div>
-      </div>
-    </div>
+}/* =================== REVIEWS JS (robust + fallback) =================== */
+const REVIEW_API = "https://script.google.com/macros/s/AKfycbx_VXb_GdqA8gI-kIPEdJlqv0hleZvAUoDdFrsV77IBdZHlqTkmzlaBnRNQ9cjBa9dGPQ/exec";
 
-    <div class="left-col">
-      <form id="review-form" class="review-form" autocomplete="off">
-        <input id="name" name="name" type="text" placeholder="Your name" required>
-        <div class="stars" id="star-control" aria-label="Rating">
-          <span class="star" data-value="5">★</span>
-          <span class="star" data-value="4">★</span>
-          <span class="star" data-value="3">★</span>
-          <span class="star" data-value="2">★</span>
-          <span class="star" data-value="1">★</span>
-        </div>
-        <textarea id="message" name="message" rows="4" placeholder="Write your feedback..." required></textarea>
+(function() {
+  // elemente
+  const form = document.getElementById("review-form");
+  const nameInput = document.getElementById("name");
+  const messageInput = document.getElementById("message");
+  const starControl = document.getElementById("star-control");
+  const submitBtn = document.getElementById("submit-review");
+  const statusBox = document.getElementById("form-status");
+  const reviewsList = document.getElementById("reviews-list");
+  const reviewsError = document.getElementById("reviews-error");
+  const avgValueEl = document.getElementById("avg-value");
+  let currentRating = 5;
 
-        <div class="form-row">
-          <button id="submit-review" type="submit">Send Review</button>
-          <div id="form-status" class="form-status" aria-live="polite"></div>
-        </div>
-      </form>
+  // init stars interactions
+  function updateStarsUI(value) {
+    const stars = starControl.querySelectorAll(".star");
+    stars.forEach(s => {
+      const v = Number(s.dataset.value);
+      if (v <= value) s.classList.add("selected");
+      else s.classList.remove("selected");
+    });
+  }
+  starControl.addEventListener("click", (ev) => {
+    const s = ev.target.closest(".star");
+    if (!s) return;
+    currentRating = Number(s.dataset.value);
+    updateStarsUI(currentRating);
+  });
+  // set default
+  updateStarsUI(currentRating);
 
-      <div class="hint">Tip: dacă apare eroare, review-ul este salvat local și va fi retrimis când API-ul e disponibil.</div>
-    </div>
+  // render one review
+  function renderReview(r, optimistic=false) {
+    const div = document.createElement("div");
+    div.className = "review";
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    const name = document.createElement("strong");
+    name.textContent = r.name || "Anon";
+    const rating = document.createElement("div");
+    rating.className = "rating";
+    rating.textContent = r.rating || "—";
+    meta.appendChild(name);
+    meta.appendChild(rating);
 
-    <div class="right-col">
-      <div id="reviews-list" class="reviews-list" aria-live="polite">
-        <!-- reviews populate here -->
-      </div>
-      <div id="reviews-error" class="reviews-error" hidden>Nu pot încărca review-urile de pe server.</div>
-    </div>
-  </div>
-</section>
-<!-- ================================================================== -->
+    const text = document.createElement("div");
+    text.className = "text";
+    text.textContent = r.message || "";
+
+    div.appendChild(meta);
+    div.appendChild(text);
+
+    if (optimistic) {
+      const note = document.createElement("div");
+      note.style.fontSize = "0.85rem";
+      note.style.opacity = "0.8";
+      note.style.marginTop = "8px";
+      note.textContent = "Pending — will retry sending when server is reachable.";
+      div.appendChild(note);
+      // mark as pending in localStorage queue
+      queuePendingReview(r);
+    }
+
+    reviewsList.prepend(div);
+  }
+
+  // local queue for retries
+  const PENDING_KEY = "andz_reviews_pending_v1";
+  function getPendingQueue() {
+    try { return JSON.parse(localStorage.getItem(PENDING_KEY) || "[]"); } catch(e){return [];}
+  }
+  function setPendingQueue(q) { localStorage.setItem(PENDING_KEY, JSON.stringify(q)); }
+  function queuePendingReview(r) {
+    const q = getPendingQueue(); q.push(r); setPendingQueue(q);
+  }
+  async function retryPending() {
+    const q = getPendingQueue();
+    if (!q.length) return;
+    console.log("Retrying pending reviews:", q.length);
+    const remaining = [];
+    for (let item of q) {
+      try {
+        const res = await fetch(REVIEW_API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(item)
+        });
+        if (!res.ok) throw new Error("Non-OK");
+        // success -> drop from queue
+      } catch (err) {
+        console.warn("Retry failed:", err);
+        remaining.push(item);
+      }
+    }
+    setPendingQueue(remaining);
+  }
+  // attempt retry every 30s
+  setInterval(retryPending, 30000);
+
+  // calculate + set average rating
+  function updateAverage(reviews) {
+    if (!reviews || reviews.length === 0) {
+      avgValueEl.textContent = "—";
+      return;
+    }
+    let sum = 0, count = 0;
+    for (let r of reviews) {
+      const n = parseInt((r.rating || "").replace(/[^0-9]/g,''),10);
+      if (!isNaN(n)) { sum += n; count++; }
+    }
+    const avg = count ? (sum / count).toFixed(1) : "—";
+    avgValueEl.textContent = avg;
+  }
+
+  // load reviews from server
+  async function loadReviews() {
+    reviewsList.innerHTML = "<div style='opacity:.7'>Loading reviews…</div>";
+    reviewsError.hidden = true;
+    try {
+      const res = await fetch(REVIEW_API, { method: "GET" });
+      if (!res.ok) throw new Error("Server returned " + res.status);
+      const data = await res.json();
+      reviewsList.innerHTML = "";
+      // make sure array
+      const arr = Array.isArray(data) ? data : [];
+      arr.reverse().forEach(r => renderReview(r));
+      updateAverage(arr);
+      // also show any pending local ones
+      const pending = getPendingQueue();
+      pending.forEach(p => renderReview(p, true));
+    } catch (err) {
+      console.error("Failed to load reviews:", err);
+      reviewsList.innerHTML = "";
+      reviewsError.hidden = false;
+      // show local pending reviews so page is not empty
+      const pending = getPendingQueue();
+      if (pending.length) {
+        pending.slice().reverse().forEach(p => renderReview(p, true));
+      } else {
+        const el = document.createElement("div");
+        el.style.opacity = ".8";
+        el.textContent = "No reviews available (offline or server blocked).";
+        reviewsList.appendChild(el);
+      }
+    }
+  }
+
+  // submit handler
+  form.addEventListener("submit", async (ev) => {
+    ev.preventDefault();
+    const payload = {
+      name: nameInput.value.trim() || "Anon",
+      rating: "⭐".repeat(currentRating) + ` (${currentRating})`,
+      message: messageInput.value.trim() || ""
+    };
+    // quick local render (optimistic)
+    renderReview(payload, true);
+
+    // UI
+    submitBtn.disabled = true;
+    statusBox.textContent = "Sending…";
+    try {
+      // try normal POST first
+      const res = await fetch(REVIEW_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        statusBox.textContent = "Sent ✅";
+        // try reloading server list
+        setTimeout(loadReviews, 800);
+        // remove from pending queue if any (retry may have duplicated)
+        // optimistic approach: attempt to remove same message from pending
+        const pending = getPendingQueue().filter(p => !(p.name===payload.name && p.message===payload.message));
+        setPendingQueue(pending);
+      } else {
+        // server rejected -> fallback to no-cors (may still save)
+        console.warn("Server returned non-ok:", res.status);
+        try {
+          await fetch(REVIEW_API, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          statusBox.textContent = "Sent (no-cors) — optimistic ✅";
+          queuePendingReview(payload);
+        } catch (err2) {
+          console.error("Fallback no-cors failed:", err2);
+          statusBox.textContent = "Saved locally (will retry) ⚠️";
+          queuePendingReview(payload);
+        }
+      }
+    } catch (err) {
+      console.error("POST failed:", err);
+      // fallback: try no-cors to at least attempt sending
+      try {
+        await fetch(REVIEW_API, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        statusBox.textContent = "Sent (no-cors) — optimistic ✅";
+        queuePendingReview(payload);
+      } catch (err2) {
+        console.error("no-cors also failed:", err2);
+        statusBox.textContent = "Saved locally (will retry) ⚠️";
+        queuePendingReview(payload);
+      }
+    } finally {
+      submitBtn.disabled = false;
+      form.reset();
+      currentRating = 5; updateStarsUI(currentRating);
+    }
+  });
+
+  // initial load
+  loadReviews();
+
+  // expose for debugging in console
+  window._andz_reviews = { loadReviews, retryPending, getPendingQueue };
+})();
