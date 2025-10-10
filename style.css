@@ -292,89 +292,79 @@ body.dark-mode .starfield{opacity:1}
 /* Responsive for project cards */
 @media(max-width:800px){.work-card{width:45%}} @media(max-width:520px){.work-card{width:90%}}
 
-/* ===== CINEMATIC GLASS-TEXT LOGO ===== */
+/* ===== MINIMALISTIC GLASS 3D LOGO ===== */
 .main-logo-text {
-  font-family: 'Unbounded', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 700;
-  font-size: clamp(3rem, 8vw, 6rem);
-  letter-spacing: 0.25em;
+  font-size: clamp(3rem, 9vw, 6rem);
+  letter-spacing: 0.35em;
   text-transform: uppercase;
   display: inline-block;
-  user-select: none;
-  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,217,90,0.8), rgba(255,0,150,0.5));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   position: relative;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.85);
   opacity: 0;
-  transform: scale(0.9);
-  filter: drop-shadow(0 0 20px rgba(255,255,255,0.25));
-  transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
+  transform: scale(0.9) rotateX(15deg);
+  transition:
+    opacity 1.2s ease,
+    transform 1.2s ease,
+    text-shadow 1.5s ease,
+    filter 1.5s ease;
+  filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.15));
+  backdrop-filter: blur(8px);
 }
 
 .main-logo-text.show {
   opacity: 1;
-  transform: scale(1);
-  animation: logoGlassPulse 4s ease-in-out infinite alternate;
+  transform: scale(1) rotateX(0deg);
+  animation: logoGlow 4s ease-in-out infinite alternate;
 }
 
-/* Glass reflection layer */
+/* Light glass reflection */
 .main-logo-text::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, rgba(255,255,255,0.6), rgba(255,255,255,0.1), rgba(255,255,255,0.6));
+  background: linear-gradient(120deg, rgba(255,255,255,0.6), rgba(255,255,255,0.05), rgba(255,255,255,0.4));
   mix-blend-mode: overlay;
-  opacity: 0.3;
-  filter: blur(6px);
-  border-radius: 20px;
+  opacity: 0.2;
+  filter: blur(8px);
   transform: translateY(-10%) skewY(-5deg);
-  animation: glassShine 6s ease-in-out infinite;
   pointer-events: none;
+  animation: glassShift 8s ease-in-out infinite;
 }
 
-@keyframes glassShine {
-  0% { opacity: 0.2; transform: translateY(-15%) skewY(-5deg); }
-  50% { opacity: 0.5; transform: translateY(15%) skewY(5deg); }
-  100% { opacity: 0.2; transform: translateY(-15%) skewY(-5deg); }
-}
-
-@keyframes logoGlassPulse {
+/* Gentle pulse */
+@keyframes logoGlow {
   0% {
-    text-shadow:
-      0 0 10px rgba(255,255,255,0.6),
-      0 0 25px rgba(255,217,90,0.6),
-      0 0 45px rgba(255,77,166,0.4);
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+    text-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 30px rgba(200,200,255,0.15);
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
   }
   50% {
-    text-shadow:
-      0 0 25px rgba(255,255,255,0.9),
-      0 0 55px rgba(255,217,90,0.8),
-      0 0 85px rgba(255,77,166,0.8);
-    filter: drop-shadow(0 0 25px rgba(255,255,255,0.4));
+    text-shadow: 0 0 20px rgba(255,255,255,0.45), 0 0 40px rgba(180,220,255,0.3);
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.25));
   }
   100% {
-    text-shadow:
-      0 0 10px rgba(255,255,255,0.6),
-      0 0 25px rgba(255,217,90,0.6),
-      0 0 45px rgba(255,77,166,0.4);
-    filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+    text-shadow: 0 0 10px rgba(255,255,255,0.2), 0 0 30px rgba(200,200,255,0.15);
+    filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
   }
 }
 
-/* ===== DARK MODE variant ===== */
-body.dark-mode .main-logo-text {
-  background: linear-gradient(135deg, #ff4da6, #b26bff, #ffd95a);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow:
-    0 0 18px rgba(255,0,200,0.6),
-    0 0 35px rgba(160,80,255,0.5),
-    0 0 70px rgba(255,77,166,0.4);
-  filter: drop-shadow(0 0 15px rgba(180,100,255,0.25));
+@keyframes glassShift {
+  0% { opacity: 0.15; transform: translateY(-10%) skewY(-5deg); }
+  50% { opacity: 0.3; transform: translateY(10%) skewY(5deg); }
+  100% { opacity: 0.15; transform: translateY(-10%) skewY(-5deg); }
 }
 
+/* Dark mode – colder glass glow */
+body.dark-mode .main-logo-text {
+  color: rgba(235, 235, 255, 0.9);
+  text-shadow:
+    0 0 25px rgba(180,180,255,0.3),
+    0 0 55px rgba(140,180,255,0.2);
+  filter: drop-shadow(0 0 18px rgba(180,180,255,0.2));
+}
 body.dark-mode .main-logo-text::before {
-  background: linear-gradient(120deg, rgba(255,0,200,0.4), rgba(255,255,255,0.1), rgba(160,80,255,0.5));
+  background: linear-gradient(120deg, rgba(160,180,255,0.25), rgba(255,255,255,0.05), rgba(120,140,255,0.3));
   opacity: 0.25;
 }
