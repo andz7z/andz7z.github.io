@@ -13,26 +13,17 @@ body {
   flex-direction: column;
 }
 
-/* ===== BACKGROUND VIDEO ===== */
+/* Background video + overlay */
 #bg-video {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
   z-index: -3;
-  opacity: 0;
-  filter: brightness(0.75) contrast(1.1) saturate(1.2);
-  transition: opacity 2s ease-in-out, filter 1.5s ease-in-out;
+  object-fit: cover;
+  filter: brightness(0.25) contrast(1.2);
 }
-
-/* când s-a încărcat complet */
-#bg-video.show {
-  opacity: 1;
-  filter: brightness(1) contrast(1.15);
-}
-
 
 .overlay {
   position: fixed;

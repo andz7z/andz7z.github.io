@@ -194,7 +194,7 @@ setTimeout(() => {
       notif.classList.remove('show');
     }, 10000);
   }
-}, 10000); // appears after 3s
+}, 7000); // appears after 3s
 
 function openSection(id) {
   playClick();
@@ -374,11 +374,4 @@ if (starfield) {
     star.style.animationDuration = (2 + Math.random() * 3) + "s";
     starfield.appendChild(star);
   }
-}
-// ===== Fade-in effect for background video =====
-const bgVideo = document.getElementById("bg-video");
-if (bgVideo) {
-  bgVideo.addEventListener("loadeddata", () => {
-    bgVideo.classList.add("show");
-  });
 }
