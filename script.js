@@ -194,7 +194,7 @@ setTimeout(() => {
       notif.classList.remove('show');
     }, 10000);
   }
-}, 7000); // appears after 3s
+}, 10000); // appears after 3s
 
 function openSection(id) {
   playClick();
@@ -375,19 +375,10 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-// ===== Change background video on theme toggle =====
+// ===== Fade-in effect for background video =====
 const bgVideo = document.getElementById("bg-video");
-
-function updateBackgroundVideo() {
-  if (document.body.classList.contains("dark-mode")) {
-    bgVideo.querySelector("source").src = "https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4";
-  } else {
-    bgVideo.querySelector("source").src = "https://github.com/andz7z/andz7z.github.io/raw/main/loop1.mp4";
-  }
-  bgVideo.load();
-  bgVideo.play();
+if (bgVideo) {
+  bgVideo.addEventListener("loadeddata", () => {
+    bgVideo.classList.add("show");
+  });
 }
-
-// rulează la pornire + când se schimbă tema
-updateBackgroundVideo();
-themeToggle.addEventListener("click", updateBackgroundVideo);
