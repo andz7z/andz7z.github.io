@@ -13,7 +13,7 @@ window.addEventListener('load', () => {
       mainLogo.classList.remove('hidden');
       setTimeout(() => mainLogo.classList.add('show'), 50);
     }, 800);
-  }, 2800);
+  }, 2500);
 });
 // ======== Section Switcher ========
 function openSection(id) {
@@ -375,66 +375,49 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
-// === REVIEW SYSTEM ===
-// URL-ul tău de la Google Apps Script
-const REVIEW_API = "https://script.google.com/macros/s/AKfycbx_VXb_GdqA8gI-kIPEdJlqv0hleZvAUoDdFrsV77IBdZHlqTkmzlaBnRNQ9cjBa9dGPQ/exec";
+<!-- ================= REVIEWS (Glass / Diamond style) ================= -->
+<section id="reviews" class="section">
+  <div class="section-bg"></div>
+  <div class="reviews-panel">
+    <div class="panel-header">
+      <div class="diamond-accent" aria-hidden="true"></div>
+      <div>
+        <h2>⭐ Reviews</h2>
+        <p class="sub">What people say — real feedback</p>
+      </div>
+      <div class="avg-box" id="avg-box" aria-hidden="true">
+        <div class="avg-value" id="avg-value">—</div>
+        <div class="avg-label">Avg</div>
+      </div>
+    </div>
 
-// trimite un review
-const reviewForm = document.getElementById("review-form");
-if (reviewForm) {
-  reviewForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const name = document.getElementById("name").value;
-    const rating = document.getElementById("rating").value;
-    const message = document.getElementById("message").value;
+    <div class="left-col">
+      <form id="review-form" class="review-form" autocomplete="off">
+        <input id="name" name="name" type="text" placeholder="Your name" required>
+        <div class="stars" id="star-control" aria-label="Rating">
+          <span class="star" data-value="5">★</span>
+          <span class="star" data-value="4">★</span>
+          <span class="star" data-value="3">★</span>
+          <span class="star" data-value="2">★</span>
+          <span class="star" data-value="1">★</span>
+        </div>
+        <textarea id="message" name="message" rows="4" placeholder="Write your feedback..." required></textarea>
 
-    const data = { name, rating, message };
-    
-await fetch(REVIEW_API, {
-  method: "POST",
-  mode: "no-cors",
-  body: JSON.stringify(data),
-  headers: {
-    "Content-Type": "application/json"
-  }
-});
+        <div class="form-row">
+          <button id="submit-review" type="submit">Send Review</button>
+          <div id="form-status" class="form-status" aria-live="polite"></div>
+        </div>
+      </form>
 
+      <div class="hint">Tip: dacă apare eroare, review-ul este salvat local și va fi retrimis când API-ul e disponibil.</div>
+    </div>
 
-      if (res.ok) {
-        alert("✅ Mulțumim pentru review!");
-        reviewForm.reset();
-        loadReviews();
-      } else {
-        alert("❌ A apărut o eroare la trimitere.");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("❌ Eroare de conexiune la serverul Google.");
-    }
-  });
-}
-
-// încarcă review-urile existente
-async function loadReviews() {
-  try {
-    const res = await fetch(REVIEW_API);
-    const reviews = await res.json();
-    const list = document.getElementById("reviews-list");
-    list.innerHTML = "";
-
-    reviews.reverse().forEach((r) => {
-      const div = document.createElement("div");
-      div.classList.add("review");
-      div.innerHTML = `
-        <strong>${r.name}</strong><br>
-        ${r.rating}<br>
-        ${r.message}
-      `;
-      list.appendChild(div);
-    });
-  } catch (err) {
-    console.error("Eroare la încărcare review-uri:", err);
-  }
-}
-
-loadReviews();
+    <div class="right-col">
+      <div id="reviews-list" class="reviews-list" aria-live="polite">
+        <!-- reviews populate here -->
+      </div>
+      <div id="reviews-error" class="reviews-error" hidden>Nu pot încărca review-urile de pe server.</div>
+    </div>
+  </div>
+</section>
+<!-- ================================================================== -->
