@@ -375,3 +375,63 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
+// === REVIEW SYSTEM ===
+// URL-ul tău de la Google Apps Script
+const REVIEW_API = "https://script.google.com/macros/s/AKfycbx_VXb_GdqA8gI-kIPEdJlqv0hleZvAUoDdFrsV77IBdZHlqTkmzlaBnRNQ9cjBa9dGPQ/exec";
+
+// trimite un review
+const reviewForm = document.getElementById("review-form");
+if (reviewForm) {
+  reviewForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("name").value;
+    const rating = document.getElementById("rating").value;
+    const message = document.getElementById("message").value;
+
+    const data = { name, rating, message };
+
+    try {
+      const res = await fetch(REVIEW_API, {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (res.ok) {
+        alert("✅ Mulțumim pentru review!");
+        reviewForm.reset();
+        loadReviews();
+      } else {
+        alert("❌ A apărut o eroare la trimitere.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("❌ Eroare de conexiune la serverul Google.");
+    }
+  });
+}
+
+// încarcă review-urile existente
+async function loadReviews() {
+  try {
+    const res = await fetch(REVIEW_API);
+    const reviews = await res.json();
+    const list = document.getElementById("reviews-list");
+    list.innerHTML = "";
+
+    reviews.reverse().forEach((r) => {
+      const div = document.createElement("div");
+      div.classList.add("review");
+      div.innerHTML = `
+        <strong>${r.name}</strong><br>
+        ${r.rating}<br>
+        ${r.message}
+      `;
+      list.appendChild(div);
+    });
+  } catch (err) {
+    console.error("Eroare la încărcare review-uri:", err);
+  }
+}
+
+loadReviews();
