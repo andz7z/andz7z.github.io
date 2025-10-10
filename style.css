@@ -385,3 +385,83 @@ body.dark-mode .main-logo-text {
   opacity: 1;
   transform: scale(1.15);
 }
+/* ====== CUSTOM VOLUME SLIDER STYLES ====== */
+
+/* General style */
+#audio-icon {
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+#audio-icon:hover {
+  transform: scale(1.2);
+}
+
+/* Base slider look (light mode) */
+#volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 6px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.6), rgba(200,200,200,0.2));
+  outline: none;
+  transition: all 0.4s ease;
+}
+
+/* Thumb (light mode) */
+#volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(255,255,255,0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+#volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* ===== DARK MODE variant ===== */
+body.dark-mode #volume-slider {
+  background: linear-gradient(90deg, rgba(50,50,50,0.9), rgba(100,80,40,0.6));
+  border: 1px solid rgba(255,217,90,0.2);
+  box-shadow: 0 0 10px rgba(255,217,90,0.1);
+}
+
+/* Thumb in dark mode */
+body.dark-mode #volume-slider::-webkit-slider-thumb {
+  background: radial-gradient(circle at 30% 30%, #ffd95a, #b48a1a);
+  box-shadow: 0 0 8px rgba(255,217,90,0.45), 0 0 15px rgba(255,217,90,0.25);
+  border: 1px solid rgba(255,217,90,0.5);
+}
+body.dark-mode #volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  box-shadow: 0 0 12px rgba(255,217,90,0.65), 0 0 20px rgba(255,217,90,0.3);
+}
+
+/* Firefox support */
+#volume-slider::-moz-range-track {
+  background: linear-gradient(90deg, rgba(255,255,255,0.6), rgba(200,200,200,0.2));
+  height: 6px;
+  border-radius: 10px;
+}
+#volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(255,255,255,0.5);
+  transition: all 0.3s ease;
+}
+body.dark-mode #volume-slider::-moz-range-track {
+  background: linear-gradient(90deg, rgba(50,50,50,0.9), rgba(100,80,40,0.6));
+}
+body.dark-mode #volume-slider::-moz-range-thumb {
+  background: radial-gradient(circle at 30% 30%, #ffd95a, #b48a1a);
+  box-shadow: 0 0 10px rgba(255,217,90,0.4);
+}
