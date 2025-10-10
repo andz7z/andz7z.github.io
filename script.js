@@ -162,20 +162,35 @@ document.addEventListener("DOMContentLoaded", () => {
       moved = true;
     }
   });
-// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE =====
+// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE (with zoom transition) =====
 const mainTitle = document.getElementById("main-title");
 const navButtons = document.querySelector(".nav-buttons");
+let navVisible = false;
 
 if (mainTitle && navButtons) {
   mainTitle.addEventListener("click", () => {
     playClick();
-    const visible = !navButtons.classList.contains("hidden");
-    if (visible) {
-      navButtons.classList.add("hidden");
-      navButtons.classList.remove("show-buttons");
-    } else {
+    navVisible = !navVisible;
+
+    // Zoom in / out animation for buttons
+    if (navVisible) {
       navButtons.classList.remove("hidden");
-      setTimeout(() => navButtons.classList.add("show-buttons"), 100);
+      navButtons.style.transform = "scale(0.8)";
+      navButtons.style.opacity = "0";
+      setTimeout(() => {
+        navButtons.style.transition = "transform 0.5s ease, opacity 0.5s ease";
+        navButtons.style.transform = "scale(1)";
+        navButtons.style.opacity = "1";
+        navButtons.classList.add("show-buttons");
+      }, 20);
+    } else {
+      navButtons.style.transition = "transform 0.4s ease, opacity 0.4s ease";
+      navButtons.style.transform = "scale(0.8)";
+      navButtons.style.opacity = "0";
+      setTimeout(() => {
+        navButtons.classList.remove("show-buttons");
+        navButtons.classList.add("hidden");
+      }, 400);
     }
   });
 }
