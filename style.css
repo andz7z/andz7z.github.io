@@ -89,6 +89,9 @@ header .title {
   letter-spacing: 0.25em;
   text-transform: uppercase;
   position: relative;
+  width: 220px;
+  height: auto;
+  cursor: pointer;
   display: inline-block;
   transition: all 0.6s ease;
   color: #222;
