@@ -162,21 +162,22 @@ document.addEventListener("DOMContentLoaded", () => {
       moved = true;
     }
   });
-// ======== Interactive 3D Tilt for Logo ========
-const logo3D = document.getElementById("main-logo");
-if (logo3D) {
+// ======== 3D Tilt + Smooth Return for A N D Z Logo ========
+const logo = document.getElementById("main-logo");
+if (logo) {
+  let xRotation = 0, yRotation = 0;
   let timeout;
-  logo3D.addEventListener("mousemove", e => {
-    const rect = logo3D.getBoundingClientRect();
+  logo.addEventListener("mousemove", e => {
+    const rect = logo.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    const rotateX = (y / rect.height) * 12;
-    const rotateY = -(x / rect.width) * 12;
-    logo3D.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+    const rotateX = (y / rect.height) * 10;
+    const rotateY = -(x / rect.width) * 10;
+    logo.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
     clearTimeout(timeout);
   });
-  logo3D.addEventListener("mouseleave", () => {
-    logo3D.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+  logo.addEventListener("mouseleave", () => {
+    logo.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
   });
 }
   // ===========================================================
