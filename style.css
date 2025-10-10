@@ -292,81 +292,80 @@ body.dark-mode .starfield{opacity:1}
 /* Responsive for project cards */
 @media(max-width:800px){.work-card{width:45%}} @media(max-width:520px){.work-card{width:90%}}
 
-/* ======= PREMIUM LIQUID METAL LOGO ======= */
+/* ===== ICE & GOLD LOGO ===== */
 .main-logo-text {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 700;
   font-size: clamp(3.5rem, 9vw, 7rem);
-  letter-spacing: 0.25em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  display: inline-block;
   position: relative;
+  display: inline-block;
   user-select: none;
   opacity: 0;
-  color: #fdfdfd;
-  background: linear-gradient(135deg, #ffffff, #e2e2e2 30%, #c7a85a 60%, #ffffff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 8px rgba(255, 220, 120, 0.25))
-          drop-shadow(0 0 25px rgba(255, 255, 255, 0.1));
-  text-shadow:
-    0 2px 4px rgba(255,255,255,0.3),
-    0 0 35px rgba(255,220,150,0.2);
   transform: scale(0.9);
-  transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
-  perspective: 800px;
+  transition: all 1s ease;
+  cursor: pointer;
+  text-rendering: geometricPrecision;
 }
 
+/* Light Mode — ICE SILVER */
+body:not(.dark-mode) .main-logo-text {
+  background: linear-gradient(135deg, #ffffff 0%, #d7e3f5 40%, #a0b7d3 70%, #cfd9e5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 2px 4px rgba(200,220,255,0.5),
+    0 10px 20px rgba(180,200,255,0.3),
+    0 0 60px rgba(210,230,255,0.25);
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.15));
+}
+
+/* Dark Mode — GOLD METAL */
+body.dark-mode .main-logo-text {
+  background: linear-gradient(135deg, #fff5c3 0%, #d6b85b 35%, #9c7e2b 75%, #fff0a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 2px 4px rgba(255,217,90,0.4),
+    0 10px 18px rgba(255,200,100,0.25),
+    0 0 55px rgba(255,217,90,0.15);
+  filter: drop-shadow(0 0 8px rgba(255,217,90,0.1));
+}
+
+/* Show animation */
 .main-logo-text.show {
   opacity: 1;
   transform: scale(1);
-  animation: logoLuxPulse 5s ease-in-out infinite alternate;
+  animation: subtleDepth 6s ease-in-out infinite alternate;
 }
 
-/* Subtil shine reflex */
+/* depth shimmer breathing */
+@keyframes subtleDepth {
+  0% { text-shadow: 0 3px 6px rgba(255,255,255,0.2); transform: scale(1) translateY(0); }
+  50% { text-shadow: 0 6px 12px rgba(255,255,255,0.3); transform: scale(1.015) translateY(-2px); }
+  100% { text-shadow: 0 3px 6px rgba(255,255,255,0.2); transform: scale(1) translateY(0); }
+}
+
+/* Reflection (static mirror) */
 .main-logo-text::after {
-  content: "";
+  content: attr(data-text);
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 60%;
+  bottom: -0.15em;
+  left: 0;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.8), transparent);
-  transform: skewX(-25deg);
-  animation: shineSweep 8s linear infinite;
+  transform: scaleY(-1);
+  opacity: 0.08;
+  filter: blur(3px);
+  background: inherit;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   pointer-events: none;
 }
 
-@keyframes shineSweep {
-  0% { left: -100%; opacity: 0; }
-  45% { left: 120%; opacity: 0.5; }
-  100% { left: 120%; opacity: 0; }
-}
-
-/* Pulsarea luminii aurii */
-@keyframes logoLuxPulse {
-  0% {
-    filter: drop-shadow(0 0 10px rgba(255,220,120,0.2))
-            drop-shadow(0 0 20px rgba(255,255,255,0.15));
-  }
-  50% {
-    filter: drop-shadow(0 0 25px rgba(255,220,120,0.4))
-            drop-shadow(0 0 35px rgba(255,255,255,0.3));
-  }
-  100% {
-    filter: drop-shadow(0 0 10px rgba(255,220,120,0.2))
-            drop-shadow(0 0 20px rgba(255,255,255,0.15));
-  }
-}
-
-/* ===== Dark Mode Variant ===== */
-body.dark-mode .main-logo-text {
-  background: linear-gradient(135deg, #d7d7d7, #9a8d55 25%, #cfcfcf 70%, #fdfdfd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 0 15px rgba(255,220,120,0.25))
-          drop-shadow(0 0 30px rgba(255,255,255,0.15));
-  text-shadow:
-    0 2px 5px rgba(255,255,255,0.15),
-    0 0 25px rgba(255,217,90,0.15);
+/* Hover 3D tilt */
+.main-logo-text:hover {
+  transform: scale(1.05) rotateX(6deg) rotateY(-4deg);
+  transition: transform 0.6s ease;
 }
