@@ -16,19 +16,15 @@ button {
 }
 /* Background video + overlay */
 #bg-video{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -3;
+  position:fixed;right:0;bottom:0;
+  min-width:100%;min-height:100%;
+  z-index:-3;object-fit:cover;
+  filter:brightness(0.25) contrast(1.2);
 }
 .overlay{
   position:fixed;width:100%;height:100%;
   background:radial-gradient(circle at center, rgba(255,255,255,0.05), rgba(0,0,0,0.85));
-  z-index:-1;
+  z-index:-2;
 }
 
 /* Header / Title */
@@ -126,7 +122,7 @@ header .title{
 #audio-icon{cursor:pointer;font-size:1.2rem} #volume-slider{width:100px;cursor:pointer}
 
 /* Particle canvas */
-#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+#particle-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
 
 /* Footer */
 footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
@@ -226,6 +222,10 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(255,255,255,0.25)}50%{box-shadow:0 0 45px rgba(255,255,255,0.5)}}
 .main-logo-gif{width:160px;height:160px;object-fit:contain;border-radius:20px;box-shadow:0 0 15px rgba(255,255,255,0.25);opacity:0;transition:opacity 1.5s ease}
 .main-logo-gif.show{opacity:1}
+/* Starfield (dark-only decorative) */
+.starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0;opacity:0;transition:opacity 1.2s ease}
+.star{position:absolute;width:2px;height:2px;background:#fff8e1;border-radius:50%;opacity:.8;animation:twinkle 3s infinite ease-in-out}
+@keyframes twinkle{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.4)}}
 
 /* Animations reused above */
 @keyframes pressGlow{0%{opacity:1;transform:scale(.96)}100%{opacity:0;transform:scale(1.12)}}
@@ -243,6 +243,7 @@ body.dark-mode .title-desc{color:#f5e6c5;background:rgba(255,217,90,0.05)}
 body.dark-mode header .title::after{opacity:1}
 
 /* overlay & bg */
+body.dark-mode #bg-video{filter:brightness(.3) contrast(1.3)}
 body.dark-mode .overlay{background:radial-gradient(circle at center, rgba(30,30,30,0.4), rgba(10,10,10,0.9))}
 
 /* section backgrounds */
@@ -280,6 +281,9 @@ body.dark-mode footer{opacity:.8;color:#ffd95a}
   50%{text-shadow:0 0 25px rgba(255,217,90,0.8),0 0 40px rgba(255,204,51,0.5)}
   100%{text-shadow:0 0 10px rgba(255,217,90,0.5),0 0 20px rgba(255,204,51,0.3)}
 }
+
+/* Starfield visible only on dark */
+body.dark-mode .starfield{opacity:1}
 
 /* Responsive for project cards */
 @media(max-width:800px){.work-card{width:45%}} @media(max-width:520px){.work-card{width:90%}}
