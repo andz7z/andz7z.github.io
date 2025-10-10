@@ -1,83 +1,20 @@
-// ===== COMBO PREMIUM INTRO + FLY-TO-HEADER TRANSITION =====
-(function() {
-  // configurare timpi (în ms)
-  const INTRO_DURATION = 2800;   // cât rămâne intro înainte de startul tranziției
-  const FLY_DURATION = 900;      // animația "zbor" gif -> header
-  const FADE_OUT_DELAY = 120;    // mic delay la final
+// ===== Glass-Metal Intro → GIF stays as main logo =====
+window.addEventListener('load', () => {
+  const loadingScreen = document.getElementById('loading-screen');
+  const mainLogo = document.getElementById('main-logo');
+  if (!loadingScreen || !mainLogo) return;
 
-  window.addEventListener('load', () => {
-    const loading = document.getElementById('loading-screen');
-    const introGif = document.getElementById('intro-gif');
-    const mainLogo = document.getElementById('main-logo'); // în header
-    const logoFrame = document.getElementById('logo-frame');
-
-    // dacă nu există elemente (safety), ascundem loading imediat
-    if (!loading || !introGif || !mainLogo || !logoFrame) {
-      if (loading) loading.style.display = 'none';
-      if (mainLogo) mainLogo.classList.add('show');
-      return;
-    }
-
-    // forțează header logo-frame să fie transparent până la tranziție
-    logoFrame.style.opacity = '1'; // păstrăm vizibil; imaginea rămâne ascunsă
-
-    // 1) după INTRO_DURATION -> animăm "fly" din poziția introGif în poziția mainLogo
-    setTimeout(async () => {
-      // determină poziții absolute
-      const introRect = introGif.getBoundingClientRect();
-      const logoRect  = mainLogo.getBoundingClientRect();
-
-      // creează o clonă pentru animație
-      const flyClone = introGif.cloneNode(true);
-      flyClone.style.position = 'fixed';
-      flyClone.style.left = introRect.left + 'px';
-      flyClone.style.top = introRect.top + 'px';
-      flyClone.style.width = introRect.width + 'px';
-      flyClone.style.height = introRect.height + 'px';
-      flyClone.style.margin = 0;
-      flyClone.style.zIndex = 999999;
-      flyClone.style.borderRadius = window.getComputedStyle(introGif).borderRadius || '12px';
-      flyClone.style.transition = `all ${FLY_DURATION}ms cubic-bezier(.2,.9,.2,1)`;
-      document.body.appendChild(flyClone);
-
-      // mică pulse+fade pentru intro înainte de plecare
-      introGif.style.transition = 'transform 300ms ease, opacity 300ms ease';
-      introGif.style.transform = 'scale(0.96)';
-      introGif.style.opacity = '0.9';
-
-      // forțăm reflow
-      void flyClone.offsetWidth;
-
-      // calculează transformări necesare
-      const deltaX = logoRect.left + (logoRect.width/2) - (introRect.left + (introRect.width/2));
-      const deltaY = logoRect.top  + (logoRect.height/2) - (introRect.top  + (introRect.height/2));
-      const scale  = (logoRect.width / introRect.width) * 0.95; // ușor mai mic pentru padding
-
-      flyClone.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
-      flyClone.style.opacity = '0.98';
-      flyClone.style.borderRadius = window.getComputedStyle(mainLogo).borderRadius || '12px';
-      flyClone.style.filter = 'drop-shadow(0 10px 30px rgba(0,0,0,0.6))';
-
-      // când termina animația:
-      setTimeout(() => {
-        // 1) ascundem loading complet (fade)
-        loading.classList.add('fade-out');
-        setTimeout(() => {
-          loading.style.display = 'none';
-        }, 400);
-
-        // 2) afișăm mainLogo (în header)
-        mainLogo.classList.remove('hidden');
-        setTimeout(() => mainLogo.classList.add('show'), 40);
-
-        // 3) îndepărtăm clone-ul animat
-        setTimeout(() => {
-          try { flyClone.remove(); } catch(e) {}
-        }, FADE_OUT_DELAY + 60);
-      }, FLY_DURATION + 20);
-    }, INTRO_DURATION);
-  });
-})();
+  // Intro rulează ~2.8s, apoi dispare
+  setTimeout(() => {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+      // Arată gif-ul principal
+      mainLogo.classList.remove('hidden');
+      setTimeout(() => mainLogo.classList.add('show'), 50);
+    }, 800);
+  }, 2800);
+});
 // ======== Section Switcher ========
 function openSection(id) {
   playClick();

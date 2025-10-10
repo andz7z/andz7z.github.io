@@ -19,31 +19,16 @@
   👋 Hello! Thanks for visiting my website - make yourself at 🏠 home!
 </div>
 
-<!-- Loading Screen (combo premium) -->
-<div id="loading-screen" aria-hidden="false">
-  <div class="intro-wrap">
-    <!-- cinematic smoke layer -->
-    <div class="smoke-layer" aria-hidden="true"></div>
-
-    <!-- animated particles (CSS) -->
-    <div class="particle-field" aria-hidden="true"></div>
-
-    <!-- two metal rings -->
-    <div class="rings">
-      <div class="ring ring-outer"></div>
-      <div class="ring ring-inner"></div>
-    </div>
-
-    <!-- GIF central (intro) -->
-    <img id="intro-gif"
-         src="https://github.com/andz7z/andz7z.github.io/raw/main/poza.gif"
+<!-- Loading Screen -->
+<div id="loading-screen">
+  <div class="intro-container">
+    <img src="https://github.com/andz7z/andz7z.github.io/raw/main/poza.gif"
          alt="Intro Logo"
-         class="intro-logo-gif" />
-
-    <!-- light sweep -->
-    <div class="light-sweep" aria-hidden="true"></div>
+         class="intro-logo-gif">
+    <div class="intro-ring"></div>
   </div>
 </div>
+
   <!-- Background video -->
   <video autoplay muted loop id="bg-video">
     <source src="https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4" type="video/mp4">
@@ -57,16 +42,14 @@
     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0">
   </div>
 
-<!-- Header: logo-frame în loc de text A N D Z (GIF-ul final va rămâne aici) -->
-<header>
-  <div class="header-inner">
-    <div class="logo-frame" id="logo-frame" aria-hidden="true">
-      <!-- ascuns inițial; după tranziție vom afișa GIF-ul aici -->
-      <img id="main-logo"
-           src="https://github.com/andz7z/andz7z.github.io/raw/main/poza.gif"
-           alt="ANDZ Logo"
-           class="main-logo-gif hidden" />
-    </div>
+  <!-- Header -->
+  <header>
+<h1 class="title" id="main-title">
+  <img id="main-logo" 
+       src="https://github.com/andz7z/andz7z.github.io/raw/main/poza.gif" 
+       alt="ANDZ Logo" 
+       class="main-logo-gif hidden">
+</h1>
     <p class="title-desc">professional services in video & photo editing, game modding & web development</p>
     <nav class="nav-buttons hidden">
       <button onclick="openSection('services')">Services 🤝🏽</button>
