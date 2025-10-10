@@ -1,27 +1,20 @@
-// ===== Loading Screen =====
+// ===== Glass-Metal Intro → GIF stays as main logo =====
 window.addEventListener('load', () => {
-  const loaderBar = document.getElementById('loader-bar');
-  const loaderPercent = document.getElementById('loader-percent');
   const loadingScreen = document.getElementById('loading-screen');
-  
-  let percent = 0;
-  const interval = setInterval(() => {
-    percent += Math.floor(Math.random() * 5) + 1; // crește ușor aleator
-    if (percent > 100) percent = 100;
-    loaderBar.style.width = percent + '%';
-    loaderPercent.textContent = percent + '%';
-    
-    if (percent === 100) {
-      clearInterval(interval);
-      setTimeout(() => {
-        loadingScreen.style.opacity = '0';
-        loadingScreen.style.transition = 'opacity 0.5s ease';
-        setTimeout(() => loadingScreen.style.display = 'none', 500);
-      }, 300); // mic delay după 100%
-    }
-  }, 50); // update la fiecare 50ms → ~2-3 secunde
-});
+  const mainLogo = document.getElementById('main-logo');
+  if (!loadingScreen || !mainLogo) return;
 
+  // Intro rulează ~2.8s, apoi dispare
+  setTimeout(() => {
+    loadingScreen.style.opacity = '0';
+    setTimeout(() => {
+      loadingScreen.style.display = 'none';
+      // Arată gif-ul principal
+      mainLogo.classList.remove('hidden');
+      setTimeout(() => mainLogo.classList.add('show'), 50);
+    }, 800);
+  }, 2800);
+});
 // ======== Section Switcher ========
 function openSection(id) {
   playClick();
