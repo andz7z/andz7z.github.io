@@ -375,3 +375,19 @@ if (starfield) {
     starfield.appendChild(star);
   }
 }
+// ===== Change background video on theme toggle =====
+const bgVideo = document.getElementById("bg-video");
+
+function updateBackgroundVideo() {
+  if (document.body.classList.contains("dark-mode")) {
+    bgVideo.querySelector("source").src = "https://cdn.coverr.co/videos/coverr-smoke-on-black-background-1660/1080p.mp4";
+  } else {
+    bgVideo.querySelector("source").src = "https://github.com/andz7z/andz7z.github.io/raw/main/loop1.mp4";
+  }
+  bgVideo.load();
+  bgVideo.play();
+}
+
+// rulează la pornire + când se schimbă tema
+updateBackgroundVideo();
+themeToggle.addEventListener("click", updateBackgroundVideo);
