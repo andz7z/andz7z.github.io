@@ -22,18 +22,45 @@ window.addEventListener('load', () => {
   }, 50); // update la fiecare 50ms → ~2-3 secunde
 });
 
-// ======== Section Switcher ========
+// ======== Section Switcher with Fade + Woosh Sound ========
 function openSection(id) {
   playClick();
+
+  // sunetul de tranziție
+  const woosh = new Audio("https://github.com/andz7z/andz7z.github.io/woosh.MP3");
+  woosh.volume = 0.3;
+  woosh.play().catch(() => {});
+
   const sections = document.querySelectorAll('.section');
-  sections.forEach(sec => sec.classList.add('hidden'));
   const sectionToShow = document.getElementById(id);
-  if (sectionToShow) {
-    sectionToShow.classList.remove('hidden');
-    sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    console.warn("Section not found:", id);
-  }
+  if (!sectionToShow) return;
+
+  // fade-out pentru secțiunea curentă
+  sections.forEach(sec => {
+    if (sec.classList.contains('active')) {
+      sec.classList.remove('active');
+      sec.classList.add('fade-out');
+      setTimeout(() => {
+        sec.classList.add('hidden');
+        sec.classList.remove('fade-out');
+      }, 500);
+    } else {
+      sec.classList.add('hidden');
+    }
+  });
+
+  // fade-in pentru secțiunea nouă
+  sectionToShow.classList.remove('hidden');
+  setTimeout(() => sectionToShow.classList.add('active'), 20);
+
+  // derulare lină spre început
+  sectionToShow.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // marchează butonul activ
+  const buttons = document.querySelectorAll('.nav-buttons button');
+  buttons.forEach(btn => btn.classList.remove('active-btn'));
+  const activeBtn = Array.from(buttons).find(btn => btn.getAttribute("onclick").includes(id));
+  if (activeBtn) activeBtn.classList.add('active-btn');
 }
 
 // ======== YouTube API ========
