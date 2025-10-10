@@ -162,22 +162,21 @@ document.addEventListener("DOMContentLoaded", () => {
       moved = true;
     }
   });
-// ======== 3D Tilt + Smooth Return for A N D Z Logo ========
-const logo = document.getElementById("main-logo");
-if (logo) {
-  let xRotation = 0, yRotation = 0;
-  let timeout;
-  logo.addEventListener("mousemove", e => {
-    const rect = logo.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    const rotateX = (y / rect.height) * 10;
-    const rotateY = -(x / rect.width) * 10;
-    logo.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
-    clearTimeout(timeout);
-  });
-  logo.addEventListener("mouseleave", () => {
-    logo.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE =====
+const mainTitle = document.getElementById("main-title");
+const navButtons = document.querySelector(".nav-buttons");
+
+if (mainTitle && navButtons) {
+  mainTitle.addEventListener("click", () => {
+    playClick();
+    const visible = !navButtons.classList.contains("hidden");
+    if (visible) {
+      navButtons.classList.add("hidden");
+      navButtons.classList.remove("show-buttons");
+    } else {
+      navButtons.classList.remove("hidden");
+      setTimeout(() => navButtons.classList.add("show-buttons"), 100);
+    }
   });
 }
   // ===========================================================
