@@ -550,45 +550,7 @@ body.dark-mode .intro-text {
 @keyframes blink {
   50% { border-color: transparent; }
 }
-#reviews {
-  max-width: 600px;
-  margin: 60px auto;
-  padding: 20px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
-}
 
-#reviewForm {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#reviewForm input,
-#reviewForm textarea {
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
-}
-
-#reviewForm button {
-  background: #00bcd4;
-  border: none;
-  padding: 10px;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.review {
-  background: rgba(255,255,255,0.05);
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 10px;
-}
 /* Show footer text */
 footer.show #footer-text {
   opacity: 1;
