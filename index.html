@@ -112,16 +112,24 @@
       <span class="work-name">Look Changer</span>
     </button>
   </div>
-  <section id="reviews">
-  <h2>⭐ Leave a Review</h2>
-  <form id="reviewForm">
-    <input type="text" id="reviewName" placeholder="Your name" required>
-    <textarea id="reviewText" placeholder="Your review..." required></textarea>
-    <button type="submit">Submit</button>
-  </form>
+<!-- REVIEWS -->
+<section id="reviews" class="section hidden">
+  <h2>⭐ Reviews</h2>
 
-  <div id="reviewsList"></div>
-</section>
+  <div id="reviews-container" class="reviews-list"></div>
+
+  <form id="review-form">
+    <input type="text" id="name" placeholder="Your name" required>
+    <textarea id="message" placeholder="Your review" required></textarea>
+    <select id="rating">
+      <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+      <option value="4">⭐️⭐️⭐️⭐️</option>
+      <option value="3">⭐️⭐️⭐️</option>
+      <option value="2">⭐️⭐️</option>
+      <option value="1">⭐️</option>
+    </select>
+    <button type="submit">Send</button>
+  </form>
 </section>
   <!-- CONTACT -->
 <section id="contact" class="hidden section">
