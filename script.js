@@ -3,8 +3,7 @@
 // ===========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
-
-  // ======== Cached selectors ========
+  
   const body = document.body;
   const loadingScreen = document.getElementById("loading-screen");
   const mainLogo = document.getElementById("main-logo");
@@ -36,16 +35,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===========================================================
   // ======== Section Switcher ========
   // ===========================================================
-// When a section is opened, trigger fade sequence
+
 function openSection(id) {
   playClick();
   const sections = document.querySelectorAll(".section");
   const buttons = document.querySelectorAll(".nav-buttons button");
-
-  // ascunde toate secțiunile
+  
   sections.forEach(sec => sec.classList.add("hidden"));
 
-  // afișează secțiunea selectată + animatie treptată
   const sectionToShow = document.getElementById(id);
   if (sectionToShow) {
     sectionToShow.classList.remove("hidden");
@@ -54,7 +51,6 @@ function openSection(id) {
     sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // activează butonul corect
   buttons.forEach(btn => {
     btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
   });
@@ -169,7 +165,7 @@ window.openSection = openSection;
       moved = true;
     }
   });
-// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE (with zoom + reset position) =====
+// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE ==== //
 const mainTitle = document.getElementById("main-title");
 const navButtons = document.querySelector(".nav-buttons");
 const titleEl = document.getElementById("main-logo");
@@ -180,7 +176,6 @@ if (mainTitle && navButtons && titleEl) {
     playClick();
     navVisible = !navVisible;
 
-    // ===== SHOW MENU =====
     if (navVisible) {
       titleEl.classList.add("move-up");
       navButtons.classList.remove("hidden");
@@ -188,7 +183,6 @@ if (mainTitle && navButtons && titleEl) {
       navButtons.style.opacity = "1";
       navButtons.style.transform = "scale(1)";
 
-      // Animate buttons sequentially
       buttons.forEach((btn, i) => {
         btn.style.opacity = "0";
         btn.style.transform = "translateY(15px)";
@@ -196,23 +190,20 @@ if (mainTitle && navButtons && titleEl) {
           btn.style.transition = "all 0.6s ease";
           btn.style.opacity = "1";
           btn.style.transform = "translateY(0)";
-        }, i * 250); // 0.25s delay between buttons
+        }, i * 250);
       });
     }
 
-    // ===== HIDE MENU =====
     else {
       navButtons.style.transition = "transform 0.4s ease, opacity 0.4s ease";
       navButtons.style.transform = "scale(0.8)";
       navButtons.style.opacity = "0";
 
-      // fade-out active section(s)
       document.querySelectorAll(".section:not(.hidden)").forEach(sec => {
         sec.classList.add("fade-out");
         setTimeout(() => sec.classList.add("hidden"), 400);
       });
 
-      // hide everything after fade
       setTimeout(() => {
         navButtons.classList.add("hidden");
         titleEl.classList.remove("move-up");
@@ -421,7 +412,7 @@ if (mainTitle && navButtons && titleEl) {
     }
     starfield.appendChild(frag);
   }
-// ===========================================================
+  // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
   // ===========================================================
   const footer = document.querySelector("footer");
@@ -450,10 +441,8 @@ if (mainTitle && navButtons && titleEl) {
     }, 400);
   }
 
-  // initial typing on load
   setTimeout(() => typeFooterText(lightMsg), 4000);
 
-  // change footer when theme toggles
   themeToggle?.addEventListener("click", () => {
     const isDark = body.classList.contains("dark-mode");
     const newMsg = isDark ? darkMsg : lightMsg;
