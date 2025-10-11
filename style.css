@@ -548,3 +548,53 @@ function openSection(id) {
   });
 }
 window.openSection = openSection;
+
+/* reviews */
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 420px;
+  margin: 20px auto;
+}
+.review-form input, .review-form select, .review-form textarea {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-family: 'Comfortaa', sans-serif;
+}
+.review-form button {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.review-form button:hover {
+  background: white;
+  color: black;
+}
+
+.reviews-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+.review-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 15px;
+  width: 90%;
+  max-width: 500px;
+  backdrop-filter: blur(6px);
+}
+.review-item h4 { margin: 0 0 5px 0; font-weight: 600; }
+.review-item .rating { color: gold; font-size: 1.1rem; }
+.review-item p { opacity: 0.9; }
