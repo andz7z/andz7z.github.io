@@ -405,7 +405,142 @@ if (mainTitle && navButtons && titleEl) {
     themeToggle.textContent = isDark ? "🌙" : "💡";
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
+// ===========================================================
+  // ======== GOOGLE SHEETS REVIEWS SYSTEM =====================
+  // ===========================================================
+  const reviewsContainer = document.getElementById("reviews-container");
+  const reviewForm = document.getElementById("review-form");
 
+  // !!! Înlocuiește cu URL-ul tău din Apps Script !!!
+  const webAppUrl = "https://script.google.com/macros/s/AKfycbz_YOUR_WEB_APP_URL/exec";
+
+  async function fetchReviews() {
+    try {
+      const res = await fetch(webAppUrl);
+      const data = await res.json();
+      renderReviews(data.reviews || []);
+    } catch (err) {
+      console.error("Eroare la fetch reviews:", err);
+    }
+  }
+
+  function renderReviews(reviews) {
+    reviewsContainer.innerHTML = "";
+    if (reviews.length === 0) {
+      reviewsContainer.innerHTML = <p>No reviews yet. Be the first! ✍️</p>;
+      return;
+    }
+
+    reviews.reverse().forEach((r, idx) => {
+      const div = document.createElement("div");
+      div.className = "review";
+      div.innerHTML = 
+        <strong>${r.username}</strong>
+        <span class="rating"> ${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</span>
+        <p>${r.comment}</p>
+        <small>${new Date(r.timestamp).toLocaleString()}</small>
+      ;
+      reviewsContainer.appendChild(div);
+      setTimeout(() => div.classList.add("show"), 100 * idx);
+    });
+  }
+
+  reviewForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const rating = parseInt(document.getElementById("rating").value);
+    const comment = document.getElementById("comment").value.trim();
+    if (!username  !rating  !comment) return alert("Completează toate câmpurile!");
+
+    const newReview = { username, rating, comment };
+    try {
+      const res = await fetch(webAppUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newReview)
+      });
+      const data = await res.json();
+      if (data.success) {
+        reviewForm.reset();
+        fetchReviews();
+      } else {
+        alert("Eroare la trimiterea recenziei!");
+      }
+    } catch (err) {
+      console.error("Eroare POST:", err);
+      alert("Conexiune eșuată la serverul Google.");
+    }
+  });
+// ===========================================================
+  // ======== GOOGLE SHEETS REVIEWS SYSTEM =====================
+  // ===========================================================
+  const reviewsContainer = document.getElementById("reviews-container");
+  const reviewForm = document.getElementById("review-form");
+
+  // !!! Înlocuiește cu URL-ul tău din Apps Script !!!
+  const webAppUrl = "https://script.google.com/macros/s/AKfycbz_YOUR_WEB_APP_URL/exec";
+
+  async function fetchReviews() {
+    try {
+      const res = await fetch(webAppUrl);
+      const data = await res.json();
+      renderReviews(data.reviews || []);
+    } catch (err) {
+      console.error("Eroare la fetch reviews:", err);
+    }
+  }
+
+  function renderReviews(reviews) {
+    reviewsContainer.innerHTML = "";
+    if (reviews.length === 0) {
+      reviewsContainer.innerHTML = <p>No reviews yet. Be the first! ✍️</p>;
+      return;
+    }
+
+    reviews.reverse().forEach((r, idx) => {
+      const div = document.createElement("div");
+      div.className = "review";
+      div.innerHTML = 
+        <strong>${r.username}</strong>
+        <span class="rating"> ${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</span>
+        <p>${r.comment}</p>
+        <small>${new Date(r.timestamp).toLocaleString()}</small>
+      ;
+      reviewsContainer.appendChild(div);
+      setTimeout(() => div.classList.add("show"), 100 * idx);
+    });
+  }
+
+  reviewForm?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value.trim();
+    const rating = parseInt(document.getElementById("rating").value);
+    const comment = document.getElementById("comment").value.trim();
+    if (!username  !rating  !comment) return alert("Completează toate câmpurile!");
+
+    const newReview = { username, rating, comment };
+    try {
+      const res = await fetch(webAppUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newReview)
+      });
+      const data = await res.json();
+      if (data.success) {
+        reviewForm.reset();
+        fetchReviews();
+      } else {
+        alert("Eroare la trimiterea recenziei!");
+      }
+    } catch (err) {
+      console.error("Eroare POST:", err);
+      alert("Conexiune eșuată la serverul Google.");
+    }
+  });
+  // fetch la încărcare
+  window.addEventListener("load", fetchReviews);
+  // fetch la încărcare
+  window.addEventListener("load", fetchReviews);
   // ===========================================================
   // ===== Starfield Generator =====
   // ===========================================================
