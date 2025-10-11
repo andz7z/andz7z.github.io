@@ -493,19 +493,19 @@ if (mainTitle && navButtons && titleEl) {
   function renderReviews(reviews) {
     reviewsContainer.innerHTML = "";
     if (reviews.length === 0) {
-      reviewsContainer.innerHTML = <p>No reviews yet. Be the first! ✍️</p>;
+      reviewsContainer.innerHTML = `<p>No reviews yet. Be the first! ✍️</p>`;
       return;
     }
 
     reviews.reverse().forEach((r, idx) => {
       const div = document.createElement("div");
       div.className = "review";
-      div.innerHTML = 
+      div.innerHTML = `
         <strong>${r.username}</strong>
-        <span class="rating"> ${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</span>
+        <span class="rating">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</span>
         <p>${r.comment}</p>
         <small>${new Date(r.timestamp).toLocaleString()}</small>
-      ;
+      `;
       reviewsContainer.appendChild(div);
       setTimeout(() => div.classList.add("show"), 100 * idx);
     });
@@ -516,7 +516,7 @@ if (mainTitle && navButtons && titleEl) {
     const username = document.getElementById("username").value.trim();
     const rating = parseInt(document.getElementById("rating").value);
     const comment = document.getElementById("comment").value.trim();
-    if (!username  !rating  !comment) return alert("Completează toate câmpurile!");
+    if (!username || !rating || !comment) return alert("Completează toate câmpurile!");
 
     const newReview = { username, rating, comment };
     try {
@@ -537,8 +537,10 @@ if (mainTitle && navButtons && titleEl) {
       alert("Conexiune eșuată la serverul Google.");
     }
   });
+
   // fetch la încărcare
   window.addEventListener("load", fetchReviews);
+
   // ===========================================================
   // ===== Starfield Generator =====
   // ===========================================================
@@ -554,7 +556,8 @@ if (mainTitle && navButtons && titleEl) {
     }
     starfield.appendChild(frag);
   }
-// ===========================================================
+
+  // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
   // ===========================================================
   const footer = document.querySelector("footer");
