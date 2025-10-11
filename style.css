@@ -103,6 +103,7 @@ header .title{
 .contact-card p,.contact-card a,.contact-card span{font-size:.95rem;color:#fff;text-align:center;margin:0;transition:color .3s ease,text-shadow .3s ease}
 .contact-card a:hover{text-shadow:0 0 10px rgba(255,255,255,0.7)}
 @media(max-width:1100px){.contact-cards{flex-wrap:wrap}} @media(max-width:600px){.contact-card{width:90%}}
+
 /* YT Card */
 .yt-card{
   display:flex;align-items:center;gap:20px;
@@ -226,6 +227,7 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
 @keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(255,255,255,0.25)}50%{box-shadow:0 0 45px rgba(255,255,255,0.5)}}
 .main-logo-gif{width:160px;height:160px;object-fit:contain;border-radius:20px;box-shadow:0 0 15px rgba(255,255,255,0.25);opacity:0;transition:opacity 1.5s ease}
 .main-logo-gif.show{opacity:1}
+
 /* Starfield (dark-only decorative) */
 .starfield{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:0;opacity:0;transition:opacity 1.2s ease}
 .star{position:absolute;width:2px;height:2px;background:#fff8e1;border-radius:50%;opacity:.8;animation:twinkle 3s infinite ease-in-out}
@@ -505,7 +507,6 @@ body.dark-mode .intro-text {
   filter: drop-shadow(0 0 20px rgba(255,217,90,0.3));
 }
 
-/* Subtext styling */
 .intro-sub {
   margin-top: 12px;
   font-family: 'Comfortaa', sans-serif;
@@ -517,7 +518,6 @@ body.dark-mode .intro-text {
   animation: introSubFade 2s ease forwards 1.2s;
 }
 
-/* Shared animations */
 @keyframes introFadeIn {
   0% {opacity: 0; transform: scale(0.8) translateY(30px);}
   60% {opacity: 1; transform: scale(1.05) translateY(0);}
@@ -551,12 +551,10 @@ body.dark-mode .intro-text {
   50% { border-color: transparent; }
 }
 
-/* Show footer text */
 footer.show #footer-text {
   opacity: 1;
 }
 
-/* Dark mode fade */
 footer.fade-out {
   opacity: 0;
   transition: opacity 0.6s ease;
