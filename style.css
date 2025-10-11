@@ -528,3 +528,23 @@ body.dark-mode .intro-text {
   from {opacity: 0; transform: translateY(15px);}
   to {opacity: 1; transform: translateY(0);}
 }
+// When a section is opened, trigger fade sequence
+function openSection(id) {
+  playClick();
+  const sections = document.querySelectorAll(".section");
+  const buttons = document.querySelectorAll(".nav-buttons button");
+
+  sections.forEach(sec => sec.classList.add("hidden"));
+  const sectionToShow = document.getElementById(id);
+  if (sectionToShow) {
+    sectionToShow.classList.remove("hidden");
+    sectionToShow.classList.add("fade-sequence");
+    setTimeout(() => sectionToShow.classList.remove("fade-sequence"), 2000);
+    sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  buttons.forEach(btn => {
+    btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
+  });
+}
+window.openSection = openSection;
