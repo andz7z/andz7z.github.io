@@ -112,10 +112,45 @@
     </button>
   </div>
 
-  <!-- container where panels appear -->
-  <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
-</section>
-  <div id="reviewsContainer" class="reviews-container"></div>
+<!-- REVIEW SYSTEM -->
+<section id="reviews" class="section reviews-section">
+  <div class="section-bg"></div>
+  <h2>⭐ Reviews & Feedback</h2>
+
+  <div class="reviews-wrapper">
+    <form id="reviewForm" class="review-form" aria-label="Post a review">
+      <div class="form-row">
+        <label for="name">Nume</label>
+        <input id="name" name="name" type="text" maxlength="30" placeholder="Cum te numești?" required>
+      </div>
+
+      <div class="form-row rating-row" aria-label="Rating">
+        <label>Rating</label>
+        <div class="star-input" id="starInput" role="radiogroup" aria-label="Alege stelele">
+          <!-- butoane generate din JS sau CSS (vezi script) -->
+          <button type="button" class="star" data-value="1" aria-label="1 stea">☆</button>
+          <button type="button" class="star" data-value="2" aria-label="2 stele">☆</button>
+          <button type="button" class="star" data-value="3" aria-label="3 stele">☆</button>
+          <button type="button" class="star" data-value="4" aria-label="4 stele">☆</button>
+          <button type="button" class="star" data-value="5" aria-label="5 stele">☆</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="message">Mesaj</label>
+        <textarea id="message" name="message" rows="4" maxlength="500" placeholder="Spune-ne ce părere ai..." required></textarea>
+      </div>
+
+      <div class="form-row submit-row">
+        <button id="submitReview" type="submit" class="btn">Trimite review</button>
+        <span id="reviewStatus" class="muted"></span>
+      </div>
+    </form>
+
+    <div id="reviewsList" class="reviews-list" aria-live="polite">
+      <div class="loader">Încărcare review-uri...</div>
+    </div>
+  </div>
 </section>
   <!-- CONTACT -->
 <section id="contact" class="hidden section">
@@ -144,5 +179,37 @@
   <footer>
     <p id="footer-text"></p>
   </footer>
+  <!-- ===== Firebase SDK (adaugă asta înainte de </body>) ===== -->
+  <!-- Firebase App -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <!-- Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <!-- Optional: Auth (pentru anonymous sign-in) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
+  <!-- Review script (va porni după ce SDK-urile sunt încărcate) -->
+  <script>
+    // ====== Pune aici config-ul pe care-l iei din Firebase Console (Your apps) =====
+    // Exemplu (înlocuiește valorile cu cele din consola ta)
+    const firebaseConfig = {
+      apiKey: "REPLACE_WITH_YOUR_API_KEY",
+      authDomain: "REPLACE.firebaseapp.com",
+      projectId: "REPLACE",
+      storageBucket: "REPLACE.appspot.com",
+      messagingSenderId: "REPLACE",
+      appId: "REPLACE"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Export Firestore & Auth compat (folosim compat pentru simplitate)
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+    window._firebase = { firebase, db, auth }; // expunem pe window pentru script.js
+  </script>
+
+  <!-- Scriptul de review: adaugă-l după inițializare -->
+  <script src="reviews.js" defer></script>
 </body>
 </html>
