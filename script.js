@@ -478,7 +478,7 @@ if (mainTitle && navButtons && titleEl) {
   const reviewForm = document.getElementById("review-form");
 
   // !!! Înlocuiește cu URL-ul tău din Apps Script !!!
-  const webAppUrl = "https://script.google.com/macros/s/AKfycbz_YOUR_WEB_APP_URL/exec";
+  const webAppUrl = "https://script.google.com/macros/s/AKfycbxOeLjD1m3vU1LekPZY47uiX26ONBLa3SuZFa37CP_hVDJR59zOKhOnHRISUbPwdJXLRg/exec";
 
   async function fetchReviews() {
     try {
