@@ -449,3 +449,49 @@ if (mainTitle && navButtons && titleEl) {
     typeFooterText(newMsg);
   });
 });
+// ===== Review System =====
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbyayzwBulnfS8KcAz_d9uqj_ye3oXlC__P3tBq9h-jjGBUh8lj1eXm1fOQVrmAHHhsz/exec";
+const reviewsContainer = document.getElementById("reviews-container");
+const popup = document.getElementById("review-popup");
+const addBtn = document.getElementById("add-review-btn");
+const submitBtn = document.getElementById("submit-review");
+const closeBtn = document.getElementById("close-popup");
+
+addBtn.addEventListener("click", () => popup.classList.remove("hidden"));
+closeBtn.addEventListener("click", () => popup.classList.add("hidden"));
+
+async function loadReviews() {
+  const res = await fetch(SHEET_URL);
+  const data = await res.json();
+  reviewsContainer.innerHTML = "";
+  data.reverse().forEach(r => {
+    const div = document.createElement("div");
+    div.className = "review";
+    div.innerHTML = `
+      <strong>${r.name}</strong> - <span>${"⭐".repeat(r.rating)}</span>
+      <p>${r.message}</p>
+      <small>${new Date(r.timestamp).toLocaleString()}</small>
+    `;
+    reviewsContainer.appendChild(div);
+  });
+}
+
+submitBtn.addEventListener("click", async () => {
+  const name = document.getElementById("review-name").value.trim();
+  const rating = document.getElementById("review-rating").value;
+  const message = document.getElementById("review-message").value.trim();
+  if (!name || !message) return alert("Completează toate câmpurile!");
+
+  await fetch(SHEET_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, rating, message }),
+  });
+
+  popup.classList.add("hidden");
+  document.getElementById("review-name").value = "";
+  document.getElementById("review-message").value = "";
+  loadReviews();
+});
+
+window.addEventListener("DOMContentLoaded", loadReviews);
