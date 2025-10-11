@@ -282,49 +282,18 @@ if (mainTitle && navButtons && titleEl) {
     animateParticles();
   }
 
-// ===========================================================
-// ===== Notification System: Glow, Bounce & Progress Bar =====
-// ===========================================================
-
-document.addEventListener("DOMContentLoaded", () => {
-  const notif = document.getElementById("notification");
-  const notifClose = document.getElementById("notif-close");
-  const themeToggle = document.getElementById("theme-toggle");
-
-  if (!notif) return;
-
-  const showNotification = () => {
-    notif.classList.remove("hidden");
+  // ===========================================================
+  // ===== Notification System =====
+  // ===========================================================
+  setTimeout(() => {
+    const notif = document.getElementById("notification");
+    if (!notif) return;
     notif.classList.add("show");
-
     const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
-    notifSound.volume = 0.15;
+    notifSound.volume = 0.1;
     notifSound.play().catch(() => {});
-
-    // Auto-hide after 10s
-    setTimeout(() => {
-      notif.classList.remove("show");
-      setTimeout(() => notif.classList.add("hidden"), 600);
-    }, 10000);
-  };
-
-  // Show notification after 5s
-  setTimeout(showNotification, 5000);
-
-  // Close manually
-  notifClose.addEventListener("click", () => {
-    notif.classList.remove("show");
-    setTimeout(() => notif.classList.add("hidden"), 600);
-  });
-
-  // === Theme toggle ===
-  themeToggle.addEventListener("click", () => {
-    const currentTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
-    document.body.dataset.theme = currentTheme;
-    document.documentElement.style.colorScheme = currentTheme;
-    themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
-  });
-});
+    setTimeout(() => notif.classList.remove("show"), 10000);
+  }, 7000);
 
   // ===========================================================
   // ======== Work buttons & detail panels ========
