@@ -1,7 +1,10 @@
 // ===========================================================
-// ANDZ MAIN SCRIPT — COMPLETE (PARTEA 1/2)
+// ANDZ MAIN SCRIPT — Optimized, same visuals / performance improved
 // ===========================================================
+
 document.addEventListener("DOMContentLoaded", () => {
+
+  // ======== Cached selectors ========
   const body = document.body;
   const loadingScreen = document.getElementById("loading-screen");
   const mainLogo = document.getElementById("main-logo");
@@ -15,10 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const starfield = document.querySelector(".starfield");
 
   // ===========================================================
-  // Loading screen & intro logo
+  // ===== Glass-Metal Intro → GIF stays as main logo =====
   // ===========================================================
   window.addEventListener("load", () => {
     if (!loadingScreen || !mainLogo) return;
+
     setTimeout(() => {
       loadingScreen.style.opacity = "0";
       setTimeout(() => {
@@ -30,27 +34,35 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ===========================================================
-  // Section switcher
+  // ======== Section Switcher ========
   // ===========================================================
-  function openSection(id) {
-    const sections = document.querySelectorAll(".section");
-    const buttons = document.querySelectorAll(".nav-buttons button");
+// When a section is opened, trigger fade sequence
+function openSection(id) {
+  playClick();
+  const sections = document.querySelectorAll(".section");
+  const buttons = document.querySelectorAll(".nav-buttons button");
 
-    sections.forEach(sec => sec.classList.add("hidden"));
-    const sectionToShow = document.getElementById(id);
-    if (sectionToShow) {
-      sectionToShow.classList.remove("hidden");
-      sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  // ascunde toate secțiunile
+  sections.forEach(sec => sec.classList.add("hidden"));
 
-    buttons.forEach(btn => {
-      btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
-    });
+  // afișează secțiunea selectată + animatie treptată
+  const sectionToShow = document.getElementById(id);
+  if (sectionToShow) {
+    sectionToShow.classList.remove("hidden");
+    sectionToShow.classList.add("fade-sequence");
+    setTimeout(() => sectionToShow.classList.remove("fade-sequence"), 2000);
+    sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-  window.openSection = openSection;
+
+  // activează butonul corect
+  buttons.forEach(btn => {
+    btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
+  });
+}
+window.openSection = openSection;
 
   // ===========================================================
-  // YouTube stats fetch (kept from original)
+  // ======== YouTube API ========
   // ===========================================================
   const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
   const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
@@ -74,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
       setText("yt-views", Number(statistics.viewCount).toLocaleString());
 
       const thumb = document.getElementById("yt-thumbnail");
-      if (thumb && snippet.thumbnails) thumb.src = snippet.thumbnails.high.url;
+      if (thumb) thumb.src = snippet.thumbnails.high.url;
 
       const link = document.getElementById("yt-link");
       if (link) link.href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
@@ -85,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("load", fetchYouTubeStats);
 
   // ===========================================================
-  // Music control
+  // ======== Music Control ========
   // ===========================================================
   const music = new Audio("https://andz7z.github.io/song.MP3");
   const clickSound = new Audio("https://andz7z.github.io/click.MP3");
@@ -98,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const fade = () => {
       vol = Math.min(vol + step, targetVol);
       music.volume = vol;
-      if (volumeSlider) volumeSlider.value = vol;
+      volumeSlider.value = vol;
       if (vol < targetVol) setTimeout(fade, delay);
     };
     fade();
@@ -111,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(() => {
         fadeInMusic();
         playing = musicStarted = true;
-        if (audioIcon) audioIcon.textContent = "🔊";
+        audioIcon.textContent = "🔊";
       })
       .catch(err => console.log("Autoplay blocked:", err));
   }
@@ -119,19 +131,19 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleMusic() {
     playClick();
     playing = !playing;
-    if (audioIcon) audioIcon.textContent = playing ? "🔊" : "🔇";
+    audioIcon.textContent = playing ? "🔊" : "🔇";
     playing ? music.play() : music.pause();
   }
 
   window.addEventListener("click", e => {
     if (!musicStarted && !e.target.closest("button,a")) startMusic();
   });
-  window.addEventListener("load", () => { if (audioIcon) audioIcon.textContent = "🔇"; });
+  window.addEventListener("load", () => { audioIcon.textContent = "🔇"; });
   volumeSlider?.addEventListener("input", e => { music.volume = e.target.value; });
   window.toggleMusic = toggleMusic;
 
   // ===========================================================
-  // Click sound
+  // ======== Click Sound ========
   // ===========================================================
   clickSound.volume = 0.05;
   function playClick() {
@@ -139,12 +151,13 @@ document.addEventListener("DOMContentLoaded", () => {
     sound.volume = 0.05;
     sound.play();
   }
+
   document.body.addEventListener("click", e => {
     if (e.target.closest("button, .nav-buttons button, .nav-buttons a")) playClick();
   });
 
   // ===========================================================
-  // Title hover / nav toggle
+  // ======== Title Animation ========
   // ===========================================================
   let moved = false;
   title?.addEventListener("mouseenter", () => {
@@ -156,42 +169,66 @@ document.addEventListener("DOMContentLoaded", () => {
       moved = true;
     }
   });
+// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE (with zoom + reset position) =====
+const mainTitle = document.getElementById("main-title");
+const navButtons = document.querySelector(".nav-buttons");
+const titleEl = document.getElementById("main-logo");
+let navVisible = false;
 
-  const mainTitle = document.getElementById("main-title");
-  const navButtons = document.querySelector(".nav-buttons");
-  const titleEl = document.getElementById("main-logo");
-  let navVisible = false;
+if (mainTitle && navButtons && titleEl) {
+  mainTitle.addEventListener("click", () => {
+    playClick();
+    navVisible = !navVisible;
 
-  if (mainTitle && navButtons && titleEl) {
-    mainTitle.addEventListener("click", () => {
-      playClick();
-      navVisible = !navVisible;
-      if (navVisible) {
-        titleEl.classList.add("move-up");
-        navButtons.classList.remove("hidden");
-        navButtons.style.transform = "scale(0.8)";
-        navButtons.style.opacity = "0";
+    // ===== SHOW MENU =====
+    if (navVisible) {
+      titleEl.classList.add("move-up");
+      navButtons.classList.remove("hidden");
+      const buttons = navButtons.querySelectorAll("button");
+      navButtons.style.opacity = "1";
+      navButtons.style.transform = "scale(1)";
+
+      // Animate buttons sequentially
+      buttons.forEach((btn, i) => {
+        btn.style.opacity = "0";
+        btn.style.transform = "translateY(15px)";
         setTimeout(() => {
-          navButtons.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-          navButtons.style.transform = "scale(1)";
-          navButtons.style.opacity = "1";
-          navButtons.classList.add("show-buttons");
-        }, 20);
-      } else {
-        navButtons.style.transition = "transform 0.4s ease, opacity 0.4s ease";
-        navButtons.style.transform = "scale(0.8)";
-        navButtons.style.opacity = "0";
-        setTimeout(() => {
-          navButtons.classList.remove("show-buttons");
-          navButtons.classList.add("hidden");
-          titleEl.classList.remove("move-up");
-        }, 400);
-      }
-    });
-  }
+          btn.style.transition = "all 0.6s ease";
+          btn.style.opacity = "1";
+          btn.style.transform = "translateY(0)";
+        }, i * 250); // 0.25s delay between buttons
+      });
+    }
 
+    // ===== HIDE MENU =====
+    else {
+      navButtons.style.transition = "transform 0.4s ease, opacity 0.4s ease";
+      navButtons.style.transform = "scale(0.8)";
+      navButtons.style.opacity = "0";
+
+      // fade-out active section(s)
+      document.querySelectorAll(".section:not(.hidden)").forEach(sec => {
+        sec.classList.add("fade-out");
+        setTimeout(() => sec.classList.add("hidden"), 400);
+      });
+
+      // hide everything after fade
+      setTimeout(() => {
+        navButtons.classList.add("hidden");
+        titleEl.classList.remove("move-up");
+
+        const workDetail = document.getElementById("work-detail-container");
+        if (workDetail) workDetail.innerHTML = "";
+        document.querySelectorAll(".work-btn").forEach(btn => {
+          btn.classList.remove("active");
+          btn.setAttribute("aria-expanded", "false");
+        });
+      }, 450);
+    }
+  });
+}
   // ===========================================================
-  // Particle effect (mouse trail)
+  // ======== Particle Effect ========
   // ===========================================================
   if (canvas && ctx) {
     let particles = [];
@@ -246,11 +283,120 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===========================================================
-  // Dark / Light mode init
+  // ===== Notification System =====
+  // ===========================================================
+  setTimeout(() => {
+    const notif = document.getElementById("notification");
+    if (!notif) return;
+    notif.classList.add("show");
+    const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
+    notifSound.volume = 0.1;
+    notifSound.play().catch(() => {});
+    setTimeout(() => notif.classList.remove("show"), 10000);
+  }, 7000);
+
+  // ===========================================================
+  // ======== Work buttons & detail panels ========
+  // ===========================================================
+  const WORK_ITEMS = {
+    season: {
+      title: "Season Flow",
+      img: "https://i.imgur.com/ik14PFa.jpeg",
+      desc: "A LUA mod, easy to install, that lets you choose between summer or winter.",
+      github: "https://github.com/andz7z/SEASONS-GTA-SA",
+      features: ["No FPS Drop", "Easy to configure", "Unique"]
+    },
+    weather: {
+      title: "Weather Shift",
+      img: "https://i.imgur.com/nstY5n2.jpeg",
+      desc: "Advanced time & weather changer.",
+      github: "https://github.com/andz7z/TIMECHANGER-GTA-SA",
+      features: ["Custom time scale", "Weather presets", "No FPS Drop"]
+    },
+    tags: {
+      title: "Modern Tags",
+      img: "https://i.imgur.com/nsrK2GW.jpeg",
+      desc: "A modern tags mod that helps you style them in any way.",
+      github: "https://github.com/andz7z/NAMETAGS-GTA-SA",
+      features: ["Easy to configure", "Custom colors", "Custom fonts"]
+    },
+    look: {
+      title: "Look Changer",
+      img: "https://i.imgur.com/rSWDHs2.jpeg",
+      desc: "Change your skin with local saving.",
+      github: "https://github.com/andz7z/SKINCHANGER-GTA-SA",
+      features: ["Local Saving", "Easy to use", "No FPS Drop"]
+    }
+  };
+
+  const buttons = document.querySelectorAll(".work-btn");
+  const detailContainer = document.getElementById("work-detail-container");
+
+  function closeAllPanels() {
+    detailContainer.innerHTML = "";
+    buttons.forEach(b => {
+      b.classList.remove("active");
+      b.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  function createPanel(itemKey) {
+    const item = WORK_ITEMS[itemKey];
+    if (!item) return null;
+
+    const panel = document.createElement("div");
+    panel.className = "work-panel";
+    panel.innerHTML = `
+      <img class="panel-img" src="${item.img}" alt="${item.title} image" />
+      <div class="panel-info">
+        <h3>${item.title}</h3>
+        <p>${item.desc}</p>
+        <div class="panel-features">
+          ${item.features.map(f => `<span class="feature-pill">${f}</span>`).join("")}
+        </div>
+        <div class="panel-meta">
+          <a class="github-link" href="${item.github}" target="_blank">View on GitHub</a>
+          <a class="download-link" href="${item.github}/archive/refs/heads/main.zip" target="_blank">Download ZIP</a>
+        </div>
+      </div>
+      <button class="panel-close" aria-label="Close details">✕</button>
+    `;
+
+    panel.querySelector(".panel-close").addEventListener("click", closeAllPanels);
+    return panel;
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const key = btn.getAttribute("data-key");
+      if (!key || !WORK_ITEMS[key]) return;
+      const isActive = btn.classList.contains("active");
+      playClick();
+      btn.classList.add("glow-press");
+      setTimeout(() => btn.classList.remove("glow-press"), 800);
+
+      if (isActive) return closeAllPanels();
+      closeAllPanels();
+      btn.classList.add("active");
+      btn.setAttribute("aria-expanded", "true");
+      const panel = createPanel(key);
+      if (panel) {
+        detailContainer.appendChild(panel);
+        panel.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    });
+  });
+
+  document.addEventListener("click", ev => {
+    if (!ev.target.closest(".work-buttons, .work-panel")) closeAllPanels();
+  });
+
+  // ===========================================================
+  // ======== Dark / Light Mode Toggle ========
   // ===========================================================
   if (localStorage.getItem("theme") === "dark") {
     body.classList.add("dark-mode");
-    if (themeToggle) themeToggle.textContent = "🌙";
+    themeToggle.textContent = "🌙";
   }
 
   themeToggle?.addEventListener("click", () => {
@@ -261,124 +407,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ===========================================================
-  // ======== GOOGLE SHEETS REVIEWS SYSTEM (start) ============
-  // ===========================================================
-  const reviewsContainer = document.getElementById("reviews-container");
-  const reviewForm = document.getElementById("review-form");
-
-  // ✅ Linkul tău Web App (am folosit linkul pe care l-ai pus)
-  const webAppUrl = "https://script.google.com/macros/s/AKfycbxOeLjD1m3vU1LekPZY47uiX26ONBLa3SuZFa37CP_hVDJR59zOKhOnHRISUbPwdJXLRg/exec";
-
-  async function fetchReviews() {
-    if (!reviewsContainer) return;
-    try {
-      const res = await fetch(webAppUrl);
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      const data = await res.json();
-      renderReviews(Array.isArray(data.reviews) ? data.reviews : []);
-    } catch (err) {
-      console.error("Eroare la fetch reviews:", err);
-      reviewsContainer.innerHTML = '<p>Could not load reviews right now.</p>';
-    }
-  }
-  // ===========================================================
-// ANDZ MAIN SCRIPT — COMPLETE (PARTEA 2/2) — CONTINUARE
-// ===========================================================
-  function renderReviews(reviews) {
-    if (!reviewsContainer) return;
-    reviewsContainer.innerHTML = "";
-    if (!reviews || reviews.length === 0) {
-      const p = document.createElement("p");
-      p.textContent = "No reviews yet. Be the first! ✍️";
-      reviewsContainer.appendChild(p);
-      return;
-    }
-
-    // afișăm cele mai noi primul
-    reviews.slice().reverse().forEach((r, idx) => {
-      const div = document.createElement("div");
-      div.className = "review";
-
-      // header (username + rating)
-      const header = document.createElement("div");
-      header.style.display = "flex";
-      header.style.justifyContent = "space-between";
-      header.style.alignItems = "center";
-
-      const nameWrap = document.createElement("div");
-      const strong = document.createElement("strong");
-      strong.textContent = r.username || "Anonymous";
-      nameWrap.appendChild(strong);
-
-      header.appendChild(nameWrap);
-
-      const ratingSpan = document.createElement("span");
-      ratingSpan.className = "rating";
-      const ratingNum = Number(r.rating) || 0;
-      ratingSpan.textContent = " " + "★".repeat(ratingNum) + "☆".repeat(Math.max(0, 5 - ratingNum));
-      header.appendChild(ratingSpan);
-
-      div.appendChild(header);
-
-      // comment
-      const p = document.createElement("p");
-      p.textContent = r.comment || "";
-      div.appendChild(p);
-
-      // timestamp
-      const small = document.createElement("small");
-      small.textContent = r.timestamp ? new Date(r.timestamp).toLocaleString() : "";
-      div.appendChild(small);
-
-      reviewsContainer.appendChild(div);
-      // animație de apariție
-      setTimeout(() => div.classList.add("show"), 100 * idx);
-    });
-  }
-
-  if (reviewForm) {
-    reviewForm.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const usernameEl = document.getElementById("username");
-      const ratingEl = document.getElementById("rating");
-      const commentEl = document.getElementById("comment");
-
-      const username = usernameEl ? usernameEl.value.trim() : "";
-      const rating = ratingEl ? parseInt(ratingEl.value) : 0;
-      const comment = commentEl ? commentEl.value.trim() : "";
-
-      if (!username || !rating || !comment) {
-        return alert("Completează toate câmpurile!");
-      }
-
-      const newReview = { username, rating, comment };
-
-      try {
-        const res = await fetch(webAppUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newReview)
-        });
-        const data = await res.json();
-        if (data && data.success) {
-          reviewForm.reset();
-          fetchReviews();
-        } else {
-          alert("Eroare la trimiterea recenziei!");
-          console.error("POST response:", data);
-        }
-      } catch (err) {
-        console.error("Eroare POST:", err);
-        alert("Conexiune eșuată la serverul Google.");
-      }
-    });
-  }
-
-  // apelăm review-urile la încărcare
-  window.addEventListener("load", fetchReviews);
-
-  // ===========================================================
-  // Starfield generator (dark-mode decorative)
+  // ===== Starfield Generator =====
   // ===========================================================
   if (starfield) {
     const frag = document.createDocumentFragment();
@@ -393,55 +422,4 @@ document.addEventListener("DOMContentLoaded", () => {
     starfield.appendChild(frag);
   }
 
-  // ===========================================================
-  // Footer typing animation + safe creation if missing
-  // ===========================================================
-  const footer = document.querySelector("footer");
-  let footerText = footer ? footer.querySelector("#footer-text") : null;
-
-  if (footer && !footerText) {
-    // păstrăm textul existent (dacă există) și-l mutăm într-un element cu id #footer-text
-    const existing = footer.textContent.trim();
-    footer.innerHTML = "";
-    footerText = document.createElement("p");
-    footerText.id = "footer-text";
-    footerText.textContent = existing || "";
-    footer.appendChild(footerText);
-  }
-
-  const lightMsg = "© 2025 ANDZ | Crafted with passion 🧊";
-  const darkMsg = "© 2025 ANDZ | Dreaming under the moon 🌙";
-
-  function typeFooterText(message) {
-    if (!footer) return;
-    footer.classList.remove("show");
-    footer.classList.add("fade-out");
-    setTimeout(() => {
-      if (!footerText) return;
-      footerText.textContent = "";
-      footerText.style.width = "0";
-      footer.classList.remove("fade-out");
-
-      let i = 0;
-      const interval = setInterval(() => {
-        footerText.textContent += message.charAt(i) ?? "";
-        i++;
-        if (i === message.length) {
-          clearInterval(interval);
-          footer.classList.add("show");
-        }
-      }, 40);
-    }, 400);
-  }
-
-  // initial typing on load (only if footer exists)
-  setTimeout(() => typeFooterText(lightMsg), 4000);
-
-  // when theme toggles also type new message
-  themeToggle?.addEventListener("click", () => {
-    const isDark = body.classList.contains("dark-mode");
-    const newMsg = isDark ? darkMsg : lightMsg;
-    typeFooterText(newMsg);
-  });
-
-}); // end DOMContentLoaded
+});
