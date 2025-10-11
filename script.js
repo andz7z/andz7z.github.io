@@ -283,54 +283,46 @@ if (mainTitle && navButtons && titleEl) {
   }
 
 // ===========================================================
-// ===== Revolutionary Notification System =====
+// ===== Revolutionary Notification System with Glow & Bounce =====
 // ===========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
   const notif = document.getElementById("notification");
   const notifClose = document.getElementById("notif-close");
+  const themeToggle = document.getElementById("theme-toggle");
 
   if (!notif) return;
 
-  // Show notification after delay
+  // Show notification after 5s
   setTimeout(() => {
     notif.classList.remove("hidden");
     notif.classList.add("show");
 
-    // Play sound
     const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
     notifSound.volume = 0.15;
     notifSound.play().catch(() => {});
 
-    // Auto-hide after 10 seconds
+    // Auto-hide after 10s
     setTimeout(() => {
       notif.classList.remove("show");
       setTimeout(() => notif.classList.add("hidden"), 600);
     }, 10000);
   }, 5000);
 
-  // Close button manually hides notification
+  // Close manually
   notifClose.addEventListener("click", () => {
     notif.classList.remove("show");
     setTimeout(() => notif.classList.add("hidden"), 600);
   });
 
-  // Detect theme change live (for sites with theme toggles)
-  const observer = new MutationObserver(() => {
-    notif.style.transition = "all 0.6s ease";
+  // === Theme toggle ===
+  themeToggle.addEventListener("click", () => {
+    const currentTheme = document.body.dataset.theme === "dark" ? "light" : "dark";
+    document.body.dataset.theme = currentTheme;
+    document.documentElement.style.colorScheme = currentTheme;
+    themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
   });
-  observer.observe(document.body, { attributes: true, attributeFilter: ["data-theme"] });
 });
-
-// ===========================================================
-// ===== Optional: Theme Toggle System =====
-// ===========================================================
-
-function toggleTheme() {
-  const theme = document.body.dataset.theme === "dark" ? "light" : "dark";
-  document.body.dataset.theme = theme;
-  document.documentElement.style.colorScheme = theme;
-}
 
   // ===========================================================
   // ======== Work buttons & detail panels ========
