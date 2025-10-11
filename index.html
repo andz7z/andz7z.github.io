@@ -139,6 +139,28 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
+  <section id="reviews" class="section">
+  <h2 class="section-title">User Reviews</h2>
+  <div id="reviews-container" class="reviews-container"></div>
+  <button id="add-review-btn" class="button">Add Review</button>
+</section>
+<!-- Review Form Popup -->
+<div id="review-popup" class="popup hidden">
+  <div class="popup-content">
+    <h3>Add Your Review</h3>
+    <input type="text" id="review-name" placeholder="Your Name" required>
+    <select id="review-rating">
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="1">⭐</option>
+    </select>
+    <textarea id="review-message" placeholder="Write your message..." required></textarea>
+    <button id="submit-review">Submit</button>
+    <button id="close-popup">Cancel</button>
+  </div>
+</div>
   <footer>
     <p id="footer-text"></p>
   </footer>
