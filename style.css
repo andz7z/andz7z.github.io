@@ -145,13 +145,76 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
 .card-content a{padding:6px 12px;background:rgba(255,255,255,0.05);color:white;border-radius:12px;text-decoration:none;font-weight:600;transition:all .3s ease}
 .card-content a:hover{background:rgba(255,255,255,0.15);transform:scale(1.05)}
 
-/* Notification */
-.notification{
-  position:fixed;bottom:20px;right:20px;background:rgba(25,25,25,0.9);color:#fff;font-size:16px;font-weight:500;
-  padding:14px 22px;border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,0.4);opacity:0;transform:translateY(30px);
-  transition:all .6s ease;z-index:9999;pointer-events:none;
+/* === Notification === */
+.notification {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(150%);
+  color: var(--notif-text);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: 'Unbounded', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 14px 20px;
+  border-radius: 18px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.6s ease;
+  z-index: 9999;
 }
-.notification.show{opacity:1;transform:translateY(0)}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.notification.hidden {
+  display: none;
+}
+
+.notification .notif-icon {
+  font-size: 22px;
+}
+
+.notification #notif-close {
+  background: transparent;
+  border: none;
+  color: var(--notif-text);
+  font-size: 18px;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.notification #notif-close:hover {
+  transform: scale(1.2);
+  color: var(--notif-accent);
+}
+
+/* === Light / Dark Mode Dynamic === */
+:root {
+  --notif-text: #222;
+  --notif-accent: #0077ff;
+  --notif-bg: rgba(255, 255, 255, 0.6);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --notif-text: #f0f0f0;
+    --notif-accent: #5daeff;
+    --notif-bg: rgba(20, 20, 20, 0.5);
+  }
+}
+
+/* Transition for live theme change */
+body, .notification {
+  transition: background-color 0.6s ease, color 0.6s ease, backdrop-filter 0.6s ease;
+}
 
 /* Skills card */
 .skills-card{
