@@ -421,5 +421,42 @@ if (mainTitle && navButtons && titleEl) {
     }
     starfield.appendChild(frag);
   }
+// ===========================================================
+  // ======== Footer Typing Animation + Dark Mode Switch ========
+  // ===========================================================
+  const footer = document.querySelector("footer");
+  const footerText = document.getElementById("footer-text");
 
+  const lightMsg = "© 2025 ANDZ | Crafted with passion 🧊";
+  const darkMsg = "© 2025 ANDZ | Dreaming under the moon 🌙";
+
+  function typeFooterText(message) {
+    footer.classList.remove("show");
+    footer.classList.add("fade-out");
+    setTimeout(() => {
+      footerText.textContent = "";
+      footerText.style.width = "0";
+      footer.classList.remove("fade-out");
+
+      let i = 0;
+      const interval = setInterval(() => {
+        footerText.textContent += message.charAt(i);
+        i++;
+        if (i === message.length) {
+          clearInterval(interval);
+          footer.classList.add("show");
+        }
+      }, 40);
+    }, 400);
+  }
+
+  // initial typing on load
+  setTimeout(() => typeFooterText(lightMsg), 4000);
+
+  // change footer when theme toggles
+  themeToggle?.addEventListener("click", () => {
+    const isDark = body.classList.contains("dark-mode");
+    const newMsg = isDark ? darkMsg : lightMsg;
+    typeFooterText(newMsg);
+  });
 });
