@@ -175,10 +175,7 @@ if (mainTitle && navButtons && titleEl) {
 
     // ===== WHEN SHOWING BUTTONS =====
     if (navVisible) {
-      // move title slightly up like intro
       titleEl.classList.add("move-up");
-
-      // show buttons with zoom-in
       navButtons.classList.remove("hidden");
       navButtons.style.transform = "scale(0.8)";
       navButtons.style.opacity = "0";
@@ -193,16 +190,25 @@ if (mainTitle && navButtons && titleEl) {
 
     // ===== WHEN HIDING BUTTONS =====
     else {
+      // fade out buttons
       navButtons.style.transition = "transform 0.4s ease, opacity 0.4s ease";
       navButtons.style.transform = "scale(0.8)";
       navButtons.style.opacity = "0";
 
+      // after fade completes
       setTimeout(() => {
         navButtons.classList.remove("show-buttons");
         navButtons.classList.add("hidden");
-
-        // move title back to original position
         titleEl.classList.remove("move-up");
+
+        // ===== EXTRA: close all sections & panels =====
+        document.querySelectorAll(".section").forEach(sec => sec.classList.add("hidden"));
+        const workDetail = document.getElementById("work-detail-container");
+        if (workDetail) workDetail.innerHTML = "";
+        document.querySelectorAll(".work-btn").forEach(btn => {
+          btn.classList.remove("active");
+          btn.setAttribute("aria-expanded", "false");
+        });
       }, 400);
     }
   });
