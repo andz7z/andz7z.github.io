@@ -424,7 +424,7 @@ if (mainTitle && navButtons && titleEl) {
 
 });
 // ===================== REVIEWS SYSTEM =====================
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbx...../exec"; // <-- înlocuiește cu linkul tău
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbxZZUD3sIMvLXAoiSNSjOZzBUE7q2SCQ6Oh4j17xiPDWCuln1o6U9RNkaC6AdvOY9QHpg/exec"; // <-- înlocuiește cu linkul tău
 
 async function submitReview(e) {
   e.preventDefault();
