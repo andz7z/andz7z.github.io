@@ -1,19 +1,39 @@
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyBGKXuWCXFn1JzKP6nNyKNhbBVO6rVfPzk",
     authDomain: "andz-portfolio.firebaseapp.com",
     projectId: "andz-portfolio",
     storageBucket: "andz-portfolio.firebasestorage.app",
     messagingSenderId: "808482872175",
     appId: "1:808482872175:web:c526c7c2c69b40def4269a"
-  };
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-</script>
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+// trimite review
+const form = document.getElementById("review-form");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = form.name.value;
+  const message = form.message.value;
+  await addDoc(collection(db, "reviews"), {
+    name,
+    message,
+    createdAt: new Date()
+  });
+  form.reset();
+  alert("Review trimis!");
+});
+
+// afișează review-urile
+const reviewsContainer = document.getElementById("reviews-container");
+const querySnapshot = await getDocs(collection(db, "reviews"));
+querySnapshot.forEach((doc) => {
+  const data = doc.data();
+  const div = document.createElement("div");
+  div.textContent = `${data.name}: ${data.message}`;
+  reviewsContainer.appendChild(div);
+});
