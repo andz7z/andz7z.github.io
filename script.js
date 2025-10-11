@@ -460,28 +460,3 @@ if (mainTitle && navButtons && titleEl) {
     typeFooterText(newMsg);
   });
 });
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleBtn = document.querySelector(".theme-toggle");
-  const body = document.body;
-  const video = document.getElementById("bg-video");
-
-  // Stochează căile video
-  const lightVideoSrc = "https://cdn.pixabay.com/video/2025/09/05/301949_large.mp4"; // 🔹 clipul tău din light mode
-  const darkVideoSrc = "https://cdn.pixabay.com/video/2025/06/25/287816_large.mp4"; // 🔹 clipul tău pentru dark mode
-
-  // Când se apasă butonul de schimbare temă
-  toggleBtn.addEventListener("click", () => {
-    body.classList.toggle("dark-mode");
-
-    if (body.classList.contains("dark-mode")) {
-      video.src = darkVideoSrc;
-    } else {
-      video.src = lightVideoSrc;
-    }
-
-    // Reluăm redarea automat
-    video.play().catch(() => {});
-  });
-});
-</script>
