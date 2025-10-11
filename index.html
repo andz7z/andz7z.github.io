@@ -22,7 +22,7 @@
 <div id="loading-screen">
   <div class="intro-container">
     <h1 class="intro-text" data-text="A N D Z">A&nbsp;N&nbsp;D&nbsp;Z</h1>
-    <p class="intro-sub">Loading,&nbsp;please&nbsp;wait...</p>
+    <p class="intro-sub">creative&nbsp;|&nbsp;coding&nbsp;|&nbsp;design</p>
     <div class="intro-ring"></div>
   </div>
 </div>
@@ -46,12 +46,11 @@
 <h1 class="title" id="main-title">
   <span id="main-logo" class="main-logo-text hidden">A N D Z</span>
 </h1>
-    <p class="title-desc">- bringing design and technology together -</p>
+    <p class="title-desc">▬ video/photo editing ● programming ● web development ▬</p>
     <nav class="nav-buttons hidden">
       <button onclick="openSection('services')">Services 🤝🏽</button>
       <button onclick="openSection('work')">Projects 📁</button>
       <button onclick="openSection('contact')">Contact Me 📞</button>
-      <button onclick="openSection('reviews')">Reviews</button>
     </nav>
   </header>
 
@@ -74,12 +73,12 @@
 
     <!-- Description Card -->
     <div class="skills-card">
-      <h3>📄 What I Do</h3>
+      <h3>💡 What I Do</h3>
       <p>
         🎬 <strong>Photo/Video Editing</strong> – CapCut Pro, DaVinci Resolve, Canva for professional video content.<br><br>
-        🎮 <strong>Game Modding</strong> – programming mods for Grand Theft Auto and other games in Lua & Python.<br><br>
+        🕹 <strong>Game Modding</strong> – programming mods for GTA: San Andreas and other games in Lua & Python.<br><br>
         🌐 <strong>Web Development</strong> – building modern, responsive websites with HTML, CSS, JavaScript.<br><br>
-        🎨 <strong>Graphic Design</strong> – logos, banners, overlays for social media and gaming channels<br><br>
+        🎨 <strong>Graphic Design</strong> – logos, banners, overlays for social media and gaming communities.<br><br>
         🔊 <strong>SFX & VFX</strong> – custom sound effects, motion graphics, and video effects for projects.
       </p>
     </div>
@@ -113,45 +112,10 @@
     </button>
   </div>
 
-<!-- REVIEW SYSTEM -->
-<section id="reviews" class="section reviews-section">
-  <div class="section-bg"></div>
-  <h2>⭐ Reviews & Feedback</h2>
-
-  <div class="reviews-wrapper">
-    <form id="reviewForm" class="review-form" aria-label="Post a review">
-      <div class="form-row">
-        <label for="name">Nume</label>
-        <input id="name" name="name" type="text" maxlength="30" placeholder="Cum te numești?" required>
-      </div>
-
-      <div class="form-row rating-row" aria-label="Rating">
-        <label>Rating</label>
-        <div class="star-input" id="starInput" role="radiogroup" aria-label="Alege stelele">
-          <!-- butoane generate din JS sau CSS (vezi script) -->
-          <button type="button" class="star" data-value="1" aria-label="1 stea">☆</button>
-          <button type="button" class="star" data-value="2" aria-label="2 stele">☆</button>
-          <button type="button" class="star" data-value="3" aria-label="3 stele">☆</button>
-          <button type="button" class="star" data-value="4" aria-label="4 stele">☆</button>
-          <button type="button" class="star" data-value="5" aria-label="5 stele">☆</button>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label for="message">Mesaj</label>
-        <textarea id="message" name="message" rows="4" maxlength="500" placeholder="Spune-ne ce părere ai..." required></textarea>
-      </div>
-
-      <div class="form-row submit-row">
-        <button id="submitReview" type="submit" class="btn">Trimite review</button>
-        <span id="reviewStatus" class="muted"></span>
-      </div>
-    </form>
-
-    <div id="reviewsList" class="reviews-list" aria-live="polite">
-      <div class="loader">Încărcare review-uri...</div>
-    </div>
-  </div>
+  <!-- container where panels appear -->
+  <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
+</section>
+  <div id="reviewsContainer" class="reviews-container"></div>
 </section>
   <!-- CONTACT -->
 <section id="contact" class="hidden section">
@@ -180,37 +144,5 @@
   <footer>
     <p id="footer-text"></p>
   </footer>
-  <!-- ===== Firebase SDK (adaugă asta înainte de </body>) ===== -->
-  <!-- Firebase App -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <!-- Firestore -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <!-- Optional: Auth (pentru anonymous sign-in) -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
-
-  <!-- Review script (va porni după ce SDK-urile sunt încărcate) -->
-  <script>
-    // ====== Pune aici config-ul pe care-l iei din Firebase Console (Your apps) =====
-    // Exemplu (înlocuiește valorile cu cele din consola ta)
-    const firebaseConfig = {
-      apiKey: "AIzaSyDzWTQbnLMnQQiqYRCRlWJpDWwPUejuAFs",
-      authDomain: "andz-719ec.firebaseapp.com",
-      projectId: "andz-719ec",
-      storageBucket: "andz-719ec.firebasestorage.app",
-      messagingSenderId: "439585941451",
-      appId: "1:439585941451:web:0dbb0427bdb119545ff84e"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-
-    // Export Firestore & Auth compat (folosim compat pentru simplitate)
-    const db = firebase.firestore();
-    const auth = firebase.auth();
-    window._firebase = { firebase, db, auth }; // expunem pe window pentru script.js
-  </script>
-
-  <!-- Scriptul de review: adaugă-l după inițializare -->
-  <script src="reviews.js" defer></script>
 </body>
 </html>
