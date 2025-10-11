@@ -555,7 +555,16 @@ body.dark-mode .intro-text {
 footer.show #footer-text {
   opacity: 1;
 }
-
+/* tranzitii poze yt */
+#yt-thumbnail {
+  width: 120px;
+  height: auto;
+  transition: opacity 0.5s ease-in-out;
+  opacity: 1;
+}
+#yt-thumbnail.fade-out {
+  opacity: 0;
+}
 /* Dark mode fade */
 footer.fade-out {
   opacity: 0;
