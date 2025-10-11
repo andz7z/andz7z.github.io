@@ -397,7 +397,30 @@ if (mainTitle && navButtons && titleEl) {
     themeToggle.textContent = isDark ? "🌙" : "💡";
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
+// ===========================================================
+// ======== YouTube Thumbnail Theme Switch (Light/Dark) ========
+// ===========================================================
+const ytThumb = document.getElementById("yt-thumbnail");
 
+function updateYTLogo() {
+  if (!ytThumb) return;
+  const isDark = body.classList.contains("dark-mode");
+  const newSrc = isDark
+    ? "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif"
+    : "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
+
+  if (ytThumb.src === newSrc) return;
+
+  ytThumb.classList.add("fade-out");
+  setTimeout(() => {
+    ytThumb.src = newSrc;
+    setTimeout(() => ytThumb.classList.remove("fade-out"), 150);
+  }, 300);
+}
+
+updateYTLogo();
+
+themeToggle?.addEventListener("click", updateYTLogo);
   // ===========================================================
   // ===== Starfield Generator =====
   // ===========================================================
