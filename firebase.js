@@ -1,6 +1,10 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+// ===============================
+// Firebase Configuration
+// ===============================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+// 🔧 înlocuiește cu datele tale din Firebase Console
 const firebaseConfig = {
   apiKey: "AIzaSyBGKXuWCXFn1JzKP6nNyKNhbBVO6rVfPzk",
   authDomain: "andz-portfolio.firebaseapp.com",
@@ -13,45 +17,50 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// trimite review
-const form = document.getElementById("reviewForm");
-const reviewsList = document.getElementById("reviewsList");
+// ===============================
+// Event: când DOM-ul e gata
+// ===============================
+document.addEventListener("DOMContentLoaded", () => {
+  const reviewForm = document.getElementById("review-form");
+  const reviewsContainer = document.getElementById("reviews-container");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const name = document.getElementById("reviewName").value.trim();
-  const message = document.getElementById("reviewText").value.trim();
+  // 🔹 Adăugare review
+  reviewForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  if (!name || !message) {
-    alert("Completează toate câmpurile!");
-    return;
-  }
+    const name = document.getElementById("name").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const rating = document.getElementById("rating").value;
 
-  try {
+    if (!name || !message) return;
+
     await addDoc(collection(db, "reviews"), {
       name,
       message,
-      createdAt: new Date()
+      rating,
+      date: new Date()
     });
 
-    form.reset();
-    alert("✅ Review trimis cu succes!");
+    reviewForm.reset();
+    loadReviews();
+  });
 
-    // adaugă instant în listă
-    const newReview = document.createElement("div");
-    newReview.textContent = `${name}: ${message}`;
-    reviewsList.appendChild(newReview);
-  } catch (error) {
-    console.error("Eroare la trimitere:", error);
-    alert("❌ Eroare la trimiterea review-ului.");
+  // 🔹 Afișare review-uri
+  async function loadReviews() {
+    reviewsContainer.innerHTML = "";
+    const querySnapshot = await getDocs(collection(db, "reviews"));
+    querySnapshot.forEach((doc) => {
+      const r = doc.data();
+      const div = document.createElement("div");
+      div.classList.add("review");
+      div.innerHTML = `
+        <p><strong>${r.name}</strong> (${r.rating}⭐)</p>
+        <p>${r.message}</p>
+      `;
+      reviewsContainer.appendChild(div);
+    });
   }
-});
 
-// afișează review-urile deja existente
-const querySnapshot = await getDocs(collection(db, "reviews"));
-querySnapshot.forEach((doc) => {
-  const data = doc.data();
-  const div = document.createElement("div");
-  div.textContent = `${data.name}: ${data.message}`;
-  reviewsList.appendChild(div);
+  // nu încărcăm automat — doar când se apasă pe Reviews
+  window.loadReviews = loadReviews;
 });
