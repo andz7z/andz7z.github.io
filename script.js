@@ -282,18 +282,55 @@ if (mainTitle && navButtons && titleEl) {
     animateParticles();
   }
 
-  // ===========================================================
-  // ===== Notification System =====
-  // ===========================================================
+// ===========================================================
+// ===== Revolutionary Notification System =====
+// ===========================================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const notif = document.getElementById("notification");
+  const notifClose = document.getElementById("notif-close");
+
+  if (!notif) return;
+
+  // Show notification after delay
   setTimeout(() => {
-    const notif = document.getElementById("notification");
-    if (!notif) return;
+    notif.classList.remove("hidden");
     notif.classList.add("show");
+
+    // Play sound
     const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
-    notifSound.volume = 0.1;
+    notifSound.volume = 0.15;
     notifSound.play().catch(() => {});
-    setTimeout(() => notif.classList.remove("show"), 10000);
-  }, 7000);
+
+    // Auto-hide after 10 seconds
+    setTimeout(() => {
+      notif.classList.remove("show");
+      setTimeout(() => notif.classList.add("hidden"), 600);
+    }, 10000);
+  }, 5000);
+
+  // Close button manually hides notification
+  notifClose.addEventListener("click", () => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.classList.add("hidden"), 600);
+  });
+
+  // Detect theme change live (for sites with theme toggles)
+  const observer = new MutationObserver(() => {
+    notif.style.transition = "all 0.6s ease";
+  });
+  observer.observe(document.body, { attributes: true, attributeFilter: ["data-theme"] });
+});
+
+// ===========================================================
+// ===== Optional: Theme Toggle System =====
+// ===========================================================
+
+function toggleTheme() {
+  const theme = document.body.dataset.theme === "dark" ? "light" : "dark";
+  document.body.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
+}
 
   // ===========================================================
   // ======== Work buttons & detail panels ========
