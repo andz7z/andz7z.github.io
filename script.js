@@ -1,5 +1,5 @@
 // ===========================================================
-// ANDZ MAIN SCRIPT
+// ANDZ MAIN SCRIPT — Optimized, same visuals / performance improved
 // ===========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const starfield = document.querySelector(".starfield");
 
   // ===========================================================
-  // ===== Glass-Metal Intro → GIF =====
+  // ===== Glass-Metal Intro → GIF stays as main logo =====
   // ===========================================================
   window.addEventListener("load", () => {
     if (!loadingScreen || !mainLogo) return;
@@ -36,13 +36,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===========================================================
   // ======== Section Switcher ========
   // ===========================================================
+// When a section is opened, trigger fade sequence
 function openSection(id) {
   playClick();
   const sections = document.querySelectorAll(".section");
   const buttons = document.querySelectorAll(".nav-buttons button");
 
+  // ascunde toate secțiunile
   sections.forEach(sec => sec.classList.add("hidden"));
 
+  // afișează secțiunea selectată + animatie treptată
   const sectionToShow = document.getElementById(id);
   if (sectionToShow) {
     sectionToShow.classList.remove("hidden");
@@ -51,6 +54,7 @@ function openSection(id) {
     sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  // activează butonul corect
   buttons.forEach(btn => {
     btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
   });
@@ -165,7 +169,7 @@ window.openSection = openSection;
       moved = true;
     }
   });
-// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE =====
+// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE (with zoom + reset position) =====
 const mainTitle = document.getElementById("main-title");
 const navButtons = document.querySelector(".nav-buttons");
 const titleEl = document.getElementById("main-logo");
@@ -184,6 +188,7 @@ if (mainTitle && navButtons && titleEl) {
       navButtons.style.opacity = "1";
       navButtons.style.transform = "scale(1)";
 
+      // Animate buttons sequentially
       buttons.forEach((btn, i) => {
         btn.style.opacity = "0";
         btn.style.transform = "translateY(15px)";
@@ -191,20 +196,23 @@ if (mainTitle && navButtons && titleEl) {
           btn.style.transition = "all 0.6s ease";
           btn.style.opacity = "1";
           btn.style.transform = "translateY(0)";
-        }, i * 250);
+        }, i * 250); // 0.25s delay between buttons
       });
     }
 
+    // ===== HIDE MENU =====
     else {
       navButtons.style.transition = "transform 0.4s ease, opacity 0.4s ease";
       navButtons.style.transform = "scale(0.8)";
       navButtons.style.opacity = "0";
 
+      // fade-out active section(s)
       document.querySelectorAll(".section:not(.hidden)").forEach(sec => {
         sec.classList.add("fade-out");
         setTimeout(() => sec.classList.add("hidden"), 400);
       });
 
+      // hide everything after fade
       setTimeout(() => {
         navButtons.classList.add("hidden");
         titleEl.classList.remove("move-up");
@@ -397,30 +405,7 @@ if (mainTitle && navButtons && titleEl) {
     themeToggle.textContent = isDark ? "🌙" : "💡";
     localStorage.setItem("theme", isDark ? "dark" : "light");
   });
-// ===========================================================
-// ======== YouTube Thumbnail Theme Switch (Light/Dark) ========
-// ===========================================================
-const ytThumb = document.getElementById("yt-thumbnail");
 
-function updateYTLogo() {
-  if (!ytThumb) return;
-  const isDark = body.classList.contains("dark-mode");
-  const newSrc = isDark
-    ? "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif"
-    : "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
-
-  if (ytThumb.src === newSrc) return;
-
-  ytThumb.classList.add("fade-out");
-  setTimeout(() => {
-    ytThumb.src = newSrc;
-    setTimeout(() => ytThumb.classList.remove("fade-out"), 150);
-  }, 300);
-}
-
-updateYTLogo();
-
-themeToggle?.addEventListener("click", updateYTLogo);
   // ===========================================================
   // ===== Starfield Generator =====
   // ===========================================================
@@ -465,8 +450,10 @@ themeToggle?.addEventListener("click", updateYTLogo);
     }, 400);
   }
 
+  // initial typing on load
   setTimeout(() => typeFooterText(lightMsg), 4000);
 
+  // change footer when theme toggles
   themeToggle?.addEventListener("click", () => {
     const isDark = body.classList.contains("dark-mode");
     const newMsg = isDark ? darkMsg : lightMsg;
