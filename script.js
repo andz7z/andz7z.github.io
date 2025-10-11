@@ -390,6 +390,31 @@ if (mainTitle && navButtons && titleEl) {
   document.addEventListener("click", ev => {
     if (!ev.target.closest(".work-buttons, .work-panel")) closeAllPanels();
   });
+const thumb = document.getElementById("yt-thumbnail");
+const THUMB_LIGHT = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
+const THUMB_DARK  = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
+
+// Funcție pentru setare thumbnail cu fade
+function updateThumbnail(theme) {
+  const url = theme === 'dark' ? THUMB_DARK : THUMB_LIGHT;
+  thumb.style.opacity = 0;
+  setTimeout(() => {
+    thumb.src = url;
+    thumb.style.opacity = 1;
+  }, 200);
+}
+
+// Setare inițială thumbnail
+const initialTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+updateThumbnail(initialTheme);
+
+// Ascultăm schimbarea clasei body pentru dark/light
+const observer = new MutationObserver(() => {
+  const newTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+  updateThumbnail(newTheme);
+});
+
+observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
   // ===========================================================
   // ======== Dark / Light Mode Toggle ========
