@@ -36,23 +36,30 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===========================================================
   // ======== Section Switcher ========
   // ===========================================================
-  function openSection(id) {
-    playClick();
-    const sections = document.querySelectorAll(".section");
-    const buttons = document.querySelectorAll(".nav-buttons button");
+// When a section is opened, trigger fade sequence
+function openSection(id) {
+  playClick();
+  const sections = document.querySelectorAll(".section");
+  const buttons = document.querySelectorAll(".nav-buttons button");
 
-    sections.forEach(sec => sec.classList.add("hidden"));
-    const sectionToShow = document.getElementById(id);
-    if (sectionToShow) {
-      sectionToShow.classList.remove("hidden");
-      sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  // ascunde toate secțiunile
+  sections.forEach(sec => sec.classList.add("hidden"));
 
-    buttons.forEach(btn => {
-      btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
-    });
+  // afișează secțiunea selectată + animatie treptată
+  const sectionToShow = document.getElementById(id);
+  if (sectionToShow) {
+    sectionToShow.classList.remove("hidden");
+    sectionToShow.classList.add("fade-sequence");
+    setTimeout(() => sectionToShow.classList.remove("fade-sequence"), 2000);
+    sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-  window.openSection = openSection;
+
+  // activează butonul corect
+  buttons.forEach(btn => {
+    btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
+  });
+}
+window.openSection = openSection;
 
   // ===========================================================
   // ======== YouTube API ========
