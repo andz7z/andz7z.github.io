@@ -434,12 +434,12 @@ if (mainTitle && navButtons && titleEl) {
     reviews.reverse().forEach((r, idx) => {
       const div = document.createElement("div");
       div.className = "review";
-      div.innerHTML = '
+      div.innerHTML =
         <strong>${r.username}</strong>
         <span class="rating"> ${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</span>
         <p>${r.comment}</p>
         <small>${new Date(r.timestamp).toLocaleString()}</small>
-      ';
+      ;
       reviewsContainer.appendChild(div);
       setTimeout(() => div.classList.add("show"), 100 * idx);
     });
