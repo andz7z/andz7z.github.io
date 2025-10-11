@@ -423,3 +423,47 @@ if (mainTitle && navButtons && titleEl) {
   }
 
 });
+// reviews 
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbx...../exec"; // <-- înlocuiește cu linkul tău
+
+async function submitReview(e) {
+  e.preventDefault();
+  const name = document.getElementById("name").value;
+  const rating = document.getElementById("rating").value;
+  const message = document.getElementById("message").value;
+
+  const res = await fetch(SHEET_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name, rating, message })
+  });
+
+  const data = await res.json();
+  if (data.status === "success") {
+    alert("✅ Thank you for your feedback!");
+    e.target.reset();
+    loadReviews(); // reîncarcă lista
+  } else {
+    alert("❌ Something went wrong.");
+  }
+}
+
+async function loadReviews() {
+  const res = await fetch(SHEET_URL);
+  const reviews = await res.json();
+  const container = document.getElementById("reviewsContainer");
+  container.innerHTML = "";
+  reviews.slice(-5).reverse().forEach(r => {
+    const item = document.createElement("div");
+    item.className = "review-item";
+    item.innerHTML = 
+      <h4>${r.name}</h4>
+      <div class="rating">${"⭐".repeat(r.rating)}</div>
+      <p>${r.message}</p>
+    ;
+    container.appendChild(item);
+  });
+}
+
+document.getElementById("reviewForm")?.addEventListener("submit", submitReview);
+window.addEventListener("load", loadReviews);
