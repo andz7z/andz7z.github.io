@@ -449,49 +449,58 @@ if (mainTitle && navButtons && titleEl) {
     typeFooterText(newMsg);
   });
 });
-// ===== Review System =====
-const SHEET_URL = "https://script.google.com/macros/s/AKfycbyayzwBulnfS8KcAz_d9uqj_ye3oXlC__P3tBq9h-jjGBUh8lj1eXm1fOQVrmAHHhsz/exec";
-const reviewsContainer = document.getElementById("reviews-container");
-const popup = document.getElementById("review-popup");
-const addBtn = document.getElementById("add-review-btn");
-const submitBtn = document.getElementById("submit-review");
-const closeBtn = document.getElementById("close-popup");
+// ======== Review System ======== //
+const reviewForm = document.getElementById("review-form");
+const reviewResponse = document.getElementById("review-response");
+const reviewsContainer = document.getElementById("reviews-list");
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz40CLNUKZ9g8PROBZDuyPr-LQ5o2s4PuaYxz8w2zbxkupK2jPBQEyJjYpCuvo6tq7O/exec";
 
-addBtn.addEventListener("click", () => popup.classList.remove("hidden"));
-closeBtn.addEventListener("click", () => popup.classList.add("hidden"));
+// === Trimitere review ===
+if (reviewForm) {
+  reviewForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = document.getElementById("review-name").value.trim();
+    const message = document.getElementById("review-message").value.trim();
+    const rating = document.getElementById("review-rating").value;
 
-async function loadReviews() {
-  const res = await fetch(SHEET_URL);
-  const data = await res.json();
-  reviewsContainer.innerHTML = "";
-  data.reverse().forEach(r => {
-    const div = document.createElement("div");
-    div.className = "review";
-    div.innerHTML = `
-      <strong>${r.name}</strong> - <span>${"⭐".repeat(r.rating)}</span>
-      <p>${r.message}</p>
-      <small>${new Date(r.timestamp).toLocaleString()}</small>
-    `;
-    reviewsContainer.appendChild(div);
+    if (!name || !message) {
+      reviewResponse.textContent = "❗ Completează toate câmpurile.";
+      return;
+    }
+
+    reviewResponse.textContent = "Se trimite...";
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, message, rating }),
+      });
+      reviewResponse.textContent = "✅ Mulțumim pentru review!";
+      reviewForm.reset();
+    } catch (err) {
+      console.error(err);
+      reviewResponse.textContent = "❌ Eroare la trimitere.";
+    }
   });
 }
 
-submitBtn.addEventListener("click", async () => {
-  const name = document.getElementById("review-name").value.trim();
-  const rating = document.getElementById("review-rating").value;
-  const message = document.getElementById("review-message").value.trim();
-  if (!name || !message) return alert("Completează toate câmpurile!");
-
-  await fetch(SHEET_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name, rating, message }),
-  });
-
-  popup.classList.add("hidden");
-  document.getElementById("review-name").value = "";
-  document.getElementById("review-message").value = "";
-  loadReviews();
-});
-
-window.addEventListener("DOMContentLoaded", loadReviews);
+// === Afișare review-uri existente ===
+async function loadReviews() {
+  try {
+    const res = await fetch(GOOGLE_SCRIPT_URL);
+    const data = await res.json();
+    if (Array.isArray(data) && reviewsContainer) {
+      reviewsContainer.innerHTML = data.map(r => `
+        <div class="review">
+          <h4>${r.name} <span>${"⭐".repeat(Number(r.rating))}</span></h4>
+          <p>${r.message}</p>
+          <small>${new Date(r.timestamp).toLocaleString()}</small>
+        </div>
+      `).join("");
+    }
+  } catch (err) {
+    console.error("Eroare la încărcarea review-urilor:", err);
+  }
+}
+window.addEventListener("load", loadReviews);
