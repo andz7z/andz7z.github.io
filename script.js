@@ -423,7 +423,7 @@ if (mainTitle && navButtons && titleEl) {
   }
 
 });
-// reviews 
+// ===================== REVIEWS SYSTEM =====================
 const SHEET_URL = "https://script.google.com/macros/s/AKfycbx...../exec"; // <-- înlocuiește cu linkul tău
 
 async function submitReview(e) {
