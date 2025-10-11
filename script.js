@@ -173,43 +173,50 @@ if (mainTitle && navButtons && titleEl) {
     playClick();
     navVisible = !navVisible;
 
-    // ===== WHEN SHOWING BUTTONS =====
+    // ===== SHOW MENU =====
     if (navVisible) {
       titleEl.classList.add("move-up");
       navButtons.classList.remove("hidden");
-      navButtons.style.transform = "scale(0.8)";
-      navButtons.style.opacity = "0";
+      const buttons = navButtons.querySelectorAll("button");
+      navButtons.style.opacity = "1";
+      navButtons.style.transform = "scale(1)";
 
-      setTimeout(() => {
-        navButtons.style.transition = "transform 0.5s ease, opacity 0.5s ease";
-        navButtons.style.transform = "scale(1)";
-        navButtons.style.opacity = "1";
-        navButtons.classList.add("show-buttons");
-      }, 20);
+      // Animate buttons sequentially
+      buttons.forEach((btn, i) => {
+        btn.style.opacity = "0";
+        btn.style.transform = "translateY(15px)";
+        setTimeout(() => {
+          btn.style.transition = "all 0.6s ease";
+          btn.style.opacity = "1";
+          btn.style.transform = "translateY(0)";
+        }, i * 250); // 0.25s delay between buttons
+      });
     }
 
-    // ===== WHEN HIDING BUTTONS =====
+    // ===== HIDE MENU =====
     else {
-      // fade out buttons
       navButtons.style.transition = "transform 0.4s ease, opacity 0.4s ease";
       navButtons.style.transform = "scale(0.8)";
       navButtons.style.opacity = "0";
 
-      // after fade completes
+      // fade-out active section(s)
+      document.querySelectorAll(".section:not(.hidden)").forEach(sec => {
+        sec.classList.add("fade-out");
+        setTimeout(() => sec.classList.add("hidden"), 400);
+      });
+
+      // hide everything after fade
       setTimeout(() => {
-        navButtons.classList.remove("show-buttons");
         navButtons.classList.add("hidden");
         titleEl.classList.remove("move-up");
 
-        // ===== EXTRA: close all sections & panels =====
-        document.querySelectorAll(".section").forEach(sec => sec.classList.add("hidden"));
         const workDetail = document.getElementById("work-detail-container");
         if (workDetail) workDetail.innerHTML = "";
         document.querySelectorAll(".work-btn").forEach(btn => {
           btn.classList.remove("active");
           btn.setAttribute("aria-expanded", "false");
         });
-      }, 400);
+      }, 450);
     }
   });
 }
