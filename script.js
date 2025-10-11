@@ -427,8 +427,8 @@ if (mainTitle && navButtons && titleEl) {
   const footer = document.querySelector("footer");
   const footerText = document.getElementById("footer-text");
 
-  const lightMsg = "© 2025 ANDZ | Crafted with passion 🧊";
-  const darkMsg = "© 2025 ANDZ | Dreaming under the moon 🌙";
+  const lightMsg = "Made with 🩵 by ANDZ";
+  const darkMsg = "Made with 💛 by ANDZ";
 
   function typeFooterText(message) {
     footer.classList.remove("show");
