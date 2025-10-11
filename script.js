@@ -283,7 +283,7 @@ if (mainTitle && navButtons && titleEl) {
   }
 
 // ===========================================================
-// ===== Revolutionary Notification System with Glow & Bounce =====
+// ===== Notification System: Glow, Bounce & Progress Bar =====
 // ===========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -293,8 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!notif) return;
 
-  // Show notification after 5s
-  setTimeout(() => {
+  const showNotification = () => {
     notif.classList.remove("hidden");
     notif.classList.add("show");
 
@@ -307,7 +306,10 @@ document.addEventListener("DOMContentLoaded", () => {
       notif.classList.remove("show");
       setTimeout(() => notif.classList.add("hidden"), 600);
     }, 10000);
-  }, 5000);
+  };
+
+  // Show notification after 5s
+  setTimeout(showNotification, 5000);
 
   // Close manually
   notifClose.addEventListener("click", () => {
