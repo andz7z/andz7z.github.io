@@ -45,29 +45,44 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // === STAR RATING ===
-  let selectedRating = 0;
-  const stars = document.querySelectorAll(".star");
-  stars.forEach(star => {
-    star.style.display = "inline-block";
-    star.style.fontSize = "1.6rem";
-    star.style.cursor = "pointer";
-    star.style.opacity = "0.5";
+ // === STAR RATING (nou) ===
+let selectedRating = 0;
+const stars = document.querySelectorAll("#star-rating svg");
 
-    star.addEventListener("mouseenter", () => {
-      stars.forEach(s => (s.style.opacity = s.dataset.value <= star.dataset.value ? "1" : "0.3"));
-    });
-
-    star.addEventListener("mouseleave", () => {
-      stars.forEach(s => (s.style.opacity = s.dataset.value <= selectedRating ? "1" : "0.4"));
-    });
-
-    star.addEventListener("click", () => {
-      selectedRating = parseInt(star.dataset.value);
-      stars.forEach(s => (s.style.opacity = s.dataset.value <= selectedRating ? "1" : "0.3"));
+stars.forEach(star => {
+  // Hover vizual
+  star.addEventListener("mouseenter", () => {
+    resetStars();
+    const val = parseInt(star.dataset.value);
+    stars.forEach(s => {
+      if (parseInt(s.dataset.value) <= val) s.classList.add("hovered");
     });
   });
 
+  // Reset la ieșire
+  star.addEventListener("mouseleave", () => {
+    resetStars();
+    highlightStars(selectedRating);
+  });
+
+  // Click — selectează rating
+  star.addEventListener("click", () => {
+    selectedRating = parseInt(star.dataset.value);
+    resetStars();
+    highlightStars(selectedRating);
+  });
+});
+
+function resetStars() {
+  stars.forEach(s => s.classList.remove("hovered", "active"));
+}
+
+function highlightStars(rating) {
+  stars.forEach(s => {
+    if (parseInt(s.dataset.value) <= rating) s.classList.add("active");
+  });
+}
+  
   // === CHAR COUNTER ===
   message.addEventListener("input", () => {
     charCount.textContent = message.value.length;
