@@ -297,32 +297,36 @@ if (mainTitle && navButtons && titleEl) {
   }
 
   // ===========================================================
-// ===== Modern Subtle Notification System =====
+// ===== REVOLUTIONARY NOTIFICATION SYSTEM =====
 // ===========================================================
-document.addEventListener("DOMContentLoaded", () => {
-  const notif = document.getElementById("notification");
-  const notifClose = document.getElementById("notif-close");
+function showNotification(type = "info", message = "This is a notification!", duration = 4000) {
+  const existing = document.querySelector(".notification.show");
+  if (existing) existing.remove();
 
-  if (!notif) return;
+  const notif = document.createElement("div");
+  notif.className = `notification ${type}`;
+  notif.innerHTML = `
+    <span>${message}</span>
+    <button class="notif-close" aria-label="Close">&times;</button>
+  `;
+  document.body.appendChild(notif);
 
-  // Show notification after 6s
-  setTimeout(() => {
-    notif.classList.add("show");
+  // small fade-in
+  setTimeout(() => notif.classList.add("show"), 100);
 
-    const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
-    notifSound.volume = 0.05; // mai mic decât înainte
-    notifSound.play().catch(() => {});
-  }, 6000);
+  // click close
+  notif.querySelector(".notif-close").addEventListener("click", () => notif.remove());
 
-  // Hide after 10s
+  // auto hide
   setTimeout(() => {
     notif.classList.remove("show");
-  }, 16000);
+    setTimeout(() => notif.remove(), 600);
+  }, duration);
+}
 
-  // Manual close button
-  notifClose.addEventListener("click", () => {
-    notif.classList.remove("show");
-  });
+// Example startup notification
+window.addEventListener("load", () => {
+  setTimeout(() => showNotification("info", "👋 Welcome back to my website!"), 3000);
 });
 
   // ===========================================================
