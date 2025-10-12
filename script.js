@@ -85,9 +85,6 @@ window.openSection = openSection;
       setText("yt-videos", Number(statistics.videoCount).toLocaleString());
       setText("yt-views", Number(statistics.viewCount).toLocaleString());
 
-      const thumb = document.getElementById("yt-thumbnail");
-      if (thumb) thumb.src = snippet.thumbnails.high.url;
-
       const link = document.getElementById("yt-link");
       if (link) link.href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
     } catch (err) {
@@ -394,12 +391,10 @@ const thumb = document.getElementById("yt-thumbnail");
 const THUMB_LIGHT = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
 const THUMB_DARK  = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
 
-let lastTheme = null;
-
-// Funcție pentru actualizare thumbnail cu fade
+// Funcție pentru setarea thumbnail-ului cu fade
 function updateThumbnail(theme) {
   const url = theme === 'dark' ? THUMB_DARK : THUMB_LIGHT;
-  if (thumb.src !== url) { // schimbă doar dacă e altă poză
+  if (thumb.src !== url) {  // schimbă doar dacă e nevoie
     thumb.style.opacity = 0;
     setTimeout(() => {
       thumb.src = url;
@@ -408,22 +403,21 @@ function updateThumbnail(theme) {
   }
 }
 
-// Funcție pentru citirea temei curente
+// Detectăm tema curentă
 function getCurrentTheme() {
   return document.body.classList.contains('dark') ? 'dark' : 'light';
 }
 
-// Loop care verifică tema la fiecare 200ms
-setInterval(() => {
-  const currentTheme = getCurrentTheme();
-  if (currentTheme !== lastTheme) {
-    lastTheme = currentTheme;
-    updateThumbnail(currentTheme);
-  }
-}, 200);
-
-// La încărcare, setează thumbnail-ul corect
+// Setare inițială la încărcare
 updateThumbnail(getCurrentTheme());
+
+// Ascultăm modificările clasei body (dark/light) folosind MutationObserver
+const observer = new MutationObserver(() => {
+  updateThumbnail(getCurrentTheme());
+});
+
+// Observăm doar atributele clasei
+observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
 
   // ===========================================================
   // ======== Dark / Light Mode Toggle ========
