@@ -23,13 +23,24 @@ const totalReviews = document.getElementById("total-reviews");
 const lastUpdated = document.getElementById("last-updated");
 
 const sortBtns = document.querySelectorAll(".sort-btn");
+// === STARS RATING HANDLER ===
+const stars = document.querySelectorAll("#rating-stars span");
+const hiddenRating = document.getElementById("rating");
+
+stars.forEach(star => {
+  star.addEventListener("click", () => {
+    const value = parseInt(star.dataset.value);
+    hiddenRating.value = value;
+
+    stars.forEach(s => s.classList.toggle("active", parseInt(s.dataset.value) <= value));
+  });
+});
 let currentSort = "recent";
 
 // === Helper functions ===
 function buildStars(n){return "★".repeat(n)+"☆".repeat(5-n);}
 function trimWords(t){let w=t.split(/\s+/);return w.slice(0,100).join(" ");}
 function formatDate(ts){let d=new Date(ts);return d.toLocaleDateString()+" "+d.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});}
-function getRating(){let r=form.querySelector('input[name="rating"]:checked');return r?r.value:3;}
 
 // === Word limit live ===
 messageInput.addEventListener("input",()=>{
