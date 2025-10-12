@@ -145,13 +145,58 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
 .card-content a{padding:6px 12px;background:rgba(255,255,255,0.05);color:white;border-radius:12px;text-decoration:none;font-weight:600;transition:all .3s ease}
 .card-content a:hover{background:rgba(255,255,255,0.15);transform:scale(1.05)}
 
-/* Notification */
-.notification{
-  position:fixed;bottom:20px;right:20px;background:rgba(25,25,25,0.9);color:#fff;font-size:16px;font-weight:500;
-  padding:14px 22px;border-radius:14px;box-shadow:0 4px 15px rgba(0,0,0,0.4);opacity:0;transform:translateY(30px);
-  transition:all .6s ease;z-index:9999;pointer-events:none;
+/* ===== Notification (modern subtle style) ===== */
+.notification {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--notif-bg, rgba(255, 255, 255, 0.75));
+  color: var(--notif-text, #111);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 14px 22px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: all 0.6s ease;
+  z-index: 9999;
+  pointer-events: none;
 }
-.notification.show{opacity:1;transform:translateY(0)}
+
+.notification.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Close button */
+.notif-close {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 22px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+.notif-close:hover {
+  transform: scale(1.3);
+}
+
+/* Light / Dark mode integration */
+body.light-mode .notification {
+  --notif-bg: rgba(255, 255, 255, 0.8);
+  --notif-text: #111;
+}
+
+body.dark-mode .notification {
+  --notif-bg: rgba(30, 30, 30, 0.85);
+  --notif-text: #f5f5f5;
+}
 
 /* Skills card */
 .skills-card{
