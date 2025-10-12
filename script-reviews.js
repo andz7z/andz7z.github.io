@@ -12,54 +12,272 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// === FORM HANDLING ===
+// === DOM Elements ===
 const form = document.getElementById("review-form");
-const container = document.getElementById("reviews-container");
-const noReviews = document.getElementById("no-reviews");
+const nameInput = document.getElementById("name");
+const ratingInput = document.getElementById("rating");
+const messageInput = document.getElementById("message");
+const serviceSelect = document.getElementById("service");
+const starPicker = document.getElementById("star-picker");
+const charCount = document.getElementById("char-count");
 
+const reviewsList = document.getElementById("reviews-list");
+const noReviews = document.getElementById("no-reviews");
+const avgValueEl = document.getElementById("avg-value");
+const totalCountEl = document.getElementById("total-count");
+const sortSelect = document.getElementById("sort-select");
+
+let allReviews = []; // local cache
+let currentFilter = "all";
+
+// assets avatars
+const AVATAR_MALE = "assets/logos/male.png";
+const AVATAR_FEMALE = "assets/logos/female.png";
+const AVATAR_DEFAULT = AVATAR_MALE;
+
+// --- star UI logic ---
+function setStarsValue(value){
+  ratingInput.value = value;
+  [...starPicker.children].forEach(star => {
+    const v = Number(star.dataset.value);
+    if (v <= value) star.classList.add("selected"); else star.classList.remove("selected");
+  });
+}
+starPicker.addEventListener("click", (e) => {
+  const star = e.target.closest(".star");
+  if (!star) return;
+  const v = Number(star.dataset.value);
+  setStarsValue(v);
+});
+starPicker.addEventListener("mouseover", (e) => {
+  const star = e.target.closest(".star");
+  if (!star) return;
+  const v = Number(star.dataset.value);
+  [...starPicker.children].forEach(s => s.classList.toggle("hover", Number(s.dataset.value) <= v));
+});
+starPicker.addEventListener("mouseout", () => {
+  [...starPicker.children].forEach(s => s.classList.remove("hover"));
+});
+starPicker.addEventListener("keydown", (e) => {
+  // allow keyboard rating (left/right/up/down/enter)
+  const focused = document.activeElement;
+  if (!focused || !focused.classList.contains("star")) return;
+  let current = Number(focused.dataset.value);
+  if (["ArrowLeft","ArrowDown"].includes(e.key)) current = Math.max(1, current-1);
+  if (["ArrowRight","ArrowUp"].includes(e.key)) current = Math.min(5, current+1);
+  if (e.key === "Enter") { setStarsValue(current); focused.blur(); }
+  // move focus to new star
+  const next = [...starPicker.children].find(s => Number(s.dataset.value) === current);
+  if (next) next.focus();
+});
+
+// init default stars
+setStarsValue(5);
+
+// --- textarea char count & limit already enforced by maxlength ---
+function updateCharCount(){
+  charCount.textContent = `${messageInput.value.length} / 100`;
+}
+messageInput.addEventListener("input", updateCharCount);
+updateCharCount();
+
+// --- FORM SUBMIT ---
 form.addEventListener("submit", e => {
   e.preventDefault();
 
-  const name = form.name.value.trim();
-  const rating = form.rating.value.trim();
-  const message = form.message.value.trim();
+  const name = nameInput.value.trim();
+  const rating = Number(ratingInput.value) || 0;
+  const message = messageInput.value.trim().slice(0,100);
+  const service = serviceSelect.value;
+  const gender = (form.querySelector('input[name="gender"]:checked') || {value: 'male'}).value;
 
-  if (!name || !rating || !message) return alert("Please fill all fields!");
+  if (!name || !rating || !message) {
+    return alert("Te rog completează toate câmpurile.");
+  }
 
-  const reviewRef = db.ref("reviews").push();
-  reviewRef.set({
+  const now = new Date();
+  const payload = {
     name,
     rating,
     message,
-    date: new Date().toLocaleString()
-  });
+    service,
+    gender,
+    timestamp: now.toISOString(),
+    displayDate: now.toLocaleString()
+  };
 
-  form.reset();
-  alert("✅ Review sent!");
+  const reviewRef = db.ref("reviews").push();
+  reviewRef.set(payload)
+    .then(() => {
+      // reset form nicely
+      form.reset();
+      setStarsValue(5);
+      updateCharCount();
+      alert("✅ Review trimis!");
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Eroare la trimitere. Încearcă din nou.");
+    });
 });
 
-// === DISPLAY REVIEWS ===
-function loadReviews() {
-  db.ref("reviews").on("value", snapshot => {
-    container.innerHTML = "";
-    if (!snapshot.exists()) {
-      noReviews.style.display = "block";
-      return;
-    }
-    noReviews.style.display = "none";
+// --- UTILS: emoji & avatar map ---
+function serviceEmoji(s){
+  if (s === "web") return "🌐";
+  if (s === "editing") return "🎬";
+  if (s === "programming") return "💻";
+  return "🔖";
+}
+function avatarForGender(g){
+  if (g === "female") return AVATAR_FEMALE;
+  return AVATAR_MALE;
+}
 
-    snapshot.forEach(child => {
-      const { name, rating, message, date } = child.val();
-      const div = document.createElement("div");
-      div.className = "review-item";
-      div.innerHTML = `
-        <strong>${name}</strong> <span>⭐${rating}</span>
-        <p>${message}</p>
-        <small>${date}</small>
-      `;
-      container.appendChild(div);
-    });
+// --- LOAD & RENDER REVIEWS ---
+function computeStats(reviews){
+  if (!reviews.length) return {avg: 0, total:0};
+  const sum = reviews.reduce((acc,r)=>acc + Number(r.rating || 0), 0);
+  const avg = +(sum / reviews.length).toFixed(2);
+  return {avg, total: reviews.length};
+}
+
+function renderStarsInline(rating){
+  // small inline stars (non-interactive) for each review
+  let html = "";
+  for(let i=1;i<=5;i++){
+    html += `<span class="star ${i<=rating ? 'selected' : ''}" aria-hidden="true">★</span>`;
+  }
+  return html;
+}
+
+function renderReviewCard(review, key){
+  const avatar = avatarForGender(review.gender);
+  const emoji = serviceEmoji(review.service);
+  const dateText = review.displayDate || new Date(review.timestamp).toLocaleString();
+  const ratingNum = Number(review.rating) || 0;
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "review-card";
+  wrapper.dataset.key = key;
+  wrapper.dataset.service = review.service || "unknown";
+  wrapper.innerHTML = `
+    <div class="review-avatar" aria-hidden="true">
+      <img src="${avatar}" alt="${review.gender} avatar" loading="lazy">
+    </div>
+    <div class="review-content">
+      <div class="review-head">
+        <div class="review-meta">
+          <div>
+            <span class="review-name">${escapeHtml(review.name)}</span>
+            <span class="review-stars" aria-hidden="true">${renderStarsInline(ratingNum)}</span>
+            <span class="review-emoji" title="${escapeHtml(review.service)}">${emoji}</span>
+          </div>
+        </div>
+        <div class="review-date" aria-hidden="true">${escapeHtml(dateText)}</div>
+      </div>
+      <div class="review-msg">${escapeHtml(review.message)}</div>
+    </div>
+  `;
+
+  // accessibility: show date as tooltip on hover for keyboard focus too
+  wrapper.addEventListener("mouseenter", ()=> {
+    // nothing else, CSS handles reveal of .review-date
+  });
+  wrapper.addEventListener("focus", ()=> {
+    // when keyboard focuses, show visually by adding class
+    wrapper.classList.add("focused");
+  });
+  wrapper.addEventListener("blur", ()=> wrapper.classList.remove("focused"));
+
+  return wrapper;
+}
+
+// basic escape to avoid injection
+function escapeHtml(s){
+  if(!s) return "";
+  return String(s)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+// sort helper
+function sortReviews(arr, mode){
+  const copy = [...arr];
+  if (mode === "newest") return copy.sort((a,b) => new Date(b.timestamp) - new Date(a.timestamp));
+  if (mode === "oldest") return copy.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
+  if (mode === "highest") return copy.sort((a,b) => Number(b.rating) - Number(a.rating));
+  if (mode === "lowest") return copy.sort((a,b) => Number(a.rating) - Number(b.rating));
+  return copy;
+}
+
+function filterReviews(arr, filter){
+  if (!filter || filter === "all") return arr;
+  return arr.filter(r => (r.service || "") === filter);
+}
+
+function refreshUI(){
+  // build filtered + sorted list
+  let toShow = filterReviews(allReviews, currentFilter);
+  toShow = sortReviews(toShow, sortSelect.value);
+
+  // stats
+  const stats = computeStats(filterReviews(allReviews, "all")); // stats across all reviews
+  avgValueEl.textContent = (stats.avg || 0).toFixed(2);
+  totalCountEl.textContent = stats.total;
+
+  // render list
+  reviewsList.innerHTML = "";
+  if (!toShow.length){
+    noReviews.style.display = "block";
+    return;
+  } else {
+    noReviews.style.display = "none";
+  }
+
+  toShow.forEach(r => {
+    const card = renderReviewCard(r.data, r.key);
+    reviewsList.appendChild(card);
   });
 }
 
-window.addEventListener("load", loadReviews);
+// --- Firebase listener ---
+function loadReviews(){
+  db.ref("reviews").on("value", snapshot => {
+    const arr = [];
+    snapshot.forEach(child => {
+      arr.push({ key: child.key, data: child.val() });
+    });
+    // store normalized: .timestamp fallback if missing
+    allReviews = arr.map(item => ({ ...item.data, key: item.key }));
+    refreshUI();
+  }, err => {
+    console.error("Firebase read error:", err);
+  });
+}
+
+// --- Sort & filter handlers ---
+sortSelect.addEventListener("change", () => refreshUI());
+
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    const f = btn.dataset.filter;
+    currentFilter = f === "all" ? "all" : f;
+    refreshUI();
+  });
+});
+
+// init - set default filter button active
+document.querySelectorAll(".filter-btn").forEach(b => {
+  if (b.dataset.filter === "all") b.classList.add("active");
+});
+
+// --- startup ---
+window.addEventListener("load", () => {
+  loadReviews();
+  updateCharCount();
+});
