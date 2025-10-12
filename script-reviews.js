@@ -12,30 +12,52 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// === FORM HANDLING ===
+// === SELECTORS ===
 const form = document.getElementById("review-form");
+const stars = document.querySelectorAll("#rating-stars span");
 const container = document.getElementById("reviews-container");
 const noReviews = document.getElementById("no-reviews");
+const thankMsg = document.getElementById("thankyou-message");
+let currentRating = 0;
 
+// === STAR RATING INTERACTION ===
+stars.forEach(star => {
+  star.addEventListener("click", () => {
+    currentRating = parseInt(star.dataset.value);
+    stars.forEach(s => s.classList.toggle("active", s.dataset.value <= currentRating));
+  });
+});
+
+// === SUBMIT REVIEW ===
 form.addEventListener("submit", e => {
   e.preventDefault();
 
-  const name = form.name.value.trim();
-  const rating = form.rating.value.trim();
-  const message = form.message.value.trim();
+  const name = document.getElementById("name").value.trim();
+  const message = document.getElementById("message").value.trim();
 
-  if (!name || !rating || !message) return alert("Please fill all fields!");
+  if (!name || !message || currentRating === 0) {
+    alert("Please fill in all fields and select a rating!");
+    return;
+  }
 
   const reviewRef = db.ref("reviews").push();
   reviewRef.set({
     name,
-    rating,
     message,
-    date: new Date().toLocaleString()
+    rating: currentRating,
+    date: new Date().toLocaleDateString(),
+    time: new Date().toLocaleTimeString()
   });
 
+  // Clear fields + feedback
   form.reset();
-  alert("✅ Review sent!");
+  currentRating = 0;
+  stars.forEach(s => s.classList.remove("active"));
+
+  thankMsg.textContent = `✨ Thank you for your review, ${name}!`;
+  thankMsg.classList.remove("hidden");
+  setTimeout(() => thankMsg.classList.add("show"), 100);
+  setTimeout(() => thankMsg.classList.remove("show"), 4000);
 });
 
 // === DISPLAY REVIEWS ===
@@ -48,18 +70,22 @@ function loadReviews() {
     }
     noReviews.style.display = "none";
 
-    snapshot.forEach(child => {
-      const { name, rating, message, date } = child.val();
-      const div = document.createElement("div");
-      div.className = "review-item";
-      div.innerHTML = `
-        <strong>${name}</strong> <span>⭐${rating}</span>
-        <p>${message}</p>
-        <small>${date}</small>
+    const data = snapshot.val();
+    const entries = Object.values(data).reverse(); // cele mai noi sus
+
+    entries.forEach(({ name, message, rating, date, time }) => {
+      const item = document.createElement("div");
+      item.className = "review-item";
+      item.innerHTML = `
+        <div class="review-header">
+          <strong>${name}</strong>
+          <div class="review-date">📅 ${date} <span>⏰ ${time}</span></div>
+        </div>
+        <div class="review-message">${message}</div>
+        <div class="review-rating">${"⭐".repeat(rating)}</div>
       `;
-      container.appendChild(div);
+      container.appendChild(item);
     });
   });
 }
-
 window.addEventListener("load", loadReviews);
