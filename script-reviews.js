@@ -18,7 +18,9 @@ const stars = document.querySelectorAll("#rating-stars span");
 const container = document.getElementById("reviews-container");
 const noReviews = document.getElementById("no-reviews");
 const thankMsg = document.getElementById("thankyou-message");
+const sortSelect = document.getElementById("sort-select");
 let currentRating = 0;
+let allReviews = [];
 
 // === STAR RATING ===
 stars.forEach(star => {
@@ -37,7 +39,7 @@ form.addEventListener("submit", e => {
   const gender = form.querySelector("input[name='gender']:checked")?.value;
 
   if (!name || !message || currentRating === 0 || !gender) {
-    alert("Please fill in all fields and select a rating + gender!");
+    alert("Please fill all fields and select rating + gender!");
     return;
   }
 
@@ -61,40 +63,97 @@ form.addEventListener("submit", e => {
   setTimeout(() => thankMsg.classList.remove("show"), 4000);
 });
 
-// === DISPLAY REVIEWS ===
-function loadReviews() {
-  db.ref("reviews").on("value", snapshot => {
-    container.innerHTML = "";
-    if (!snapshot.exists()) {
-      noReviews.style.display = "block";
-      return;
-    }
-    noReviews.style.display = "none";
+// === LIKE/DISLIKE (local) ===
+function handleVote(id, type) {
+  const key = `review_vote_${id}`;
+  if (localStorage.getItem(key)) return alert("You've already reacted to this review!");
+  localStorage.setItem(key, type);
+  const count = document.getElementById(`${type}-${id}`);
+  count.textContent = parseInt(count.textContent) + 1;
+}
 
-    const data = snapshot.val();
-    const entries = Object.values(data).reverse();
+// === SORT + DISPLAY ===
+sortSelect.addEventListener("change", () => renderReviews(allReviews));
 
-    entries.forEach(({ name, message, gender, rating, date, time }) => {
-      const item = document.createElement("div");
-      item.className = "review-item";
+function renderReviews(reviews) {
+  container.innerHTML = "";
+  if (!reviews.length) {
+    noReviews.style.display = "block";
+    return;
+  }
+  noReviews.style.display = "none";
 
-      const avatarSrc = gender === "female"
-        ? "assets/logos/reviews/female.png"
-        : "assets/logos/reviews/male.png";
+  const sort = sortSelect.value;
+  const sorted = [...reviews].sort((a, b) => {
+    if (sort === "newest") return new Date(b.date + " " + b.time) - new Date(a.date + " " + a.time);
+    if (sort === "oldest") return new Date(a.date + " " + a.time) - new Date(b.date + " " + b.time);
+    if (sort === "highest") return b.rating - a.rating;
+    if (sort === "lowest") return a.rating - b.rating;
+  });
 
-      item.innerHTML = `
-        <div class="review-avatar"><img src="${avatarSrc}" alt="${gender}"></div>
-        <div class="review-content">
-          <div class="review-header">
-            <strong>${name}</strong>
-            <span class="review-stars">${"★".repeat(rating)}</span>
-          </div>
-          <div class="review-message">${message}</div>
-          <div class="review-date">📅 ${date} · ⏰ ${time}</div>
-        </div>
-      `;
-      container.appendChild(item);
-    });
+  sorted.forEach((rev, idx) => {
+    const id = idx + "-" + Math.random().toString(36).substring(2, 7);
+    const avatarSrc = rev.gender === "female"
+      ? "assets/logos/reviews/female.png"
+      : "assets/logos/reviews/male.png";
+
+    const item = document.createElement("div");
+    item.className = "review-item";
+item.innerHTML = `
+  <div class="review-inner">
+    <div class="review-avatar">
+      <img src="${avatarSrc}" alt="${rev.gender}">
+    </div>
+    <div class="review-content">
+      <div class="review-header">
+        <strong>${rev.name}</strong>
+        <span class="review-stars">${"★".repeat(rev.rating)}</span>
+      </div>
+      <div class="review-message">${rev.message}</div>
+      <div class="review-date">📅 ${rev.date} · ⏰ ${rev.time}</div>
+      <div class="review-actions">
+        <button onclick="handleVote('${id}','like')">👍 <span id="like-${id}">0</span></button>
+        <button onclick="handleVote('${id}','dislike')">👎 <span id="dislike-${id}">0</span></button>
+      </div>
+    </div>
+  </div>
+`;
+
+    container.appendChild(item);
   });
 }
+
+// === LOAD REVIEWS + STATS ===
+function loadReviews() {
+  db.ref("reviews").on("value", snapshot => {
+    if (!snapshot.exists()) {
+      allReviews = [];
+      renderReviews(allReviews);
+      updateStats([]);
+      return;
+    }
+    const data = Object.values(snapshot.val());
+    allReviews = data.reverse();
+    renderReviews(allReviews);
+    updateStats(allReviews);
+  });
+}
+
+// === UPDATE STATS ===
+function updateStats(reviews) {
+  const total = reviews.length;
+  const counts = [0,0,0,0,0,0]; // index = rating
+  reviews.forEach(r => counts[r.rating]++);
+  const sum = reviews.reduce((a,b) => a + b.rating, 0);
+  const avg = total ? (sum / total).toFixed(1) : 0;
+
+  document.getElementById("average-rating").textContent = avg;
+  document.getElementById("average-stars").textContent = "★".repeat(Math.round(avg)) + "☆".repeat(5 - Math.round(avg));
+  for (let i = 0; i <= 5; i++) {
+    const el = document.getElementById(`count-${i}`);
+    if (el) el.textContent = counts[i];
+  }
+  document.getElementById("count-total").textContent = total;
+}
+
 window.addEventListener("load", loadReviews);
