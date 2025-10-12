@@ -829,3 +829,21 @@ body.dark-mode .comparison-table tr:hover td {
   transform: scale(1.05);
   transition: transform 0.25s ease;
 }
+/* Force services in one line on wide screens */
+@media (min-width: 1200px) {
+  .services-grid {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+/* Smooth fade-slide entrance */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
