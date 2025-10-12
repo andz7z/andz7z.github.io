@@ -61,29 +61,6 @@ function openSection(id) {
 }
 window.openSection = openSection;
 
-function openSection(sectionId) {
-  document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
-  document.getElementById(sectionId).classList.remove("hidden");
-
-const name = form.name.value.trim();
-const message = form.message.value.trim();
-const rating = parseInt(form.dataset.rating || 0);
-const service = form.service?.value || "General";
-
-if (!name || !message || !rating) {
-  alert("Please complete all fields including rating!");
-  return;
-}
-
-const review = {
-  name,
-  message,
-  rating,
-  service,
-  date: new Date().toLocaleString(),
-};
-
-db.ref("reviews").push(review);
 // ===========================================================
 // ======== YouTube API (cu thumbnail personalizat) ========
 // ===========================================================
@@ -110,8 +87,8 @@ async function fetchYouTubeStats() {
 
     // ===== Thumbnail personalizat în funcție de temă =====
     const thumb = document.getElementById("yt-thumbnail");
-    const lightThumb = "https://andz7z.github.io/assets/logos/youtube/logo_light.gif";
-    const darkThumb = "https://andz7z.github.io/assets/logos/youtube/logo_dark.gif";
+    const lightThumb = "https://andz7z.github.io/assets/logos/logo_light.gif";
+    const darkThumb = "https://andz7z.github.io/assets/logos/logo_dark.gif";
 
     if (thumb) {
       const isDark = document.body.classList.contains("dark-mode");

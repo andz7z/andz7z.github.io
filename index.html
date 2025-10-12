@@ -7,9 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap" rel="stylesheet">
-  <script src="script.js"></script>
-  <script src="script-reviews.js"></script>
-
+  <script defer src="script.js"></script>
 </head>
 <body>
   <!-- Theme Toggle -->
@@ -195,76 +193,24 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- === REVIEWS SECTION === -->
-<section id="reviews" class="section hidden">
-  <div class="reviews-wrapper">
-    <!-- === FORMULAR === -->
-    <div class="review-form-side">
-      <h2>Write your review ✨</h2>
-      <p class="subtitle">Your opinion helps us grow.</p>
+  <!-- REVIEWS -->
+<section id="reviews" class="hidden section">
+  <div class="section-bg"></div>
+  <h2>⭐ User Reviews</h2>
 
-      <div class="avatar-select">
-        <img id="avatarPreview" src="assets/logos/male.gif" alt="avatar">
-        <div class="gender-toggle">
-          <span class="gender-btn active" data-gender="male">👨</span>
-          <span class="gender-btn" data-gender="female">👩</span>
-        </div>
-      </div>
+  <!-- Review Form -->
+  <form id="review-form" class="review-form">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
+    <textarea id="message" placeholder="Your feedback..." required></textarea>
+    <button type="submit">Submit Review</button>
+  </form>
 
-      <form id="review-form" class="review-form">
-        <input type="text" id="name" placeholder="Your Name" required>
-
-        <div class="service-select">
-          <p>Select service:</p>
-          <div class="service-emojis">
-            <span class="service-btn" data-service="Web Dev">💻</span>
-            <span class="service-btn" data-service="Programming">🧠</span>
-            <span class="service-btn" data-service="Editing">🎬</span>
-          </div>
-        </div>
-
-<div class="rating-container">
-  <label>Rating:</label>
-  <div id="star-rating" class="star-rating">
-    <svg data-value="1" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
-    <svg data-value="2" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
-    <svg data-value="3" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
-    <svg data-value="4" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
-    <svg data-value="5" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
-  </div>
-</div>
-
-
-        <textarea id="message" maxlength="100" placeholder="Tell us your thoughts..." required></textarea>
-        <div class="char-counter"><span id="charCount">0</span>/100</div>
-
-        <button type="submit">Submit Review ✨</button>
-      </form>
-    </div>
-
-    <!-- === REVIEW LIST === -->
-    <div class="review-display-side">
-      <div class="review-header">
-        <h2>⭐ User Reviews</h2>
-        <div class="overall-rating">
-          <span id="overall-stars">⭐ 0.0</span> / 5
-        </div>
-      </div>
-
-      <div class="filters">
-        <button data-sort="recent">🔄 Recent</button>
-        <button data-sort="oldest">🕰️ Oldest</button>
-        <button data-sort="highest">⭐ Highest</button>
-        <button data-sort="lowest">⚡ Lowest</button>
-      </div>
-
-      <div id="reviews-container" class="reviews-container"></div>
-      <p id="no-reviews">No reviews yet. Be the first to share 💬</p>
-
-      <div class="pagination" id="pagination"></div>
-    </div>
+  <div id="reviews-container" class="reviews-container">
+    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
   </div>
 </section>
+  
   <footer>
     <p id="footer-text"></p>
   </footer>
