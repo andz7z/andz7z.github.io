@@ -193,62 +193,21 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- REVIEWS SECTION -->
+  <!-- REVIEWS -->
 <section id="reviews" class="hidden section">
   <div class="section-bg"></div>
   <h2>⭐ User Reviews</h2>
 
-  <!-- STATS PANEL -->
-  <div class="reviews-summary">
-    <div class="avg-rating">
-      <span id="average-rating">0.0</span>/5
-      <div class="stars-display" id="average-stars">☆☆☆☆☆</div>
-    </div>
-    <div class="ratings-breakdown" id="ratings-breakdown">
-      <p>⭐5: <span id="count-5">0</span></p>
-      <p>⭐4: <span id="count-4">0</span></p>
-      <p>⭐3: <span id="count-3">0</span></p>
-      <p>⭐2: <span id="count-2">0</span></p>
-      <p>⭐1: <span id="count-1">0</span></p>
-      <p>⭐0: <span id="count-0">0</span></p>
-      <p>Total: <span id="count-total">0</span></p>
-    </div>
-  </div>
-
-  <!-- SORT DROPDOWN -->
-  <div class="review-sort">
-    <label for="sort-select">Sort by:</label>
-    <select id="sort-select">
-      <option value="newest">Newest</option>
-      <option value="oldest">Oldest</option>
-      <option value="highest">Highest rating</option>
-      <option value="lowest">Lowest rating</option>
-    </select>
-  </div>
-
-  <!-- REVIEW FORM -->
+  <!-- Review Form -->
   <form id="review-form" class="review-form">
-    <div class="gender-select">
-      <label><input type="radio" name="gender" value="male" required> 👦 Male</label>
-      <label><input type="radio" name="gender" value="female"> 👧 Female</label>
-    </div>
-
-    <div class="rating-stars" id="rating-stars">
-      <span data-value="1">★</span>
-      <span data-value="2">★</span>
-      <span data-value="3">★</span>
-      <span data-value="4">★</span>
-      <span data-value="5">★</span>
-    </div>
-
     <input type="text" id="name" placeholder="Your Name" required>
-    <textarea id="message" placeholder="Write your feedback..." required></textarea>
+    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
+    <textarea id="message" placeholder="Your feedback..." required></textarea>
     <button type="submit">Submit Review</button>
-    <p id="thankyou-message" class="thankyou-message hidden"></p>
   </form>
 
   <div id="reviews-container" class="reviews-container">
-    <p id="no-reviews">No reviews yet. Be the first to share your thoughts 💬</p>
+    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
   </div>
 </section>
   
