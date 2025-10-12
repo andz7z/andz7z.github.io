@@ -20,7 +20,7 @@ form.addEventListener("submit", e => {
   e.preventDefault();
 
   const name = form.name.value.trim();
-  const rating = form.rating.value.trim();
+  const rating = Number(form.rating.value.trim());
   const message = form.message.value.trim();
   const service = form.querySelector("input[name='service']:checked")?.value || "webdev";
   const avatarChoice = form.querySelector("input[name='avatar_choice']:checked")?.value || "male";
@@ -28,7 +28,8 @@ form.addEventListener("submit", e => {
     ? "assets/logos/reviews/female.gif"
     : "assets/logos/reviews/male.gif";
 
-  if (!name || !rating || !message) return alert("Please fill all fields!");
+  if (!name || !message) return alert("Please fill all fields!");
+  if (rating < 1) return alert("Please select a star rating!");
 
   const reviewRef = db.ref("reviews").push();
   reviewRef.set({
@@ -66,18 +67,20 @@ function loadReviews() {
       .replaceAll("<", "&lt;")
       .replaceAll(">", "&gt;");
 
-  function avgCalc(arr, type) {
-    const filtered = arr.filter(r => r.service === type);
-    if (!filtered.length) return "—";
-    const sum = filtered.reduce((a, b) => a + Number(b.rating), 0);
-    return (sum / filtered.length).toFixed(1);
-  }
+  const avgCalc = (arr, type) => {
+    const f = arr.filter(r => r.service === type);
+    if (!f.length) return "—";
+    const sum = f.reduce((a, b) => a + Number(b.rating), 0);
+    return (sum / f.length).toFixed(1);
+  };
 
-  function renderReviews() {
+  const renderReviews = () => {
     const total = reviewsArray.length;
     if (!total) {
       noReviews.style.display = "block";
       reviewsList.innerHTML = "";
+      avgOverall.textContent = "—";
+      avgWeb.textContent = avgEdit.textContent = avgProg.textContent = "—";
       return;
     }
     noReviews.style.display = "none";
@@ -99,10 +102,12 @@ function loadReviews() {
         <div class="review-body">
           <div class="review-head">
             <div class="review-name">${escapeHtml(r.name)}</div>
-            <div class="review-meta">⭐ ${r.rating} · ${
-              r.service === "webdev" ? "🌐 Web Dev" :
-              r.service === "editing" ? "🎬 Editing" : "💻 Programming"
-            }</div>
+            <div class="review-meta">
+              ⭐ ${r.rating} · ${
+                r.service === "webdev" ? "🌐 Web Dev" :
+                r.service === "editing" ? "🎬 Editing" : "💻 Programming"
+              }
+            </div>
           </div>
           <div class="review-text">${escapeHtml(r.message)}</div>
           <div class="review-footer">🕓 ${r.date}</div>
@@ -131,7 +136,7 @@ function loadReviews() {
     avgWeb.textContent = avgCalc(reviewsArray, "webdev");
     avgEdit.textContent = avgCalc(reviewsArray, "editing");
     avgProg.textContent = avgCalc(reviewsArray, "programming");
-  }
+  };
 
   db.ref("reviews").on("value", snap => {
     reviewsArray = [];
@@ -150,27 +155,36 @@ function loadReviews() {
 window.addEventListener("load", loadReviews);
 
 
-// === STARS INTERACTION (new system) ===
+// === STARS INTERACTION (reliable system) ===
 document.addEventListener("DOMContentLoaded", () => {
-  const stars = document.querySelectorAll(".star");
+  const starWrap = document.getElementById("star-wrap");
+  if (!starWrap) return;
+
+  // create 5 stars dynamically to avoid render issues
+  starWrap.innerHTML = "";
+  for (let i = 1; i <= 5; i++) {
+    const span = document.createElement("span");
+    span.className = "star";
+    span.textContent = "★";
+    span.dataset.value = i;
+    starWrap.appendChild(span);
+  }
+
+  const stars = starWrap.querySelectorAll(".star");
   const ratingInput = document.getElementById("rating");
   const messageInput = document.getElementById("message");
   const charsLeft = document.getElementById("chars-left");
 
   stars.forEach((star, index) => {
     star.addEventListener("mouseenter", () => {
-      stars.forEach((s, i) => {
-        s.classList.toggle("hovered", i <= index);
-      });
+      stars.forEach((s, i) => s.classList.toggle("hovered", i <= index));
     });
     star.addEventListener("mouseleave", () => {
-      stars.forEach((s) => s.classList.remove("hovered"));
+      stars.forEach(s => s.classList.remove("hovered"));
     });
     star.addEventListener("click", () => {
       ratingInput.value = index + 1;
-      stars.forEach((s, i) => {
-        s.classList.toggle("selected", i <= index);
-      });
+      stars.forEach((s, i) => s.classList.toggle("selected", i <= index));
     });
   });
 
@@ -180,9 +194,4 @@ document.addEventListener("DOMContentLoaded", () => {
       charsLeft.textContent = left;
     });
   }
-});
-
-  messageInput.addEventListener("input", () => {
-    charsLeft.textContent = 100 - messageInput.value.length;
-  });
 });
