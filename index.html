@@ -193,32 +193,29 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- REVIEWS SECTION -->
+<!-- REVIEWS (REPLACE THIS SECTION IN index.html) -->
 <section id="reviews" class="hidden section">
   <div class="section-bg"></div>
-  <h2>What our customers says about us</h2>
+  <h2>⭐ User Reviews</h2>
 
-<!-- AVG RATINGS -->
-<div class="avg-wrap">
-  <div class="avg-card main-avg">
-    <div class="avg-value" id="site-avg">—</div>
-    <div class="avg-label">⭐ Overall Rating</div>
-  </div>
-  <div class="avg-card">
-    <div class="avg-value" id="avg-web">—</div>
-    <div class="avg-label">🌐 Web Dev</div>
-  </div>
-  <div class="avg-card">
-    <div class="avg-value" id="avg-editing">—</div>
-    <div class="avg-label">🎬 Editing</div>
-  </div>
-  <div class="avg-card">
-    <div class="avg-value" id="avg-programming">—</div>
-    <div class="avg-label">💻 Programming</div>
-  </div>
-</div>
+  <div class="reviews-top">
+    <div class="site-score" aria-live="polite">
+      <div class="site-score-inner">
+        <div class="score-value" id="site-avg">—</div>
+        <div class="score-meta">
+          <div id="site-stars" class="small-stars"></div>
+          <div id="site-count">0 reviews</div>
+        </div>
+      </div>
+    </div>
 
-  <!-- Review Form -->
+    <div class="review-actions">
+      <button id="open-review-form" class="btn">Leave a review</button>
+      <div class="per-page">Showing <span id="per-page-count">10</span> / page</div>
+    </div>
+  </div>
+
+  <!-- Review Form (keeps same ids & names so your Firebase handler still works) -->
   <form id="review-form" class="review-form" autocomplete="off" novalidate>
     <div class="form-row">
       <div class="avatar-select">
@@ -234,16 +231,19 @@
 
       <div class="name-rating">
         <input type="text" id="name" name="name" placeholder="Your name" required>
-<div class="stars-input" aria-label="Rating">
-  <div class="star-wrap" id="star-wrap">
-    <span class="star" data-value="1">★</span>
-    <span class="star" data-value="2">★</span>
-    <span class="star" data-value="3">★</span>
-    <span class="star" data-value="4">★</span>
-    <span class="star" data-value="5">★</span>
-  </div>
-  <input type="hidden" id="rating" name="rating" value="0" required>
-</div>
+        <div class="stars-input" aria-label="Rating">
+          <div class="star-wrap" id="star-wrap" data-rating="0">
+            <!-- stars rendered by CSS/JS -->
+            <button type="button" class="star" data-value="1" aria-label="1 star">☆</button>
+            <button type="button" class="star" data-value="2" aria-label="2 stars">☆</button>
+            <button type="button" class="star" data-value="3" aria-label="3 stars">☆</button>
+            <button type="button" class="star" data-value="4" aria-label="4 stars">☆</button>
+            <button type="button" class="star" data-value="5" aria-label="5 stars">☆</button>
+          </div>
+          <input type="hidden" id="rating" name="rating" value="0" required>
+        </div>
+      </div>
+    </div>
 
     <div class="form-row service-row">
       <label class="service-pill">
@@ -263,19 +263,23 @@
     <textarea id="message" name="message" maxlength="100" placeholder="Your message (max 100 chars)" required></textarea>
     <div class="form-row bottom-row">
       <div class="char-count"><span id="chars-left">100</span> characters left</div>
-      <button type="submit" class="btn-primary">Send Review</button>
+      <button type="submit" class="btn-primary">Send review</button>
     </div>
+
+    <!-- keep hidden field for potential future use -->
+    <input type="hidden" id="service-hidden" name="service-hidden" value="">
   </form>
 
   <!-- reviews list -->
   <div id="reviews-container" class="reviews-container">
     <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
-    <div id="reviews-list" class="reviews-list"></div>
+    <div id="reviews-list" class="reviews-list" aria-live="polite"></div>
   </div>
 
   <!-- pagination -->
-  <div class="pagination-wrap" id="pagination-wrap"></div>
+  <div class="pagination-wrap" id="pagination-wrap" aria-label="Reviews pagination"></div>
 </section>
+  
   
   <footer>
     <p id="footer-text"></p>
