@@ -87,8 +87,8 @@ async function fetchYouTubeStats() {
 
     // ===== Thumbnail personalizat în funcție de temă =====
     const thumb = document.getElementById("yt-thumbnail");
-    const lightThumb = "https://andz7z.github.io/assets/logos/logo_light.gif";
-    const darkThumb = "https://andz7z.github.io/assets/logos/logo_dark.gif";
+    const lightThumb = "https://andz7z.github.io/assets/logos/youtube/logo_light.gif";
+    const darkThumb = "https://andz7z.github.io/assets/logos/youtube/logo_dark.gif";
 
     if (thumb) {
       const isDark = document.body.classList.contains("dark-mode");
