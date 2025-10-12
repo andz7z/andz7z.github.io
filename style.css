@@ -1118,23 +1118,26 @@ body.dark-mode #scroll-bar {
   align-items: center;
   justify-content: flex-start;
 }
+/* ===== NEW STARS SYSTEM ===== */
 .star-wrap {
   display: flex;
   gap: 6px;
   cursor: pointer;
 }
+
 .star {
-  width: 28px;
-  height: 28px;
-  fill: rgba(255,255,255,0.4);
-  transition: all 0.2s ease;
+  font-size: 28px;
+  color: rgba(255,255,255,0.4);
+  transition: transform 0.2s ease, color 0.2s ease, text-shadow 0.2s ease;
+  user-select: none;
 }
+
 .star:hover,
 .star.hovered,
 .star.selected {
-  fill: #ffd95a;
-  filter: drop-shadow(0 0 6px rgba(255,217,90,0.4));
-  transform: scale(1.1);
+  color: #ffd95a;
+  text-shadow: 0 0 10px rgba(255,217,90,0.6);
+  transform: scale(1.15);
 }
 
 /* === SERVICES === */
