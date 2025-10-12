@@ -297,17 +297,33 @@ if (mainTitle && navButtons && titleEl) {
   }
 
   // ===========================================================
-  // ===== Notification System =====
-  // ===========================================================
+// ===== Modern Subtle Notification System =====
+// ===========================================================
+document.addEventListener("DOMContentLoaded", () => {
+  const notif = document.getElementById("notification");
+  const notifClose = document.getElementById("notif-close");
+
+  if (!notif) return;
+
+  // Show notification after 6s
   setTimeout(() => {
-    const notif = document.getElementById("notification");
-    if (!notif) return;
     notif.classList.add("show");
+
     const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
-    notifSound.volume = 0.1;
+    notifSound.volume = 0.05; // mai mic decât înainte
     notifSound.play().catch(() => {});
-    setTimeout(() => notif.classList.remove("show"), 10000);
-  }, 7000);
+  }, 6000);
+
+  // Hide after 10s
+  setTimeout(() => {
+    notif.classList.remove("show");
+  }, 16000);
+
+  // Manual close button
+  notifClose.addEventListener("click", () => {
+    notif.classList.remove("show");
+  });
+});
 
   // ===========================================================
   // ======== Work buttons & detail panels ========
