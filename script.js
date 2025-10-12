@@ -306,13 +306,35 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
   }, duration);
 }
 
-// Show once when user clicks title
+// ===========================================================
+// ===== Notification Logic (centralizată) =====
+// ===========================================================
+function handleWelcomeNotification() {
+  const visited = localStorage.getItem("visited");
+
+  if (visited) {
+    showNotification("info", "👋 Welcome back, good to see you again!");
+  } else {
+    localStorage.setItem("visited", "true");
+    showNotification("info", "🏡 Make yourself like home");
+  }
+}
+
+// ===========================================================
+// ===== Eveniment la click pe titlu =====
+// ===========================================================
 const titleElement = document.getElementById("main-title");
 if (titleElement) {
   titleElement.addEventListener("click", () => {
-    showNotification("info", "🏡 Make yourself like home");
+    handleWelcomeNotification();
   });
 }
+
+// ===========================================================
+// ===== Optional: apel automat la intrarea pe site =====
+// ===========================================================
+// dacă vrei ca să se declanșeze și automat la intrare:
+setTimeout(() => handleWelcomeNotification(), 2500);
   
   // ===========================================================
   // ======== Particle Effect ========
