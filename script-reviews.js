@@ -102,6 +102,7 @@ function loadReviews() {
     const avg = (sum / total) || 0;
     siteAvgEl.textContent = avg.toFixed(1);
     siteCountEl.textContent = `${total} review${total > 1 ? "s" : ""}`;
+    siteStarsEl.innerHTML = renderMiniStars(avg);
     // === separate averages by service ===
 let webSum = 0, webCount = 0;
 let editSum = 0, editCount = 0;
