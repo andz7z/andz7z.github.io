@@ -46,41 +46,43 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
  // === STAR RATING (nou) ===
-let selectedRating = 0;
-const stars = document.querySelectorAll("#star-rating svg");
+function initStarRating() {
+  const stars = document.querySelectorAll("#star-rating svg");
+  if (!stars.length) return; // prevenim erori dacă nu există stele încă
 
-stars.forEach(star => {
-  // Hover vizual
-  star.addEventListener("mouseenter", () => {
-    resetStars();
-    const val = parseInt(star.dataset.value);
-    stars.forEach(s => {
-      if (parseInt(s.dataset.value) <= val) s.classList.add("hovered");
+  let selectedRating = 0;
+
+  stars.forEach(star => {
+    star.addEventListener("mouseenter", () => {
+      resetStars();
+      const val = parseInt(star.dataset.value);
+      stars.forEach(s => {
+        if (parseInt(s.dataset.value) <= val) s.classList.add("hovered");
+      });
+    });
+
+    star.addEventListener("mouseleave", () => {
+      resetStars();
+      highlightStars(selectedRating);
+    });
+
+    star.addEventListener("click", () => {
+      selectedRating = parseInt(star.dataset.value);
+      resetStars();
+      highlightStars(selectedRating);
+      document.querySelector("#review-form").dataset.rating = selectedRating; // 🔗 salvăm ratingul ales
     });
   });
 
-  // Reset la ieșire
-  star.addEventListener("mouseleave", () => {
-    resetStars();
-    highlightStars(selectedRating);
-  });
+  function resetStars() {
+    stars.forEach(s => s.classList.remove("hovered", "active"));
+  }
 
-  // Click — selectează rating
-  star.addEventListener("click", () => {
-    selectedRating = parseInt(star.dataset.value);
-    resetStars();
-    highlightStars(selectedRating);
-  });
-});
-
-function resetStars() {
-  stars.forEach(s => s.classList.remove("hovered", "active"));
-}
-
-function highlightStars(rating) {
-  stars.forEach(s => {
-    if (parseInt(s.dataset.value) <= rating) s.classList.add("active");
-  });
+  function highlightStars(rating) {
+    stars.forEach(s => {
+      if (parseInt(s.dataset.value) <= rating) s.classList.add("active");
+    });
+  }
 }
   
   // === CHAR COUNTER ===
