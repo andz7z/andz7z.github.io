@@ -1080,3 +1080,17 @@ body.dark-mode .review-item, body.dark-mode .review-form, body.dark-mode .stats-
   background:rgba(30,30,30,0.8); border:1px solid rgba(255,217,90,0.2);
 }
 body.dark-mode .sort-btn.active { background:#ffd95a; color:#111; }
+.rating-stars {
+  display: flex;
+  gap: 5px;
+  font-size: 1.6rem;
+  cursor: pointer;
+  user-select: none;
+}
+.rating-stars span {
+  color: rgba(255,255,255,0.25);
+  transition: color .2s ease;
+}
+.rating-stars span.active {
+  color: #ffd95a;
+}
