@@ -145,57 +145,68 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
 .card-content a{padding:6px 12px;background:rgba(255,255,255,0.05);color:white;border-radius:12px;text-decoration:none;font-weight:600;transition:all .3s ease}
 .card-content a:hover{background:rgba(255,255,255,0.15);transform:scale(1.05)}
 
-/* ===== Notification (modern subtle style) ===== */
+/* ====== REVOLUTIONARY NOTIFICATION SYSTEM ====== */
 .notification {
   position: fixed;
   bottom: 25px;
   right: 25px;
+  min-width: 280px;
+  max-width: 420px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  background: var(--notif-bg, rgba(255, 255, 255, 0.75));
-  color: var(--notif-text, #111);
-  backdrop-filter: blur(12px);
-  border-radius: 14px;
-  padding: 14px 22px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.15);
-  font-size: 16px;
+  gap: 14px;
+  padding: 14px 20px;
+  border-radius: 16px;
+  font-size: 1rem;
   font-weight: 500;
+  color: #fff;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
   opacity: 0;
-  transform: translateY(25px);
-  transition: all 0.6s ease;
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 9999;
   pointer-events: none;
 }
-
 .notification.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
   pointer-events: auto;
+}
+
+/* Notification types */
+.notification.info    { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.notification.success { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.notification.warning { background: linear-gradient(135deg, #f7971e, #ffd200); color:#222; }
+.notification.error   { background: linear-gradient(135deg, #f85032, #e73827); }
+
+/* Glow ring */
+.notification::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  animation: notifGlow 2s ease-in-out infinite alternate;
+}
+@keyframes notifGlow {
+  0% { box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+  100% { box-shadow: 0 0 25px rgba(255,255,255,0.3); }
 }
 
 /* Close button */
 .notif-close {
+  margin-left: auto;
   background: transparent;
   border: none;
+  font-size: 1.4rem;
   color: inherit;
-  font-size: 22px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .notif-close:hover {
-  transform: scale(1.3);
-}
-
-/* Light / Dark mode integration */
-body.light-mode .notification {
-  --notif-bg: rgba(255, 255, 255, 0.8);
-  --notif-text: #111;
-}
-
-body.dark-mode .notification {
-  --notif-bg: rgba(30, 30, 30, 0.85);
-  --notif-text: #f5f5f5;
+  transform: scale(1.25) rotate(90deg);
+  opacity: 0.8;
 }
 
 /* Skills card */
