@@ -65,10 +65,25 @@ function openSection(sectionId) {
   document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
   document.getElementById(sectionId).classList.remove("hidden");
 
-  if (sectionId === "reviews") {
-    initStarRating(); // 👉 activăm stelele doar când intrăm în Reviews
-  }
+const name = form.name.value.trim();
+const message = form.message.value.trim();
+const rating = parseInt(form.dataset.rating || 0);
+const service = form.service?.value || "General";
+
+if (!name || !message || !rating) {
+  alert("Please complete all fields including rating!");
+  return;
 }
+
+const review = {
+  name,
+  message,
+  rating,
+  service,
+  date: new Date().toLocaleString(),
+};
+
+db.ref("reviews").push(review);
 // ===========================================================
 // ======== YouTube API (cu thumbnail personalizat) ========
 // ===========================================================
