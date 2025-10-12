@@ -509,12 +509,84 @@ function toggleSection(targetId) {
 [...floatBtns, ...topBtns].forEach(btn => {
   btn.addEventListener("click", () => toggleSection(btn.dataset.target));
 });
-  // sistem notificare reintrare 
-if (localStorage.getItem("visited")) {
-  setTimeout(() => showNotification("info", "👋 Welcome back, good to see you again!"), 2500);
-} else {
-  localStorage.setItem("visited", "true");
-  setTimeout(() => showNotification("info", "🏡 Make yourself like home"), 2500);
+// ===========================================================
+// ===== AURORA NOTIFICATION (One-time with Spark Burst) =====
+// ===========================================================
+let hasShownNotification = false;
+
+function createSparks(x, y) {
+  for (let i = 0; i < 8; i++) {
+    const spark = document.createElement("div");
+    spark.className = "spark";
+    spark.style.left = `${x}px`;
+    spark.style.top = `${y}px`;
+
+    // Random flight directions
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = 50 + Math.random() * 40;
+    spark.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+    spark.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 1000);
+  }
+}
+
+function showNotification(type = "info", message = "🏡 Make yourself like home", duration = 11000) {
+  if (hasShownNotification) return; // show once only
+  hasShownNotification = true;
+
+  const existing = document.querySelector(".notification.show");
+  if (existing) existing.remove();
+
+  const notif = document.createElement("div");
+  notif.className = `notification ${type}`;
+  notif.innerHTML = `
+    <span>${message}</span>
+    <button class="notif-close" aria-label="Close">&times;</button>
+  `;
+  document.body.appendChild(notif);
+
+  // Play sound
+  const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
+  notifSound.volume = 0.1;
+  notifSound.play().catch(() => {});
+
+  // Sparks effect (positioned near notification)
+  const rect = notif.getBoundingClientRect();
+  const centerX = rect.right - rect.width / 2;
+  const centerY = rect.bottom - rect.height / 2;
+  createSparks(centerX, centerY);
+
+  // Animate in
+  setTimeout(() => notif.classList.add("show"), 80);
+
+  // Manual close
+  notif.querySelector(".notif-close").addEventListener("click", () => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 600);
+  });
+
+  // Auto hide after ~11s
+  setTimeout(() => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 600);
+  }, duration);
+}
+
+// Show notification on title click
+const titleElement = document.getElementById("main-title");
+if (titleElement) {
+  titleElement.addEventListener("click", () => {
+    // Check localStorage for previous visit
+    const hasVisited = localStorage.getItem("hasVisitedBefore");
+    if (hasVisited) {
+      showNotification("info", "👋 Welcome back! Glad to see you again!");
+    } else {
+      showNotification("info", "🏡 Make yourself like home");
+      localStorage.setItem("hasVisitedBefore", "true");
+    }
+  });
 }
 // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
