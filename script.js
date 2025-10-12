@@ -515,6 +515,52 @@ document.querySelectorAll(".service-card, .why-us, .yt-card").forEach(el => {
   observer.observe(el);
 });
 // ===========================================================
+// ===== Floating Nav Bar System =====
+// ===========================================================
+const floatNav = document.getElementById("floating-nav");
+const navBtns = floatNav?.querySelectorAll("button");
+let currentOpen = null;
+
+// show navbar when scrolling down
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 200) {
+    floatNav?.classList.add("show");
+  } else {
+    floatNav?.classList.remove("show");
+  }
+});
+
+// handle button clicks
+navBtns?.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const targetId = btn.dataset.target;
+    const targetSection = document.getElementById(targetId);
+    const allSections = document.querySelectorAll(".section");
+    const allBtns = document.querySelectorAll(".floating-nav button");
+
+    // same button → close section
+    if (currentOpen === targetId) {
+      targetSection.classList.add("hidden");
+      btn.classList.remove("active");
+      currentOpen = null;
+      return;
+    }
+
+    // close all sections
+    allSections.forEach(sec => sec.classList.add("hidden"));
+    allBtns.forEach(b => b.classList.remove("active"));
+
+    // open target
+    targetSection.classList.remove("hidden");
+    targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    btn.classList.add("active");
+    currentOpen = targetId;
+
+    // click sound
+    playClick();
+  });
+});
+// ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
   // ===========================================================
   const footer = document.querySelector("footer");
