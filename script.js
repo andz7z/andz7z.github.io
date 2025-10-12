@@ -297,9 +297,9 @@ if (mainTitle && navButtons && titleEl) {
   }
 
   // ===========================================================
-// ===== REVOLUTIONARY NOTIFICATION SYSTEM =====
+// ===== AURORA NOTIFICATION SYSTEM (Ice & Gold Adaptive) =====
 // ===========================================================
-function showNotification(type = "info", message = "This is a notification!", duration = 4000) {
+function showNotification(type = "info", message = "✨ Notification message", duration = 4000) {
   const existing = document.querySelector(".notification.show");
   if (existing) existing.remove();
 
@@ -311,22 +311,25 @@ function showNotification(type = "info", message = "This is a notification!", du
   `;
   document.body.appendChild(notif);
 
-  // small fade-in
+  // Fade-in
   setTimeout(() => notif.classList.add("show"), 100);
 
-  // click close
-  notif.querySelector(".notif-close").addEventListener("click", () => notif.remove());
+  // Close manually
+  notif.querySelector(".notif-close").addEventListener("click", () => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 600);
+  });
 
-  // auto hide
+  // Auto hide
   setTimeout(() => {
     notif.classList.remove("show");
     setTimeout(() => notif.remove(), 600);
   }, duration);
 }
 
-// Example startup notification
+// Example on load
 window.addEventListener("load", () => {
-  setTimeout(() => showNotification("info", "👋 Welcome back to my website!"), 3000);
+  setTimeout(() => showNotification("info", "👋 Welcome to my site!"), 2500);
 });
 
   // ===========================================================
