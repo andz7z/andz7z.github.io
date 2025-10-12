@@ -1020,7 +1020,12 @@ body.dark-mode #scroll-bar {
 .stars .star{color:transparent;text-shadow:0 0 0 rgba(0,0,0,0);opacity:.28}
 .stars .star::before{content:'★';display:inline-block;color:transparent;mix-blend-mode:screen}
 .stars .star.hover, .stars .star.selected{opacity:1;color:rgba(255,232,143,0.08);filter:drop-shadow(0 0 8px rgba(255,217,90,0.08))}
-.stars .star.selected{color:#ffd95a;text-shadow:0 0 8px rgba(255,217,90,0.55)}
+.stars .star.selected {
+  color: #ffd95a;
+  text-shadow: 0 0 8px rgba(255,217,90,0.55);
+  cursor: pointer;
+  opacity: 1 !important;
+}
 .stars .star:hover, .stars .star:focus{transform:translateY(-2px);outline:none}
 textarea#message{min-height:72px;max-height:120px;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.06);resize:none;color:inherit;font-family:'Comfortaa'}
 .form-foot{display:flex;justify-content:space-between;align-items:center}
