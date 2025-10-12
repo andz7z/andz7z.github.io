@@ -997,121 +997,390 @@ body.dark-mode #scroll-bar {
   background: linear-gradient(90deg, #ffd95a, #c69b00);
   box-shadow: 0 0 10px rgba(255,217,90,0.4);
 }
-/* ===== REVIEWS SECTION (REPLACEMENT) ===== */
+/* ==========================================================
+   REVIEWS SYSTEM — Dual Theme (Ice White / Gold Moon)
+   Clean, glassy & glowing with pagination, avatars & stats
+   ========================================================== */
+
+/* ====== BASE STRUCTURE ====== */
+#reviews {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+  .reviews-stats {
+    order: -1;
+  }
+}
+
+/* ====== FORM ====== */
 .review-form {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  border-radius: 14px;
-  padding: 18px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 18px 20px;
+  backdrop-filter: blur(12px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
-.review-form input[type="text"]{
-  padding:10px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.06);color:inherit;font-family:'Comfortaa';
+
+.review-form input[type="text"],
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: inherit;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  outline: none;
 }
-.gender-group{display:flex;gap:8px;align-items:center}
-.gender-group label{font-size:.9rem;opacity:.9}
-.service-row select{width:100%;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.06);font-weight:600}
-.rating-row{display:flex;align-items:center;gap:12px}
-.stars{display:inline-flex;gap:8px;font-size:1.6rem;user-select:none;cursor:pointer;outline:none}
-/* Rating stars picker */
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 90px;
+  max-height: 160px;
+}
+
+.review-form select {
+  cursor: pointer;
+}
+
+.form-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ====== GENDER ====== */
+.gender-group {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.gender-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gender-pill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.gender-gif {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* ====== STARS PICKER ====== */
 #star-picker {
   display: flex;
-  gap: 8px;
-  justify-content: flex-start;
+  gap: 5px;
+  justify-content: center;
 }
+
 #star-picker .star {
-  font-size: 1.8rem;
-  color: rgba(255, 255, 255, 0.3);
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: transform 0.2s, color 0.2s;
-}
-#star-picker .star:hover {
-  transform: scale(1.15);
-  color: #ffeaa7;
-}
-#star-picker .star.selected {
+  opacity: 0.5;
   color: #ffd95a;
+  transition: transform 0.2s ease, opacity 0.2s ease, text-shadow 0.2s ease;
 }
-textarea#message{min-height:72px;max-height:120px;padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.06);resize:none;color:inherit;font-family:'Comfortaa'}
-.form-foot{display:flex;justify-content:space-between;align-items:center}
-.form-foot small{opacity:.9}
-.submit-btn{background:linear-gradient(90deg, rgba(255,255,255,0.12), rgba(255,255,255,0.08));border-radius:10px;padding:10px 14px;border:1px solid rgba(255,255,255,0.08);cursor:pointer;font-weight:700}
-.submit-btn:hover{transform:scale(1.02);background:#fff;color:#000}
 
-/* Reviews controls */
-.reviews-controls select, .reviews-controls .filter-btn{padding:8px 10px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);cursor:pointer}
-.reviews-controls .filter-btn{font-weight:700;width:36px;height:36px;display:inline-flex;align-items:center;justify-content:center}
-
-/* Reviews list */
-.reviews-container{display:flex;flex-direction:column;gap:12px;margin-top:12px}
-.review-card{
-  display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start;
-  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));
-  padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(6px);
-  position:relative;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease;
+#star-picker .star:hover {
+  transform: scale(1.2);
+  opacity: 1;
 }
-.review-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(0,0,0,0.45)}
-.review-avatar{width:72px;height:72px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.06)}
-.review-avatar img{width:100%;height:100%;object-fit:cover;display:block}
-.review-content{display:flex;flex-direction:column;gap:6px}
-.review-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.review-meta{display:flex;align-items:center;gap:10px}
-.review-name{font-weight:800;color:#ffd95a;margin-right:6px}
-.review-stars{display:inline-flex;gap:4px;font-size:.95rem}
-.review-msg{font-size:.95rem;line-height:1.25;opacity:.95}
 
-/* Hover date overlay (shows on hover) */
-.review-date{
-  position:absolute;right:12px;top:10px;background:rgba(0,0,0,0.45);backdrop-filter:blur(6px);padding:6px 8px;border-radius:8px;font-size:.8rem;opacity:0;transform:translateY(-6px);
-  transition:opacity .2s ease,transform .18s ease;
-  color:#fff;
+#star-picker .star.selected {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(255, 217, 90, 0.4);
 }
-.review-card:hover .review-date{opacity:1;transform:none}
 
-/* Small emoji tag for service */
-.review-emoji{font-size:1.1rem;margin-left:8px}
-
-/* Stats card (right column) */
-.reviews-stats .stats-card{
-  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.05));
-  border-radius:14px;padding:18px;border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(10px);
-  display:flex;flex-direction:column;gap:12px;align-items:center;justify-content:center;height:100%;
+/* ====== SUBMIT BUTTON ====== */
+.submit-btn {
+  background: linear-gradient(90deg, #ffffff, #f8d76a);
+  color: #000;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.avg-block{display:flex;flex-direction:column;align-items:center;gap:6px}
-.avg-value{font-size:3.2rem;font-weight:900;color:#f9f1c6}
-.avg-sub{opacity:.85}
-.count-block{display:flex;flex-direction:column;align-items:center}
-#total-count{font-size:2rem;font-weight:800;color:#fff}
-.count-sub{opacity:.85;font-size:.95rem}
-.mini-legend{display:flex;flex-direction:column;gap:6px;align-items:center;font-size:.9rem;opacity:.9}
 
-/* small star in legend */
-.star.small{font-size:1rem;color:#ffd95a}
-
-/* Dark mode tweaks */
-body.dark-mode .review-form, body.dark-mode .review-card, body.dark-mode .reviews-stats .stats-card{
-  background:linear-gradient(180deg, rgba(40,40,40,0.8), rgba(20,20,20,0.85));
-  border:1px solid rgba(255,217,90,0.12);
+.submit-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
-body.dark-mode .review-name{color:#ffd95a}
-body.dark-mode .avg-value{color:#ffd95a}
-body.dark-mode .submit-btn:hover{background:#ffd95a;color:#111}
 
-/* Responsive */
-@media(max-width:1000px){
-  .reviews-grid{grid-template-columns:1fr}
-  .reviews-stats{order:2;margin-top:12px}
-  .review-avatar{width:60px;height:60px}
+/* ====== FILTER & SORT ====== */
+.reviews-controls {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
-/* ===== END REVIEWS SECTION (REPLACEMENT) ===== */
-.mini-star {
-  color: rgba(255,255,255,0.35);
+
+.filter-btn {
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.filter-btn.active {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(245, 240, 210, 0.85));
+  color: #111;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.25);
+}
+
+/* ====== REVIEW LIST ====== */
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+.review-card .rc-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.rc-avatar img {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.08);
+}
+
+.rc-meta {
+  text-align: left;
+}
+
+.rc-name {
+  font-weight: 700;
   font-size: 1rem;
 }
+
+.rc-service {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.rc-right {
+  flex: 1;
+  text-align: left;
+  padding-left: 10px;
+}
+
+.rc-stars {
+  margin-bottom: 5px;
+}
+
+.mini-star {
+  font-size: 1rem;
+  opacity: 0.4;
+  margin-right: 2px;
+}
+
 .mini-star.active {
+  opacity: 1;
   color: #ffd95a;
+  text-shadow: 0 0 8px rgba(255, 217, 90, 0.4);
+}
+
+.rc-msg {
+  font-size: 0.95rem;
+  opacity: 0.95;
+}
+
+.rc-footer {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* ====== PAGINATION ====== */
+.pager {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.pager button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.pager button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.pager .active {
+  background: rgba(255, 255, 255, 0.15);
+  font-weight: 700;
+}
+
+/* ====== STATS ====== */
+.stats-card {
+  padding: 18px;
+  border-radius: 16px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  backdrop-filter: blur(10px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.avg-block {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.avg-value {
+  font-size: 2.8rem;
+  font-weight: 800;
+}
+
+.count-block {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.service-row-mini {
+  font-size: 0.95rem;
+}
+
+/* ====== THEMES ====== */
+
+/* --- ICE WHITE (Light) --- */
+body:not(.dark-mode) #reviews {
+  color: #0d1220;
+}
+body:not(.dark-mode) .review-form,
+body:not(.dark-mode) .stats-card,
+body:not(.dark-mode) .review-card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(240, 248, 255, 0.7));
+  border: 1px solid rgba(200, 220, 255, 0.6);
+  box-shadow: 0 8px 25px rgba(180, 200, 230, 0.25);
+  color: #0b1220;
+}
+body:not(.dark-mode) .filter-btn.active {
+  background: linear-gradient(90deg, #ffffff, #eaf4ff);
+  color: #0c1420;
+  border-color: rgba(180, 200, 230, 0.5);
+  box-shadow: 0 0 20px rgba(200, 230, 255, 0.35);
+}
+
+/* --- GOLD MOON (Dark) --- */
+body.dark-mode #reviews {
+  color: #f5e9c7;
+}
+body.dark-mode .review-form,
+body.dark-mode .stats-card,
+body.dark-mode .review-card {
+  background: linear-gradient(180deg, rgba(35, 35, 35, 0.92), rgba(18, 18, 18, 0.9));
+  border: 1px solid rgba(255, 217, 90, 0.15);
+  box-shadow: 0 8px 30px rgba(255, 217, 90, 0.06);
+  color: #f5e9c7;
+}
+body.dark-mode .filter-btn.active {
+  background: linear-gradient(90deg, #ffd95a, #b48a1a);
+  color: #111;
+  box-shadow: 0 0 25px rgba(255, 217, 90, 0.5);
+}
+body.dark-mode #star-picker .star,
+body.dark-mode .mini-star.active {
+  color: #ffd95a;
+}
+
+/* ====== HOVER GLOW EFFECTS ====== */
+.review-card:hover,
+.stats-card:hover {
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .review-card:hover,
+body.dark-mode .stats-card:hover {
+  box-shadow: 0 0 35px rgba(255, 217, 90, 0.25);
+}
+
+/* ====== SMOOTH APPEAR ====== */
+.review-card,
+.stats-card,
+.review-form {
+  opacity: 0;
+  transform: translateY(15px);
+  animation: fadeUp 0.6s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
