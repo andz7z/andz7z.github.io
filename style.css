@@ -1004,10 +1004,20 @@ body.dark-mode #scroll-bar {
 }
 .site-score{display:flex;align-items:center;gap:12px}
 .site-score-inner{display:flex;flex-direction:row;align-items:center;gap:12px;background:linear-gradient(135deg, rgba(255,255,255,0.04), rgba(0,0,0,0.25));padding:10px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.06)}
-.score-value{font-size:1.4rem;font-weight:800;color:#ffd95a}
+.score-value{
+  font-size:1.8rem;
+  font-weight:900;
+  background:linear-gradient(90deg,#ffd95a,#ffffff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 .score-meta{display:flex;flex-direction:column;align-items:flex-start;font-size:.85rem;color:rgba(255,255,255,0.85)}
 .small-stars{display:flex;gap:4px}
-.small-stars .mini{font-size:1rem; color: rgba(255,217,90,0.25)}
+.small-stars .mini{
+  font-size:1.2rem;
+  color:#ffd95a;
+  filter:drop-shadow(0 0 5px rgba(255,217,90,0.3));
+}
 .review-actions{display:flex;align-items:center;gap:12px}
 .btn{background:rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.08);cursor:pointer}
 .btn-primary{background:linear-gradient(90deg,#ffd95a,#f0c84a);color:#111;padding:10px 16px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
@@ -1025,9 +1035,28 @@ body.dark-mode #scroll-bar {
 .name-rating input[type="text"]{padding:10px;border-radius:10px;border:none;background:rgba(255,255,255,0.06);color:white;font-weight:600}
 .stars-input{display:flex;align-items:center;gap:10px}
 .star-wrap{display:inline-flex;gap:6px}
-.star{font-size:1.2rem;background:transparent;border:none;cursor:pointer;padding:6px;border-radius:8px;transition:all .18s ease;color:rgba(255,255,255,0.7);text-shadow:none}
-.star:hover{transform:scale(1.12);color:rgba(255,217,90,0.95);text-shadow:0 0 6px rgba(255,217,90,0.15)}
-.star.selected{color:rgba(255,217,90,1);text-shadow:0 2px 12px rgba(255,217,90,0.18);transform:scale(1.06)}
+
+/* === PREMIUM STARS === */
+.star {
+  font-size:1.8rem;
+  background:linear-gradient(145deg,#ffd95a,#fff1a3);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  border:none;
+  cursor:pointer;
+  padding:6px;
+  transition:all 0.25s ease;
+  filter:drop-shadow(0 0 3px rgba(255,217,90,0.45));
+}
+.star:hover {
+  transform:scale(1.25) rotate(-3deg);
+  filter:drop-shadow(0 0 10px rgba(255,217,90,0.6));
+}
+.star.selected {
+  -webkit-text-fill-color:#ffd95a;
+  text-shadow:0 0 10px rgba(255,217,90,0.6);
+  transform:scale(1.2);
+}
 
 .service-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-start}
 .service-pill{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,0.03);border-radius:999px;border:1px solid rgba(255,255,255,0.05);cursor:pointer}
@@ -1043,7 +1072,8 @@ textarea#message{min-height:76px;padding:10px;border-radius:10px;border:none;bac
 .reviews-list{display:flex;flex-direction:column;gap:14px;margin-top:6px}
 .review-card{
   display:flex;gap:12px;align-items:flex-start;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.28));
-  padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(6px)
+  padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(6px);
+  animation:fadeInUp 0.4s ease both;
 }
 .review-avatar{width:64px;height:64px;border-radius:12px;object-fit:cover;border:2px solid rgba(255,255,255,0.06)}
 .review-body{flex:1;display:flex;flex-direction:column;gap:6px;text-align:left}
@@ -1058,6 +1088,27 @@ textarea#message{min-height:76px;padding:10px;border-radius:10px;border:none;bac
 .pagination-wrap{display:flex;gap:8px;justify-content:center;margin-top:18px;flex-wrap:wrap}
 .page-btn{background:rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);cursor:pointer}
 .page-btn.active{background:#ffd95a;color:#111;border-color:rgba(255,217,90,0.9);box-shadow:0 8px 24px rgba(255,217,90,0.12)}
+
+/* inline average next to total */
+.avg-inline{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-left:14px;
+  font-size:0.9rem;
+  color:rgba(255,255,255,0.85);
+  font-weight:600;
+}
+.avg-inline strong{
+  color:#ffd95a;
+  text-shadow:0 0 8px rgba(255,217,90,0.3);
+}
+
+/* Animations */
+@keyframes fadeInUp{
+  from{opacity:0;transform:translateY(8px);}
+  to{opacity:1;transform:translateY(0);}
+}
 
 /* responsive tweaks */
 @media(max-width:720px){
