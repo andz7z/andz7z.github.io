@@ -581,9 +581,9 @@ if (titleElement) {
     // Check localStorage for previous visit
     const hasVisited = localStorage.getItem("hasVisitedBefore");
     if (hasVisited) {
-      showNotification("info", "👋 Welcome back! Glad to see you again!");
+      showNotification("info", "Back for more? 🔥 Let’s make it even better this time!");
     } else {
-      showNotification("info", "🏡 Make yourself like home");
+      showNotification("info", "Let’s build something awesome together! 🚀“);
       localStorage.setItem("hasVisitedBefore", "true");
     }
   });
