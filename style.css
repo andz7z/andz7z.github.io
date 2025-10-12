@@ -1077,3 +1077,106 @@ body.dark-mode #scroll-bar {
   box-shadow: 0 0 12px rgba(255,217,90,0.7);
   transform: scale(1.05);
 }
+/* ===== REVISED REVIEW CARD LAYOUT ===== */
+.review-item {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 22px;
+  padding: 20px 25px;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 0.7s ease both;
+  box-shadow: 0 0 25px rgba(255,255,255,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.review-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 25px rgba(255,217,90,0.15);
+}
+
+.review-inner {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.review-avatar {
+  flex: 0 0 70px;
+  display: flex;
+  justify-content: center;
+}
+.review-avatar img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  object-fit: cover;
+  background: rgba(255,255,255,0.1);
+  transition: all 0.4s ease;
+}
+.review-item:hover .review-avatar img {
+  box-shadow: 0 0 12px rgba(255,217,90,0.7);
+  transform: scale(1.05);
+}
+
+.review-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  font-family: 'Comfortaa', sans-serif;
+}
+.review-header strong {
+  font-size: 1rem;
+  color: #ffd95a;
+}
+.review-header .review-stars {
+  color: #ffd95a;
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+
+.review-message {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  line-height: 1.4;
+  align-self: flex-start;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  margin-top: 8px;
+  align-self: flex-start;
+  font-style: italic;
+}
+
+.review-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: flex-start;
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+.review-actions button {
+  background: none;
+  border: none;
+  color: #ccc;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.review-actions button:hover {
+  color: #ffd95a;
+  transform: scale(1.2);
+}
