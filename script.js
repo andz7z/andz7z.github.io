@@ -242,6 +242,49 @@ if (mainTitle && navButtons && titleEl) {
   });
 }
   // ===========================================================
+// ===== AURORA NOTIFICATION (on Title Click) =====
+// ===========================================================
+function showNotification(type = "info", message = "🏡 Make yourself like home", duration = 11000) {
+  const existing = document.querySelector(".notification.show");
+  if (existing) existing.remove();
+
+  const notif = document.createElement("div");
+  notif.className = `notification ${type}`;
+  notif.innerHTML = `
+    <span>${message}</span>
+    <button class="notif-close" aria-label="Close">&times;</button>
+  `;
+  document.body.appendChild(notif);
+
+  // Play sound
+  const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
+  notifSound.volume = 0.1;
+  notifSound.play().catch(() => {});
+
+  // Animate in
+  setTimeout(() => notif.classList.add("show"), 80);
+
+  // Manual close
+  notif.querySelector(".notif-close").addEventListener("click", () => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 600);
+  });
+
+  // Auto hide after 10–12s
+  setTimeout(() => {
+    notif.classList.remove("show");
+    setTimeout(() => notif.remove(), 600);
+  }, duration);
+}
+
+// trigger on title click
+const titleElement = document.getElementById("main-title");
+if (titleElement) {
+  titleElement.addEventListener("click", () => {
+    showNotification("info", "🏡 Make yourself like home");
+  });
+}
+  // ===========================================================
   // ======== Particle Effect ========
   // ===========================================================
   if (canvas && ctx) {
@@ -295,42 +338,6 @@ if (mainTitle && navButtons && titleEl) {
     canvas.height = window.innerHeight;
     animateParticles();
   }
-
-  // ===========================================================
-// ===== AURORA NOTIFICATION SYSTEM (Ice & Gold Adaptive) =====
-// ===========================================================
-function showNotification(type = "info", message = "✨ Notification message", duration = 4000) {
-  const existing = document.querySelector(".notification.show");
-  if (existing) existing.remove();
-
-  const notif = document.createElement("div");
-  notif.className = `notification ${type}`;
-  notif.innerHTML = `
-    <span>${message}</span>
-    <button class="notif-close" aria-label="Close">&times;</button>
-  `;
-  document.body.appendChild(notif);
-
-  // Fade-in
-  setTimeout(() => notif.classList.add("show"), 100);
-
-  // Close manually
-  notif.querySelector(".notif-close").addEventListener("click", () => {
-    notif.classList.remove("show");
-    setTimeout(() => notif.remove(), 600);
-  });
-
-  // Auto hide
-  setTimeout(() => {
-    notif.classList.remove("show");
-    setTimeout(() => notif.remove(), 600);
-  }, duration);
-}
-
-// Example on load
-window.addEventListener("load", () => {
-  setTimeout(() => showNotification("info", "👋 Welcome to my site!"), 2500);
-});
 
   // ===========================================================
   // ======== Work buttons & detail panels ========
