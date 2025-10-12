@@ -193,24 +193,36 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- REVIEW FORM -->
-<form id="review-form" class="review-form">
-  <div class="rating-stars" id="rating-stars">
-    <span data-value="1">★</span>
-    <span data-value="2">★</span>
-    <span data-value="3">★</span>
-    <span data-value="4">★</span>
-    <span data-value="5">★</span>
-  </div>
-  <input type="text" id="name" placeholder="Your Name" required>
-  <textarea id="message" placeholder="Write your feedback..." required></textarea>
-  <button type="submit">Submit Review</button>
-  <p id="thankyou-message" class="thankyou-message hidden"></p>
-</form>
+<!-- REVIEWS SECTION -->
+<section id="reviews" class="hidden section">
+  <div class="section-bg"></div>
+  <h2>⭐ User Reviews</h2>
 
-<div id="reviews-container" class="reviews-container">
-  <p id="no-reviews">No reviews yet. Be the first to share your thoughts 💬</p>
-</div>
+  <!-- Review Form -->
+  <form id="review-form" class="review-form">
+    <div class="gender-select">
+      <label><input type="radio" name="gender" value="male" required> 👦 Male</label>
+      <label><input type="radio" name="gender" value="female"> 👧 Female</label>
+    </div>
+
+    <div class="rating-stars" id="rating-stars">
+      <span data-value="1">★</span>
+      <span data-value="2">★</span>
+      <span data-value="3">★</span>
+      <span data-value="4">★</span>
+      <span data-value="5">★</span>
+    </div>
+
+    <input type="text" id="name" placeholder="Your Name" required>
+    <textarea id="message" placeholder="Write your feedback..." required></textarea>
+    <button type="submit">Submit Review</button>
+    <p id="thankyou-message" class="thankyou-message hidden"></p>
+  </form>
+
+  <div id="reviews-container" class="reviews-container">
+    <p id="no-reviews">No reviews yet. Be the first to share your thoughts 💬</p>
+  </div>
+</section>
   
   <footer>
     <p id="footer-text"></p>
