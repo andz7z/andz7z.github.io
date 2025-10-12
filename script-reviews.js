@@ -237,12 +237,11 @@ function refreshUI(){
     noReviews.style.display = "none";
   }
 
-  toShow.forEach(r => {
-    const card = renderReviewCard(r.data, r.key);
-    reviewsList.appendChild(card);
-  });
-}
-
+toShow.forEach(r => {
+  const card = renderReviewCard(r, r.key);
+  reviewsList.appendChild(card);
+});
+    
 function loadReviews() {
   db.ref("reviews").on("value", snapshot => {
     const arr = [];
