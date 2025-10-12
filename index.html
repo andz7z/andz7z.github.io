@@ -193,59 +193,48 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- ===== REVIEWS (REPLACEMENT FINAL) ===== -->
-<section id="reviews" class="section">
+<!-- ===== REVIEWS (REPLACED) ===== -->
+<section id="reviews" class="hidden section">
   <div class="section-bg"></div>
+  <h2>⭐ User Reviews</h2>
 
-  <div class="reviews-wrap" style="max-width:1100px;margin:0 auto;padding:30px 18px;display:flex;flex-direction:column;gap:20px;align-items:center">
-    <!-- Title -->
-    <div class="reviews-title">
-      <h2 class="glass-title">What Our Customers Say About Us</h2>
-      <p class="glass-sub">Real experiences. Real feedback.</p>
-    </div>
-
-    <!-- Main card: form + stats -->
-    <div class="reviews-main-card">
+  <div class="reviews-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start">
+    <!-- LEFT: FORM + SORT + LIST -->
+    <div>
+      <!-- FORM -->
       <form id="review-form" class="review-form" aria-label="Review form">
-        <div class="row-top" style="display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap">
-          <input type="text" id="name" name="name" placeholder="Your Name" required class="short-input" aria-label="Your Name">
-
-          <div class="service-rating-group" style="display:flex;gap:12px;align-items:flex-start">
-            <!-- service small -->
-            <div class="service-col">
-              <label for="service" class="label-small">Service</label>
-              <select id="service" name="service" class="service-select" aria-label="Service">
-                <option value="web">🌐 Web Development</option>
-                <option value="editing">🎬 Editing</option>
-                <option value="programming">💻 Programming</option>
-              </select>
-            </div>
-
-            <!-- rating next to service: label + stars below label -->
-            <div class="rating-col">
-              <label class="label-small">Rating</label>
-              <div id="star-picker" class="stars" role="radiogroup" aria-label="Rating picker">
-                <span class="star" data-value="1" tabindex="0" aria-label="1 star">★</span>
-                <span class="star" data-value="2" tabindex="0" aria-label="2 stars">★</span>
-                <span class="star" data-value="3" tabindex="0" aria-label="3 stars">★</span>
-                <span class="star" data-value="4" tabindex="0" aria-label="4 stars">★</span>
-                <span class="star" data-value="5" tabindex="0" aria-label="5 stars">★</span>
-              </div>
-              <input type="hidden" id="rating" name="rating" value="5" required>
-            </div>
-
-            <!-- gender radios -->
-            <div class="gender-col">
-              <label class="label-small">Gender</label>
-              <div class="gender-group" role="radiogroup" aria-label="Gender">
-                <label><input type="radio" name="gender" value="male" checked> Male</label>
-                <label><input type="radio" name="gender" value="female"> Female</label>
-              </div>
-            </div>
+        <div style="display:flex;gap:10px">
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+          <!-- Gender -->
+          <div class="gender-group" role="radiogroup" aria-label="Gender">
+            <label><input type="radio" name="gender" value="male" checked> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
           </div>
         </div>
 
-        <!-- message -->
+        <!-- Service selection -->
+        <div class="service-row">
+          <label for="service" class="sr-only">Service</label>
+          <select id="service" name="service" required>
+            <option value="web">🌐 Web Development</option>
+            <option value="editing">🎬 Editing</option>
+            <option value="programming">💻 Programming</option>
+          </select>
+        </div>
+
+        <!-- Star rating -->
+        <div class="rating-row" aria-label="Rating">
+          <div class="stars" id="star-picker" role="radiogroup" aria-label="Select rating">
+            <span class="star" data-value="1" tabindex="0" aria-label="1 star">★</span>
+            <span class="star" data-value="2" tabindex="0" aria-label="2 stars">★</span>
+            <span class="star" data-value="3" tabindex="0" aria-label="3 stars">★</span>
+            <span class="star" data-value="4" tabindex="0" aria-label="4 stars">★</span>
+            <span class="star" data-value="5" tabindex="0" aria-label="5 stars">★</span>
+          </div>
+          <input type="hidden" id="rating" name="rating" value="5" required>
+        </div>
+
+        <!-- Message with 100 chars limit -->
         <textarea id="message" name="message" placeholder="Your feedback (max 100 characters)" maxlength="100" required></textarea>
         <div class="form-foot">
           <small id="char-count">0 / 100</small>
@@ -253,52 +242,53 @@
         </div>
       </form>
 
-      <!-- stats card on the right but stacked on small screens -->
-      <aside class="reviews-stats">
-        <div class="stats-card">
-          <div class="avg-block">
-            <div class="avg-value-wrap">
-              <div class="avg-value" id="avg-value">0.00</div>
-              <div class="avg-sub">din 5</div>
-            </div>
-          </div>
-          <div class="count-block">
-            <div id="total-count">0</div>
-            <div class="count-sub">review-uri</div>
-          </div>
-        </div>
-      </aside>
-    </div>
+      <!-- Sort controls -->
+      <div class="reviews-controls" style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" aria-label="Sort reviews">
+          <option value="newest">Cele mai recente</option>
+          <option value="oldest">Cele mai vechi</option>
+          <option value="highest">Cele mai mari ratinguri</option>
+          <option value="lowest">Cele mai mici ratinguri</option>
+        </select>
 
-    <!-- Controls: sort + filters -->
-    <div class="controls-row" style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center">
-      <label for="sort-select" class="label-small">Sort:</label>
-      <select id="sort-select" aria-label="Sort reviews">
-        <option value="newest">Cele mai recente</option>
-        <option value="oldest">Cele mai vechi</option>
-        <option value="highest">Cele mai mari ratinguri</option>
-        <option value="lowest">Cele mai mici ratinguri</option>
-      </select>
+        <button id="filter-web" class="filter-btn" data-filter="all">Toate</button>
+        <button id="filter-latest" class="filter-btn" data-filter="web">🌐</button>
+        <button id="filter-editing" class="filter-btn" data-filter="editing">🎬</button>
+        <button id="filter-prog" class="filter-btn" data-filter="programming">💻</button>
+      </div>
 
-      <div class="filter-group" role="tablist" aria-label="Filters">
-        <button class="filter-btn active" data-filter="all" title="Toate">All</button>
-        <button class="filter-btn" data-filter="web" title="Web">🌐</button>
-        <button class="filter-btn" data-filter="editing" title="Editing">🎬</button>
-        <button class="filter-btn" data-filter="programming" title="Programming">💻</button>
+      <!-- Reviews list -->
+      <div id="reviews-list" class="reviews-container" aria-live="polite" style="margin-top:18px">
+        <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
       </div>
     </div>
 
-    <!-- Reviews list (centered) -->
-    <div id="reviews-list-wrap" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <div id="reviews-list" class="reviews-list" aria-live="polite" style="width:100%;max-width:820px"></div>
-      <p id="no-reviews" style="opacity:.85">No reviews yet. Be the first to share your experience 💬</p>
-    </div>
+    <!-- RIGHT: Stats (average + total) -->
+    <aside class="reviews-stats" style="position:relative">
+      <div class="stats-card">
+        <div class="avg-block">
+          <div class="avg-value" id="avg-value">0.0</div>
+          <div class="avg-sub">din 5</div>
+        </div>
+        <div class="count-block">
+          <div id="total-count">0</div>
+          <div class="count-sub">review-uri</div>
+        </div>
+        <div class="mini-legend">
+          <div><span class="star small">★</span> rating</div>
+          <div>Hover review → vezi data & ora</div>
+        </div>
+      </div>
 
-    <!-- Pagination -->
-    <nav id="pagination" class="pagination" aria-label="Pagination"></nav>
+      <!-- small help text -->
+      <div style="margin-top:12px;color:rgba(255,255,255,0.8);font-size:.95rem;opacity:.9">
+        Choose service to show emoji on review.
+      </div>
+    </aside>
   </div>
 </section>
-<!-- ===== END REVIEWS (REPLACEMENT FINAL) ===== -->
+<!-- ===== END REVIEWS (REPLACED) ===== -->
   <footer>
     <p id="footer-text"></p>
   </footer>
