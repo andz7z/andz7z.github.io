@@ -20,7 +20,7 @@ const noReviews = document.getElementById("no-reviews");
 const thankMsg = document.getElementById("thankyou-message");
 let currentRating = 0;
 
-// === STAR RATING INTERACTION ===
+// === STAR RATING ===
 stars.forEach(star => {
   star.addEventListener("click", () => {
     currentRating = parseInt(star.dataset.value);
@@ -34,9 +34,10 @@ form.addEventListener("submit", e => {
 
   const name = document.getElementById("name").value.trim();
   const message = document.getElementById("message").value.trim();
+  const gender = form.querySelector("input[name='gender']:checked")?.value;
 
-  if (!name || !message || currentRating === 0) {
-    alert("Please fill in all fields and select a rating!");
+  if (!name || !message || currentRating === 0 || !gender) {
+    alert("Please fill in all fields and select a rating + gender!");
     return;
   }
 
@@ -44,12 +45,12 @@ form.addEventListener("submit", e => {
   reviewRef.set({
     name,
     message,
+    gender,
     rating: currentRating,
     date: new Date().toLocaleDateString(),
     time: new Date().toLocaleTimeString()
   });
 
-  // Clear fields + feedback
   form.reset();
   currentRating = 0;
   stars.forEach(s => s.classList.remove("active"));
@@ -71,18 +72,26 @@ function loadReviews() {
     noReviews.style.display = "none";
 
     const data = snapshot.val();
-    const entries = Object.values(data).reverse(); // cele mai noi sus
+    const entries = Object.values(data).reverse();
 
-    entries.forEach(({ name, message, rating, date, time }) => {
+    entries.forEach(({ name, message, gender, rating, date, time }) => {
       const item = document.createElement("div");
       item.className = "review-item";
+
+      const avatarSrc = gender === "female"
+        ? "assets/logos/reviews/female.png"
+        : "assets/logos/reviews/male.png";
+
       item.innerHTML = `
-        <div class="review-header">
-          <strong>${name}</strong>
-          <div class="review-date">📅 ${date} <span>⏰ ${time}</span></div>
+        <div class="review-avatar"><img src="${avatarSrc}" alt="${gender}"></div>
+        <div class="review-content">
+          <div class="review-header">
+            <strong>${name}</strong>
+            <span class="review-stars">${"★".repeat(rating)}</span>
+          </div>
+          <div class="review-message">${message}</div>
+          <div class="review-date">📅 ${date} · ⏰ ${time}</div>
         </div>
-        <div class="review-message">${message}</div>
-        <div class="review-rating">${"⭐".repeat(rating)}</div>
       `;
       container.appendChild(item);
     });
