@@ -582,6 +582,31 @@ function toggleSection(targetId) {
 [...floatBtns, ...topBtns].forEach(btn => {
   btn.addEventListener("click", () => toggleSection(btn.dataset.target));
 });
+  // sistem notificare reintrare 
+if (localStorage.getItem("visited")) {
+  setTimeout(() => showNotification("info", "👋 Welcome back, good to see you again!"), 2500);
+} else {
+  localStorage.setItem("visited", "true");
+  setTimeout(() => showNotification("info", "🏡 Make yourself like home"), 2500);
+}
+  //tranzitii
+  document.querySelectorAll('.work-btn, .yt-card').forEach((el, i) => {
+  el.style.transitionDelay = ${i * 0.2}s;
+});
+  //scrollbar
+  #scroll-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #fff, #aee);
+  z-index: 10000;
+  transition: width 0.1s linear;
+}
+body.dark-mode #scroll-bar {
+  background: linear-gradient(90deg, #ffd95a, #c69b00);
+}
 // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
   // ===========================================================
