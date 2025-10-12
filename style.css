@@ -145,8 +145,7 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
 .card-content a{padding:6px 12px;background:rgba(255,255,255,0.05);color:white;border-radius:12px;text-decoration:none;font-weight:600;transition:all .3s ease}
 .card-content a:hover{background:rgba(255,255,255,0.15);transform:scale(1.05)}
 
-/* ====== REVOLUTIONARY NOTIFICATION SYSTEM ====== */
-/* ====== AURORA NOTIFICATION SYSTEM ====== */
+/* ====== AURORA NOTIFICATION SYSTEM (refined) ====== */
 .notification {
   position: fixed;
   bottom: 25px;
@@ -161,7 +160,6 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
   font-weight: 500;
   letter-spacing: 0.5px;
   backdrop-filter: blur(14px) saturate(140%);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
   opacity: 0;
   transform: translateY(40px) scale(0.95);
   transition: all 0.7s cubic-bezier(0.25,1,0.5,1);
@@ -170,42 +168,63 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
   overflow: hidden;
 }
 
-/* Light mode — Ice White */
+/* Light mode — Ice */
 body:not(.dark-mode) .notification {
-  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(210,225,255,0.6));
+  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(210,225,255,0.65));
   color: #0d1117;
-  border: 1px solid rgba(220,235,255,0.4);
-  box-shadow: 0 0 25px rgba(200,230,255,0.25);
+  border: 1px solid rgba(220,235,255,0.5);
+  box-shadow: 0 0 30px rgba(200,230,255,0.25);
 }
 
-/* Dark mode — Gold Metal */
+/* Dark mode — Gold */
 body.dark-mode .notification {
   background: linear-gradient(135deg, rgba(60,50,20,0.9), rgba(20,15,5,0.85));
   color: #fff6d8;
   border: 1px solid rgba(255,217,90,0.25);
-  box-shadow: 0 0 25px rgba(255,217,90,0.25);
+  box-shadow: 0 0 30px rgba(255,217,90,0.25);
 }
 
-/* Glow aura animation */
+/* Show animation */
 .notification.show {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
   animation: auroraPulse 4s ease-in-out infinite alternate;
 }
+
+/* Glow animation */
 @keyframes auroraPulse {
-  0%   { box-shadow: 0 0 15px rgba(255,255,255,0.15); }
-  100% { box-shadow: 0 0 40px rgba(255,255,255,0.35); }
+  0%   { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+  100% { box-shadow: 0 0 40px rgba(255,255,255,0.4); }
 }
 body.dark-mode .notification.show {
   animation: auroraGold 4s ease-in-out infinite alternate;
 }
 @keyframes auroraGold {
-  0%   { box-shadow: 0 0 15px rgba(255,217,90,0.2); }
-  100% { box-shadow: 0 0 40px rgba(255,217,90,0.45); }
+  0%   { box-shadow: 0 0 20px rgba(255,217,90,0.25); }
+  100% { box-shadow: 0 0 45px rgba(255,217,90,0.5); }
 }
 
-/* Close button (ice/gold adaptive) */
+/* Shimmer overlay (cinematic wave) */
+.notification::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.notification.show::after {
+  animation: shimmerWave 2.5s ease-in-out 1.2s forwards;
+}
+@keyframes shimmerWave {
+  0% {opacity: 0; transform: translateX(-100%);}
+  30% {opacity: 0.6; transform: translateX(0);}
+  70% {opacity: 0.6; transform: translateX(100%);}
+  100% {opacity: 0; transform: translateX(150%);}
+}
+
+/* Close button */
 .notif-close {
   margin-left: auto;
   background: transparent;
@@ -216,24 +235,9 @@ body.dark-mode .notification.show {
   color: inherit;
 }
 .notif-close:hover {
-  transform: rotate(90deg) scale(1.3);
+  transform: rotate(90deg) scale(1.25);
   opacity: 0.8;
 }
-
-/* Type accents */
-.notification::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  opacity: 0.15;
-  background: var(--notif-accent, linear-gradient(135deg,#fff,#ccc));
-  transition: background 0.6s ease, opacity 0.6s ease;
-}
-.notification.info::before    { --notif-accent: linear-gradient(135deg,#a8d8ff,#7ebdff); }
-.notification.success::before { --notif-accent: linear-gradient(135deg,#b4f8c8,#90f6d7); }
-.notification.warning::before { --notif-accent: linear-gradient(135deg,#ffe999,#ffd95a); }
-.notification.error::before   { --notif-accent: linear-gradient(135deg,#ff7b7b,#ff4f4f); }
 
 /* Skills card */
 .skills-card{
