@@ -459,49 +459,4 @@ if (mainTitle && navButtons && titleEl) {
     const newMsg = isDark ? darkMsg : lightMsg;
     typeFooterText(newMsg);
   });
-
-  
-document.addEventListener("DOMContentLoaded", () => {
-  const themeToggle = document.querySelector(".theme-toggle");
-  const logo = document.getElementById("theme-logo");
-
-  // Link-uri directe către logo-uri
-  const lightLogo = "https://github.com/andz7z/andz7z.github.ro/raw/main/logo_light.gif";
-  const darkLogo  = "https://github.com/andz7z/andz7z.github.ro/raw/main/logo_dark.gif";
-
-  // === Detectează tema curentă la pornire ===
-  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const isStoredDark = localStorage.getItem("theme") === "dark";
-  const shouldBeDark = isStoredDark || (!localStorage.getItem("theme") && prefersDark);
-
-  if (shouldBeDark) {
-    document.body.classList.add("dark-mode");
-    logo.src = darkLogo;
-  } else {
-    document.body.classList.remove("dark-mode");
-    logo.src = lightLogo;
-  }
-
-  // === Funcție: schimbă logo-ul cu fade + flash ===
-  function switchLogo(isDark) {
-    // declanșează efectul de flash
-    logo.classList.add("flash", "fade-out");
-
-    setTimeout(() => {
-      logo.src = isDark ? darkLogo : lightLogo;
-      logo.onload = () => {
-        logo.classList.remove("fade-out");
-        // oprește flash-ul după animație
-        setTimeout(() => logo.classList.remove("flash"), 800);
-      };
-    }, 300);
-  }
-
-  // === Când se apasă butonul de temă ===
-  themeToggle.addEventListener("click", () => {
-    const isNowDark = !document.body.classList.contains("dark-mode");
-    document.body.classList.toggle("dark-mode", isNowDark);
-    localStorage.setItem("theme", isNowDark ? "dark" : "light");
-    switchLogo(isNowDark);
-  });
 });
