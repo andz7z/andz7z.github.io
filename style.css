@@ -1074,22 +1074,29 @@ body.dark-mode #scroll-bar {
   transform: scale(1.2);
 }
 
-/* Stars */
 .star-rating {
-  margin: 15px 0;
-}
-.star {
-  font-size: 1.5rem;
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
   cursor: pointer;
-  opacity: 0.4;
-  transition: 0.2s;
-}
-.star.active {
-  opacity: 1;
-  color: gold;
-  transform: scale(1.1);
 }
 
+.star-rating svg {
+  width: 35px;
+  height: 35px;
+  fill: #888;
+  transition: all 0.25s ease;
+}
+
+.star-rating svg:hover {
+  transform: scale(1.2);
+}
+
+.star-rating svg.active,
+.star-rating svg.hovered {
+  fill: gold;
+  filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.6));
+}
 /* Form Inputs */
 .review-form input,
 .review-form textarea {
