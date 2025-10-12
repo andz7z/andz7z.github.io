@@ -210,13 +210,14 @@
           <option value="female">Female</option>
         </select>
 
-        <div class="stars-input" id="stars-input">
-          <input type="radio" id="r1" name="rating" value="1"><label for="r1">1</label>
-          <input type="radio" id="r2" name="rating" value="2"><label for="r2">2</label>
-          <input type="radio" id="r3" name="rating" value="3" checked><label for="r3">3</label>
-          <input type="radio" id="r4" name="rating" value="4"><label for="r4">4</label>
-          <input type="radio" id="r5" name="rating" value="5"><label for="r5">5</label>
-        </div>
+        <div class="rating-stars" id="rating-stars">
+  <span data-value="1">★</span>
+  <span data-value="2">★</span>
+  <span data-value="3">★</span>
+  <span data-value="4">★</span>
+  <span data-value="5">★</span>
+</div>
+<input type="hidden" id="rating" name="rating" value="0">
 
         <textarea id="message" placeholder="Your feedback (max 100 words)" required></textarea>
 
