@@ -495,6 +495,25 @@ if (titleElement) {
     }
     starfield.appendChild(frag);
   }
+  // ===========================================================
+// ===== Scroll Reveal Animations (Services + Why Us) =====
+// ===========================================================
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+
+// add animations to key elements
+document.querySelectorAll(".service-card, .why-us, .yt-card").forEach(el => {
+  el.classList.add("fade-in-up");
+  observer.observe(el);
+});
 // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
   // ===========================================================
