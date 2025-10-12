@@ -515,50 +515,72 @@ document.querySelectorAll(".service-card, .why-us, .yt-card").forEach(el => {
   observer.observe(el);
 });
 // ===========================================================
-// ===== Floating Nav Bar System =====
+// ===== Synchronized Navigation System (Top + Floating) =====
 // ===========================================================
 const floatNav = document.getElementById("floating-nav");
-const navBtns = floatNav?.querySelectorAll("button");
+const floatBtns = floatNav?.querySelectorAll("button");
+const topBtns = document.querySelectorAll(".nav-btn");
+const sections = document.querySelectorAll(".section");
 let currentOpen = null;
 
-// show navbar when scrolling down
+// === Show floating nav on scroll ===
+let hideTimeout;
 window.addEventListener("scroll", () => {
   if (window.scrollY > 200) {
     floatNav?.classList.add("show");
+    // auto-hide after inactivity
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      floatNav?.classList.remove("show");
+    }, 3000);
   } else {
     floatNav?.classList.remove("show");
   }
 });
 
-// handle button clicks
-navBtns?.forEach(btn => {
-  btn.addEventListener("click", () => {
-    const targetId = btn.dataset.target;
-    const targetSection = document.getElementById(targetId);
-    const allSections = document.querySelectorAll(".section");
-    const allBtns = document.querySelectorAll(".floating-nav button");
+// show again if user moves mouse
+window.addEventListener("mousemove", () => {
+  if (window.scrollY > 200) {
+    floatNav?.classList.add("show");
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      floatNav?.classList.remove("show");
+    }, 3000);
+  }
+});
 
-    // same button → close section
-    if (currentOpen === targetId) {
-      targetSection.classList.add("hidden");
-      btn.classList.remove("active");
-      currentOpen = null;
-      return;
-    }
+// === Main toggle handler (shared for both navs) ===
+function toggleSection(targetId) {
+  const target = document.getElementById(targetId);
+  const allBtns = [...floatBtns, ...topBtns];
 
-    // close all sections
-    allSections.forEach(sec => sec.classList.add("hidden"));
+  // same section clicked → close it
+  if (currentOpen === targetId) {
+    target.classList.add("hidden");
     allBtns.forEach(b => b.classList.remove("active"));
-
-    // open target
-    targetSection.classList.remove("hidden");
-    targetSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    btn.classList.add("active");
-    currentOpen = targetId;
-
-    // click sound
+    currentOpen = null;
     playClick();
-  });
+    return;
+  }
+
+  // close others
+  sections.forEach(sec => sec.classList.add("hidden"));
+  allBtns.forEach(b => b.classList.remove("active"));
+
+  // open selected
+  target.classList.remove("hidden");
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+  allBtns
+    .filter(b => b.dataset.target === targetId)
+    .forEach(b => b.classList.add("active"));
+
+  currentOpen = targetId;
+  playClick();
+}
+
+// === Link both systems ===
+[...floatBtns, ...topBtns].forEach(btn => {
+  btn.addEventListener("click", () => toggleSection(btn.dataset.target));
 });
 // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
