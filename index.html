@@ -193,24 +193,68 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-  <!-- REVIEWS -->
+<!-- REVIEWS -->
 <section id="reviews" class="hidden section">
   <div class="section-bg"></div>
   <h2>⭐ User Reviews</h2>
 
+  <!-- Averages -->
+  <div class="review-averages glass-box">
+    <p>⭐ Overall Rating: <span id="avg-all">0.0</span></p>
+    <p>🌐 Web Dev: <span id="avg-web">0.0</span></p>
+    <p>💻 Programming: <span id="avg-prog">0.0</span></p>
+    <p>🎬 Editing: <span id="avg-edit">0.0</span></p>
+  </div>
+
   <!-- Review Form -->
-  <form id="review-form" class="review-form">
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
-    <textarea id="message" placeholder="Your feedback..." required></textarea>
-    <button type="submit">Submit Review</button>
+  <form id="review-form" class="review-form enhanced">
+    <div class="form-row">
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+      <div class="gender-select">
+        <label><input type="radio" name="gender" value="male" required><img src="assets/logos/reviews/male.gif" alt="male"></label>
+        <label><input type="radio" name="gender" value="female" required><img src="assets/logos/reviews/female.gif" alt="female"></label>
+      </div>
+    </div>
+
+    <div class="rating-stars">
+      <label>Rating:</label>
+      <div class="stars" id="rating-stars">
+        <span data-value="1">★</span>
+        <span data-value="2">★</span>
+        <span data-value="3">★</span>
+        <span data-value="4">★</span>
+        <span data-value="5">★</span>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <select id="service" name="service" required>
+        <option value="">Choose Service</option>
+        <option value="web">🌐 Web Development</option>
+        <option value="prog">💻 Programming</option>
+        <option value="edit">🎬 Editing</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <textarea id="message" name="message" maxlength="100" placeholder="Write your short feedback (max 100 chars)" required></textarea>
+      <span id="char-count">0 / 100</span>
+    </div>
+
+    <button type="submit" class="glow-btn">Submit Review</button>
   </form>
 
-  <div id="reviews-container" class="reviews-container">
-    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+  <!-- Review List -->
+  <div id="reviews-container" class="reviews-container"></div>
+  <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+
+  <!-- Pagination -->
+  <div class="pagination hidden">
+    <button id="prev-page">← Previous</button>
+    <span id="page-info">Page 1</span>
+    <button id="next-page">Next →</button>
   </div>
 </section>
-  
   <footer>
     <p id="footer-text"></p>
   </footer>
