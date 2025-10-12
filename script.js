@@ -61,6 +61,14 @@ function openSection(id) {
 }
 window.openSection = openSection;
 
+function openSection(sectionId) {
+  document.querySelectorAll("section").forEach(sec => sec.classList.add("hidden"));
+  document.getElementById(sectionId).classList.remove("hidden");
+
+  if (sectionId === "reviews") {
+    initStarRating(); // 👉 activăm stelele doar când intrăm în Reviews
+  }
+}
 // ===========================================================
 // ======== YouTube API (cu thumbnail personalizat) ========
 // ===========================================================
