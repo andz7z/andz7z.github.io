@@ -99,26 +99,21 @@ function renderReviews(reviews) {
 
     const item = document.createElement("div");
     item.className = "review-item";
-item.innerHTML = `
-  <div class="review-inner">
-    <div class="review-avatar">
-      <img src="${avatarSrc}" alt="${rev.gender}">
-    </div>
-    <div class="review-content">
-      <div class="review-header">
-        <strong>${rev.name}</strong>
-        <span class="review-stars">${"★".repeat(rev.rating)}</span>
+    item.innerHTML = `
+      <div class="review-avatar"><img src="${avatarSrc}" alt="${rev.gender}"></div>
+      <div class="review-content">
+        <div class="review-header">
+          <strong>${rev.name}</strong>
+          <span class="review-stars">${"★".repeat(rev.rating)}</span>
+        </div>
+        <div class="review-message">${rev.message}</div>
+        <div class="review-date">📅 ${rev.date} · ⏰ ${rev.time}</div>
+        <div class="review-actions">
+          <button onclick="handleVote('${id}','like')">👍 <span id="like-${id}">0</span></button>
+          <button onclick="handleVote('${id}','dislike')">👎 <span id="dislike-${id}">0</span></button>
+        </div>
       </div>
-      <div class="review-message">${rev.message}</div>
-      <div class="review-date">📅 ${rev.date} · ⏰ ${rev.time}</div>
-      <div class="review-actions">
-        <button onclick="handleVote('${id}','like')">👍 <span id="like-${id}">0</span></button>
-        <button onclick="handleVote('${id}','dislike')">👎 <span id="dislike-${id}">0</span></button>
-      </div>
-    </div>
-  </div>
-`;
-
+    `;
     container.appendChild(item);
   });
 }
