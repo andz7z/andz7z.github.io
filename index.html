@@ -193,21 +193,105 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-  <!-- REVIEWS -->
-<section id="reviews" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>⭐ User Reviews</h2>
+<section id="reviews" class="section">
+  <h2 class="reviews-title">What our customers say about us</h2>
 
-  <!-- Review Form -->
-  <form id="review-form" class="review-form">
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
-    <textarea id="message" placeholder="Your feedback..." required></textarea>
-    <button type="submit">Submit Review</button>
-  </form>
+  <div class="reviews-layout">
+    <!-- LEFT: form + filters + list -->
+    <div class="reviews-left">
 
-  <div id="reviews-container" class="reviews-container">
-    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+      <!-- Review form -->
+      <form id="review-form" class="review-form" autocomplete="off">
+        <div class="form-row">
+          <label for="name">Your name</label>
+          <input id="name" name="name" type="text" placeholder="Name" required maxlength="40">
+        </div>
+
+        <div class="form-row gender-row">
+          <label>Gender</label>
+          <div class="gender-options">
+            <label class="gender-item"><input type="radio" name="gender" value="male" checked> ♂️ Male</label>
+            <label class="gender-item"><input type="radio" name="gender" value="female"> ♀️ Female</label>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="service">For what you opted</label>
+          <select id="service" name="service" required>
+            <option value="web">🌐 Web Development</option>
+            <option value="editing">🎬 Editing</option>
+            <option value="programming">💻 Programming</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Rating</label>
+          <div id="star-input" class="star-input">
+            <button type="button" class="star" data-value="1">★</button>
+            <button type="button" class="star" data-value="2">★</button>
+            <button type="button" class="star" data-value="3">★</button>
+            <button type="button" class="star" data-value="4">★</button>
+            <button type="button" class="star" data-value="5">★</button>
+          </div>
+          <input type="hidden" id="rating" name="rating" required>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Your feedback <small id="char-count">(100)</small></label>
+          <textarea id="message" name="message" rows="4" maxlength="100" placeholder="Share your thoughts..." required></textarea>
+        </div>
+
+        <div class="form-actions">
+          <button id="submit-review" type="submit" class="btn">Submit Review</button>
+          <div class="form-note">Max 100 characters</div>
+        </div>
+      </form>
+
+      <!-- Filters -->
+      <div class="reviews-controls">
+        <div class="filter-group">
+          <label>Filter by service</label>
+          <select id="service-filter">
+            <option value="all">All</option>
+            <option value="web">Web</option>
+            <option value="editing">Editing</option>
+            <option value="programming">Programming</option>
+          </select>
+        </div>
+
+        <div class="sort-group">
+          <label>Sort by</label>
+          <select id="sort-select">
+            <option value="recent">Most recent</option>
+            <option value="oldest">Oldest</option>
+            <option value="highest">Highest rating</option>
+            <option value="lowest">Lowest rating</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Reviews list -->
+      <div id="reviews-list" class="reviews-container">
+        <p id="no-reviews" class="muted">No approved reviews yet.</p>
+      </div>
+
+      <div id="pagination" class="pagination"></div>
+    </div>
+
+    <!-- RIGHT: average + donut -->
+    <aside class="reviews-right">
+      <div class="stats-card">
+        <canvas id="rating-donut" width="200" height="200"></canvas>
+        <div class="avg-block">
+          <div id="avg-value" class="avg-value">0.0</div>
+          <div class="avg-label">Average rating</div>
+        </div>
+        <div class="count-block">
+          <div id="total-count" class="count-number">0</div>
+          <div class="count-label">Total approved reviews</div>
+        </div>
+      </div>
+    </aside>
   </div>
 </section>
   
