@@ -193,94 +193,102 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- REVIEWS (REPLACE THIS SECTION IN index.html) -->
+<!-- ===== REVIEWS (REPLACED) ===== -->
 <section id="reviews" class="hidden section">
   <div class="section-bg"></div>
   <h2>⭐ User Reviews</h2>
 
-<div class="reviews-top">
-  <div class="site-score" aria-live="polite">
-    <div class="site-score-inner">
-      <div class="score-value" id="site-avg">—</div>
-      <div id="site-stars" class="small-stars"></div>
-      <div id="site-count" class="score-meta">0 reviews</div>
+  <div class="reviews-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start">
+    <!-- LEFT: FORM + SORT + LIST -->
+    <div>
+      <!-- FORM -->
+      <form id="review-form" class="review-form" aria-label="Review form">
+        <div style="display:flex;gap:10px">
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+          <!-- Gender -->
+          <div class="gender-group" role="radiogroup" aria-label="Gender">
+            <label><input type="radio" name="gender" value="male" checked> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+          </div>
+        </div>
 
-      <!-- medii separate afisate pe acelasi rand -->
-      <div class="avg-inline">
-        <span>🌐 <strong id="avg-web">—</strong></span>
-        <span>🎬 <strong id="avg-edit">—</strong></span>
-        <span>💻 <strong id="avg-prog">—</strong></span>
+        <!-- Service selection -->
+        <div class="service-row">
+          <label for="service" class="sr-only">Service</label>
+          <select id="service" name="service" required>
+            <option value="web">🌐 Web Development</option>
+            <option value="editing">🎬 Editing</option>
+            <option value="programming">💻 Programming</option>
+          </select>
+        </div>
+
+        <!-- Star rating -->
+        <div class="rating-row" aria-label="Rating">
+          <div class="stars" id="star-picker" role="radiogroup" aria-label="Select rating">
+            <span class="star" data-value="1" tabindex="0" aria-label="1 star">★</span>
+            <span class="star" data-value="2" tabindex="0" aria-label="2 stars">★</span>
+            <span class="star" data-value="3" tabindex="0" aria-label="3 stars">★</span>
+            <span class="star" data-value="4" tabindex="0" aria-label="4 stars">★</span>
+            <span class="star" data-value="5" tabindex="0" aria-label="5 stars">★</span>
+          </div>
+          <input type="hidden" id="rating" name="rating" value="5" required>
+        </div>
+
+        <!-- Message with 100 chars limit -->
+        <textarea id="message" name="message" placeholder="Your feedback (max 100 characters)" maxlength="100" required></textarea>
+        <div class="form-foot">
+          <small id="char-count">0 / 100</small>
+          <button type="submit" class="submit-btn">Submit Review</button>
+        </div>
+      </form>
+
+      <!-- Sort controls -->
+      <div class="reviews-controls" style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap">
+        <label for="sort-select">Sort by:</label>
+        <select id="sort-select" aria-label="Sort reviews">
+          <option value="newest">Cele mai recente</option>
+          <option value="oldest">Cele mai vechi</option>
+          <option value="highest">Cele mai mari ratinguri</option>
+          <option value="lowest">Cele mai mici ratinguri</option>
+        </select>
+
+        <button id="filter-web" class="filter-btn" data-filter="all">Toate</button>
+        <button id="filter-latest" class="filter-btn" data-filter="web">🌐</button>
+        <button id="filter-editing" class="filter-btn" data-filter="editing">🎬</button>
+        <button id="filter-prog" class="filter-btn" data-filter="programming">💻</button>
+      </div>
+
+      <!-- Reviews list -->
+      <div id="reviews-list" class="reviews-container" aria-live="polite" style="margin-top:18px">
+        <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
       </div>
     </div>
-  </div>
-</div>
 
-    <div class="review-actions">
-      <button id="open-review-form" class="btn">Leave a review</button>
-    </div>
-  </div>
-
-  <!-- Review Form (keeps same ids & names so your Firebase handler still works) -->
-  <form id="review-form" class="review-form" autocomplete="off" novalidate>
-    <div class="form-row">
-      <div class="avatar-select">
-        <label class="avatar-option">
-          <input type="radio" name="avatar_choice" value="male" checked>
-          <img src="assets/logos/reviews/male.gif" alt="Male" />
-        </label>
-        <label class="avatar-option">
-          <input type="radio" name="avatar_choice" value="female">
-          <img src="assets/logos/reviews/female.gif" alt="Female" />
-        </label>
+    <!-- RIGHT: Stats (average + total) -->
+    <aside class="reviews-stats" style="position:relative">
+      <div class="stats-card">
+        <div class="avg-block">
+          <div class="avg-value" id="avg-value">0.0</div>
+          <div class="avg-sub">din 5</div>
+        </div>
+        <div class="count-block">
+          <div id="total-count">0</div>
+          <div class="count-sub">review-uri</div>
+        </div>
+        <div class="mini-legend">
+          <div><span class="star small">★</span> rating</div>
+          <div>Hover review → vezi data & ora</div>
+        </div>
       </div>
 
-      <div class="name-rating">
-        <input type="text" id="name" name="name" placeholder="Your name" required>
-<div class="stars-input">
-  <div class="star-rating" data-selected="0">
-    <svg class="star" data-value="1" viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.9-5 4.9 1.2 6.9L12 17.8l-6 3.2 1.2-6.9-5-4.9 6.9-.9z"/></svg>
-    <svg class="star" data-value="2" viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.9-5 4.9 1.2 6.9L12 17.8l-6 3.2 1.2-6.9-5-4.9 6.9-.9z"/></svg>
-    <svg class="star" data-value="3" viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.9-5 4.9 1.2 6.9L12 17.8l-6 3.2 1.2-6.9-5-4.9 6.9-.9z"/></svg>
-    <svg class="star" data-value="4" viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.9-5 4.9 1.2 6.9L12 17.8l-6 3.2 1.2-6.9-5-4.9 6.9-.9z"/></svg>
-    <svg class="star" data-value="5" viewBox="0 0 24 24"><path d="M12 2l2.9 6.3 6.9.9-5 4.9 1.2 6.9L12 17.8l-6 3.2 1.2-6.9-5-4.9 6.9-.9z"/></svg>
+      <!-- small help text -->
+      <div style="margin-top:12px;color:rgba(255,255,255,0.8);font-size:.95rem;opacity:.9">
+        Choose service to show emoji on review.
+      </div>
+    </aside>
   </div>
-  <input type="hidden" name="rating" id="rating-value" value="0">
-</div>
-
-    <div class="form-row service-row">
-      <label class="service-pill">
-        <input type="radio" name="service" value="webdev" checked>
-        <span>🌐 Web Dev</span>
-      </label>
-      <label class="service-pill">
-        <input type="radio" name="service" value="editing">
-        <span>🎬 Editing</span>
-      </label>
-      <label class="service-pill">
-        <input type="radio" name="service" value="programming">
-        <span>💻 Programming</span>
-      </label>
-    </div>
-
-    <textarea id="message" name="message" maxlength="100" placeholder="Your message (max 100 chars)" required></textarea>
-    <div class="form-row bottom-row">
-      <div class="char-count"><span id="chars-left">100</span> characters left</div>
-      <button type="submit" class="btn-primary">Send review</button>
-    </div>
-
-    <!-- keep hidden field for potential future use -->
-    <input type="hidden" id="service-hidden" name="service-hidden" value="">
-  </form>
-
-  <!-- reviews list -->
-  <div id="reviews-container" class="reviews-container">
-    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
-    <div id="reviews-list" class="reviews-list" aria-live="polite"></div>
-  </div>
-
-  <!-- pagination -->
-  <div class="pagination-wrap" id="pagination-wrap" aria-label="Reviews pagination"></div>
 </section>
+<!-- ===== END REVIEWS (REPLACED) ===== -->
   <footer>
     <p id="footer-text"></p>
   </footer>
