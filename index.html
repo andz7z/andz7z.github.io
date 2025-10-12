@@ -193,24 +193,69 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-  <!-- REVIEWS -->
 <section id="reviews" class="hidden section">
   <div class="section-bg"></div>
   <h2>⭐ User Reviews</h2>
 
-  <!-- Review Form -->
-  <form id="review-form" class="review-form">
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
-    <textarea id="message" placeholder="Your feedback..." required></textarea>
-    <button type="submit">Submit Review</button>
-  </form>
+  <div class="reviews-layout">
+    <!-- LEFT: Formular -->
+    <div class="reviews-left">
+      <form id="review-form" class="review-form">
+        <h3>Leave a review</h3>
 
-  <div id="reviews-container" class="reviews-container">
-    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+        <input type="text" id="name" placeholder="Your Name" required>
+
+        <select id="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+
+        <div class="stars-input" id="stars-input">
+          <input type="radio" id="r1" name="rating" value="1"><label for="r1">1</label>
+          <input type="radio" id="r2" name="rating" value="2"><label for="r2">2</label>
+          <input type="radio" id="r3" name="rating" value="3" checked><label for="r3">3</label>
+          <input type="radio" id="r4" name="rating" value="4"><label for="r4">4</label>
+          <input type="radio" id="r5" name="rating" value="5"><label for="r5">5</label>
+        </div>
+
+        <textarea id="message" placeholder="Your feedback (max 100 words)" required></textarea>
+
+        <div class="form-meta">
+          <span id="word-count">0 / 100 words</span>
+          <button type="submit">Submit Review</button>
+        </div>
+      </form>
+
+      <div class="sort-panel">
+        <h4>Sort reviews</h4>
+        <div class="sort-buttons">
+          <button class="sort-btn active" data-sort="recent">Most recent</button>
+          <button class="sort-btn" data-sort="oldest">Oldest</button>
+          <button class="sort-btn" data-sort="highest">Highest rating</button>
+          <button class="sort-btn" data-sort="lowest">Lowest rating</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Statistici + Reviewuri -->
+    <aside class="reviews-right">
+      <div class="stats-card">
+        <div class="average">
+          <div class="avg-stars" id="avg-stars">—</div>
+          <div class="avg-number" id="avg-number">0.0</div>
+        </div>
+        <div class="stats-meta">
+          <div>Total reviews <span id="total-reviews">0</span></div>
+          <div>Updated: <span id="last-updated">—</span></div>
+        </div>
+      </div>
+
+      <div id="reviews-container" class="reviews-container">
+        <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+      </div>
+    </aside>
   </div>
 </section>
-  
   <footer>
     <p id="footer-text"></p>
   </footer>
