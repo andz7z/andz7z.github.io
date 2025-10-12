@@ -1,4 +1,4 @@
-// === FIREBASE SETUP ===
+// === FIREBASE ===
 const firebaseConfig = {
   apiKey: "AIzaSyCGn9V5dUPM3m_LxzQuiwDWB5vUc24bF6c",
   authDomain: "andz-reviews-67306.firebaseapp.com",
@@ -8,16 +8,28 @@ const firebaseConfig = {
   messagingSenderId: "314000134063",
   appId: "1:314000134063:web:850f55c638f8ef34e7695a"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// === FORM HANDLING ===
+// === ELEMENTE ===
+const reviewSection = document.getElementById("reviews");
+const showReviewsBtn = document.getElementById("show-reviews-btn");
 const form = document.getElementById("review-form");
+const stars = document.querySelectorAll(".rating-stars span");
 const ratingInput = document.getElementById("rating");
-const stars = document.querySelectorAll(".star-input .star");
-let selectedRating = 0;
+const reviewsList = document.getElementById("reviews-list");
+const filterSelect = document.getElementById("filter");
+const pagination = document.getElementById("pagination");
+const avgStarsElem = document.getElementById("avg-stars");
 
+// === AFISARE LA CLICK PE BUTON ===
+showReviewsBtn.addEventListener("click", () => {
+  reviewSection.classList.toggle("visible");
+  reviewSection.classList.toggle("hidden");
+});
+
+// === SISTEM STELE SIMPLU ===
+let selectedRating = 0;
 stars.forEach(star => {
   star.addEventListener("click", () => {
     selectedRating = parseInt(star.dataset.value);
@@ -26,67 +38,48 @@ stars.forEach(star => {
   });
 });
 
+// === SUBMIT FORM ===
 form.addEventListener("submit", e => {
   e.preventDefault();
-
   const name = document.getElementById("name").value.trim();
   const gender = document.getElementById("gender").value;
   const service = document.getElementById("service").value;
+  const message = document.getElementById("message").value.trim().slice(0,100);
   const rating = parseInt(ratingInput.value);
-  let message = document.getElementById("message").value.trim();
-
   if (!name || !gender || !service || !rating || !message) return alert("Please fill all fields!");
-
-  if (message.length > 100) message = message.slice(0,100);
-
+  
   db.ref("reviews").push({
     name, gender, service, rating, message, date: new Date().toISOString()
   });
-
   form.reset();
-  selectedRating = 0;
   stars.forEach(s => s.classList.remove("selected"));
+  selectedRating = 0;
   alert("✅ Review sent!");
 });
 
-// === LOAD & DISPLAY REVIEWS ===
+// === AFISARE REVIEW-URI ===
 let reviewsData = [];
-const reviewsList = document.getElementById("reviews-list");
-const filterSelect = document.getElementById("filter");
-const pagination = document.getElementById("pagination");
-const avgStarsElem = document.getElementById("avg-stars");
-
-const REVIEWS_PER_PAGE = 10;
 let currentPage = 1;
+const REVIEWS_PER_PAGE = 10;
 
 function renderStars(rating) {
-  let html = "";
-  for(let i=1;i<=5;i++){
-    html += `<span class="${i<=rating?'filled':''}">⭐</span>`;
-  }
-  return html;
+  return Array.from({length:5},(_,i)=>`<span class="${i<rating?'filled':''}">★</span>`).join('');
 }
 
 function renderReviews() {
-  // Sorting
   let sorted = [...reviewsData];
   const filter = filterSelect.value;
-  if(filter==="recent") sorted.sort((a,b)=> new Date(b.date) - new Date(a.date));
-  if(filter==="oldest") sorted.sort((a,b)=> new Date(a.date) - new Date(b.date));
-  if(filter==="highest") sorted.sort((a,b)=> b.rating - a.rating);
-  if(filter==="lowest") sorted.sort((a,b)=> a.rating - b.rating);
+  if (filter === "recent") sorted.sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if (filter === "oldest") sorted.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  if (filter === "highest") sorted.sort((a,b)=>b.rating-a.rating);
+  if (filter === "lowest") sorted.sort((a,b)=>a.rating-b.rating);
 
-  // Pagination
   const totalPages = Math.ceil(sorted.length / REVIEWS_PER_PAGE);
-  if(currentPage>totalPages) currentPage=1;
-  const start = (currentPage-1)*REVIEWS_PER_PAGE;
-  const pageReviews = sorted.slice(start, start+REVIEWS_PER_PAGE);
+  const start = (currentPage - 1) * REVIEWS_PER_PAGE;
+  const pageReviews = sorted.slice(start, start + REVIEWS_PER_PAGE);
 
-  reviewsList.innerHTML = "";
-  pageReviews.forEach(r=>{
-    const div = document.createElement("div");
-    div.className = "review-card";
-    div.innerHTML = `
+  reviewsList.innerHTML = pageReviews.map(r => `
+    <div class="review-card">
       <img src="assets/logos/${r.gender}.gif" alt="${r.gender}">
       <div class="review-info">
         <div class="name">${r.name}</div>
@@ -94,33 +87,26 @@ function renderReviews() {
         <div class="stars">${renderStars(r.rating)}</div>
         <div class="message">${r.message}</div>
       </div>
-    `;
-    reviewsList.appendChild(div);
-  });
+    </div>
+  `).join('');
 
-  // Pagination buttons
   pagination.innerHTML = "";
-  for(let i=1;i<=totalPages;i++){
+  for (let i=1; i<=totalPages; i++) {
     const btn = document.createElement("button");
     btn.textContent = i;
     btn.classList.toggle("active", i===currentPage);
-    btn.addEventListener("click", ()=>{ currentPage=i; renderReviews(); });
+    btn.onclick = () => { currentPage = i; renderReviews(); };
     pagination.appendChild(btn);
   }
 
-  // Update average rating
-  const avg = (reviewsData.reduce((sum,r)=>sum+r.rating,0)/reviewsData.length || 0).toFixed(1);
+  const avg = (reviewsData.reduce((sum,r)=>sum+r.rating,0)/reviewsData.length||0).toFixed(1);
   avgStarsElem.textContent = `⭐ ${avg}`;
 }
 
-// Load data from Firebase
-db.ref("reviews").on("value", snapshot=>{
+db.ref("reviews").on("value", snap => {
   reviewsData = [];
-  snapshot.forEach(child=>{
-    reviewsData.push(child.val());
-  });
+  snap.forEach(child => reviewsData.push(child.val()));
   renderReviews();
 });
 
-// Filter change
-filterSelect.addEventListener("change", ()=>{ currentPage=1; renderReviews(); });
+filterSelect.addEventListener("change", ()=>{currentPage=1; renderReviews();});
