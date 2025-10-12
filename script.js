@@ -421,39 +421,6 @@ if (mainTitle && navButtons && titleEl) {
     }
     starfield.appendChild(frag);
   }
-  // ===========================================================
-// ======== Dark / Light Mode Toggle + YT Thumbnail Switch ========
-// ===========================================================
-const ytThumb = document.getElementById("yt-thumbnail");
-const themeToggle = document.getElementById("theme-toggle");
-const body = document.body;
-
-function setThemeMode(isDark) {
-  body.classList.toggle("dark-mode", isDark);
-  themeToggle.textContent = isDark ? "🌙" : "💡";
-  localStorage.setItem("theme", isDark ? "dark" : "light");
-
-  // schimbă imaginea YouTube logo în funcție de temă
-  if (ytThumb) {
-    ytThumb.classList.add("fade-out");
-    setTimeout(() => {
-      ytThumb.src = isDark
-        ? "https://github.com/andz7z/andz7z.github.ro/raw/main/logo_dark.gif"
-        : "https://github.com/andz7z/andz7z.github.ro/raw/main/logo_light.gif";
-      ytThumb.classList.remove("fade-out");
-    }, 300);
-  }
-}
-
-// setează tema inițială
-const savedTheme = localStorage.getItem("theme");
-setThemeMode(savedTheme === "dark");
-
-// comută tema când se apasă pe buton
-themeToggle?.addEventListener("click", () => {
-  const newDark = !body.classList.contains("dark-mode");
-  setThemeMode(newDark);
-});
 // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
   // ===========================================================
