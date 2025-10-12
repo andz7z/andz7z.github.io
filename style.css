@@ -550,7 +550,7 @@ body.dark-mode .intro-text {
 @keyframes blink {
   50% { border-color: transparent; }
 }
-/* ================== YouTube Thumbnail Dark/Light ================== */
+/* ====== YouTube Thumbnail Dark/Light ====== */
 .thumbnail-wrapper {
   width: 120px;
   height: 120px;
@@ -564,6 +564,7 @@ body.dark-mode .intro-text {
   transition: opacity 0.5s ease-in-out;
   opacity: 1;
 }
+
 /* Show footer text */
 footer.show #footer-text {
   opacity: 1;
