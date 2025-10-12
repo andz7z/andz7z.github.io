@@ -316,7 +316,7 @@ function handleWelcomeNotification() {
     showNotification("info", "👋 Welcome back, good to see you again!");
   } else {
     localStorage.setItem("visited", "true");
-    showNotification("info", "🏡 Make yourself like home");
+    showNotification("info", "🏡 Welcome, make yourself like home");
   }
 }
 
