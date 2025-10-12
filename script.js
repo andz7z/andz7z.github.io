@@ -85,6 +85,9 @@ window.openSection = openSection;
       setText("yt-videos", Number(statistics.videoCount).toLocaleString());
       setText("yt-views", Number(statistics.viewCount).toLocaleString());
 
+      const thumb = document.getElementById("yt-thumbnail");
+      if (thumb) thumb.src = snippet.thumbnails.high.url;
+
       const link = document.getElementById("yt-link");
       if (link) link.href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
     } catch (err) {
@@ -387,47 +390,6 @@ if (mainTitle && navButtons && titleEl) {
   document.addEventListener("click", ev => {
     if (!ev.target.closest(".work-buttons, .work-panel")) closeAllPanels();
   });
-const thumb = document.getElementById("yt-thumbnail");
-const THUMB_LIGHT = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
-const THUMB_DARK  = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
-
-// Preload imagini
-const imgLight = new Image();
-imgLight.src = THUMB_LIGHT;
-const imgDark = new Image();
-imgDark.src = THUMB_DARK;
-
-let lastTheme = null;
-
-// Funcție pentru setare thumbnail cu fade
-function updateThumbnail(theme) {
-  const url = theme === 'dark' ? THUMB_DARK : THUMB_LIGHT;
-  if (thumb.src !== url) {
-    thumb.style.opacity = 0;
-    setTimeout(() => {
-      thumb.src = url;
-      thumb.style.opacity = 1;
-    }, 200);
-  }
-}
-
-// Funcție pentru citirea temei curente
-function getCurrentTheme() {
-  return document.body.classList.contains('dark') ? 'dark' : 'light';
-}
-
-// Loop care verifică tema la fiecare 100ms
-setInterval(() => {
-  const currentTheme = getCurrentTheme();
-  if (currentTheme !== lastTheme) {
-    lastTheme = currentTheme;
-    updateThumbnail(currentTheme);
-  }
-}, 100);
-
-// La încărcare
-lastTheme = getCurrentTheme();
-updateThumbnail(lastTheme);
 
   // ===========================================================
   // ======== Dark / Light Mode Toggle ========
