@@ -113,8 +113,8 @@ window.addEventListener("load", fetchYouTubeStats);
   // ===========================================================
   // ======== Music Control ========
   // ===========================================================
-  const music = new Audio("https://andz7z.github.io/song.MP3");
-  const clickSound = new Audio("https://andz7z.github.io/click.MP3");
+  const music = new Audio("https://github.com/andz7z/andz7z.github.io/assets/sounds/raw/main/song.MP3");
+  const clickSound = new Audio("https://github.com/andz7z/andz7z.github.io/assets/sounds/raw/main/click.MP3");
   let playing = false, musicStarted = false;
   music.loop = true;
   music.volume = 0;
