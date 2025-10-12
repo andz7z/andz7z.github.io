@@ -243,21 +243,28 @@ function refreshUI(){
   });
 }
 
-// --- Firebase listener ---
-function loadReviews(){
+function loadReviews() {
   db.ref("reviews").on("value", snapshot => {
     const arr = [];
     snapshot.forEach(child => {
-      arr.push({ key: child.key, data: child.val() });
+      const val = child.val() || {};
+      const safe = {
+        name: val.name || "Anon",
+        rating: Number(val.rating || 0),
+        message: val.message || "",
+        service: val.service || "web",
+        gender: val.gender || "male",
+        timestamp: val.timestamp || new Date(val.date || Date.now()).toISOString(),
+        displayDate: val.displayDate || val.date || new Date().toLocaleString(),
+      };
+      arr.push({ key: child.key, ...safe });
     });
-    // store normalized: .timestamp fallback if missing
-    allReviews = arr.map(item => ({ ...item.data, key: item.key }));
+    allReviews = arr;
     refreshUI();
   }, err => {
     console.error("Firebase read error:", err);
   });
 }
-
 // --- Sort & filter handlers ---
 sortSelect.addEventListener("change", () => refreshUI());
 
