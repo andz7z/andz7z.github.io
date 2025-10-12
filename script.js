@@ -583,7 +583,7 @@ if (titleElement) {
     if (hasVisited) {
       showNotification("info", "Back for more? 🔥 Let’s make it even better this time!");
     } else {
-      showNotification("info", "Let’s build something awesome together! 🚀“);
+      showNotification("info", "Let’s build something awesome together! 🚀");
       localStorage.setItem("hasVisitedBefore", "true");
     }
   });
