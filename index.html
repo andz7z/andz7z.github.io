@@ -206,55 +206,98 @@
     <p>🎬 Editing: <span id="avg-edit">0.0</span></p>
   </div>
 
-  <!-- Review Form -->
-  <form id="review-form" class="review-form enhanced">
-    <div class="form-row">
-      <input type="text" id="name" name="name" placeholder="Your Name" required>
-      <div class="gender-select">
-        <label><input type="radio" name="gender" value="male" required><img src="assets/logos/reviews/male.gif" alt="male"></label>
-        <label><input type="radio" name="gender" value="female" required><img src="assets/logos/reviews/female.gif" alt="female"></label>
+<!-- REVIEWS -->
+<section id="reviews" class="hidden section">
+  <div class="section-bg"></div>
+  <h2>⭐ User Reviews</h2>
+
+  <div class="reviews-top-layout">
+    <!-- LEFT: FORM (larg) -->
+    <div class="review-form-area glass-box">
+      <h3>Leave a Review</h3>
+      <form id="review-form" class="review-form enhanced">
+        <div class="form-left">
+          <label class="label">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+          <label class="label">Gender</label>
+          <div class="gender-select">
+            <label class="gender-option">
+              <input type="radio" name="gender" value="male" required>
+              <img src="assets/logos/reviews/male.gif" alt="male">
+              <span>Male</span>
+            </label>
+            <label class="gender-option">
+              <input type="radio" name="gender" value="female" required>
+              <img src="assets/logos/reviews/female.gif" alt="female">
+              <span>Female</span>
+            </label>
+          </div>
+
+          <label class="label">Service</label>
+          <div class="service-buttons" id="service-buttons">
+            <button type="button" data-value="web" class="svc-btn">🌐 Web Dev</button>
+            <button type="button" data-value="prog" class="svc-btn">💻 Programming</button>
+            <button type="button" data-value="edit" class="svc-btn">🎬 Editing</button>
+          </div>
+
+          <label class="label">Rating</label>
+          <div class="rating-stars" id="rating-stars">
+            <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span>
+            <span data-value="4">★</span><span data-value="5">★</span>
+          </div>
+
+          <button type="submit" class="glow-btn submit-left">Submit</button>
+        </div>
+
+        <div class="form-right">
+          <label class="label">Short review (max 100)</label>
+          <textarea id="message" name="message" maxlength="100" placeholder="Describe your experience..." required></textarea>
+          <span id="char-count">0 / 100</span>
+
+          <div class="form-hint">Tip: Keep it short and helpful — public name & rating will show.</div>
+        </div>
+      </form>
+    </div>
+
+    <!-- RIGHT: AVERAGES -->
+    <div class="review-stats-area glass-box">
+      <h3>Ratings</h3>
+      <div class="avg-row">
+        <button class="avg-btn" id="avg-all">Overall — <span class="avg-val">0.0</span></button>
+        <button class="avg-btn" id="avg-web">🌐 Web — <span class="avg-val">0.0</span></button>
+        <button class="avg-btn" id="avg-prog">💻 Prog — <span class="avg-val">0.0</span></button>
+        <button class="avg-btn" id="avg-edit">🎬 Edit — <span class="avg-val">0.0</span></button>
+      </div>
+
+      <div class="avg-meta">
+        <p class="avg-note">Click any score to zoom the related reviews.</p>
+        <div class="avg-visual">
+          <div class="avg-circle big" id="avg-circle-all"><span>0.0</span></div>
+          <div class="avg-small-row">
+            <div class="avg-circle small" id="avg-circle-web"><span>0.0</span></div>
+            <div class="avg-circle small" id="avg-circle-prog"><span>0.0</span></div>
+            <div class="avg-circle small" id="avg-circle-edit"><span>0.0</span></div>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="rating-stars">
-      <label>Rating:</label>
-      <div class="stars" id="rating-stars">
-        <span data-value="1">★</span>
-        <span data-value="2">★</span>
-        <span data-value="3">★</span>
-        <span data-value="4">★</span>
-        <span data-value="5">★</span>
-      </div>
+  <!-- REVIEWS LIST (dedesubt) -->
+  <div id="reviews-list-block" class="reviews-list-block">
+    <div id="reviews-container" class="reviews-container"></div>
+    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+
+    <!-- Pagination -->
+    <div class="pagination hidden">
+      <button id="prev-page">← Previous</button>
+      <span id="page-info">Page 1</span>
+      <button id="next-page">Next →</button>
     </div>
-
-    <div class="form-row">
-      <select id="service" name="service" required>
-        <option value="">Choose Service</option>
-        <option value="web">🌐 Web Development</option>
-        <option value="prog">💻 Programming</option>
-        <option value="edit">🎬 Editing</option>
-      </select>
-    </div>
-
-    <div class="form-row">
-      <textarea id="message" name="message" maxlength="100" placeholder="Write your short feedback (max 100 chars)" required></textarea>
-      <span id="char-count">0 / 100</span>
-    </div>
-
-    <button type="submit" class="glow-btn">Submit Review</button>
-  </form>
-
-  <!-- Review List -->
-  <div id="reviews-container" class="reviews-container"></div>
-  <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
-
-  <!-- Pagination -->
-  <div class="pagination hidden">
-    <button id="prev-page">← Previous</button>
-    <span id="page-info">Page 1</span>
-    <button id="next-page">Next →</button>
   </div>
 </section>
+  
   <footer>
     <p id="footer-text"></p>
   </footer>
