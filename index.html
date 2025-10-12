@@ -193,27 +193,27 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- ===== REVIEWS (REPLACED) ===== -->
+<!-- ===== REVIEWS (UPDATED) ===== -->
 <section id="reviews" class="hidden section">
   <div class="section-bg"></div>
-  <h2>⭐ User Reviews</h2>
+  <h2 class="reviews-title">What our customers say about us</h2>
 
-  <div class="reviews-grid" style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start">
+  <div class="reviews-wrapper">
     <!-- LEFT: FORM + SORT + LIST -->
-    <div>
-      <!-- FORM -->
+    <div class="reviews-left">
       <form id="review-form" class="review-form" aria-label="Review form">
-        <div style="display:flex;gap:10px">
+        <div class="row-inline">
           <input type="text" id="name" name="name" placeholder="Your Name" required>
-          <!-- Gender -->
+
+          <!-- Gender with emoji -->
           <div class="gender-group" role="radiogroup" aria-label="Gender">
-            <label><input type="radio" name="gender" value="male" checked> Male</label>
-            <label><input type="radio" name="gender" value="female"> Female</label>
+            <label class="gender-label"><input type="radio" name="gender" value="male" checked> <span class="gender-emoji">👨</span> Male</label>
+            <label class="gender-label"><input type="radio" name="gender" value="female"> <span class="gender-emoji">👩</span> Female</label>
           </div>
         </div>
 
         <!-- Service selection -->
-        <div class="service-row">
+        <div class="service-row transparent-block">
           <label for="service" class="sr-only">Service</label>
           <select id="service" name="service" required>
             <option value="web">🌐 Web Development</option>
@@ -222,19 +222,19 @@
           </select>
         </div>
 
-        <!-- Star rating -->
-        <div class="rating-row" aria-label="Rating">
+        <!-- Rating (moved under service) -->
+        <div class="rating-row transparent-block">
+          <div class="rating-label">Rating</div>
           <div class="stars" id="star-picker" role="radiogroup" aria-label="Select rating">
-            <span class="star" data-value="1" tabindex="0" aria-label="1 star">★</span>
-            <span class="star" data-value="2" tabindex="0" aria-label="2 stars">★</span>
-            <span class="star" data-value="3" tabindex="0" aria-label="3 stars">★</span>
-            <span class="star" data-value="4" tabindex="0" aria-label="4 stars">★</span>
-            <span class="star" data-value="5" tabindex="0" aria-label="5 stars">★</span>
+            <button type="button" class="star" data-value="1" aria-label="1 star">★</button>
+            <button type="button" class="star" data-value="2" aria-label="2 stars">★</button>
+            <button type="button" class="star" data-value="3" aria-label="3 stars">★</button>
+            <button type="button" class="star" data-value="4" aria-label="4 stars">★</button>
+            <button type="button" class="star" data-value="5" aria-label="5 stars">★</button>
           </div>
           <input type="hidden" id="rating" name="rating" value="5" required>
         </div>
 
-        <!-- Message with 100 chars limit -->
         <textarea id="message" name="message" placeholder="Your feedback (max 100 characters)" maxlength="100" required></textarea>
         <div class="form-foot">
           <small id="char-count">0 / 100</small>
@@ -242,8 +242,8 @@
         </div>
       </form>
 
-      <!-- Sort controls -->
-      <div class="reviews-controls" style="display:flex;gap:10px;align-items:center;margin-top:14px;flex-wrap:wrap">
+      <!-- Sort controls + filters -->
+      <div class="reviews-controls">
         <label for="sort-select">Sort by:</label>
         <select id="sort-select" aria-label="Sort reviews">
           <option value="newest">Cele mai recente</option>
@@ -252,21 +252,24 @@
           <option value="lowest">Cele mai mici ratinguri</option>
         </select>
 
-        <button id="filter-web" class="filter-btn" data-filter="all">Toate</button>
-        <button id="filter-latest" class="filter-btn" data-filter="web">🌐</button>
-        <button id="filter-editing" class="filter-btn" data-filter="editing">🎬</button>
-        <button id="filter-prog" class="filter-btn" data-filter="programming">💻</button>
+        <div class="filter-group">
+          <button id="filter-all" class="filter-btn active" data-filter="all">Toate</button>
+          <button id="filter-web" class="filter-btn" data-filter="web">🌐</button>
+          <button id="filter-editing" class="filter-btn" data-filter="editing">🎬</button>
+          <button id="filter-prog" class="filter-btn" data-filter="programming">💻</button>
+        </div>
       </div>
 
-      <!-- Reviews list -->
-      <div id="reviews-list" class="reviews-container" aria-live="polite" style="margin-top:18px">
+      <div id="reviews-list" class="reviews-container" aria-live="polite">
         <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
       </div>
+
+      <div id="reviews-pagination" class="reviews-pagination" aria-label="Pagination"></div>
     </div>
 
-    <!-- RIGHT: Stats (average + total) -->
-    <aside class="reviews-stats" style="position:relative">
-      <div class="stats-card">
+    <!-- RIGHT: Stats -->
+    <aside class="reviews-stats">
+      <div class="stats-card glass">
         <div class="avg-block">
           <div class="avg-value" id="avg-value">0.0</div>
           <div class="avg-sub">din 5</div>
@@ -275,20 +278,14 @@
           <div id="total-count">0</div>
           <div class="count-sub">review-uri</div>
         </div>
-        <div class="mini-legend">
-          <div><span class="star small">★</span> rating</div>
-          <div>Hover review → vezi data & ora</div>
-        </div>
       </div>
-
-      <!-- small help text -->
-      <div style="margin-top:12px;color:rgba(255,255,255,0.8);font-size:.95rem;opacity:.9">
-        Choose service to show emoji on review.
+      <div class="avg-bar">
+        <div class="avg-bar-fill" id="avg-bar-fill" style="width:0%"></div>
       </div>
     </aside>
   </div>
 </section>
-<!-- ===== END REVIEWS (REPLACED) ===== -->
+<!-- ===== END REVIEWS (UPDATED) ===== -->
   <footer>
     <p id="footer-text"></p>
   </footer>
