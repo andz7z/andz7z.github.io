@@ -87,8 +87,8 @@ async function fetchYouTubeStats() {
 
     // ===== Thumbnail personalizat în funcție de temă =====
     const thumb = document.getElementById("yt-thumbnail");
-    const lightThumb = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
-    const darkThumb = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
+    const lightThumb = "https://github.com/andz7z/andz7z.github.io/assets/logos/raw/main/logo_light.gif";
+    const darkThumb = "https://github.com/andz7z/andz7z.github.io/assets/logos/raw/main/logo_light.gif";
 
     if (thumb) {
       const isDark = document.body.classList.contains("dark-mode");
@@ -548,7 +548,7 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
   document.body.appendChild(notif);
 
   // Play sound
-  const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/raw/main/notification.MP3");
+  const notifSound = new Audio("https://github.com/andz7z/andz7z.github.io/assets/sounds/raw/main/notification.MP3");
   notifSound.volume = 0.1;
   notifSound.play().catch(() => {});
 
