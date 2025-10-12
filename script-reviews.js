@@ -57,11 +57,19 @@ form.addEventListener("submit",e=>{
   e.preventDefault();
   const name=form.name.value.trim()||"Anonymous";
   const gender=form.gender.value;
-  const rating=parseInt(getRating());
-  let msg=trimWords(form.message.value.trim());
-  if(!msg)return alert("Write a short message (max 100 words).");
-  const now=new Date().toISOString();
-  db.ref("reviews").push({name,gender,rating,message:msg,ts:now});
+  const rating = parseInt(hiddenRating.value) || 0;
+let msg = trimWords(form.message.value.trim());
+if (!msg) return alert("Please write a short message (max 100 words).");
+if (rating === 0) return alert("Please select a rating before submitting.");
+const now = new Date().toISOString();
+const reviewRef = db.ref("reviews").push();
+reviewRef.set({
+  name,
+  gender,
+  rating,
+  message: msg,
+  ts: now
+});
   form.reset();wordCount.textContent="0 / 100 words";
   alert("✅ Review sent!");
 });
