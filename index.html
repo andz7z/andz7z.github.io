@@ -193,70 +193,80 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- REVIEWS SECTION -->
-<section id="reviews" class="section hidden">
-  <div class="section-bg"></div>
-  <h2>⭐ User Reviews</h2>
+<!-- REVIEWS PANEL (inlocuieste sectiunea anterioara) -->
+<div id="reviews-panel" class="reviews-panel" aria-hidden="true">
+  <div class="reviews-backdrop"></div>
 
-  <div id="average-rating" class="average-rating">
-    Overall: <span id="avg-stars">⭐ 0.0</span>
-  </div>
+  <div class="reviews-modal" role="dialog" aria-modal="true" aria-labelledby="reviews-title">
+    <button id="close-reviews" class="close-btn" aria-label="Close reviews">✕</button>
 
-  <div class="reviews-wrapper">
-    <!-- FORM LEFT -->
-    <form id="review-form" class="review-form">
-      <label>Gender:</label>
-      <select id="gender" required>
-        <option value="">Select gender</option>
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
+    <header class="reviews-header">
+      <h2 id="reviews-title">Write your review ✨</h2>
+      <div id="average-rating" class="average-rating">Overall: <span id="avg-stars">⭐ 0.0</span></div>
+    </header>
 
-      <label>Name:</label>
-      <input type="text" id="name" placeholder="Your Name" required>
+    <div class="reviews-body">
+      <!-- LEFT: FORM -->
+      <form id="review-form" class="review-card form-card" autocomplete="off">
+        <div class="form-top">
+          <div class="avatar-preview">
+            <img id="preview-avatar" src="assets/logos/male.gif" alt="avatar" />
+          </div>
 
-      <label>Service:</label>
-      <select id="service" required>
-        <option value="">Select Service</option>
-        <option value="Web Dev">Web Dev</option>
-        <option value="Programming">Programming</option>
-        <option value="Editing">Editing</option>
-      </select>
+          <div class="name-wrap">
+            <input id="name" type="text" placeholder="Your name" required maxlength="40" />
+            <div class="gender-toggle">
+              <button type="button" class="gender-btn" data-gender="male">👨</button>
+              <button type="button" class="gender-btn" data-gender="female">👩</button>
+            </div>
+          </div>
+        </div>
 
-      <label>Rating:</label>
-      <div class="rating-stars">
-        <span data-value="1">★</span>
-        <span data-value="2">★</span>
-        <span data-value="3">★</span>
-        <span data-value="4">★</span>
-        <span data-value="5">★</span>
-      </div>
-      <input type="hidden" id="rating" required>
+        <label class="service-label">Choose service</label>
+        <div class="services-row" id="services-row">
+          <button type="button" class="service-btn" data-service="Web Dev" title="Web Dev">💻<span>Web Dev</span></button>
+          <button type="button" class="service-btn" data-service="Programming" title="Programming">🧠<span>Programming</span></button>
+          <button type="button" class="service-btn" data-service="Editing" title="Editing">🎬<span>Editing</span></button>
+        </div>
+        <input type="hidden" id="service" required>
 
-      <label>Message (max 100 chars):</label>
-      <textarea id="message" placeholder="Your feedback..." maxlength="100" required></textarea>
+        <label class="rating-label">Your rating</label>
+        <div id="rating-stars" class="rating-stars" role="radiogroup" aria-label="Rating">
+          <button type="button" class="rating-star" data-value="1" aria-pressed="false">★</button>
+          <button type="button" class="rating-star" data-value="2" aria-pressed="false">★</button>
+          <button type="button" class="rating-star" data-value="3" aria-pressed="false">★</button>
+          <button type="button" class="rating-star" data-value="4" aria-pressed="false">★</button>
+          <button type="button" class="rating-star" data-value="5" aria-pressed="false">★</button>
+        </div>
+        <input type="hidden" id="rating" required>
 
-      <button type="submit">Submit Review</button>
-    </form>
+        <label for="message">Message <small id="char-count">0/100</small></label>
+        <textarea id="message" maxlength="100" placeholder="Tell us your thoughts..." required></textarea>
 
-    <!-- REVIEWS RIGHT -->
-    <div class="reviews-container">
-      <div class="filter-container">
-        <label>Sort by:</label>
-        <select id="filter">
-          <option value="recent">Most Recent</option>
-          <option value="oldest">Oldest</option>
-          <option value="highest">Highest Rating</option>
-          <option value="lowest">Lowest Rating</option>
-        </select>
-      </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Submit Review ✨</button>
+        </div>
+      </form>
 
-      <div id="reviews-list"></div>
-      <div id="pagination" class="pagination"></div>
+      <!-- RIGHT: REVIEWS LIST -->
+      <aside class="reviews-list-wrap">
+        <div class="list-controls">
+          <div class="filters">
+            <button class="filter-btn" data-filter="recent">🔄 Recent</button>
+            <button class="filter-btn" data-filter="oldest">🕰️ Oldest</button>
+            <button class="filter-btn" data-filter="highest">⭐ Highest</button>
+            <button class="filter-btn" data-filter="lowest">⚡ Lowest</button>
+          </div>
+          <div class="list-stats" id="list-stats"></div>
+        </div>
+
+        <div id="reviews-list" class="reviews-list" aria-live="polite"></div>
+
+        <nav id="pagination" class="pagination" aria-label="Review pages"></nav>
+      </aside>
     </div>
   </div>
-</section>
-  
+</div>
   <footer>
     <p id="footer-text"></p>
   </footer>
