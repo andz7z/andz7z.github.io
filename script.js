@@ -250,14 +250,14 @@ function createSparks(x, y) {
   for (let i = 0; i < 8; i++) {
     const spark = document.createElement("div");
     spark.className = "spark";
-    spark.style.left = `${x}px`;
-    spark.style.top = `${y}px`;
+    spark.style.left = ${x}px;
+    spark.style.top = ${y}px;
 
     // Random flight directions
     const angle = Math.random() * 2 * Math.PI;
     const distance = 50 + Math.random() * 40;
-    spark.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
-    spark.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+    spark.style.setProperty("--x", ${Math.cos(angle) * distance}px);
+    spark.style.setProperty("--y", ${Math.sin(angle) * distance}px);
 
     document.body.appendChild(spark);
     setTimeout(() => spark.remove(), 1000);
@@ -272,11 +272,11 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
   if (existing) existing.remove();
 
   const notif = document.createElement("div");
-  notif.className = `notification ${type}`;
-  notif.innerHTML = `
+  notif.className = notification ${type};
+  notif.innerHTML = 
     <span>${message}</span>
     <button class="notif-close" aria-label="Close">&times;</button>
-  `;
+  ;
   document.body.appendChild(notif);
 
   // Play sound
@@ -306,35 +306,13 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
   }, duration);
 }
 
-// ===========================================================
-// ===== Notification Logic (centralizată) =====
-// ===========================================================
-function handleWelcomeNotification() {
-  const visited = localStorage.getItem("visited");
-
-  if (visited) {
-    showNotification("info", "Back for more? 🔥 Let’s make it even better this time!");
-  } else {
-    localStorage.setItem("visited", "true");
-    showNotification("info", "Let’s build something awesome together! 🚀");
-  }
-}
-
-// ===========================================================
-// ===== Eveniment la click pe titlu =====
-// ===========================================================
+// Show once when user clicks title
 const titleElement = document.getElementById("main-title");
 if (titleElement) {
   titleElement.addEventListener("click", () => {
-    handleWelcomeNotification();
+    showNotification("info", "🏡 Make yourself like home");
   });
 }
-
-// ===========================================================
-// ===== Optional: apel automat la intrarea pe site =====
-// ===========================================================
-// dacă vrei ca să se declanșeze și automat la intrare:
-setTimeout(() => handleWelcomeNotification(), 2500);
   
   // ===========================================================
   // ======== Particle Effect ========
