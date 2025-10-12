@@ -193,23 +193,24 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-  <!-- REVIEWS -->
-<section id="reviews" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>⭐ User Reviews</h2>
-
-  <!-- Review Form -->
-  <form id="review-form" class="review-form">
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
-    <textarea id="message" placeholder="Your feedback..." required></textarea>
-    <button type="submit">Submit Review</button>
-  </form>
-
-  <div id="reviews-container" class="reviews-container">
-    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+<!-- REVIEW FORM -->
+<form id="review-form" class="review-form">
+  <div class="rating-stars" id="rating-stars">
+    <span data-value="1">★</span>
+    <span data-value="2">★</span>
+    <span data-value="3">★</span>
+    <span data-value="4">★</span>
+    <span data-value="5">★</span>
   </div>
-</section>
+  <input type="text" id="name" placeholder="Your Name" required>
+  <textarea id="message" placeholder="Write your feedback..." required></textarea>
+  <button type="submit">Submit Review</button>
+  <p id="thankyou-message" class="thankyou-message hidden"></p>
+</form>
+
+<div id="reviews-container" class="reviews-container">
+  <p id="no-reviews">No reviews yet. Be the first to share your thoughts 💬</p>
+</div>
   
   <footer>
     <p id="footer-text"></p>
