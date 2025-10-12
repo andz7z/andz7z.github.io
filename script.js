@@ -313,10 +313,10 @@ function handleWelcomeNotification() {
   const visited = localStorage.getItem("visited");
 
   if (visited) {
-    showNotification("info", "👋 Welcome back, good to see you again!");
+    showNotification("info", "Back for more? 🔥 Let’s make it even better this time!");
   } else {
     localStorage.setItem("visited", "true");
-    showNotification("info", "🏡 Welcome, make yourself like home");
+    showNotification("info", "Let’s build something awesome together! 🚀");
   }
 }
 
