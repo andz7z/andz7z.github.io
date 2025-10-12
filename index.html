@@ -193,70 +193,24 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
+  <!-- REVIEWS -->
 <section id="reviews" class="hidden section">
   <div class="section-bg"></div>
   <h2>⭐ User Reviews</h2>
 
-  <div class="reviews-layout">
-    <!-- LEFT: Formular -->
-    <div class="reviews-left">
-      <form id="review-form" class="review-form">
-        <h3>Leave a review</h3>
+  <!-- Review Form -->
+  <form id="review-form" class="review-form">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
+    <textarea id="message" placeholder="Your feedback..." required></textarea>
+    <button type="submit">Submit Review</button>
+  </form>
 
-        <input type="text" id="name" placeholder="Your Name" required>
-
-        <select id="gender">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-
-        <div class="rating-stars" id="rating-stars">
-  <span data-value="1">★</span>
-  <span data-value="2">★</span>
-  <span data-value="3">★</span>
-  <span data-value="4">★</span>
-  <span data-value="5">★</span>
-</div>
-<input type="hidden" id="rating" name="rating" value="0">
-
-        <textarea id="message" placeholder="Your feedback (max 100 words)" required></textarea>
-
-        <div class="form-meta">
-          <span id="word-count">0 / 100 words</span>
-          <button type="submit">Submit Review</button>
-        </div>
-      </form>
-
-      <div class="sort-panel">
-        <h4>Sort reviews</h4>
-        <div class="sort-buttons">
-          <button class="sort-btn active" data-sort="recent">Most recent</button>
-          <button class="sort-btn" data-sort="oldest">Oldest</button>
-          <button class="sort-btn" data-sort="highest">Highest rating</button>
-          <button class="sort-btn" data-sort="lowest">Lowest rating</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- RIGHT: Statistici + Reviewuri -->
-    <aside class="reviews-right">
-      <div class="stats-card">
-        <div class="average">
-          <div class="avg-stars" id="avg-stars">—</div>
-          <div class="avg-number" id="avg-number">0.0</div>
-        </div>
-        <div class="stats-meta">
-          <div>Total reviews <span id="total-reviews">0</span></div>
-          <div>Updated: <span id="last-updated">—</span></div>
-        </div>
-      </div>
-
-      <div id="reviews-container" class="reviews-container">
-        <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
-      </div>
-    </aside>
+  <div id="reviews-container" class="reviews-container">
+    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
   </div>
 </section>
+  
   <footer>
     <p id="footer-text"></p>
   </footer>
