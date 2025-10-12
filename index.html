@@ -221,13 +221,17 @@
           </div>
         </div>
 
-        <div class="star-rating" id="starRating">
-          <i class="star" data-value="1">⭐</i>
-          <i class="star" data-value="2">⭐</i>
-          <i class="star" data-value="3">⭐</i>
-          <i class="star" data-value="4">⭐</i>
-          <i class="star" data-value="5">⭐</i>
-        </div>
+<div class="rating-container">
+  <label>Rating:</label>
+  <div id="star-rating" class="star-rating">
+    <svg data-value="1" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
+    <svg data-value="2" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
+    <svg data-value="3" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
+    <svg data-value="4" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
+    <svg data-value="5" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.429L24 9.75l-6 5.85 1.417 8.4L12 19.5l-7.417 4.5L6 15.6 0 9.75l8.332-1.734z"/></svg>
+  </div>
+</div>
+
 
         <textarea id="message" maxlength="100" placeholder="Tell us your thoughts..." required></textarea>
         <div class="char-counter"><span id="charCount">0</span>/100</div>
