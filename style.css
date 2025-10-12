@@ -146,68 +146,94 @@ footer{margin-top:auto;padding:40px 0;font-size:.9rem;opacity:.6}
 .card-content a:hover{background:rgba(255,255,255,0.15);transform:scale(1.05)}
 
 /* ====== REVOLUTIONARY NOTIFICATION SYSTEM ====== */
+/* ====== AURORA NOTIFICATION SYSTEM ====== */
 .notification {
   position: fixed;
   bottom: 25px;
   right: 25px;
-  min-width: 280px;
-  max-width: 420px;
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 20px;
-  border-radius: 16px;
+  padding: 16px 22px;
+  border-radius: 18px;
+  font-family: 'Comfortaa', sans-serif;
   font-size: 1rem;
   font-weight: 500;
-  color: #fff;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
   opacity: 0;
   transform: translateY(40px) scale(0.95);
-  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.7s cubic-bezier(0.25,1,0.5,1);
   z-index: 9999;
   pointer-events: none;
+  overflow: hidden;
 }
+
+/* Light mode — Ice White */
+body:not(.dark-mode) .notification {
+  background: linear-gradient(135deg, rgba(255,255,255,0.85), rgba(210,225,255,0.6));
+  color: #0d1117;
+  border: 1px solid rgba(220,235,255,0.4);
+  box-shadow: 0 0 25px rgba(200,230,255,0.25);
+}
+
+/* Dark mode — Gold Metal */
+body.dark-mode .notification {
+  background: linear-gradient(135deg, rgba(60,50,20,0.9), rgba(20,15,5,0.85));
+  color: #fff6d8;
+  border: 1px solid rgba(255,217,90,0.25);
+  box-shadow: 0 0 25px rgba(255,217,90,0.25);
+}
+
+/* Glow aura animation */
 .notification.show {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
+  animation: auroraPulse 4s ease-in-out infinite alternate;
+}
+@keyframes auroraPulse {
+  0%   { box-shadow: 0 0 15px rgba(255,255,255,0.15); }
+  100% { box-shadow: 0 0 40px rgba(255,255,255,0.35); }
+}
+body.dark-mode .notification.show {
+  animation: auroraGold 4s ease-in-out infinite alternate;
+}
+@keyframes auroraGold {
+  0%   { box-shadow: 0 0 15px rgba(255,217,90,0.2); }
+  100% { box-shadow: 0 0 40px rgba(255,217,90,0.45); }
 }
 
-/* Notification types */
-.notification.info    { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-.notification.success { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-.notification.warning { background: linear-gradient(135deg, #f7971e, #ffd200); color:#222; }
-.notification.error   { background: linear-gradient(135deg, #f85032, #e73827); }
+/* Close button (ice/gold adaptive) */
+.notif-close {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  color: inherit;
+}
+.notif-close:hover {
+  transform: rotate(90deg) scale(1.3);
+  opacity: 0.8;
+}
 
-/* Glow ring */
+/* Type accents */
 .notification::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  animation: notifGlow 2s ease-in-out infinite alternate;
+  opacity: 0.15;
+  background: var(--notif-accent, linear-gradient(135deg,#fff,#ccc));
+  transition: background 0.6s ease, opacity 0.6s ease;
 }
-@keyframes notifGlow {
-  0% { box-shadow: 0 0 10px rgba(255,255,255,0.1); }
-  100% { box-shadow: 0 0 25px rgba(255,255,255,0.3); }
-}
-
-/* Close button */
-.notif-close {
-  margin-left: auto;
-  background: transparent;
-  border: none;
-  font-size: 1.4rem;
-  color: inherit;
-  cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.notif-close:hover {
-  transform: scale(1.25) rotate(90deg);
-  opacity: 0.8;
-}
+.notification.info::before    { --notif-accent: linear-gradient(135deg,#a8d8ff,#7ebdff); }
+.notification.success::before { --notif-accent: linear-gradient(135deg,#b4f8c8,#90f6d7); }
+.notification.warning::before { --notif-accent: linear-gradient(135deg,#ffe999,#ffd95a); }
+.notification.error::before   { --notif-accent: linear-gradient(135deg,#ff7b7b,#ff4f4f); }
 
 /* Skills card */
 .skills-card{
