@@ -98,7 +98,11 @@ function highlightStars(rating) {
       alert("⚠️ Please complete all fields before submitting!");
       return;
     }
-
+if (!selectedRating) {
+  alert("Please select a rating!");
+  return;
+}
+review.rating = selectedRating;
     const review = {
       name,
       gender,
