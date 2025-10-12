@@ -391,10 +391,18 @@ const thumb = document.getElementById("yt-thumbnail");
 const THUMB_LIGHT = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
 const THUMB_DARK  = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
 
-// Funcție pentru setarea thumbnail-ului cu fade
+// Preload imagini
+const imgLight = new Image();
+imgLight.src = THUMB_LIGHT;
+const imgDark = new Image();
+imgDark.src = THUMB_DARK;
+
+let lastTheme = null;
+
+// Funcție pentru setare thumbnail cu fade
 function updateThumbnail(theme) {
   const url = theme === 'dark' ? THUMB_DARK : THUMB_LIGHT;
-  if (thumb.src !== url) {  // schimbă doar dacă e nevoie
+  if (thumb.src !== url) {
     thumb.style.opacity = 0;
     setTimeout(() => {
       thumb.src = url;
@@ -403,21 +411,23 @@ function updateThumbnail(theme) {
   }
 }
 
-// Detectăm tema curentă
+// Funcție pentru citirea temei curente
 function getCurrentTheme() {
   return document.body.classList.contains('dark') ? 'dark' : 'light';
 }
 
-// Setare inițială la încărcare
-updateThumbnail(getCurrentTheme());
+// Loop care verifică tema la fiecare 100ms
+setInterval(() => {
+  const currentTheme = getCurrentTheme();
+  if (currentTheme !== lastTheme) {
+    lastTheme = currentTheme;
+    updateThumbnail(currentTheme);
+  }
+}, 100);
 
-// Ascultăm modificările clasei body (dark/light) folosind MutationObserver
-const observer = new MutationObserver(() => {
-  updateThumbnail(getCurrentTheme());
-});
-
-// Observăm doar atributele clasei
-observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+// La încărcare
+lastTheme = getCurrentTheme();
+updateThumbnail(lastTheme);
 
   // ===========================================================
   // ======== Dark / Light Mode Toggle ========
