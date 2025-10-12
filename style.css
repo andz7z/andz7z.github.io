@@ -847,3 +847,64 @@ body.dark-mode .comparison-table tr:hover td {
   opacity: 1;
   transform: translateY(0);
 }
+/* ===== Floating Navigation Bar ===== */
+.floating-nav {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) translateY(60px);
+  display: flex;
+  gap: 15px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 40px;
+  padding: 8px 20px;
+  box-shadow: 0 6px 25px rgba(0,0,0,0.3);
+  z-index: 10000;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+/* visible state */
+.floating-nav.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* buttons */
+.floating-nav button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.floating-nav button:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+}
+
+/* active state */
+.floating-nav button.active {
+  background: white;
+  color: #000;
+  box-shadow: 0 0 15px rgba(255,255,255,0.6);
+}
+
+/* dark mode variant */
+body.dark-mode .floating-nav {
+  background: rgba(40,40,40,0.7);
+  border: 1px solid rgba(255,217,90,0.2);
+  box-shadow: 0 6px 25px rgba(255,217,90,0.25);
+}
+body.dark-mode .floating-nav button.active {
+  background: #ffd95a;
+  color: #111;
+  box-shadow: 0 0 18px rgba(255,217,90,0.5);
+}
