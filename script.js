@@ -394,27 +394,36 @@ const thumb = document.getElementById("yt-thumbnail");
 const THUMB_LIGHT = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
 const THUMB_DARK  = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
 
-// Funcție pentru setare thumbnail cu fade
+let lastTheme = null;
+
+// Funcție pentru actualizare thumbnail cu fade
 function updateThumbnail(theme) {
   const url = theme === 'dark' ? THUMB_DARK : THUMB_LIGHT;
-  thumb.style.opacity = 0;
-  setTimeout(() => {
-    thumb.src = url;
-    thumb.style.opacity = 1;
-  }, 200);
+  if (thumb.src !== url) { // schimbă doar dacă e altă poză
+    thumb.style.opacity = 0;
+    setTimeout(() => {
+      thumb.src = url;
+      thumb.style.opacity = 1;
+    }, 200);
+  }
 }
 
-// Setare inițială thumbnail
-const initialTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-updateThumbnail(initialTheme);
+// Funcție pentru citirea temei curente
+function getCurrentTheme() {
+  return document.body.classList.contains('dark') ? 'dark' : 'light';
+}
 
-// Ascultăm schimbarea clasei body pentru dark/light
-const observer = new MutationObserver(() => {
-  const newTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-  updateThumbnail(newTheme);
-});
+// Loop care verifică tema la fiecare 200ms
+setInterval(() => {
+  const currentTheme = getCurrentTheme();
+  if (currentTheme !== lastTheme) {
+    lastTheme = currentTheme;
+    updateThumbnail(currentTheme);
+  }
+}, 200);
 
-observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+// La încărcare, setează thumbnail-ul corect
+updateThumbnail(getCurrentTheme());
 
   // ===========================================================
   // ======== Dark / Light Mode Toggle ========
