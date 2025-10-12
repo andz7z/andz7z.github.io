@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;600;700&family=Unbounded:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap" rel="stylesheet">
   <script defer src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <!-- Theme Toggle -->
@@ -194,79 +193,24 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<div id="reviews-box" class="reviews-box">
-  <h2 class="reviews-title">What our customers say about us</h2>
+  <!-- REVIEWS -->
+<section id="reviews" class="hidden section">
+  <div class="section-bg"></div>
+  <h2>⭐ User Reviews</h2>
 
-  <div class="reviews-inner">
-    <form id="review-form" class="review-form" autocomplete="off">
-      <div class="form-row">
-        <label>Your name</label>
-        <input id="name" type="text" required maxlength="40" placeholder="Your name">
-      </div>
+  <!-- Review Form -->
+  <form id="review-form" class="review-form">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
+    <textarea id="message" placeholder="Your feedback..." required></textarea>
+    <button type="submit">Submit Review</button>
+  </form>
 
-      <div class="form-row gender-row">
-        <label>Gender</label>
-        <div class="gender-options">
-          <label><input type="radio" name="gender" value="male" checked> ♂️ Male</label>
-          <label><input type="radio" name="gender" value="female"> ♀️ Female</label>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label>Service</label>
-        <select id="service" required>
-          <option value="web">🌐 Web Development</option>
-          <option value="editing">🎬 Editing</option>
-          <option value="programming">💻 Programming</option>
-        </select>
-      </div>
-
-      <div class="form-row">
-        <label>Rating</label>
-        <div id="rating-stars" class="rating-stars">
-          <span data-value="1">★</span>
-          <span data-value="2">★</span>
-          <span data-value="3">★</span>
-          <span data-value="4">★</span>
-          <span data-value="5">★</span>
-        </div>
-      </div>
-
-      <div class="form-row">
-        <label>Your feedback <small id="char-count">(100)</small></label>
-        <textarea id="message" rows="3" maxlength="100" required placeholder="Share a short review..."></textarea>
-      </div>
-
-      <button id="submit-review" class="btn">Submit</button>
-    </form>
-
-    <div class="controls">
-      <div>
-        <label>Filter</label>
-        <select id="filter-service">
-          <option value="all">All</option>
-          <option value="web">Web</option>
-          <option value="editing">Editing</option>
-          <option value="programming">Programming</option>
-        </select>
-      </div>
-      <div>
-        <label>Sort</label>
-        <select id="sort-reviews">
-          <option value="recent">Most recent</option>
-          <option value="oldest">Oldest</option>
-          <option value="highest">Highest rating</option>
-          <option value="lowest">Lowest rating</option>
-        </select>
-      </div>
-    </div>
-
-    <canvas id="rating-donut" width="150" height="150"></canvas>
-
-    <div id="reviews-list" class="reviews-list"></div>
-    <div id="pagination" class="pagination"></div>
+  <div id="reviews-container" class="reviews-container">
+    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
   </div>
-</div>
+</section>
+  
   <footer>
     <p id="footer-text"></p>
   </footer>
