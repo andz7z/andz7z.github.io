@@ -594,19 +594,13 @@ if (localStorage.getItem("visited")) {
   el.style.transitionDelay = ${i * 0.2}s;
 });
   //scrollbar
-  #scroll-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  width: 0%;
-  background: linear-gradient(90deg, #fff, #aee);
-  z-index: 10000;
-  transition: width 0.1s linear;
-}
-body.dark-mode #scroll-bar {
-  background: linear-gradient(90deg, #ffd95a, #c69b00);
-}
+  const scrollBar = document.createElement("div");
+scrollBar.id = "scroll-bar";
+document.body.appendChild(scrollBar);
+window.addEventListener("scroll", () => {
+  const scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  scrollBar.style.width = ${scrollPercent}%;
+});
 // ===========================================================
   // ======== Footer Typing Animation + Dark Mode Switch ========
   // ===========================================================
