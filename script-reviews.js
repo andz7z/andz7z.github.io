@@ -22,11 +22,14 @@ form.addEventListener("submit", e => {
   e.preventDefault();
 
   const name = form.name.value.trim();
-  const rating = form.rating.value.trim();
+  const rating = Number(form.rating.value.trim());
   const message = form.message.value.trim();
 
-  if (!name || !rating || !message) return alert("Please fill all fields!");
-
+  if (!name || !message || rating < 1) {
+    alert("Please provide your name, a message, and a rating between 1 and 5 stars!");
+    return;
+  }
+  
   const service = form.querySelector("input[name='service']:checked")?.value || "webdev";
   const avatarChoice = form.querySelector("input[name='avatar_choice']:checked")?.value || "male";
   const avatarPath = avatarChoice === "female" 
@@ -99,7 +102,21 @@ function loadReviews() {
     const avg = (sum / total) || 0;
     siteAvgEl.textContent = avg.toFixed(1);
     siteCountEl.textContent = `${total} review${total > 1 ? "s" : ""}`;
-    siteStarsEl.innerHTML = renderMiniStars(avg);
+    // === separate averages by service ===
+let webSum = 0, webCount = 0;
+let editSum = 0, editCount = 0;
+let progSum = 0, progCount = 0;
+
+for (const r of reviewsArray) {
+  const val = Number(r.rating || 0);
+  if (r.service === "webdev") { webSum += val; webCount++; }
+  else if (r.service === "editing") { editSum += val; editCount++; }
+  else if (r.service === "programming") { progSum += val; progCount++; }
+}
+
+document.getElementById("avg-web").textContent = webCount ? (webSum / webCount).toFixed(1) : "—";
+document.getElementById("avg-edit").textContent = editCount ? (editSum / editCount).toFixed(1) : "—";
+document.getElementById("avg-prog").textContent = progCount ? (progSum / progCount).toFixed(1) : "—";
 
     const pages = Math.ceil(total / PER_PAGE);
     if (currentPage > pages) currentPage = pages;
