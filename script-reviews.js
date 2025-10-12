@@ -196,6 +196,47 @@ document.getElementById("avg-prog").textContent = progCount ? (progSum / progCou
 
 window.addEventListener("load", loadReviews);
 
+// === STAR RATING SYSTEM ===
+const starContainer = document.querySelector(".star-rating");
+const starElems = starContainer.querySelectorAll(".star");
+const ratingInput = document.getElementById("rating-value");
+
+starElems.forEach(star => {
+  star.addEventListener("mouseover", () => {
+    const value = Number(star.dataset.value);
+    starElems.forEach(s => {
+      s.classList.toggle("active", Number(s.dataset.value) <= value);
+    });
+  });
+
+  star.addEventListener("click", () => {
+    const value = Number(star.dataset.value);
+    ratingInput.value = value;
+    starContainer.dataset.selected = value;
+  });
+});
+
+starContainer.addEventListener("mouseleave", () => {
+  const selected = Number(starContainer.dataset.selected);
+  starElems.forEach(s => {
+    s.classList.toggle("active", Number(s.dataset.value) <= selected);
+  });
+});
+
+// === BLOCK ZERO STARS ON SUBMIT ===
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const rating = Number(ratingInput.value);
+  const name = form.name.value.trim();
+  const message = form.message.value.trim();
+
+  if (!name || !message || rating < 1) {
+    alert("Please choose between 1 and 5 stars and fill in all fields!");
+    return;
+  }
+
+  // ... restul codului de salvare review
+});
 
 // === UI ENHANCEMENTS ===
 document.addEventListener("DOMContentLoaded", () => {
