@@ -194,11 +194,10 @@
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
 <!-- REVIEWS SECTION -->
-<section id="reviews" class="section">
+<section id="reviews" class="section hidden">
   <div class="section-bg"></div>
   <h2>⭐ User Reviews</h2>
-  
-  <!-- Average Rating -->
+
   <div id="average-rating" class="average-rating">
     Overall: <span id="avg-stars">⭐ 0.0</span>
   </div>
@@ -225,12 +224,12 @@
       </select>
 
       <label>Rating:</label>
-      <div class="star-input">
-        <span class="star" data-value="1">⭐</span>
-        <span class="star" data-value="2">⭐</span>
-        <span class="star" data-value="3">⭐</span>
-        <span class="star" data-value="4">⭐</span>
-        <span class="star" data-value="5">⭐</span>
+      <div class="rating-stars">
+        <span data-value="1">★</span>
+        <span data-value="2">★</span>
+        <span data-value="3">★</span>
+        <span data-value="4">★</span>
+        <span data-value="5">★</span>
       </div>
       <input type="hidden" id="rating" required>
 
@@ -242,7 +241,6 @@
 
     <!-- REVIEWS RIGHT -->
     <div class="reviews-container">
-      <!-- Filter -->
       <div class="filter-container">
         <label>Sort by:</label>
         <select id="filter">
@@ -253,10 +251,7 @@
         </select>
       </div>
 
-      <!-- Reviews List -->
       <div id="reviews-list"></div>
-
-      <!-- Pagination -->
       <div id="pagination" class="pagination"></div>
     </div>
   </div>
