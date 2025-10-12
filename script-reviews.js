@@ -150,27 +150,37 @@ function loadReviews() {
 window.addEventListener("load", loadReviews);
 
 
-// === STARS INTERACTION ===
+// === STARS INTERACTION (new system) ===
 document.addEventListener("DOMContentLoaded", () => {
   const stars = document.querySelectorAll(".star");
   const ratingInput = document.getElementById("rating");
   const messageInput = document.getElementById("message");
   const charsLeft = document.getElementById("chars-left");
 
-  stars.forEach((s, i) => {
-    s.addEventListener("mouseenter", () => {
-      stars.forEach((st, idx) => st.classList.toggle("hovered", idx <= i));
+  stars.forEach((star, index) => {
+    star.addEventListener("mouseenter", () => {
+      stars.forEach((s, i) => {
+        s.classList.toggle("hovered", i <= index);
+      });
     });
-    s.addEventListener("mouseleave", () => {
-      stars.forEach(st => st.classList.remove("hovered"));
+    star.addEventListener("mouseleave", () => {
+      stars.forEach((s) => s.classList.remove("hovered"));
     });
-    s.addEventListener("click", () => {
-      ratingInput.value = i + 1;
-      stars.forEach((st, idx) =>
-        st.classList.toggle("selected", idx <= i)
-      );
+    star.addEventListener("click", () => {
+      ratingInput.value = index + 1;
+      stars.forEach((s, i) => {
+        s.classList.toggle("selected", i <= index);
+      });
     });
   });
+
+  if (messageInput && charsLeft) {
+    messageInput.addEventListener("input", () => {
+      const left = 100 - messageInput.value.length;
+      charsLeft.textContent = left;
+    });
+  }
+});
 
   messageInput.addEventListener("input", () => {
     charsLeft.textContent = 100 - messageInput.value.length;
