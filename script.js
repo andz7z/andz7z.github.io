@@ -62,39 +62,53 @@ function openSection(id) {
 window.openSection = openSection;
 
   // ===========================================================
-  // ======== YouTube API ========
-  // ===========================================================
-  const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
-  const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
+// ======== YouTube API (cu thumbnail personalizat) ========
+// ===========================================================
+const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
+const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
 
-  async function fetchYouTubeStats() {
-    try {
-      const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
-      const data = await res.json();
-      const channel = data.items?.[0];
-      if (!channel) return;
+async function fetchYouTubeStats() {
+  try {
+    const res = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=${CHANNEL_ID}&key=${API_KEY}`);
+    const data = await res.json();
+    const channel = data.items?.[0];
+    if (!channel) return;
 
-      const { snippet, statistics } = channel;
-      const setText = (id, text) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = text;
-      };
+    const { snippet, statistics } = channel;
+    const setText = (id, text) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
 
-      setText("yt-name", snippet.title);
-      setText("yt-subscribers", Number(statistics.subscriberCount).toLocaleString());
-      setText("yt-videos", Number(statistics.videoCount).toLocaleString());
-      setText("yt-views", Number(statistics.viewCount).toLocaleString());
+    setText("yt-name", snippet.title);
+    setText("yt-subscribers", Number(statistics.subscriberCount).toLocaleString());
+    setText("yt-videos", Number(statistics.videoCount).toLocaleString());
+    setText("yt-views", Number(statistics.viewCount).toLocaleString());
 
-      const thumb = document.getElementById("yt-thumbnail");
-      if (thumb) thumb.src = snippet.thumbnails.high.url;
+    // ===== Thumbnail personalizat în funcție de temă =====
+    const thumb = document.getElementById("yt-thumbnail");
+    const lightThumb = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
+    const darkThumb = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
 
-      const link = document.getElementById("yt-link");
-      if (link) link.href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
-    } catch (err) {
-      console.error("YouTube API Error:", err);
+    if (thumb) {
+      const isDark = document.body.classList.contains("dark-mode");
+      thumb.src = isDark ? darkThumb : lightThumb;
+
+      // ascultă schimbarea de temă pentru a actualiza imaginea
+      const themeToggle = document.getElementById("theme-toggle");
+      themeToggle?.addEventListener("click", () => {
+        const darkNow = document.body.classList.contains("dark-mode");
+        thumb.src = darkNow ? darkThumb : lightThumb;
+      });
     }
+
+    const link = document.getElementById("yt-link");
+    if (link) link.href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
+  } catch (err) {
+    console.error("YouTube API Error:", err);
   }
-  window.addEventListener("load", fetchYouTubeStats);
+}
+window.addEventListener("load", fetchYouTubeStats);
 
   // ===========================================================
   // ======== Music Control ========
