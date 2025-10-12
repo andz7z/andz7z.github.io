@@ -918,3 +918,20 @@ body.dark-mode .floating-nav button.active {
 body.dark-mode .nav-btn.active {
   background: rgba(255, 217, 90, 0.25);
 }
+/* ===== SCROLL STATUS BAR ===== */
+#scroll-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0%;
+  background: linear-gradient(90deg, #aee, #fff);
+  z-index: 10000;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+body.dark-mode #scroll-bar {
+  background: linear-gradient(90deg, #ffd95a, #c69b00);
+  box-shadow: 0 0 10px rgba(255,217,90,0.4);
+}
