@@ -241,10 +241,33 @@ if (mainTitle && navButtons && titleEl) {
     }
   });
 }
-  // ===========================================================
-// ===== AURORA NOTIFICATION (on Title Click) =====
 // ===========================================================
+// ===== AURORA NOTIFICATION (One-time with Spark Burst) =====
+// ===========================================================
+let hasShownNotification = false;
+
+function createSparks(x, y) {
+  for (let i = 0; i < 8; i++) {
+    const spark = document.createElement("div");
+    spark.className = "spark";
+    spark.style.left = `${x}px`;
+    spark.style.top = `${y}px`;
+
+    // Random flight directions
+    const angle = Math.random() * 2 * Math.PI;
+    const distance = 50 + Math.random() * 40;
+    spark.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
+    spark.style.setProperty("--y", `${Math.sin(angle) * distance}px`);
+
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 1000);
+  }
+}
+
 function showNotification(type = "info", message = "🏡 Make yourself like home", duration = 11000) {
+  if (hasShownNotification) return; // show once only
+  hasShownNotification = true;
+
   const existing = document.querySelector(".notification.show");
   if (existing) existing.remove();
 
@@ -261,6 +284,12 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
   notifSound.volume = 0.1;
   notifSound.play().catch(() => {});
 
+  // Sparks effect (positioned near notification)
+  const rect = notif.getBoundingClientRect();
+  const centerX = rect.right - rect.width / 2;
+  const centerY = rect.bottom - rect.height / 2;
+  createSparks(centerX, centerY);
+
   // Animate in
   setTimeout(() => notif.classList.add("show"), 80);
 
@@ -270,20 +299,21 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
     setTimeout(() => notif.remove(), 600);
   });
 
-  // Auto hide after 10–12s
+  // Auto hide after ~11s
   setTimeout(() => {
     notif.classList.remove("show");
     setTimeout(() => notif.remove(), 600);
   }, duration);
 }
 
-// trigger on title click
+// Show once when user clicks title
 const titleElement = document.getElementById("main-title");
 if (titleElement) {
   titleElement.addEventListener("click", () => {
     showNotification("info", "🏡 Make yourself like home");
   });
 }
+  
   // ===========================================================
   // ======== Particle Effect ========
   // ===========================================================
