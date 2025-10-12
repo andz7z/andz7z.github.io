@@ -459,59 +459,49 @@ if (mainTitle && navButtons && titleEl) {
     const newMsg = isDark ? darkMsg : lightMsg;
     typeFooterText(newMsg);
   });
-/* === LOGO THEME TRANSITION + FLASH EFFECT === */
-#theme-logo {
-  width: 160px;
-  height: 160px;
-  object-fit: contain;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(255,255,255,0.25);
-  opacity: 1;
-  transition: opacity 0.6s ease;
-  position: relative;
-  overflow: hidden;
-}
 
-/* Fade-out pentru schimbarea imaginii */
-#theme-logo.fade-out {
-  opacity: 0;
-}
+  
+document.addEventListener("DOMContentLoaded", () => {
+  const themeToggle = document.querySelector(".theme-toggle");
+  const logo = document.getElementById("theme-logo");
 
-/* Efect de “flash metalic” peste logo */
-#theme-logo::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.8) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: skewX(-20deg);
-  opacity: 0;
-}
+  // Link-uri directe către logo-uri
+  const lightLogo = "https://github.com/andz7z/andz7z.github.ro/raw/main/logo_light.gif";
+  const darkLogo  = "https://github.com/andz7z/andz7z.github.ro/raw/main/logo_dark.gif";
 
-/* Activează reflexul */
-#theme-logo.flash::after {
-  animation: logoFlash 0.8s ease;
-  opacity: 1;
-}
+  // === Detectează tema curentă la pornire ===
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const isStoredDark = localStorage.getItem("theme") === "dark";
+  const shouldBeDark = isStoredDark || (!localStorage.getItem("theme") && prefersDark);
 
-@keyframes logoFlash {
-  0% {
-    left: -75%;
-    opacity: 0;
+  if (shouldBeDark) {
+    document.body.classList.add("dark-mode");
+    logo.src = darkLogo;
+  } else {
+    document.body.classList.remove("dark-mode");
+    logo.src = lightLogo;
   }
-  30% {
-    opacity: 1;
+
+  // === Funcție: schimbă logo-ul cu fade + flash ===
+  function switchLogo(isDark) {
+    // declanșează efectul de flash
+    logo.classList.add("flash", "fade-out");
+
+    setTimeout(() => {
+      logo.src = isDark ? darkLogo : lightLogo;
+      logo.onload = () => {
+        logo.classList.remove("fade-out");
+        // oprește flash-ul după animație
+        setTimeout(() => logo.classList.remove("flash"), 800);
+      };
+    }, 300);
   }
-  100% {
-    left: 125%;
-    opacity: 0;
-  }
-                          }
+
+  // === Când se apasă butonul de temă ===
+  themeToggle.addEventListener("click", () => {
+    const isNowDark = !document.body.classList.contains("dark-mode");
+    document.body.classList.toggle("dark-mode", isNowDark);
+    localStorage.setItem("theme", isNowDark ? "dark" : "light");
+    switchLogo(isNowDark);
+  });
 });
