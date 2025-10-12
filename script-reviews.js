@@ -141,19 +141,18 @@ function computeStats(reviews){
   return {avg, total: reviews.length};
 }
 
-function renderStarsInline(rating){
-  // small inline stars (non-interactive) for each review
+function renderStarsInline(rating) {
   let html = "";
-  for(let i=1;i<=5;i++){
-    html += `<span class="star ${i<=rating ? 'selected' : ''}" aria-hidden="true">★</span>`;
+  for (let i = 1; i <= 5; i++) {
+    html += `<span class="star ${i <= rating ? 'selected' : ''}">★</span>`;
   }
   return html;
 }
 
 function renderReviewCard(review, key){
-  const avatar = avatarForGender(review.gender);
-  const emoji = serviceEmoji(review.service);
-  const dateText = review.displayDate || new Date(review.timestamp).toLocaleString();
+  const avatar = avatarForGender(review.gender || "male");
+  const emoji = serviceEmoji(review.service || "web");
+  const dateText = review.displayDate || review.date || new Date(review.timestamp || Date.now()).toLocaleString();
   const ratingNum = Number(review.rating) || 0;
 
   const wrapper = document.createElement("div");
@@ -161,7 +160,7 @@ function renderReviewCard(review, key){
   wrapper.dataset.key = key;
   wrapper.dataset.service = review.service || "unknown";
   wrapper.innerHTML = `
-    <div class="review-avatar" aria-hidden="true">
+    <div class="review-avatar">
       <img src="${avatar}" alt="${review.gender} avatar" loading="lazy">
     </div>
     <div class="review-content">
@@ -169,26 +168,15 @@ function renderReviewCard(review, key){
         <div class="review-meta">
           <div>
             <span class="review-name">${escapeHtml(review.name)}</span>
-            <span class="review-stars" aria-hidden="true">${renderStarsInline(ratingNum)}</span>
-            <span class="review-emoji" title="${escapeHtml(review.service)}">${emoji}</span>
+            <span class="review-stars">${renderStarsInline(ratingNum)}</span>
+            <span class="review-emoji">${emoji}</span>
           </div>
         </div>
-        <div class="review-date" aria-hidden="true">${escapeHtml(dateText)}</div>
+        <div class="review-date">${escapeHtml(dateText)}</div>
       </div>
       <div class="review-msg">${escapeHtml(review.message)}</div>
     </div>
   `;
-
-  // accessibility: show date as tooltip on hover for keyboard focus too
-  wrapper.addEventListener("mouseenter", ()=> {
-    // nothing else, CSS handles reveal of .review-date
-  });
-  wrapper.addEventListener("focus", ()=> {
-    // when keyboard focuses, show visually by adding class
-    wrapper.classList.add("focused");
-  });
-  wrapper.addEventListener("blur", ()=> wrapper.classList.remove("focused"));
-
   return wrapper;
 }
 
