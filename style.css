@@ -997,36 +997,47 @@ body.dark-mode #scroll-bar {
   background: linear-gradient(90deg, #ffd95a, #c69b00);
   box-shadow: 0 0 10px rgba(255,217,90,0.4);
 }
-/* ===== REVIEWS SECTION ===== */
+/* ====== REVIEWS DELUXE ====== */
 .review-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  max-width: 500px;
-  margin: 20px auto;
+  align-items: center;
+  gap: 15px;
+  max-width: 600px;
+  margin: 30px auto;
+  padding: 30px;
   background: rgba(255,255,255,0.05);
-  border-radius: 15px;
-  padding: 25px;
-  backdrop-filter: blur(12px);
+  border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 30px rgba(255,255,255,0.05);
 }
-.review-form input, .review-form textarea {
+
+.review-form input,
+.review-form textarea {
+  width: 100%;
   background: rgba(255,255,255,0.1);
   border: none;
-  border-radius: 10px;
-  padding: 10px 14px;
+  border-radius: 12px;
+  padding: 12px 15px;
   color: white;
   font-family: 'Comfortaa', sans-serif;
+  font-size: 0.95rem;
+}
+
+.review-form textarea {
+  height: 100px;
   resize: none;
 }
+
 .review-form button {
+  padding: 10px 25px;
   background: rgba(255,255,255,0.2);
   border: none;
   border-radius: 10px;
-  padding: 10px;
-  cursor: pointer;
   color: white;
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 .review-form button:hover {
@@ -1035,42 +1046,98 @@ body.dark-mode #scroll-bar {
   transform: scale(1.05);
 }
 
-/* Container for reviews */
-.reviews-container {
-  margin-top: 30px;
+/* Rating stars */
+.rating-stars {
   display: flex;
-  flex-direction: column;
-  gap: 15px;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
+  gap: 8px;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.8rem;
+  color: rgba(255,255,255,0.25);
+  transition: all 0.3s ease;
 }
-.review-item {
-  background: rgba(255,255,255,0.05);
-  border-radius: 15px;
-  padding: 15px 20px;
-  text-align: left;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
-  animation: fadeIn 0.5s ease;
-}
-.review-item strong {
-  font-size: 1rem;
+.rating-stars span.active {
   color: #ffd95a;
-}
-.review-item p {
-  margin-top: 6px;
-  font-size: 0.9rem;
-  opacity: 0.85;
+  text-shadow: 0 0 15px rgba(255,217,90,0.6);
+  transform: scale(1.1);
 }
 
-/* Dark Mode Adjustments */
-body.dark-mode .review-form, 
-body.dark-mode .review-item {
-  background: rgba(30,30,30,0.8);
-  border: 1px solid rgba(255,217,90,0.2);
+/* Thank you message */
+.thankyou-message {
+  font-size: 1rem;
+  color: #ffd95a;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease;
 }
-body.dark-mode .review-form button:hover {
-  background: #ffd95a;
-  color: #121212;
+.thankyou-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.hidden { display: none; }
+
+/* ===== REVIEWS LIST ===== */
+.reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 750px;
+  margin: 40px auto 60px;
+}
+
+.review-item {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 20px;
+  padding: 18px 25px;
+  text-align: left;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.6s ease forwards;
+  position: relative;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+.review-header strong {
+  font-size: 1.05rem;
+  color: #ffd95a;
+}
+
+.review-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.review-message {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.review-rating {
+  margin-top: 8px;
+  color: #ffd95a;
+  font-size: 1.2rem;
+}
+
+.review-date span {
+  margin-left: 8px;
+}
+
+/* Dark Mode */
+body.dark-mode .review-form,
+body.dark-mode .review-item {
+  background: rgba(25,25,25,0.85);
+  border: 1px solid rgba(255,217,90,0.25);
+  box-shadow: 0 0 25px rgba(255,217,90,0.05);
+}
+body.dark-mode .rating-stars span.active {
+  color: #ffd95a;
+  text-shadow: 0 0 15px rgba(255,217,90,0.7);
 }
