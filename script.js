@@ -87,8 +87,8 @@ async function fetchYouTubeStats() {
 
     // ===== Thumbnail personalizat în funcție de temă =====
     const thumb = document.getElementById("yt-thumbnail");
-    const lightThumb = "https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/logos/logo_light.gif";
-    const darkThumb = "https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/logos/logo_light.gif";
+    const lightThumb = "https://andz7z.github.io/assets/logos/logo_light.gif";
+    const darkThumb = "https://andz7z.github.io/assets/logos/logo_light.gif";
 
     if (thumb) {
       const isDark = document.body.classList.contains("dark-mode");
@@ -113,8 +113,8 @@ window.addEventListener("load", fetchYouTubeStats);
   // ===========================================================
   // ======== Music Control ========
   // ===========================================================
-  const music = new Audio("https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/sounds/song.MP3");
-  const clickSound = new Audio("https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/sounds/click.MP3");
+  const music = new Audio("https://andz7z.github.io/assets/sounds/song.MP3");
+  const clickSound = new Audio("https://andz7z.github.io/assets/sounds/click.MP3");
   let playing = false, musicStarted = false;
   music.loop = true;
   music.volume = 0;
@@ -548,7 +548,7 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
   document.body.appendChild(notif);
 
   // Play sound
-  const notifSound = new Audio("https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/sounds/notification.MP3");
+  const notifSound = new Audio("https://andz7z.github.io/assets/sounds/notification.MP3");
   notifSound.volume = 0.1;
   notifSound.play().catch(() => {});
 
