@@ -90,17 +90,24 @@ async function fetchYouTubeStats() {
     const lightThumb = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_light.gif";
     const darkThumb = "https://github.com/andz7z/andz7z.github.io/raw/main/logo_dark.gif";
 
-    if (thumb) {
-      const isDark = document.body.classList.contains("dark-mode");
-      thumb.src = isDark ? darkThumb : lightThumb;
+if (thumb) {
+  const isDark = document.body.classList.contains("dark-mode");
+  thumb.classList.add("fade-out");
+  setTimeout(() => {
+    thumb.src = isDark ? darkThumb : lightThumb;
+    thumb.classList.remove("fade-out");
+  }, 300); // durata fade-out, să sincronizeze cu CSS-ul
 
-      // ascultă schimbarea de temă pentru a actualiza imaginea
-      const themeToggle = document.getElementById("theme-toggle");
-      themeToggle?.addEventListener("click", () => {
-        const darkNow = document.body.classList.contains("dark-mode");
-        thumb.src = darkNow ? darkThumb : lightThumb;
-      });
-    }
+  const themeToggle = document.getElementById("theme-toggle");
+  themeToggle?.addEventListener("click", () => {
+    const darkNow = document.body.classList.contains("dark-mode");
+    thumb.classList.add("fade-out");
+    setTimeout(() => {
+      thumb.src = darkNow ? darkThumb : lightThumb;
+      thumb.classList.remove("fade-out");
+    }, 300);
+  });
+}
 
     const link = document.getElementById("yt-link");
     if (link) link.href = `https://www.youtube.com/channel/${CHANNEL_ID}`;
