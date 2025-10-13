@@ -299,7 +299,28 @@
   <!-- REVIEWS LIST -->
   <div id="reviews-container" class="reviews-container"></div>
   <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
-
+<!-- REPLIES POPUP (modern chat style) -->
+<div id="replies-modal" class="hidden replies-modal">
+  <div class="replies-container glassy">
+    <div class="replies-header">
+      <h3>💬 Replies</h3>
+      <button id="close-replies" class="close-replies">✖</button>
+    </div>
+    <div id="replies-content" class="replies-content"></div>
+    <form id="reply-form" class="reply-form">
+      <div class="reply-row">
+        <select id="reply-gender" class="reply-gender">
+          <option value="male">♂️ Male</option>
+          <option value="female">♀️ Female</option>
+        </select>
+        <input type="text" id="reply-name" placeholder="Your name..." required>
+      </div>
+      <textarea id="reply-message" placeholder="Write a reply..." required></textarea>
+      <button type="submit" class="btn-glow">Send Reply</button>
+    </form>
+  </div>
+</div>
+    
   <!-- PAGINATION -->
   <div class="pagination hidden">
     <button id="prev-page">⬅ Prev</button>
