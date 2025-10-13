@@ -122,28 +122,21 @@ function updateAvgs(ratings) {
 }
 
 // === LOAD REVIEWS ===
-let allReviews = [];
-let filteredReviews = [];
-let sortType = "recent";
-let serviceFilter = "all";
-
 function loadReviews() {
   db.ref("reviews").on("value", snapshot => {
-    allReviews = [];
+    reviews = [];
     const ratings = { web: [], prog: [], edit: [] };
     const counts = {};
 
     snapshot.forEach(child => {
       const r = child.val();
-      r.id = child.key;
       r.rating = Number(r.rating);
-      allReviews.push(r);
+      reviews.push({ id: child.key, ...r });
       ratings[r.service]?.push(r.rating);
       counts[r.name] = (counts[r.name] || 0) + 1;
     });
 
-    // Adăugăm badge-uri în funcție de număr de recenzii
-    allReviews = allReviews.map(r => ({
+    reviews = reviews.map(r => ({
       ...r,
       badge:
         counts[r.name] >= 5
@@ -151,175 +144,137 @@ function loadReviews() {
           : counts[r.name] >= 3
           ? "💡 Contributor"
           : null,
-      totalReviews: counts[r.name],
+      totalReviews: counts[r.name]
     }));
 
-    applyFilters();
+    reviews.reverse();
     updateAvgs(ratings);
+    renderPage(currentPage, true);
   });
 }
 
-// === FILTRARE ===
-function applyFilters() {
-  filteredReviews = [...allReviews];
+// === PAGINATION ===
+const prev = document.getElementById("prev-page");
+const next = document.getElementById("next-page");
+const info = document.getElementById("page-info");
 
-  // filtrare pe serviciu
-  if (serviceFilter !== "all") {
-    filteredReviews = filteredReviews.filter(r => r.service === serviceFilter);
+prev.onclick = () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderPage(currentPage, false);
   }
-
-  // sortare
-  if (sortType === "recent") {
-    filteredReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
-  } else if (sortType === "oldest") {
-    filteredReviews.sort((a, b) => new Date(a.date) - new Date(b.date));
-  } else if (sortType === "highest") {
-    filteredReviews.sort((a, b) => b.rating - a.rating);
-  } else if (sortType === "lowest") {
-    filteredReviews.sort((a, b) => a.rating - b.rating);
+};
+next.onclick = () => {
+  if (currentPage * perPage < reviews.length) {
+    currentPage++;
+    renderPage(currentPage, false);
   }
-
-  renderPage(1, true);
-}
-
-// === SORT & FILTER EVENTS ===
-document.getElementById("sort-select").addEventListener("change", e => {
-  sortType = e.target.value;
-  applyFilters();
-});
-
-document.getElementById("service-filter").addEventListener("change", e => {
-  serviceFilter = e.target.value;
-  applyFilters();
-});
+};
 
 // === RENDER REVIEWS ===
-function renderPage(page = 1, smooth = false) {
-  const perPage = 10;
-  const start = (page - 1) * perPage;
-  const visible = filteredReviews.slice(start, start + perPage);
+function renderPage(page, animate) {
+  const list = document.querySelector(".reviews-container");
+  list.style.opacity = 0;
 
-  const container = document.getElementById("reviews-container");
-  const noReviews = document.getElementById("no-reviews");
-  const pagination = document.querySelector(".pagination");
-
-  container.innerHTML = "";
-  if (!visible.length) {
-    noReviews.style.display = "block";
-    pagination.classList.add("hidden");
-    return;
-  }
-
-  noReviews.style.display = "none";
-  pagination.classList.remove("hidden");
-
-  visible.forEach(r => {
-    const img = `assets/logos/reviews/${r.gender}.gif`;
-    const icon =
-      r.service === "web" ? "🌐" : r.service === "prog" ? "💻" : "🎬";
-
-    const repliesCount = r.replies ? Object.keys(r.replies).length : 0;
-
-    const card = document.createElement("div");
-    card.className = "review-card glassy review-fade";
-
-    card.innerHTML = `
-      <div class="review-header">
-        <img src="${img}" alt="${r.gender}">
-        <div class="review-meta">
-          <h4>${r.name}</h4>
-          <p>${icon} ${r.service}</p>
-          ${r.badge ? `<span class="badge">${r.badge}</span>` : ""}
-          <small>${r.totalReviews} reviews</small>
-        </div>
-        <div class="review-stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
-      </div>
-      <p class="review-text">${r.message}</p>
-      <small class="review-date">${r.date}</small>
-      <div class="review-actions">
-        <button class="like-btn">👍 ${r.likes || 0}</button>
-        <button class="dislike-btn">👎 ${r.dislikes || 0}</button>
-        <button class="reply-btn">💬 ${repliesCount} Replies</button>
-      </div>
-      <div class="reply-thread hidden"></div>
-    `;
-
-    // --- Like / Dislike (per IP) ---
-    const key = `vote_${r.id}`;
-    const likeBtn = card.querySelector(".like-btn");
-    const dislikeBtn = card.querySelector(".dislike-btn");
-    const prev = localStorage.getItem(key);
-
-    if (prev === "like") likeBtn.classList.add("voted");
-    if (prev === "dislike") dislikeBtn.classList.add("voted");
-
-    likeBtn.addEventListener("click", () => handleVote(r.id, "like", likeBtn, dislikeBtn));
-    dislikeBtn.addEventListener("click", () => handleVote(r.id, "dislike", dislikeBtn, likeBtn));
-
-    // --- Replies ---
-    const replyBtn = card.querySelector(".reply-btn");
-    const replyThread = card.querySelector(".reply-thread");
-
-    replyBtn.addEventListener("click", () => {
-      replyThread.classList.toggle("hidden");
-      if (!replyThread.classList.contains("loaded")) loadReplies(r.id, replyThread);
-    });
-
-    container.appendChild(card);
-  });
-
-  if (smooth)
-    window.scrollTo({ top: container.offsetTop - 80, behavior: "smooth" });
-}
-
-// === LOAD REPLIES + FORM ===
-function loadReplies(reviewId, container) {
-  db.ref(`reviews/${reviewId}/replies`).on("value", snap => {
+  setTimeout(() => {
     container.innerHTML = "";
+    const start = (page - 1) * perPage;
+    const visible = reviews.slice(start, start + perPage);
 
-    snap.forEach(child => {
-      const rep = child.val();
-      const img = `assets/logos/reviews/${rep.gender}.gif`;
-      const div = document.createElement("div");
-      div.className = "reply-item";
-      div.innerHTML = `
-        <img src="${img}" alt="${rep.gender}">
-        <div>
-          <strong>${rep.name}</strong><br>
-          <small>${rep.date}</small>
-          <p>${rep.text}</p>
+    if (!visible.length) {
+      noReviews.style.display = "block";
+      document.querySelector(".pagination").classList.add("hidden");
+      return;
+    }
+
+    noReviews.style.display = "none";
+    document.querySelector(".pagination").classList.remove("hidden");
+    info.textContent = `Page ${page}`;
+
+    visible.forEach(r => {
+      const img = `assets/logos/reviews/${r.gender}.gif`;
+      const icon =
+        r.service === "web"
+          ? "🌐"
+          : r.service === "prog"
+          ? "💻"
+          : "🎬";
+
+      const card = document.createElement("div");
+      card.className = "review-card glassy review-fade";
+      card.innerHTML = `
+        <div class="review-header">
+          <img src="${img}" alt="${r.gender}">
+          <div class="review-meta">
+            <h4>${r.name}</h4>
+            <p>${icon} ${r.service}</p>
+            ${
+              r.badge
+                ? `<span class="badge">${r.badge}</span>`
+                : ""
+            }
+            <small>${r.totalReviews} reviews</small>
+          </div>
+          <div class="review-stars">${"★".repeat(
+            r.rating
+          )}${"☆".repeat(5 - r.rating)}</div>
+        </div>
+        <p class="review-text">${r.message}</p>
+        <small class="review-date">${r.date}</small>
+        <div class="review-actions">
+          <button class="like-btn">👍 ${r.likes || 0}</button>
+          <button class="reply-btn">💬 Reply</button>
+          <div class="reply-list"></div>
         </div>
       `;
-      container.appendChild(div);
-    });
 
-    // === Add Reply Form Below ===
-    const formDiv = document.createElement("div");
-    formDiv.className = "reply-add";
-    formDiv.innerHTML = `
-      <label>Name</label>
-      <input type="text" id="rname_${reviewId}" placeholder="Your name">
-      <label>Gender</label>
-      <select id="rgender_${reviewId}">
-        <option value="male">Male</option>
-        <option value="female">Female</option>
-      </select>
-      <label>Reply</label>
-      <textarea id="rtext_${reviewId}" rows="2" maxlength="150" placeholder="Your reply..."></textarea>
-      <button id="send_${reviewId}">Send Reply</button>
-    `;
-    container.appendChild(formDiv);
-
-    document.getElementById(`send_${reviewId}`).addEventListener("click", () => {
-      const name = document.getElementById(`rname_${reviewId}`).value.trim();
-      const gender = document.getElementById(`rgender_${reviewId}`).value;
-      const text = document.getElementById(`rtext_${reviewId}`).value.trim();
-      if (!name || !text) return alert("Please fill all fields!");
-      db.ref(`reviews/${reviewId}/replies`).push({
-        name, gender, text, date: new Date().toLocaleString()
+      // Like button
+      const likeBtn = card.querySelector(".like-btn");
+      likeBtn.addEventListener("click", () => {
+        db.ref(`reviews/${r.id}/likes`).transaction(l => (l || 0) + 1);
       });
+
+      // Reply button
+      const replyBtn = card.querySelector(".reply-btn");
+      replyBtn.addEventListener("click", () => {
+        const replyList = card.querySelector(".reply-list");
+        const input = document.createElement("input");
+        input.placeholder = "Write a reply...";
+        input.className = "reply-input";
+        replyList.appendChild(input);
+        input.focus();
+
+        input.addEventListener("keypress", e => {
+          if (e.key === "Enter" && input.value.trim()) {
+            db.ref(`reviews/${r.id}/replies`).push({
+              text: input.value,
+              date: new Date().toLocaleString()
+            });
+            input.remove();
+          }
+        });
+      });
+
+      // Display replies live
+      const replyList = card.querySelector(".reply-list");
+      db.ref(`reviews/${r.id}/replies`).on("value", snap => {
+        replyList.innerHTML = "";
+        snap.forEach(rep => {
+          const d = rep.val();
+          const p = document.createElement("p");
+          p.className = "reply-item";
+          p.textContent = `↳ ${d.text}`;
+          replyList.appendChild(p);
+        });
+      });
+
+      container.appendChild(card);
     });
 
-    container.classList.add("loaded");
-  });
+    // smooth reveal
+    window.scrollTo({ top: container.offsetTop - 100, behavior: "smooth" });
+    setTimeout(() => (list.style.opacity = 1), animate ? 300 : 0);
+  }, 250);
 }
+
+window.addEventListener("load", loadReviews);
