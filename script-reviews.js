@@ -525,8 +525,7 @@ function openReplyDialog(reviewId){
           alert('Maxim 7 niveluri de reply.');
           return;
         }
-        const ref = db.ref(`reviews/${reviewId}/replies`).push();
-        // === Fade in/out effect pentru poza in functie de rating + gender ===
+                // === Fade in/out effect pentru poza in functie de rating + gender ===
 const fadeContainer = document.createElement('div');
 fadeContainer.className = 'rating-fade-overlay';
 const starType = rating <= 2 ? '1star' : rating >= 5 ? '5star' : '3star';
@@ -540,6 +539,7 @@ setTimeout(() => {
   fadeContainer.classList.remove('show');
   setTimeout(() => fadeContainer.remove(), 600);
 }, 1800);
+        const ref = db.ref(`reviews/${reviewId}/replies`).push();
         ref.set({
           name: name,
           gender: gender,
