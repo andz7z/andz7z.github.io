@@ -386,7 +386,10 @@ function renderPage(){
         arr.forEach(rep => {
           const div = document.createElement('div');
           div.className = 'reply-inline';
-          const img = `assets/logos/reviews/${rep.gender || 'male'}.gif`;
+          let g = rep.gender || 'male';
+        let file = rep.rating <= 2 ? `1star_icon_${g}.png` : rep.rating <= 4 ? `3star_icon_${g}.png` : `5star_icon_${g}.png`;
+        const img = `assets/logos/reviews/${file}`;
+
           div.innerHTML = `<img class="reply-author-img" src="${img}" alt="">
             <strong>${escapeHtml(rep.name)}</strong> <small class="reply-date-inline">${new Date(rep.date).toLocaleDateString()}</small>
             <div class="reply-text-inline">${escapeHtml(rep.text)}</div>`;
