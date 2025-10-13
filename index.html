@@ -258,14 +258,32 @@
     </div>
   </div>
 
-  <!-- Sub-averages -->
-  <div class="avg-sub">
-    <div><span id="avg-web">🌐 0.0</span></div>
-    <div><span id="avg-prog">💻 0.0</span></div>
-    <div><span id="avg-edit">🎬 0.0</span></div>
-  </div>
+<!-- Sub-averages -->
+<div class="avg-sub" id="avg-sub">
+  <button class="avg-sub-btn" data-service="web">🌐 <span id="avg-web">0.00</span></button>
+  <button class="avg-sub-btn" data-service="prog">💻 <span id="avg-prog">0.00</span></button>
+  <button class="avg-sub-btn" data-service="edit">🎬 <span id="avg-edit">0.00</span></button>
 </div>
 
+<!-- Filters Section -->
+<div class="filter-section">
+  <h4>Filter Reviews</h4>
+  <div class="filter-options">
+    <select id="sort-select">
+      <option value="recent">Most Recent</option>
+      <option value="oldest">Oldest</option>
+      <option value="highest">Highest Rating</option>
+      <option value="lowest">Lowest Rating</option>
+    </select>
+
+    <select id="service-filter">
+      <option value="all">All Services</option>
+      <option value="web">🌐 Web Dev</option>
+      <option value="prog">💻 Programming</option>
+      <option value="edit">🎬 Editing</option>
+    </select>
+  </div>
+</div>
   <!-- REVIEWS LIST -->
   <div id="reviews-container" class="reviews-container"></div>
   <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
