@@ -1435,3 +1435,110 @@ body.dark-mode #scroll-bar {
 .reviews-container {
   transition: opacity 0.3s ease;
 }
+/* === FILTER BAR === */
+.filter-section {
+  margin-top: 20px;
+  text-align: center;
+}
+.filter-section h4 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #ffd95a;
+}
+.filter-options {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.filter-options select {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 6px 10px;
+  color: white;
+  cursor: pointer;
+}
+
+/* === LIKE/DISLIKE VOTED === */
+.like-btn.voted, .dislike-btn.voted {
+  background: #ffd95a;
+  color: #111;
+}
+
+/* === REPLY DIALOG === */
+.reply-dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,0.4);
+  z-index: 9999;
+  animation: dialogPop 0.3s ease;
+}
+.dialog-inner {
+  background: rgba(30,30,30,0.8);
+  border-radius: 16px;
+  padding: 20px;
+  width: 300px;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255,217,90,0.2);
+}
+.dialog-inner input, .dialog-inner textarea {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 8px;
+  padding: 6px;
+  color: white;
+}
+.gender-mini {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.dialog-actions {
+  display: flex;
+  justify-content: space-between;
+}
+.dialog-actions button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #ffd95a;
+  color: #111;
+  font-weight: bold;
+  cursor: pointer;
+}
+@keyframes dialogPop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* === REPLY THREAD === */
+.reply-thread {
+  margin-top: 8px;
+  border-left: 2px solid rgba(255,255,255,0.1);
+  padding-left: 10px;
+}
+.reply-thread.hidden {
+  display: none;
+}
+.reply-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 5px;
+}
+.reply-item img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.reply-item p {
+  margin: 0;
+  font-size: 0.85rem;
+}
