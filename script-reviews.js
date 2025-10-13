@@ -342,7 +342,6 @@ function renderPage(){
   });
 
   // pagination UI
-  const maxPage = Math.max(1, Math.ceil((getFilteredSorted().length) / PER_PAGE));
   pageInfo && (pageInfo.textContent = `Page ${currentPage} / ${maxPage}`);
   prevBtn && (prevBtn.disabled = currentPage <= 1);
   nextBtn && (nextBtn.disabled = currentPage >= maxPage);
