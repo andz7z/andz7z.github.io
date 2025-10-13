@@ -76,15 +76,34 @@ if(!reviewsContainer){
 
 // === star rating UI
 if(starEls && starEls.length){
+  const genderPreview = document.getElementById('gender-preview');
+
   starEls.forEach(s => {
     s.addEventListener('click', function(){
       const v = Number(this.dataset.value) || 0;
       selectedRating = v;
       starEls.forEach(x => x.classList.toggle('active', Number(x.dataset.value) <= v));
+
+      // ia genul selectat
+      const gender = (form.gender && form.gender.value) || 'male';
+      let imgPath = '';
+
+      // alege poza în funcție de rating și gen
+      if(v <= 2) imgPath = assets/logos/reviews/1star_icon_${gender}.png;
+      else if(v <= 4) imgPath = assets/logos/reviews/3star_icon_${gender}.png;
+      else imgPath = assets/logos/reviews/5star_icon_${gender}.png;
+
+      // fade in/out effect
+      if(genderPreview){
+        genderPreview.classList.add('fade-out');
+        setTimeout(() => {
+          genderPreview.src = imgPath;
+          genderPreview.classList.remove('fade-out');
+        }, 400);
+      }
     });
   });
 }
-
 // service pick
 if(serviceBtns && serviceBtns.length){
   serviceBtns.forEach(b => {
@@ -366,25 +385,37 @@ function renderPage(){
       }
 
       // replies: monitor replies child count and render
-      db.ref(`reviews/${r.id}/replies`).on('value', snap => {
-        const val = snap.val() || {};
-        const keys = Object.keys(val);
-        const count = keys.length;
-        const replyCountSpan = card.querySelector('.reply-count');
-        if(replyCountSpan) replyCountSpan.textContent = count;
-        // render thread inline (collapsed) - show top-level replies inline (1 level), full view in modal
-        replyListEl.innerHTML = '';
-        const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2); // show up to 2 replies inline
-        arr.forEach(rep => {
-          const div = document.createElement('div');
-          div.className = 'reply-inline';
-          const img = `assets/logos/reviews/${rep.gender || 'male'}.gif`;
-          div.innerHTML = `<img class="reply-author-img" src="${img}" alt="">
-            <strong>${escapeHtml(rep.name)}</strong> <small class="reply-date-inline">${new Date(rep.date).toLocaleDateString()}</small>
-            <div class="reply-text-inline">${escapeHtml(rep.text)}</div>`;
-          replyListEl.appendChild(div);
-        });
-      });
+db.ref(reviews/${r.id}/replies).on('value', snap => {
+  const val = snap.val() || {};
+  const keys = Object.keys(val);
+  const count = keys.length;
+  const replyCountSpan = card.querySelector('.reply-count');
+  if(replyCountSpan) replyCountSpan.textContent = count;
+  
+  replyListEl.innerHTML = '';
+
+  const arr = keys.map(k => ({ id: k, ...val[k] }));
+  arr.forEach(rep => {
+    const div = document.createElement('div');
+    div.className = 'reply-inline modern-reply';
+    const img = assets/logos/reviews/3star_icon_${rep.gender || 'male'}.png;
+
+    div.innerHTML = 
+      <img class="reply-author-img" src="${img}" alt="">
+      <div class="reply-bubble">
+        <div class="reply-header">
+          <strong>${escapeHtml(rep.name)}</strong>
+          <small>${new Date(rep.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</small>
+        </div>
+        <div class="reply-text">${escapeHtml(rep.text)}</div>
+        <div class="reply-reactions">
+          <span>❤️</span><span>😂</span><span>😡</span>
+        </div>
+      </div>
+    ;
+    replyListEl.appendChild(div);
+  });
+});
 
       // open reply modal
       if(replyBtn){
