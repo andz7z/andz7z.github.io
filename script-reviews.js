@@ -317,27 +317,25 @@ function renderPage(){
       const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-card.innerHTML = `
-  <div class="review-header">
-    <img class="author-img" src="https://andz7z.github.io/assets/logos/reviews/${r.rating}star_icon_${r.gender || 'male'}.gif" alt="${escapeHtml(r.gender || '')}">
-    <div class="review-meta">
-      <h4 class="meta-name">${escapeHtml(r.name)} ${r.badge ? `<span class="badge">${r.badge}</span>` : ''}</h4>
-      <div class="meta-sub"><small>${r.totalReviews || 1} reviews</small></div>
-    </div>
-    <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
-  </div>
-
-  <p class="review-text">${escapeHtml(r.message)}</p>
-
-  <button class="reply-btn" data-id="${r.id}">💬 <span class="reply-count">0</span> replies</button>
-
-  <div class="review-actions-column">
-    <button class="like-btn" data-id="${r.id}">👍 <span class="like-count">${r.likes || 0}</span></button>
-    <button class="dislike-btn" data-id="${r.id}">👎 <span class="dislike-count">${r.dislikes || 0}</span></button>
-  </div>
-
-  <div class="reply-list" id="replies-${r.id}"></div>
-`;
+      card.innerHTML = 
+        <div class="review-header">
+          <img class="author-img" src="https://andz7z.github.io/assets/logos/reviews/${r.rating}star_icon_${r.gender}.gif" alt="${escapeHtml(r.gender)}">
+          <div class="review-meta">
+            <h4>${escapeHtml(r.name)} ${r.badge ? <span class="badge">${r.badge}</span> : ''}</h4>
+          </div>
+          <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+        </div>
+      
+        <p class="review-text">${escapeHtml(r.message)}</p>
+      
+        <div class="review-actions-row">
+          <button class="like-btn" data-id="${r.id}">👍 <span class="like-count">${r.likes || 0}</span></button>
+          <button class="dislike-btn" data-id="${r.id}">👎 <span class="dislike-count">${r.dislikes || 0}</span></button>
+          <button class="reply-btn" data-id="${r.id}">💬 <span class="reply-count">0</span> replies</button>
+        </div>
+      
+        <div class="reply-list" id="replies-${r.id}"></div>
+      ;
       reviewsContainer.appendChild(card);
 
       // wire like/dislike
