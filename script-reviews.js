@@ -84,7 +84,16 @@ if(starEls && starEls.length){
     });
   });
 }
+// === Avatar preview dynamic ===
+const avatarPreview = document.getElementById("review-avatar-preview");
+let selectedGender = "female"; // default
+let currentStars = 3; // default preview
 
+// Gender select
+document.querySelectorAll('input[name="gender"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    selectedGender = radio.value;
+    updateAvatar();
 // service pick
 if(serviceBtns && serviceBtns.length){
   serviceBtns.forEach(b => {
