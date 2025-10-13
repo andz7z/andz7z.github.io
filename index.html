@@ -239,28 +239,32 @@
     </div>
 
     <!-- RIGHT SIDE - AVG STATS -->
-    <div class="review-stats glassy">
-      <h3>Average Ratings</h3>
-      <div class="avg-circles">
-        <div class="avg-circle" id="avg-all">
-          <span>0.0</span>
-          <p>Overall</p>
+<div class="review-stats glassy">
+  <h3>Average Ratings</h3>
+
+  <!-- Main Donut -->
+  <div class="avg-main">
+    <div class="avg-donut">
+      <svg viewBox="0 0 100 100">
+        <circle class="donut-bg" cx="50" cy="50" r="45"></circle>
+        <circle class="donut-fill" id="avg-donut" cx="50" cy="50" r="45"></circle>
+      </svg>
+      <div class="donut-center">
+        <div class="donut-rating">
+          <span id="avg-value">0.0</span> / 5
         </div>
-        <div class="avg-circle" id="avg-web">
-          <span>0.0</span>
-          <p>🌐 Web</p>
-        </div>
-        <div class="avg-circle" id="avg-prog">
-          <span>0.0</span>
-          <p>💻 Prog</p>
-        </div>
-        <div class="avg-circle" id="avg-edit">
-          <span>0.0</span>
-          <p>🎬 Edit</p>
-        </div>
+        <div class="donut-star">⭐</div>
       </div>
     </div>
   </div>
+
+  <!-- Sub-averages -->
+  <div class="avg-sub">
+    <div><span id="avg-web">🌐 0.0</span></div>
+    <div><span id="avg-prog">💻 0.0</span></div>
+    <div><span id="avg-edit">🎬 0.0</span></div>
+  </div>
+</div>
 
   <!-- REVIEWS LIST -->
   <div id="reviews-container" class="reviews-container"></div>
