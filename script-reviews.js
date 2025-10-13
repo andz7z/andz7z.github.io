@@ -84,45 +84,7 @@ if(starEls && starEls.length){
     });
   });
 }
-// === Dynamic gender avatar preview ===
-const malePreview = document.getElementById('preview-male');
-const femalePreview = document.getElementById('preview-female');
-let selectedGender = null;
 
-// Când alegi genul
-qa('input[name="gender"]').forEach(input => {
-  input.addEventListener('change', () => {
-    selectedGender = input.value;
-    malePreview.classList.toggle('active', selectedGender === 'male');
-    femalePreview.classList.toggle('active', selectedGender === 'female');
-    updatePreviewImage();
-  });
-});
-
-// Când alegi rating
-starEls.forEach(star => {
-  star.addEventListener('click', () => {
-    selectedRating = Number(star.dataset.value);
-    updatePreviewImage();
-  });
-});
-
-// Actualizează imaginea din preview
-function updatePreviewImage() {
-  if (!selectedGender) return;
-  const rating = selectedRating || 0;
-  const previewImg = selectedGender === 'male' ? malePreview : femalePreview;
-  const baseSrc = `https://andz7z.github.io/assets/logos/reviews/${selectedGender}.gif`;
-  const ratedSrc = rating
-    ? `https://andz7z.github.io/assets/logos/reviews/${rating}star_icon_${selectedGender}.gif`
-    : baseSrc;
-
-  previewImg.style.opacity = 0;
-  setTimeout(() => {
-    previewImg.src = ratedSrc;
-    previewImg.style.opacity = 1;
-  }, 250);
-}
 // service pick
 if(serviceBtns && serviceBtns.length){
   serviceBtns.forEach(b => {
@@ -317,25 +279,32 @@ function renderPage(){
       const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-      card.innerHTML = 
+      card.innerHTML = `
         <div class="review-header">
-          <img class="author-img" src="https://andz7z.github.io/assets/logos/reviews/${r.rating}star_icon_${r.gender}.gif" alt="${escapeHtml(r.gender)}">
+          <img class="author-img" src="${img}" alt="${escapeHtml(r.gender || '')}">
           <div class="review-meta">
-            <h4>${escapeHtml(r.name)} ${r.badge ? <span class="badge">${r.badge}</span> : ''}</h4>
+            <div class="meta-top">
+              <h4 class="meta-name">${escapeHtml(r.name)} <span class="service-emoji">${svcEmoji}</span>
+                ${r.badge ? `<span class="badge">${r.badge}</span>` : ''}
+              </h4>
+              <div class="meta-sub"><small class="meta-count">${r.totalReviews || 1} reviews</small></div>
+            </div>
           </div>
-          <div class="review-rating">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+          <div class="review-rating">${stars}</div>
         </div>
-      
         <p class="review-text">${escapeHtml(r.message)}</p>
-      
         <div class="review-actions-row">
-          <button class="like-btn" data-id="${r.id}">👍 <span class="like-count">${r.likes || 0}</span></button>
-          <button class="dislike-btn" data-id="${r.id}">👎 <span class="dislike-count">${r.dislikes || 0}</span></button>
-          <button class="reply-btn" data-id="${r.id}">💬 <span class="reply-count">0</span> replies</button>
+          <div class="action-left">
+            <button class="like-btn" data-id="${r.id}">👍 <span class="like-count">${r.likes || 0}</span></button>
+            <button class="dislike-btn" data-id="${r.id}">👎 <span class="dislike-count">${r.dislikes || 0}</span></button>
+            <button class="reply-btn" data-id="${r.id}">💬 <span class="reply-count">0</span></button>
+          </div>
+          <div class="action-right">
+            <small class="review-date">${new Date(r.date).toLocaleString()}</small>
+          </div>
         </div>
-      
         <div class="reply-list" id="replies-${r.id}"></div>
-      ;
+      `;
       reviewsContainer.appendChild(card);
 
       // wire like/dislike
@@ -424,10 +393,7 @@ function renderPage(){
         });
       }
     });
-replyBtn.addEventListener('click', function(){
-  const list = replyListEl;
-  list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
-});
+
     // pagination UI
     if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
     if(prevBtn) prevBtn.disabled = currentPage <= 1;
