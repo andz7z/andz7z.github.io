@@ -317,20 +317,26 @@
   </div>
 </section>
   <!-- === REPLIES MODAL (CHAT STYLE) === -->
-<div id="replies-modal" class="hidden modal glassy">
-  <div class="modal-header">
-    <h3 id="replies-title">Replies</h3>
-    <button id="replies-close">✖</button>
-  </div>
-  <div id="replies-body" class="replies-body"></div>
-  <div class="reply-input">
-    <input type="text" id="reply-name" placeholder="Your name..." required>
-    <textarea id="reply-message" placeholder="Write a reply..." maxlength="150"></textarea>
-    <div class="reply-gender">
-      <label><input type="radio" name="reply-gender" value="male" checked> 👦</label>
-      <label><input type="radio" name="reply-gender" value="female"> 👧</label>
+<div id="replies-modal" class="hidden">
+  <div class="replies-overlay"></div>
+  <div class="replies-window glassy">
+    <div class="replies-header">
+      <h3 id="replies-title">Review Comment Section 💬</h3>
+      <button id="replies-close">×</button>
     </div>
-    <button id="send-reply" class="btn-glow">Send Reply</button>
+
+    <div class="replies-body" id="replies-body">
+      <!-- replies injected dynamically -->
+    </div>
+
+    <div class="replies-input">
+      <div class="gender-select">
+        <label><input type="radio" name="reply-gender" value="male"><img src="assets/logos/reviews/3star_icon_male.gif" alt="male"></label>
+        <label><input type="radio" name="reply-gender" value="female"><img src="assets/logos/reviews/3star_icon_female.gif" alt="female"></label>
+      </div>
+      <input type="text" id="reply-message" placeholder="Leave a comment..." maxlength="120">
+      <button id="send-reply">Send 💬</button>
+    </div>
   </div>
 </div>
   <footer>
