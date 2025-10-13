@@ -254,6 +254,7 @@ function getFilteredSorted(){
 }
 
 // === render page
+// === render page
 function renderPage(){
   try {
     if(!reviewsContainer) return;
@@ -263,6 +264,7 @@ function renderPage(){
     if(currentPage > maxPage) currentPage = maxPage;
     const start = (currentPage - 1) * PER_PAGE;
     const visible = filtered.slice(start, start + PER_PAGE);
+
     // clear
     reviewsContainer.innerHTML = '';
     if(!visible.length){
@@ -273,20 +275,22 @@ function renderPage(){
       if(noReviewsBox) noReviewsBox.style.display = 'none';
       if(paginationEl) paginationEl.classList.remove('hidden');
     }
+
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
-      let gender = r.gender || 'male';
-      let avatarFile = '';
 
+      // avatar logic by gender + rating
+      const gender = r.gender || 'male';
+      let avatarFile = '';
       if (r.rating <= 2) avatarFile = `1star_icon_${gender}.png`;
       else if (r.rating <= 4) avatarFile = `3star_icon_${gender}.png`;
       else avatarFile = `5star_icon_${gender}.png`;
-
       const img = `assets/logos/reviews/${avatarFile}`;
 
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+
       card.innerHTML = `
         <div class="review-header">
           <img class="author-img" src="${img}" alt="${escapeHtml(r.gender || '')}">
@@ -313,6 +317,7 @@ function renderPage(){
         </div>
         <div class="reply-list" id="replies-${r.id}"></div>
       `;
+
       reviewsContainer.appendChild(card);
 
       // wire like/dislike
@@ -335,22 +340,21 @@ function renderPage(){
           voteRef.transaction(curr => {
             if(curr && curr.vote) return curr;
             return { vote: 1, at: new Date().toISOString() };
-          }, (err, committed, snap) => {
+          }, (err, committed) => {
             if(err) { console.error(err); return; }
             if(!committed){
               alert('Ai votat deja acest review.');
               return;
             }
-            // inc likes
             db.ref(`reviews/${reviewId}/likes`).transaction(l => (l || 0) + 1);
             localStorage.setItem(`vote_${reviewId}_${clientId}`, '1');
             likeBtn.disabled = true;
-            // update UI optimistic
             const n = Number(likeCountSpan.textContent || 0) + 1;
             likeCountSpan.textContent = n;
           });
         });
       }
+
       if(dislikeBtn){
         dislikeBtn.addEventListener('click', function(){
           const reviewId = this.dataset.id;
@@ -358,7 +362,7 @@ function renderPage(){
           voteRef.transaction(curr => {
             if(curr && curr.vote) return curr;
             return { vote: -1, at: new Date().toISOString() };
-          }, (err, committed, snap) => {
+          }, (err, committed) => {
             if(err) { console.error(err); return; }
             if(!committed){
               alert('Ai votat deja acest review.');
@@ -373,45 +377,76 @@ function renderPage(){
         });
       }
 
-      // replies: monitor replies child count and render
+      // replies: monitor replies child count and render inline (max 2 shown)
       db.ref(`reviews/${r.id}/replies`).on('value', snap => {
         const val = snap.val() || {};
-        const keys = Object.keys(val);
+        const keys = Object.keys(val || {});
         const count = keys.length;
         const replyCountSpan = card.querySelector('.reply-count');
         if(replyCountSpan) replyCountSpan.textContent = count;
-        // render thread inline (collapsed) - show top-level replies inline (1 level), full view in modal
+
+        // clear inline list
         replyListEl.innerHTML = '';
-        const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2); // show up to 2 replies inline
-arr.forEach(rep => {
-  const div = document.createElement('div');
-  const g = rep.gender || 'male';
-  let file = '3star_icon_' + g + '.png';
-  if (rep.rating) {
-    if (rep.rating <= 2) file = '1star_icon_' + g + '.png';
-    else if (rep.rating >= 5) file = '5star_icon_' + g + '.png';
+
+        // prepare array of top replies (show up to 2)
+        const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2);
+
+        arr.forEach(rep => {
+          const div = document.createElement('div');
+          const g = rep.gender || 'male';
+          // determine avatar by review's rating if present on the reply; else fallback to 3-star
+          let file = '3star_icon_' + g + '.png';
+          if (rep.rating) {
+            if (rep.rating <= 2) file = '1star_icon_' + g + '.png';
+            else if (rep.rating >= 5) file = '5star_icon_' + g + '.png';
+          }
+          const repImg = `assets/logos/reviews/${file}`;
+
+          div.className = 'insta-reply';
+          div.innerHTML = `
+            <div class="insta-bubble ${g}">
+              <div class="insta-header">
+                <img src="${repImg}" class="insta-avatar" alt="${g}">
+                <span class="insta-name">${escapeHtml(rep.name)}</span>
+                <small class="insta-date">${new Date(rep.date).toLocaleDateString()}</small>
+              </div>
+              <div class="insta-text">${escapeHtml(rep.text)}</div>
+              <div class="insta-reacts">
+                <button class="react-btn" title="Love ❤️">❤️</button>
+                <button class="react-btn" title="Haha 😂">😂</button>
+                <button class="react-btn" title="Angry 😡">😡</button>
+              </div>
+            </div>
+          `;
+          replyListEl.appendChild(div);
+        });
+      });
+
+      // open reply modal
+      if(replyBtn){
+        replyBtn.addEventListener('click', function(){
+          openReplyDialog(r.id);
+        });
+      }
+
+    }); // end visible.forEach
+
+    // pagination UI
+    if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
+    if(prevBtn) prevBtn.disabled = currentPage <= 1;
+    if(nextBtn) nextBtn.disabled = currentPage >= maxPage;
+
+    // ensure pagination placed in footer (if footer exists)
+    const footer = document.querySelector('footer');
+    if(footer && paginationEl){
+      footer.appendChild(paginationEl);
+      paginationEl.classList.remove('hidden');
+    }
+
+  } catch(err){
+    console.error('renderPage error', err);
   }
-  const img = `assets/logos/reviews/${file}`;
-
-  div.className = 'insta-reply';
-  div.innerHTML = `
-    <div class="insta-bubble ${g}">
-      <div class="insta-header">
-        <img src="${img}" class="insta-avatar" alt="${g}">
-        <span class="insta-name">${escapeHtml(rep.name)}</span>
-        <small class="insta-date">${new Date(rep.date).toLocaleDateString()}</small>
-      </div>
-      <div class="insta-text">${escapeHtml(rep.text)}</div>
-      <div class="insta-reacts">
-        <button class="react-btn" title="Love ❤️">❤️</button>
-        <button class="react-btn" title="Haha 😂">😂</button>
-        <button class="react-btn" title="Angry 😡">😡</button>
-      </div>
-    </div>
-  `;
-  replyListEl.appendChild(div);
-});
-
+}
       // open reply modal
       if(replyBtn){
         replyBtn.addEventListener('click', function(){
