@@ -1715,3 +1715,102 @@ body.dark-mode .chat-bubble.female {
   background: linear-gradient(135deg, rgba(100,80,60,0.6), rgba(180,140,80,0.4));
   color: #fff3d0;
 }
+/* === Chat Row + Avatar === */
+.chat-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  margin-bottom: 10px;
+  animation: fadeInChat 0.3s ease;
+}
+.chat-row.male { justify-content: flex-end; }
+.chat-row.female { justify-content: flex-start; }
+
+.chat-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.3);
+  object-fit: cover;
+  box-shadow: 0 0 10px rgba(255,255,255,0.25);
+}
+
+/* === Chat bubble styling === */
+.chat-bubble {
+  position: relative;
+  max-width: 75%;
+  padding: 12px 16px 10px;
+  border-radius: 16px;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.chat-bubble.male {
+  background: linear-gradient(135deg, rgba(190,220,255,0.6), rgba(90,140,255,0.3));
+  align-items: flex-end;
+}
+.chat-bubble.female {
+  background: linear-gradient(135deg, rgba(255,220,240,0.65), rgba(255,180,220,0.35));
+  align-items: flex-start;
+}
+.chat-name {
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin-bottom: 3px;
+  opacity: 0.8;
+}
+.chat-text {
+  white-space: pre-wrap;
+  line-height: 1.4;
+  text-align: left;
+}
+
+/* === Reactions toggle + bar === */
+.reaction-toggle {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.7;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.reaction-toggle:hover { transform: scale(1.2); opacity: 1; }
+
+.reactions-bar {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.reactions-bar.hidden { display: none; }
+
+.reaction-btn {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 14px;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.reaction-btn:hover { background: white; color: black; transform: scale(1.05); }
+.reaction-count {
+  font-size: 0.8rem;
+  margin-left: 4px;
+  opacity: 0.8;
+}
+
+/* Dark mode */
+body.dark-mode .chat-bubble.male {
+  background: linear-gradient(135deg, rgba(60,60,100,0.8), rgba(90,80,150,0.5));
+}
+body.dark-mode .chat-bubble.female {
+  background: linear-gradient(135deg, rgba(120,100,60,0.8), rgba(180,140,80,0.5));
+}
