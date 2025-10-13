@@ -1524,33 +1524,3 @@ footer .pagination { margin: 18px auto; }
 
 /* ensure pagination in footer */
 footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
-/* ==== FADE-IN / FADE-OUT RATING OVERLAY ==== */
-.rating-fade-overlay {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0,0,0,0.6);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.6s ease;
-  z-index: 9999;
-}
-.rating-fade-overlay.show {
-  opacity: 1;
-  pointer-events: auto;
-}
-.fade-star-img {
-  width: 180px;
-  height: 180px;
-  border-radius: 20px;
-  object-fit: contain;
-  animation: pulseStar 1.6s ease-in-out infinite alternate;
-  filter: drop-shadow(0 0 25px rgba(255,255,255,0.5));
-}
-@keyframes pulseStar {
-  0% { transform: scale(0.9); opacity: 0.7; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(0.9); opacity: 0.8; }
-}
