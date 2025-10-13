@@ -385,12 +385,25 @@ function renderPage(){
         const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2); // show up to 2 replies inline
         arr.forEach(rep => {
           const div = document.createElement('div');
-          div.className = 'reply-inline';
           let g = rep.gender || 'male';
         let file = rep.rating <= 2 ? `1star_icon_${g}.png` : rep.rating <= 4 ? `3star_icon_${g}.png` : `5star_icon_${g}.png`;
         const img = `assets/logos/reviews/${file}`;
+      div.className = 'insta-reply';
+        div.innerHTML = `
+        <div class="insta-bubble ${rep.gender}">
+        <div class="insta-header">
+        <img src="assets/logos/reviews/${rep.gender}.gif" class="insta-avatar">
+        <span class="insta-name">${escapeHtml(rep.name)}</span>
+       <small class="insta-date">${new Date(rep.date).toLocaleDateString()}</small>
+    </div>
+       <div class="insta-text">${escapeHtml(rep.text)}</div>
+       <div class="insta-reacts">
+      <button class="react-btn" title="Love ❤️">❤️</button>
+      <button class="react-btn" title="Haha 😂">😂</button>
+      <button class="react-btn" title="Angry 😡">😡</button>
+    </div>
+  </div>`;
 
-          div.innerHTML = `<img class="reply-author-img" src="${img}" alt="">
             <strong>${escapeHtml(rep.name)}</strong> <small class="reply-date-inline">${new Date(rep.date).toLocaleDateString()}</small>
             <div class="reply-text-inline">${escapeHtml(rep.text)}</div>`;
           replyListEl.appendChild(div);
