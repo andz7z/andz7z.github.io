@@ -11,6 +11,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
+// script-reviews.js
+// Presupunere: firebase este inițializat și ai db = firebase.database();
+// Include acest fișier DUPĂ firebase & firebase database script.
+
 // === util
 function q(sel){ return document.querySelector(sel); }
 function qa(sel){ return Array.from(document.querySelectorAll(sel)); }
@@ -31,7 +35,7 @@ if(!clientId){
   localStorage.setItem('andz_clientId', clientId);
 }
 
-// === DOM hooks
+// === DOM hooks (guard in case HTML structure slightly different)
 const form = q('#review-form');
 const msgInput = q('#message');
 const charCount = q('#char-count');
@@ -50,90 +54,33 @@ const prevBtn = q('#prev-page');
 const nextBtn = q('#next-page');
 const pageInfo = q('#page-info');
 
-// preview img in form (must exist in HTML as described earlier)
-const genderPreview = q('#gender-preview');
-
-// radio gender inputs
-const genderRadios = qa('input[name="gender"]');
-
-
-// filters area
-const sortWrapper = q('#sort-wrapper');
+// filters area (will be placed under AVG in HTML)
+const sortWrapper = q('#sort-wrapper'); // optional wrapper if present
+// fallback: we will use elements with ids below - ensure they exist in HTML
 const sortFilter = q('#sort-filter');
 const serviceFilter = q('#service-filter');
 
 // state
 let selectedRating = 0;
 let selectedService = null;
-let reviews = [];
+let reviews = []; // array of reviews fetched
 let currentPage = 1;
 const PER_PAGE = 10;
 let activeSort = sortFilter ? sortFilter.value : 'recent';
 let activeService = serviceFilter ? serviceFilter.value : 'all';
 
-// safety
+// --- safety: make sure required DOM exists
 if(!reviewsContainer){
   console.error('Missing #reviews-container element in DOM.');
 }
 
-// helper: get currently selected gender string ('male'|'female')
-function getSelectedGender(){
-  try {
-    const g = form.querySelector('input[name="gender"]:checked');
-    if(g && (g.value === 'male' || g.value === 'female')) return g.value;
-  } catch(e){}
-  return 'male';
-}
-
-// update preview image with fade
-function updateGenderPreview(path){
-  if(!genderPreview) return;
-  genderPreview.classList.add('fade-out');
-  setTimeout(() => {
-    genderPreview.src = path;
-    genderPreview.classList.remove('fade-out');
-  }, 250);
-}
-
-// init preview based on selected gender (default male)
-if(genderPreview){
-  const initialGender = getSelectedGender();
-  // default to a neutral male/female gif if your assets have them
-  updateGenderPreview(`assets/logos/reviews/${initialGender}.gif`);
-}
-
-// listen for gender radio changes -> if no rating selected, show 3star_icon_GENDER (as requested earlier)
-genderRadios.forEach(r => {
-  r.addEventListener('change', function(){
-    const g = getSelectedGender();
-    if(selectedRating === 0){
-      // show default three-star for gender (or just gender gif if you prefer)
-      const path = `assets/logos/reviews/3star_icon_${g}.gif`;
-      updateGenderPreview(path);
-    } else {
-      // if rating exists, show appropriate
-      const prefix = selectedRating <= 2 ? '1star_icon' : (selectedRating <= 4 ? '3star_icon' : '5star_icon');
-      updateGenderPreview(`assets/logos/reviews/${prefix}_${g}.gif`);
-    }
-  });
-});
-
-// === star rating UI (fixed: use backticks for template strings)
+// === star rating UI
 if(starEls && starEls.length){
   starEls.forEach(s => {
     s.addEventListener('click', function(){
       const v = Number(this.dataset.value) || 0;
       selectedRating = v;
       starEls.forEach(x => x.classList.toggle('active', Number(x.dataset.value) <= v));
-
-      // determine gender and image path properly using backticks
-      const gender = getSelectedGender();
-      let prefix = '3star_icon';
-      if(v <= 2) prefix = '1star_icon';
-      else if(v === 5) prefix = '5star_icon';
-      // build path with backticks (template literal)
-      const imgPath = `assets/logos/reviews/${prefix}_${gender}.gif`;
-      updateGenderPreview(imgPath);
     });
   });
 }
@@ -178,15 +125,14 @@ if(form){
         dislikes: 0
       };
       db.ref('reviews').push(review).then(() => {
+        // reset form UI
         form.reset();
         selectedRating = 0;
         selectedService = null;
         if(starEls && starEls.length) starEls.forEach(s => s.classList.remove('active'));
         if(serviceBtns && serviceBtns.length) serviceBtns.forEach(b => b.classList.remove('active'));
         if(charCount) charCount.textContent = '0 / 200';
-        // reset preview to default 3star of male (or keep gender default)
-        const g = getSelectedGender();
-        updateGenderPreview(`assets/logos/reviews/3star_icon_${g}.gif`);
+        // optional small feedback
       }).catch(err => {
         console.error('Error writing review', err);
         alert('Eroare la salvare. Vezi consola.');
@@ -214,7 +160,10 @@ if(serviceFilter){
   });
 }
 
+// style sort buttons UI function (for visual transparent chips)
 function updateSortButtonsUI(){
+  // if using select, style selected option via CSS; if you use custom buttons, adapt here.
+  // We'll add .active class to the selected option's wrapper (if present)
   const wrappers = qa('.sort-chip');
   wrappers.forEach(w => w.classList.toggle('active', w.dataset?.sort === activeSort));
 }
@@ -239,6 +188,7 @@ function loadReviews(){
         }
         counts[obj.name] = (counts[obj.name] || 0) + 1;
       });
+      // attach badge & count
       const enhanced = arr.map(r => {
         let badge = null;
         const c = counts[r.name] || 0;
@@ -246,6 +196,7 @@ function loadReviews(){
         else if(c >= 3) badge = '💡 Contributor';
         return Object.assign({}, r, { totalReviews: c, badge: badge });
       });
+      // default: most recent first
       enhanced.sort((a,b) => new Date(b.date) - new Date(a.date));
       reviews = enhanced;
       updateAvgs(ratings);
@@ -265,6 +216,7 @@ function updateAvgs(ratings){
   if(avgWebEl) avgWebEl.textContent = `🌐 ${avg(ratings.web).toFixed(2)}`;
   if(avgProgEl) avgProgEl.textContent = `💻 ${avg(ratings.prog).toFixed(2)}`;
   if(avgEditEl) avgEditEl.textContent = `🎬 ${avg(ratings.edit).toFixed(2)}`;
+  // donut visual (if exists)
   if(avgDonut){
     try {
       const percent = (overall / 5) * 100;
@@ -274,6 +226,7 @@ function updateAvgs(ratings){
       avgDonut.style.strokeDashoffset = `${offset}`;
     } catch(e){}
   }
+  // bg accent
   if(reviewsBg){
     let color = '#ffd95a';
     if(overall < 2.5) color = '#ff6961';
@@ -295,7 +248,7 @@ function getFilteredSorted(){
   } else if(activeSort === 'highest'){
     arr.sort((a,b) => b.rating - a.rating || new Date(b.date) - new Date(a.date));
   } else if(activeSort === 'lowest'){
-    arr.sort((a,b) => a.rating - b.rating || new Date(a.date) - new Date(a.date));
+    arr.sort((a,b) => a.rating - b.rating || new Date(b.date) - new Date(a.date));
   }
   return arr;
 }
@@ -310,6 +263,7 @@ function renderPage(){
     if(currentPage > maxPage) currentPage = maxPage;
     const start = (currentPage - 1) * PER_PAGE;
     const visible = filtered.slice(start, start + PER_PAGE);
+    // clear
     reviewsContainer.innerHTML = '';
     if(!visible.length){
       if(noReviewsBox) noReviewsBox.style.display = 'block';
@@ -322,7 +276,6 @@ function renderPage(){
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
-      // default author image path uses gender gif; but we will swap replies images to 3star icons
       const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
@@ -354,6 +307,7 @@ function renderPage(){
       `;
       reviewsContainer.appendChild(card);
 
+      // wire like/dislike
       const likeBtn = card.querySelector('.like-btn');
       const dislikeBtn = card.querySelector('.dislike-btn');
       const likeCountSpan = card.querySelector('.like-count');
@@ -379,9 +333,11 @@ function renderPage(){
               alert('Ai votat deja acest review.');
               return;
             }
+            // inc likes
             db.ref(`reviews/${reviewId}/likes`).transaction(l => (l || 0) + 1);
             localStorage.setItem(`vote_${reviewId}_${clientId}`, '1');
             likeBtn.disabled = true;
+            // update UI optimistic
             const n = Number(likeCountSpan.textContent || 0) + 1;
             likeCountSpan.textContent = n;
           });
@@ -409,107 +365,31 @@ function renderPage(){
         });
       }
 
-      // replies: monitor replies and render modern chat style
+      // replies: monitor replies child count and render
       db.ref(`reviews/${r.id}/replies`).on('value', snap => {
         const val = snap.val() || {};
         const keys = Object.keys(val);
         const count = keys.length;
         const replyCountSpan = card.querySelector('.reply-count');
         if(replyCountSpan) replyCountSpan.textContent = count;
-
+        // render thread inline (collapsed) - show top-level replies inline (1 level), full view in modal
         replyListEl.innerHTML = '';
-
-        // make an inline reply form (small) on top of replies for quick reply (uses same fields)
-        const replyFormId = `reply-form-${r.id}`;
-        const replyFormHtml = `
-          <div class="reply-form-inline" style="margin:8px 0; display:flex; gap:8px; align-items:flex-start;">
-            <img class="reply-author-img" src="assets/logos/reviews/3star_icon_${getSelectedGender()}.gif" alt="you" style="width:38px;height:38px;border-radius:50%;">
-            <div style="flex:1;display:flex;flex-direction:column;gap:6px;">
-              <input type="text" id="reply-name-${r.id}" placeholder="Nume..." style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);">
-              <textarea id="reply-text-${r.id}" placeholder="Mesaj..." rows="2" style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);"></textarea>
-              <div style="display:flex;gap:8px;">
-                <select id="reply-gender-${r.id}" style="padding:6px;border-radius:8px;">
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-                <button id="reply-send-${r.id}" style="padding:6px 10px;border-radius:8px;">Reply</button>
-              </div>
-            </div>
-          </div>
-        `;
-        const wrapper = document.createElement('div');
-        wrapper.innerHTML = replyFormHtml;
-        replyListEl.appendChild(wrapper);
-
-        // wire send reply
-        const sendBtn = wrapper.querySelector(`#reply-send-${r.id}`);
-        const nameInp = wrapper.querySelector(`#reply-name-${r.id}`);
-        const txtInp = wrapper.querySelector(`#reply-text-${r.id}`);
-        const genderSel = wrapper.querySelector(`#reply-gender-${r.id}`);
-
-        sendBtn.addEventListener('click', function(){
-          const rn = (nameInp.value || '').trim();
-          const rt = (txtInp.value || '').trim();
-          const rg = genderSel.value || 'male';
-          if(!rn || !rt) return alert('Completeaza nume si mesaj pentru reply.');
-          const replyObj = {
-            name: rn,
-            text: rt,
-            gender: rg,
-            date: new Date().toISOString(),
-            reactions: { heart:0, haha:0, anger:0 }
-          };
-          db.ref(`reviews/${r.id}/replies`).push(replyObj).then(() => {
-            nameInp.value = '';
-            txtInp.value = '';
-          }).catch(err => {
-            console.error('Reply save error', err);
-            alert('Eroare la trimitere reply.');
-          });
-        });
-
-        // render existing replies sorted by date ascending
-        const arr = keys.map(k => ({ id: k, ...val[k] })).sort((a,b)=> new Date(a.date) - new Date(b.date));
+        const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2); // show up to 2 replies inline
         arr.forEach(rep => {
           const div = document.createElement('div');
-          div.className = 'reply-inline modern-reply';
-          const imgPath = `assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif`;
-          div.innerHTML = `
-            <img class="reply-author-img" src="${imgPath}" alt="">
-            <div class="reply-bubble">
-              <div class="reply-header">
-                <strong>${escapeHtml(rep.name)}</strong>
-                <small>${new Date(rep.date).toLocaleString()}</small>
-              </div>
-              <div class="reply-text">${escapeHtml(rep.text)}</div>
-              <div class="reply-reactions" data-reply-id="${rep.id}">
-                <button class="react-btn" data-type="heart">❤️ <span class="count">${(rep.reactions && rep.reactions.heart) || 0}</span></button>
-                <button class="react-btn" data-type="haha">😂 <span class="count">${(rep.reactions && rep.reactions.haha) || 0}</span></button>
-                <button class="react-btn" data-type="anger">😡 <span class="count">${(rep.reactions && rep.reactions.anger) || 0}</span></button>
-              </div>
-            </div>
-          `;
+          div.className = 'reply-inline';
+          const img = `assets/logos/reviews/${rep.gender || 'male'}.gif`;
+          div.innerHTML = `<img class="reply-author-img" src="${img}" alt="">
+            <strong>${escapeHtml(rep.name)}</strong> <small class="reply-date-inline">${new Date(rep.date).toLocaleDateString()}</small>
+            <div class="reply-text-inline">${escapeHtml(rep.text)}</div>`;
           replyListEl.appendChild(div);
-
-          // wire reaction buttons (optimistic UI + firebase update)
-          const reactBtns = div.querySelectorAll('.react-btn');
-          reactBtns.forEach(btn => {
-            btn.addEventListener('click', function(){
-              const type = this.dataset.type;
-              const replyId = rep.id;
-              const reactRef = db.ref(`reviews/${r.id}/replies/${replyId}/reactions/${type}`);
-              reactRef.transaction(curr => (curr || 0) + 1);
-            });
-          });
         });
-
       });
 
-      // open reply modal - focus on reply list top (if needed)
+      // open reply modal
       if(replyBtn){
         replyBtn.addEventListener('click', function(){
-          // scroll to this card's reply section
-          replyListEl.scrollIntoView({behavior:'smooth', block:'center'});
+          openReplyDialog(r.id);
         });
       }
     });
@@ -518,6 +398,7 @@ function renderPage(){
     if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
     if(prevBtn) prevBtn.disabled = currentPage <= 1;
     if(nextBtn) nextBtn.disabled = currentPage >= maxPage;
+    // ensure pagination placed in footer (if footer exists)
     const footer = document.querySelector('footer');
     if(footer && paginationEl){
       footer.appendChild(paginationEl);
@@ -542,5 +423,154 @@ if(nextBtn){
   });
 }
 
-// start
-loadReviews();
+// === replies modal & nested replies (max depth 7)
+function buildReplyTree(flat){
+  const map = {};
+  flat.forEach(r => { map[r.id] = Object.assign({}, r, { children: [] }); });
+  const roots = [];
+  flat.forEach(r => {
+    if(r.parentId && map[r.parentId]) map[r.parentId].children.push(map[r.id]);
+    else roots.push(map[r.id]);
+  });
+  return roots;
+}
+
+function renderRepliesTreeFragment(nodes, reviewId, depth){
+  depth = depth || 0;
+  const frag = document.createDocumentFragment();
+  nodes.forEach(node => {
+    const wrap = document.createElement('div');
+    wrap.className = 'reply-node';
+    wrap.style.marginLeft = (depth * 12) + 'px';
+    const img = `assets/logos/reviews/${node.gender || 'male'}.gif`;
+    wrap.innerHTML = `<div class="reply-top"><img src="${img}" class="reply-author-img"><strong>${escapeHtml(node.name)}</strong> <small class="reply-date">${new Date(node.date).toLocaleString()}</small></div>
+      <div class="reply-body">${escapeHtml(node.text)}</div>
+      <div class="reply-actions"><button class="reply-to-btn" data-review="${reviewId}" data-reply="${node.id}">Reply</button></div>`;
+    frag.appendChild(wrap);
+    if(node.children && node.children.length){
+      frag.appendChild(renderRepliesTreeFragment(node.children, reviewId, depth + 1));
+    }
+  });
+  return frag;
+}
+
+function openReplyDialog(reviewId){
+  // create modal
+  const modal = document.createElement('div');
+  modal.className = 'reply-modal';
+  modal.innerHTML = `<div class="reply-modal-inner">
+    <button class="modal-close">×</button>
+    <h3>Replies</h3>
+    <div id="reply-thread" class="reply-thread"></div>
+    <hr>
+    <h4>Leave a reply</h4>
+    <form id="leave-reply-form">
+      <div class="row"><label>Name</label><input name="rname" required></div>
+      <div class="row"><label>Gender</label>
+        <select name="rgender" required>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="row"><label>Message</label><textarea name="rtext" maxlength="300" required></textarea></div>
+      <input type="hidden" name="parentId" value="">
+      <div class="row"><button type="submit">Post Reply</button></div>
+    </form>
+  </div>`;
+  document.body.appendChild(modal);
+  document.body.classList.add('modal-open');
+
+  modal.querySelector('.modal-close').addEventListener('click', function(){
+    modal.remove();
+    document.body.classList.remove('modal-open');
+  });
+
+  const thread = modal.querySelector('#reply-thread');
+  const form = modal.querySelector('#leave-reply-form');
+
+  // load replies once
+  db.ref(`reviews/${reviewId}/replies`).once('value').then(snap => {
+    const obj = snap.val() || {};
+    const arr = Object.keys(obj).map(k => ({ id: k, ...obj[k] }));
+    const tree = buildReplyTree(arr);
+    thread.innerHTML = '';
+    thread.appendChild(renderRepliesTreeFragment(tree, reviewId, 0));
+  }).catch(err => console.error(err));
+
+  // delegate reply button clicks to set parentId
+  thread.addEventListener('click', function(e){
+    if(e.target && e.target.matches('.reply-to-btn')){
+      const rid = e.target.dataset.reply;
+      form.parentId.value = rid || '';
+      form.rtext.focus();
+    }
+  });
+
+  // submit reply
+  form.addEventListener('submit', function(ev){
+    ev.preventDefault();
+    const fd = new FormData(form);
+    const name = fd.get('rname').trim();
+    const gender = fd.get('rgender');
+    const text = fd.get('rtext').trim();
+    const parentId = fd.get('parentId') || null;
+    if(!name || !gender || !text) return alert('Completeaza toate campurile!');
+    // if parentId provided, check depth
+    if(parentId){
+      db.ref(`reviews/${reviewId}/replies/${parentId}`).once('value').then(psnap => {
+        const parent = psnap.val();
+        const depth = (parent && parent.depth) ? parent.depth : 1;
+        if(depth >= 7){
+          alert('Maxim 7 niveluri de reply.');
+          return;
+        }
+        const ref = db.ref(`reviews/${reviewId}/replies`).push();
+        ref.set({
+          name: name,
+          gender: gender,
+          text: text,
+          parentId: parentId,
+          date: new Date().toISOString(),
+          depth: depth + 1
+        }).then(() => {
+          // refresh thread
+          db.ref(`reviews/${reviewId}/replies`).once('value').then(snap => {
+            const obj = snap.val() || {};
+            const arr = Object.keys(obj).map(k => ({ id: k, ...obj[k] }));
+            const tree = buildReplyTree(arr);
+            thread.innerHTML = '';
+            thread.appendChild(renderRepliesTreeFragment(tree, reviewId, 0));
+            form.reset();
+            form.parentId.value = '';
+          });
+        });
+      });
+    } else {
+      const ref = db.ref(`reviews/${reviewId}/replies`).push();
+      ref.set({
+        name: name,
+        gender: gender,
+        text: text,
+        parentId: null,
+        date: new Date().toISOString(),
+        depth: 1
+      }).then(() => {
+        db.ref(`reviews/${reviewId}/replies`).once('value').then(snap => {
+          const obj = snap.val() || {};
+          const arr = Object.keys(obj).map(k => ({ id: k, ...obj[k] }));
+          const tree = buildReplyTree(arr);
+          thread.innerHTML = '';
+          thread.appendChild(renderRepliesTreeFragment(tree, reviewId, 0));
+          form.reset();
+        });
+      });
+    }
+  });
+}
+
+// === initial load
+window.addEventListener('load', function(){
+  loadReviews();
+  updateSortButtonsUI();
+});
