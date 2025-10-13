@@ -276,7 +276,7 @@ function renderPage(){
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
-      const img = `https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/logos/reviews/${r.gender || 'male'}.gif`;
+      const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
       card.innerHTML = `
@@ -378,7 +378,7 @@ function renderPage(){
         arr.forEach(rep => {
           const div = document.createElement('div');
           div.className = 'reply-inline';
-          const img = `https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/logos/reviews/${rep.gender || 'male'}.gif`;
+          const img = `assets/logos/reviews/${rep.gender || 'male'}.gif`;
           div.innerHTML = `<img class="reply-author-img" src="${img}" alt="">
             <strong>${escapeHtml(rep.name)}</strong> <small class="reply-date-inline">${new Date(rep.date).toLocaleDateString()}</small>
             <div class="reply-text-inline">${escapeHtml(rep.text)}</div>`;
@@ -398,16 +398,13 @@ function renderPage(){
     if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
     if(prevBtn) prevBtn.disabled = currentPage <= 1;
     if(nextBtn) nextBtn.disabled = currentPage >= maxPage;
-// afișează paginarea doar când e vizibilă secțiunea reviews
-if (paginationEl) {
-  const reviewsSection = document.querySelector('#reviews');
-  if (reviewsSection && reviewsSection.classList.contains('active')) {
-    reviewsSection.appendChild(paginationEl);
-    paginationEl.classList.remove('hidden');
-  } else {
-    paginationEl.classList.add('hidden');
-  }
-}
+    // ensure pagination placed in footer (if footer exists)
+    const footer = document.querySelector('footer');
+    if(footer && paginationEl){
+      footer.appendChild(paginationEl);
+      paginationEl.classList.remove('hidden');
+    }
+
   } catch(err){
     console.error('renderPage error', err);
   }
@@ -445,7 +442,7 @@ function renderRepliesTreeFragment(nodes, reviewId, depth){
     const wrap = document.createElement('div');
     wrap.className = 'reply-node';
     wrap.style.marginLeft = (depth * 12) + 'px';
-    const img = `https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/logos/reviews/${node.gender || 'male'}.gif`;
+    const img = `assets/logos/reviews/${node.gender || 'male'}.gif`;
     wrap.innerHTML = `<div class="reply-top"><img src="${img}" class="reply-author-img"><strong>${escapeHtml(node.name)}</strong> <small class="reply-date">${new Date(node.date).toLocaleString()}</small></div>
       <div class="reply-body">${escapeHtml(node.text)}</div>
       <div class="reply-actions"><button class="reply-to-btn" data-review="${reviewId}" data-reply="${node.id}">Reply</button></div>`;
@@ -571,255 +568,7 @@ function openReplyDialog(reviewId){
     }
   });
 }
-/* ---------- Helper: build image path based on rating + gender ---------- */
-function ratingKeyFromValue(v){
-  // v is integer 1..5
-  if(v >= 5) return '5star_icon';
-  if(v >= 3) return '3star_icon';
-  return '1star_icon';
-}
-function genderKey(g){
-  // normalize common inputs (male, m, M, female, f, F)
-  if(!g) return 'male';
-  g = String(g).toLowerCase();
-  if(g.startsWith('f')) return 'female';
-  return 'male';
-}
-function avatarPathFor(gender, rating){
-  const g = genderKey(gender);
-  const k = ratingKeyFromValue(rating);
-  // path relative to site root
-  return `/assets/logos/reviews/${k}_${g}.gif`;
-}
 
-/* ---------- Avatar update logic (form) ---------- */
-const reviewAvatarImg = document.getElementById('review-avatar');
-function updateReviewAvatar({ gender, rating }) {
-  // default fallback
-  const g = gender || (form.gender && form.gender.value) || 'male';
-  const r = rating || selectedRating || 3;
-  const newSrc = avatarPathFor(g, r);
-
-  if(!reviewAvatarImg) return;
-  // fade-out -> change src -> fade-in
-  reviewAvatarImg.classList.add('fade-out');
-  setTimeout(() => {
-    reviewAvatarImg.src = newSrc;
-    reviewAvatarImg.alt = `${g} avatar`;
-    reviewAvatarImg.classList.remove('fade-out');
-    reviewAvatarImg.classList.add('fade-in');
-    setTimeout(()=> reviewAvatarImg.classList.remove('fade-in'), 450);
-  }, 220);
-}
-
-// Hook up gender radio change + star clicks
-if(form){
-  // gender radios exist in the form - watch for change
-  const genderRadios = form.querySelectorAll('input[name="gender"]');
-  genderRadios.forEach(r => r.addEventListener('change', function(){
-    updateReviewAvatar({ gender: this.value, rating: selectedRating || 3 });
-  }));
-}
-// starEls from earlier: update avatar on star click
-if(starEls && starEls.length){
-  starEls.forEach(s => {
-    s.addEventListener('click', function(){
-      const v = Number(this.dataset.value) || 0;
-      // small timeout so selectedRating gets set already in your existing handler
-      setTimeout(()=> updateReviewAvatar({ rating: v }), 40);
-    });
-  });
-}
-
-/* ---------- Reply UI & logic ---------- */
-// Template reference
-const replyTemplate = document.getElementById('reply-form-template');
-if(!replyTemplate) console.warn('Reply template not found.');
-
-// Render replies as chat bubbles (called for each review card)
-function renderRepliesFor(reviewId, containerEl){
-  // containerEl is the element where reply thread should be rendered (eg #replies-<id>)
-  const repliesRef = db.ref(`reviews/${reviewId}/replies`);
-  repliesRef.off(); // cleanup previous listeners if any
-  repliesRef.on('value', snap => {
-    const val = snap.val() || {};
-    // convert to array sorted by date asc
-    const arr = Object.keys(val).map(k => ({ id: k, ...val[k] }))
-                   .sort((a,b) => new Date(a.date) - new Date(b.date));
-    // clear container
-    containerEl.innerHTML = '';
-
-    arr.forEach(rep => {
-      const side = (rep.clientId === clientId) ? 'right' : 'left';
-      const avatar = avatarPathFor(rep.gender, 3); // use 3star icon for replies avatar
-      const bubble = document.createElement('div');
-      bubble.className = `reply-bubble ${side}`;
-      bubble.innerHTML = `
-        <img class="reply-avatar" src="${avatar}" alt="${escapeHtml(rep.gender||'')}" />
-        <div class="reply-content">
-          <div class="reply-meta"><strong>${escapeHtml(rep.name)}</strong><small>${timeAgo(new Date(rep.date))}</small></div>
-          <div class="reply-text">${escapeHtml(rep.text)}</div>
-          <div class="reply-reactions" data-reply-id="${rep.id}">
-            <button class="react-btn" data-type="heart">❤️ <span class="react-count">${(rep.reactions && rep.reactions.heart)||0}</span></button>
-            <button class="react-btn" data-type="haha">😂 <span class="react-count">${(rep.reactions && rep.reactions.haha)||0}</span></button>
-            <button class="react-btn" data-type="angry">😡 <span class="react-count">${(rep.reactions && rep.reactions.angry)||0}</span></button>
-          </div>
-        </div>
-      `;
-      containerEl.appendChild(bubble);
-
-      // Hook reaction buttons
-      const reactRow = bubble.querySelector('.reply-reactions');
-      reactRow.querySelectorAll('.react-btn').forEach(btn => {
-        btn.addEventListener('click', function(){
-          const type = this.dataset.type;
-          handleReactionClick(rep.id, type, this);
-        });
-        // set local active state
-        const ls = localStorage.getItem(`react_${rep.id}_${clientId}`);
-        if(ls === btn.dataset.type) btn.classList.add('active');
-      });
-    });
-
-    // add a "Reply" button to create inline reply form
-    const addReplyBtn = document.createElement('div');
-    addReplyBtn.style.marginTop = '8px';
-    addReplyBtn.innerHTML = `<button class="btn-glow inline-reply-trigger">Răspunde</button>`;
-    containerEl.appendChild(addReplyBtn);
-    addReplyBtn.querySelector('.inline-reply-trigger').addEventListener('click', function(){
-      openInlineReplyForm(reviewId, containerEl);
-    });
-  });
-}
-
-// small helper timeAgo
-function timeAgo(d){
-  const diff = Date.now() - d.getTime();
-  const sec = Math.floor(diff/1000);
-  if(sec < 60) return `${sec}s`;
-  const min = Math.floor(sec/60);
-  if(min < 60) return `${min}m`;
-  const hr = Math.floor(min/60);
-  if(hr < 24) return `${hr}h`;
-  const days = Math.floor(hr/24);
-  return `${days}d`;
-}
-
-/* ---------- Open inline reply form (clones template) ---------- */
-function openInlineReplyForm(reviewId, containerEl){
-  // remove existing reply form if any
-  const existing = containerEl.querySelector('.reply-form');
-  if(existing) existing.remove();
-
-  const tpl = replyTemplate.content.cloneNode(true);
-  const fragRoot = tpl.querySelector ? tpl : tpl; // DOM fragment
-  const formWrap = tpl.querySelector ? tpl.querySelector('.reply-form') : null;
-
-  containerEl.appendChild(tpl);
-  // after append, find the last inserted formWrap
-  const newForm = containerEl.querySelector('.reply-form');
-  if(!newForm) return;
-
-  // set up gender buttons to update small avatar
-  const gBtns = newForm.querySelectorAll('.gender-btn');
-  const avatarImg = newForm.querySelector('.reply-avatar');
-  let selectedReplyGender = 'male';
-  gBtns.forEach(b => {
-    b.addEventListener('click', function(){
-      gBtns.forEach(x=>x.classList.remove('active'));
-      this.classList.add('active');
-      selectedReplyGender = this.dataset.g;
-      // update avatar (always 3star)
-      const p = avatarPathFor(selectedReplyGender, 3);
-      avatarImg.src = p;
-    });
-  });
-
-  // charcount
-  const textarea = newForm.querySelector('textarea[name="rmessage"]');
-  const charCountEl = newForm.querySelector('.char-count');
-  textarea.addEventListener('input', function(){ charCountEl.textContent = `${this.value.length} / 200`; });
-
-  // submit
-  const innerForm = newForm.querySelector('.reply-inner-form');
-  innerForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    const name = innerForm.querySelector('input[name="rname"]').value.trim();
-    const text = innerForm.querySelector('textarea[name="rmessage"]').value.trim();
-    const gender = selectedReplyGender || 'male';
-    if(!name || !text) return alert('Completează nume și mesaj.');
-    const payload = {
-      name: name,
-      text: text,
-      gender: gender,
-      date: new Date().toISOString(),
-      clientId: clientId,
-      reactions: { heart: 0, haha: 0, angry: 0 }
-    };
-    // push to firebase under review replies
-    db.ref(`reviews/${reviewId}/replies`).push(payload).then(()=>{
-      // success: clear form
-      innerForm.reset();
-      charCountEl.textContent = '0 / 200';
-      // optionally collapse the reply form:
-      newForm.remove();
-    }).catch(err => {
-      console.error('reply save error', err);
-      alert('Eroare la trimitere reply. Vezi consola.');
-    });
-  });
-}
-
-/* ---------- Reaction handling ---------- */
-function handleReactionClick(replyId, type, btnEl){
-  // prevent double react by same client: store reaction value in localStorage
-  const key = `react_${replyId}_${clientId}`;
-  const prev = localStorage.getItem(key);
-  if(prev === type){
-    // clicking same again -> undo
-    localStorage.removeItem(key);
-    // decrement in DB
-    db.ref(`reviews_replies_reactions/${replyId}/${type}`).transaction(n => (n||1) - 1);
-    // also try to update inline counts UI
-    const countSpan = btnEl.querySelector('.react-count');
-    if(countSpan) countSpan.textContent = Math.max(0, Number(countSpan.textContent||0) - 1);
-    btnEl.classList.remove('active');
-    return;
-  }
-  if(prev && prev !== type){
-    // user already reacted different; we will switch: decrement prev, increment new
-    localStorage.setItem(key, type);
-    db.ref(`reviews_replies_reactions/${replyId}/${prev}`).transaction(n => (n||1) - 1);
-    db.ref(`reviews_replies_reactions/${replyId}/${type}`).transaction(n => (n||0) + 1);
-    // update UI: remove active from sibling and set on this
-    const parent = btnEl.parentElement;
-    parent.querySelectorAll('.react-btn').forEach(b => b.classList.toggle('active', b === btnEl));
-    // update counts visually (best-effort; DB listener may sync later)
-    parent.querySelectorAll('.react-btn').forEach(b => {
-      const t = b.dataset.type;
-      const span = b.querySelector('.react-count');
-      // try to read DB snapshot - simpler: increment/decrement visually
-      if(t === type) span.textContent = Number(span.textContent||0) + 1;
-      if(t === prev) span.textContent = Math.max(0, Number(span.textContent||0) - 1);
-    });
-    return;
-  }
-  // no prev: set and increment DB
-  localStorage.setItem(key, type);
-  db.ref(`reviews_replies_reactions/${replyId}/${type}`).transaction(n => (n||0) + 1);
-  // optimistic UI
-  btnEl.classList.add('active');
-  const span = btnEl.querySelector('.react-count');
-  if(span) span.textContent = Number(span.textContent||0) + 1;
-}
-
-/* ---------- Hook renderRepliesFor into renderPage() cards ---------- */
-// Modify your existing renderPage() where you create each card: after you append card to reviewsContainer,
-// find replyListEl = card.querySelector(`#replies-${r.id}`) and call:
-//
-// renderRepliesFor(r.id, replyListEl);
-//
-// If replies are already registered elsewhere (you had a DB on('value') per replies) you can remove that and use this new function.
 // === initial load
 window.addEventListener('load', function(){
   loadReviews();
