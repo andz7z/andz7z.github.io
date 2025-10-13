@@ -278,7 +278,12 @@ function renderPage(){
       card.className = 'review-card glassy';
       const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
-      const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+      let starType = '';
+      if (r.rating <= 2) starType = `1star_icon_${r.gender}`;
+        else if (r.rating <= 4) starType = `3star_icon_${r.gender}`;
+          else starType = `5star_icon_${r.gender}`;
+
+      const stars = `<img src="assets/logos/reviews/${starType}.png" alt="rating-${r.rating}" class="review-star-icon">`;
       card.innerHTML = `
         <div class="review-header">
           <img class="author-img" src="${img}" alt="${escapeHtml(r.gender || '')}">
