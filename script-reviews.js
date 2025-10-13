@@ -576,38 +576,6 @@ function renderRepliesTreeFragment(nodes, reviewId, depth){
   return frag;
 }
 
-function openReplyDialog(reviewId){
-  // create modal
-  const modal = document.createElement('div');
-  modal.className = 'reply-modal';
-  modal.innerHTML = `<div class="reply-modal-inner">
-    <button class="modal-close">×</button>
-    <h3>Replies</h3>
-    <div id="reply-thread" class="reply-thread"></div>
-    <hr>
-    <h4>Leave a reply</h4>
-    <form id="leave-reply-form">
-      <div class="row"><label>Name</label><input name="rname" required></div>
-      <div class="row"><label>Gender</label>
-        <select name="rgender" required>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="row"><label>Message</label><textarea name="rtext" maxlength="300" required></textarea></div>
-      <input type="hidden" name="parentId" value="">
-      <div class="row"><button type="submit">Post Reply</button></div>
-    </form>
-  </div>`;
-  document.body.appendChild(modal);
-  document.body.classList.add('modal-open');
-
-  modal.querySelector('.modal-close').addEventListener('click', function(){
-    modal.remove();
-    document.body.classList.remove('modal-open');
-  });
-
   const thread = modal.querySelector('#reply-thread');
   const form = modal.querySelector('#leave-reply-form');
 
