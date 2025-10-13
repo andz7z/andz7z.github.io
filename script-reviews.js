@@ -83,6 +83,7 @@ if(starEls && starEls.length){
       const v = Number(this.dataset.value) || 0;
       selectedRating = v;
       starEls.forEach(x => x.classList.toggle('active', Number(x.dataset.value) <= v));
+      updatePreviewImage(); // 🔥 actualizează poza la schimbarea ratingului
     });
   });
 }
