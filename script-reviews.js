@@ -276,7 +276,15 @@ function renderPage(){
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
-      const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
+      let gender = r.gender || 'male';
+      let avatarFile = '';
+
+      if (r.rating <= 2) avatarFile = `1star_icon_${gender}.png`;
+      else if (r.rating <= 4) avatarFile = `3star_icon_${gender}.png`;
+      else avatarFile = `5star_icon_${gender}.png`;
+
+      const img = `assets/logos/reviews/${avatarFile}`;
+
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
       card.innerHTML = `
