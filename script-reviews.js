@@ -526,6 +526,20 @@ function openReplyDialog(reviewId){
           return;
         }
         const ref = db.ref(`reviews/${reviewId}/replies`).push();
+        // === Fade in/out effect pentru poza in functie de rating + gender ===
+const fadeContainer = document.createElement('div');
+fadeContainer.className = 'rating-fade-overlay';
+const starType = rating <= 2 ? '1star' : rating >= 5 ? '5star' : '3star';
+const fadeImg = document.createElement('img');
+fadeImg.src = assets/logos/reviews/${starType}_icon_${gender}.gif;
+fadeImg.className = 'fade-star-img';
+fadeContainer.appendChild(fadeImg);
+document.body.appendChild(fadeContainer);
+setTimeout(() => fadeContainer.classList.add('show'), 50);
+setTimeout(() => {
+  fadeContainer.classList.remove('show');
+  setTimeout(() => fadeContainer.remove(), 600);
+}, 1800);
         ref.set({
           name: name,
           gender: gender,
