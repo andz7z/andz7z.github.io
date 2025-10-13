@@ -1435,3 +1435,92 @@ body.dark-mode #scroll-bar {
 .reviews-container {
   transition: opacity 0.3s ease;
 }
+/* review card: align date with actions */
+.review-actions-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+.review-actions-row .action-left button {
+  margin-right:8px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:6px 10px;border-radius:8px;cursor:pointer;
+}
+.review-actions-row .action-left button[disabled] { opacity:0.5; cursor:not-allowed; }
+
+/* reply list / nodes */
+.reply-list { margin-top:12px; text-align:left; }
+.reply-node { background: rgba(255,255,255,0.02); padding:8px; border-radius:8px; margin-bottom:8px; }
+.reply-top { display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+.reply-author-img { width:30px;height:30px;border-radius:50%;object-fit:cover; }
+.reply-body { margin-left:38px; }
+
+/* modal */
+.reply-modal {
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:flex-start;padding:40px;z-index:99999;
+}
+.reply-modal-inner { background:linear-gradient(180deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95)); padding:18px; border-radius:12px; width:min(760px, 96%); max-height:80vh; overflow:auto; color:#fff; }
+.reply-modal .modal-close { float:right; background:transparent;border:none;color:#fff;font-size:22px; cursor:pointer; }
+.reply-modal .form-row { margin:8px 0; display:flex; flex-direction:column; text-align:left; }
+.reply-modal input, .reply-modal textarea, .reply-modal select { padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:#fff; }
+.modal-open { overflow:hidden; }
+
+/* service emoji next to name */
+.meta-top { display:flex; align-items:center; gap:10px; }
+.meta-name { display:flex; align-items:center; gap:8px; }
+.service-emoji { font-size:1.05rem; opacity:0.95; }
+
+/* ensure pagination sits visually in footer */
+footer .pagination { margin: 18px auto; }
+
+/* make badge + count inline and tidy */
+.review-meta .badge { margin-left:8px; background: rgba(255,217,90,0.12); padding:4px 8px; border-radius:8px; font-size:0.85rem; }
+.meta-count { color: rgba(255,255,255,0.8); margin-left:4px; }
+/* SORT chips / avg-controls */
+.avg-filters-row { backdrop-filter: blur(6px); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); }
+.sort-chip {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: all 120ms ease;
+}
+.sort-chip:hover { transform: translateY(-2px); opacity: 1; }
+.sort-chip.active, .sort-chip[data-active="true"] {
+  background: rgba(255,255,255,0.95);
+  color: #222;
+  border-color: rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  opacity: 1;
+}
+.sort-chip.active { transform: none; }
+
+/* when JS updates .sort-chip.active class, style applies */
+.sort-chip[data-sort] { font-size: 0.9rem; }
+
+/* reply modal small improvements */
+.reply-modal { position: fixed; inset:0; background: rgba(0,0,0,0.55); display:flex; align-items:flex-start; justify-content:center; padding:40px; z-index:9999; }
+.reply-modal-inner { background: linear-gradient(180deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); width: min(820px, 96%); border-radius:12px; padding:18px; color:#fff; max-height:82vh; overflow:auto; }
+.modal-open { overflow:hidden; }
+
+/* review row align */
+.review-actions-row { display:flex; justify-content:space-between; align-items:center; margin-top:10px; gap:10px; }
+.review-actions-row .action-left button { margin-right:8px; padding:6px 10px; border-radius:8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); color:#fff; cursor:pointer; }
+.review-actions-row .action-left button[disabled] { opacity:0.45; cursor:not-allowed; }
+
+/* small inline reply display */
+.reply-inline { display:flex; gap:8px; align-items:flex-start; padding:6px; border-radius:8px; margin-top:6px; background: rgba(255,255,255,0.01); }
+.reply-inline .reply-author-img { width:28px; height:28px; border-radius:50%; object-fit:cover; }
+
+/* badge, meta */
+.badge { margin-left:8px; padding:4px 8px; border-radius:8px; background: rgba(255,217,90,0.12); color:#fff; font-size:0.85rem; }
+
+/* ensure pagination in footer */
+footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
