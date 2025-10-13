@@ -87,7 +87,28 @@ if(starEls && starEls.length){
     });
   });
 }
+// === Function: update preview image based on rating & gender ===
+function updatePreviewImage() {
+  if (!genderPreview || !selectedGender) return;
 
+  // dacă nu a ales ratingul, default e 3-star
+  let imgPath = `assets/logos/reviews/3star_icon_${selectedGender}.gif`;
+
+  if (selectedRating >= 1 && selectedRating <= 2)
+    imgPath = `assets/logos/reviews/1star_icon_${selectedGender}.gif`;
+  else if (selectedRating >= 3 && selectedRating <= 4)
+    imgPath = `assets/logos/reviews/3star_icon_${selectedGender}.gif`;
+  else if (selectedRating === 5)
+    imgPath = `assets/logos/reviews/5star_icon_${selectedGender}.gif`;
+
+  // fade effect
+  genderPreview.classList.add('fade-out');
+  setTimeout(() => {
+    genderPreview.src = imgPath;
+    genderPreview.classList.remove('fade-out');
+    genderPreview.classList.add('fade-in');
+  }, 250);
+}
 // service pick
 if(serviceBtns && serviceBtns.length){
   serviceBtns.forEach(b => {
