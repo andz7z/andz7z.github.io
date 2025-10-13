@@ -148,9 +148,18 @@ if(form){
       if(!name || !gender || !message || !selectedRating || !selectedService){
         return alert('Completeaza toate campurile si alege rating + serviciu.');
       }
+      let imgFile = `3star_icon_${gender}.gif`;
+      if (selectedRating >= 1 && selectedRating <= 2)
+        imgFile = `1star_icon_${gender}.gif`;
+      else if (selectedRating >= 3 && selectedRating <= 4)
+        imgFile = `3star_icon_${gender}.gif`;
+      else if (selectedRating === 5)
+        imgFile = `5star_icon_${gender}.gif`;
+      
       const review = {
         name: name,
         gender: gender,
+        image: imgFile,
         message: message,
         rating: Number(selectedRating),
         service: selectedService,
