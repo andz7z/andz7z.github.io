@@ -1435,3 +1435,47 @@ body.dark-mode #scroll-bar {
 .reviews-container {
   transition: opacity 0.3s ease;
 }
+/* review card: align date with actions */
+.review-actions-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-top:10px;
+}
+.review-actions-row .action-left button {
+  margin-right:8px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.06);
+  padding:6px 10px;border-radius:8px;cursor:pointer;
+}
+.review-actions-row .action-left button[disabled] { opacity:0.5; cursor:not-allowed; }
+
+/* reply list / nodes */
+.reply-list { margin-top:12px; text-align:left; }
+.reply-node { background: rgba(255,255,255,0.02); padding:8px; border-radius:8px; margin-bottom:8px; }
+.reply-top { display:flex; align-items:center; gap:8px; margin-bottom:4px; }
+.reply-author-img { width:30px;height:30px;border-radius:50%;object-fit:cover; }
+.reply-body { margin-left:38px; }
+
+/* modal */
+.reply-modal {
+  position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:flex-start;padding:40px;z-index:99999;
+}
+.reply-modal-inner { background:linear-gradient(180deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95)); padding:18px; border-radius:12px; width:min(760px, 96%); max-height:80vh; overflow:auto; color:#fff; }
+.reply-modal .modal-close { float:right; background:transparent;border:none;color:#fff;font-size:22px; cursor:pointer; }
+.reply-modal .form-row { margin:8px 0; display:flex; flex-direction:column; text-align:left; }
+.reply-modal input, .reply-modal textarea, .reply-modal select { padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:#fff; }
+.modal-open { overflow:hidden; }
+
+/* service emoji next to name */
+.meta-top { display:flex; align-items:center; gap:10px; }
+.meta-name { display:flex; align-items:center; gap:8px; }
+.service-emoji { font-size:1.05rem; opacity:0.95; }
+
+/* ensure pagination sits visually in footer */
+footer .pagination { margin: 18px auto; }
+
+/* make badge + count inline and tidy */
+.review-meta .badge { margin-left:8px; background: rgba(255,217,90,0.12); padding:4px 8px; border-radius:8px; font-size:0.85rem; }
+.meta-count { color: rgba(255,255,255,0.8); margin-left:4px; }
