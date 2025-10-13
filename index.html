@@ -208,11 +208,24 @@
         <label>Name:</label>
         <input type="text" id="name" name="name" placeholder="Your name..." required>
 
-        <label>Gender:</label>
-        <div class="gender-pick">
-          <label><input type="radio" name="gender" value="male"><img src="assets/logos/reviews/male.gif" alt="male"></label>
-          <label><input type="radio" name="gender" value="female"><img src="assets/logos/reviews/female.gif" alt="female"></label>
-        </div>
+<label>Gender:</label>
+<div class="gender-pick">
+  <label>
+    <input type="radio" name="gender" value="male">
+    <img src="assets/logos/reviews/3star_icon_male.gif" alt="male">
+  </label>
+  <label>
+    <input type="radio" name="gender" value="female">
+    <img src="assets/logos/reviews/3star_icon_female.gif" alt="female">
+  </label>
+</div>
+
+<!-- AICI adăugăm imaginea dinamică (preview) -->
+<div id="gender-preview" class="gender-preview fade">
+  <img id="preview-img" src="assets/logos/reviews/3star_icon_male.gif" alt="preview">
+</div>
+
+
 
         <label>Rating:</label>
         <div class="stars" id="rating-stars">
