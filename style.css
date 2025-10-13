@@ -1524,7 +1524,22 @@ footer .pagination { margin: 18px auto; }
 
 /* ensure pagination in footer */
 footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
+
+.reviews-layout {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.review-form {
+  flex: 1;
+  min-width: 300px;
+}
+
 .review-preview {
+  flex: 0 0 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1537,8 +1552,8 @@ footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:1
 }
 
 .review-preview img {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
   border-radius: 50%;
   transition: transform 0.4s ease, opacity 0.4s ease;
@@ -1547,4 +1562,14 @@ footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:1
 .review-preview img.fade {
   opacity: 0;
   transform: scale(0.8);
+}
+
+@media (max-width: 768px) {
+  .reviews-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  .review-preview {
+    margin-top: 20px;
+  }
 }
