@@ -11,28 +11,27 @@
 </head>
 <body>
   <!-- Theme Toggle -->
-<div id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">💡</div>
-  
-<!-- Notification -->
-<div id="notification" class="notification">
-  <span id="notif-text">👋 Hey! Welcome to my website 🌐</span>
-  <button id="notif-close" class="notif-close" aria-label="Close">&times;</button>
-</div>
-  
-<!-- Loading Screen -->
-<div id="loading-screen">
-  <div class="intro-container">
-    <h1 class="intro-text" data-text="A N D Z">A&nbsp;N&nbsp;D&nbsp;Z</h1>
-    <p class="intro-sub">Loading,&nbsp;please&nbsp;wait...</p>
-    <div class="intro-ring"></div>
-  </div>
-</div>
+  <div id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">💡</div>
 
+  <!-- Notification -->
+  <div id="notification" class="notification">
+    <span id="notif-text">👋 Hey! Welcome to my website 🌐</span>
+    <button id="notif-close" class="notif-close" aria-label="Close">&times;</button>
+  </div>
+
+  <!-- Loading Screen -->
+  <div id="loading-screen">
+    <div class="intro-container">
+      <h1 class="intro-text" data-text="A N D Z">A&nbsp;N&nbsp;D&nbsp;Z</h1>
+      <p class="intro-sub">Loading,&nbsp;please&nbsp;wait...</p>
+      <div class="intro-ring"></div>
+    </div>
+  </div>
 
   <!-- Background video -->
-<video autoplay muted loop playsinline id="bg-video">
-  <source src="https://cdn.pixabay.com/video/2025/09/05/301949_large.mp4" type="video/mp4">
-</video>
+  <video autoplay muted loop playsinline id="bg-video">
+    <source src="https://cdn.pixabay.com/video/2025/09/05/301949_large.mp4" type="video/mp4">
+  </video>
   <div class="overlay"></div>
   <canvas id="particle-canvas"></canvas>
 
@@ -44,9 +43,9 @@
 
   <!-- Header -->
   <header>
-<h1 class="title" id="main-title">
-  <span id="main-logo" class="main-logo-text hidden">A N D Z</span>
-</h1>
+    <h1 class="title" id="main-title">
+      <span id="main-logo" class="main-logo-text hidden">A N D Z</span>
+    </h1>
     <p class="title-desc">programming ● video/photo editing ● web development</p>
     <nav class="nav-buttons hidden">
       <button onclick="openSection('services')">Services 🤝🏽</button>
@@ -55,268 +54,247 @@
       <button onclick="openSection('reviews')">Reviews ⭐</button>
     </nav>
   </header>
-<!-- servicii -->
-<section id="services" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>🧩 My Services</h2>
 
-  <!-- WHAT I DO -->
-  <div class="services-grid">
-    <div class="service-card">
-      <span class="service-icon">🎬</span>
-      <h3>Video & Photo Editing</h3>
-      <p>Professional visuals using CapCut Pro, DaVinci Resolve & Canva for cinematic content.</p>
-    </div>
-    <div class="service-card">
-      <span class="service-icon">🎮</span>
-      <h3>Game Modding</h3>
-      <p>Creating optimized Lua & Python mods for GTA:SA and other games with 0 FPS drop.</p>
-    </div>
-    <div class="service-card">
-      <span class="service-icon">🌐</span>
-      <h3>Web Development</h3>
-      <p>Building fast, modern websites with clean design and smooth UX in HTML, CSS, JS.</p>
-    </div>
-    <div class="service-card">
-      <span class="service-icon">🎨</span>
-      <h3>Graphic Design</h3>
-      <p>Custom logos, banners & overlays made for gaming, social media and branding.</p>
-    </div>
-  </div>
+  <!-- SERVICES -->
+  <section id="services" class="hidden section">
+    <div class="section-bg"></div>
+    <h2>🧩 My Services</h2>
 
-  <!-- WHY US -->
-  <div class="why-us">
-    <h2>💡 Why Choose <span class="highlight">ANDZ</span>?</h2>
-    <table class="comparison-table">
-      <thead>
-        <tr>
-          <th>Feature</th>
-          <th class="andz-col">ANDZ</th>
-          <th>Competitors</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Unique Visual Identity</td>
-          <td class="andz-col">✅ Custom Cinematic Style</td>
-          <td>❌ Generic Templates</td>
-        </tr>
-        <tr>
-          <td>Performance Optimization</td>
-          <td class="andz-col">✅ Zero Lag / No FPS Drop</td>
-          <td>⚠️ Often Laggy</td>
-        </tr>
-        <tr>
-          <td>Personalized Support</td>
-          <td class="andz-col">✅ Direct Contact & Updates</td>
-          <td>❌ Auto-replies</td>
-        </tr>
-        <tr>
-          <td>Attention to Detail</td>
-          <td class="andz-col">✅ Precision + Aesthetic Balance</td>
-          <td>⚠️ Rushed Work</td>
-        </tr>
-        <tr>
-          <td>Delivery Time</td>
-          <td class="andz-col">✅ Always On Schedule</td>
-          <td>❌ Often Delayed</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-  <!-- MY WORK (REFACUT) -->
-<section id="work" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>💎 My Projects</h2>
-
-  <!-- YouTube Card (mutat aici sus) -->
-  <div id="yt-stats" class="yt-card show">
-    <img id="yt-thumbnail" src="https://andz7z.github.io/assets/logos/youtube/logo_light.gif" alt="Loading...">
-    <div class="yt-info">
-      <h3 id="yt-name">Loading channel...</h3>
-      <p>👤 <span id="yt-subscribers">0</span> subscribers</p>
-      <p>🎬 <span id="yt-videos">0</span> videos</p>
-      <p>👀 <span id="yt-views">0</span> total views</p>
-      <a id="yt-link" href="#" target="_blank" class="yt-button">Visit Channel</a>
-    </div>
-  </div>
-
-  <!-- Buttons row -->
-  <div class="work-buttons" aria-label="Work buttons">
-    <button class="work-btn" data-key="season" aria-expanded="false" title="Season Flow">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/11087/11087571.png" alt="Season Flow logo">
-      <span class="work-name">Season Flow</span>
-    </button>
-
-    <button class="work-btn" data-key="weather" aria-expanded="false" title="Weather Shift">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Weather Shift logo">
-      <span class="work-name">Weather Shift</span>
-    </button>
-
-    <button class="work-btn" data-key="tags" aria-expanded="false" title="Modern Tags">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/18904/18904123.png" alt="Modern Tags logo">
-      <span class="work-name">Modern Tags</span>
-    </button>
-
-    <button class="work-btn" data-key="look" aria-expanded="false" title="Look Changer">
-      <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/10725/10725435.png" alt="Look Changer logo">
-      <span class="work-name">Look Changer</span>
-    </button>
-  </div>
-
-  <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
-</section>
-  
-  <!-- CONTACT -->
-<section id="contact" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>📩 Contact Me</h2>
-  <div class="contact-cards">
-    <div class="contact-card">
-      <span class="contact-icon">📧</span>
-      <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">📱</span>
-      <p><strong>Phone:</strong> <a href="tel:+40748594335">+40 748 594 335</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">🐙</span>
-      <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">💬</span>
-      <p><strong>Discord:</strong> <span>andz7z</span></p>
-    </div>
-  </div>
-  <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
-</section>
-<!-- REVIEWS SECTION -->
-<section id="reviews" class="hidden section reviews-new">
-  <div class="reviews-bg"></div>
-
-  <h2 class="reviews-title">✨ User Reviews</h2>
-
-  <div class="reviews-layout">
-    <!-- LEFT SIDE - FORM -->
-    <div class="review-form glassy">
-      <h3>Leave Your Feedback 💬</h3>
-      <form id="review-form">
-
-        <label>Name:</label>
-        <input type="text" id="name" name="name" placeholder="Your name..." required>
-
-        <label>Gender:</label>
-        <div class="gender-pick">
-          <label><input type="radio" name="gender" value="male"><img src="assets/logos/reviews/male.gif" alt="male"></label>
-          <label><input type="radio" name="gender" value="female"><img src="assets/logos/reviews/female.gif" alt="female"></label>
-        </div>
-
-        <label>Rating:</label>
-        <div class="stars" id="rating-stars">
-          <span data-value="1">★</span>
-          <span data-value="2">★</span>
-          <span data-value="3">★</span>
-          <span data-value="4">★</span>
-          <span data-value="5">★</span>
-        </div>
-
-        <label>Service:</label>
-        <div class="service-pick" id="service-pick">
-          <button type="button" data-value="web">🌐 Web Dev</button>
-          <button type="button" data-value="prog">💻 Programming</button>
-          <button type="button" data-value="edit">🎬 Editing</button>
-        </div>
-
-        <label>Description:</label>
-        <textarea id="message" name="message" maxlength="100" placeholder="Your short feedback..." required></textarea>
-        <div id="char-count">0 / 100</div>
-
-        <button type="submit" class="btn-glow">Submit Review</button>
-      </form>
-    </div>
-
-<div class="review-stats glassy">
-  <h3>Average Ratings</h3>
-
-  <!-- Main Donut -->
-  <div class="avg-main">
-    <div class="avg-donut">
-      <svg viewBox="0 0 100 100">
-        <circle class="donut-bg" cx="50" cy="50" r="45"></circle>
-        <circle class="donut-fill" id="avg-donut" cx="50" cy="50" r="45"></circle>
-      </svg>
-      <div class="donut-center">
-        <div class="donut-rating">
-          <span id="avg-value">0.0</span> / 5
-        </div>
-        <div class="donut-star">⭐</div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">🎬</span>
+        <h3>Video & Photo Editing</h3>
+        <p>Professional visuals using CapCut Pro, DaVinci Resolve & Canva for cinematic content.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎮</span>
+        <h3>Game Modding</h3>
+        <p>Creating optimized Lua & Python mods for GTA:SA and other games with 0 FPS drop.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌐</span>
+        <h3>Web Development</h3>
+        <p>Building fast, modern websites with clean design and smooth UX in HTML, CSS, JS.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🎨</span>
+        <h3>Graphic Design</h3>
+        <p>Custom logos, banners & overlays made for gaming, social media and branding.</p>
       </div>
     </div>
+
+    <div class="why-us">
+      <h2>💡 Why Choose <span class="highlight">ANDZ</span>?</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th class="andz-col">ANDZ</th>
+            <th>Competitors</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Unique Visual Identity</td>
+            <td class="andz-col">✅ Custom Cinematic Style</td>
+            <td>❌ Generic Templates</td>
+          </tr>
+          <tr>
+            <td>Performance Optimization</td>
+            <td class="andz-col">✅ Zero Lag / No FPS Drop</td>
+            <td>⚠️ Often Laggy</td>
+          </tr>
+          <tr>
+            <td>Personalized Support</td>
+            <td class="andz-col">✅ Direct Contact & Updates</td>
+            <td>❌ Auto-replies</td>
+          </tr>
+          <tr>
+            <td>Attention to Detail</td>
+            <td class="andz-col">✅ Precision + Aesthetic Balance</td>
+            <td>⚠️ Rushed Work</td>
+          </tr>
+          <tr>
+            <td>Delivery Time</td>
+            <td class="andz-col">✅ Always On Schedule</td>
+            <td>❌ Often Delayed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work" class="hidden section">
+    <div class="section-bg"></div>
+    <h2>💎 My Projects</h2>
+
+    <div id="yt-stats" class="yt-card show">
+      <img id="yt-thumbnail" src="https://andz7z.github.io/assets/logos/youtube/logo_light.gif" alt="Loading...">
+      <div class="yt-info">
+        <h3 id="yt-name">Loading channel...</h3>
+        <p>👤 <span id="yt-subscribers">0</span> subscribers</p>
+        <p>🎬 <span id="yt-videos">0</span> videos</p>
+        <p>👀 <span id="yt-views">0</span> total views</p>
+        <a id="yt-link" href="#" target="_blank" class="yt-button">Visit Channel</a>
+      </div>
+    </div>
+
+    <div class="work-buttons" aria-label="Work buttons">
+      <button class="work-btn" data-key="season" title="Season Flow">
+        <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/11087/11087571.png" alt="Season Flow logo">
+        <span class="work-name">Season Flow</span>
+      </button>
+      <button class="work-btn" data-key="weather" title="Weather Shift">
+        <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Weather Shift logo">
+        <span class="work-name">Weather Shift</span>
+      </button>
+      <button class="work-btn" data-key="tags" title="Modern Tags">
+        <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/18904/18904123.png" alt="Modern Tags logo">
+        <span class="work-name">Modern Tags</span>
+      </button>
+      <button class="work-btn" data-key="look" title="Look Changer">
+        <img class="work-logo" src="https://cdn-icons-png.flaticon.com/512/10725/10725435.png" alt="Look Changer logo">
+        <span class="work-name">Look Changer</span>
+      </button>
+    </div>
+
+    <div id="work-detail-container" class="work-detail-container"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="hidden section">
+    <div class="section-bg"></div>
+    <h2>📩 Contact Me</h2>
+    <div class="contact-cards">
+      <div class="contact-card"><span class="contact-icon">📧</span><p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p></div>
+      <div class="contact-card"><span class="contact-icon">📱</span><p><strong>Phone:</strong> <a href="tel:+40748594335">+40 748 594 335</a></p></div>
+      <div class="contact-card"><span class="contact-icon">🐙</span><p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p></div>
+      <div class="contact-card"><span class="contact-icon">💬</span><p><strong>Discord:</strong> <span>andz7z</span></p></div>
+    </div>
+    <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews" class="hidden section reviews-new">
+    <div class="reviews-bg"></div>
+    <h2 class="reviews-title">✨ User Reviews</h2>
+
+    <div class="reviews-layout">
+      <!-- LEFT SIDE - FORM -->
+      <div class="review-form glassy">
+        <h3>Leave Your Feedback 💬</h3>
+        <form id="review-form">
+          <label>Name:</label>
+          <input type="text" id="name" name="name" placeholder="Your name..." required>
+
+          <label>Gender:</label>
+          <div class="gender-pick">
+            <label><input type="radio" name="gender" value="male"><img src="assets/logos/reviews/male.gif" alt="male"></label>
+            <label><input type="radio" name="gender" value="female"><img src="assets/logos/reviews/female.gif" alt="female"></label>
+          </div>
+
+          <label>Rating:</label>
+          <div class="stars" id="rating-stars">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+          </div>
+
+          <label>Service:</label>
+          <div class="service-pick" id="service-pick">
+            <button type="button" data-value="web">🌐 Web Dev</button>
+            <button type="button" data-value="prog">💻 Programming</button>
+            <button type="button" data-value="edit">🎬 Editing</button>
+          </div>
+
+          <label>Description:</label>
+          <textarea id="message" name="message" maxlength="100" placeholder="Your short feedback..." required></textarea>
+          <div id="char-count">0 / 100</div>
+
+          <button type="submit" class="btn-glow">Submit Review</button>
+        </form>
+      </div>
+
+      <!-- RIGHT SIDE - AVATAR PREVIEW -->
+      <div class="review-preview glassy">
+        <img id="review-avatar-preview" src="assets/logos/reviews/3star_icon_female.gif" alt="avatar preview">
+      </div>
+    </div>
+
+    <!-- Average Ratings + Filters -->
+    <div class="review-stats glassy">
+      <h3>Average Ratings</h3>
+      <div class="avg-main">
+        <div class="avg-donut">
+          <svg viewBox="0 0 100 100">
+            <circle class="donut-bg" cx="50" cy="50" r="45"></circle>
+            <circle class="donut-fill" id="avg-donut" cx="50" cy="50" r="45"></circle>
+          </svg>
+          <div class="donut-center">
+            <div class="donut-rating"><span id="avg-value">0.0</span> / 5</div>
+            <div class="donut-star">⭐</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="avg-sub">
+        <div><span id="avg-web">🌐 0.0</span></div>
+        <div><span id="avg-prog">💻 0.0</span></div>
+        <div><span id="avg-edit">🎬 0.0</span></div>
+      </div>
+    </div>
+
+    <!-- SORT + FILTERS -->
+    <div class="avg-controls glassy avg-filters-row" style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; padding:10px; border-radius:10px;">
+      <div class="sort-chips" id="sort-wrapper" style="display:flex; gap:8px; align-items:center;">
+        <button class="sort-chip" data-sort="recent" onclick="document.getElementById('sort-filter').value='recent'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Most recent</button>
+        <button class="sort-chip" data-sort="oldest" onclick="document.getElementById('sort-filter').value='oldest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Oldest</button>
+        <button class="sort-chip" data-sort="highest" onclick="document.getElementById('sort-filter').value='highest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Highest</button>
+        <button class="sort-chip" data-sort="lowest" onclick="document.getElementById('sort-filter').value='lowest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Lowest</button>
+      </div>
+
+      <select id="sort-filter" style="display:none;">
+        <option value="recent">Most recent</option>
+        <option value="oldest">Oldest</option>
+        <option value="highest">Highest</option>
+        <option value="lowest">Lowest</option>
+      </select>
+
+      <label style="margin-left:10px;">
+        <select id="service-filter" style="background:transparent; border:1px solid rgba(255,255,255,0.06); padding:6px 10px; border-radius:8px;">
+          <option value="all">All services</option>
+          <option value="web">Web</option>
+          <option value="prog">Programming</option>
+          <option value="edit">Editing</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- REVIEWS LIST -->
+    <div id="reviews-container" class="reviews-container"></div>
+    <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
+
+    <div class="pagination hidden">
+      <button id="prev-page">⬅ Prev</button>
+      <span id="page-info">Page 1</span>
+      <button id="next-page">Next ➡</button>
+    </div>
+  </section>
+
+  <footer><p id="footer-text"></p></footer>
+
+  <div id="floating-nav" class="floating-nav hidden">
+    <button data-target="services">Services 🤝🏽</button>
+    <button data-target="work">Projects 📁</button>
+    <button data-target="contact">Contact Me 📞</button>
   </div>
 
-  <!-- Sub-averages -->
-  <div class="avg-sub">
-    <div><span id="avg-web">🌐 0.0</span></div>
-    <div><span id="avg-prog">💻 0.0</span></div>
-    <div><span id="avg-edit">🎬 0.0</span></div>
-  </div>
-</div>
-<!-- SORT + SERVICE FILTERS (pune-l sub AVG ratings în aceeasi sectiune) -->
-<div class="avg-controls glassy avg-filters-row" style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; padding:10px; border-radius:10px;">
-  <div class="sort-chips" id="sort-wrapper" style="display:flex; gap:8px; align-items:center;">
-    <button class="sort-chip" data-sort="recent" onclick="document.getElementById('sort-filter').value='recent'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Most recent</button>
-    <button class="sort-chip" data-sort="oldest" onclick="document.getElementById('sort-filter').value='oldest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Oldest</button>
-    <button class="sort-chip" data-sort="highest" onclick="document.getElementById('sort-filter').value='highest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Highest</button>
-    <button class="sort-chip" data-sort="lowest" onclick="document.getElementById('sort-filter').value='lowest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Lowest</button>
-  </div>
-
-  <!-- hidden selects (JS uses these, but visible UI is chips above) -->
-  <select id="sort-filter" style="display:none;">
-    <option value="recent">Most recent</option>
-    <option value="oldest">Oldest</option>
-    <option value="highest">Highest</option>
-    <option value="lowest">Lowest</option>
-  </select>
-
-  <label style="margin-left:10px;">
-    <select id="service-filter" style="background:transparent; border:1px solid rgba(255,255,255,0.06); padding:6px 10px; border-radius:8px;">
-      <option value="all">All services</option>
-      <option value="web">Web</option>
-      <option value="prog">Programming</option>
-      <option value="edit">Editing</option>
-    </select>
-  </label>
-</div>
-
-
-  <!-- REVIEWS LIST -->
-  <div id="reviews-container" class="reviews-container"></div>
-  <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
-
-  <!-- PAGINATION -->
-  <div class="pagination hidden">
-    <button id="prev-page">⬅ Prev</button>
-    <span id="page-info">Page 1</span>
-    <button id="next-page">Next ➡</button>
-  </div>
-</section>
-  <footer>
-    <p id="footer-text"></p>
-  </footer>
-  <!-- Floating quick navigation -->
-<div id="floating-nav" class="floating-nav hidden">
-  <button data-target="services">Services 🤝🏽</button>
-  <button data-target="work">Projects 📁</button>
-  <button data-target="contact">Contact Me 📞</button>
-</div>
-<!-- Firebase (compatibility version, works directly in browser) -->
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-<!-- Reviews Script -->
-<script src="script-reviews.js"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="script-reviews.js"></script>
 </body>
 </html>
