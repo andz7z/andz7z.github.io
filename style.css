@@ -1524,3 +1524,27 @@ footer .pagination { margin: 18px auto; }
 
 /* ensure pagination in footer */
 footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
+.review-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+}
+
+.review-preview img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  border-radius: 50%;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.review-preview img.fade {
+  opacity: 0;
+  transform: scale(0.8);
+}
