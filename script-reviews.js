@@ -308,18 +308,31 @@ function renderPage(){
     const visible = filtered.slice(start, start + PER_PAGE);
     // clear
     reviewsContainer.innerHTML = '';
-    if(!visible.length){
-      if(noReviewsBox) noReviewsBox.style.display = 'block';
-      if(paginationEl) paginationEl.classList.add('hidden');
-      return;
-    } else {
-      if(noReviewsBox) noReviewsBox.style.display = 'none';
-      if(paginationEl) paginationEl.classList.remove('hidden');
-    }
+  if(!visible.length){
+  if(noReviewsBox) noReviewsBox.style.display = 'block';
+  if(paginationEl) paginationEl.classList.add('hidden');
+  return;
+} else {
+  if(noReviewsBox) noReviewsBox.style.display = 'none';
+  
+  // 🔥 paginarea vizibilă doar în secțiunea Reviews
+  const reviewsSection = document.querySelector('#reviews') || document.querySelector('#reviews-section') || document.querySelector('.reviews');
+  if (reviewsSection && reviewsSection.classList.contains('active')) {
+    if (paginationEl) paginationEl.classList.remove('hidden');
+  } else {
+    if (paginationEl) paginationEl.classList.add('hidden');
+  }
+}
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
-      const img = `assets/logos/reviews/${r.image || ('3star_icon_' + (r.gender || 'male') + '.gif')}`;
+      let img = `assets/logos/reviews/3star_icon_${r.gender || 'male'}.gif`;
+      if (r.rating >= 1 && r.rating <= 2)
+        img = `assets/logos/reviews/1star_icon_${r.gender || 'male'}.gif`;
+      else if (r.rating >= 3 && r.rating <= 4)
+        img = `assets/logos/reviews/3star_icon_${r.gender || 'male'}.gif`;
+      else if (r.rating === 5)
+        img = `assets/logos/reviews/5star_icon_${r.gender || 'male'}.gif`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
       card.innerHTML = `
