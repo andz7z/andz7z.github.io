@@ -264,6 +264,28 @@
     <div><span id="avg-edit">🎬 0.0</span></div>
   </div>
 </div>
+  <!-- Filters: sort + service -->
+<div class="avg-filters" style="margin-top:10px;display:flex;gap:12px;justify-content:center;align-items:center;">
+  <label>
+    Sort:
+    <select id="sort-filter">
+      <option value="recent" selected>Most recent</option>
+      <option value="oldest">Oldest</option>
+      <option value="highest">Highest rating</option>
+      <option value="lowest">Lowest rating</option>
+    </select>
+  </label>
+
+  <label>
+    Service:
+    <select id="service-filter">
+      <option value="all" selected>All</option>
+      <option value="web">Web Dev</option>
+      <option value="prog">Programming</option>
+      <option value="edit">Editing</option>
+    </select>
+  </label>
+</div>
   <!-- REVIEWS LIST -->
   <div id="reviews-container" class="reviews-container"></div>
   <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
