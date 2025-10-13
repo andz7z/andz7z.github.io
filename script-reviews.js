@@ -97,6 +97,16 @@ if(serviceBtns && serviceBtns.length){
     });
   });
 }
+// Gender pick
+const genderInputs = qa('input[name="gender"]');
+if (genderInputs.length) {
+  genderInputs.forEach(radio => {
+    radio.addEventListener('change', () => {
+      selectedGender = radio.value;
+      updatePreviewImage();
+    });
+  });
+}
 
 // char count
 if(msgInput && charCount){
