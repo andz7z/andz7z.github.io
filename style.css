@@ -1354,3 +1354,84 @@ body.dark-mode #scroll-bar {
   font-size: 0.7rem;
   opacity: 0.6;
 }
+/* === CONFETTI === */
+.confetti {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,217,90,0.2), transparent 70%);
+  animation: confettiAnim 1.2s ease-out;
+}
+@keyframes confettiAnim {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.8); }
+}
+
+/* === FADE-IN REVIEWS === */
+.review-fade {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.6s forwards ease-in-out;
+}
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === LIKE & REPLY === */
+.review-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+.like-btn, .reply-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+.like-btn:hover, .reply-btn:hover {
+  background: #ffd95a;
+  color: #111;
+  transform: scale(1.05);
+}
+
+/* === REPLIES === */
+.reply-list {
+  margin-top: 5px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.reply-item {
+  padding-left: 10px;
+  border-left: 2px solid rgba(255,255,255,0.2);
+}
+.reply-input {
+  margin-top: 5px;
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+  background: rgba(255,255,255,0.1);
+  color: white;
+  width: 100%;
+}
+
+/* === BADGE === */
+.badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  color: #ffd95a;
+  margin-top: 3px;
+}
+
+/* === ANIMATION SOFT PAGE SWITCH === */
+.reviews-container {
+  transition: opacity 0.3s ease;
+}
