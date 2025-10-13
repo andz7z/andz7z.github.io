@@ -98,13 +98,25 @@ function loadReviews() {
 
 function updateAvgs(ratings) {
   const all = [...ratings.web, ...ratings.prog, ...ratings.edit];
-  const avg = arr => arr.length ? (arr.reduce((a,b)=>a+b,0)/arr.length).toFixed(1) : "0.0";
-  const setAvg = (id, val) => document.querySelector(`#${id} span`).textContent = val;
+  const avg = arr => arr.length ? (arr.reduce((a,b)=>a+b,0)/arr.length) : 0;
 
-  setAvg("avg-all", avg(all));
-  setAvg("avg-web", avg(ratings.web));
-  setAvg("avg-prog", avg(ratings.prog));
-  setAvg("avg-edit", avg(ratings.edit));
+  const overall = avg(all);
+  const web = avg(ratings.web);
+  const prog = avg(ratings.prog);
+  const edit = avg(ratings.edit);
+
+  document.getElementById("avg-value").textContent = overall.toFixed(2);
+  document.getElementById("avg-web").textContent = `🌐 ${web.toFixed(2)}`;
+  document.getElementById("avg-prog").textContent = `💻 ${prog.toFixed(2)}`;
+  document.getElementById("avg-edit").textContent = `🎬 ${edit.toFixed(2)}`;
+
+  // donut fill update
+  const donut = document.getElementById("avg-donut");
+  const percent = (overall / 5) * 100;
+  const circumference = 2 * Math.PI * 45;
+  const offset = circumference - (percent / 100) * circumference;
+  donut.style.strokeDasharray = `${circumference}`;
+  donut.style.strokeDashoffset = `${offset}`;
 }
 
 // === PAGINATION ===
