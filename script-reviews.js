@@ -276,7 +276,7 @@ function renderPage(){
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
-      const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
+      const img = `assets/logos/reviews/3star_icon_${r.gender || 'male'}.gif`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
       card.innerHTML = `
@@ -378,7 +378,7 @@ function renderPage(){
         arr.forEach(rep => {
           const div = document.createElement('div');
           div.className = 'reply-inline';
-          const img = `assets/logos/reviews/${rep.gender || 'male'}.gif`;
+          const img = `assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif`;
           div.innerHTML = `<img class="reply-author-img" src="${img}" alt="">
             <strong>${escapeHtml(rep.name)}</strong> <small class="reply-date-inline">${new Date(rep.date).toLocaleDateString()}</small>
             <div class="reply-text-inline">${escapeHtml(rep.text)}</div>`;
@@ -442,7 +442,7 @@ function renderRepliesTreeFragment(nodes, reviewId, depth){
     const wrap = document.createElement('div');
     wrap.className = 'reply-node';
     wrap.style.marginLeft = (depth * 12) + 'px';
-    const img = `assets/logos/reviews/${node.gender || 'male'}.gif`;
+    const img = `assets/logos/reviews/3star_icon_${node.gender || 'male'}.gif`;
     wrap.innerHTML = `<div class="reply-top"><img src="${img}" class="reply-author-img"><strong>${escapeHtml(node.name)}</strong> <small class="reply-date">${new Date(node.date).toLocaleString()}</small></div>
       <div class="reply-body">${escapeHtml(node.text)}</div>
       <div class="reply-actions"><button class="reply-to-btn" data-review="${reviewId}" data-reply="${node.id}">Reply</button></div>`;
