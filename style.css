@@ -1524,3 +1524,25 @@ footer .pagination { margin: 18px auto; }
 
 /* ensure pagination in footer */
 footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
+
+/* ====== Review Gender Preview Animations ====== */
+.gender-preview {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease;
+}
+
+.gender-preview img {
+  width: 110px;
+  height: 110px;
+  border-radius: 16px;
+  object-fit: contain;
+  box-shadow: 0 0 15px rgba(255,255,255,0.25);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.fade-out { opacity: 0; }
+.fade-in { opacity: 1; }
