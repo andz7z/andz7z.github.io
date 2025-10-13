@@ -426,7 +426,10 @@ card.innerHTML = `
         });
       }
     });
-
+replyBtn.addEventListener('click', function(){
+  const list = replyListEl;
+  list.style.display = (list.style.display === 'none' || list.style.display === '') ? 'block' : 'none';
+});
     // pagination UI
     if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
     if(prevBtn) prevBtn.disabled = currentPage <= 1;
