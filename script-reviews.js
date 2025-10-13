@@ -370,7 +370,73 @@ function renderPage(){
       const dislikeCountSpan = card.querySelector('.dislike-count');
       const replyBtn = card.querySelector('.reply-btn');
       const replyListEl = card.querySelector(`#replies-${r.id}`);
+      // === REPLIES MODAL HANDLING ===
+const modal = document.getElementById('replies-modal');
+const modalBody = document.getElementById('replies-body');
+const modalTitle = document.getElementById('replies-title');
+const closeBtn = document.getElementById('replies-close');
+const sendBtn = document.getElementById('send-reply');
+const msgInputReply = document.getElementById('reply-message');
+let activeReviewId = null;
+let replyGender = 'male';
 
+document.querySelectorAll('input[name="reply-gender"]').forEach(r => {
+  r.addEventListener('change', () => replyGender = r.value);
+});
+
+if (closeBtn) closeBtn.onclick = () => modal.classList.add('hidden');
+
+// când apăsăm pe 💬
+replyBtn.addEventListener('click', () => {
+  activeReviewId = r.id;
+  modalTitle.textContent = `${r.name}'s review comment section 💬`;
+  modal.classList.remove('hidden');
+  loadRepliesForReview(r.id);
+});
+
+// încarcă reply-urile
+function loadRepliesForReview(reviewId) {
+  modalBody.innerHTML = '<p>Loading...</p>';
+  db.ref(`reviews/${reviewId}/replies`).on('value', snap => {
+    const data = snap.val() || {};
+    modalBody.innerHTML = '';
+    Object.entries(data).forEach(([key, rep]) => {
+      const bubble = document.createElement('div');
+      bubble.className = `chat-bubble ${rep.gender || 'male'}`;
+      bubble.innerHTML = `
+        <div>${escapeHtml(rep.text)}</div>
+        <div class="reactions-bar">
+          ${['❤️','😂','😡','👍','👎'].map(e => `<button class="reaction-btn" data-emoji="${e}" data-id="${key}">${e}</button>`).join('')}
+        </div>`;
+      modalBody.appendChild(bubble);
+    });
+  });
+}
+
+// trimite reply
+sendBtn.addEventListener('click', () => {
+  const text = msgInputReply.value.trim();
+  if (!text || !activeReviewId) return;
+  const reply = {
+    gender: replyGender,
+    text: text,
+    date: new Date().toISOString(),
+    reactions: {}
+  };
+  db.ref(`reviews/${activeReviewId}/replies`).push(reply);
+  msgInputReply.value = '';
+});
+
+// reacții emoji
+modalBody.addEventListener('click', e => {
+  if (!e.target.classList.contains('reaction-btn')) return;
+  const emoji = e.target.dataset.emoji;
+  const replyId = e.target.dataset.id;
+  if (!activeReviewId || !replyId) return;
+  const path = `reviews/${activeReviewId}/replies/${replyId}/reactions/${emoji}/${clientId}`;
+  db.ref(path).set(true);
+  e.target.classList.add('active');
+});
       // reflect local vote state
       const lv = localStorage.getItem(`vote_${r.id}_${clientId}`);
       if(lv === '1' && likeBtn) likeBtn.disabled = true;
