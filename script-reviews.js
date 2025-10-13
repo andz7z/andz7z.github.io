@@ -122,21 +122,28 @@ function updateAvgs(ratings) {
 }
 
 // === LOAD REVIEWS ===
+let allReviews = [];
+let filteredReviews = [];
+let sortType = "recent";
+let serviceFilter = "all";
+
 function loadReviews() {
   db.ref("reviews").on("value", snapshot => {
-    reviews = [];
+    allReviews = [];
     const ratings = { web: [], prog: [], edit: [] };
     const counts = {};
 
     snapshot.forEach(child => {
       const r = child.val();
+      r.id = child.key;
       r.rating = Number(r.rating);
-      reviews.push({ id: child.key, ...r });
+      allReviews.push(r);
       ratings[r.service]?.push(r.rating);
       counts[r.name] = (counts[r.name] || 0) + 1;
     });
 
-    reviews = reviews.map(r => ({
+    // Adăugăm badge-uri în funcție de număr de recenzii
+    allReviews = allReviews.map(r => ({
       ...r,
       badge:
         counts[r.name] >= 5
@@ -144,137 +151,219 @@ function loadReviews() {
           : counts[r.name] >= 3
           ? "💡 Contributor"
           : null,
-      totalReviews: counts[r.name]
+      totalReviews: counts[r.name],
     }));
 
-    reviews.reverse();
+    applyFilters();
     updateAvgs(ratings);
-    renderPage(currentPage, true);
   });
 }
 
-// === PAGINATION ===
-const prev = document.getElementById("prev-page");
-const next = document.getElementById("next-page");
-const info = document.getElementById("page-info");
+// === FILTRARE ===
+function applyFilters() {
+  filteredReviews = [...allReviews];
 
-prev.onclick = () => {
-  if (currentPage > 1) {
-    currentPage--;
-    renderPage(currentPage, false);
+  // filtrare pe serviciu
+  if (serviceFilter !== "all") {
+    filteredReviews = filteredReviews.filter(r => r.service === serviceFilter);
   }
-};
-next.onclick = () => {
-  if (currentPage * perPage < reviews.length) {
-    currentPage++;
-    renderPage(currentPage, false);
+
+  // sortare
+  if (sortType === "recent") {
+    filteredReviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+  } else if (sortType === "oldest") {
+    filteredReviews.sort((a, b) => new Date(a.date) - new Date(b.date));
+  } else if (sortType === "highest") {
+    filteredReviews.sort((a, b) => b.rating - a.rating);
+  } else if (sortType === "lowest") {
+    filteredReviews.sort((a, b) => a.rating - b.rating);
   }
-};
+
+  renderPage(1, true);
+}
+
+// === SORT & FILTER EVENTS ===
+document.getElementById("sort-select").addEventListener("change", e => {
+  sortType = e.target.value;
+  applyFilters();
+});
+
+document.getElementById("service-filter").addEventListener("change", e => {
+  serviceFilter = e.target.value;
+  applyFilters();
+});
 
 // === RENDER REVIEWS ===
-function renderPage(page, animate) {
-  const list = document.querySelector(".reviews-container");
-  list.style.opacity = 0;
+function renderPage(page = 1, smooth = false) {
+  const perPage = 10;
+  const start = (page - 1) * perPage;
+  const visible = filteredReviews.slice(start, start + perPage);
 
-  setTimeout(() => {
-    container.innerHTML = "";
-    const start = (page - 1) * perPage;
-    const visible = reviews.slice(start, start + perPage);
+  const container = document.getElementById("reviews-container");
+  const noReviews = document.getElementById("no-reviews");
+  const pagination = document.querySelector(".pagination");
 
-    if (!visible.length) {
-      noReviews.style.display = "block";
-      document.querySelector(".pagination").classList.add("hidden");
-      return;
-    }
+  container.innerHTML = "";
+  if (!visible.length) {
+    noReviews.style.display = "block";
+    pagination.classList.add("hidden");
+    return;
+  }
 
-    noReviews.style.display = "none";
-    document.querySelector(".pagination").classList.remove("hidden");
-    info.textContent = `Page ${page}`;
+  noReviews.style.display = "none";
+  pagination.classList.remove("hidden");
 
-    visible.forEach(r => {
-      const img = `assets/logos/reviews/${r.gender}.gif`;
-      const icon =
-        r.service === "web"
-          ? "🌐"
-          : r.service === "prog"
-          ? "💻"
-          : "🎬";
+  visible.forEach(r => {
+    const img = `assets/logos/reviews/${r.gender}.gif`;
+    const icon =
+      r.service === "web" ? "🌐" : r.service === "prog" ? "💻" : "🎬";
 
-      const card = document.createElement("div");
-      card.className = "review-card glassy review-fade";
-      card.innerHTML = `
-        <div class="review-header">
-          <img src="${img}" alt="${r.gender}">
-          <div class="review-meta">
-            <h4>${r.name}</h4>
-            <p>${icon} ${r.service}</p>
-            ${
-              r.badge
-                ? `<span class="badge">${r.badge}</span>`
-                : ""
-            }
-            <small>${r.totalReviews} reviews</small>
-          </div>
-          <div class="review-stars">${"★".repeat(
-            r.rating
-          )}${"☆".repeat(5 - r.rating)}</div>
-        </div>
-        <p class="review-text">${r.message}</p>
-        <small class="review-date">${r.date}</small>
-        <div class="review-actions">
-          <button class="like-btn">👍 ${r.likes || 0}</button>
-          <button class="reply-btn">💬 Reply</button>
-          <div class="reply-list"></div>
-        </div>
-      `;
+    const card = document.createElement("div");
+    card.className = "review-card glassy review-fade";
 
-      // Like button
-      const likeBtn = card.querySelector(".like-btn");
-      likeBtn.addEventListener("click", () => {
-        db.ref(`reviews/${r.id}/likes`).transaction(l => (l || 0) + 1);
-      });
-
-      // Reply button
-      const replyBtn = card.querySelector(".reply-btn");
-      replyBtn.addEventListener("click", () => {
-        const replyList = card.querySelector(".reply-list");
-        const input = document.createElement("input");
-        input.placeholder = "Write a reply...";
-        input.className = "reply-input";
-        replyList.appendChild(input);
-        input.focus();
-
-        input.addEventListener("keypress", e => {
-          if (e.key === "Enter" && input.value.trim()) {
-            db.ref(`reviews/${r.id}/replies`).push({
-              text: input.value,
-              date: new Date().toLocaleString()
-            });
-            input.remove();
+    card.innerHTML = `
+      <div class="review-header">
+        <img src="${img}" alt="${r.gender}">
+        <div class="review-meta">
+          <h4>${r.name}</h4>
+          <p>${icon} ${r.service}</p>
+          ${
+            r.badge
+              ? `<span class="badge">${r.badge}</span>`
+              : ""
           }
-        });
-      });
+          <small>${r.totalReviews} reviews</small>
+        </div>
+        <div class="review-stars">${"★".repeat(
+          r.rating
+        )}${"☆".repeat(5 - r.rating)}</div>
+      </div>
+      <p class="review-text">${r.message}</p>
+      <small class="review-date">${r.date}</small>
+      <div class="review-actions">
+        <button class="like-btn">👍 ${r.likes || 0}</button>
+        <button class="dislike-btn">👎 ${r.dislikes || 0}</button>
+        <button class="reply-btn">💬 ${r.replies ? Object.keys(r.replies).length : 0} Replies</button>
+      </div>
+      <div class="reply-thread hidden"></div>
+    `;
 
-      // Display replies live
-      const replyList = card.querySelector(".reply-list");
-      db.ref(`reviews/${r.id}/replies`).on("value", snap => {
-        replyList.innerHTML = "";
-        snap.forEach(rep => {
-          const d = rep.val();
-          const p = document.createElement("p");
-          p.className = "reply-item";
-          p.textContent = `↳ ${d.text}`;
-          replyList.appendChild(p);
-        });
-      });
+    // --- Like/Dislike per IP (localStorage-based) ---
+    const userVoteKey = `vote_${r.id}`;
+    const likeBtn = card.querySelector(".like-btn");
+    const dislikeBtn = card.querySelector(".dislike-btn");
 
-      container.appendChild(card);
+    const prevVote = localStorage.getItem(userVoteKey);
+    if (prevVote === "like") likeBtn.classList.add("voted");
+    if (prevVote === "dislike") dislikeBtn.classList.add("voted");
+
+    likeBtn.addEventListener("click", () => handleVote(r.id, "like", likeBtn, dislikeBtn));
+    dislikeBtn.addEventListener("click", () => handleVote(r.id, "dislike", dislikeBtn, likeBtn));
+
+    // --- Replies ---
+    const replyBtn = card.querySelector(".reply-btn");
+    const replyThread = card.querySelector(".reply-thread");
+    replyBtn.addEventListener("click", () => openReplyDialog(r.id));
+
+    // --- Expand replies when clicked ---
+    replyBtn.addEventListener("dblclick", () => toggleReplies(r.id, replyThread));
+
+    container.appendChild(card);
+  });
+
+  if (smooth)
+    window.scrollTo({ top: container.offsetTop - 80, behavior: "smooth" });
+}
+
+// === HANDLE LIKE/DISLIKE ===
+function handleVote(reviewId, type, btn, oppositeBtn) {
+  const key = `vote_${reviewId}`;
+  const prevVote = localStorage.getItem(key);
+  const ref = db.ref(`reviews/${reviewId}`);
+
+  if (prevVote === type) return; // same vote ignored
+
+  if (type === "like") {
+    ref.child("likes").transaction(v => (v || 0) + 1);
+    if (prevVote === "dislike")
+      ref.child("dislikes").transaction(v => Math.max(0, (v || 0) - 1));
+  } else {
+    ref.child("dislikes").transaction(v => (v || 0) + 1);
+    if (prevVote === "like")
+      ref.child("likes").transaction(v => Math.max(0, (v || 0) - 1));
+  }
+
+  localStorage.setItem(key, type);
+  btn.classList.add("voted");
+  oppositeBtn.classList.remove("voted");
+}
+
+// === MINI DIALOG REPLY ===
+function openReplyDialog(reviewId) {
+  const dialog = document.createElement("div");
+  dialog.className = "reply-dialog glassy";
+  dialog.innerHTML = `
+    <div class="dialog-inner">
+      <h4>Leave a Reply 💬</h4>
+      <label>Name</label>
+      <input type="text" id="rname" placeholder="Your name" required>
+      <label>Gender</label>
+      <div class="gender-mini">
+        <label><input type="radio" name="rgender" value="male"> Male</label>
+        <label><input type="radio" name="rgender" value="female"> Female</label>
+      </div>
+      <textarea id="rtext" maxlength="150" placeholder="Your reply..."></textarea>
+      <div class="dialog-actions">
+        <button id="sendReply">Send</button>
+        <button id="cancelReply">Cancel</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(dialog);
+
+  dialog.querySelector("#cancelReply").onclick = () => dialog.remove();
+
+  dialog.querySelector("#sendReply").onclick = () => {
+    const name = dialog.querySelector("#rname").value.trim();
+    const gender = dialog.querySelector('input[name="rgender"]:checked')?.value;
+    const text = dialog.querySelector("#rtext").value.trim();
+
+    if (!name || !gender || !text)
+      return alert("Please fill all fields!");
+
+    db.ref(`reviews/${reviewId}/replies`).push({
+      name,
+      gender,
+      text,
+      date: new Date().toLocaleString(),
     });
+    dialog.remove();
+  };
+}
 
-    // smooth reveal
-    window.scrollTo({ top: container.offsetTop - 100, behavior: "smooth" });
-    setTimeout(() => (list.style.opacity = 1), animate ? 300 : 0);
-  }, 250);
+// === EXPAND REPLIES ON DOUBLE CLICK ===
+function toggleReplies(reviewId, container) {
+  if (!container.classList.contains("loaded")) {
+    db.ref(`reviews/${reviewId}/replies`).once("value", snap => {
+      container.innerHTML = "";
+      snap.forEach(child => {
+        const rep = child.val();
+        const img = `assets/logos/reviews/${rep.gender}.gif`;
+        const div = document.createElement("div");
+        div.className = "reply-item";
+        div.innerHTML = `
+          <img src="${img}" alt="${rep.gender}">
+          <div>
+            <strong>${rep.name}</strong><small> ${rep.date}</small>
+            <p>${rep.text}</p>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+      container.classList.add("loaded");
+    });
+  }
+  container.classList.toggle("hidden");
 }
 
 window.addEventListener("load", loadReviews);
