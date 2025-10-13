@@ -433,8 +433,13 @@ modalBody.addEventListener('click', e => {
   const emoji = e.target.dataset.emoji;
   const replyId = e.target.dataset.id;
   if (!activeReviewId || !replyId) return;
+
   const path = `reviews/${activeReviewId}/replies/${replyId}/reactions/${emoji}/${clientId}`;
   db.ref(path).set(true);
+
+  const countSpan = e.target.querySelector('.reaction-count');
+  if (countSpan) countSpan.textContent = Number(countSpan.textContent) + 1;
+
   e.target.classList.add('active');
 });
       // reflect local vote state
