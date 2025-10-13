@@ -398,13 +398,16 @@ function renderPage(){
     if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
     if(prevBtn) prevBtn.disabled = currentPage <= 1;
     if(nextBtn) nextBtn.disabled = currentPage >= maxPage;
-    // ensure pagination placed in footer (if footer exists)
-    const footer = document.querySelector('footer');
-    if(footer && paginationEl){
-      footer.appendChild(paginationEl);
-      paginationEl.classList.remove('hidden');
-    }
-
+// afișează paginarea doar când e vizibilă secțiunea reviews
+if (paginationEl) {
+  const reviewsSection = document.querySelector('#reviews');
+  if (reviewsSection && reviewsSection.classList.contains('active')) {
+    reviewsSection.appendChild(paginationEl);
+    paginationEl.classList.remove('hidden');
+  } else {
+    paginationEl.classList.add('hidden');
+  }
+}
   } catch(err){
     console.error('renderPage error', err);
   }
