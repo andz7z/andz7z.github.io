@@ -193,106 +193,137 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- REVIEWS SECTION -->
-<section id="reviews" class="hidden section reviews-new">
-  <div class="reviews-bg"></div>
+<!-- ===================== REVIEWS SECTION ===================== -->
+<section data-section="reviews" id="section-reviews" style="display:none; padding:20px;">
+  <div class="reviews-wrapper reviews-bg">
 
-  <h2 class="reviews-title">✨ User Reviews</h2>
+    <!-- 🟡 AVG RATINGS SECTION -->
+    <div class="avg-sub glassy" style="padding:15px; border-radius:12px; text-align:center; margin-bottom:15px;">
+      <h2>Average Ratings</h2>
 
-  <div class="reviews-layout">
-    <!-- LEFT SIDE - FORM -->
-    <div class="review-form glassy">
-      <h3>Leave Your Feedback 💬</h3>
+      <div class="avg-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:10px;">
+        <div class="avg-item">
+          <svg width="120" height="120">
+            <circle cx="60" cy="60" r="45" stroke="#333" stroke-width="10" fill="none"></circle>
+            <circle id="avg-donut" cx="60" cy="60" r="45" stroke="#ffd95a" stroke-width="10" fill="none"
+              stroke-dasharray="0" stroke-dashoffset="0" stroke-linecap="round"></circle>
+          </svg>
+          <h3 id="avg-value">0.00</h3>
+          <p>Overall</p>
+        </div>
+
+        <div class="avg-item">
+          <h3 id="avg-web">🌐 0.00</h3>
+          <p>Web Design</p>
+        </div>
+        <div class="avg-item">
+          <h3 id="avg-prog">💻 0.00</h3>
+          <p>Programming</p>
+        </div>
+        <div class="avg-item">
+          <h3 id="avg-edit">🎬 0.00</h3>
+          <p>Editing</p>
+        </div>
+      </div>
+
+      <!-- 🟣 FILTERS (exact sub AVG ratings, în același background) -->
+      <div class="avg-filters-row" style="margin-top:20px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; padding:10px; border-radius:10px;">
+        <!-- Sort options -->
+        <div class="sort-chips" style="display:flex; gap:8px;">
+          <button class="sort-chip" data-sort="recent">Most recent</button>
+          <button class="sort-chip" data-sort="oldest">Oldest</button>
+          <button class="sort-chip" data-sort="highest">Highest</button>
+          <button class="sort-chip" data-sort="lowest">Lowest</button>
+        </div>
+
+        <select id="sort-filter" style="display:none;">
+          <option value="recent">Most recent</option>
+          <option value="oldest">Oldest</option>
+          <option value="highest">Highest</option>
+          <option value="lowest">Lowest</option>
+        </select>
+
+        <!-- Service filter -->
+        <div class="service-chips" style="display:flex; gap:8px; margin-left:12px;">
+          <button class="service-chip" data-service="all" onclick="document.getElementById('service-filter').value='all'; document.getElementById('service-filter').dispatchEvent(new Event('change'));">All</button>
+          <button class="service-chip" data-service="web" onclick="document.getElementById('service-filter').value='web'; document.getElementById('service-filter').dispatchEvent(new Event('change'));">🌐 Web</button>
+          <button class="service-chip" data-service="prog" onclick="document.getElementById('service-filter').value='prog'; document.getElementById('service-filter').dispatchEvent(new Event('change'));">💻 Programming</button>
+          <button class="service-chip" data-service="edit" onclick="document.getElementById('service-filter').value='edit'; document.getElementById('service-filter').dispatchEvent(new Event('change'));">🎬 Editing</button>
+        </div>
+
+        <select id="service-filter" style="display:none;">
+          <option value="all">All</option>
+          <option value="web">Web</option>
+          <option value="prog">Programming</option>
+          <option value="edit">Editing</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 🟢 ADD REVIEW FORM -->
+    <div class="add-review-form glassy" style="margin-top:25px; padding:20px; border-radius:12px;">
+      <h3>Leave a Review</h3>
       <form id="review-form">
-
-        <label>Name:</label>
-        <input type="text" id="name" name="name" placeholder="Your name..." required>
-
-        <label>Gender:</label>
-        <div class="gender-pick">
-          <label><input type="radio" name="gender" value="male"><img src="assets/logos/reviews/male.gif" alt="male"></label>
-          <label><input type="radio" name="gender" value="female"><img src="assets/logos/reviews/female.gif" alt="female"></label>
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" maxlength="40" required>
         </div>
 
-        <label>Rating:</label>
-        <div class="stars" id="rating-stars">
-          <span data-value="1">★</span>
-          <span data-value="2">★</span>
-          <span data-value="3">★</span>
-          <span data-value="4">★</span>
-          <span data-value="5">★</span>
+        <div class="form-row">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select...</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
         </div>
 
-        <label>Service:</label>
-        <div class="service-pick" id="service-pick">
-          <button type="button" data-value="web">🌐 Web Dev</button>
-          <button type="button" data-value="prog">💻 Programming</button>
-          <button type="button" data-value="edit">🎬 Editing</button>
+        <div class="form-row">
+          <label>Service</label>
+          <div class="service-buttons" style="display:flex; gap:10px;">
+            <button type="button" data-value="web">🌐 Web</button>
+            <button type="button" data-value="prog">💻 Programming</button>
+            <button type="button" data-value="edit">🎬 Editing</button>
+          </div>
         </div>
 
-        <label>Description:</label>
-        <textarea id="message" name="message" maxlength="100" placeholder="Your short feedback..." required></textarea>
-        <div id="char-count">0 / 100</div>
+        <div class="form-row">
+          <label>Rating</label>
+          <div id="rating-stars" style="font-size:24px;">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+          </div>
+        </div>
 
-        <button type="submit" class="btn-glow">Submit Review</button>
+        <div class="form-row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" maxlength="200" required></textarea>
+          <small id="char-count">0 / 200</small>
+        </div>
+
+        <button type="submit" class="submit-review-btn">Submit Review</button>
       </form>
     </div>
 
-<div class="review-stats glassy">
-  <h3>Average Ratings</h3>
+    <!-- 🟣 REVIEWS LIST -->
+    <div class="reviews-inner" style="margin-top:25px;">
+      <div id="no-reviews" style="display:none; text-align:center; padding:20px;">No reviews yet</div>
+      <div id="reviews-container"></div>
 
-  <!-- Main Donut -->
-  <div class="avg-main">
-    <div class="avg-donut">
-      <svg viewBox="0 0 100 100">
-        <circle class="donut-bg" cx="50" cy="50" r="45"></circle>
-        <circle class="donut-fill" id="avg-donut" cx="50" cy="50" r="45"></circle>
-      </svg>
-      <div class="donut-center">
-        <div class="donut-rating">
-          <span id="avg-value">0.0</span> / 5
-        </div>
-        <div class="donut-star">⭐</div>
+      <!-- 🟤 PAGINATION -->
+      <div class="pagination" style="margin-top:18px; text-align:center;">
+        <button id="prev-page">Prev</button>
+        <span id="page-info">Page 1 / 1</span>
+        <button id="next-page">Next</button>
       </div>
     </div>
   </div>
-
-  <!-- Sub-averages -->
-  <div class="avg-sub">
-    <div><span id="avg-web">🌐 0.0</span></div>
-    <div><span id="avg-prog">💻 0.0</span></div>
-    <div><span id="avg-edit">🎬 0.0</span></div>
-  </div>
-</div>
-    <!-- SORT + SERVICE FILTERS (pune-l sub AVG ratings în aceeasi sectiune) -->
-<div class="avg-controls glassy avg-filters-row" style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; padding:10px; border-radius:10px;">
-  <div class="sort-chips" id="sort-wrapper" style="display:flex; gap:8px; align-items:center;">
-    <button class="sort-chip" data-sort="recent" onclick="document.getElementById('sort-filter').value='recent'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Most recent</button>
-    <button class="sort-chip" data-sort="oldest" onclick="document.getElementById('sort-filter').value='oldest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Oldest</button>
-    <button class="sort-chip" data-sort="highest" onclick="document.getElementById('sort-filter').value='highest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Highest</button>
-    <button class="sort-chip" data-sort="lowest" onclick="document.getElementById('sort-filter').value='lowest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Lowest</button>
-  </div>
-
-  <!-- hidden selects (JS uses these, but visible UI is chips above) -->
-  <select id="sort-filter" style="display:none;">
-    <option value="recent">Most recent</option>
-    <option value="oldest">Oldest</option>
-    <option value="highest">Highest</option>
-    <option value="lowest">Lowest</option>
-  </select>
-
-  <label style="margin-left:10px;">
-    <select id="service-filter" style="background:transparent; border:1px solid rgba(255,255,255,0.06); padding:6px 10px; border-radius:8px;">
-      <option value="all">All services</option>
-      <option value="web">Web</option>
-      <option value="prog">Programming</option>
-      <option value="edit">Editing</option>
-    </select>
-  </label>
-</div>
-  <!-- REVIEWS LIST -->
-  <div id="reviews-container" class="reviews-container"></div>
-  <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
+</section>
+<!-- ================== END REVIEWS SECTION ================== -->
 
   <!-- PAGINATION -->
   <div class="pagination hidden">
