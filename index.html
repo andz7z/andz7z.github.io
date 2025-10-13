@@ -264,23 +264,27 @@
     <div><span id="avg-edit">🎬 0.0</span></div>
   </div>
 </div>
-  <!-- Filters: sort + service -->
-<div class="avg-filters" style="margin-top:10px;display:flex;gap:12px;justify-content:center;align-items:center;">
-  <label>
-    Sort:
-    <select id="sort-filter">
-      <option value="recent" selected>Most recent</option>
-      <option value="oldest">Oldest</option>
-      <option value="highest">Highest rating</option>
-      <option value="lowest">Lowest rating</option>
-    </select>
-  </label>
+    <!-- SORT + SERVICE FILTERS (pune-l sub AVG ratings în aceeasi sectiune) -->
+<div class="avg-controls glassy avg-filters-row" style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; padding:10px; border-radius:10px;">
+  <div class="sort-chips" id="sort-wrapper" style="display:flex; gap:8px; align-items:center;">
+    <button class="sort-chip" data-sort="recent" onclick="document.getElementById('sort-filter').value='recent'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Most recent</button>
+    <button class="sort-chip" data-sort="oldest" onclick="document.getElementById('sort-filter').value='oldest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Oldest</button>
+    <button class="sort-chip" data-sort="highest" onclick="document.getElementById('sort-filter').value='highest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Highest</button>
+    <button class="sort-chip" data-sort="lowest" onclick="document.getElementById('sort-filter').value='lowest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Lowest</button>
+  </div>
 
-  <label>
-    Service:
-    <select id="service-filter">
-      <option value="all" selected>All</option>
-      <option value="web">Web Dev</option>
+  <!-- hidden selects (JS uses these, but visible UI is chips above) -->
+  <select id="sort-filter" style="display:none;">
+    <option value="recent">Most recent</option>
+    <option value="oldest">Oldest</option>
+    <option value="highest">Highest</option>
+    <option value="lowest">Lowest</option>
+  </select>
+
+  <label style="margin-left:10px;">
+    <select id="service-filter" style="background:transparent; border:1px solid rgba(255,255,255,0.06); padding:6px 10px; border-radius:8px;">
+      <option value="all">All services</option>
+      <option value="web">Web</option>
       <option value="prog">Programming</option>
       <option value="edit">Editing</option>
     </select>
