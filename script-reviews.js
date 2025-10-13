@@ -586,19 +586,6 @@ function renderRepliesTreeFragment(nodes, reviewId, depth){
   });
   return frag;
 }
-
-  const thread = modal.querySelector('#reply-thread');
-  const form = modal.querySelector('#leave-reply-form');
-
-  // load replies once
-  db.ref(`reviews/${reviewId}/replies`).once('value').then(snap => {
-    const obj = snap.val() || {};
-    const arr = Object.keys(obj).map(k => ({ id: k, ...obj[k] }));
-    const tree = buildReplyTree(arr);
-    thread.innerHTML = '';
-    thread.appendChild(renderRepliesTreeFragment(tree, reviewId, 0));
-  }).catch(err => console.error(err));
-
   // delegate reply button clicks to set parentId
   thread.addEventListener('click', function(e){
     if(e.target && e.target.matches('.reply-to-btn')){
