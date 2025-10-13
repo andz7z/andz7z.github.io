@@ -193,24 +193,86 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-  <!-- REVIEWS -->
-<section id="reviews" class="hidden section">
-  <div class="section-bg"></div>
-  <h2>⭐ User Reviews</h2>
+<!-- REVIEWS SECTION -->
+<section id="reviews" class="hidden section reviews-new">
+  <div class="reviews-bg"></div>
 
-  <!-- Review Form -->
-  <form id="review-form" class="review-form">
-    <input type="text" id="name" placeholder="Your Name" required>
-    <input type="text" id="rating" placeholder="Rating (1–5)" required pattern="[1-5]">
-    <textarea id="message" placeholder="Your feedback..." required></textarea>
-    <button type="submit">Submit Review</button>
-  </form>
+  <h2 class="reviews-title">✨ User Reviews</h2>
 
-  <div id="reviews-container" class="reviews-container">
-    <p id="no-reviews">No reviews yet. Be the first to share your experience 💬</p>
+  <div class="reviews-layout">
+    <!-- LEFT SIDE - FORM -->
+    <div class="review-form glassy">
+      <h3>Leave Your Feedback 💬</h3>
+      <form id="review-form">
+
+        <label>Name:</label>
+        <input type="text" id="name" name="name" placeholder="Your name..." required>
+
+        <label>Gender:</label>
+        <div class="gender-pick">
+          <label><input type="radio" name="gender" value="male"><img src="assets/logos/reviews/male.gif" alt="male"></label>
+          <label><input type="radio" name="gender" value="female"><img src="assets/logos/reviews/female.gif" alt="female"></label>
+        </div>
+
+        <label>Rating:</label>
+        <div class="stars" id="rating-stars">
+          <span data-value="1">★</span>
+          <span data-value="2">★</span>
+          <span data-value="3">★</span>
+          <span data-value="4">★</span>
+          <span data-value="5">★</span>
+        </div>
+
+        <label>Service:</label>
+        <div class="service-pick" id="service-pick">
+          <button type="button" data-value="web">🌐 Web Dev</button>
+          <button type="button" data-value="prog">💻 Programming</button>
+          <button type="button" data-value="edit">🎬 Editing</button>
+        </div>
+
+        <label>Description:</label>
+        <textarea id="message" name="message" maxlength="100" placeholder="Your short feedback..." required></textarea>
+        <div id="char-count">0 / 100</div>
+
+        <button type="submit" class="btn-glow">Submit Review</button>
+      </form>
+    </div>
+
+    <!-- RIGHT SIDE - AVG STATS -->
+    <div class="review-stats glassy">
+      <h3>Average Ratings</h3>
+      <div class="avg-circles">
+        <div class="avg-circle" id="avg-all">
+          <span>0.0</span>
+          <p>Overall</p>
+        </div>
+        <div class="avg-circle" id="avg-web">
+          <span>0.0</span>
+          <p>🌐 Web</p>
+        </div>
+        <div class="avg-circle" id="avg-prog">
+          <span>0.0</span>
+          <p>💻 Prog</p>
+        </div>
+        <div class="avg-circle" id="avg-edit">
+          <span>0.0</span>
+          <p>🎬 Edit</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVIEWS LIST -->
+  <div id="reviews-container" class="reviews-container"></div>
+  <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
+
+  <!-- PAGINATION -->
+  <div class="pagination hidden">
+    <button id="prev-page">⬅ Prev</button>
+    <span id="page-info">Page 1</span>
+    <button id="next-page">Next ➡</button>
   </div>
 </section>
-  
   <footer>
     <p id="footer-text"></p>
   </footer>
