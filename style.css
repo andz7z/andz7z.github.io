@@ -1524,3 +1524,68 @@ footer .pagination { margin: 18px auto; }
 
 /* ensure pagination in footer */
 footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
+/* ========= Reviews UI & Filters ========= */
+.avg-filters-row { backdrop-filter: blur(6px); background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); }
+.sort-chip, .service-chip {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  opacity: 0.9;
+  transition: transform .12s ease, background .12s ease, color .12s ease;
+}
+.sort-chip:hover, .service-chip:hover { transform: translateY(-2px); opacity: 1; }
+.sort-chip.active, .service-chip.active {
+  background: rgba(255,255,255,0.95);
+  color: #222;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
+
+/* Reviews list */
+.review-card { padding:12px; border-radius:12px; margin-bottom:12px; background: linear-gradient(180deg, rgba(24,24,24,0.95), rgba(14,14,14,0.85)); display:block; box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+.review-header { display:flex; align-items:center; gap:12px; }
+.author-img { width:56px; height:56px; border-radius:50%; object-fit:cover; }
+.review-meta { flex:1; }
+.meta-top { display:flex; align-items:center; gap:8px; }
+.meta-name { font-size:1rem; display:flex; align-items:center; gap:8px; }
+.service-emoji { font-size:1.05rem; }
+
+/* actions row */
+.review-actions-row { display:flex; justify-content:space-between; align-items:center; margin-top:10px; gap:10px; }
+.review-actions-row .action-left button { margin-right:8px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); padding:6px 10px; border-radius:8px; color:#fff; cursor:pointer; }
+.review-actions-row .action-left button[disabled] { opacity:0.45; cursor:not-allowed; }
+
+/* inline replies preview */
+.reply-inline { display:flex; gap:8px; align-items:flex-start; padding:6px; border-radius:8px; margin-top:6px; background: rgba(255,255,255,0.01); }
+.reply-inline .reply-author-img { width:34px; height:34px; border-radius:50%; object-fit:cover; }
+.reply-inline-body { font-size:0.9rem; }
+
+/* Modal & messenger bubbles */
+.reply-modal { position:fixed; inset:0; background: rgba(0,0,0,0.55); display:flex; align-items:flex-start; justify-content:center; padding:40px; z-index:9999; }
+.reply-modal-inner { background: linear-gradient(180deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); width: min(860px, 96%); border-radius:12px; padding:18px; color:#fff; max-height:82vh; overflow:auto; }
+.bubble { display:block; margin:8px 0; max-width:84%; }
+.bubble-left { align-self:flex-start; }
+.bubble-right { align-self:flex-end; margin-left:auto; }
+.bubble-top { display:flex; gap:10px; align-items:flex-start; }
+.bubble-avatar { width:40px; height:40px; border-radius:50%; object-fit:cover; }
+.bubble-content { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:10px 12px; border-radius:12px; color:#fff; }
+.bubble-right .bubble-content { background: linear-gradient(180deg, rgba(100,180,255,0.12), rgba(80,160,255,0.08)); color:#fff; }
+.bubble-text { margin-top:4px; white-space:pre-wrap; }
+.bubble-time { display:block; margin-top:6px; font-size:0.8rem; color:rgba(255,255,255,0.6); }
+
+/* like burst */
+.like-burst { pointer-events:none; z-index:99999; transition: all 520ms cubic-bezier(.2,.9,.2,1); }
+
+/* confetti dot */
+.confetti-dot { position:fixed; width:8px; height:8px; border-radius:50%; background:#ffd95a; opacity:0.9; transform:translateY(0); animation: confetti-fall 900ms ease-out forwards; }
+@keyframes confetti-fall { to { transform: translateY(80px) rotate(360deg); opacity:0; } }
+
+/* toast */
+.andz-toast { position:fixed; right:18px; top:18px; background:rgba(0,0,0,0.8); color:#fff; padding:10px 14px; border-radius:8px; opacity:0; transform:translateY(-6px); transition:all 240ms ease; z-index:99999; }
+.andz-toast.visible { opacity:1; transform:translateY(0); }
+
+/* small responsive */
+@media (max-width:720px){ .review-card { padding:10px; } .author-img{width:44px;height:44px;} .bubble-avatar{width:36px;height:36px;} }
