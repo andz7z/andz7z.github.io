@@ -89,9 +89,9 @@ if(starEls && starEls.length){
       let imgPath = '';
 
       // alege poza în funcție de rating și gen
-      if(v <= 2) imgPath = assets/logos/reviews/1star_icon_${gender}.png;
-      else if(v <= 4) imgPath = assets/logos/reviews/3star_icon_${gender}.png;
-      else imgPath = assets/logos/reviews/5star_icon_${gender}.png;
+      if(v <= 2) imgPath = assets/logos/reviews/1star_icon_${gender}.gif;
+      else if(v <= 4) imgPath = assets/logos/reviews/3star_icon_${gender}.gif;
+      else imgPath = assets/logos/reviews/5star_icon_${gender}.gif;
 
       // fade in/out effect
       if(genderPreview){
@@ -398,7 +398,7 @@ db.ref(reviews/${r.id}/replies).on('value', snap => {
   arr.forEach(rep => {
     const div = document.createElement('div');
     div.className = 'reply-inline modern-reply';
-    const img = assets/logos/reviews/3star_icon_${rep.gender || 'male'}.png;
+    const img = assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif;
 
     div.innerHTML = 
       <img class="reply-author-img" src="${img}" alt="">
