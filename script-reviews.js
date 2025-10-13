@@ -319,7 +319,7 @@ function renderPage(){
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
-      const img = `assets/logos/reviews/${r.gender || 'male'}.gif`;
+      const img = `assets/logos/reviews/${r.image || ('3star_icon_' + (r.gender || 'male') + '.gif')}`;
       const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
       card.innerHTML = `
