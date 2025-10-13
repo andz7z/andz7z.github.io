@@ -1524,3 +1524,9 @@ footer .pagination { margin: 18px auto; }
 
 /* ensure pagination in footer */
 footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
+
+.review-star-icon {
+  width: 80px;
+  height: auto;
+  display: inline-block;
+}
