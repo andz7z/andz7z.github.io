@@ -347,14 +347,32 @@ syncSortChips(); syncServiceChips();
 document.addEventListener('DOMContentLoaded', ()=> { qa('[data-section]').forEach(el => el.style.display='none'); });
 
 // expose openSection
-window.openSection = function(name){
-  qa('[data-section]').forEach(el => el.style.display='none');
-  const target = q(`[data-section="${name}"]`);
-  if(target){
-    target.style.display = 'block';
-    setTimeout(()=> target.scrollIntoView({behavior:'smooth', block:'start'}), 60);
-    if(name === 'reviews' && !reviewsLoaded){ initReviews(); reviewsLoaded = true; }
-    // show/hide pagination container based on open section:
-    if(paginationEl) paginationEl.style.display = (name === 'reviews' ? 'block' : 'none');
+// === OPEN SECTIONS ===
+// sistem refăcut: doar când apeși pe Reviews, se încarcă secțiunea și se inițializează recenziile
+window.openSection = function(name) {
+  // ascunde toate secțiunile din pagină
+  document.querySelectorAll('[data-section]').forEach(el => el.style.display = 'none');
+
+  // caută secțiunea cerută
+  const target = document.querySelector(`[data-section="${name}"]`);
+  if (!target) return console.warn(`⚠️ Secțiunea ${name} nu există.`);
+
+  // afișează secțiunea selectată
+  target.style.display = 'block';
+
+  // dacă e reviews — încarcă datele o singură dată
+  if (name === 'reviews') {
+    if (!window.reviewsLoaded) {
+      window.initReviews?.();
+      window.reviewsLoaded = true;
+    }
+    // arată paginarea doar aici
+    if (window.paginationEl) window.paginationEl.style.display = 'flex';
+  } else {
+    // ascunde paginarea în alte secțiuni
+    if (window.paginationEl) window.paginationEl.style.display = 'none';
   }
+
+  // scroll fin către secțiune
+  setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
 };
