@@ -316,6 +316,28 @@
   <button data-target="work">Projects 📁</button>
   <button data-target="contact">Contact Me 📞</button>
 </div>
+  <!-- template hidden pentru formular reply, plasat undeva în DOM (de ex. lângă review-form) -->
+<template id="reply-form-template">
+  <div class="reply-form glassy">
+    <div class="form-avatar-wrap small">
+      <img class="reply-avatar" src="/assets/logos/reviews/3star_icon_male.gif" alt="avatar"/>
+    </div>
+    <form class="reply-inner-form">
+      <div class="reply-fields">
+        <input type="text" name="rname" placeholder="Nume..." required />
+        <div class="reply-gender-select">
+          <button type="button" data-g="male" class="gender-btn active"><img src="/assets/logos/reviews/3star_icon_male.gif" alt="M"/></button>
+          <button type="button" data-g="female" class="gender-btn"><img src="/assets/logos/reviews/3star_icon_female.gif" alt="F"/></button>
+        </div>
+        <textarea name="rmessage" maxlength="200" placeholder="Răspuns..." required></textarea>
+        <div class="reply-actions">
+          <small class="char-count">0 / 200</small>
+          <button type="submit" class="btn-glow">Trimite Reply</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</template>
 <!-- Firebase (compatibility version, works directly in browser) -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
