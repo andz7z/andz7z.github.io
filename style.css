@@ -1814,3 +1814,127 @@ body.dark-mode .chat-bubble.male {
 body.dark-mode .chat-bubble.female {
   background: linear-gradient(135deg, rgba(120,100,60,0.8), rgba(180,140,80,0.5));
 }
+/* === REPLIES CHAT LAYOUT === */
+#replies-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+  transition: opacity .3s ease;
+}
+#replies-modal.hidden {
+  display: none !important;
+}
+#replies-body {
+  max-height: 55vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  scroll-behavior: smooth;
+}
+#replies-modal .chat-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  width: 100%;
+}
+#replies-modal .chat-row.left {
+  justify-content: flex-start;
+}
+#replies-modal .chat-row.right {
+  justify-content: flex-end;
+}
+#replies-modal .chat-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+#replies-modal .chat-bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+  font-family: "Comfortaa", sans-serif;
+  line-height: 1.3;
+}
+#replies-modal .chat-bubble.male {
+  background: linear-gradient(180deg,#6ec5ff,#4ea6e6);
+  color: #021425;
+  border-bottom-right-radius: 4px;
+}
+#replies-modal .chat-bubble.female {
+  background: linear-gradient(180deg,#ffffff15,#ffffff08);
+  color: #fff;
+  border-bottom-left-radius: 4px;
+}
+#replies-modal .chat-name {
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-size: 0.9rem;
+}
+#replies-modal .chat-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.95rem;
+}
+#replies-modal .chat-meta {
+  font-size: 0.72rem;
+  opacity: 0.6;
+  margin-top: 6px;
+  text-align: right;
+}
+
+/* === REPLY INPUT AREA === */
+.reply-input {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.reply-input input,
+.reply-input textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  padding: 8px 10px;
+  font-family: inherit;
+  resize: none;
+}
+.reply-input button {
+  align-self: flex-end;
+  background: linear-gradient(180deg,#6ec5ff,#4ea6e6);
+  color: #021425;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+.reply-input button:hover {
+  opacity: 0.85;
+}
+
+/* === SCROLLBAR for chat === */
+#replies-body::-webkit-scrollbar {
+  width: 6px;
+}
+#replies-body::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.25);
+  border-radius: 6px;
+}
+#replies-body::-webkit-scrollbar-track {
+  background: transparent;
+}
