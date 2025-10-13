@@ -194,58 +194,50 @@
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
 <!-- ===================== REVIEWS SECTION ===================== -->
-<section data-section="reviews" id="section-reviews" style="display:none; padding:20px;">
-  <div class="reviews-wrapper reviews-bg">
+<section data-section="reviews" id="section-reviews" style="display:none;">
+  <div class="reviews-new">
+    <div class="reviews-bg"></div>
 
-    <!-- AVG RATINGS (kept simple) -->
-    <div class="avg-sub glassy" style="padding:15px; border-radius:12px; text-align:center; margin-bottom:15px;">
+    <!-- === AVERAGE RATINGS + FILTERS === -->
+    <div class="avg-sub glassy" style="padding:20px; border-radius:12px; margin-bottom:20px; text-align:center;">
       <h2>Average Ratings</h2>
+
       <div class="avg-container" style="display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:10px;">
         <div class="avg-item">
-          <svg width="120" height="120"><circle cx="60" cy="60" r="45" stroke="#333" stroke-width="10" fill="none"></circle>
+          <svg width="120" height="120">
+            <circle cx="60" cy="60" r="45" stroke="#333" stroke-width="10" fill="none"></circle>
             <circle id="avg-donut" cx="60" cy="60" r="45" stroke="#ffd95a" stroke-width="10" fill="none"
               stroke-dasharray="0" stroke-dashoffset="0" stroke-linecap="round"></circle>
           </svg>
-          <h3 id="avg-value">0.00</h3><p>Overall</p>
+          <h3 id="avg-value">0.00</h3>
+          <p>Overall</p>
         </div>
         <div class="avg-item"><h3 id="avg-web">🌐 0.00</h3><p>Web</p></div>
         <div class="avg-item"><h3 id="avg-prog">💻 0.00</h3><p>Programming</p></div>
         <div class="avg-item"><h3 id="avg-edit">🎬 0.00</h3><p>Editing</p></div>
       </div>
 
-      <!-- FILTERS (in same background, chips) -->
+      <!-- === FILTERS (same background) === -->
       <div class="avg-filters-row" style="margin-top:16px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:center; padding:10px; border-radius:10px;">
+        <!-- Sort by -->
         <div class="sort-chips" style="display:flex; gap:8px;">
-          <button type="button" class="sort-chip" data-sort="recent">Most recent</button>
+          <button type="button" class="sort-chip active" data-sort="recent">Most Recent</button>
           <button type="button" class="sort-chip" data-sort="oldest">Oldest</button>
           <button type="button" class="sort-chip" data-sort="highest">Highest</button>
           <button type="button" class="sort-chip" data-sort="lowest">Lowest</button>
         </div>
 
-        <select id="sort-filter" style="display:none;">
-          <option value="recent">Most recent</option>
-          <option value="oldest">Oldest</option>
-          <option value="highest">Highest</option>
-          <option value="lowest">Lowest</option>
-        </select>
-
+        <!-- Service filter -->
         <div class="service-chips" style="display:flex; gap:8px; margin-left:12px;">
-          <button type="button" class="service-chip" data-service="all">All</button>
+          <button type="button" class="service-chip active" data-service="all">All</button>
           <button type="button" class="service-chip" data-service="web">🌐 Web</button>
           <button type="button" class="service-chip" data-service="prog">💻 Programming</button>
           <button type="button" class="service-chip" data-service="edit">🎬 Editing</button>
         </div>
-
-        <select id="service-filter" style="display:none;">
-          <option value="all">All</option>
-          <option value="web">Web</option>
-          <option value="prog">Programming</option>
-          <option value="edit">Editing</option>
-        </select>
       </div>
     </div>
 
-    <!-- ADD REVIEW FORM -->
+    <!-- === ADD REVIEW FORM === -->
     <div class="add-review-form glassy" style="margin-top:18px; padding:18px; border-radius:12px;">
       <h3>Leave a Review</h3>
       <form id="review-form">
@@ -276,7 +268,11 @@
         <div class="form-row">
           <label>Rating</label>
           <div id="rating-stars" style="font-size:22px;">
-            <span data-value="1">★</span><span data-value="2">★</span><span data-value="3">★</span><span data-value="4">★</span><span data-value="5">★</span>
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
           </div>
         </div>
 
@@ -290,13 +286,13 @@
       </form>
     </div>
 
-    <!-- REVIEWS LIST -->
+    <!-- === REVIEWS LIST === -->
     <div class="reviews-inner" style="margin-top:18px;">
       <div id="no-reviews" style="display:none; text-align:center; padding:18px;">No reviews yet</div>
       <div id="reviews-container"></div>
 
-      <!-- PAGINATION (stays inside this section; shown only when needed) -->
-      <div class="pagination" style="margin-top:14px; text-align:center;">
+      <!-- === PAGINATION === -->
+      <div class="pagination" style="display:none; margin-top:14px; text-align:center;">
         <button id="prev-page">Prev</button>
         <span id="page-info">Page 1 / 1</span>
         <button id="next-page">Next</button>
