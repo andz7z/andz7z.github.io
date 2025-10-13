@@ -1479,3 +1479,48 @@ footer .pagination { margin: 18px auto; }
 /* make badge + count inline and tidy */
 .review-meta .badge { margin-left:8px; background: rgba(255,217,90,0.12); padding:4px 8px; border-radius:8px; font-size:0.85rem; }
 .meta-count { color: rgba(255,255,255,0.8); margin-left:4px; }
+/* SORT chips / avg-controls */
+.avg-filters-row { backdrop-filter: blur(6px); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.04); }
+.sort-chip {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: all 120ms ease;
+}
+.sort-chip:hover { transform: translateY(-2px); opacity: 1; }
+.sort-chip.active, .sort-chip[data-active="true"] {
+  background: rgba(255,255,255,0.95);
+  color: #222;
+  border-color: rgba(0,0,0,0.06);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  opacity: 1;
+}
+.sort-chip.active { transform: none; }
+
+/* when JS updates .sort-chip.active class, style applies */
+.sort-chip[data-sort] { font-size: 0.9rem; }
+
+/* reply modal small improvements */
+.reply-modal { position: fixed; inset:0; background: rgba(0,0,0,0.55); display:flex; align-items:flex-start; justify-content:center; padding:40px; z-index:9999; }
+.reply-modal-inner { background: linear-gradient(180deg, rgba(18,18,18,0.98), rgba(28,28,28,0.98)); width: min(820px, 96%); border-radius:12px; padding:18px; color:#fff; max-height:82vh; overflow:auto; }
+.modal-open { overflow:hidden; }
+
+/* review row align */
+.review-actions-row { display:flex; justify-content:space-between; align-items:center; margin-top:10px; gap:10px; }
+.review-actions-row .action-left button { margin-right:8px; padding:6px 10px; border-radius:8px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); color:#fff; cursor:pointer; }
+.review-actions-row .action-left button[disabled] { opacity:0.45; cursor:not-allowed; }
+
+/* small inline reply display */
+.reply-inline { display:flex; gap:8px; align-items:flex-start; padding:6px; border-radius:8px; margin-top:6px; background: rgba(255,255,255,0.01); }
+.reply-inline .reply-author-img { width:28px; height:28px; border-radius:50%; object-fit:cover; }
+
+/* badge, meta */
+.badge { margin-left:8px; padding:4px 8px; border-radius:8px; background: rgba(255,217,90,0.12); color:#fff; font-size:0.85rem; }
+
+/* ensure pagination in footer */
+footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
