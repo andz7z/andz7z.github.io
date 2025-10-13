@@ -477,31 +477,48 @@ function renderRepliesTreeFragment(nodes, reviewId, depth){
   });
   return frag;
 }
-
 function openReplyDialog(reviewId){
-  // create modal
+  // Creare modal
   const modal = document.createElement('div');
   modal.className = 'reply-modal';
-  modal.innerHTML = `<div class="reply-modal-inner">
-    <button class="modal-close">×</button>
-    <h3>Replies</h3>
-    <div id="reply-thread" class="reply-thread"></div>
-    <hr>
-    <h4>Leave a reply</h4>
-    <form id="leave-reply-form">
-      <div class="row"><label>Name</label><input name="rname" required></div>
-      <div class="row"><label>Gender</label>
-        <select name="rgender" required>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-      </div>
-      <div class="row"><label>Message</label><textarea name="rtext" maxlength="300" required></textarea></div>
-      <input type="hidden" name="parentId" value="">
-      <div class="row"><button type="submit">Post Reply</button></div>
-    </form>
-  </div>`;
+  modal.innerHTML = `
+    <div class="reply-modal-inner glassy">
+      <button class="modal-close">×</button>
+      <h3>💬 Replies</h3>
+      <div id="reply-thread" class="reply-thread"></div>
+      <hr>
+      <h4>Leave a Reply ✍️</h4>
+
+      <form id="leave-reply-form" class="reply-form">
+        <div class="row">
+          <label>Name:</label>
+          <input name="rname" type="text" placeholder="Your name..." required>
+        </div>
+
+        <label>Gender:</label>
+        <div class="gender-pick">
+          <label>
+            <input type="radio" name="rgender" value="male" required>
+            <img src="assets/logos/reviews/male.gif" alt="male">
+          </label>
+          <label>
+            <input type="radio" name="rgender" value="female">
+            <img src="assets/logos/reviews/female.gif" alt="female">
+          </label>
+        </div>
+
+        <div class="row">
+          <label>Message:</label>
+          <textarea name="rtext" maxlength="300" placeholder="Your reply..." required></textarea>
+        </div>
+
+        <div class="row">
+          <button type="submit" class="btn-glow">Post Reply</button>
+        </div>
+      </form>
+    </div>
+  `;
+
   document.body.appendChild(modal);
   document.body.classList.add('modal-open');
 
