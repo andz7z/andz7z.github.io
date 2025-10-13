@@ -218,6 +218,8 @@ function renderPage(page = 1, smooth = false) {
     const icon =
       r.service === "web" ? "🌐" : r.service === "prog" ? "💻" : "🎬";
 
+    const repliesCount = r.replies ? Object.keys(r.replies).length : 0;
+
     const card = document.createElement("div");
     card.className = "review-card glassy review-fade";
 
@@ -227,35 +229,29 @@ function renderPage(page = 1, smooth = false) {
         <div class="review-meta">
           <h4>${r.name}</h4>
           <p>${icon} ${r.service}</p>
-          ${
-            r.badge
-              ? `<span class="badge">${r.badge}</span>`
-              : ""
-          }
+          ${r.badge ? `<span class="badge">${r.badge}</span>` : ""}
           <small>${r.totalReviews} reviews</small>
         </div>
-        <div class="review-stars">${"★".repeat(
-          r.rating
-        )}${"☆".repeat(5 - r.rating)}</div>
+        <div class="review-stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</div>
       </div>
       <p class="review-text">${r.message}</p>
       <small class="review-date">${r.date}</small>
       <div class="review-actions">
         <button class="like-btn">👍 ${r.likes || 0}</button>
         <button class="dislike-btn">👎 ${r.dislikes || 0}</button>
-        <button class="reply-btn">💬 ${r.replies ? Object.keys(r.replies).length : 0} Replies</button>
+        <button class="reply-btn">💬 ${repliesCount} Replies</button>
       </div>
       <div class="reply-thread hidden"></div>
     `;
 
-    // --- Like/Dislike per IP (localStorage-based) ---
-    const userVoteKey = `vote_${r.id}`;
+    // --- Like / Dislike (per IP) ---
+    const key = `vote_${r.id}`;
     const likeBtn = card.querySelector(".like-btn");
     const dislikeBtn = card.querySelector(".dislike-btn");
+    const prev = localStorage.getItem(key);
 
-    const prevVote = localStorage.getItem(userVoteKey);
-    if (prevVote === "like") likeBtn.classList.add("voted");
-    if (prevVote === "dislike") dislikeBtn.classList.add("voted");
+    if (prev === "like") likeBtn.classList.add("voted");
+    if (prev === "dislike") dislikeBtn.classList.add("voted");
 
     likeBtn.addEventListener("click", () => handleVote(r.id, "like", likeBtn, dislikeBtn));
     dislikeBtn.addEventListener("click", () => handleVote(r.id, "dislike", dislikeBtn, likeBtn));
@@ -263,10 +259,11 @@ function renderPage(page = 1, smooth = false) {
     // --- Replies ---
     const replyBtn = card.querySelector(".reply-btn");
     const replyThread = card.querySelector(".reply-thread");
-    replyBtn.addEventListener("click", () => openReplyDialog(r.id));
 
-    // --- Expand replies when clicked ---
-    replyBtn.addEventListener("dblclick", () => toggleReplies(r.id, replyThread));
+    replyBtn.addEventListener("click", () => {
+      replyThread.classList.toggle("hidden");
+      if (!replyThread.classList.contains("loaded")) loadReplies(r.id, replyThread);
+    });
 
     container.appendChild(card);
   });
@@ -275,95 +272,54 @@ function renderPage(page = 1, smooth = false) {
     window.scrollTo({ top: container.offsetTop - 80, behavior: "smooth" });
 }
 
-// === HANDLE LIKE/DISLIKE ===
-function handleVote(reviewId, type, btn, oppositeBtn) {
-  const key = `vote_${reviewId}`;
-  const prevVote = localStorage.getItem(key);
-  const ref = db.ref(`reviews/${reviewId}`);
+// === LOAD REPLIES + FORM ===
+function loadReplies(reviewId, container) {
+  db.ref(`reviews/${reviewId}/replies`).on("value", snap => {
+    container.innerHTML = "";
 
-  if (prevVote === type) return; // same vote ignored
+    snap.forEach(child => {
+      const rep = child.val();
+      const img = `assets/logos/reviews/${rep.gender}.gif`;
+      const div = document.createElement("div");
+      div.className = "reply-item";
+      div.innerHTML = `
+        <img src="${img}" alt="${rep.gender}">
+        <div>
+          <strong>${rep.name}</strong><br>
+          <small>${rep.date}</small>
+          <p>${rep.text}</p>
+        </div>
+      `;
+      container.appendChild(div);
+    });
 
-  if (type === "like") {
-    ref.child("likes").transaction(v => (v || 0) + 1);
-    if (prevVote === "dislike")
-      ref.child("dislikes").transaction(v => Math.max(0, (v || 0) - 1));
-  } else {
-    ref.child("dislikes").transaction(v => (v || 0) + 1);
-    if (prevVote === "like")
-      ref.child("likes").transaction(v => Math.max(0, (v || 0) - 1));
-  }
-
-  localStorage.setItem(key, type);
-  btn.classList.add("voted");
-  oppositeBtn.classList.remove("voted");
-}
-
-// === MINI DIALOG REPLY ===
-function openReplyDialog(reviewId) {
-  const dialog = document.createElement("div");
-  dialog.className = "reply-dialog glassy";
-  dialog.innerHTML = `
-    <div class="dialog-inner">
-      <h4>Leave a Reply 💬</h4>
+    // === Add Reply Form Below ===
+    const formDiv = document.createElement("div");
+    formDiv.className = "reply-add";
+    formDiv.innerHTML = `
       <label>Name</label>
-      <input type="text" id="rname" placeholder="Your name" required>
+      <input type="text" id="rname_${reviewId}" placeholder="Your name">
       <label>Gender</label>
-      <div class="gender-mini">
-        <label><input type="radio" name="rgender" value="male"> Male</label>
-        <label><input type="radio" name="rgender" value="female"> Female</label>
-      </div>
-      <textarea id="rtext" maxlength="150" placeholder="Your reply..."></textarea>
-      <div class="dialog-actions">
-        <button id="sendReply">Send</button>
-        <button id="cancelReply">Cancel</button>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(dialog);
+      <select id="rgender_${reviewId}">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <label>Reply</label>
+      <textarea id="rtext_${reviewId}" rows="2" maxlength="150" placeholder="Your reply..."></textarea>
+      <button id="send_${reviewId}">Send Reply</button>
+    `;
+    container.appendChild(formDiv);
 
-  dialog.querySelector("#cancelReply").onclick = () => dialog.remove();
-
-  dialog.querySelector("#sendReply").onclick = () => {
-    const name = dialog.querySelector("#rname").value.trim();
-    const gender = dialog.querySelector('input[name="rgender"]:checked')?.value;
-    const text = dialog.querySelector("#rtext").value.trim();
-
-    if (!name || !gender || !text)
-      return alert("Please fill all fields!");
-
-    db.ref(`reviews/${reviewId}/replies`).push({
-      name,
-      gender,
-      text,
-      date: new Date().toLocaleString(),
-    });
-    dialog.remove();
-  };
-}
-
-// === EXPAND REPLIES ON DOUBLE CLICK ===
-function toggleReplies(reviewId, container) {
-  if (!container.classList.contains("loaded")) {
-    db.ref(`reviews/${reviewId}/replies`).once("value", snap => {
-      container.innerHTML = "";
-      snap.forEach(child => {
-        const rep = child.val();
-        const img = `assets/logos/reviews/${rep.gender}.gif`;
-        const div = document.createElement("div");
-        div.className = "reply-item";
-        div.innerHTML = `
-          <img src="${img}" alt="${rep.gender}">
-          <div>
-            <strong>${rep.name}</strong><small> ${rep.date}</small>
-            <p>${rep.text}</p>
-          </div>
-        `;
-        container.appendChild(div);
+    document.getElementById(`send_${reviewId}`).addEventListener("click", () => {
+      const name = document.getElementById(`rname_${reviewId}`).value.trim();
+      const gender = document.getElementById(`rgender_${reviewId}`).value;
+      const text = document.getElementById(`rtext_${reviewId}`).value.trim();
+      if (!name || !text) return alert("Please fill all fields!");
+      db.ref(`reviews/${reviewId}/replies`).push({
+        name, gender, text, date: new Date().toLocaleString()
       });
-      container.classList.add("loaded");
     });
-  }
-  container.classList.toggle("hidden");
-}
 
-window.addEventListener("load", loadReviews);
+    container.classList.add("loaded");
+  });
+}
