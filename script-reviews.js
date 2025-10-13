@@ -400,48 +400,54 @@ function loadRepliesForReview(reviewId) {
   db.ref(`reviews/${reviewId}/replies`).on('value', snap => {
     const data = snap.val() || {};
     modalBody.innerHTML = '';
+
     Object.entries(data).forEach(([key, rep]) => {
+      const avatarSrc = `assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif`;
+      const wrapper = document.createElement('div');
+      wrapper.className = `chat-row ${rep.gender || 'male'}`;
+
+      const avatar = document.createElement('img');
+      avatar.className = 'chat-avatar';
+      avatar.src = avatarSrc;
+      avatar.alt = rep.gender || 'avatar';
+
       const bubble = document.createElement('div');
       bubble.className = `chat-bubble ${rep.gender || 'male'}`;
-      bubble.innerHTML = `
-        <div>${escapeHtml(rep.text)}</div>
-        <div class="reactions-bar">
-          ${['❤️','😂','😡','👍','👎'].map(e => `<button class="reaction-btn" data-emoji="${e}" data-id="${key}">${e}</button>`).join('')}
-        </div>`;
-      modalBody.appendChild(bubble);
+      bubble.innerHTML = `<div class="chat-name">${escapeHtml(rep.name || 'Anonymous')}</div>
+                          <div class="chat-text">${escapeHtml(rep.text)}</div>`;
+
+      // Reacții ascunse sub săgeată
+      const toggle = document.createElement('button');
+      toggle.className = 'reaction-toggle';
+      toggle.textContent = '▶';
+      const reactions = document.createElement('div');
+      reactions.className = 'reactions-bar hidden';
+
+      const emojis = ['❤️','😂','😡','👍','👎'];
+      emojis.forEach(e => {
+        const count = rep.reactions && rep.reactions[e] ? Object.keys(rep.reactions[e]).length : 0;
+        const btn = document.createElement('button');
+        btn.className = 'reaction-btn';
+        btn.dataset.emoji = e;
+        btn.dataset.id = key;
+        btn.innerHTML = `${e} <span class="reaction-count">${count}</span>`;
+        reactions.appendChild(btn);
+      });
+
+      toggle.addEventListener('click', () => {
+        reactions.classList.toggle('hidden');
+        toggle.textContent = reactions.classList.contains('hidden') ? '▶' : '▼';
+      });
+
+      bubble.appendChild(toggle);
+      bubble.appendChild(reactions);
+
+      wrapper.appendChild(avatar);
+      wrapper.appendChild(bubble);
+      modalBody.appendChild(wrapper);
     });
   });
 }
-
-// trimite reply
-sendBtn.addEventListener('click', () => {
-  const text = msgInputReply.value.trim();
-  if (!text || !activeReviewId) return;
-  const reply = {
-    gender: replyGender,
-    text: text,
-    date: new Date().toISOString(),
-    reactions: {}
-  };
-  db.ref(`reviews/${activeReviewId}/replies`).push(reply);
-  msgInputReply.value = '';
-});
-
-// reacții emoji
-modalBody.addEventListener('click', e => {
-  if (!e.target.classList.contains('reaction-btn')) return;
-  const emoji = e.target.dataset.emoji;
-  const replyId = e.target.dataset.id;
-  if (!activeReviewId || !replyId) return;
-
-  const path = `reviews/${activeReviewId}/replies/${replyId}/reactions/${emoji}/${clientId}`;
-  db.ref(path).set(true);
-
-  const countSpan = e.target.querySelector('.reaction-count');
-  if (countSpan) countSpan.textContent = Number(countSpan.textContent) + 1;
-
-  e.target.classList.add('active');
-});
       // reflect local vote state
       const lv = localStorage.getItem(`vote_${r.id}_${clientId}`);
       if(lv === '1' && likeBtn) likeBtn.disabled = true;
