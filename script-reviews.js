@@ -11,31 +11,23 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// script-reviews.js
-// Presupunere: firebase este inițializat și ai db = firebase.database();
-// Include acest fișier DUPĂ firebase & firebase database script.
-
-// === util
+// === UTILS ===
 function q(sel){ return document.querySelector(sel); }
 function qa(sel){ return Array.from(document.querySelectorAll(sel)); }
 function escapeHtml(s){
   if(!s) return "";
-  return String(s)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;");
 }
 
-// === client id for 1-vote-per-client (browser-based)
+// === client id (un vot per browser)
 let clientId = localStorage.getItem('andz_clientId');
 if(!clientId){
   clientId = 'c_' + Math.random().toString(36).slice(2,10);
   localStorage.setItem('andz_clientId', clientId);
 }
 
-// === DOM hooks (guard in case HTML structure slightly different)
+// === DOM ELEMENTS ===
 const form = q('#review-form');
 const msgInput = q('#message');
 const charCount = q('#char-count');
@@ -44,73 +36,53 @@ const genderPreview = q('#preview-img');
 let selectedGender = '';
 const serviceBtns = qa('#service-pick button[data-value]');
 const reviewsContainer = q('#reviews-container');
-const noReviewsBox = q('#no-reviews');
+const paginationEl = q('.pagination');
+const prevBtn = q('#prev-page');
+const nextBtn = q('#next-page');
+const pageInfo = q('#page-info');
 const avgValueEl = q('#avg-value');
 const avgWebEl = q('#avg-web');
 const avgProgEl = q('#avg-prog');
 const avgEditEl = q('#avg-edit');
 const avgDonut = q('#avg-donut');
-const reviewsBg = q('.reviews-bg') || q('.avg-sub') || document.body;
-const paginationEl = q('.pagination');
-const prevBtn = q('#prev-page');
-const nextBtn = q('#next-page');
-const pageInfo = q('#page-info');
 
-// filters area (will be placed under AVG in HTML)
-const sortWrapper = q('#sort-wrapper'); // optional wrapper if present
-// fallback: we will use elements with ids below - ensure they exist in HTML
-const sortFilter = q('#sort-filter');
-const serviceFilter = q('#service-filter');
-
-// state
+// === STATE ===
 let selectedRating = 0;
 let selectedService = null;
-let reviews = []; // array of reviews fetched
+let reviews = [];
 let currentPage = 1;
 const PER_PAGE = 10;
-let activeSort = sortFilter ? sortFilter.value : 'recent';
-let activeService = serviceFilter ? serviceFilter.value : 'all';
+let activeSort = 'recent';
+let activeService = 'all';
 
-// --- safety: make sure required DOM exists
-if(!reviewsContainer){
-  console.error('Missing #reviews-container element in DOM.');
+// === STAR SELECTION ===
+if(starEls.length){
+  starEls.forEach(s => s.addEventListener('click', () => {
+    selectedRating = Number(s.dataset.value);
+    starEls.forEach(x => x.classList.toggle('active', Number(x.dataset.value) <= selectedRating));
+    updatePreviewImage();
+  }));
 }
 
-// === star rating UI
-if(starEls && starEls.length){
-  starEls.forEach(s => {
-    s.addEventListener('click', function(){
-      const v = Number(this.dataset.value) || 0;
-      selectedRating = v;
-      starEls.forEach(x => x.classList.toggle('active', Number(x.dataset.value) <= v));
-      updatePreviewImage(); // 🔥 actualizează poza la schimbarea ratingului
-    });
-  });
-}
-// === Function: update preview image based on rating & gender ===
+// === PREVIEW IMAGE UPDATE ===
 function updatePreviewImage() {
   if (!genderPreview || !selectedGender) return;
-
-  // dacă nu a ales ratingul, default e 3-star
   let imgPath = `assets/logos/reviews/3star_icon_${selectedGender}.gif`;
-
-  if (selectedRating >= 1 && selectedRating <= 2)
-    imgPath = `assets/logos/reviews/1star_icon_${selectedGender}.gif`;
-  else if (selectedRating >= 3 && selectedRating <= 4)
-    imgPath = `assets/logos/reviews/3star_icon_${selectedGender}.gif`;
-  else if (selectedRating === 5)
-    imgPath = `assets/logos/reviews/5star_icon_${selectedGender}.gif`;
-
-  // fade effect
-  genderPreview.classList.add('fade-out');
-  setTimeout(() => {
-    genderPreview.src = imgPath;
-    genderPreview.classList.remove('fade-out');
-    genderPreview.classList.add('fade-in');
-  }, 250);
+  if (selectedRating <= 2) imgPath = `assets/logos/reviews/1star_icon_${selectedGender}.gif`;
+  else if (selectedRating === 5) imgPath = `assets/logos/reviews/5star_icon_${selectedGender}.gif`;
+  genderPreview.src = imgPath;
 }
-// service pick
-if(serviceBtns && serviceBtns.length){
+
+// === GENDER SELECT ===
+qa('input[name="gender"]').forEach(radio => {
+  radio.addEventListener('change', () => {
+    selectedGender = radio.value;
+    updatePreviewImage();
+  });
+});
+
+// === SERVICE SELECT ===
+if(serviceBtns.length){
   serviceBtns.forEach(b => {
     b.addEventListener('click', function(){
       serviceBtns.forEach(x => x.classList.remove('active'));
@@ -119,457 +91,467 @@ if(serviceBtns && serviceBtns.length){
     });
   });
 }
-// Gender pick
-const genderInputs = qa('input[name="gender"]');
-if (genderInputs.length) {
-  genderInputs.forEach(radio => {
-    radio.addEventListener('change', () => {
-      selectedGender = radio.value;
-      updatePreviewImage();
-    });
-  });
-}
 
-// char count
+// === CHAR COUNT ===
 if(msgInput && charCount){
-  msgInput.addEventListener('input', function(){
-    charCount.textContent = `${this.value.length} / 200`;
+  msgInput.addEventListener('input', () => {
+    charCount.textContent = `${msgInput.value.length} / ${msgInput.maxLength}`;
   });
 }
 
-// submit review
+// === SUBMIT REVIEW ===
 if(form){
-  form.addEventListener('submit', function(e){
+  form.addEventListener('submit', e => {
     e.preventDefault();
-    try {
-      const name = (form.name && form.name.value || '').trim();
-      const gender = (form.gender && form.gender.value) || '';
-      const message = (form.message && form.message.value || '').trim();
-      if(!name || !gender || !message || !selectedRating || !selectedService){
-        return alert('Completeaza toate campurile si alege rating + serviciu.');
-      }
-      let imgFile = `3star_icon_${gender}.gif`;
-      if (selectedRating >= 1 && selectedRating <= 2)
-        imgFile = `1star_icon_${gender}.gif`;
-      else if (selectedRating >= 3 && selectedRating <= 4)
-        imgFile = `3star_icon_${gender}.gif`;
-      else if (selectedRating === 5)
-        imgFile = `5star_icon_${gender}.gif`;
-      
-      const review = {
-        name: name,
-        gender: gender,
-        image: imgFile,
-        message: message,
-        rating: Number(selectedRating),
-        service: selectedService,
-        date: new Date().toISOString(),
-        likes: 0,
-        dislikes: 0
-      };
-      db.ref('reviews').push(review).then(() => {
-        // reset form UI
-        form.reset();
-        selectedRating = 0;
-        selectedService = null;
-        if(starEls && starEls.length) starEls.forEach(s => s.classList.remove('active'));
-        if(serviceBtns && serviceBtns.length) serviceBtns.forEach(b => b.classList.remove('active'));
-        if(charCount) charCount.textContent = '0 / 200';
-        // optional small feedback
-      }).catch(err => {
-        console.error('Error writing review', err);
-        alert('Eroare la salvare. Vezi consola.');
-      });
-    } catch(err){
-      console.error(err);
+    const name = q('#name').value.trim();
+    const gender = selectedGender;
+    const message = msgInput.value.trim();
+    if(!name || !gender || !message || !selectedRating || !selectedService){
+      return alert('Completează toate câmpurile și selectează rating + serviciu!');
     }
-  });
-}
+    let imgFile = `3star_icon_${gender}.gif`;
+    if(selectedRating <= 2) imgFile = `1star_icon_${gender}.gif`;
+    else if(selectedRating === 5) imgFile = `5star_icon_${gender}.gif`;
 
-// === Filters handlers
-if(sortFilter){
-  sortFilter.addEventListener('change', function(){
-    activeSort = this.value;
-    currentPage = 1;
-    renderPage();
-    updateSortButtonsUI();
-  });
-}
-if(serviceFilter){
-  serviceFilter.addEventListener('change', function(){
-    activeService = this.value;
-    currentPage = 1;
-    renderPage();
-  });
-}
-
-// style sort buttons UI function (for visual transparent chips)
-function updateSortButtonsUI(){
-  // if using select, style selected option via CSS; if you use custom buttons, adapt here.
-  // We'll add .active class to the selected option's wrapper (if present)
-  const wrappers = qa('.sort-chip');
-  wrappers.forEach(w => w.classList.toggle('active', w.dataset?.sort === activeSort));
-}
-
-// === Load reviews from Firebase
-function loadReviews(){
-  try {
-    db.ref('reviews').on('value', snapshot => {
-      const arr = [];
-      const ratings = { web: [], prog: [], edit: [] };
-      const counts = {};
-      snapshot.forEach(child => {
-        const val = child.val();
-        const obj = Object.assign({}, val);
-        obj.id = child.key;
-        obj.rating = Number(obj.rating) || 0;
-        arr.push(obj);
-        if(obj.service) {
-          if(obj.service === 'web') ratings.web.push(obj.rating);
-          else if(obj.service === 'prog') ratings.prog.push(obj.rating);
-          else if(obj.service === 'edit') ratings.edit.push(obj.rating);
-        }
-        counts[obj.name] = (counts[obj.name] || 0) + 1;
-      });
-      // attach badge & count
-      const enhanced = arr.map(r => {
-        let badge = null;
-        const c = counts[r.name] || 0;
-        if(c >= 5) badge = '🏆 Top Reviewer';
-        else if(c >= 3) badge = '💡 Contributor';
-        return Object.assign({}, r, { totalReviews: c, badge: badge });
-      });
-      // default: most recent first
-      enhanced.sort((a,b) => new Date(b.date) - new Date(a.date));
-      reviews = enhanced;
-      updateAvgs(ratings);
-      renderPage();
+    const review = {
+      name, gender, message,
+      image: imgFile,
+      rating: selectedRating,
+      service: selectedService,
+      date: new Date().toISOString(),
+      likes: 0, dislikes: 0
+    };
+    db.ref('reviews').push(review).then(()=>{
+      form.reset();
+      selectedRating = 0; selectedService = null; selectedGender = '';
+      starEls.forEach(s=>s.classList.remove('active'));
+      serviceBtns.forEach(b=>b.classList.remove('active'));
+      charCount.textContent = '0 / 100';
     });
-  } catch(err){
-    console.error('loadReviews error', err);
-  }
+  });
 }
 
-// === update avg UI
-function updateAvgs(ratings){
-  const avg = arr => arr.length ? (arr.reduce((s,x) => s + x, 0) / arr.length) : 0;
-  const overallArr = [...ratings.web, ...ratings.prog, ...ratings.edit];
-  const overall = avg(overallArr);
-  if(avgValueEl) avgValueEl.textContent = overall ? overall.toFixed(2) : '0.00';
-  if(avgWebEl) avgWebEl.textContent = `🌐 ${avg(ratings.web).toFixed(2)}`;
-  if(avgProgEl) avgProgEl.textContent = `💻 ${avg(ratings.prog).toFixed(2)}`;
-  if(avgEditEl) avgEditEl.textContent = `🎬 ${avg(ratings.edit).toFixed(2)}`;
-  // donut visual (if exists)
-  if(avgDonut){
-    try {
-      const percent = (overall / 5) * 100;
-      const circumference = 2 * Math.PI * 45;
-      const offset = circumference - (percent / 100) * circumference;
-      avgDonut.style.strokeDasharray = `${circumference}`;
-      avgDonut.style.strokeDashoffset = `${offset}`;
-    } catch(e){}
-  }
-  // bg accent
-  if(reviewsBg){
-    let color = '#ffd95a';
-    if(overall < 2.5) color = '#ff6961';
-    else if(overall >= 4) color = '#6fc3ff';
-    reviewsBg.style.background = `linear-gradient(180deg, ${color}10, transparent 40%)`;
-  }
+// === LOAD REVIEWS FROM FIREBASE ===
+function loadReviews(){
+  db.ref('reviews').on('value', snapshot => {
+    const arr = [];
+    const ratings = { web: [], prog: [], edit: [] };
+    snapshot.forEach(ch => {
+      const val = ch.val();
+      val.id = ch.key;
+      arr.push(val);
+      if(val.service && ratings[val.service]) ratings[val.service].push(Number(val.rating));
+    });
+    reviews = arr.sort((a,b)=>new Date(b.date)-new Date(a.date));
+    updateAvgs(ratings);
+    renderPage();
+  });
 }
 
-// === get filtered + sorted array
+// === UPDATE AVERAGES ===
+function updateAvgs(r){
+  const avg = a => a.length ? (a.reduce((s,x)=>s+x,0)/a.length) : 0;
+  const overall = avg([...r.web,...r.prog,...r.edit]);
+  avgValueEl.textContent = overall.toFixed(2);
+  avgWebEl.textContent = `🌐 ${avg(r.web).toFixed(2)}`;
+  avgProgEl.textContent = `💻 ${avg(r.prog).toFixed(2)}`;
+  avgEditEl.textContent = `🎬 ${avg(r.edit).toFixed(2)}`;
+  const percent = (overall/5)*100, circ = 2*Math.PI*45;
+  avgDonut.style.strokeDasharray = circ;
+  avgDonut.style.strokeDashoffset = circ - (percent/100)*circ;
+}
+
+// === PAGINATION + RENDER ===
 function getFilteredSorted(){
   let arr = reviews.slice();
-  if(activeService && activeService !== 'all'){
-    arr = arr.filter(r => r.service === activeService);
-  }
-  if(activeSort === 'recent'){
-    arr.sort((a,b) => new Date(b.date) - new Date(a.date));
-  } else if(activeSort === 'oldest'){
-    arr.sort((a,b) => new Date(a.date) - new Date(b.date));
-  } else if(activeSort === 'highest'){
-    arr.sort((a,b) => b.rating - a.rating || new Date(b.date) - new Date(a.date));
-  } else if(activeSort === 'lowest'){
-    arr.sort((a,b) => a.rating - b.rating || new Date(b.date) - new Date(a.date));
-  }
+  if(activeService !== 'all') arr = arr.filter(r=>r.service===activeService);
+  if(activeSort==='oldest') arr.sort((a,b)=>new Date(a.date)-new Date(b.date));
+  else if(activeSort==='highest') arr.sort((a,b)=>b.rating-a.rating);
+  else if(activeSort==='lowest') arr.sort((a,b)=>a.rating-b.rating);
+  else arr.sort((a,b)=>new Date(b.date)-new Date(a.date));
   return arr;
 }
 
-// === render page
 function renderPage(){
-  try {
-    if(!reviewsContainer) return;
-    const filtered = getFilteredSorted();
-    const total = filtered.length;
-    const maxPage = Math.max(1, Math.ceil(total / PER_PAGE));
-    if(currentPage > maxPage) currentPage = maxPage;
-    const start = (currentPage - 1) * PER_PAGE;
-    const visible = filtered.slice(start, start + PER_PAGE);
-    // clear
-    reviewsContainer.innerHTML = '';
+  if(!reviewsContainer) return;
+  const filtered = getFilteredSorted();
+  const total = filtered.length;
+  const maxPage = Math.max(1, Math.ceil(total/PER_PAGE));
+  if(currentPage>maxPage) currentPage = maxPage;
+  const start = (currentPage-1)*PER_PAGE;
+  const visible = filtered.slice(start,start+PER_PAGE);
+  reviewsContainer.innerHTML = '';
   if(!visible.length){
-  if(noReviewsBox) noReviewsBox.style.display = 'block';
-  if(paginationEl) paginationEl.classList.add('hidden');
-  return;
-} else {
-  if(noReviewsBox) noReviewsBox.style.display = 'none';
-  
-  // 🔥 paginarea vizibilă doar în secțiunea Reviews
-  const reviewsSection = document.querySelector('#reviews') || document.querySelector('#reviews-section') || document.querySelector('.reviews');
-  if (reviewsSection && reviewsSection.classList.contains('active')) {
-    if (paginationEl) paginationEl.classList.remove('hidden');
-  } else {
-    if (paginationEl) paginationEl.classList.add('hidden');
+    reviewsContainer.innerHTML = '<p>No reviews yet.</p>';
+    paginationEl.classList.add('hidden');
+    return;
   }
-}
-    visible.forEach(r => {
-      const card = document.createElement('div');
-      card.className = 'review-card glassy';
-      let img = `assets/logos/reviews/3star_icon_${r.gender || 'male'}.gif`;
-      if (r.rating >= 1 && r.rating <= 2)
-        img = `assets/logos/reviews/1star_icon_${r.gender || 'male'}.gif`;
-      else if (r.rating >= 3 && r.rating <= 4)
-        img = `assets/logos/reviews/3star_icon_${r.gender || 'male'}.gif`;
-      else if (r.rating === 5)
-        img = `assets/logos/reviews/5star_icon_${r.gender || 'male'}.gif`;
-      const svcEmoji = r.service === 'web' ? '🌐' : r.service === 'prog' ? '💻' : '🎬';
-      const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
-      card.innerHTML = `
-        <div class="review-header">
-          <img class="author-img" src="${img}" alt="${escapeHtml(r.gender || '')}">
-          <div class="review-meta">
-            <div class="meta-top">
-              <h4 class="meta-name">${escapeHtml(r.name)} <span class="service-emoji">${svcEmoji}</span>
-                ${r.badge ? `<span class="badge">${r.badge}</span>` : ''}
-              </h4>
-              <div class="meta-sub"><small class="meta-count">${r.totalReviews || 1} reviews</small></div>
-            </div>
-          </div>
-          <div class="review-rating">${stars}</div>
-        </div>
-        <p class="review-text">${escapeHtml(r.message)}</p>
-        <div class="review-actions-row">
-          <div class="action-left">
-            <button class="like-btn" data-id="${r.id}">👍 <span class="like-count">${r.likes || 0}</span></button>
-            <button class="dislike-btn" data-id="${r.id}">👎 <span class="dislike-count">${r.dislikes || 0}</span></button>
-            <button class="reply-btn" data-id="${r.id}">💬 <span class="reply-count">0</span></button>
-          </div>
-          <div class="action-right">
-            <small class="review-date">${new Date(r.date).toLocaleString()}</small>
-          </div>
-        </div>
-        <div class="reply-list" id="replies-${r.id}"></div>
-      `;
-      reviewsContainer.appendChild(card);
+  const reviewsSection = document.querySelector('#reviews');
+  if(reviewsSection && reviewsSection.classList.contains('active'))
+    paginationEl.classList.remove('hidden');
+  else paginationEl.classList.add('hidden');
 
-      // wire like/dislike
-      const likeBtn = card.querySelector('.like-btn');
-      const dislikeBtn = card.querySelector('.dislike-btn');
-      const likeCountSpan = card.querySelector('.like-count');
-      const dislikeCountSpan = card.querySelector('.dislike-count');
-      const replyBtn = card.querySelector('.reply-btn');
-      const replyListEl = card.querySelector(`#replies-${r.id}`);
-      // === REPLIES MODAL HANDLING ===
-const modal = document.getElementById('replies-modal');
-const modalBody = document.getElementById('replies-body');
-const modalTitle = document.getElementById('replies-title');
-const closeBtn = document.getElementById('replies-close');
-const sendBtn = document.getElementById('send-reply');
-const msgInputReply = document.getElementById('reply-message');
+  visible.forEach(r=>{
+    const stars = '★'.repeat(r.rating)+'☆'.repeat(5-r.rating);
+    const emoji = r.service==='web'?'🌐':r.service==='prog'?'💻':'🎬';
+    const card = document.createElement('div');
+    card.className='review-card glassy';
+    card.innerHTML=`
+      <div class="review-header">
+        <img src="assets/logos/reviews/3star_icon_${r.gender}.gif" class="author-img">
+        <div class="review-meta">
+          <h4>${escapeHtml(r.name)} <span>${emoji}</span></h4>
+        </div>
+        <div class="review-rating">${stars}</div>
+      </div>
+      <p class="review-text">${escapeHtml(r.message)}</p>
+      <div class="review-actions-row">
+        <div>
+          <button class="like-btn" data-id="${r.id}">👍 ${r.likes||0}</button>
+          <button class="dislike-btn" data-id="${r.id}">👎 ${r.dislikes||0}</button>
+          <button class="reply-btn" data-id="${r.id}">💬 Reply</button>
+        </div>
+        <small>${new Date(r.date).toLocaleString()}</small>
+      </div>
+    `;
+    reviewsContainer.appendChild(card);
+    card.querySelector('.like-btn').onclick=()=>voteReview(r.id,'likes');
+    card.querySelector('.dislike-btn').onclick=()=>voteReview(r.id,'dislikes');
+    card.querySelector('.reply-btn').onclick=()=>openRepliesModal(r);
+  });
+  pageInfo.textContent=`Page ${currentPage} / ${maxPage}`;
+  prevBtn.onclick=()=>{if(currentPage>1){currentPage--;renderPage();}};
+  nextBtn.onclick=()=>{if(currentPage<maxPage){currentPage++;renderPage();}};
+}
+
+function voteReview(id,type){
+  db.ref(`reviews/${id}/${type}`).transaction(v=>(v||0)+1);
+}
+
+// === INITIAL LOAD ===
+loadReviews();
+// =====================
+// CMD 2/3 - REPLIES SYSTEM
+// =====================
+
+// DOM hooks pentru modal replies (asigură-te că ai aceste elemente în index.html)
+const repliesModal = q('#replies-modal');          // wrapper modal
+const repliesBody = q('#replies-body');            // container replies list
+const repliesTitle = q('#replies-title');          // titlu modal
+const repliesClose = q('#replies-close');          // buton închidere
+const sendReplyBtn = q('#send-reply');             // buton trimitere reply
+const replyMsgInput = q('#reply-message');         // textarea reply
+const replyNameInput = q('#reply-name');           // input nume reply (obligatoriu)
+const replyGenderRadios = qa('input[name="reply-gender"]'); // radio gender in modal
+
 let activeReviewId = null;
 let replyGender = 'male';
 
-document.querySelectorAll('input[name="reply-gender"]').forEach(r => {
-  r.addEventListener('change', () => replyGender = r.value);
-});
+// asigurare elemente existente
+if(!repliesModal || !repliesBody || !repliesTitle || !repliesClose || !sendReplyBtn || !replyMsgInput || !replyNameInput){
+  console.warn('Elemente modal replies lipsesc din DOM; verifică index.html pentru: #replies-modal, #replies-body, #replies-title, #replies-close, #send-reply, #reply-message, #reply-name');
+}
 
-if (closeBtn) closeBtn.onclick = () => modal.classList.add('hidden');
+// radio gender handling
+replyGenderRadios.forEach(r => r.addEventListener('change', () => replyGender = r.value));
 
-// când apăsăm pe 💬
-replyBtn.addEventListener('click', () => {
-  activeReviewId = r.id;
-  modalTitle.textContent = `${r.name}'s review comment section 💬`;
-  modal.classList.remove('hidden');
-  loadRepliesForReview(r.id);
-});
-
-// încarcă reply-urile
-function loadRepliesForReview(reviewId) {
-  modalBody.innerHTML = '<p>Loading...</p>';
-  db.ref(`reviews/${reviewId}/replies`).on('value', snap => {
-    const data = snap.val() || {};
-    modalBody.innerHTML = '';
-
-    Object.entries(data).forEach(([key, rep]) => {
-      const avatarSrc = `assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif`;
-      const wrapper = document.createElement('div');
-      wrapper.className = `chat-row ${rep.gender || 'male'}`;
-
-      const avatar = document.createElement('img');
-      avatar.className = 'chat-avatar';
-      avatar.src = avatarSrc;
-      avatar.alt = rep.gender || 'avatar';
-
-      const bubble = document.createElement('div');
-      bubble.className = `chat-bubble ${rep.gender || 'male'}`;
-      bubble.innerHTML = `<div class="chat-name">${escapeHtml(rep.name || 'Anonymous')}</div>
-                          <div class="chat-text">${escapeHtml(rep.text)}</div>`;
-
-      // Reacții ascunse sub săgeată
-      const toggle = document.createElement('button');
-      toggle.className = 'reaction-toggle';
-      toggle.textContent = '▶';
-      const reactions = document.createElement('div');
-      reactions.className = 'reactions-bar hidden';
-
-      const emojis = ['❤️','😂','😡','👍','👎'];
-      emojis.forEach(e => {
-        const count = rep.reactions && rep.reactions[e] ? Object.keys(rep.reactions[e]).length : 0;
-        const btn = document.createElement('button');
-        btn.className = 'reaction-btn';
-        btn.dataset.emoji = e;
-        btn.dataset.id = key;
-        btn.innerHTML = `${e} <span class="reaction-count">${count}</span>`;
-        reactions.appendChild(btn);
-      });
-
-      toggle.addEventListener('click', () => {
-        reactions.classList.toggle('hidden');
-        toggle.textContent = reactions.classList.contains('hidden') ? '▶' : '▼';
-      });
-
-      bubble.appendChild(toggle);
-      bubble.appendChild(reactions);
-
-      wrapper.appendChild(avatar);
-      wrapper.appendChild(bubble);
-      modalBody.appendChild(wrapper);
-    });
+// inchidere modal
+if(repliesClose){
+  repliesClose.addEventListener('click', () => {
+    repliesModal.classList.add('hidden');
+    // detach listeners from previous review to avoid duplicate events
+    if(activeReviewId) db.ref(`reviews/${activeReviewId}/replies`).off();
+    activeReviewId = null;
   });
 }
-      // reflect local vote state
-      const lv = localStorage.getItem(`vote_${r.id}_${clientId}`);
-      if(lv === '1' && likeBtn) likeBtn.disabled = true;
-      if(lv === '-1' && dislikeBtn) dislikeBtn.disabled = true;
 
-      if(likeBtn){
-        likeBtn.addEventListener('click', function(){
-          const reviewId = this.dataset.id;
-          const voteRef = db.ref(`reviews/${reviewId}/votes/${clientId}`);
-          voteRef.transaction(curr => {
-            if(curr && curr.vote) return curr;
-            return { vote: 1, at: new Date().toISOString() };
-          }, (err, committed, snap) => {
-            if(err) { console.error(err); return; }
-            if(!committed){
-              alert('Ai votat deja acest review.');
-              return;
-            }
-            // inc likes
-            db.ref(`reviews/${reviewId}/likes`).transaction(l => (l || 0) + 1);
-            localStorage.setItem(`vote_${reviewId}_${clientId}`, '1');
-            likeBtn.disabled = true;
-            // update UI optimistic
-            const n = Number(likeCountSpan.textContent || 0) + 1;
-            likeCountSpan.textContent = n;
-          });
-        });
-      }
-      if(dislikeBtn){
-        dislikeBtn.addEventListener('click', function(){
-          const reviewId = this.dataset.id;
-          const voteRef = db.ref(`reviews/${reviewId}/votes/${clientId}`);
-          voteRef.transaction(curr => {
-            if(curr && curr.vote) return curr;
-            return { vote: -1, at: new Date().toISOString() };
-          }, (err, committed, snap) => {
-            if(err) { console.error(err); return; }
-            if(!committed){
-              alert('Ai votat deja acest review.');
-              return;
-            }
-            db.ref(`reviews/${reviewId}/dislikes`).transaction(d => (d || 0) + 1);
-            localStorage.setItem(`vote_${reviewId}_${clientId}`, '-1');
-            dislikeBtn.disabled = true;
-            const n = Number(dislikeCountSpan.textContent || 0) + 1;
-            dislikeCountSpan.textContent = n;
-          });
-        });
-      }
+// funcție de deschidere modal și încărcare replies
+function openRepliesModal(review){
+  activeReviewId = review.id;
+  repliesTitle.textContent = `${review.name} — comment section`;
+  repliesModal.classList.remove('hidden');
+  replyMsgInput.value = '';
+  replyNameInput.value = '';
+  // default gender
+  replyGender = 'male';
+  const firstRadio = replyGenderRadios.find(r => r.value === 'male');
+  if(firstRadio) firstRadio.checked = true;
 
-      // replies: monitor replies child count and render
-      db.ref(`reviews/${r.id}/replies`).on('value', snap => {
-        const val = snap.val() || {};
-        const keys = Object.keys(val);
-        const count = keys.length;
-        const replyCountSpan = card.querySelector('.reply-count');
-        if(replyCountSpan) replyCountSpan.textContent = count;
-        // render thread inline (collapsed) - show top-level replies inline (1 level), full view in modal
-        replyListEl.innerHTML = '';
-        const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2); // show up to 2 replies inline
-        arr.forEach(rep => {
-          const div = document.createElement('div');
-          div.className = 'reply-inline';
-          const img = `assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif`;
-          div.innerHTML = `<img class="reply-author-img" src="${img}" alt="">
-            <strong>${escapeHtml(rep.name)}</strong> <small class="reply-date-inline">${new Date(rep.date).toLocaleDateString()}</small>
-            <div class="reply-text-inline">${escapeHtml(rep.text)}</div>`;
-          replyListEl.appendChild(div);
-        });
-      });
+  loadRepliesForReview(activeReviewId);
+  // actualizează counterul afișat pe card (optional)
+  updateReplyCountForReview(activeReviewId);
+}
 
-      // open reply modal
-      if(replyBtn){
-        replyBtn.addEventListener('click', function(){
-          openReplyDialog(r.id);
-        });
-      }
-    });
+// încarcă reply-urile pentru o recenzie; atasează listener 'value' pentru actualizări live
+function loadRepliesForReview(reviewId){
+  // safety: curăță container
+  repliesBody.innerHTML = '<p class="muted">Loading replies…</p>';
 
-    // pagination UI
-    if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
-    if(prevBtn) prevBtn.disabled = currentPage <= 1;
-    if(nextBtn) nextBtn.disabled = currentPage >= maxPage;
-    // ensure pagination placed in footer (if footer exists)
-    const footer = document.querySelector('footer');
-    if(footer && paginationEl){
-      footer.appendChild(paginationEl);
-      paginationEl.classList.remove('hidden');
+  // detach anterior
+  db.ref(`reviews/${reviewId}/replies`).off();
+
+  // attach new listener
+  db.ref(`reviews/${reviewId}/replies`).on('value', snap => {
+    repliesBody.innerHTML = '';
+    if(!snap.exists()){
+      repliesBody.innerHTML = '<p class="muted">No replies yet. Be the first!</p>';
+      return;
     }
 
-  } catch(err){
-    console.error('renderPage error', err);
+    // colectăm toate replies într-un array sortat după dată ascendentă
+    const arr = [];
+    snap.forEach(child => {
+      const val = child.val();
+      val.id = child.key;
+      arr.push(val);
+    });
+    arr.sort((a,b) => new Date(a.date) - new Date(b.date));
+
+    // construire DOM
+    arr.forEach(r => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'reply-item glassy';
+      const avatar = `assets/logos/reviews/3star_icon_${r.gender || 'male'}.gif`;
+      wrapper.innerHTML = `
+        <div class="reply-top">
+          <img class="reply-avatar" src="${avatar}" alt="${escapeHtml(r.name || '')}">
+          <div class="reply-meta">
+            <strong class="reply-name">${escapeHtml(r.name || 'Anonymous')}</strong>
+            <small class="reply-date">${new Date(r.date).toLocaleString()}</small>
+          </div>
+        </div>
+        <div class="reply-text">${escapeHtml(r.message)}</div>
+        <div class="reply-actions">
+          <button class="reply-like" data-id="${r.id}">👍 <span class="count-like">${r.likes||0}</span></button>
+          <button class="reply-dislike" data-id="${r.id}">👎 <span class="count-dislike">${r.dislikes||0}</span></button>
+        </div>
+      `;
+      repliesBody.appendChild(wrapper);
+
+      // atașăm evenimentele pentru like/dislike pe reply
+      const likeBtn = wrapper.querySelector('.reply-like');
+      const dislikeBtn = wrapper.querySelector('.reply-dislike');
+
+      likeBtn.onclick = () => {
+        const path = `reviews/${reviewId}/replies/${r.id}/likes`;
+        db.ref(path).transaction(v => (v||0) + 1);
+      };
+      dislikeBtn.onclick = () => {
+        const path = `reviews/${reviewId}/replies/${r.id}/dislikes`;
+        db.ref(path).transaction(v => (v||0) + 1);
+      };
+    });
+
+    // actualizează counterul din card (dacă e afișat)
+    updateReplyCountForReview(reviewId);
+  });
+}
+
+// trimite reply — validare nume + mesaj (nu se acceptă Anonymous)
+if(sendReplyBtn){
+  sendReplyBtn.addEventListener('click', () => {
+    const name = (replyNameInput.value || '').trim();
+    const msg = (replyMsgInput.value || '').trim();
+    if(!activeReviewId) return alert('Nicio recenzie selectată.');
+    if(!name) return alert('Introdu numele înainte de a trimite reply.');
+    if(!msg) return alert('Scrie un mesaj înainte de a trimite.');
+
+    const payload = {
+      name,
+      gender: replyGender || 'male',
+      message: msg,
+      likes: 0,
+      dislikes: 0,
+      date: new Date().toISOString()
+    };
+
+    // push reply
+    db.ref(`reviews/${activeReviewId}/replies`).push(payload)
+      .then(() => {
+        // clear inputs and refresh (listener va actualiza lista automat)
+        replyMsgInput.value = '';
+        replyNameInput.value = '';
+        // actualizează counterul în card
+        updateReplyCountForReview(activeReviewId);
+      })
+      .catch(err => {
+        console.error('Error pushing reply:', err);
+        alert('Eroare la trimitere. Vezi consola.');
+      });
+  });
+}
+
+// utilitar: actualizează badge-ul/număr reply din cardul principal
+function updateReplyCountForReview(reviewId){
+  // găsește butonul/elementul din DOM cu data-id === reviewId și update span.reply-count
+  db.ref(`reviews/${reviewId}/replies`).once('value').then(snap => {
+    const count = snap.exists() ? Object.keys(snap.val()).length : 0;
+    // update în card (dacă e afișat)
+    const btn = document.querySelector(`.reply-btn[data-id="${reviewId}"]`);
+    if(btn){
+      const span = btn.querySelector('.reply-count') || (() => {
+        const s = document.createElement('span');
+        s.className = 'reply-count';
+        btn.appendChild(s);
+        return s;
+      })();
+      span.textContent = count;
+    }
+  }).catch(e=>{
+    console.warn('updateReplyCountForReview err', e);
+  });
+}
+// =====================
+// CMD 3/3 — FINALIZARE + OPTIMIZĂRI
+// =====================
+
+// === PROTECȚII + CLEANUP ===
+
+// când utilizatorul schimbă secțiunea (de exemplu, iese din Reviews),
+// ascundem modalul și detasăm listener-ele Firebase pentru replies.
+function closeRepliesModalSafe() {
+  if (repliesModal && !repliesModal.classList.contains('hidden')) {
+    repliesModal.classList.add('hidden');
+  }
+  if (activeReviewId) {
+    db.ref(`reviews/${activeReviewId}/replies`).off();
+    activeReviewId = null;
   }
 }
+window.addEventListener('hashchange', closeRepliesModalSafe);
+window.addEventListener('popstate', closeRepliesModalSafe);
 
-// pagination listeners
-if(prevBtn){
-  prevBtn.addEventListener('click', function(){
-    if(currentPage > 1){ currentPage -= 1; renderPage(); }
-  });
+// === Debounce simplu pentru voturi (anti-spam) ===
+const recentVotes = new Map();
+function canVote(id, type) {
+  const key = `${id}_${type}`;
+  const last = recentVotes.get(key) || 0;
+  const now = Date.now();
+  if (now - last < 1000) return false; // 1 sec minimal
+  recentVotes.set(key, now);
+  return true;
 }
-if(nextBtn){
-  nextBtn.addEventListener('click', function(){
-    currentPage += 1;
-    renderPage();
-  });
-}
-
-// === replies modal & nested replies (max depth 7)
-function buildReplyTree(flat){
-  const map = {};
-  flat.forEach(r => { map[r.id] = Object.assign({}, r, { children: [] }); });
-  const roots = [];
-  flat.forEach(r => {
-    if(r.parentId && map[r.parentId]) map[r.parentId].children.push(map[r.id]);
-    else roots.push(map[r.id]);
-  });
-  return roots;
+function voteReview(id, type) {
+  if (!canVote(id, type)) return;
+  db.ref(`reviews/${id}/${type}`).transaction(v => (v || 0) + 1);
 }
 
-// === initial load
-window.addEventListener('load', function(){
+// === Helper pentru a reseta form vizual după submit ===
+function resetFormUI() {
+  form.reset();
+  selectedRating = 0;
+  selectedService = null;
+  selectedGender = '';
+  starEls.forEach(s => s.classList.remove('active'));
+  serviceBtns.forEach(b => b.classList.remove('active'));
+  charCount.textContent = '0 / 100';
+  if (genderPreview) genderPreview.src = `assets/logos/reviews/3star_icon_male.gif`;
+}
+
+// === BONUS: Tooltip mini pentru succes review ===
+function showTempNotif(text = 'Submitted!') {
+  const n = document.createElement('div');
+  n.className = 'notif-toast';
+  n.textContent = text;
+  document.body.appendChild(n);
+  setTimeout(() => n.classList.add('show'), 10);
+  setTimeout(() => {
+    n.classList.remove('show');
+    setTimeout(() => n.remove(), 300);
+  }, 2500);
+}
+
+// CSS temporar injectat (doar dacă nu există deja)
+if (!document.querySelector('#notif-toast-style')) {
+  const style = document.createElement('style');
+  style.id = 'notif-toast-style';
+  style.textContent = `
+  .notif-toast {
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 12px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: all 0.4s ease;
+    z-index: 99999;
+  }
+  .notif-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  body.dark-mode .notif-toast {
+    background: rgba(255,217,90,0.9);
+    color: #000;
+  }`;
+  document.head.appendChild(style);
+}
+
+// === RESUBMIT form + notif integrate ===
+if (form) {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = q('#name').value.trim();
+    const gender = selectedGender;
+    const message = msgInput.value.trim();
+    if (!name || !gender || !message || !selectedRating || !selectedService) {
+      return alert('Completează toate câmpurile și selectează rating + serviciu!');
+    }
+
+    let imgFile = `3star_icon_${gender}.gif`;
+    if (selectedRating <= 2) imgFile = `1star_icon_${gender}.gif`;
+    else if (selectedRating === 5) imgFile = `5star_icon_${gender}.gif`;
+
+    const review = {
+      name,
+      gender,
+      message,
+      image: imgFile,
+      rating: selectedRating,
+      service: selectedService,
+      date: new Date().toISOString(),
+      likes: 0,
+      dislikes: 0
+    };
+
+    db.ref('reviews')
+      .push(review)
+      .then(() => {
+        resetFormUI();
+        showTempNotif('✅ Review adăugat cu succes!');
+      })
+      .catch(err => {
+        console.error('Firebase write error', err);
+        alert('Eroare la salvare. Vezi consola.');
+      });
+  });
+}
+
+// === Initializare completă ===
+document.addEventListener('DOMContentLoaded', () => {
   loadReviews();
-  updateSortButtonsUI();
+
+  // handle pagination navigation (rezolvat UI)
+  if (prevBtn) prevBtn.addEventListener('click', () => {
+    if (currentPage > 1) {
+      currentPage--;
+      renderPage();
+    }
+  });
+  if (nextBtn) nextBtn.addEventListener('click', () => {
+    const filtered = getFilteredSorted();
+    const maxPage = Math.ceil(filtered.length / PER_PAGE);
+    if (currentPage < maxPage) {
+      currentPage++;
+      renderPage();
+    }
+  });
 });
+
+// === FINAL: Log info ===
+console.log('%c[ANDZ Reviews Script] ✅ Loaded successfully.', 'color:#ffd95a;font-weight:bold;');
