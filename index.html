@@ -193,52 +193,6 @@
   </div>
   <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-<!-- REVIEWS SECTION -->
-<section id="reviews" class="hidden section reviews-new">
-  <div class="reviews-bg"></div>
-
-  <h2 class="reviews-title">✨ User Reviews</h2>
-
-  <div class="reviews-layout">
-    <!-- LEFT SIDE - FORM -->
-    <div class="review-form glassy">
-      <h3>Leave Your Feedback 💬</h3>
-      <form id="review-form">
-
-        <label>Name:</label>
-        <input type="text" id="name" name="name" placeholder="Your name..." required>
-
-        <label>Gender:</label>
-        <div class="gender-pick">
-          <label><input type="radio" name="gender" value="male"><img src="assets/logos/reviews/male.gif" alt="male"></label>
-          <label><input type="radio" name="gender" value="female"><img src="assets/logos/reviews/female.gif" alt="female"></label>
-        </div>
-
-        <label>Rating:</label>
-        <div class="stars" id="rating-stars">
-          <span data-value="1">★</span>
-          <span data-value="2">★</span>
-          <span data-value="3">★</span>
-          <span data-value="4">★</span>
-          <span data-value="5">★</span>
-        </div>
-
-        <label>Service:</label>
-        <div class="service-pick" id="service-pick">
-          <button type="button" data-value="web">🌐 Web Dev</button>
-          <button type="button" data-value="prog">💻 Programming</button>
-          <button type="button" data-value="edit">🎬 Editing</button>
-        </div>
-
-        <label>Description:</label>
-        <textarea id="message" name="message" maxlength="100" placeholder="Your short feedback..." required></textarea>
-        <div id="char-count">0 / 100</div>
-
-        <button type="submit" class="btn-glow">Submit Review</button>
-      </form>
-    </div>
-
-    <!-- RIGHT SIDE - AVG STATS -->
 <div class="review-stats glassy">
   <h3>Average Ratings</h3>
 
@@ -258,43 +212,13 @@
     </div>
   </div>
 
-<!-- Sub-averages -->
-<div class="avg-sub" id="avg-sub">
-  <button class="avg-sub-btn" data-service="web">🌐 <span id="avg-web">0.00</span></button>
-  <button class="avg-sub-btn" data-service="prog">💻 <span id="avg-prog">0.00</span></button>
-  <button class="avg-sub-btn" data-service="edit">🎬 <span id="avg-edit">0.00</span></button>
-</div>
-
-<!-- Filters Section -->
-<div class="filter-section">
-  <h4>Filter Reviews</h4>
-  <div class="filter-options">
-    <select id="sort-select">
-      <option value="recent">Most Recent</option>
-      <option value="oldest">Oldest</option>
-      <option value="highest">Highest Rating</option>
-      <option value="lowest">Lowest Rating</option>
-    </select>
-
-    <select id="service-filter">
-      <option value="all">All Services</option>
-      <option value="web">🌐 Web Dev</option>
-      <option value="prog">💻 Programming</option>
-      <option value="edit">🎬 Editing</option>
-    </select>
+  <!-- Sub-averages -->
+  <div class="avg-sub">
+    <div><span id="avg-web">🌐 0.0</span></div>
+    <div><span id="avg-prog">💻 0.0</span></div>
+    <div><span id="avg-edit">🎬 0.0</span></div>
   </div>
 </div>
-  <!-- REVIEWS LIST -->
-  <div id="reviews-container" class="reviews-container"></div>
-  <p id="no-reviews">No reviews yet. Be the first to share your experience 💭</p>
-
-  <!-- PAGINATION -->
-  <div class="pagination hidden">
-    <button id="prev-page">⬅ Prev</button>
-    <span id="page-info">Page 1</span>
-    <button id="next-page">Next ➡</button>
-  </div>
-</section>
   <footer>
     <p id="footer-text"></p>
   </footer>
