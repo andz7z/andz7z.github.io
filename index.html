@@ -316,6 +316,29 @@
     <button id="next-page">Next ➡</button>
   </div>
 </section>
+  <!-- === REPLIES MODAL (CHAT STYLE) === -->
+<div id="replies-modal" class="hidden">
+  <div class="replies-overlay"></div>
+  <div class="replies-window glassy">
+    <div class="replies-header">
+      <h3 id="replies-title">Review Comment Section 💬</h3>
+      <button id="replies-close">×</button>
+    </div>
+
+    <div class="replies-body" id="replies-body">
+      <!-- replies injected dynamically -->
+    </div>
+
+    <div class="replies-input">
+      <div class="gender-select">
+        <label><input type="radio" name="reply-gender" value="male"><img src="assets/logos/reviews/3star_icon_male.gif" alt="male"></label>
+        <label><input type="radio" name="reply-gender" value="female"><img src="assets/logos/reviews/3star_icon_female.gif" alt="female"></label>
+      </div>
+      <input type="text" id="reply-message" placeholder="Leave a comment..." maxlength="120">
+      <button id="send-reply">Send 💬</button>
+    </div>
+  </div>
+</div>
   <footer>
     <p id="footer-text"></p>
   </footer>
