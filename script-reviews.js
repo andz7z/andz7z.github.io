@@ -429,6 +429,7 @@ replyBtn.addEventListener('click', () => {
 
 // încarcă reply-urile
 function loadRepliesForReview(reviewId) {
+  activeReviewId = reviewId;
   modalBody.innerHTML = '<p>Loading...</p>';
   db.ref(`reviews/${reviewId}/replies`).on('value', snap => {
     const data = snap.val() || {};
