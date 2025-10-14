@@ -371,6 +371,39 @@ if (replyBtn) {
         <div class="reply-list" id="replies-${r.id}"></div>
       `;
       reviewsContainer.appendChild(card);
+      // === REACTIONS ===
+const reactionRow = document.createElement('div');
+reactionRow.className = 'review-reactions';
+reactionRow.innerHTML = `
+  <button class="reaction-btn" data-type="🔥">🔥 <span class="reaction-count">${r.reactions?.['🔥'] || 0}</span></button>
+  <button class="reaction-btn" data-type="😂">😂 <span class="reaction-count">${r.reactions?.['😂'] || 0}</span></button>
+  <button class="reaction-btn" data-type="❤️">❤️ <span class="reaction-count">${r.reactions?.['❤️'] || 0}</span></button>
+`;
+card.appendChild(reactionRow);
+
+const reactionButtons = reactionRow.querySelectorAll('.reaction-btn');
+reactionButtons.forEach(reactionBtn => {
+  const type = reactionBtn.dataset.type;
+  const countSpan = reactionBtn.querySelector('.reaction-count');
+  const userReactedKey = `reacted_${r.id}_${type}`;
+
+  reactionBtn.addEventListener('click', () => {
+    if (localStorage.getItem(userReactedKey)) {
+      alert(`You've already reacted with ${type} to this review!`);
+      return;
+    }
+
+    const reviewRef = firebase.database().ref(`reviews/${r.id}/reactions/${type}`);
+    reviewRef.transaction(count => (count || 0) + 1, err => {
+      if (err) {
+        console.error('Failed to update reaction:', err);
+      } else {
+        countSpan.textContent = parseInt(countSpan.textContent) + 1;
+        localStorage.setItem(userReactedKey, 'true');
+      }
+    });
+  });
+});
 
       // wire like/dislike
       const likeBtn = card.querySelector('.like-btn');
