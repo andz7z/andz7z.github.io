@@ -1615,7 +1615,60 @@ footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:1
   flex-direction: column;
   gap: 10px;
 }
+/* === REPLIES INPUT AREA === */
+.replies-input {
+  display: flex;
+  flex-direction: column; /* 🔥 pune totul pe verticală */
+  align-items: stretch;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255,255,255,0.07);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+}
 
+/* face selectorul de gen mai compact */
+.replies-input .gender-select {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* input-urile de nume și mesaj */
+#reply-name,
+#reply-message {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+/* butonul de send */
+#send-reply {
+  width: 100%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #4a90e2, #6fc3ff);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#send-reply:hover {
+  background: linear-gradient(90deg, #6fc3ff, #4a90e2);
+}
+
+/* pentru ecrane mici: scrol și încape tot */
+.replies-window {
+  max-height: 90vh;
+  overflow-y: auto;
+}
 /* Chat bubbles */
 .chat-bubble {
   max-width: 80%;
