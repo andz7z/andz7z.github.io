@@ -379,6 +379,39 @@ const sendBtn = document.getElementById('send-reply');
 const msgInputReply = document.getElementById('reply-message');
 let activeReviewId = null;
 let replyGender = 'male';
+// === TRIMITERE REPLY ===
+if (sendBtn) {
+  sendBtn.onclick = () => {
+    const msg = msgInputReply.value.trim();
+    const name = document.getElementById('reply-name')?.value.trim();
+    if (!msg || !name) {
+      alert('Please enter your name and a message.');
+      return;
+    }
+
+    if (!activeReviewId) {
+      alert('No active review selected.');
+      return;
+    }
+
+    const replyObj = {
+      name: name,
+      text: msg, // vezi că în baza ta se numește text, nu message
+      gender: replyGender,
+      date: new Date().toISOString(),
+      likes: 0,
+      dislikes: 0
+    };
+
+    db.ref(`reviews/${activeReviewId}/replies`).push(replyObj).then(() => {
+      msgInputReply.value = '';
+      document.getElementById('reply-name').value = '';
+    }).catch(err => {
+      console.error('Error sending reply:', err);
+      alert('Eroare la trimiterea reply-ului.');
+    });
+  };
+}      
 
 document.querySelectorAll('input[name="reply-gender"]').forEach(r => {
   r.addEventListener('change', () => replyGender = r.value);
