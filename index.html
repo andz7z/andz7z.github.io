@@ -328,15 +328,26 @@
     <div class="replies-body" id="replies-body">
       <!-- replies injected dynamically -->
     </div>
+<div class="replies-input">
+  <div class="gender-select">
+    <label>
+      <input type="radio" name="reply-gender" value="male">
+      <img src="assets/logos/reviews/3star_icon_male.gif" alt="male">
+    </label>
+    <label>
+      <input type="radio" name="reply-gender" value="female">
+      <img src="assets/logos/reviews/3star_icon_female.gif" alt="female">
+    </label>
+  </div>
 
-    <div class="replies-input">
-      <div class="gender-select">
-        <label><input type="radio" name="reply-gender" value="male"><img src="assets/logos/reviews/3star_icon_male.gif" alt="male"></label>
-        <label><input type="radio" name="reply-gender" value="female"><img src="assets/logos/reviews/3star_icon_female.gif" alt="female"></label>
-      </div>
-      <input type="text" id="reply-message" placeholder="Leave a comment..." maxlength="120">
-      <button id="send-reply">Send 💬</button>
-    </div>
+  <!-- 🔥 Aici am adăugat inputul pentru nume -->
+  <input type="text" id="reply-name" placeholder="Your name..." maxlength="40">
+
+  <!-- inputul existent pentru mesaj -->
+  <input type="text" id="reply-message" placeholder="Leave a comment..." maxlength="120">
+
+  <button id="send-reply">Send 💬</button>
+</div>
   </div>
 </div>
   <footer>
