@@ -10,8 +10,6 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-let activeReviewId = null;
-let replyGender = 'male';
 // script-reviews.js
 // Presupunere: firebase este inițializat și ai db = firebase.database();
 // Include acest fișier DUPĂ firebase & firebase database script.
@@ -378,6 +376,8 @@ const modalTitle = document.getElementById('replies-title');
 const closeBtn = document.getElementById('replies-close');
 const sendBtn = document.getElementById('send-reply');
 const msgInputReply = document.getElementById('reply-message');
+let activeReviewId = null;
+let replyGender = 'male';
 // === TRIMITERE REPLY ===
 if (sendBtn) {
   sendBtn.onclick = () => {
