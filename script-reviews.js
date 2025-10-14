@@ -464,43 +464,14 @@ function loadRepliesForReview(reviewId) {
         btn.dataset.id = key;
         btn.innerHTML = `${e} <span class="reaction-count">${count}</span>`;
         reactions.appendChild(btn);
-        // ... Inside emojis.forEach(e => { ...
-        // ... after creating the 'btn' element
-        btn.addEventListener('click', function() {
-          const emoji = this.dataset.emoji;
-          const replyId = this.dataset.id;
-          const voteKey = `vote_reply_${replyId}_${clientId}_${emoji}`; // Unique key for client/reply/emoji
-
-          if (localStorage.getItem(voteKey)) {
-            alert('Ai votat deja această replică cu această reacție.');
-            return;
-          }
-          
-          // Use a transaction to ensure 1 vote per client per reaction type
-          // Path: reviews/{reviewId}/replies/{replyId}/reactions/{emoji}/{clientId}
-          db.ref(`reviews/${activeReviewId}/replies/${replyId}/reactions/${emoji}/${clientId}`)
-            .transaction(curr => {
-              if (curr) return; // Already voted
-              return { at: new Date().toISOString() };
-            }, (err, committed, snap) => {
-              if (err) { console.error(err); return; }
-              if (!committed) {
-                // Should not happen if localStorage check worked, but good safeguard
-                alert('Ai votat deja această replică cu această reacție.');
-                return;
-              }
-              
-              localStorage.setItem(voteKey, '1');
-              // Optimistic UI update:
-              const countSpan = this.querySelector('.reaction-count');
-              const n = Number(countSpan.textContent || 0) + 1;
-              countSpan.textContent = n;
-            });
-        });
-
-        reactions.appendChild(btn); // Add the button *after* wiring the listener
-    });
-
+        // === ACTIVEAZĂ reacțiile la reply-uri ===
+modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn => {
+  btn.onclick = e => {
+    const replyId = btn.dataset.id;
+    const type = btn.classList.contains('reply-like-btn') ? 'likes' : 'dislikes';
+    db.ref(`reviews/${activeReviewId}/replies/${replyId}/${type}`).transaction(val => (val || 0) + 1);
+  };
+});
       });
 
       toggle.addEventListener('click', () => {
