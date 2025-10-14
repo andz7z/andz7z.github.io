@@ -377,38 +377,6 @@ const modalTitle = document.getElementById('replies-title');
 const closeBtn = document.getElementById('replies-close');
 const sendBtn = document.getElementById('send-reply');
 const msgInputReply = document.getElementById('reply-message');
-const nameInputReply = document.getElementById('reply-name');
-
-if (sendBtn) {
-  sendBtn.onclick = () => {
-    const text = msgInputReply.value.trim();
-    const name = nameInputReply ? nameInputReply.value.trim() : '';
-    if (!text || !name) {
-      alert('Scrie numele și mesajul înainte de a trimite.');
-      return;
-    }
-    if (!activeReviewId) {
-      alert('Eroare internă: review neidentificat.');
-      return;
-    }
-    const replyData = {
-      name,
-      gender: replyGender,
-      text,
-      date: new Date().toISOString(),
-      likes: 0,
-    };
-    db.ref(`reviews/${activeReviewId}/replies`).push(replyData)
-      .then(() => {
-        msgInputReply.value = '';
-        nameInputReply.value = '';
-        loadRepliesForReview(activeReviewId);
-      })
-      .catch(err => {
-        console.error('Reply save error', err);
-      });
-  };
-}
 let activeReviewId = null;
 let replyGender = 'male';
 
@@ -432,38 +400,6 @@ function loadRepliesForReview(reviewId) {
   db.ref(`reviews/${reviewId}/replies`).on('value', snap => {
     const data = snap.val() || {};
     modalBody.innerHTML = '';
-
-    if (!Object.keys(data).length) {
-      modalBody.innerHTML = '<p>No replies yet. Be the first to comment 💬</p>';
-      return;
-    }
-
-    // construim toate reply-urile
-    Object.entries(data).forEach(([rid, val]) => {
-      const div = document.createElement('div');
-      div.className = 'reply-item glassy';
-      div.innerHTML = `
-        <div class="reply-header">
-          <img src="assets/logos/reviews/3star_icon_${val.gender || 'male'}.gif" alt="${escapeHtml(val.gender || '')}" class="reply-avatar">
-          <strong>${escapeHtml(val.name || 'Anonymous')}</strong>
-          <small>${new Date(val.date).toLocaleString()}</small>
-        </div>
-        <p class="reply-text">${escapeHtml(val.text)}</p>
-        <button class="reply-like-btn" data-reply-id="${rid}">❤️ ${val.likes || 0}</button>
-      `;
-      modalBody.appendChild(div);
-    });
-
-    // 💡 După ce reply-urile sunt afișate, conectăm butoanele de like
-    modalBody.querySelectorAll('.reply-like-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const replyId = btn.dataset.replyId;
-        const ref = db.ref(`reviews/${reviewId}/replies/${replyId}/likes`);
-        ref.transaction(val => (val || 0) + 1);
-      });
-    });
-  });
-}
 
     Object.entries(data).forEach(([key, rep]) => {
       const avatarSrc = `assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif`;
