@@ -389,11 +389,10 @@ if (sendBtn) {
       return;
     }
 
-    if (!activeReviewId) {
-      alert('No active review selected.');
-      return;
-    }
-
+if (!activeReviewId) {
+  alert('Something went wrong — please reopen this comment section.');
+  return;
+}
     const replyObj = {
       name: name,
       text: msg, // vezi că în baza ta se numește text, nu message
