@@ -323,6 +323,16 @@ function renderPage(){
   }
 }
     visible.forEach(r => {
+      // === Handle reply button click ===
+if (replyBtn) {
+  replyBtn.addEventListener('click', () => {
+    activeReviewId = r.id;
+    modal.classList.remove('hidden');
+    modalTitle.textContent = `Replies for ${r.name}'s review`;
+    modalBody.innerHTML = ''; // resetăm conținutul
+    loadReplies(r.id); // funcția care va încărca replies dacă există (poți adăuga-o mai jos)
+  });
+}
       const card = document.createElement('div');
       card.className = 'review-card glassy';
       let img = `assets/logos/reviews/3star_icon_${r.gender || 'male'}.gif`;
