@@ -432,6 +432,14 @@ function loadRepliesForReview(reviewId) {
         btn.dataset.id = key;
         btn.innerHTML = `${e} <span class="reaction-count">${count}</span>`;
         reactions.appendChild(btn);
+        // === ACTIVEAZĂ reacțiile la reply-uri ===
+modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn => {
+  btn.onclick = e => {
+    const replyId = btn.dataset.id;
+    const type = btn.classList.contains('reply-like-btn') ? 'likes' : 'dislikes';
+    db.ref(`reviews/${activeReviewId}/replies/${replyId}/${type}`).transaction(val => (val || 0) + 1);
+  };
+});
       });
 
       toggle.addEventListener('click', () => {
