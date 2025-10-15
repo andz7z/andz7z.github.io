@@ -1953,3 +1953,6 @@ body.dark-mode .sun,
 body.dark-mode .clouds {
   opacity: 0;
 }
+body.theme-transition * {
+  transition: all 1s ease !important;
+}
