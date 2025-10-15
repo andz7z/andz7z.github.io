@@ -408,12 +408,14 @@ if (mainTitle && navButtons && titleEl) {
     themeToggle.textContent = "🌙";
   }
 
-  themeToggle?.addEventListener("click", () => {
-    playClick();
-    const isDark = body.classList.toggle("dark-mode");
-    themeToggle.textContent = isDark ? "🌙" : "💡";
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  });
+themeToggle?.addEventListener("click", () => {
+  playClick();
+  body.classList.add("theme-transition");
+  const isDark = body.classList.toggle("dark-mode");
+  themeToggle.textContent = isDark ? "🌙" : "💡";
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+  setTimeout(() => body.classList.remove("theme-transition"), 1000);
+});
 
   // ===========================================================
   // ===== Starfield Generator =====
