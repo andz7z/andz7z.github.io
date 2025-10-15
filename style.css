@@ -1867,3 +1867,89 @@ body.dark-mode .chat-bubble.male {
 body.dark-mode .chat-bubble.female {
   background: linear-gradient(135deg, rgba(120,100,60,0.8), rgba(180,140,80,0.5));
 }
+/* ====== LOGO BACKGROUND (SUN / CLOUDS / MOON) ====== */
+.logo-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -52%);
+  width: 300px;
+  height: 160px;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(20px);
+}
+
+/* ☁️ CLOUDS - difuze, mișcare lentă */
+.clouds {
+  position: absolute;
+  width: 320px;
+  height: 120px;
+  background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.2) 70%);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: moveClouds 60s linear infinite alternate;
+  filter: blur(30px);
+}
+
+@keyframes moveClouds {
+  0% { transform: translateX(-15px); }
+  50% { transform: translateX(15px); }
+  100% { transform: translateX(-15px); }
+}
+
+/* ☀️ SUN - ice white glow */
+.sun {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  top: 10px;
+  right: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(180,220,255,0.2));
+  box-shadow: 0 0 30px rgba(200,230,255,0.6), 0 0 80px rgba(180,210,255,0.3);
+  animation: slowDrift 50s ease-in-out infinite alternate;
+}
+
+/* 🌙 MOON - golden glow */
+.moon {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  bottom: 15px;
+  right: 20px;
+  font-size: 3rem;
+  line-height: 80px;
+  text-align: center;
+  color: #ffd95a;
+  text-shadow: 0 0 25px rgba(255,217,90,0.6), 0 0 50px rgba(255,217,90,0.3);
+  opacity: 0;
+  transform: translate(10px, 0);
+  transition: opacity 1.5s ease, transform 2s ease;
+  animation: slowDrift 60s ease-in-out infinite alternate;
+}
+
+@keyframes slowDrift {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* 🌗 Transition logic */
+body:not(.dark-mode) .moon {
+  opacity: 0;
+  transform: translate(10px, 0);
+}
+body.dark-mode .moon {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+body:not(.dark-mode) .sun,
+body:not(.dark-mode) .clouds {
+  opacity: 1;
+}
+body.dark-mode .sun,
+body.dark-mode .clouds {
+  opacity: 0;
+}
