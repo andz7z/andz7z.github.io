@@ -1870,80 +1870,80 @@ body.dark-mode .chat-bubble.female {
 /* === ANDZ BACKGROUND ELEMENTS === */
 .andz-bg-elements {
   position: absolute;
-  top: 0;
+  top: -10px; /* ușor mai sus */
   left: 50%;
   transform: translateX(-50%);
-  width: 420px;
-  height: 220px;
+  width: 440px;
+  height: 240px;
   pointer-events: none;
   z-index: 1;
   overflow: visible;
 }
 
-/* ☁️ Clouds — mai organici, difuzi, rotunzi */
+/* ☁️ Clouds — mai sus, mai rotunzi, mai translucizi */
 .clouds {
   position: absolute;
-  top: 10%;
+  top: 0;
   left: 50%;
-  width: 420px;
+  width: 440px;
   height: 160px;
   transform: translateX(-50%);
   background:
-    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.05) 70%),
-    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.03) 80%),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.02) 90%);
+    radial-gradient(circle at 25% 40%, rgba(255,255,255,0.65) 0%, rgba(255,255,255,0.05) 80%),
+    radial-gradient(circle at 75% 60%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.03) 80%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.02) 90%);
   border-radius: 50%;
-  opacity: 0.4;
-  filter: blur(40px);
+  opacity: 0.55;
+  filter: blur(35px);
   animation: cloudsMorph 80s ease-in-out infinite alternate;
 }
 
 @keyframes cloudsMorph {
-  0% { transform: translate(-40px, 0) scale(1.05); opacity: 0.4; }
-  50% { transform: translate(40px, -10px) scale(1.1); opacity: 0.55; }
-  100% { transform: translate(-40px, 0) scale(1.05); opacity: 0.4; }
+  0% { transform: translate(-30px, 0) scale(1.05); opacity: 0.5; }
+  50% { transform: translate(30px, -10px) scale(1.08); opacity: 0.65; }
+  100% { transform: translate(-30px, 0) scale(1.05); opacity: 0.5; }
 }
 
-/* ☀️ Sun — glow difuz, alb-gheață */
+/* ☀️ Sun — mai sus, clar, dar difuz */
 .sun {
   position: absolute;
-  top: 35%;
-  right: 70px;
-  width: 110px;
-  height: 110px;
+  top: 15%; /* mai ridicat */
+  right: 60px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(200,225,255,0.25) 70%);
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(190,220,255,0.25) 70%);
   box-shadow:
-    0 0 40px rgba(210,230,255,0.6),
-    0 0 100px rgba(180,210,255,0.25),
-    0 0 180px rgba(180,210,255,0.15);
-  filter: blur(12px);
-  opacity: 0.8;
-  animation: sunFloat 45s ease-in-out infinite alternate;
+    0 0 60px rgba(210,230,255,0.5),
+    0 0 130px rgba(190,210,255,0.25),
+    0 0 200px rgba(190,210,255,0.2);
+  filter: blur(10px);
+  opacity: 0.9;
+  animation: sunFloat 50s ease-in-out infinite alternate;
 }
 
 @keyframes sunFloat {
   0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-6px) scale(1.05); }
+  50% { transform: translateY(-6px) scale(1.04); }
   100% { transform: translateY(0) scale(1); }
 }
 
-/* 🌙 Moon — ușor rotită și poziționată mai "cu fundul în sus" 😄 */
+/* 🌙 Moon — mai dreapta, mai sus, rotită ușor */
 .moon {
   position: absolute;
-  top: 15%;
-  right: -55px; /* mai spre dreapta */
+  top: 5%;
+  right: -75px; /* mai la dreapta */
   font-size: 3.4rem;
   color: #ffd95a;
   text-shadow:
-    0 0 25px rgba(255,217,90,0.7),
-    0 0 50px rgba(255,217,90,0.35),
-    0 0 80px rgba(255,217,90,0.2);
+    0 0 25px rgba(255,217,90,0.75),
+    0 0 60px rgba(255,217,90,0.4),
+    0 0 100px rgba(255,217,90,0.2);
   transform: rotate(-25deg) translateY(8px);
   opacity: 0;
-  filter: blur(1px);
-  transition: opacity 1.5s ease, transform 1.5s ease;
-  animation: moonFloat 50s ease-in-out infinite alternate;
+  filter: blur(0.5px);
+  transition: opacity 2s ease, transform 2s ease;
+  animation: moonFloat 60s ease-in-out infinite alternate;
 }
 
 @keyframes moonFloat {
@@ -1952,19 +1952,38 @@ body.dark-mode .chat-bubble.female {
   100% { transform: rotate(-25deg) translateY(8px); }
 }
 
-/* === Mode transitions === */
-body:not(.dark-mode) .moon { opacity: 0; transform: rotate(-25deg) translateY(8px); }
-body.dark-mode .moon { opacity: 1; transform: rotate(-25deg) translateY(0); }
+/* === SMOOTH DAY ↔ NIGHT TRANSITION === */
 
+/* Zi → fade lent */
+body:not(.dark-mode) .moon {
+  opacity: 0;
+  transform: rotate(-25deg) translateY(8px);
+}
+
+body.dark-mode .moon {
+  opacity: 1;
+  transform: rotate(-25deg) translateY(0);
+  transition-delay: 1s; /* 🌙 apare cu 1s întârziere */
+}
+
+/* ☀️ + ☁️ dispar lent */
 body.dark-mode .sun,
-body.dark-mode .clouds { opacity: 0; filter: blur(50px); }
+body.dark-mode .clouds {
+  opacity: 0;
+  filter: blur(45px);
+  transition: opacity 1.5s ease, filter 1.5s ease;
+}
 
+/* ☀️ + ☁️ vizibile doar în light */
 body:not(.dark-mode) .sun,
-body:not(.dark-mode) .clouds { opacity: 1; }
+body:not(.dark-mode) .clouds {
+  opacity: 1;
+  filter: blur(0);
+}
 
-/* Smooth transition on theme switch */
+/* Smooth global transition */
 body.theme-transition .andz-bg-elements * {
-  transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
+  transition: opacity 2s ease, transform 2s ease, filter 2s ease;
 }
 body.theme-transition * {
   transition: all 1s ease !important;
