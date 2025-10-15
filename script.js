@@ -414,7 +414,7 @@ themeToggle?.addEventListener("click", () => {
   const isDark = body.classList.toggle("dark-mode");
   themeToggle.textContent = isDark ? "🌙" : "💡";
   localStorage.setItem("theme", isDark ? "dark" : "light");
-  setTimeout(() => body.classList.remove("theme-transition"), 1000);
+  setTimeout(() => body.classList.remove("theme-transition"), 1200);
 });
 
   // ===========================================================
