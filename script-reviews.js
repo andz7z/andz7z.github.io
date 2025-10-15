@@ -402,7 +402,7 @@ function renderPage(){
   });
 });
       const replyListEl = card.querySelector(`#replies-${r.id}`);
-      // === REPLIES MODAL HANDLING ===
+// === REPLIES MODAL HANDLING ===
 const modal = document.getElementById('replies-modal');
 const modalBody = document.getElementById('replies-body');
 const modalTitle = document.getElementById('replies-title');
@@ -411,6 +411,43 @@ const sendBtn = document.getElementById('send-reply');
 const msgInputReply = document.getElementById('reply-message');
 let activeReviewId = null;
 let replyGender = 'male';
+
+// === click pe 💬 ===
+replyBtn.addEventListener('click', () => {
+  activeReviewId = r.id; // setăm ID-ul review-ului curent
+  modalTitle.textContent = `${r.name}'s review comment section 💬`;
+  modal.classList.remove('hidden');
+  modalBody.innerHTML = ''; // goli lista
+  msgInputReply.value = '';
+  document.getElementById('reply-name').value = '';
+
+  // încarcă reply-urile existente (dacă sunt)
+  db.ref(`reviews/${r.id}/replies`).once('value', snap => {
+    if (!snap.exists()) {
+      modalBody.innerHTML = `<p class="no-replies">No replies yet. Be the first to comment!</p>`;
+      return;
+    }
+
+    snap.forEach(child => {
+      const rep = child.val();
+      const repCard = document.createElement('div');
+      repCard.className = 'reply-card';
+      repCard.innerHTML = `
+        <div class="reply-header">
+          <strong>${escapeHtml(rep.name)}</strong>
+          <small>${new Date(rep.date).toLocaleString()}</small>
+        </div>
+        <p>${escapeHtml(rep.text)}</p>
+        <div class="reply-actions">
+          <button class="reply-like" data-id="${child.key}" data-review="${r.id}">👍 ${rep.likes || 0}</button>
+          <button class="reply-dislike" data-id="${child.key}" data-review="${r.id}">👎 ${rep.dislikes || 0}</button>
+        </div>
+      `;
+      modalBody.appendChild(repCard);
+    });
+  });
+});
+
 // === TRIMITERE REPLY ===
 if (sendBtn) {
   sendBtn.onclick = () => {
@@ -421,43 +458,50 @@ if (sendBtn) {
       return;
     }
 
-if (!activeReviewId) {
-  alert('Something went wrong — please reopen this comment section.');
-  return;
-}
+    if (!activeReviewId) {
+      alert('Something went wrong — please reopen this comment section.');
+      return;
+    }
+
     const replyObj = {
       name: name,
-      text: msg, // vezi că în baza ta se numește text, nu message
+      text: msg,
       gender: replyGender,
       date: new Date().toISOString(),
       likes: 0,
       dislikes: 0
     };
 
-    db.ref(`reviews/${activeReviewId}/replies`).push(replyObj).then(() => {
-      msgInputReply.value = '';
-      document.getElementById('reply-name').value = '';
-    }).catch(err => {
-      console.error('Error sending reply:', err);
-      alert('Eroare la trimiterea reply-ului.');
-    });
+    db.ref(`reviews/${activeReviewId}/replies`).push(replyObj)
+      .then(() => {
+        msgInputReply.value = '';
+        document.getElementById('reply-name').value = '';
+      })
+      .catch(err => {
+        console.error('Error sending reply:', err);
+        alert('Eroare la trimiterea reply-ului.');
+      });
   };
-}      
+}
 
+// === GENDER PICK ===
 document.querySelectorAll('input[name="reply-gender"]').forEach(r => {
   r.addEventListener('change', () => replyGender = r.value);
 });
 
+// === ÎNCHIDERE MODAL ===
 if (closeBtn) closeBtn.onclick = () => modal.classList.add('hidden');
 
-// când apăsăm pe 💬
-replyBtn.addEventListener('click', () => {
-  activeReviewId = r.id;
-  modalTitle.textContent = `${r.name}'s review comment section 💬`;
-  modal.classList.remove('hidden');
-  loadRepliesForReview(r.id);
+// === LIKE / DISLIKE pentru reply-uri ===
+modalBody.addEventListener('click', e => {
+  if (e.target.classList.contains('reply-like') || e.target.classList.contains('reply-dislike')) {
+    const isLike = e.target.classList.contains('reply-like');
+    const replyId = e.target.dataset.id;
+    const reviewId = e.target.dataset.review;
+    const refPath = `reviews/${reviewId}/replies/${replyId}/${isLike ? 'likes' : 'dislikes'}`;
+    db.ref(refPath).transaction(curr => (curr || 0) + 1);
+  }
 });
-
 // încarcă reply-urile
 function loadRepliesForReview(reviewId) {
   activeReviewId = reviewId;
