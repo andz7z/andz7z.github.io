@@ -1867,82 +1867,104 @@ body.dark-mode .chat-bubble.male {
 body.dark-mode .chat-bubble.female {
   background: linear-gradient(135deg, rgba(120,100,60,0.8), rgba(180,140,80,0.5));
 }
-/* === BACKGROUND BEHIND ANDZ === */
+/* === ANDZ BACKGROUND ELEMENTS === */
 .andz-bg-elements {
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 380px;
-  height: 200px;
+  width: 420px;
+  height: 220px;
   pointer-events: none;
   z-index: 1;
+  overflow: visible;
 }
 
-/* ☁️ Clouds */
+/* ☁️ Clouds — mai organici, difuzi, rotunzi */
 .clouds {
   position: absolute;
-  inset: 0;
+  top: 10%;
+  left: 50%;
+  width: 420px;
+  height: 160px;
+  transform: translateX(-50%);
   background:
-    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.1) 80%),
-    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.05) 70%);
-  opacity: 0.5;
-  filter: blur(30px);
-  animation: cloudsDrift 60s ease-in-out infinite alternate;
+    radial-gradient(circle at 30% 40%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.05) 70%),
+    radial-gradient(circle at 70% 60%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.03) 80%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.02) 90%);
+  border-radius: 50%;
+  opacity: 0.4;
+  filter: blur(40px);
+  animation: cloudsMorph 80s ease-in-out infinite alternate;
 }
 
-@keyframes cloudsDrift {
-  0% { transform: translateX(-20px); }
-  50% { transform: translateX(25px); }
-  100% { transform: translateX(-20px); }
+@keyframes cloudsMorph {
+  0% { transform: translate(-40px, 0) scale(1.05); opacity: 0.4; }
+  50% { transform: translate(40px, -10px) scale(1.1); opacity: 0.55; }
+  100% { transform: translate(-40px, 0) scale(1.05); opacity: 0.4; }
 }
 
-/* ☀️ Sun - ice white style */
+/* ☀️ Sun — glow difuz, alb-gheață */
 .sun {
   position: absolute;
   top: 35%;
-  right: 60px;
-  width: 90px;
-  height: 90px;
+  right: 70px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(210,230,255,0.25) 70%);
-  box-shadow: 0 0 40px rgba(200,230,255,0.5), 0 0 80px rgba(200,220,255,0.25);
-  opacity: 0.85;
-  filter: blur(8px);
-  animation: slowDrift 40s ease-in-out infinite alternate;
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(200,225,255,0.25) 70%);
+  box-shadow:
+    0 0 40px rgba(210,230,255,0.6),
+    0 0 100px rgba(180,210,255,0.25),
+    0 0 180px rgba(180,210,255,0.15);
+  filter: blur(12px);
+  opacity: 0.8;
+  animation: sunFloat 45s ease-in-out infinite alternate;
 }
 
-/* 🌙 Moon - next to Z */
+@keyframes sunFloat {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* 🌙 Moon — ușor rotită și poziționată mai "cu fundul în sus" 😄 */
 .moon {
   position: absolute;
-  top: 22%;
-  right: -35px; /* 👉 ajustăm poziția lângă litera Z */
-  font-size: 3.2rem;
+  top: 15%;
+  right: -55px; /* mai spre dreapta */
+  font-size: 3.4rem;
   color: #ffd95a;
-  text-shadow: 0 0 25px rgba(255,217,90,0.7), 0 0 55px rgba(255,217,90,0.35);
-  filter: blur(1px);
+  text-shadow:
+    0 0 25px rgba(255,217,90,0.7),
+    0 0 50px rgba(255,217,90,0.35),
+    0 0 80px rgba(255,217,90,0.2);
+  transform: rotate(-25deg) translateY(8px);
   opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 1.5s ease, transform 2s ease;
-  animation: slowDrift 55s ease-in-out infinite alternate;
+  filter: blur(1px);
+  transition: opacity 1.5s ease, transform 1.5s ease;
+  animation: moonFloat 50s ease-in-out infinite alternate;
 }
 
-@keyframes slowDrift {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
+@keyframes moonFloat {
+  0% { transform: rotate(-25deg) translateY(8px); }
+  50% { transform: rotate(-25deg) translateY(-4px); }
+  100% { transform: rotate(-25deg) translateY(8px); }
 }
 
-/* === MODE TRANSITIONS === */
-body:not(.dark-mode) .moon { opacity: 0; transform: translateY(10px); }
-body.dark-mode .moon { opacity: 1; transform: translateY(0); }
+/* === Mode transitions === */
+body:not(.dark-mode) .moon { opacity: 0; transform: rotate(-25deg) translateY(8px); }
+body.dark-mode .moon { opacity: 1; transform: rotate(-25deg) translateY(0); }
 
-body.dark-mode .sun, body.dark-mode .clouds { opacity: 0; }
-body:not(.dark-mode) .sun, body:not(.dark-mode) .clouds { opacity: 1; }
+body.dark-mode .sun,
+body.dark-mode .clouds { opacity: 0; filter: blur(50px); }
 
-/* Fade smooth pentru tot blocul */
+body:not(.dark-mode) .sun,
+body:not(.dark-mode) .clouds { opacity: 1; }
+
+/* Smooth transition on theme switch */
 body.theme-transition .andz-bg-elements * {
-  transition: opacity 1.2s ease, transform 1.2s ease;
+  transition: opacity 1.2s ease, transform 1.2s ease, filter 1.2s ease;
 }
 body.theme-transition * {
   transition: all 1s ease !important;
