@@ -388,28 +388,32 @@ if (sendBtn) {
       return;
     }
 
-if (!activeReviewId) {
-  alert('Something went wrong — please reopen this comment section.');
-  return;
-}
+    if (!activeReviewId) {
+      alert('No review selected. Please reopen the comment section.');
+      return;
+    }
+
     const replyObj = {
       name: name,
-      text: msg, // vezi că în baza ta se numește text, nu message
+      text: msg,
       gender: replyGender,
       date: new Date().toISOString(),
       likes: 0,
       dislikes: 0
     };
 
-    db.ref(`reviews/${activeReviewId}/replies`).push(replyObj).then(() => {
-      msgInputReply.value = '';
-      document.getElementById('reply-name').value = '';
-    }).catch(err => {
-      console.error('Error sending reply:', err);
-      alert('Eroare la trimiterea reply-ului.');
-    });
+    // 🧩 dacă nu există `replies`, Firebase o va crea automat
+    db.ref(`reviews/${activeReviewId}/replies`).push(replyObj)
+      .then(() => {
+        msgInputReply.value = '';
+        document.getElementById('reply-name').value = '';
+      })
+      .catch(err => {
+        console.error('Error sending reply:', err);
+        alert('Eroare la trimiterea reply-ului.');
+      });
   };
-}      
+}
 
 document.querySelectorAll('input[name="reply-gender"]').forEach(r => {
   r.addEventListener('change', () => replyGender = r.value);
