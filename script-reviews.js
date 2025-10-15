@@ -483,6 +483,7 @@ function loadRepliesForReview(reviewId) {
       // 🔹 Toggle reactions bar
       toggle.addEventListener('click', () => {
         reactions.classList.toggle('hidden');
+        toggle.textContent = reactions.classList.contains('hidden') ? '▶' : '▼';
       });
 
       bubble.appendChild(toggle);
@@ -498,25 +499,9 @@ function loadRepliesForReview(reviewId) {
         const replyId = btn.dataset.id;
         const emoji = btn.dataset.emoji;
         const path = `reviews/${activeReviewId}/replies/${replyId}/reactions/${emoji}`;
-        const userKey = clientId || ('u_' + Math.random().toString(36).slice(2,8));
+        const userKey = clientId || ('u_' + Math.random().toString(36).slice(2, 8));
         db.ref(`${path}/${userKey}`).set(true);
       };
-    });
-  });
-}
-      });
-
-      toggle.addEventListener('click', () => {
-        reactions.classList.toggle('hidden');
-        toggle.textContent = reactions.classList.contains('hidden') ? '▶' : '▼';
-      });
-
-      bubble.appendChild(toggle);
-      bubble.appendChild(reactions);
-
-      wrapper.appendChild(avatar);
-      wrapper.appendChild(bubble);
-      modalBody.appendChild(wrapper);
     });
   });
 }
