@@ -433,9 +433,16 @@ replyBtn.addEventListener('click', () => {
 function loadRepliesForReview(reviewId) {
   activeReviewId = reviewId;
   modalBody.innerHTML = '<p>Loading...</p>';
+
   db.ref(`reviews/${reviewId}/replies`).on('value', snap => {
-    const data = snap.val() || {};
+    const data = snap.val();
     modalBody.innerHTML = '';
+
+    // 🔹 Dacă nu există niciun reply
+    if (!data) {
+      modalBody.innerHTML = '<p style="opacity:0.7;">No replies yet. Be the first to comment! 💬</p>';
+      return;
+    }
 
     Object.entries(data).forEach(([key, rep]) => {
       const avatarSrc = `assets/logos/reviews/3star_icon_${rep.gender || 'male'}.gif`;
@@ -449,17 +456,20 @@ function loadRepliesForReview(reviewId) {
 
       const bubble = document.createElement('div');
       bubble.className = `chat-bubble ${rep.gender || 'male'}`;
-      bubble.innerHTML = `<div class="chat-name">${escapeHtml(rep.name || 'Anonymous')}</div>
-                          <div class="chat-text">${escapeHtml(rep.text)}</div>`;
+      bubble.innerHTML = `
+        <div class="chat-name">${escapeHtml(rep.name || 'Anonymous')}</div>
+        <div class="chat-text">${escapeHtml(rep.text)}</div>
+      `;
 
-      // Reacții ascunse sub săgeată
+      // 🔹 Bara de reacții
       const toggle = document.createElement('button');
       toggle.className = 'reaction-toggle';
       toggle.textContent = '▶';
+
       const reactions = document.createElement('div');
       reactions.className = 'reactions-bar hidden';
 
-      const emojis = ['❤️','😂','😡','👍','👎'];
+      const emojis = ['❤️', '😂', '😡', '👍', '👎'];
       emojis.forEach(e => {
         const count = rep.reactions && rep.reactions[e] ? Object.keys(rep.reactions[e]).length : 0;
         const btn = document.createElement('button');
@@ -468,14 +478,32 @@ function loadRepliesForReview(reviewId) {
         btn.dataset.id = key;
         btn.innerHTML = `${e} <span class="reaction-count">${count}</span>`;
         reactions.appendChild(btn);
-        // === ACTIVEAZĂ reacțiile la reply-uri ===
-modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn => {
-  btn.onclick = e => {
-    const replyId = btn.dataset.id;
-    const type = btn.classList.contains('reply-like-btn') ? 'likes' : 'dislikes';
-    db.ref(`reviews/${activeReviewId}/replies/${replyId}/${type}`).transaction(val => (val || 0) + 1);
-  };
-});
+      });
+
+      // 🔹 Toggle reactions bar
+      toggle.addEventListener('click', () => {
+        reactions.classList.toggle('hidden');
+      });
+
+      bubble.appendChild(toggle);
+      bubble.appendChild(reactions);
+      wrapper.appendChild(avatar);
+      wrapper.appendChild(bubble);
+      modalBody.appendChild(wrapper);
+    });
+
+    // 🔹 Atașează reacțiile DUPĂ ce toate reply-urile sunt generate
+    modalBody.querySelectorAll('.reaction-btn').forEach(btn => {
+      btn.onclick = e => {
+        const replyId = btn.dataset.id;
+        const emoji = btn.dataset.emoji;
+        const path = `reviews/${activeReviewId}/replies/${replyId}/reactions/${emoji}`;
+        const userKey = clientId || ('u_' + Math.random().toString(36).slice(2,8));
+        db.ref(`${path}/${userKey}`).set(true);
+      };
+    });
+  });
+}
       });
 
       toggle.addEventListener('click', () => {
