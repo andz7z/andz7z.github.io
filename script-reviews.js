@@ -368,6 +368,39 @@ function renderPage(){
       const likeCountSpan = card.querySelector('.like-count');
       const dislikeCountSpan = card.querySelector('.dislike-count');
       const replyBtn = card.querySelector('.reply-btn');
+      replyBtn.addEventListener('click', () => {
+  activeReviewId = r.id; // setăm review-ul activ corect
+  modalTitle.textContent = `Replies to ${r.name}`;
+  modal.classList.add('show');
+  modalBody.innerHTML = ''; // goliți lista
+  msgInputReply.value = '';
+  document.getElementById('reply-name').value = '';
+  
+  // încărcăm replies (dacă există)
+  db.ref(`reviews/${r.id}/replies`).once('value', snap => {
+    if (!snap.exists()) {
+      modalBody.innerHTML = `<p class="no-replies">No replies yet. Be the first to comment!</p>`;
+      return;
+    }
+    snap.forEach(child => {
+      const rep = child.val();
+      const repCard = document.createElement('div');
+      repCard.className = 'reply-card';
+      repCard.innerHTML = `
+        <div class="reply-header">
+          <strong>${escapeHtml(rep.name)}</strong>
+          <small>${new Date(rep.date).toLocaleString()}</small>
+        </div>
+        <p>${escapeHtml(rep.text)}</p>
+        <div class="reply-actions">
+          <button class="reply-like" data-id="${child.key}" data-review="${r.id}">👍 ${rep.likes || 0}</button>
+          <button class="reply-dislike" data-id="${child.key}" data-review="${r.id}">👎 ${rep.dislikes || 0}</button>
+        </div>
+      `;
+      modalBody.appendChild(repCard);
+    });
+  });
+});
       const replyListEl = card.querySelector(`#replies-${r.id}`);
       // === REPLIES MODAL HANDLING ===
 const modal = document.getElementById('replies-modal');
