@@ -1771,8 +1771,8 @@ body.dark-mode .chat-bubble.female {
 /* === Tooltip-ul cu numărul de review-uri === */
 .meta-count {
   position: absolute;
-  top: -48px; /* mai sus */
-  left: -75px; /* mai la stanga */
+  top: -55px; /* mai sus */
+  left: -90px; /* mai la stanga */
   background: rgba(0, 0, 0, 0.9);
   color: #fff;
   padding: 6px 12px;
