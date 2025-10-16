@@ -175,11 +175,15 @@
   <h2>👤 About Me</h2>
 
   <!-- PROFILE -->
-  <div class="about-profile">
+  <div class="about-profile glassy">
     <img src="assets/logos/icon.png" alt="Profile Picture" class="about-avatar">
     <div class="about-info">
       <h3>Andrei “ANDZ” Lehadus</h3>
-      <p>I'm a passionate developer and digital creator who loves blending <strong>code</strong> and <strong>creativity</strong> — from modern web interfaces to cinematic video edits and Lua/Python tools for games.</p>
+      <p class="about-desc">
+        I’m a <strong>developer</strong> & <strong>digital creator</strong> passionate about building
+        visually refined and technically solid experiences — from cinematic video edits
+        to smooth web interfaces and Lua/Python tools for games.
+      </p>
       <div class="about-links">
         <a href="assets/cv.pdf" class="btn-glow" download>📄 Download CV</a>
         <a href="https://github.com/andz7z" target="_blank" class="btn-glow">🚀 Currently Working On</a>
@@ -191,44 +195,51 @@
   <!-- SKILLS -->
   <div class="skills-donuts">
     <div class="donut" data-skill="HTML/CSS" data-value="90"></div>
-    <div class="donut" data-skill="JS" data-value="80"></div>
+    <div class="donut" data-skill="JavaScript" data-value="80"></div>
     <div class="donut" data-skill="Python" data-value="75"></div>
     <div class="donut" data-skill="Lua" data-value="70"></div>
     <div class="donut" data-skill="Editing" data-value="85"></div>
   </div>
 
   <!-- ACTIVITIES -->
-  <div class="activities">
+  <div class="activities glassy">
     <h3>🗓️ My Recent Activities</h3>
     <ul id="activity-list">
       <li>
-        <button class="activity-btn">📅 On 2025-09-30 — Updated GTA Mod “Season Flow”</button>
-        <p class="activity-detail">Optimized Lua performance and added custom weather transitions.</p>
+        <button class="activity-btn">📅 2025-09-30 — Updated “Season Flow”</button>
+        <p class="activity-detail" data-text="Optimized Lua performance, added dynamic weather transitions & smoother visuals."></p>
       </li>
       <li>
-        <button class="activity-btn">📅 On 2025-08-10 — Released new editing reel</button>
-        <p class="activity-detail">Produced a cinematic montage using DaVinci Resolve and CapCut Pro.</p>
+        <button class="activity-btn">📅 2025-08-10 — Released Editing Reel</button>
+        <p class="activity-detail" data-text="Produced a cinematic video montage using DaVinci Resolve and CapCut Pro."></p>
       </li>
       <li>
-        <button class="activity-btn">📅 On 2025-07-21 — Web Portfolio Update</button>
-        <p class="activity-detail">Integrated new particle effects and improved mobile UX design.</p>
+        <button class="activity-btn">📅 2025-07-21 — Website Update</button>
+        <p class="activity-detail" data-text="Integrated new particle effects and mobile-friendly UI improvements."></p>
       </li>
     </ul>
   </div>
 
   <!-- CONTACT -->
-  <div class="about-contact">
-    <h3>📞 Contact Me</h3>
-    <div class="contact-icons">
-      <a href="https://wa.me/40748594335" target="_blank" class="icon whatsapp" title="WhatsApp">💬</a>
-      <a href="mailto:lehadus04@gmail.com" class="icon gmail" title="Gmail">📧</a>
-      <a href="https://ro.linkedin.com/in/lehadus-andrei-25a807372" target="_blank" class="icon linkedin" title="LinkedIn">💼</a>
-      <span class="icon discord" title="Discord">🧊 andz7z</span>
+  <div class="about-contact glassy">
+    <h3>📞 Get In Touch</h3>
+    <div class="contact-grid">
+      <a href="https://wa.me/40748594335" target="_blank" class="contact-btn whatsapp">
+        <span>💬</span> WhatsApp
+      </a>
+      <a href="mailto:lehadus04@gmail.com" class="contact-btn gmail">
+        <span>📧</span> Gmail
+      </a>
+      <a href="https://ro.linkedin.com/in/lehadus-andrei-25a807372" target="_blank" class="contact-btn linkedin">
+        <span>💼</span> LinkedIn
+      </a>
+      <button class="contact-btn discord" onclick="navigator.clipboard.writeText('andz7z')">
+        <span>🧊</span> Discord: andz7z
+      </button>
     </div>
-    <p class="contact-note">Contact me anytime — I usually respond within 24 hours.</p>
+    <p class="contact-note glow-text">Contact me anytime — I usually respond within 24 hours ⚡</p>
   </div>
 </section>
-  
 <!-- REVIEWS SECTION -->
 <section id="reviews" class="hidden section reviews-new">
   <div class="reviews-bg"></div>
