@@ -598,3 +598,25 @@ window.addEventListener('load', function(){
   loadReviews();
   updateSortButtonsUI();
 });
+// === Tooltip for review count ===
+(function() {
+  const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  document.addEventListener('click', e => {
+    // Ascunde orice tooltip activ
+    document.querySelectorAll('.meta-count.show').forEach(el => {
+      el.classList.remove('show');
+    });
+
+    if (!isTouch) return; // doar pentru touch
+    const top = e.target.closest('.meta-top');
+    if (!top) return;
+
+    const tooltip = top.querySelector('.meta-count');
+    if (!tooltip) return;
+
+    // Previne închiderea imediată
+    e.stopPropagation();
+    tooltip.classList.add('show');
+  });
+})();

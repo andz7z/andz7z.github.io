@@ -1759,3 +1759,60 @@ body.dark-mode .chat-bubble.male {
 body.dark-mode .chat-bubble.female {
   background: linear-gradient(135deg, rgba(120,100,60,0.8), rgba(180,140,80,0.5));
 }
+/* === Tooltip for review count === */
+.meta-top {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* Ascuns implicit */
+.meta-count {
+  position: absolute;
+  top: -38px;
+  left: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateY(8px) scale(0.95);
+  transform-origin: bottom left;
+  transition: all 0.25s ease;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Mică săgeată sub tooltip */
+.meta-count::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 12px;
+  width: 10px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.85);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+/* Apare la hover (PC) */
+.meta-top:hover .meta-count {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
+}
+
+/* Animație la click pentru mobil */
+.meta-count.show {
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  visibility: visible !important;
+  pointer-events: auto;
+}
