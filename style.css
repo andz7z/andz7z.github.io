@@ -1827,3 +1827,91 @@ body.dark-mode .chat-bubble.female {
 .meta-count.show {
   animation: tooltip-bounce 0.25s ease-out;
 }
+.about-intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 18px;
+  padding: 30px;
+  margin-top: 20px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 25px rgba(0,0,0,0.3);
+}
+.about-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 25px rgba(255,255,255,0.15);
+}
+.about-text h3 { font-family: 'Unbounded', sans-serif; margin-bottom: 8px; }
+.about-text p { opacity: 0.85; line-height: 1.6; }
+
+.about-timeline {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.timeline-item {
+  background: rgba(255,255,255,0.05);
+  padding: 12px 18px;
+  border-radius: 10px;
+  border-left: 4px solid #ffd95a;
+  text-align: left;
+}
+.timeline-item span {
+  font-weight: bold;
+  color: #ffd95a;
+  margin-right: 10px;
+}
+
+.skills-showcase {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: left;
+}
+.skill span { display: block; margin-bottom: 5px; }
+.skill .bar {
+  width: 100%; height: 10px; border-radius: 8px;
+  background: rgba(255,255,255,0.1); overflow: hidden;
+}
+.skill .fill {
+  width: var(--level); height: 100%;
+  background: linear-gradient(90deg, #ffd95a, #b48a1a);
+  border-radius: 8px;
+  animation: growBar 2s ease forwards;
+}
+@keyframes growBar { from {width:0;} to {width:var(--level);} }
+
+.about-hobbies { margin-top: 40px; }
+.hobby-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px,1fr));
+  gap: 15px; margin-top: 10px;
+}
+.hobby-card {
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.hobby-card:hover {
+  transform: scale(1.05);
+  background: rgba(255,255,255,0.15);
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+}
+.quick-contact {
+  margin-top: 50px;
+  padding: 15px 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+}
+.quick-contact a { color: #ffd95a; text-decoration: none; }
