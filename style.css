@@ -1088,6 +1088,28 @@ body.dark-mode #scroll-bar {
 .review-stars { margin-left: auto; color: #ffd95a; }
 .review-text { margin-top: 8px; font-size: 0.95rem; }
 
+/* PAGINATION */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+.pagination button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.pagination button:hover {
+  background: #ffd95a;
+  color: #111;
+  transform: scale(1.1);
+}
 /* === AVG DONUT === */
 .avg-main {
   display: flex;
@@ -1346,6 +1368,9 @@ body.dark-mode #scroll-bar {
 .meta-name { display:flex; align-items:center; gap:8px; font-size: 1rem; font-weight: 600; }
 .service-emoji { font-size:1.05rem; opacity:0.95; }
 
+/* fix pagination */
+footer .pagination { margin: 18px auto; }
+
 /* fix badge */
 .review-meta .badge { margin-left:8px; background: rgba(255,217,90,0.12); padding:4px 8px; border-radius:8px; font-size:0.85rem; }
 .meta-count { color: rgba(255,255,255,0.8); margin-left:4px; }
@@ -1389,6 +1414,9 @@ body.dark-mode #scroll-bar {
 
 /* badge */
 .badge { margin-left:8px; padding:4px 8px; border-radius:8px; background: rgba(255,217,90,0.12); color:#fff; font-size:0.85rem; }
+
+/* ensure pagination in footer */
+footer .pagination { display:flex; justify-content:center; gap:8px; margin-top:18px; }
 
 /* === Review Gender Preview Animations === */
 .gender-preview {
