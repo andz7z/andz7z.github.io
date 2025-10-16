@@ -396,17 +396,33 @@ if (mainTitle && navButtons && titleEl) {
   // ===========================================================
   // ======== Dark / Light Mode System ========
   // ===========================================================
-  if (localStorage.getItem("theme") === "dark") {
-    body.classList.add("dark-mode");
-    themeToggle.textContent = "🌙";
-  }
+  // ===========================================================
+// ======== Dark / Light Mode System (Uiverse Switch) ========
+// ===========================================================
+const checkbox = document.getElementById("checkbox");
 
-themeToggle?.addEventListener("click", () => {
+// initializează tema la load
+if (localStorage.getItem("theme") === "dark") {
+  body.classList.add("dark-mode");
+  checkbox.checked = true;
+} else {
+  body.classList.remove("dark-mode");
+  checkbox.checked = false;
+}
+
+// când se schimbă switch-ul
+checkbox.addEventListener("change", () => {
   playClick();
   body.classList.add("theme-transition");
-  const isDark = body.classList.toggle("dark-mode");
-  themeToggle.textContent = isDark ? "🌙" : "💡";
-  localStorage.setItem("theme", isDark ? "dark" : "light");
+
+  if (checkbox.checked) {
+    body.classList.add("dark-mode");
+    localStorage.setItem("theme", "dark");
+  } else {
+    body.classList.remove("dark-mode");
+    localStorage.setItem("theme", "light");
+  }
+
   setTimeout(() => body.classList.remove("theme-transition"), 1200);
 });
 
