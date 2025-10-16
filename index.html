@@ -52,7 +52,7 @@
       <button onclick="openSection('services')">Services 🤝🏻</button>
       <button onclick="openSection('work')">Projects 📁</button>
       <button onclick="openSection('reviews')">Reviews ⭐</button>
-      <button onclick="openSection('contact')">Contact 📞</button>
+      <button onclick="openSection('about')">About Me 📞</button>
     </nav>
   </header>
 <!-- servicii -->
@@ -170,29 +170,65 @@
 </section>
   
 <!-- CONTACT -->
-<section id="contact" class="hidden section">
+<section id="about" class="hidden section">
   <div class="section-bg"></div>
-  <h2>📩 Contact Me</h2>
-  <div class="contact-cards">
-    <div class="contact-card">
-      <span class="contact-icon">📧</span>
-      <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">📱</span>
-      <p><strong>Phone:</strong> <a href="tel:+40748594335">+40 748 594 335</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">🐙</span>
-      <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
-    </div>
-    <div class="contact-card">
-      <span class="contact-icon">💬</span>
-      <p><strong>Discord:</strong> <span>andz7z</span></p>
+  <h2>👤 About Me</h2>
+
+  <!-- PROFILE -->
+  <div class="about-profile">
+    <img src="assets/logos/icon.png" alt="Profile Picture" class="about-avatar">
+    <div class="about-info">
+      <h3>Andrei “ANDZ” Lehadus</h3>
+      <p>I'm a passionate developer and digital creator who loves blending <strong>code</strong> and <strong>creativity</strong> — from modern web interfaces to cinematic video edits and Lua/Python tools for games.</p>
+      <div class="about-links">
+        <a href="assets/cv.pdf" class="btn-glow" download>📄 Download CV</a>
+        <a href="https://github.com/andz7z" target="_blank" class="btn-glow">🚀 Currently Working On</a>
+        <a href="mailto:lehadus04@gmail.com" class="btn-glow hire-btn">💼 Hire Me</a>
+      </div>
     </div>
   </div>
-  <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
+
+  <!-- SKILLS -->
+  <div class="skills-donuts">
+    <div class="donut" data-skill="HTML/CSS" data-value="90"></div>
+    <div class="donut" data-skill="JS" data-value="80"></div>
+    <div class="donut" data-skill="Python" data-value="75"></div>
+    <div class="donut" data-skill="Lua" data-value="70"></div>
+    <div class="donut" data-skill="Editing" data-value="85"></div>
+  </div>
+
+  <!-- ACTIVITIES -->
+  <div class="activities">
+    <h3>🗓️ My Recent Activities</h3>
+    <ul id="activity-list">
+      <li>
+        <button class="activity-btn">📅 On 2025-09-30 — Updated GTA Mod “Season Flow”</button>
+        <p class="activity-detail">Optimized Lua performance and added custom weather transitions.</p>
+      </li>
+      <li>
+        <button class="activity-btn">📅 On 2025-08-10 — Released new editing reel</button>
+        <p class="activity-detail">Produced a cinematic montage using DaVinci Resolve and CapCut Pro.</p>
+      </li>
+      <li>
+        <button class="activity-btn">📅 On 2025-07-21 — Web Portfolio Update</button>
+        <p class="activity-detail">Integrated new particle effects and improved mobile UX design.</p>
+      </li>
+    </ul>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="about-contact">
+    <h3>📞 Contact Me</h3>
+    <div class="contact-icons">
+      <a href="https://wa.me/40748594335" target="_blank" class="icon whatsapp" title="WhatsApp">💬</a>
+      <a href="mailto:lehadus04@gmail.com" class="icon gmail" title="Gmail">📧</a>
+      <a href="https://ro.linkedin.com/in/lehadus-andrei-25a807372" target="_blank" class="icon linkedin" title="LinkedIn">💼</a>
+      <span class="icon discord" title="Discord">🧊 andz7z</span>
+    </div>
+    <p class="contact-note">Contact me anytime — I usually respond within 24 hours.</p>
+  </div>
 </section>
+  
 <!-- REVIEWS SECTION -->
 <section id="reviews" class="hidden section reviews-new">
   <div class="reviews-bg"></div>
@@ -357,7 +393,7 @@
   <button data-target="services">Services 🤝🏽</button>
   <button data-target="work">Projects 📁</button>
   <button data-target="reviews">Reviews ⭐</button>
-  <button data-target="contact">Contact Me 📞</button>
+  <button data-target="about">About Me 📞</button>
 </div>
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
