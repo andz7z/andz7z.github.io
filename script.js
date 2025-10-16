@@ -396,26 +396,20 @@ if (mainTitle && navButtons && titleEl) {
   // ===========================================================
   // ======== Dark / Light Mode System ========
   // ===========================================================
-  // ===========================================================
-// ======== Dark / Light Mode System (Uiverse Switch) ========
-// ===========================================================
-const checkbox = document.getElementById("checkbox");
-const body = document.body;
-
-if (localStorage.getItem("theme") === "dark") {
-  body.classList.add("dark-mode");
-  checkbox.checked = true;
-}
-
-checkbox.addEventListener("change", () => {
-  if (checkbox.checked) {
+  if (localStorage.getItem("theme") === "dark") {
     body.classList.add("dark-mode");
-    localStorage.setItem("theme", "dark");
-  } else {
-    body.classList.remove("dark-mode");
-    localStorage.setItem("theme", "light");
+    themeToggle.textContent = "🌙";
   }
+
+themeToggle?.addEventListener("click", () => {
+  playClick();
+  body.classList.add("theme-transition");
+  const isDark = body.classList.toggle("dark-mode");
+  themeToggle.textContent = isDark ? "🌙" : "💡";
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+  setTimeout(() => body.classList.remove("theme-transition"), 1200);
 });
+
   // ===========================================================
   // ===== Starfield Generator (Dark) =====
   // ===========================================================
