@@ -1772,7 +1772,7 @@ body.dark-mode .chat-bubble.female {
 .meta-count {
   position: absolute;
   top: -42px; /* mai sus */
-  left: -30px; /* mai la stanga */
+  left: -45px; /* mai la stanga */
   background: rgba(0, 0, 0, 0.9);
   color: #fff;
   padding: 6px 12px;
