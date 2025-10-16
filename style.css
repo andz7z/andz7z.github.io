@@ -1771,8 +1771,8 @@ body.dark-mode .chat-bubble.female {
 /* === Tooltip-ul cu numărul de review-uri === */
 .meta-count {
   position: absolute;
-  top: -42px; /* un pic mai sus */
-  left: -10px; /* mutat ușor la stânga */
+  top: -42px; /* mai sus */
+  left: -30px; /* mai la stanga */
   background: rgba(0, 0, 0, 0.9);
   color: #fff;
   padding: 6px 12px;
@@ -1816,4 +1816,14 @@ body.dark-mode .chat-bubble.female {
   visibility: visible !important;
   pointer-events: auto;
   z-index: 9999 !important;
+}
+@keyframes tooltip-bounce {
+  0%   { transform: translateY(8px) scale(0.95); opacity: 0; }
+  60%  { transform: translateY(-2px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.meta-top:hover .meta-count,
+.meta-count.show {
+  animation: tooltip-bounce 0.25s ease-out;
 }
