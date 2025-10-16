@@ -1768,25 +1768,25 @@ body.dark-mode .chat-bubble.female {
   cursor: pointer;
 }
 
-/* Ascuns implicit */
+/* === Tooltip-ul cu numărul de review-uri === */
 .meta-count {
   position: absolute;
-  top: -38px;
-  left: 0;
-  background: rgba(0, 0, 0, 0.85);
+  top: -42px; /* un pic mai sus */
+  left: -10px; /* mutat ușor la stânga */
+  background: rgba(0, 0, 0, 0.9);
   color: #fff;
-  padding: 6px 10px;
+  padding: 6px 12px;
   border-radius: 8px;
   font-size: 0.85rem;
   white-space: nowrap;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
   opacity: 0;
   transform: translateY(8px) scale(0.95);
   transform-origin: bottom left;
   transition: all 0.25s ease;
   visibility: hidden;
   pointer-events: none;
-  z-index: 10;
+  z-index: 9999; /* foarte important pentru a fi deasupra */
 }
 
 /* Mică săgeată sub tooltip */
@@ -1794,25 +1794,26 @@ body.dark-mode .chat-bubble.female {
   content: '';
   position: absolute;
   bottom: -5px;
-  left: 12px;
+  left: 15px;
   width: 10px;
   height: 10px;
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.9);
   transform: rotate(45deg);
   border-radius: 2px;
 }
 
-/* Apare la hover (PC) */
+/* Hover (pentru PC) */
 .meta-top:hover .meta-count {
   opacity: 1;
   transform: translateY(0) scale(1);
   visibility: visible;
 }
 
-/* Animație la click pentru mobil */
+/* Pentru mobil (tap) */
 .meta-count.show {
   opacity: 1 !important;
   transform: translateY(0) scale(1) !important;
   visibility: visible !important;
   pointer-events: auto;
+  z-index: 9999 !important;
 }
