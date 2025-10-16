@@ -45,7 +45,6 @@ const avgProgEl = q('#avg-prog');
 const avgEditEl = q('#avg-edit');
 const avgDonut = q('#avg-donut');
 const reviewsBg = q('.reviews-bg') || q('.avg-sub') || document.body;
-const paginationEl = q('.pagination');
 const prevBtn = q('#prev-page');
 const nextBtn = q('#next-page');
 const pageInfo = q('#page-info');
@@ -299,19 +298,9 @@ function renderPage(){
     reviewsContainer.innerHTML = '';
   if(!visible.length){
   if(noReviewsBox) noReviewsBox.style.display = 'block';
-  if(paginationEl) paginationEl.classList.add('hidden');
   return;
 } else {
   if(noReviewsBox) noReviewsBox.style.display = 'none';
-  
-  // pagination
-  const reviewsSection = document.querySelector('#reviews') || document.querySelector('#reviews-section') || document.querySelector('.reviews');
-  if (reviewsSection && reviewsSection.classList.contains('active')) {
-    if (paginationEl) paginationEl.classList.remove('hidden');
-  } else {
-    if (paginationEl) paginationEl.classList.add('hidden');
-  }
-}
     visible.forEach(r => {
       const card = document.createElement('div');
       card.className = 'review-card glassy';
@@ -555,33 +544,6 @@ function loadRepliesForReview(reviewId) {
         });
       }
     });
-    // pagination UI
-    if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
-    if(prevBtn) prevBtn.disabled = currentPage <= 1;
-    if(nextBtn) nextBtn.disabled = currentPage >= maxPage;
-    // ensure pagination placed in footer
-    const footer = document.querySelector('footer');
-    if(footer && paginationEl){
-      footer.appendChild(paginationEl);
-      paginationEl.classList.remove('hidden');
-    }
-
-  } catch(err){
-    console.error('renderPage error', err);
-  }
-}
-// pagination
-if(prevBtn){
-  prevBtn.addEventListener('click', function(){
-    if(currentPage > 1){ currentPage -= 1; renderPage(); }
-  });
-}
-if(nextBtn){
-  nextBtn.addEventListener('click', function(){
-    currentPage += 1;
-    renderPage();
-  });
-}
 // === replies modal
 function buildReplyTree(flat){
   const map = {};
