@@ -629,29 +629,42 @@ if (titleElement) {
     typeFooterText(newMsg);
   });
 });
-// ===== About Me Interactions =====
-document.addEventListener("DOMContentLoaded", () => {
-  const avatar = document.getElementById("about-avatar");
-  const timelineItems = document.querySelectorAll(".timeline-item");
-  const discordBtn = document.getElementById("discord-btn");
-  const discordText = document.querySelector(".discord-text");
+// ======== ABOUT ME SECTION ========
 
-  if (avatar) {
-    avatar.addEventListener("click", () => {
-      avatar.parentElement.classList.toggle("zoomed");
-    });
-  }
-
-  timelineItems.forEach(item => {
-    item.addEventListener("click", () => {
-      item.classList.toggle("active");
-    });
+// Skill bars fill on scroll
+const skillBars = document.querySelectorAll(".skill-bar");
+const skillObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target;
+      const level = bar.getAttribute("data-level");
+      bar.querySelector("::after");
+      bar.style.setProperty("--width", level + "%");
+      bar.style.setProperty("width", level + "%");
+      bar.style.setProperty("transition", "width 1.6s ease");
+      bar.style.width = level + "%";
+    }
   });
+}, { threshold: 0.3 });
 
-  if (discordBtn && discordText) {
-    discordBtn.addEventListener("click", e => {
-      e.preventDefault();
-      discordText.classList.toggle("hidden");
-    });
-  }
+skillBars.forEach(bar => skillObserver.observe(bar));
+
+// Experience expand/collapse
+document.querySelectorAll(".exp-item").forEach(item => {
+  item.addEventListener("click", () => {
+    item.classList.toggle("active");
+  });
 });
+
+// Profile photo click glow
+const aboutPhoto = document.getElementById("about-photo");
+if (aboutPhoto) {
+  aboutPhoto.addEventListener("click", () => {
+    aboutPhoto.style.transform = "scale(1.15)";
+    aboutPhoto.style.boxShadow = "0 0 35px rgba(255,255,255,0.5)";
+    setTimeout(() => {
+      aboutPhoto.style.transform = "";
+      aboutPhoto.style.boxShadow = "";
+    }, 600);
+  });
+}
