@@ -1827,119 +1827,136 @@ body.dark-mode .chat-bubble.female {
 .meta-count.show {
   animation: tooltip-bounce 0.25s ease-out;
 }
-.about-intro {
+/* === ABOUT ME === */
+.about-profile {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 40px;
-  padding: 40px;
-  border-radius: 20px;
-  backdrop-filter: blur(14px);
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 30px;
+  padding: 25px;
   background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  position: relative;
-  overflow: hidden;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  transition: all .4s ease;
 }
-.about-avatar-container {
-  position: relative;
-  cursor: zoom-in;
-  transition: transform 0.4s ease;
-}
-.about-avatar {
+.about-photo {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0 0 20px rgba(255,255,255,0.2);
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border: 3px solid rgba(255,255,255,0.3);
+  box-shadow: 0 0 15px rgba(255,255,255,0.15);
+  transition: transform .4s ease, box-shadow .4s ease;
+  cursor: pointer;
 }
-.about-avatar-container.zoomed .about-avatar {
-  transform: scale(1.4);
-  box-shadow: 0 0 40px rgba(255,255,255,0.4);
-  cursor: zoom-out;
-}
-.about-text { max-width: 550px; text-align: left; }
-.about-text h3 { font-family:'Unbounded'; font-size:1.4rem; margin-bottom:10px; }
-.about-text p { opacity:0.85; line-height:1.6; }
-.about-quote { margin-top:10px; font-style:italic; opacity:0.7; }
+.about-photo:hover { transform: scale(1.08); box-shadow: 0 0 25px rgba(255,255,255,0.35); }
+.about-text { max-width: 600px; text-align: left; }
+.about-text h3 { font-size: 1.5rem; margin-bottom: 8px; }
+.about-text p { opacity: 0.9; line-height: 1.6; }
 
-.about-timeline { margin-top:40px; text-align:left; }
-.about-timeline h3 { margin-bottom:12px; }
-.timeline-item {
-  background:rgba(255,255,255,0.05);
-  padding:12px 18px;
-  border-radius:10px;
-  margin-bottom:8px;
-  border-left:3px solid #ffd95a;
-  cursor:pointer;
-  transition:all 0.3s ease;
-  position:relative;
+/* Skills */
+.about-skills {
+  margin-top: 40px;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
 }
-.timeline-item:hover { transform:translateX(4px); background:rgba(255,255,255,0.1); }
-.timeline-item::after {
-  content:'▸'; position:absolute; right:10px; top:50%; transform:translateY(-50%);
-  font-weight:bold; opacity:0.6;
+.skill-bar {
+  position: relative;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  height: 18px;
+  margin: 15px 0;
+  overflow: hidden;
 }
-.timeline-item.active::after { transform:translateY(-50%) rotate(90deg); }
-.timeline-desc {
-  display:none;
-  margin-top:8px;
-  font-size:0.9rem;
-  opacity:0.8;
+.skill-bar::before {
+  content: attr(data-skill) " — " attr(data-level) "%";
+  position: absolute;
+  top: -24px;
+  left: 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
-.timeline-item.active .timeline-desc { display:block; }
-
-.skills-showcase.advanced { margin-top:40px; }
-
-.about-contact { margin-top:50px; text-align:center; }
-.contact-grid {
-  display:flex; justify-content:center; flex-wrap:wrap; gap:20px;
-  margin-top:15px;
+.skill-bar::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #cde8ff, #9fd3ff);
+  transition: width 1.6s ease;
 }
-.contact-logo img {
-  width:60px; height:60px; border-radius:16px;
-  background:rgba(255,255,255,0.05);
-  padding:10px; transition:all 0.3s ease;
-  box-shadow:0 0 15px rgba(255,255,255,0.15);
-}
-.contact-logo:hover img {
-  transform:scale(1.1);
-  box-shadow:0 0 30px rgba(255,255,255,0.35);
-}
-.discord-text { margin-top:10px; opacity:0.85; }
-
-.about-extra {
-  margin-top:50px;
-  padding:25px;
-  border-radius:16px;
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.1);
-  background:rgba(255,255,255,0.05);
+body.dark-mode .skill-bar::after {
+  background: linear-gradient(90deg, #ffd95a, #b48a1a);
 }
 
-/* Light Mode - ICE */
-body:not(.dark-mode) #about {
-  --accent:#b9ddff;
+/* Experience */
+.about-experience {
+  margin-top: 40px;
+  padding: 25px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(10px);
 }
-body:not(.dark-mode) .about-intro,
-body:not(.dark-mode) .timeline-item,
-body:not(.dark-mode) .about-extra {
-  background:rgba(255,255,255,0.35);
-  border:1px solid rgba(200,220,255,0.4);
-  box-shadow:0 0 25px rgba(180,210,255,0.25);
+.exp-item {
+  margin-bottom: 15px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all .3s ease;
 }
-body:not(.dark-mode) .timeline-item {
-  border-left-color:#a3d0ff;
+.exp-item:hover { background: rgba(255,255,255,0.08); }
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
 }
+.exp-header h4 { font-size: 1.1rem; }
+.exp-period { font-size: 0.9rem; opacity: 0.8; }
+.exp-desc {
+  display: none;
+  padding: 0 18px 12px;
+  line-height: 1.5;
+  opacity: 0.85;
+  transition: all .4s ease;
+}
+.exp-item.active .exp-desc { display: block; animation: fadeIn .4s ease; }
 
-/* Dark Mode - GOLD */
-body.dark-mode .about-intro,
-body.dark-mode .timeline-item,
-body.dark-mode .about-extra {
-  background:rgba(40,40,40,0.8);
-  border:1px solid rgba(255,217,90,0.2);
-  box-shadow:0 0 25px rgba(255,217,90,0.15);
+/* Socials */
+.about-socials {
+  margin-top: 45px;
+  text-align: center;
 }
-body.dark-mode .timeline-item {
-  border-left-color:#ffd95a;
+.social-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  margin-top: 20px;
+}
+.social-icon {
+  width: 60px;
+  height: 60px;
+  cursor: pointer;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  padding: 10px;
+  transition: all .4s ease;
+  backdrop-filter: blur(6px);
+}
+.social-icon:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.15);
+}
+body.dark-mode .social-icon:hover {
+  box-shadow: 0 0 20px rgba(255,217,90,0.45);
+  background: rgba(255,217,90,0.12);
 }
