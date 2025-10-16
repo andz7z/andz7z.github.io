@@ -51,7 +51,7 @@
     <nav class="nav-buttons hidden">
       <button onclick="openSection('services')">Services 🤝🏻</button>
       <button onclick="openSection('work')">Projects 📁</button>
-      <button onclick="openSection('about')">About Me 📞</button>
+      <button onclick="openSection('contact')">About Me 📞</button>
       <button onclick="openSection('reviews')">Reviews ⭐</button>
     </nav>
   </header>
@@ -169,65 +169,30 @@
   <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
 </section>
   
-<!-- ABOUT ME -->
-<section id="about" class="hidden section">
+<!-- CONTACT -->
+<section id="contact" class="hidden section">
   <div class="section-bg"></div>
-  <h2>🙋‍♂️ About Me</h2>
-
-  <!-- PROFILE -->
-  <div class="about-profile glassy">
-    <img src="assets/profile.png" alt="Profile Photo" class="about-photo" id="about-photo">
-    <div class="about-text">
-      <h3>Hi, I'm Andz</h3>
-      <p>A creative developer blending visuals, logic, and design into interactive experiences. Passionate about coding, video editing, and crafting digital art that feels alive.</p>
+  <h2>📩 Contact Me</h2>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <span class="contact-icon">📧</span>
+      <p><strong>Email:</strong> <a href="mailto:lehadus04@gmail.com">lehadus04@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="contact-icon">📱</span>
+      <p><strong>Phone:</strong> <a href="tel:+40748594335">+40 748 594 335</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="contact-icon">🐙</span>
+      <p><strong>GitHub:</strong> <a href="https://github.com/andz7z" target="_blank">@andz7z</a></p>
+    </div>
+    <div class="contact-card">
+      <span class="contact-icon">💬</span>
+      <p><strong>Discord:</strong> <span>andz7z</span></p>
     </div>
   </div>
-
-  <!-- SKILLS -->
-  <div class="about-skills glassy">
-    <h3>⚡ Skills</h3>
-    <div class="skill-bar" data-skill="HTML / CSS / JS" data-level="95"></div>
-    <div class="skill-bar" data-skill="Python / Lua" data-level="88"></div>
-    <div class="skill-bar" data-skill="Editing / Design" data-level="90"></div>
-  </div>
-
-  <!-- EXPERIENCE -->
-  <div class="about-experience glassy">
-    <h3>💼 Experience</h3>
-
-    <div class="exp-item">
-      <div class="exp-header">
-        <h4>Trainer Assistant @ Logiscool</h4>
-        <span class="exp-period">June – July</span>
-      </div>
-      <div class="exp-desc">
-        Helped students learn creative coding fundamentals and game logic while improving my teamwork and communication skills.
-      </div>
-    </div>
-
-    <div class="exp-item">
-      <div class="exp-header">
-        <h4>Freelance Developer</h4>
-        <span class="exp-period">Ongoing</span>
-      </div>
-      <div class="exp-desc">
-        Built custom portfolios, interactive web apps, and digital experiences for clients worldwide — blending design and technology to deliver polished results.
-      </div>
-    </div>
-  </div>
-
-  <!-- SOCIALS -->
-  <div class="about-socials">
-    <h3>🌐 Connect with Me</h3>
-    <div class="social-icons">
-      <img src="assets/icons/socials/whats_icon.png" alt="WhatsApp" class="social-icon" onclick="window.open('https://wa.me/40xxxxxxxxx')">
-      <img src="assets/icons/socials/linked_icon.png" alt="LinkedIn" class="social-icon" onclick="window.open('https://linkedin.com/')">
-      <img src="assets/icons/socials/gmail_icon.png" alt="Gmail" class="social-icon" onclick="window.open('mailto:lehadus04@gmail.com')">
-      <img src="assets/icons/socials/discord_icon.png" alt="Discord" class="social-icon" onclick="window.open('https://discord.com/')">
-    </div>
-  </div>
+  <p class="contact-note">Feel free to reach out anytime. I usually reply within 24 hours.</p>
 </section>
-  
 <!-- REVIEWS SECTION -->
 <section id="reviews" class="hidden section reviews-new">
   <div class="reviews-bg"></div>
@@ -391,7 +356,7 @@
 <div id="floating-nav" class="floating-nav hidden">
   <button data-target="services">Services 🤝🏽</button>
   <button data-target="work">Projects 📁</button>
-  <button data-target="about">About Me 📞</button>
+  <button data-target="contact">Contact Me 📞</button>
   <button data-target="reviews">Reviews ⭐</button>
 </div>
 <!-- Firebase -->
