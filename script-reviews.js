@@ -1,4 +1,4 @@
-// === FIREBASE CONFIG ===
+// FIREBASE CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyCGn9V5dUPM3m_LxzQuiwDWB5vUc24bF6c",
   authDomain: "andz-reviews-67306.firebaseapp.com",
@@ -10,11 +10,6 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-// script-reviews.js
-// Presupunere: firebase este inițializat și ai db = firebase.database();
-// Include acest fișier DUPĂ firebase & firebase database script.
-
-// === util
 function q(sel){ return document.querySelector(sel); }
 function qa(sel){ return Array.from(document.querySelectorAll(sel)); }
 function escapeHtml(s){
@@ -27,14 +22,14 @@ function escapeHtml(s){
     .replace(/'/g,"&#039;");
 }
 
-// === client id for 1-vote-per-client (browser-based)
+// client id for 1-vote-per-client
 let clientId = localStorage.getItem('andz_clientId');
 if(!clientId){
   clientId = 'c_' + Math.random().toString(36).slice(2,10);
   localStorage.setItem('andz_clientId', clientId);
 }
 
-// === DOM hooks (guard in case HTML structure slightly different)
+// DOM hooks
 const form = q('#review-form');
 const msgInput = q('#message');
 const charCount = q('#char-count');
@@ -55,42 +50,42 @@ const prevBtn = q('#prev-page');
 const nextBtn = q('#next-page');
 const pageInfo = q('#page-info');
 
-// filters area (will be placed under AVG in HTML)
-const sortWrapper = q('#sort-wrapper'); // optional wrapper if present
-// fallback: we will use elements with ids below - ensure they exist in HTML
+// filters area
+const sortWrapper = q('#sort-wrapper');
+// fallback
 const sortFilter = q('#sort-filter');
 const serviceFilter = q('#service-filter');
 
 // state
 let selectedRating = 0;
 let selectedService = null;
-let reviews = []; // array of reviews fetched
+let reviews = [];
 let currentPage = 1;
 const PER_PAGE = 10;
 let activeSort = sortFilter ? sortFilter.value : 'recent';
 let activeService = serviceFilter ? serviceFilter.value : 'all';
 
-// --- safety: make sure required DOM exists
+// safety
 if(!reviewsContainer){
   console.error('Missing #reviews-container element in DOM.');
 }
 
-// === star rating UI
+// Rating UI
 if(starEls && starEls.length){
   starEls.forEach(s => {
     s.addEventListener('click', function(){
       const v = Number(this.dataset.value) || 0;
       selectedRating = v;
       starEls.forEach(x => x.classList.toggle('active', Number(x.dataset.value) <= v));
-      updatePreviewImage(); // 🔥 actualizează poza la schimbarea ratingului
+      updatePreviewImage(); // schimba poza la 1-3-5
     });
   });
 }
-// === Function: update preview image based on rating & gender ===
+// update preview image based on gender too
 function updatePreviewImage() {
   if (!genderPreview || !selectedGender) return;
 
-  // dacă nu a ales ratingul, default e 3-star
+  // default 3-star
   let imgPath = `assets/logos/reviews/3star_icon_${selectedGender}.gif`;
 
   if (selectedRating >= 1 && selectedRating <= 2)
@@ -118,7 +113,7 @@ if(serviceBtns && serviceBtns.length){
     });
   });
 }
-// Gender pick
+// gender pick
 const genderInputs = qa('input[name="gender"]');
 if (genderInputs.length) {
   genderInputs.forEach(radio => {
@@ -167,7 +162,7 @@ if(form){
         dislikes: 0
       };
       db.ref('reviews').push(review).then(() => {
-        // reset form UI
+        // reset form
         form.reset();
         selectedRating = 0;
         selectedService = null;
@@ -185,7 +180,7 @@ if(form){
   });
 }
 
-// === Filters handlers
+// filters
 if(sortFilter){
   sortFilter.addEventListener('change', function(){
     activeSort = this.value;
@@ -201,16 +196,12 @@ if(serviceFilter){
     renderPage();
   });
 }
-
-// style sort buttons UI function (for visual transparent chips)
 function updateSortButtonsUI(){
-  // if using select, style selected option via CSS; if you use custom buttons, adapt here.
-  // We'll add .active class to the selected option's wrapper (if present)
   const wrappers = qa('.sort-chip');
   wrappers.forEach(w => w.classList.toggle('active', w.dataset?.sort === activeSort));
 }
 
-// === Load reviews from Firebase
+// reviews from firebase
 function loadReviews(){
   try {
     db.ref('reviews').on('value', snapshot => {
@@ -234,8 +225,8 @@ function loadReviews(){
       const enhanced = arr.map(r => {
         let badge = null;
         const c = counts[r.name] || 0;
-        if(c >= 5) badge = '🏆 Top Reviewer';
-        else if(c >= 3) badge = '💡 Contributor';
+        if(c >= 5) badge = '🏆 Top';
+        else if(c >= 3) badge = '💡 Active';
         return Object.assign({}, r, { totalReviews: c, badge: badge });
       });
       // default: most recent first
@@ -249,7 +240,7 @@ function loadReviews(){
   }
 }
 
-// === update avg UI
+// === update avg
 function updateAvgs(ratings){
   const avg = arr => arr.length ? (arr.reduce((s,x) => s + x, 0) / arr.length) : 0;
   const overallArr = [...ratings.web, ...ratings.prog, ...ratings.edit];
@@ -258,7 +249,7 @@ function updateAvgs(ratings){
   if(avgWebEl) avgWebEl.textContent = `🌐 ${avg(ratings.web).toFixed(2)}`;
   if(avgProgEl) avgProgEl.textContent = `💻 ${avg(ratings.prog).toFixed(2)}`;
   if(avgEditEl) avgEditEl.textContent = `🎬 ${avg(ratings.edit).toFixed(2)}`;
-  // donut visual (if exists)
+  // donut visual
   if(avgDonut){
     try {
       const percent = (overall / 5) * 100;
@@ -277,7 +268,7 @@ function updateAvgs(ratings){
   }
 }
 
-// === get filtered + sorted array
+// filtered + sorted
 function getFilteredSorted(){
   let arr = reviews.slice();
   if(activeService && activeService !== 'all'){
@@ -295,7 +286,7 @@ function getFilteredSorted(){
   return arr;
 }
 
-// === render page
+// render page
 function renderPage(){
   try {
     if(!reviewsContainer) return;
@@ -305,7 +296,6 @@ function renderPage(){
     if(currentPage > maxPage) currentPage = maxPage;
     const start = (currentPage - 1) * PER_PAGE;
     const visible = filtered.slice(start, start + PER_PAGE);
-    // clear
     reviewsContainer.innerHTML = '';
   if(!visible.length){
   if(noReviewsBox) noReviewsBox.style.display = 'block';
@@ -314,7 +304,7 @@ function renderPage(){
 } else {
   if(noReviewsBox) noReviewsBox.style.display = 'none';
   
-  // 🔥 paginarea vizibilă doar în secțiunea Reviews
+  // pagination
   const reviewsSection = document.querySelector('#reviews') || document.querySelector('#reviews-section') || document.querySelector('.reviews');
   if (reviewsSection && reviewsSection.classList.contains('active')) {
     if (paginationEl) paginationEl.classList.remove('hidden');
@@ -350,8 +340,8 @@ function renderPage(){
         <p class="review-text">${escapeHtml(r.message)}</p>
         <div class="review-actions-row">
           <div class="action-left">
-            <button class="like-btn" data-id="${r.id}">👍 <span class="like-count">${r.likes || 0}</span></button>
-            <button class="dislike-btn" data-id="${r.id}">👎 <span class="dislike-count">${r.dislikes || 0}</span></button>
+            <button class="like-btn" data-id="${r.id}">👍🏼 <span class="like-count">${r.likes || 0}</span></button>
+            <button class="dislike-btn" data-id="${r.id}">👎🏻 <span class="dislike-count">${r.dislikes || 0}</span></button>
             <button class="reply-btn" data-id="${r.id}">💬 <span class="reply-count">0</span></button>
           </div>
           <div class="action-right">
@@ -369,32 +359,33 @@ function renderPage(){
       const dislikeCountSpan = card.querySelector('.dislike-count');
       const replyBtn = card.querySelector('.reply-btn');
       const replyListEl = card.querySelector(`#replies-${r.id}`);
-      // === REPLIES MODAL HANDLING ===
-const modal = document.getElementById('replies-modal');
-const modalBody = document.getElementById('replies-body');
-const modalTitle = document.getElementById('replies-title');
-const closeBtn = document.getElementById('replies-close');
-const sendBtn = document.getElementById('send-reply');
-const msgInputReply = document.getElementById('reply-message');
-let activeReviewId = null;
-let replyGender = 'male';
-// === TRIMITERE REPLY ===
+      // === REPLIES HANDLING ===
+      const modal = document.getElementById('replies-modal');
+      const modalBody = document.getElementById('replies-body');
+      const modalTitle = document.getElementById('replies-title');
+      const closeBtn = document.getElementById('replies-close');
+      const sendBtn = document.getElementById('send-reply');
+      const msgInputReply = document.getElementById('reply-message');
+      let activeReviewId = null;
+      let replyGender = 'male';
+
+// Reply Send
 if (sendBtn) {
   sendBtn.onclick = () => {
     const msg = msgInputReply.value.trim();
     const name = document.getElementById('reply-name')?.value.trim();
     if (!msg || !name) {
-      alert('Please enter your name and a message.');
+      alert('Please enter your name/gender and a message.');
       return;
     }
 
 if (!activeReviewId) {
-  alert('Something went wrong — please reopen this comment section.');
+  alert('Something went wrong - please retry later !');
   return;
 }
     const replyObj = {
       name: name,
-      text: msg, // vezi că în baza ta se numește text, nu message
+      text: msg,
       gender: replyGender,
       date: new Date().toISOString(),
       likes: 0,
@@ -406,7 +397,7 @@ if (!activeReviewId) {
       document.getElementById('reply-name').value = '';
     }).catch(err => {
       console.error('Error sending reply:', err);
-      alert('Eroare la trimiterea reply-ului.');
+      alert('Error sending reply. Try Again Later !');
     });
   };
 }      
@@ -417,15 +408,13 @@ document.querySelectorAll('input[name="reply-gender"]').forEach(r => {
 
 if (closeBtn) closeBtn.onclick = () => modal.classList.add('hidden');
 
-// când apăsăm pe 💬
+// reply review section
 replyBtn.addEventListener('click', () => {
   activeReviewId = r.id;
   modalTitle.textContent = `${r.name}'s review comment section 💬`;
   modal.classList.remove('hidden');
   loadRepliesForReview(r.id);
 });
-
-// încarcă reply-urile
 function loadRepliesForReview(reviewId) {
   activeReviewId = reviewId;
   modalBody.innerHTML = '<p>Loading...</p>';
@@ -448,14 +437,14 @@ function loadRepliesForReview(reviewId) {
       bubble.innerHTML = `<div class="chat-name">${escapeHtml(rep.name || 'Anonymous')}</div>
                           <div class="chat-text">${escapeHtml(rep.text)}</div>`;
 
-      // Reacții ascunse sub săgeată
+      // reactii sub comentariu
       const toggle = document.createElement('button');
       toggle.className = 'reaction-toggle';
       toggle.textContent = '▶';
       const reactions = document.createElement('div');
       reactions.className = 'reactions-bar hidden';
 
-      const emojis = ['❤️','😂','😡','👍','👎'];
+      const emojis = ['❤️','😂','😡','👍🏼','👎🏻'];
       emojis.forEach(e => {
         const count = rep.reactions && rep.reactions[e] ? Object.keys(rep.reactions[e]).length : 0;
         const btn = document.createElement('button');
@@ -464,14 +453,13 @@ function loadRepliesForReview(reviewId) {
         btn.dataset.id = key;
         btn.innerHTML = `${e} <span class="reaction-count">${count}</span>`;
         reactions.appendChild(btn);
-        // === ACTIVEAZĂ reacțiile la reply-uri ===
-modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn => {
-  btn.onclick = e => {
-    const replyId = btn.dataset.id;
-    const type = btn.classList.contains('reply-like-btn') ? 'likes' : 'dislikes';
-    db.ref(`reviews/${activeReviewId}/replies/${replyId}/${type}`).transaction(val => (val || 0) + 1);
-  };
-});
+        modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn => {
+          btn.onclick = e => {
+            const replyId = btn.dataset.id;
+            const type = btn.classList.contains('reply-like-btn') ? 'likes' : 'dislikes';
+            db.ref(`reviews/${activeReviewId}/replies/${replyId}/${type}`).transaction(val => (val || 0) + 1);
+          };
+        });
       });
 
       toggle.addEventListener('click', () => {
@@ -488,7 +476,7 @@ modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn =>
     });
   });
 }
-      // reflect local vote state
+      // local restriction
       const lv = localStorage.getItem(`vote_${r.id}_${clientId}`);
       if(lv === '1' && likeBtn) likeBtn.disabled = true;
       if(lv === '-1' && dislikeBtn) dislikeBtn.disabled = true;
@@ -506,11 +494,10 @@ modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn =>
               alert('Ai votat deja acest review.');
               return;
             }
-            // inc likes
             db.ref(`reviews/${reviewId}/likes`).transaction(l => (l || 0) + 1);
             localStorage.setItem(`vote_${reviewId}_${clientId}`, '1');
             likeBtn.disabled = true;
-            // update UI optimistic
+            // update UI
             const n = Number(likeCountSpan.textContent || 0) + 1;
             likeCountSpan.textContent = n;
           });
@@ -537,17 +524,15 @@ modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn =>
           });
         });
       }
-
-      // replies: monitor replies child count and render
+      // replies
       db.ref(`reviews/${r.id}/replies`).on('value', snap => {
         const val = snap.val() || {};
         const keys = Object.keys(val);
         const count = keys.length;
         const replyCountSpan = card.querySelector('.reply-count');
         if(replyCountSpan) replyCountSpan.textContent = count;
-        // render thread inline (collapsed) - show top-level replies inline (1 level), full view in modal
         replyListEl.innerHTML = '';
-        const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2); // show up to 2 replies inline
+        const arr = keys.map(k => ({ id: k, ...val[k] })).slice(0,2);
         arr.forEach(rep => {
           const div = document.createElement('div');
           div.className = 'reply-inline';
@@ -558,20 +543,17 @@ modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn =>
           replyListEl.appendChild(div);
         });
       });
-
-      // open reply modal
       if(replyBtn){
         replyBtn.addEventListener('click', function(){
           openReplyDialog(r.id);
         });
       }
     });
-
     // pagination UI
     if(pageInfo) pageInfo.textContent = `Page ${currentPage} / ${maxPage}`;
     if(prevBtn) prevBtn.disabled = currentPage <= 1;
     if(nextBtn) nextBtn.disabled = currentPage >= maxPage;
-    // ensure pagination placed in footer (if footer exists)
+    // ensure pagination placed in footer
     const footer = document.querySelector('footer');
     if(footer && paginationEl){
       footer.appendChild(paginationEl);
@@ -582,8 +564,7 @@ modalBody.querySelectorAll('.reply-like-btn, .reply-dislike-btn').forEach(btn =>
     console.error('renderPage error', err);
   }
 }
-
-// pagination listeners
+// pagination
 if(prevBtn){
   prevBtn.addEventListener('click', function(){
     if(currentPage > 1){ currentPage -= 1; renderPage(); }
@@ -595,8 +576,7 @@ if(nextBtn){
     renderPage();
   });
 }
-
-// === replies modal & nested replies (max depth 7)
+// === replies modal
 function buildReplyTree(flat){
   const map = {};
   flat.forEach(r => { map[r.id] = Object.assign({}, r, { children: [] }); });
@@ -607,7 +587,6 @@ function buildReplyTree(flat){
   });
   return roots;
 }
-
 // === initial load
 window.addEventListener('load', function(){
   loadReviews();
