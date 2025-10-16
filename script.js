@@ -1,10 +1,10 @@
-// ===========================================================
-// ANDZ MAIN SCRIPT — Optimized, same visuals / performance improved
-// ===========================================================
+  // ===========================================================
+  // ANDZ MAIN SCRIPT
+  // ===========================================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // ======== Cached selectors ========
+  // ======== Selectors ========
   const body = document.body;
   const loadingScreen = document.getElementById("loading-screen");
   const mainLogo = document.getElementById("main-logo");
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const starfield = document.querySelector(".starfield");
 
   // ===========================================================
-  // ===== Glass-Metal Intro → GIF stays as main logo =====
+  // ===== Glass-Metal Intro =====
   // ===========================================================
   window.addEventListener("load", () => {
     if (!loadingScreen || !mainLogo) return;
@@ -36,16 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // ===========================================================
   // ======== Section Switcher ========
   // ===========================================================
-// When a section is opened, trigger fade sequence
 function openSection(id) {
   playClick();
   const sections = document.querySelectorAll(".section");
   const buttons = document.querySelectorAll(".nav-buttons button");
 
-  // ascunde toate secțiunile
+  // ascunde toate sectiunile
   sections.forEach(sec => sec.classList.add("hidden"));
 
-  // afișează secțiunea selectată + animatie treptată
+  // afiseaza sectiunea selectata + anim
   const sectionToShow = document.getElementById(id);
   if (sectionToShow) {
     sectionToShow.classList.remove("hidden");
@@ -53,13 +52,9 @@ function openSection(id) {
     setTimeout(() => sectionToShow.classList.remove("fade-sequence"), 2000);
     sectionToShow.scrollIntoView({ behavior: "smooth", block: "start" });
   }
-
-  // activează butonul corect
   buttons.forEach(btn => {
     btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
   });
-
-  // 🔥 AICI adaugi controlul pentru footerul pagination:
   const paginationEl = document.querySelector('.pagination');
   if (paginationEl) {
     if (id === 'reviews') paginationEl.classList.remove('hidden');
@@ -69,9 +64,9 @@ function openSection(id) {
 
 window.openSection = openSection;
 
-// ===========================================================
-// ======== YouTube API (cu thumbnail personalizat) ========
-// ===========================================================
+  // ===========================================================
+  // ======== YouTube API ========
+  // ===========================================================
 const API_KEY = "AIzaSyAjTe6m1s7rgwd2ow9IGe_21B0dai_mMYE";
 const CHANNEL_ID = "UCZrfo91OFER6U2H5UihLwiA";
 
@@ -93,7 +88,7 @@ async function fetchYouTubeStats() {
     setText("yt-videos", Number(statistics.videoCount).toLocaleString());
     setText("yt-views", Number(statistics.viewCount).toLocaleString());
 
-    // ===== Thumbnail personalizat în funcție de temă =====
+    // ===== Thumbnail =====
     const thumb = document.getElementById("yt-thumbnail");
     const lightThumb = "https://andz7z.github.io/assets/logos/youtube/logo_light.gif";
     const darkThumb = "https://andz7z.github.io/assets/logos/youtube/logo_dark.gif";
@@ -102,7 +97,6 @@ async function fetchYouTubeStats() {
       const isDark = document.body.classList.contains("dark-mode");
       thumb.src = isDark ? darkThumb : lightThumb;
 
-      // ascultă schimbarea de temă pentru a actualiza imaginea
       const themeToggle = document.getElementById("theme-toggle");
       themeToggle?.addEventListener("click", () => {
         const darkNow = document.body.classList.contains("dark-mode");
@@ -191,7 +185,7 @@ window.addEventListener("load", fetchYouTubeStats);
       moved = true;
     }
   });
-// ===== TOGGLE NAV BUTTONS BY CLICKING TITLE (with zoom + reset position) =====
+  // ===== Title Click =====
 const mainTitle = document.getElementById("main-title");
 const navButtons = document.querySelector(".nav-buttons");
 const titleEl = document.getElementById("main-logo");
@@ -210,7 +204,6 @@ if (mainTitle && navButtons && titleEl) {
       navButtons.style.opacity = "1";
       navButtons.style.transform = "scale(1)";
 
-      // Animate buttons sequentially
       buttons.forEach((btn, i) => {
         btn.style.opacity = "0";
         btn.style.transform = "translateY(15px)";
@@ -218,7 +211,7 @@ if (mainTitle && navButtons && titleEl) {
           btn.style.transition = "all 0.6s ease";
           btn.style.opacity = "1";
           btn.style.transform = "translateY(0)";
-        }, i * 250); // 0.25s delay between buttons
+        }, i * 250); // 0.25s (+-)
       });
     }
 
@@ -228,13 +221,13 @@ if (mainTitle && navButtons && titleEl) {
       navButtons.style.transform = "scale(0.8)";
       navButtons.style.opacity = "0";
 
-      // fade-out active section(s)
+      // fade-out
       document.querySelectorAll(".section:not(.hidden)").forEach(sec => {
         sec.classList.add("fade-out");
         setTimeout(() => sec.classList.add("hidden"), 400);
       });
 
-      // hide everything after fade
+      // hide everything
       setTimeout(() => {
         navButtons.classList.add("hidden");
         titleEl.classList.remove("move-up");
@@ -305,7 +298,7 @@ if (mainTitle && navButtons && titleEl) {
   }
 
   // ===========================================================
-  // ======== Work buttons & detail panels ========
+  // ======== Work buttons ========
   // ===========================================================
   const WORK_ITEMS = {
     season: {
@@ -401,7 +394,7 @@ if (mainTitle && navButtons && titleEl) {
   });
 
   // ===========================================================
-  // ======== Dark / Light Mode Toggle ========
+  // ======== Dark / Light Mode System ========
   // ===========================================================
   if (localStorage.getItem("theme") === "dark") {
     body.classList.add("dark-mode");
@@ -418,7 +411,7 @@ themeToggle?.addEventListener("click", () => {
 });
 
   // ===========================================================
-  // ===== Starfield Generator =====
+  // ===== Starfield Generator (Dark) =====
   // ===========================================================
   if (starfield) {
     const frag = document.createDocumentFragment();
@@ -433,8 +426,8 @@ themeToggle?.addEventListener("click", () => {
     starfield.appendChild(frag);
   }
   // ===========================================================
-// ===== Scroll Reveal Animations (Services + Why Us) =====
-// ===========================================================
+  // ===== Services + Why Us =====
+  // ===========================================================
 const observer = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
@@ -446,13 +439,13 @@ const observer = new IntersectionObserver(
   { threshold: 0.15 }
 );
 
-// add animations to key elements
+// animations
 document.querySelectorAll(".service-card, .why-us, .yt-card").forEach(el => {
   el.classList.add("fade-in-up");
   observer.observe(el);
 });
 // ===========================================================
-// ===== Synchronized Navigation System (Top + Floating) =====
+// ===== Navigation System =====
 // ===========================================================
 const floatNav = document.getElementById("floating-nav");
 const floatBtns = floatNav?.querySelectorAll("button");
@@ -460,12 +453,12 @@ const topBtns = document.querySelectorAll(".nav-btn");
 const sections = document.querySelectorAll(".section");
 let currentOpen = null;
 
-// === Show floating nav on scroll ===
+// Floating Nav System
 let hideTimeout;
 window.addEventListener("scroll", () => {
   if (window.scrollY > 200) {
     floatNav?.classList.add("show");
-    // auto-hide after inactivity
+    // hide after 3s
     clearTimeout(hideTimeout);
     hideTimeout = setTimeout(() => {
       floatNav?.classList.remove("show");
@@ -475,7 +468,7 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// show again if user moves mouse
+// show again if mouse move
 window.addEventListener("mousemove", () => {
   if (window.scrollY > 200) {
     floatNav?.classList.add("show");
@@ -486,12 +479,12 @@ window.addEventListener("mousemove", () => {
   }
 });
 
-// === Main toggle handler (shared for both navs) ===
+// === Main toggle handler ===
 function toggleSection(targetId) {
   const target = document.getElementById(targetId);
   const allBtns = [...floatBtns, ...topBtns];
 
-  // same section clicked → close it
+  // click again -> close section
   if (currentOpen === targetId) {
     target.classList.add("hidden");
     allBtns.forEach(b => b.classList.remove("active"));
@@ -515,12 +508,12 @@ function toggleSection(targetId) {
   playClick();
 }
 
-// === Link both systems ===
+// === Link both up and down nav bar ===
 [...floatBtns, ...topBtns].forEach(btn => {
   btn.addEventListener("click", () => toggleSection(btn.dataset.target));
 });
 // ===========================================================
-// ===== AURORA NOTIFICATION (One-time with Spark Burst) =====
+// ===== NOTIFICATION System =====
 // ===========================================================
 let hasShownNotification = false;
 
@@ -531,7 +524,6 @@ function createSparks(x, y) {
     spark.style.left = `${x}px`;
     spark.style.top = `${y}px`;
 
-    // Random flight directions
     const angle = Math.random() * 2 * Math.PI;
     const distance = 50 + Math.random() * 40;
     spark.style.setProperty("--x", `${Math.cos(angle) * distance}px`);
@@ -543,7 +535,7 @@ function createSparks(x, y) {
 }
 
 function showNotification(type = "info", message = "🏡 Make yourself like home", duration = 11000) {
-  if (hasShownNotification) return; // show once only
+  if (hasShownNotification) return; // show once
   hasShownNotification = true;
 
   const existing = document.querySelector(".notification.show");
@@ -557,12 +549,12 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
   `;
   document.body.appendChild(notif);
 
-  // Play sound
+  // Sound
   const notifSound = new Audio("https://andz7z.github.io/assets/sounds/notification.MP3");
   notifSound.volume = 0.1;
   notifSound.play().catch(() => {});
 
-  // Sparks effect (positioned near notification)
+  // Sparks near notif
   const rect = notif.getBoundingClientRect();
   const centerX = rect.right - rect.width / 2;
   const centerY = rect.bottom - rect.height / 2;
@@ -577,14 +569,14 @@ function showNotification(type = "info", message = "🏡 Make yourself like home
     setTimeout(() => notif.remove(), 600);
   });
 
-  // Auto hide after ~11s
+  // Auto hide
   setTimeout(() => {
     notif.classList.remove("show");
     setTimeout(() => notif.remove(), 600);
   }, duration);
 }
 
-// Show notification on title click
+// show notif when title click
 const titleElement = document.getElementById("main-title");
 if (titleElement) {
   titleElement.addEventListener("click", () => {
@@ -598,13 +590,13 @@ if (titleElement) {
     }
   });
 }
-// ===========================================================
-  // ======== Footer Typing Animation + Dark Mode Switch ========
+  // ===========================================================
+  // ======== Footer Animation + Dark Mode Switch ========
   // ===========================================================
   const footer = document.querySelector("footer");
   const footerText = document.getElementById("footer-text");
 
-  const lightMsg = "© 2025 ANDZ | Crafted with passion 🧊";
+  const lightMsg = "© 2025 ANDZ | Motion turned into emotion 🧊";
   const darkMsg = "© 2025 ANDZ | Dreaming under the moon 🌙";
 
   function typeFooterText(message) {
@@ -627,10 +619,10 @@ if (titleElement) {
     }, 400);
   }
 
-  // initial typing on load
+  // typing effect
   setTimeout(() => typeFooterText(lightMsg), 4000);
 
-  // change footer when theme toggles
+  // auto-change between dark/light mode.
   themeToggle?.addEventListener("click", () => {
     const isDark = body.classList.contains("dark-mode");
     const newMsg = isDark ? darkMsg : lightMsg;
