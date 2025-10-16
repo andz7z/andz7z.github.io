@@ -1896,3 +1896,25 @@ body.dark-mode .chat-bubble.female {
   transition: all 0.4s;
 }
 .switch input:checked ~ .slider .cloud { opacity: 1; }
+/* ==== Poziționare pentru switch-ul temei ==== */
+#theme-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 9999;
+  transform: scale(0.8); /* mai mic decât default-ul mare */
+}
+
+/* Ajustează mărimea generală a switch-ului */
+.switch {
+  width: 3.2em;  /* mai mic */
+  height: 1.8em;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.slider:before {
+  height: 1em;
+  width: 1em;
+  left: 0.4em;
+  bottom: 0.4em;
+}
