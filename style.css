@@ -1,24 +1,30 @@
-/* ===== RESET ===== */
+/* ===== RESET DE BAZĂ ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: all 0.4s ease;
   font-family: "Poppins", sans-serif;
+  transition: all 0.4s ease;
 }
 
-/* ===== FUNDALURI ===== */
-body.dark {
-  background: radial-gradient(circle at top left, #120022, #1b0033);
+/* ===== FUNDALURI TEMĂ ===== */
+body[data-theme="dark"] {
+  background: radial-gradient(circle at 20% 30%, #1b002e, #000010);
   color: #f5f5f5;
 }
 
-body.light {
-  background: linear-gradient(to bottom right, #ffffff, #e9f1ff);
-  color: #101522;
+body[data-theme="light"] {
+  background: linear-gradient(135deg, #ffffff, #e8f0ff);
+  color: #1b1b1b;
 }
 
-/* ===== SWITCH THEME ===== */
+/* ===== GLOW ACCENT DARK MODE ===== */
+body[data-theme="dark"] h1,
+body[data-theme="dark"] p {
+  text-shadow: 0 0 8px rgba(150, 0, 255, 0.5);
+}
+
+/* ===== SWITCH POSITION ===== */
 .theme-toggle {
   position: fixed;
   top: 1.5rem;
@@ -26,7 +32,7 @@ body.light {
   z-index: 1000;
 }
 
-/* --- CODUL TĂU DE PE UIVERSE --- */
+/* ===== SWITCH (Uiverse.io by JustCode14) ===== */
 .switch {
   font-size: 17px;
   position: relative;
@@ -61,8 +67,7 @@ body.light {
   border-radius: 20px;
   left: 0.5em;
   bottom: 0.5em;
-  transition: 0.4s;
-  transition-timing-function: cubic-bezier(0.81, -0.04, 0.38, 1.5);
+  transition: 0.4s cubic-bezier(0.81, -0.04, 0.38, 1.5);
   box-shadow: inset 8px -4px 0px 0px #fff;
 }
 .switch input:checked + .slider {
@@ -77,8 +82,8 @@ body.light {
   border-radius: 50%;
   position: absolute;
   width: 5px;
-  transition: all 0.4s;
   height: 5px;
+  transition: all 0.4s;
 }
 .star_1 { left: 2.5em; top: 0.5em; }
 .star_2 { left: 2.2em; top: 1.2em; }
@@ -97,7 +102,7 @@ body.light {
 /* ===== HEADER ===== */
 .main-header {
   text-align: center;
-  margin-top: 20vh;
+  margin-top: 25vh;
 }
 .main-header h1 {
   font-size: 3rem;
@@ -106,5 +111,5 @@ body.light {
 .main-header p {
   margin-top: 10px;
   font-size: 1.2rem;
-  opacity: 0.85;
+  opacity: 0.9;
 }
