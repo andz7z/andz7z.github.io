@@ -629,3 +629,22 @@ if (titleElement) {
     typeFooterText(newMsg);
   });
 });
+// === ABOUT SECTION INTERACTIVITY ===
+document.addEventListener("DOMContentLoaded", () => {
+  // Donut Chart Animation
+  document.querySelectorAll(".donut").forEach(donut => {
+    const val = donut.dataset.value || 0;
+    donut.style.setProperty("--val", val);
+    donut.innerHTML = `<span>${val}%</span>`;
+  });
+
+  // Activity Toggle
+  document.querySelectorAll(".activity-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const detail = btn.nextElementSibling;
+      const isVisible = detail.style.display === "block";
+      document.querySelectorAll(".activity-detail").forEach(d => (d.style.display = "none"));
+      detail.style.display = isVisible ? "none" : "block";
+    });
+  });
+});
