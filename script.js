@@ -400,21 +400,14 @@ if (mainTitle && navButtons && titleEl) {
 // ======== Dark / Light Mode System (Uiverse Switch) ========
 // ===========================================================
 const checkbox = document.getElementById("checkbox");
+const body = document.body;
 
-// initializează tema la load
 if (localStorage.getItem("theme") === "dark") {
   body.classList.add("dark-mode");
   checkbox.checked = true;
-} else {
-  body.classList.remove("dark-mode");
-  checkbox.checked = false;
 }
 
-// când se schimbă switch-ul
 checkbox.addEventListener("change", () => {
-  playClick();
-  body.classList.add("theme-transition");
-
   if (checkbox.checked) {
     body.classList.add("dark-mode");
     localStorage.setItem("theme", "dark");
@@ -422,10 +415,7 @@ checkbox.addEventListener("change", () => {
     body.classList.remove("dark-mode");
     localStorage.setItem("theme", "light");
   }
-
-  setTimeout(() => body.classList.remove("theme-transition"), 1200);
 });
-
   // ===========================================================
   // ===== Starfield Generator (Dark) =====
   // ===========================================================
