@@ -1075,8 +1075,8 @@ body.dark-mode #scroll-bar {
 }
 .review-header {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-start;
+  gap: 12px;
 }
 .review-header img {
   width: 60px;
@@ -1086,7 +1086,7 @@ body.dark-mode #scroll-bar {
 .review-meta h4 { margin: 0; font-size: 1.1rem; }
 .review-meta p { margin: 0; font-size: 0.9rem; opacity: 0.8; }
 .review-stars { margin-left: auto; color: #ffd95a; }
-.review-text { margin-top: 10px; font-size: 0.95rem; }
+.review-text { margin-top: 8px; font-size: 0.95rem; }
 
 /* PAGINATION */
 .pagination {
@@ -1223,7 +1223,7 @@ body.dark-mode #scroll-bar {
 }
 .review-text {
   font-size: 0.85rem;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 .review-card small {
   font-size: 0.7rem;
@@ -1337,6 +1337,26 @@ body.dark-mode #scroll-bar {
 .reply-modal {
   position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;justify-content:center;align-items:flex-start;padding:40px;z-index:99999;
 }
+.review-right {
+  flex: 1;
+}
+.review-rating {
+  font-size: 1.1rem;
+  color: gold;
+  letter-spacing: 2px;
+}
+.author-img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.review-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
 .reply-modal-inner { background:linear-gradient(180deg, rgba(20,20,20,0.95), rgba(30,30,30,0.95)); padding:18px; border-radius:12px; width:min(760px, 96%); max-height:80vh; overflow:auto; color:#fff; }
 .reply-modal .modal-close { float:right; background:transparent;border:none;color:#fff;font-size:22px; cursor:pointer; }
 .reply-modal .form-row { margin:8px 0; display:flex; flex-direction:column; text-align:left; }
@@ -1345,7 +1365,7 @@ body.dark-mode #scroll-bar {
 
 /* Emoji Service */
 .meta-top { display:flex; align-items:center; gap:10px; }
-.meta-name { display:flex; align-items:center; gap:8px; }
+.meta-name { display:flex; align-items:center; gap:8px; font-size: 1rem; font-weight: 600; }
 .service-emoji { font-size:1.05rem; opacity:0.95; }
 
 /* fix pagination */

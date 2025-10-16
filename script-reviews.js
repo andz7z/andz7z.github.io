@@ -326,8 +326,12 @@ function renderPage(){
       const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
       card.innerHTML = `
         <div class="review-header">
-          <img class="author-img" src="${img}" alt="${escapeHtml(r.gender || '')}">
-          <div class="review-meta">
+          <div class="review-left">
+            <img class="author-img" src="${img}" alt="${escapeHtml(r.gender || '')}">
+            <div class="review-rating">${stars}</div>
+          </div>
+
+          <div class="review-right">
             <div class="meta-top">
               <h4 class="meta-name">${escapeHtml(r.name)} <span class="service-emoji">${svcEmoji}</span>
                 ${r.badge ? `<span class="badge">${r.badge}</span>` : ''}
@@ -335,9 +339,10 @@ function renderPage(){
               <div class="meta-sub"><small class="meta-count">${r.totalReviews || 1} reviews</small></div>
             </div>
           </div>
-          <div class="review-rating">${stars}</div>
         </div>
+
         <p class="review-text">${escapeHtml(r.message)}</p>
+
         <div class="review-actions-row">
           <div class="action-left">
             <button class="like-btn" data-id="${r.id}">👍🏼 <span class="like-count">${r.likes || 0}</span></button>
@@ -348,6 +353,7 @@ function renderPage(){
             <small class="review-date">${new Date(r.date).toLocaleString()}</small>
           </div>
         </div>
+
         <div class="reply-list" id="replies-${r.id}"></div>
       `;
       reviewsContainer.appendChild(card);
