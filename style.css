@@ -44,25 +44,31 @@ body {
 /* ===== GLASS CARDS ===== */
 .glass {
   position: relative;
-  width: 180px;
-  height: 200px;
-  background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 25px 25px rgba(0, 0, 0, 0.25);
+  width: 200px;
+  height: 230px;
+  background: #222; /* gri închis neutru */
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 25px rgba(179, 91, 255, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 0.5s;
+  transition: all 0.5s ease;
   border-radius: 15px;
-  margin: 0 -45px;
-  backdrop-filter: blur(12px);
-  transform: rotate(calc(var(--r) * 1deg));
+  backdrop-filter: blur(0px);
   cursor: pointer;
 }
 
-.container:hover .glass {
-  transform: rotate(0deg);
-  margin: 0 10px;
+/* Glow violet */
+.glass:hover {
+  box-shadow: 0 0 35px rgba(179, 91, 255, 0.6), 0 0 60px rgba(179, 91, 255, 0.3);
+  transform: scale(1.03);
+}
+
+/* Efect de glass la click */
+.glass.active {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 40px rgba(179, 91, 255, 0.8), 0 0 80px rgba(179, 91, 255, 0.4);
 }
 
 /* ===== TEXT LABEL ===== */
@@ -84,34 +90,14 @@ body {
 
 /* ===== ICONS ===== */
 .glass svg {
-  width: 65px;
-  height: 65px;
-  fill: #fff;
+  width: 80px;
+  height: 80px;
+  fill: #e0e0e0;
   filter: drop-shadow(0 0 8px #b35bff);
-  transition: 0.3s;
+  transition: all 0.3s ease;
 }
 
 .glass:hover svg {
-  transform: scale(1.15);
+  transform: scale(1.1);
   filter: drop-shadow(0 0 20px #b35bff);
-}
-
-/* ===== GLOW BORDER ===== */
-.glass::after {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 15px;
-  background: linear-gradient(45deg, #8a2be2, transparent, #b35bff);
-  opacity: 0.5;
-  z-index: -1;
-  animation: border-glow 4s ease-in-out infinite;
-}
-
-@keyframes border-glow {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.7; }
 }
