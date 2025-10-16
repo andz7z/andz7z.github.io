@@ -10,33 +10,8 @@
   <script defer src="script.js"></script>
 </head>
 <body>
-  <!-- Theme Toggle -->
-<label id="theme-toggle" class="switch" title="Toggle Dark/Light Mode">
-  <input id="input" type="checkbox" />
-  <div class="slider round">
-    <div class="sun-moon">
-      <svg id="moon-dot-1" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="moon-dot-2" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="moon-dot-3" class="moon-dot" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="light-ray-1" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="light-ray-2" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="light-ray-3" class="light-ray" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="cloud-1" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="cloud-2" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="cloud-3" class="cloud-dark" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="cloud-4" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="cloud-5" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-      <svg id="cloud-6" class="cloud-light" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50"></circle></svg>
-    </div>
-    <div class="stars">
-      <svg id="star-1" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-      <svg id="star-2" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-      <svg id="star-3" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-      <svg id="star-4" class="star" viewBox="0 0 20 20"><path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z"></path></svg>
-    </div>
-  </div>
-</label>
-
+<!-- Theme Toggle -->
+<div id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">💡</div>
   
 <!-- Notification -->
 <div id="notification" class="notification">
@@ -54,20 +29,20 @@
 </div>
 
 
-  <!-- Background video -->
+<!-- Background video -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="https://cdn.pixabay.com/video/2025/09/05/301949_large.mp4" type="video/mp4">
 </video>
   <div class="overlay"></div>
   <canvas id="particle-canvas"></canvas>
 
-  <!-- Audio control -->
+<!-- Audio control -->
   <div class="audio-control">
     <span id="audio-icon" onclick="toggleMusic()">🔇</span>
     <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0">
   </div>
 
-  <!-- Header -->
+<!-- Header -->
   <header>
 <h1 class="title" id="main-title">
   <span id="main-logo" class="main-logo-text hidden">A N D Z</span>
@@ -76,16 +51,16 @@
     <nav class="nav-buttons hidden">
       <button onclick="openSection('services')">Services 🤝🏻</button>
       <button onclick="openSection('work')">Projects 📁</button>
-      <button onclick="openSection('contact')">Contact Me 📞</button>
       <button onclick="openSection('reviews')">Reviews ⭐</button>
+      <button onclick="openSection('contact')">Contact 📞</button>
     </nav>
   </header>
 <!-- servicii -->
 <section id="services" class="hidden section">
   <div class="section-bg"></div>
-  <h2>🧩 My Services</h2>
+  <h2>🧩 Services We Offer</h2>
 
-  <!-- WHAT I DO -->
+<!-- WHAT I DO -->
   <div class="services-grid">
     <div class="service-card">
       <span class="service-icon">🎬</span>
@@ -151,12 +126,12 @@
   </div>
 </section>
 
-  <!-- MY WORK (REFACUT) -->
+<!-- MY WORK (REFACUT) -->
 <section id="work" class="hidden section">
   <div class="section-bg"></div>
   <h2>💎 My Projects</h2>
 
-  <!-- YouTube Card (mutat aici sus) -->
+<!-- YouTube Card (mutat aici sus) -->
   <div id="yt-stats" class="yt-card show">
     <img id="yt-thumbnail" src="https://andz7z.github.io/assets/logos/youtube/logo_light.gif" alt="Loading...">
     <div class="yt-info">
@@ -194,7 +169,7 @@
   <div id="work-detail-container" class="work-detail-container" aria-live="polite"></div>
 </section>
   
-  <!-- CONTACT -->
+<!-- CONTACT -->
 <section id="contact" class="hidden section">
   <div class="section-bg"></div>
   <h2>📩 Contact Me</h2>
@@ -222,7 +197,7 @@
 <section id="reviews" class="hidden section reviews-new">
   <div class="reviews-bg"></div>
 
-  <h2 class="reviews-title">✨ User Reviews</h2>
+  <h2 class="reviews-title">🗣️ What our customers say about us</h2>
 
   <div class="reviews-layout">
     <!-- LEFT SIDE - FORM -->
@@ -245,7 +220,7 @@
   </label>
 </div>
 
-<!-- AICI adăugăm imaginea dinamică (preview) -->
+<!-- Dynamic Gender Preview -->
 <div id="gender-preview" class="gender-preview fade">
   <img id="preview-img" src="assets/logos/reviews/3star_icon_male.gif" alt="preview">
 </div>
@@ -263,7 +238,7 @@
 
         <label>Service:</label>
         <div class="service-pick" id="service-pick">
-          <button type="button" data-value="web">🌐 Web Dev</button>
+          <button type="button" data-value="web">🌐 Web Development</button>
           <button type="button" data-value="prog">💻 Programming</button>
           <button type="button" data-value="edit">🎬 Editing</button>
         </div>
@@ -279,7 +254,7 @@
 <div class="review-stats glassy">
   <h3>Average Ratings</h3>
 
-  <!-- Main Donut -->
+  <!-- Main Avg -->
   <div class="avg-main">
     <div class="avg-donut">
       <svg viewBox="0 0 100 100">
@@ -295,14 +270,14 @@
     </div>
   </div>
 
-  <!-- Sub-averages -->
+  <!-- Sub Avg -->
   <div class="avg-sub">
     <div><span id="avg-web">🌐 0.0</span></div>
     <div><span id="avg-prog">💻 0.0</span></div>
     <div><span id="avg-edit">🎬 0.0</span></div>
   </div>
 </div>
-<!-- SORT + SERVICE FILTERS (pune-l sub AVG ratings în aceeasi sectiune) -->
+<!-- Sorting buttons -->
 <div class="avg-controls glassy avg-filters-row" style="margin-top:12px; display:flex; gap:12px; align-items:center; justify-content:center; padding:10px; border-radius:10px;">
   <div class="sort-chips" id="sort-wrapper" style="display:flex; gap:8px; align-items:center;">
     <button class="sort-chip" data-sort="recent" onclick="document.getElementById('sort-filter').value='recent'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Most recent</button>
@@ -311,7 +286,7 @@
     <button class="sort-chip" data-sort="lowest" onclick="document.getElementById('sort-filter').value='lowest'; document.getElementById('sort-filter').dispatchEvent(new Event('change'));">Lowest</button>
   </div>
 
-  <!-- hidden selects (JS uses these, but visible UI is chips above) -->
+  <!-- Sorting filters -->
   <select id="sort-filter" style="display:none;">
     <option value="recent">Most recent</option>
     <option value="oldest">Oldest</option>
@@ -341,7 +316,7 @@
     <button id="next-page">Next ➡</button>
   </div>
 </section>
-<!-- === REPLIES MODAL (CHAT STYLE) === -->
+<!-- iMessage replies -->
 <div id="replies-modal" class="hidden">
   <div class="replies-overlay"></div>
   <div class="replies-window glassy">
@@ -351,7 +326,6 @@
     </div>
 
     <div class="replies-body" id="replies-body">
-      <!-- replies injected dynamically -->
     </div>
 
     <div class="replies-input">
@@ -366,7 +340,7 @@
         </label>
       </div>
 
-      <!-- 🔥 Câmp nou pentru nume -->
+      <!-- Name Replies -->
       <input type="text" id="reply-name" placeholder="Your name..." required>
 
       <input type="text" id="reply-message" placeholder="Leave a comment..." maxlength="120">
@@ -380,12 +354,12 @@
   </footer>
   <!-- Floating quick navigation -->
 <div id="floating-nav" class="floating-nav hidden">
-  <button data-target="services">Services 🤝🏻</button>
+  <button data-target="services">Services 🤝🏽</button>
   <button data-target="work">Projects 📁</button>
-  <button data-target="contact">Contact Me 📞</button>
   <button data-target="reviews">Reviews ⭐</button>
+  <button data-target="contact">Contact Me 📞</button>
 </div>
-<!-- Firebase (compatibility version, works directly in browser) -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
