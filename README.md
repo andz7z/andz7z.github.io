@@ -7,7 +7,7 @@
 
 ---
 
-![ANDZ Banner](assets/logos/site/readme.png)
+![ANDZ Banner](assets/logos/site/readme.gif)
 
 </div>
 
