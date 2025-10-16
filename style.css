@@ -1,4 +1,3 @@
-/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +5,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* ===== BODY ===== */
 body {
   height: 100vh;
   display: flex;
@@ -17,13 +15,11 @@ body {
   overflow: hidden;
 }
 
-/* ===== TITLE ===== */
 .title {
   color: #cba0ff;
   font-size: 2em;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   text-shadow: 0 0 15px #b35bff, 0 0 25px #a45cff;
-  letter-spacing: 1px;
   animation: pulse 3s ease-in-out infinite;
 }
 
@@ -32,13 +28,12 @@ body {
   50% { text-shadow: 0 0 25px #b35bff, 0 0 40px #a45cff; }
 }
 
-/* ===== CONTAINER ===== */
 .container {
-  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 60px;
+  gap: 40px;
+  perspective: 1000px;
 }
 
 /* ===== GLASS CARDS ===== */
@@ -46,32 +41,30 @@ body {
   position: relative;
   width: 200px;
   height: 230px;
-  background: #222; /* gri închis neutru */
+  background: #222;
+  border-radius: 15px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 25px rgba(179, 91, 255, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.5s ease;
-  border-radius: 15px;
-  backdrop-filter: blur(0px);
+  transition: all 0.4s ease;
   cursor: pointer;
 }
 
-/* Glow violet */
+/* glow hover */
 .glass:hover {
   box-shadow: 0 0 35px rgba(179, 91, 255, 0.6), 0 0 60px rgba(179, 91, 255, 0.3);
-  transform: scale(1.03);
 }
 
-/* Efect de glass la click */
+/* glass active effect */
 .glass.active {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   box-shadow: 0 0 40px rgba(179, 91, 255, 0.8), 0 0 80px rgba(179, 91, 255, 0.4);
 }
 
-/* ===== TEXT LABEL ===== */
+/* labels */
 .glass::before {
   content: attr(data-text);
   position: absolute;
@@ -79,16 +72,16 @@ body {
   width: 100%;
   height: 40px;
   background: rgba(255, 255, 255, 0.05);
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #fff;
   font-weight: 500;
-  letter-spacing: 1px;
   text-shadow: 0 0 10px #b35bff;
+  letter-spacing: 1px;
 }
 
-/* ===== ICONS ===== */
+/* icons */
 .glass svg {
   width: 80px;
   height: 80px;
