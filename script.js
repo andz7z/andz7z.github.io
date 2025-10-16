@@ -629,32 +629,3 @@ if (titleElement) {
     typeFooterText(newMsg);
   });
 });
-// === ABOUT SECTION ===
-document.addEventListener("DOMContentLoaded", () => {
-  // Animate donuts
-  document.querySelectorAll(".donut").forEach(donut => {
-    const val = donut.dataset.value || 0;
-    donut.style.setProperty("--val", val);
-    donut.innerHTML = `<span>${val}%</span>`;
-  });
-
-  // Typing + slide effect for activities
-  document.querySelectorAll(".activity-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const detail = btn.nextElementSibling;
-      const text = detail.getAttribute("data-text");
-      const open = detail.classList.contains("typing");
-      document.querySelectorAll(".activity-detail").forEach(d => d.classList.remove("typing"));
-      if (!open) {
-        detail.textContent = "";
-        detail.classList.add("typing");
-        let i = 0;
-        const interval = setInterval(() => {
-          detail.textContent += text[i];
-          i++;
-          if (i >= text.length) clearInterval(interval);
-        }, 25);
-      }
-    });
-  });
-});
