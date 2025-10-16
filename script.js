@@ -629,3 +629,29 @@ if (titleElement) {
     typeFooterText(newMsg);
   });
 });
+// ===== About Me Interactions =====
+document.addEventListener("DOMContentLoaded", () => {
+  const avatar = document.getElementById("about-avatar");
+  const timelineItems = document.querySelectorAll(".timeline-item");
+  const discordBtn = document.getElementById("discord-btn");
+  const discordText = document.querySelector(".discord-text");
+
+  if (avatar) {
+    avatar.addEventListener("click", () => {
+      avatar.parentElement.classList.toggle("zoomed");
+    });
+  }
+
+  timelineItems.forEach(item => {
+    item.addEventListener("click", () => {
+      item.classList.toggle("active");
+    });
+  });
+
+  if (discordBtn && discordText) {
+    discordBtn.addEventListener("click", e => {
+      e.preventDefault();
+      discordText.classList.toggle("hidden");
+    });
+  }
+});
