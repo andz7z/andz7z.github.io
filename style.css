@@ -120,8 +120,7 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* === HEADER OVAL MODERN === */
-
+/* === HEADER OVAL CU ICONIȚA GIF ÎN CENTRU === */
 .header-oval {
   position: fixed;
   top: 25px;
@@ -134,12 +133,12 @@ body{
   border: 1px solid rgba(255,255,255,0.12);
   box-shadow: 0 4px 25px rgba(0,0,0,0.35);
   border-radius: 50px;
-  padding: 10px 20px;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
   gap: 20px;
   width: fit-content;
-  transition: all 0.4s ease;
+  transition: all 0.4s ease, opacity 0.6s ease;
   opacity: 0;
 }
 .header-oval.active {
@@ -155,30 +154,6 @@ body{
   display: flex;
   align-items: center;
   gap: 18px;
-}
-
-.logo-wrap {
-  display: flex;
-  align-items: center;
-}
-
-.brand-icon {
-  width: 1.5cm;
-  height: 1.5cm;
-  border-radius: 10px;
-  object-fit: cover;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  cursor: pointer;
-}
-.brand-icon:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 18px 4px rgba(255,255,255,0.7);
-}
-
-/* === BUTOANE UIVERSE (modificate mov închis) === */
-.nav {
-  display: flex;
-  gap: 12px;
 }
 
 .nav-btn {
@@ -197,15 +172,13 @@ body{
   box-shadow: transparent;
   opacity: 0;
 }
-
 .nav-btn.active {
   opacity: 1;
 }
-
 .nav-btn:hover,
 .nav-btn:focus {
   color: #fff;
-  background: #5a1aff;
+  background: #5a1aff; /* mov închis */
   border: 1px solid #5a1aff;
   text-shadow:
     0 0 5px #fff,
@@ -219,7 +192,31 @@ body{
   font-size: 16px;
   border-color: transparent;
 }
-
 .nav-btn:active {
   transform: scale(0.97);
+}
+
+/* Iconița GIF */
+.brand-icon-gif {
+  width: 1.5cm;
+  height: 1.5cm;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+.brand-icon-gif:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px 6px rgba(255,255,255,0.7);
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .header-oval {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 8px 16px;
+  }
+  .nav-btn { font-size: 14px; padding: 8px 14px; }
+  .brand-icon-gif { width: 45px; height: 45px; }
 }
