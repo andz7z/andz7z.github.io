@@ -93,7 +93,7 @@ body {
 /* Poziția subtitlului — modifică margin-top pentru distanță */
 .subtitle {
   color: white;
-  margin-top: 0.8rem; /* ← schimbă această valoare pentru apropiere/departare */
+  margin-top: 0.6rem; /* ← schimbă această valoare pentru apropiere/departare */
   font-weight: 400;
   letter-spacing: 2px;
   font-size: 1vw;
