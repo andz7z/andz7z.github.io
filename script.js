@@ -164,3 +164,20 @@ setTimeout(() => {
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
 });
+/* === Codul tău existent === */
+/* (păstrează tot conținutul de mai sus exact așa cum e) */
+
+/* === HEADER EFFECTS === */
+(function () {
+  const header = document.getElementById("main-header");
+
+  // apare treptat după loader (animat în codul tău deja)
+  function handleScroll() {
+    if (window.scrollY > 60) header.classList.add("scrolled");
+    else header.classList.remove("scrolled");
+  }
+
+  window.addEventListener("scroll", handleScroll);
+  document.addEventListener("DOMContentLoaded", handleScroll);
+  window.addEventListener("load", handleScroll);
+})();
