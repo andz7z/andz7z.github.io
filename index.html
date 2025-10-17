@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>andzoworld</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Main Menu Transition</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- INTRO -->
-  <div class="intro" id="intro">
-    <!-- Loader from Uiverse.io -->
-    <div class="loader-wrapper">
-      <span class="loader-letter">L</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">d</span>
-      <span class="loader-letter">i</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">g</span>
-      <span class="loader-letter">.</span>
-      <span class="loader-letter">.</span>
-      <span class="loader-letter">.</span>
-      <div class="loader"></div>
-    </div>
-  </div>
 
-  <!-- MAIN PAGE -->
-  <main id="main">
-    <canvas id="stars"></canvas>
-  </main>
+  <div class="main-container">
+    <!-- STÂNGA (70%) -->
+    <section class="left-panel" id="leftPanel">
+      <div class="content">
+        <h1>Titlu</h1>
+        <p>Sloganul tău aici</p>
+        <div class="buttons">
+          <button class="nav-btn">Home</button>
+          <button class="nav-btn">Proiecte</button>
+          <button class="nav-btn">Contact</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DREAPTA (30%) -->
+    <section class="right-panel">
+      <video autoplay muted loop playsinline id="bgVideo">
+        <source src="midnight-purple.mp4" type="video/mp4" />
+      </video>
+    </section>
+  </div>
 
   <script src="script.js"></script>
 </body>
