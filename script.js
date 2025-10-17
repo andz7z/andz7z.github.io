@@ -5,15 +5,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const app = document.getElementById('app');
   const heroLines = document.querySelectorAll('.hero-line');
 
+  // Loader + fade-in app
   setTimeout(() => {
     loaderScreen.classList.add('blur-out');
+
+    // după tranziția de blur
     setTimeout(() => {
       loaderScreen.style.display = 'none';
+      
+      // arată app și inițializează starfield
       app.classList.remove('hidden');
       initStarfield();
       animate();
-    }, 900);
-  }, 3000);
+
+      // fade-in pentru app (stele + hero content)
+      setTimeout(() => {
+        app.classList.add('active'); // clasa CSS .fade-in.active
+      }, 50);
+
+    }, 900); // durata tranziției loader-ului
+  }, 3000); // durata loader-ului
 
   let scene, camera, renderer, stars, starGeo;
   let raycaster, mouse;
@@ -115,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(heroLines.length){
         heroLines.forEach(line=>line.classList.remove('highlight'));
         heroLines.forEach((line,i)=>{
-          if(i===0) line.classList.add('highlight'); // simple demo: highlight first line on hover
+          if(i===0) line.classList.add('highlight'); // simplu demo
         });
       }
     } else {
