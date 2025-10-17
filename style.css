@@ -1,4 +1,14 @@
 /* From Uiverse.io by dexter-st */
+
+/* ===== Font Custom ===== */
+@font-face {
+  font-family: "Colmeak";
+  src: url("assets/fonts/Colmeak.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ===== Body ===== */
 body {
   background-color: #0c0c0c;
   display: flex;
@@ -9,23 +19,25 @@ body {
   overflow: hidden;
 }
 
+/* ===== Loader Wrapper ===== */
 .loader-wrapper {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 180px;
-  height: 180px;
-  font-family: "Inter", sans-serif;
-  font-size: 1.6em;
-  font-weight: 500;
+  width: 220px;
+  height: 220px;
+  font-family: "Colmeak", sans-serif;
+  font-size: 2em;
+  font-weight: normal;
   color: white;
   border-radius: 50%;
   background-color: transparent;
   user-select: none;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
 }
 
+/* ===== Circle Loader ===== */
 .loader {
   position: absolute;
   top: 0;
@@ -62,6 +74,7 @@ body {
   }
 }
 
+/* ===== Text Animation ===== */
 .loader-letter {
   display: inline-block;
   opacity: 0.4;
