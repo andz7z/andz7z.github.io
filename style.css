@@ -155,3 +155,31 @@ body {
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  transition: all 0.4s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.glow-btn:hover {
+  background: rgba(173, 95, 255, 0.1);
+  box-shadow: 0 0 15px #ad5fff, 0 0 40px #471eec;
+  transform: scale(1.08);
+}
+
+/* ===== BOTTOM BLUR ===== */
+.bottom-blur {
+  position: fixed;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+/* ===== SLIDE DIRECTIONS ===== */
+.slide-left { transform: translateX(-60px); opacity: 0; transition: all 1s ease; }
+.slide-right { transform: translateX(60px); opacity: 0; transition: all 1s ease; }
+.show .slide-left, .show .slide-right { transform: translateX(0); opacity: 1; }
+
+/* ===== HIDDEN ===== */
+.hidden { display: none; }
