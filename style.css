@@ -120,94 +120,81 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* Existing CSS from your file above... */
-/* ------------------------------------ */
+/* === HEADER OVAL MODERN === */
 
-/* === HEADER TRANSPARENT === */
-
-.header {
+.header-oval {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 9999;
-  transition: background 400ms ease, box-shadow 400ms ease, backdrop-filter 400ms ease, padding 300ms ease, opacity 600ms ease;
-  background: rgba(255,255,255,0.06);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  padding: 10px 16px;
+  background: rgba(255,255,255,0.08);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 4px 25px rgba(0,0,0,0.35);
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: fit-content;
+  transition: all 0.4s ease;
   opacity: 0;
 }
-
-.header.active {
+.header-oval.active {
   opacity: 1;
 }
-
-.header.scrolled {
-  background: rgba(18,18,20,0.62);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
-  box-shadow: 0 6px 22px rgba(0,0,0,0.45);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  padding: 6px 16px;
+.header-oval.scrolled {
+  background: rgba(30, 10, 60, 0.65);
+  box-shadow: 0 6px 25px rgba(60, 0, 120, 0.45);
+  border-color: rgba(255,255,255,0.08);
 }
 
 .header-inner {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 18px;
 }
 
-.logo-wrap { display: flex; align-items: center; }
+.logo-wrap {
+  display: flex;
+  align-items: center;
+}
 
 .brand-icon {
   width: 1.5cm;
   height: 1.5cm;
+  border-radius: 10px;
   object-fit: cover;
-  border-radius: 8px;
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
   cursor: pointer;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.03);
-  background: rgba(255,255,255,0.02);
+}
+.brand-icon:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 18px 4px rgba(255,255,255,0.7);
 }
 
-.brand-icon:hover,
-.brand-icon:focus {
-  transform: scale(1.06);
-  box-shadow:
-    0 6px 22px rgba(0,0,0,0.45),
-    0 0 18px 6px rgba(255,255,255,0.12),
-    0 0 6px 2px rgba(255,255,255,0.28);
-  outline: none;
-}
-
+/* === BUTOANE UIVERSE (modificate mov închis) === */
 .nav {
   display: flex;
   gap: 12px;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
 }
 
 .nav-btn {
-  background: linear-gradient(135deg,
-      rgba(255,255,255,0) 0%,
-      rgba(121,121,121,0.12) 50%,
-      rgba(255,255,255,0) 100%);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  color: #e6e6e6;
-  border: none;
-  border-radius: 10px;
   padding: 10px 20px;
-  font-size: 15px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  background: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-  transition: transform 300ms ease, box-shadow 400ms ease, color 200ms ease, background 300ms ease, opacity 600ms ease;
+  text-shadow: none;
+  box-shadow: transparent;
   opacity: 0;
 }
 
@@ -217,19 +204,22 @@ body{
 
 .nav-btn:hover,
 .nav-btn:focus {
-  color: #ffffff;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 28px rgba(121,121,121,0.06);
-  outline: none;
+  color: #fff;
+  background: #5a1aff;
+  border: 1px solid #5a1aff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff;
+  box-shadow:
+    0 0 5px #5a1aff,
+    0 0 20px #5a1aff,
+    0 0 50px #5a1aff,
+    0 0 100px #5a1aff;
+  font-size: 16px;
+  border-color: transparent;
 }
 
 .nav-btn:active {
-  transform: translateY(-1px) scale(0.995);
-}
-
-.right-space { width: 57px; }
-
-@media (max-width: 720px) {
-  .nav { gap: 8px; padding: 6px; overflow-x: auto; white-space: nowrap; }
-  .nav-btn { padding: 8px 14px; font-size: 14px; }
+  transform: scale(0.97);
 }
