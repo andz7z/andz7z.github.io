@@ -1,36 +1,37 @@
-// Blur-out intro logic
+// Blur intro out
 document.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("intro");
   const main = document.getElementById("mainContent");
-
   setTimeout(() => {
     intro.classList.add("blur-out");
     setTimeout(() => {
       intro.remove();
       main.classList.remove("hidden");
       main.classList.add("reveal");
-    }, 1000);
+    }, 900);
   }, 2000);
 });
 
-// --- Abstract Flow Grid ---
+// --- Cosmic Network (3D depth + dense connections) ---
 (() => {
-  const canvas = document.getElementById("gridCanvas");
+  const canvas = document.getElementById("universe");
   const ctx = canvas.getContext("2d");
-  let w, h, points = [];
-  const COUNT = 180;
+  let w, h;
+  let stars = [];
+  let depth = 0;
+  const COUNT = 250;
   let mouse = { x: 0, y: 0 };
 
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
-    points = [];
+    stars = [];
     for (let i = 0; i < COUNT; i++) {
-      points.push({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        z: Math.random() * 2 - 1,
-        offset: Math.random() * 1000
+      stars.push({
+        x: (Math.random() - 0.5) * w,
+        y: (Math.random() - 0.5) * h,
+        z: Math.random() * 0.9 + 0.1,
+        offset: Math.random() * 2000
       });
     }
   }
@@ -38,82 +39,94 @@ document.addEventListener("DOMContentLoaded", () => {
   resize();
 
   window.addEventListener("mousemove", (e) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
+    mouse.x = e.clientX / w - 0.5;
+    mouse.y = e.clientY / h - 0.5;
   });
 
   function draw(t) {
     ctx.clearRect(0, 0, w, h);
-    const grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0, "rgba(138,91,255,0.35)");
-    grad.addColorStop(1, "rgba(0,202,255,0.25)");
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = 1.1;
+    ctx.save();
+    ctx.translate(w / 2, h / 2);
 
-    // Update points
-    for (let p of points) {
-      const n = Math.sin((t * 0.001 + p.offset) * 0.5);
-      p.y += n * 0.15;
-      p.x += Math.cos((t * 0.001 + p.offset) * 0.4) * 0.15;
+    for (let s of stars) {
+      const zDepth = s.z * (1 + Math.sin(t * 0.0005 + s.offset) * 0.15);
+      const px = s.x * (1 + mouse.x * 0.8 * zDepth);
+      const py = s.y * (1 + mouse.y * 0.8 * zDepth);
 
-      // wrap edges
-      if (p.x < 0) p.x = w;
-      if (p.x > w) p.x = 0;
-      if (p.y < 0) p.y = h;
-      if (p.y > h) p.y = 0;
-    }
+      const size = (1 - zDepth) * 3 + 0.6;
+      const alpha = 0.3 + (1 - zDepth) * 0.7;
 
-    // Draw connecting lines (abstract network)
-    for (let i = 0; i < points.length; i++) {
-      for (let j = i + 1; j < points.length; j++) {
-        const dx = points[i].x - points[j].x;
-        const dy = points[i].y - points[j].y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 120) {
-          const alpha = 0.2 - dist / 600;
+      // Linii de conexiune
+      for (let s2 of stars) {
+        const dx = px - s2.x;
+        const dy = py - s2.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 140 * (1 + zDepth)) {
+          const a = 0.05 + (1 - dist / 140) * 0.15;
+          ctx.strokeStyle = `rgba(138,91,255,${a})`;
           ctx.beginPath();
-          ctx.moveTo(points[i].x, points[i].y);
-          ctx.lineTo(points[j].x, points[j].y);
-          ctx.strokeStyle = `rgba(138,91,255,${alpha})`;
+          ctx.moveTo(px, py);
+          ctx.lineTo(s2.x, s2.y);
           ctx.stroke();
         }
       }
-    }
 
-    // Glow points
-    for (let p of points) {
-      const dx = p.x - mouse.x;
-      const dy = p.y - mouse.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const glow = Math.max(0, 1 - dist / 200);
+      // Punct luminos
+      const gradient = ctx.createRadialGradient(px, py, 0, px, py, size * 6);
+      gradient.addColorStop(0, `rgba(138,91,255,${alpha})`);
+      gradient.addColorStop(1, "transparent");
+      ctx.fillStyle = gradient;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.4 + glow * 2.8, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${138 - glow * 50}, ${91 + glow * 40}, 255, ${0.5 + glow * 0.5})`;
+      ctx.arc(px, py, size, 0, Math.PI * 2);
       ctx.fill();
     }
 
+    ctx.restore();
     requestAnimationFrame(draw);
   }
   requestAnimationFrame(draw);
 })();
 
-// Cursor logic
+// --- Glow Trail Cursor (linie stelară) ---
 (() => {
-  const cursor = document.getElementById("cursor");
-  const ring = document.getElementById("ring");
-  let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-  let pos = { x: mouse.x, y: mouse.y };
-  let ringPos = { x: mouse.x, y: mouse.y };
-  function lerp(a,b,t){return a+(b-a)*t}
-  window.addEventListener("mousemove", (e)=>{mouse.x=e.clientX;mouse.y=e.clientY;});
-  function frame(){
-    pos.x=lerp(pos.x,mouse.x,0.18);
-    pos.y=lerp(pos.y,mouse.y,0.18);
-    ringPos.x=lerp(ringPos.x,mouse.x,0.07);
-    ringPos.y=lerp(ringPos.y,mouse.y,0.07);
-    cursor.style.left=pos.x+'px';cursor.style.top=pos.y+'px';
-    ring.style.left=ringPos.x+'px';ring.style.top=ringPos.y+'px';
-    requestAnimationFrame(frame);
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext("2d");
+  document.body.appendChild(canvas);
+  let w, h;
+  const trail = [];
+  const maxTrail = 20;
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
   }
-  frame();
+  window.addEventListener("resize", resize);
+  resize();
+
+  window.addEventListener("mousemove", (e) => {
+    trail.push({ x: e.clientX, y: e.clientY, life: 1 });
+    if (trail.length > maxTrail) trail.shift();
+  });
+
+  function animate() {
+    ctx.clearRect(0, 0, w, h);
+    for (let i = 0; i < trail.length; i++) {
+      const p = trail[i];
+      p.life -= 0.03;
+      if (p.life <= 0) continue;
+      const alpha = p.life;
+      const size = 10 * alpha + 3;
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, size * 3);
+      grad.addColorStop(0, `rgba(138,91,255,${alpha})`);
+      grad.addColorStop(0.5, `rgba(0,202,255,${alpha * 0.7})`);
+      grad.addColorStop(1, "transparent");
+
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    requestAnimationFrame(animate);
+  }
+  animate();
 })();
