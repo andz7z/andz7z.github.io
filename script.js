@@ -9,26 +9,29 @@ document.addEventListener("DOMContentLoaded", () => {
       intro.remove();
       main.classList.remove("hidden");
       main.classList.add("reveal");
-    }, 900);
-  }, 3000);
+    }, 1000);
+  }, 2000);
 });
 
-// --- Interactive Polygonal Grid ---
+// --- Abstract Flow Grid ---
 (() => {
   const canvas = document.getElementById("gridCanvas");
   const ctx = canvas.getContext("2d");
   let w, h, points = [];
-  const spacing = 80;
+  const COUNT = 180;
   let mouse = { x: 0, y: 0 };
 
   function resize() {
     w = canvas.width = window.innerWidth;
     h = canvas.height = window.innerHeight;
     points = [];
-    for (let y = 0; y <= h; y += spacing) {
-      for (let x = 0; x <= w; x += spacing) {
-        points.push({ x, y, ox: x, oy: y });
-      }
+    for (let i = 0; i < COUNT; i++) {
+      points.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        z: Math.random() * 2 - 1,
+        offset: Math.random() * 1000
+      });
     }
   }
   window.addEventListener("resize", resize);
@@ -39,56 +42,62 @@ document.addEventListener("DOMContentLoaded", () => {
     mouse.y = e.clientY;
   });
 
-  function draw() {
+  function draw(t) {
     ctx.clearRect(0, 0, w, h);
-    ctx.strokeStyle = "rgba(138,91,255,0.2)";
-    ctx.lineWidth = 1.2;
+    const grad = ctx.createLinearGradient(0, 0, w, h);
+    grad.addColorStop(0, "rgba(138,91,255,0.35)");
+    grad.addColorStop(1, "rgba(0,202,255,0.25)");
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = 1.1;
 
-    // move points based on mouse proximity
+    // Update points
     for (let p of points) {
-      const dx = p.x - mouse.x;
-      const dy = p.y - mouse.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      const influence = Math.max(0, 150 - dist) / 150;
-      p.x = p.ox + dx * 0.02 - dx * influence * 0.3;
-      p.y = p.oy + dy * 0.02 - dy * influence * 0.3;
+      const n = Math.sin((t * 0.001 + p.offset) * 0.5);
+      p.y += n * 0.15;
+      p.x += Math.cos((t * 0.001 + p.offset) * 0.4) * 0.15;
+
+      // wrap edges
+      if (p.x < 0) p.x = w;
+      if (p.x > w) p.x = 0;
+      if (p.y < 0) p.y = h;
+      if (p.y > h) p.y = 0;
     }
 
-    // draw grid lines
-    ctx.beginPath();
+    // Draw connecting lines (abstract network)
     for (let i = 0; i < points.length; i++) {
-      const p = points[i];
-      const right = points.find(q => q.oy === p.oy && q.ox === p.ox + spacing);
-      const down = points.find(q => q.ox === p.ox && q.oy === p.oy + spacing);
-      if (right) {
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(right.x, right.y);
-      }
-      if (down) {
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(down.x, down.y);
+      for (let j = i + 1; j < points.length; j++) {
+        const dx = points[i].x - points[j].x;
+        const dy = points[i].y - points[j].y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          const alpha = 0.2 - dist / 600;
+          ctx.beginPath();
+          ctx.moveTo(points[i].x, points[i].y);
+          ctx.lineTo(points[j].x, points[j].y);
+          ctx.strokeStyle = `rgba(138,91,255,${alpha})`;
+          ctx.stroke();
+        }
       }
     }
-    ctx.stroke();
 
-    // glow points
+    // Glow points
     for (let p of points) {
       const dx = p.x - mouse.x;
       const dy = p.y - mouse.y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
+      const dist = Math.sqrt(dx * dx + dy * dy);
       const glow = Math.max(0, 1 - dist / 200);
       ctx.beginPath();
-      ctx.arc(p.x, p.y, 1.5 + glow * 2, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(138,91,255,${0.4 + glow * 0.6})`;
+      ctx.arc(p.x, p.y, 1.4 + glow * 2.8, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${138 - glow * 50}, ${91 + glow * 40}, 255, ${0.5 + glow * 0.5})`;
       ctx.fill();
     }
 
     requestAnimationFrame(draw);
   }
-  draw();
+  requestAnimationFrame(draw);
 })();
 
-// Cursor logic (same)
+// Cursor logic
 (() => {
   const cursor = document.getElementById("cursor");
   const ring = document.getElementById("ring");
