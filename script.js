@@ -59,13 +59,7 @@ function openSection(id) {
     btn.classList.toggle("active-btn", btn.getAttribute("onclick")?.includes(id));
   });
 
-  // 🔥 AICI adaugi controlul pentru footerul pagination:
-  const paginationEl = document.querySelector('.pagination');
-  if (paginationEl) {
-    if (id === 'reviews') paginationEl.classList.remove('hidden');
-    else paginationEl.classList.add('hidden');
   }
-}
 
 window.openSection = openSection;
 
