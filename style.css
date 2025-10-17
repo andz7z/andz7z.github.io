@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
 
 * {
   margin: 0;
@@ -7,230 +7,156 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
   background-color: #000;
-  color: white;
+  font-family: 'Inter', sans-serif;
   overflow: hidden;
 }
 
-/* ---------- COLORS ---------- */
-:root {
-  --purple-main: #8a2be2;
-  --purple-glow: #b47aff;
-  --purple-deep: #2a0066;
-  --aura-black: #050006;
-}
-
-/* ---------- LOADER ---------- */
-.loader-screen {
-  position: fixed;
-  inset: 0;
-  background-color: #000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  transition: opacity 1s ease, filter 1s ease;
-}
-
-.loader-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 180px;
-  height: 180px;
-  color: white;
-}
-
-.loader {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  animation: loader-rotate 2s linear infinite;
-}
-
-@keyframes loader-rotate {
-  0% {
-    transform: rotate(0deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 var(--purple-glow) inset,
-      0 60px 60px 0 var(--purple-deep) inset;
-  }
-  50% {
-    transform: rotate(180deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 10px 0 #d60a47 inset,
-      0 40px 60px 0 var(--purple-deep) inset;
-  }
-  100% {
-    transform: rotate(360deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 var(--purple-glow) inset,
-      0 60px 60px 0 var(--purple-deep) inset;
-  }
-}
-
-.loader-letter {
-  display: inline-block;
-  opacity: 0.4;
-  transform: translateY(0);
-  animation: loader-letter-anim 2s infinite;
-}
-
-.loader-letter:nth-child(n) {
-  animation-delay: calc(0.1s * var(--i));
-}
-
-@keyframes loader-letter-anim {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  40% {
-    opacity: 0.7;
-  }
-}
-
-.loader-screen.hide {
-  opacity: 0;
-  filter: blur(15px);
-  pointer-events: none;
-}
-
-/* ---------- MAIN ---------- */
+/* Layout general */
 .main {
   display: flex;
   height: 100vh;
   width: 100%;
-  opacity: 0;
-  animation: fadeIn 1.5s ease forwards 0.5s;
+  position: relative;
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
-
-/* LEFT SECTION */
+/* ---------- LEFT SECTION ---------- */
 .left-section {
   width: 70%;
-  background-color: #000;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding-left: 6vw;
-  padding-top: 10vh;
-  position: relative;
-}
-
-/* Perfect fade between sections */
-.left-section::after {
-  content: "";
-  position: absolute;
-  right: -8%;
-  top: 0;
-  width: 20%;
-  height: 100%;
-  background: radial-gradient(
-    circle at left center,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.7) 40%,
-    rgba(0,0,0,0) 100%
-  );
-  filter: blur(80px);
-  z-index: 2;
-  pointer-events: none;
-}
-
-.text-container {
-  position: relative;
-  z-index: 5;
-}
-
-.title {
-  font-size: 4vw;
-  font-weight: 700;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  background: linear-gradient(
-    90deg,
-    var(--purple-main),
-    var(--purple-glow),
-    var(--purple-main)
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: textGlass 6s ease-in-out infinite;
+  justify-content: center;
+  align-items: center;
+  background: #000;
   position: relative;
   overflow: hidden;
 }
 
-/* Glassy dark shimmer passing through */
-@keyframes textGlass {
-  0%, 100% {
-    filter: brightness(1);
+/* Fade perfect între sectiuni */
+.left-section::after {
+  content: "";
+  position: absolute;
+  right: -5%;
+  top: 0;
+  width: 15%;
+  height: 100%;
+  background: radial-gradient(
+    circle at right,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.8) 40%,
+    rgba(0,0,0,0) 100%
+  );
+  filter: blur(100px);
+  z-index: 2;
+}
+
+/* ---------- TEXT ---------- */
+.text-container {
+  position: relative;
+  z-index: 5;
+  text-align: left;
+  transform: translate(-5%, -10%);
+}
+
+.title {
+  font-size: 4vw;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(
+    120deg,
+    #b47aff 0%,
+    #fff 25%,
+    #7a32ff 50%,
+    #b47aff 75%,
+    #fff 100%
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: metalShift 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(180, 122, 255, 0.4));
+}
+
+@keyframes metalShift {
+  0% {
+    background-position: 0% 50%;
   }
   50% {
-    filter: brightness(0.5) contrast(1.2);
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
 .subtitle {
-  font-size: 1vw;
   color: white;
-  margin-top: 1rem;
-  margin-left: 0.5rem;
+  margin-top: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 1vw;
 }
 
-/* RIGHT SECTION */
+/* ---------- RIGHT SECTION ---------- */
 .right-section {
   width: 30%;
   position: relative;
   overflow: hidden;
 }
 
-/* The moving aura */
-.aura-bg {
+/* AURA EFFECT */
+.aura {
   position: absolute;
-  inset: -30%;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(90, 0, 255, 0.6),
-    rgba(10, 0, 20, 0.9) 60%,
-    #000 100%
+  inset: -50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(100, 0, 255, 0.2),
+    rgba(0, 0, 0, 0.95),
+    rgba(100, 0, 255, 0.3),
+    rgba(0, 0, 0, 0.9)
   );
-  filter: blur(140px);
+  background-size: 200% 200%;
+  filter: blur(180px);
   animation: auraMove 8s ease-in-out infinite alternate;
-  transition: transform 1s ease, filter 0.5s ease;
-}
-
-/* Subtle white energy overlay */
-.aura-overlay {
-  position: absolute;
-  inset: -20%;
-  background: radial-gradient(
-    circle at var(--x, 50%) var(--y, 50%),
-    rgba(255,255,255,0.15),
-    transparent 60%
-  );
-  mix-blend-mode: screen;
-  transition: background 0.3s ease;
 }
 
 @keyframes auraMove {
-  0% { transform: translate(-5%, -5%) scale(1); }
-  50% { transform: translate(5%, 5%) scale(1.1); }
-  100% { transform: translate(-5%, 5%) scale(1.05); }
+  0% {
+    transform: rotate(0deg) scale(1);
+    background-position: 0% 50%;
+  }
+  50% {
+    transform: rotate(10deg) scale(1.1);
+    background-position: 100% 50%;
+  }
+  100% {
+    transform: rotate(-10deg) scale(1.05);
+    background-position: 50% 100%;
+  }
 }
 
-.right-section:hover .aura-bg {
-  filter: blur(120px) brightness(1.3);
-  transform: scale(1.1);
+/* Blending effect între sectiuni (fade natural) */
+.main::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 68%;
+  width: 10%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.7) 30%,
+    rgba(0,0,0,0.2) 60%,
+    rgba(0,0,0,0) 100%
+  );
+  filter: blur(120px);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Hover effect - “aura push” */
+.right-section:hover .aura {
+  transform: scale(1.15) rotate(5deg);
+  filter: blur(160px) brightness(1.3);
 }
