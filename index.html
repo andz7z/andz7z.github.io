@@ -9,7 +9,7 @@
 </head>
 <body>
 
-  <!-- Intro Loader -->
+  <!-- INTRO -->
   <div class="intro-wrapper">
     <div class="loader-wrapper">
       <span class="loader-letter">G</span>
@@ -38,7 +38,7 @@
     </nav>
   </header>
 
-  <!-- HOME SECTION -->
+  <!-- HOME -->
   <section class="home hidden">
     <div class="content">
       <h1 class="motto"><span>D</span>esign.<br><span>B</span>uild.<br><span>L</span>ead.</h1>
@@ -47,25 +47,49 @@
     <div class="bottom-blur"></div>
   </section>
 
-  <!-- SCROLL SECTIONS -->
-  <section id="work" class="section hidden">
-    <h2>My Work</h2>
-    <p>Modern, responsive and aesthetic websites crafted with precision.</p>
+  <!-- SECTIONS -->
+  <section id="work" class="section hidden parallax" data-speed="0.3">
+    <div class="section-content slide-left">
+      <h2>My Work</h2>
+      <p>Each project is a blend of aesthetic balance and precise logic. Here are a few highlights.</p>
+      <div class="card-grid">
+        <div class="glass-card"><h3>Portfolio Website</h3><p>Responsive, animated & built with custom scroll transitions.</p></div>
+        <div class="glass-card"><h3>3D UI Prototype</h3><p>WebGL + design systems integration with smooth UX flow.</p></div>
+        <div class="glass-card"><h3>Landing Page Concept</h3><p>Minimal, dark-mode focused layout with moonlight accents.</p></div>
+      </div>
+    </div>
   </section>
 
-  <section id="about" class="section hidden">
-    <h2>About Me</h2>
-    <p>Passionate about design systems, motion, and clean UI that tells a story.</p>
+  <section id="about" class="section hidden parallax" data-speed="0.4">
+    <div class="section-content slide-right">
+      <h2>About Me</h2>
+      <p>I’m a designer & developer passionate about crafting digital experiences that feel alive.  
+      My focus: storytelling through interface — merging motion, sound & emotion.</p>
+      <div class="about-grid">
+        <div class="about-item"><h3>🧠 Skills</h3><p>UI/UX, Webflow, React, JS Animations</p></div>
+        <div class="about-item"><h3>🎨 Philosophy</h3><p>Less noise, more impact. Design that speaks.</p></div>
+      </div>
+    </div>
   </section>
 
-  <section id="ratings" class="section hidden">
-    <h2>Ratings & Reviews</h2>
-    <p>Trusted by clients worldwide — 5-star feedback for creativity and delivery.</p>
+  <section id="ratings" class="section hidden parallax" data-speed="0.2">
+    <div class="section-content slide-left">
+      <h2>Ratings & Reviews</h2>
+      <p>Feedback that drives perfection.</p>
+      <div class="reviews">
+        <div class="review-card"><p>"Elegant and functional. True creative vision."</p><span>— Client A</span></div>
+        <div class="review-card"><p>"Phenomenal timing & visuals. Highly recommend!"</p><span>— Client B</span></div>
+        <div class="review-card"><p>"It feels alive. The motion and light play are unmatched."</p><span>— Client C</span></div>
+      </div>
+    </div>
   </section>
 
-  <section id="contact" class="section hidden">
-    <h2>Contact</h2>
-    <p>Let's collaborate. Turning ideas into digital reality.</p>
+  <section id="contact" class="section hidden parallax" data-speed="0.25">
+    <div class="section-content slide-right">
+      <h2>Contact</h2>
+      <p>Let’s build something legendary together.</p>
+      <button class="glow-btn">Start a Project</button>
+    </div>
   </section>
 
   <script src="script.js"></script>
