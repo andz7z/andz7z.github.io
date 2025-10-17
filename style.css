@@ -3,19 +3,25 @@
   src: url("assets/fonts/Colmeak.ttf") format("truetype");
 }
 
-body {
+body, html {
   margin: 0;
-  background-color: #000;
+  padding: 0;
+  background: black;
   color: white;
   font-family: "Colmeak", sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100vh;
   overflow: hidden;
 }
 
-/* INTRO / LOADER */
+/* INTRO */
+#intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  transition: opacity 1s ease;
+}
+
 .loader-wrapper {
   position: relative;
   display: flex;
@@ -24,8 +30,6 @@ body {
   width: 180px;
   height: 180px;
   border-radius: 50%;
-  background-color: transparent;
-  user-select: none;
 }
 
 .loader {
@@ -41,27 +45,9 @@ body {
 }
 
 @keyframes loader-rotate {
-  0% {
-    transform: rotate(90deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
-  }
-  50% {
-    transform: rotate(270deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 10px 0 #d60a47 inset,
-      0 40px 60px 0 #311e80 inset;
-  }
-  100% {
-    transform: rotate(450deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
-  }
+  0% { transform: rotate(90deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
+  50% { transform: rotate(270deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset; }
+  100% { transform: rotate(450deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
 }
 
 .loader-letter {
@@ -84,32 +70,47 @@ body {
 }
 
 /* MAIN MENU */
+.hidden {
+  display: none;
+}
+
 #main-menu {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#liquid-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.menu-content {
+  position: relative;
+  z-index: 1;
   text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-#main-menu ul {
-  list-style: none;
-  padding: 0;
+.menu-content h1 {
+  font-size: 3em;
+  margin-bottom: 30px;
 }
 
-#main-menu li {
-  margin: 15px 0;
-}
-
-#main-menu a {
+.menu-content a {
   text-decoration: none;
   color: #ad5fff;
   font-size: 1.5em;
   transition: 0.3s;
 }
 
-#main-menu a:hover {
+.menu-content a:hover {
   color: #fff;
   text-shadow: 0 0 10px #ad5fff;
-}
-
-/* Hidden class */
-.hidden {
-  display: none;
 }
