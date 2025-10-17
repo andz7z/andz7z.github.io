@@ -1,51 +1,44 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Midnight Cinematic Intro</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Midnight Intro — ANDZ</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="loader" class="loader-wrapper">
-    <span class="loader-letter">G</span>
-    <span class="loader-letter">e</span>
-    <span class="loader-letter">n</span>
-    <span class="loader-letter">e</span>
-    <span class="loader-letter">r</span>
-    <span class="loader-letter">a</span>
-    <span class="loader-letter">t</span>
-    <span class="loader-letter">i</span>
-    <span class="loader-letter">n</span>
-    <span class="loader-letter">g</span>
-    <div class="loader"></div>
+  <!-- Loader (purple theme) -->
+  <div id="loader" class="loader-wrapper" aria-hidden="false" role="status">
+    <div class="loader-inner">
+      <span class="loader-letter">G</span><span class="loader-letter">e</span><span class="loader-letter">n</span><span class="loader-letter">e</span><span class="loader-letter">r</span><span class="loader-letter">a</span><span class="loader-letter">t</span><span class="loader-letter">i</span><span class="loader-letter">n</span><span class="loader-letter">g</span>
+    </div>
+    <div class="loader-ring" aria-hidden="true"></div>
   </div>
 
   <canvas id="stars"></canvas>
 
-  <main id="main-content" class="hidden">
-    <div class="slogan">
-      <h1><span>C</span><span>O</span><span>N</span><span>C</span><span>E</span><span>P</span><span>T.</span></h1>
-      <h1><span>B</span><span>U</span><span>I</span><span>L</span><span>D.</span></h1>
-      <h1><span>L</span><span>E</span><span>A</span><span>D.</span></h1>
-    </div>
+  <main id="main" class="scene hidden-scene" aria-hidden="true">
+    <section class="slogan-wrap">
+      <h1 class="slogan" id="slogan">
+        <span class="word">CONCEPT.</span>
+        <span class="word">BUILD.</span>
+        <span class="word">LEAD.</span>
+      </h1>
+      <div class="slogan-reflection" aria-hidden="true"></div>
+    </section>
 
-    <div class="card phone">
-      <div class="btn1"></div>
-      <div class="btn2"></div>
-      <div class="btn3"></div>
-      <div class="card-int">
-        <div class="hello">concept<br><span class="hidden">by ANDZ.</span></div>
-      </div>
-      <div class="top">
-        <div class="camera">
-          <div class="int"></div>
+    <aside class="phone-wrap">
+      <div class="card phone" id="phone">
+        <div class="btn1"></div><div class="btn2"></div><div class="btn3"></div><div class="btn4"></div>
+        <div class="card-int">
+          <div class="hello">concept<br><span class="sub">by ANDZ.</span></div>
         </div>
-        <div class="speaker"></div>
+        <div class="top"><div class="camera"><div class="int"></div></div><div class="speaker"></div></div>
       </div>
-    </div>
+    </aside>
   </main>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
