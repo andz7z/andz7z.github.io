@@ -4,8 +4,8 @@
 }
 
 @font-face {
-  font-family: 'Wishday';
-  src: url('assets/fonts/Wishday.otf') format('opentype');
+  font-family: 'Bacley';
+  src: url('assets/fonts/Bacley.otf') format('opentype');
 }
 
 /* RESET */
@@ -68,7 +68,7 @@
 
 /* SUBTITLE */
 #subtitle {
-  font-family: 'Wishday', cursive;
+  font-family: 'Bacley', cursive;
   font-size: 1.6rem;
   color: #b284ff;
   margin-top: 15px;
