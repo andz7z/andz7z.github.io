@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Bacley";
-  src: url("assets/fonts/bacley.otf") format("opentype");
+  font-family: "Colmeak";
+  src: url("assets/fonts/Colmeak.otf") format("opentype");
   font-weight: normal;
   font-style: normal;
 }
@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: "Bacley", sans-serif;
+  font-family: "Colmeak", sans-serif;
   height: 100vh;
   overflow: hidden;
   background: #1a1a1a;
