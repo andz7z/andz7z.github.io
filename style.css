@@ -1,39 +1,49 @@
-/* ---------- RESET ---------- */
+/* ========== GLOBAL ========== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ---------- BACKGROUND STARS ---------- */
-body, html {
+html, body {
   height: 100%;
-  width: 100%;
   overflow: hidden;
   background: black;
   font-family: "Inter", sans-serif;
 }
 
-/* Hidden before loading ends */
-.hidden {
-  display: none;
-}
-
-/* ---------- LOADER ---------- */
-.loader-wrapper {
+/* ========== LOADER ========== */
+.loader-screen {
   position: fixed;
   inset: 0;
+  background: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  z-index: 9999;
-  transition: opacity 1s ease, filter 1s ease;
+  transition: filter 1s ease, opacity 1s ease;
+  z-index: 10;
+}
+
+.loader-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  font-size: 1.2em;
+  font-weight: 300;
+  color: white;
+  border-radius: 50%;
+  background-color: transparent;
+  user-select: none;
 }
 
 .loader {
   position: absolute;
-  width: 180px;
+  top: 0;
+  left: 0;
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: transparent;
@@ -71,103 +81,92 @@ body, html {
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
   z-index: 1;
-  color: white;
 }
 
-.loader-letter:nth-child(1) { animation-delay: 0s; }
-.loader-letter:nth-child(2) { animation-delay: 0.1s; }
-.loader-letter:nth-child(3) { animation-delay: 0.2s; }
-.loader-letter:nth-child(4) { animation-delay: 0.3s; }
-.loader-letter:nth-child(5) { animation-delay: 0.4s; }
-.loader-letter:nth-child(6) { animation-delay: 0.5s; }
-.loader-letter:nth-child(7) { animation-delay: 0.6s; }
-.loader-letter:nth-child(8) { animation-delay: 0.7s; }
-.loader-letter:nth-child(9) { animation-delay: 0.8s; }
-.loader-letter:nth-child(10) { animation-delay: 0.9s; }
+.loader-letter:nth-child(1){animation-delay:0s;}
+.loader-letter:nth-child(2){animation-delay:0.1s;}
+.loader-letter:nth-child(3){animation-delay:0.2s;}
+.loader-letter:nth-child(4){animation-delay:0.3s;}
+.loader-letter:nth-child(5){animation-delay:0.4s;}
+.loader-letter:nth-child(6){animation-delay:0.5s;}
+.loader-letter:nth-child(7){animation-delay:0.6s;}
+.loader-letter:nth-child(8){animation-delay:0.7s;}
+.loader-letter:nth-child(9){animation-delay:0.8s;}
+.loader-letter:nth-child(10){animation-delay:0.9s;}
 
 @keyframes loader-letter-anim {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  40% {
-    opacity: 0.7;
-    transform: translateY(0);
-  }
+  0%, 100% {opacity: 0.4; transform: translateY(0);}
+  20% {opacity: 1; transform: scale(1.15);}
+  40% {opacity: 0.7; transform: translateY(0);}
 }
 
-/* ---------- MAIN PAGE ---------- */
-main {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* ========== MAIN PAGE ========== */
+.main-page {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 1.5s ease, filter 1.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse at bottom, #0a0a0a 0%, #000 100%);
+}
+
+/* stele */
+.stars {
+  position: absolute;
+  inset: 0;
+  background: transparent;
   overflow: hidden;
 }
 
-/* Stars Background */
-.stars {
+.star {
   position: absolute;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(white, transparent 1%) center/2px 2px,
-              radial-gradient(#ad5fff, transparent 1%) center/3px 3px;
-  background-color: black;
-  background-repeat: repeat;
-  animation: moveStars 60s linear infinite;
-  filter: brightness(0.8);
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite ease-in-out;
 }
 
-@keyframes moveStars {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-200px, 200px); }
-}
-
-/* Flicker stars effect */
 @keyframes twinkle {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
+  0%, 100% {opacity: 0.3;}
+  50% {opacity: 1;}
 }
 
-/* ---------- TEXT ---------- */
-.text-container {
+/* TEXT PRINCIPAL */
+.content {
   position: relative;
   z-index: 2;
+  text-align: left;
   color: white;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
 }
 
-.text-container h1 {
-  font-size: 3.5rem;
+.title {
+  font-size: 3rem;
   font-weight: 800;
-  letter-spacing: 2px;
-  color: white;
-  text-shadow:
-    0 0 10px #ad5fff,
-    0 0 20px #ad5fff,
-    0 0 30px #471eec,
-    0 0 40px #471eec;
-  -webkit-text-stroke: 1px #c8a2ff;
+  background: linear-gradient(90deg, #fff, #888, #000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 3px;
 }
 
-.text-container h1 span {
-  color: #ad5fff;
-}
-
-.text-container p {
-  margin-top: 10px;
+.subtitle {
   font-size: 1rem;
-  color: #d0baff;
-  text-shadow: 0 0 10px #ad5fff;
+  margin-top: 0.5rem;
+  color: rgba(255,255,255,0.7);
 }
 
-/* ---------- EXIT ANIMATION ---------- */
-.fade-out {
+/* Efecte de tranziție */
+.blur-out {
+  filter: blur(15px);
   opacity: 0;
-  filter: blur(10px);
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0);
 }
