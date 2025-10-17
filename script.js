@@ -1,51 +1,66 @@
-// ===== STELE =====
-const starsContainer = document.getElementById('stars');
-const numStars = 150;
-const stars = [];
+// Fade out intro & fade in main
+setTimeout(() => {
+  document.querySelector(".loader-wrapper").style.filter = "blur(15px)";
+  document.querySelector(".loader-wrapper").style.opacity = "0";
+  setTimeout(() => {
+    document.querySelector(".loader-wrapper").style.display = "none";
+    document.querySelector(".main").classList.remove("hidden");
+    document.querySelector(".main").classList.add("visible");
+  }, 1000);
+}, 3000);
 
-for (let i = 0; i < numStars; i++) {
-  const star = document.createElement('div');
-  star.classList.add('star');
-  star.style.top = Math.random() * 100 + '%';
-  star.style.left = Math.random() * 100 + '%';
-  star.style.animationDelay = Math.random() * 3 + 's';
-  starsContainer.appendChild(star);
-  stars.push(star);
+// ----- STARFIELD -----
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let stars = [];
+let mouse = { x: 0, y: 0 };
+let width, height;
+
+function resize() {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+// Creează stelele
+for (let i = 0; i < 150; i++) {
+  stars.push({
+    x: Math.random() * width,
+    y: Math.random() * height,
+    size: Math.random() * 1.5,
+    twinkle: Math.random() * 100,
+  });
 }
 
-// Stelele apropiate de mouse se mișcă ușor spre direcția lui
-document.addEventListener('mousemove', e => {
-  const rect = starsContainer.getBoundingClientRect();
-  const mx = e.clientX - rect.left;
-  const my = e.clientY - rect.top;
-
-  stars.forEach(star => {
-    const sx = star.offsetLeft + star.offsetWidth / 2;
-    const sy = star.offsetTop + star.offsetHeight / 2;
-    const dx = mx - sx;
-    const dy = my - sy;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist < 200) { // doar stelele apropiate
-      const angle = Math.atan2(dy, dx);
-      const move = (200 - dist) / 20;
-      const x = Math.cos(angle) * move;
-      const y = Math.sin(angle) * move;
-      star.style.transform = `translate(${x}px, ${y}px)`;
-    } else {
-      star.style.transform = `translate(0, 0)`;
-    }
-  });
+canvas.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
 });
 
-// ===== TRANZIȚII INTRO / MAIN =====
-const loader = document.getElementById('loader');
-const main = document.getElementById('main');
+function drawStars() {
+  ctx.clearRect(0, 0, width, height);
+  for (let i = 0; i < stars.length; i++) {
+    const s = stars[i];
+    const dx = s.x - mouse.x;
+    const dy = s.y - mouse.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
 
-setTimeout(() => {
-  loader.classList.add('blur-out');
-  setTimeout(() => {
-    loader.style.display = 'none';
-    main.classList.add('show');
-  }, 1000); // după blur out
-}, 3000); // 3 secunde intro
+    // doar stelele apropiate se "mișcă"
+    if (dist < 120 && Math.random() < 0.15) {
+      s.x += dx * 0.015;
+      s.y += dy * 0.015;
+    }
+
+    s.twinkle += 0.05;
+    const brightness = 0.5 + Math.sin(s.twinkle) * 0.5;
+
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 255, 255, ${brightness})`;
+    ctx.fill();
+  }
+  requestAnimationFrame(drawStars);
+}
+
+drawStars();
