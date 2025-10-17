@@ -8,14 +8,14 @@
   src: url('assets/fonts/Wishday.otf') format('opentype');
 }
 
-/* Reset */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Canvas fundal */
+/* BACKGROUND CANVAS */
 #starfield {
   position: fixed;
   top: 0;
@@ -26,7 +26,7 @@
   z-index: -1;
 }
 
-/* Text principal */
+/* TEXT CONTAINER */
 .text-container {
   position: absolute;
   top: 50%;
@@ -35,60 +35,53 @@
   text-align: center;
   color: white;
   opacity: 0;
-  animation: fadeInContainer 2s ease forwards;
+  animation: fadeInText 2s ease forwards;
   animation-delay: 3.5s;
 }
 
+@keyframes fadeInText {
+  to { opacity: 1; }
+}
+
+/* MAIN TITLE - METALLIC EFFECT */
 #main-title {
   font-family: 'Colmeak', sans-serif;
-  font-size: 4rem;
-  letter-spacing: 5px;
+  font-size: 4.5rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #ffffff 0%, #d4bfff 25%, #b284ff 50%, #d4bfff 75%, #ffffff 100%);
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: metallicShine 6s linear infinite, fadeUp 1.5s ease forwards;
 }
 
-.word {
-  display: block;
-  opacity: 0;
-  animation: wordFade 2s ease forwards;
+@keyframes metallicShine {
+  0% { background-position: 0%; }
+  100% { background-position: 400%; }
 }
 
-.word:nth-child(1) {
-  animation-delay: 3.5s;
-}
-.word:nth-child(2) {
-  animation-delay: 5s;
-}
-.word:nth-child(3) {
-  animation-delay: 6.5s;
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* SUBTITLE */
 #subtitle {
   font-family: 'Wishday', cursive;
-  font-size: 1.5rem;
-  margin-top: 20px;
+  font-size: 1.6rem;
+  color: #b284ff;
+  margin-top: 15px;
   opacity: 0;
-  animation: fadeIn 2s ease forwards;
-  animation-delay: 8s;
+  animation: fadeInSub 2s ease forwards;
+  animation-delay: 5s;
 }
 
-/* Fade efecte */
-@keyframes fadeInContainer {
-  to {
-    opacity: 1;
-  }
+@keyframes fadeInSub {
+  to { opacity: 1; }
 }
 
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes wordFade {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-/* LOADER */
+/* LOADING SCREEN */
 .loader-screen {
   position: fixed;
   inset: 0;
@@ -109,6 +102,7 @@
   }
 }
 
+/* LOADER FROM UIVERSE */
 .loader-wrapper {
   position: relative;
   display: flex;
@@ -183,16 +177,7 @@
 .loader-letter:nth-child(10) { animation-delay: 0.9s; }
 
 @keyframes loader-letter-anim {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  40% {
-    opacity: 0.7;
-    transform: translateY(0);
-  }
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  20% { opacity: 1; transform: scale(1.15); }
+  40% { opacity: 0.7; transform: translateY(0); }
 }
