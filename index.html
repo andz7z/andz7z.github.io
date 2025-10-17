@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AndzoWorld — Concept Build Lead</title>
+  <title>AndzoWorld</title>
 
   <!-- Google Font: Montserrat ExtraBold -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
@@ -27,30 +27,44 @@
       <span class="loader-letter">r</span>
       <span class="loader-letter">l</span>
       <span class="loader-letter">d</span>
-
       <div class="loader"></div>
     </div>
   </div>
 
   <!-- Main content -->
-<div id="app" class="app hidden fade-in">
-  <canvas id="starfield"></canvas>
+  <div id="app" class="app hidden fade-in">
+    <canvas id="starfield"></canvas>
 
-  <main class="hero">
-    <div class="hero-inner">
-      <!-- Conținutul tău -->
+    <main class="hero">
+      <div class="hero-inner">
+        <!-- Conținutul tău -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Header Transparent -->
+  <header id="main-header" class="header">
+    <div class="header-inner">
+      <div class="logo-wrap">
+        <img
+          src="assets/logos/iconita.png"
+          alt="Iconiță"
+          id="brand-icon"
+          class="brand-icon"
+          width="57" height="57"
+        />
+      </div>
+
+      <nav class="nav">
+        <button class="nav-btn">About Us</button>
+        <button class="nav-btn">Services</button>
+        <button class="nav-btn">Ratings</button>
+        <button class="nav-btn">Contact Us</button>
+      </nav>
+
+      <div class="right-space" aria-hidden="true"></div>
     </div>
-  </main>
-</div>
-  <!-- Header -->
-  <header>
-  <button>About Us</button>
-  <button>Services</button>
-  <button>Ratings</button>
-  <button>Contact Us</button>
-</header>
-
-
+  </header>
 
   <script src="script.js"></script>
 </body>
