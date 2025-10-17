@@ -1,18 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ANDZ</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANDZ — Midnight Intro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <canvas id="bgCanvas"></canvas>
+  <div class="stars"></div>
 
-  <div class="hero">
-    <h1>ANDZ</h1>
-    <p>Elegance. Innovation. Night Vision.</p>
+  <!-- Intro loader -->
+  <div id="intro" class="intro-overlay">
+    <div class="loader-wrapper">
+      <span class="loader-letter">A</span>
+      <span class="loader-letter">N</span>
+      <span class="loader-letter">D</span>
+      <span class="loader-letter">Z</span>
+      <div class="loader"></div>
+    </div>
+    <p class="loading-text">Se încarcă…</p>
   </div>
+
+  <main class="stage hidden" id="mainContent">
+    <section class="panel floating">
+      <h1>ANDZ — Midnight Purple</h1>
+      <p class="lead">Un site modern, cu accente violet neon și o tranziție elegantă din intro.</p>
+      <div class="cta-row">
+        <a class="btn" href="#">Explorează</a>
+        <a class="btn" href="#">Contact</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Cursor elements -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="ring"></div>
 
   <script src="script.js"></script>
 </body>
