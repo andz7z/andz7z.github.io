@@ -207,3 +207,50 @@ body{
 .fade-in.active {
   opacity: 1;
 }
+/* Header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 50px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+  background: rgba(0,0,0,0.4); /* semi-transparent */
+  backdrop-filter: blur(10px); /* blur */
+  z-index: 100;
+}
+
+/* Buttons - stil Uiverse modificat */
+header button {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  text-shadow: none;
+  background: transparent;
+  box-shadow: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+header button:hover,
+header button:focus {
+  color: #ffffff;
+  background: #7a1fff; /* mov inchis */
+  border: 1px solid #7a1fff;
+  text-shadow: 0 0 5px #ffffff,
+               0 0 10px #ffffff,
+               0 0 20px #ffffff;
+  box-shadow: 0 0 5px #7a1fff,
+              0 0 20px #7a1fff,
+              0 0 50px #7a1fff,
+              0 0 100px #7a1fff;
+  font-size: 16px;
+  border-color: transparent;
+  }
