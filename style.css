@@ -3,7 +3,7 @@
 /* ===== Font Custom ===== */
 @font-face {
   font-family: "Colmeak";
-  src: url("assets/fonts/Colmeak.ttf") format("truetype");
+  src: url("assets/fonts/Colmeak.otf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
