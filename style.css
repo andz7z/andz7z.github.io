@@ -126,25 +126,41 @@ body {
   opacity: 0;
   animation: fadeIn 1.5s ease forwards 0.5s;
   position: relative;
-  background: radial-gradient(circle at 68%, rgba(120, 0, 255, 0.1), #0a0a0f 80%);
 }
 
 @keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
+  to { opacity: 1; }
 }
 
 .left-section {
   width: 70%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to right, #0a0a0f 80%, rgba(10, 10, 15, 0.1));
-  backdrop-filter: blur(15px);
-  padding-left: 8vw;
-  z-index: 2;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: linear-gradient(
+    to right,
+    #0a0a0f 70%,
+    rgba(10, 10, 15, 0.2) 100%
+  );
+  backdrop-filter: blur(30px);
+  padding-left: 6vw;
+  padding-top: 10vh;
   position: relative;
+  z-index: 2;
+}
+
+/* SUPER BLEND — gradul de amestec */
+.left-section::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(10, 10, 15, 1), rgba(10, 10, 15, 0));
+  mix-blend-mode: screen;
+  filter: blur(80px);
+  pointer-events: none;
 }
 
 .text-container {
@@ -159,61 +175,47 @@ body {
   font-weight: 700;
   letter-spacing: 3px;
   animation: slideInLeft 1.2s ease forwards;
-  color: var(--purple-accent);
   text-transform: uppercase;
   position: relative;
   overflow: hidden;
 }
 
-/* Glow shine animation */
+/* Black Shine Text Effect */
 .shine {
   background: linear-gradient(
     120deg,
-    var(--purple-accent) 0%,
-    #ffffff 50%,
-    var(--purple-accent) 100%
+    #000000 0%,
+    #222222 50%,
+    #000000 100%
   );
   background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shineMove 6s linear infinite;
+  animation: darkShine 8s linear infinite;
 }
 
-@keyframes shineMove {
+@keyframes darkShine {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
 @keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
 .subtitle {
   font-size: 1vw;
   font-weight: 300;
-  color: #cfcfcf;
-  align-self: flex-start;
-  margin-top: 0.5rem;
-  margin-left: 1rem;
+  color: #b0b0b0;
+  margin-top: 1rem;
+  margin-left: 0.5rem;
   animation: fadeUp 1.5s ease forwards 0.8s;
 }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ---------- RIGHT GRADIENT ---------- */
@@ -235,9 +237,9 @@ body {
     var(--purple-main),
     var(--purple-deep)
   );
-  filter: blur(120px) brightness(1.2);
+  filter: blur(160px) brightness(1.2);
   animation: rotateGradient 20s linear infinite;
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .dark-lines {
@@ -245,30 +247,22 @@ body {
   inset: 0;
   background: repeating-linear-gradient(
     120deg,
-    rgba(0, 0, 0, 0.15) 0px,
-    rgba(0, 0, 0, 0.15) 2px,
-    transparent 4px,
-    transparent 8px
+    rgba(0, 0, 0, 0.2) 0px,
+    rgba(0, 0, 0, 0.2) 2px,
+    transparent 6px,
+    transparent 12px
   );
-  animation: moveLines 12s linear infinite;
+  animation: moveLines 14s linear infinite;
   mix-blend-mode: overlay;
-  opacity: 0.4;
+  opacity: 0.5;
 }
 
 @keyframes moveLines {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 400px 0;
-  }
+  from { background-position: 0 0; }
+  to { background-position: 400px 0; }
 }
 
 @keyframes rotateGradient {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-  100% {
-    transform: rotate(360deg) scale(1);
-  }
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1); }
 }
