@@ -1,17 +1,44 @@
-html, body {
+/* Reset & body */
+* {
   margin: 0;
   padding: 0;
-  height: 100%;
+  box-sizing: border-box;
+}
+body, html {
   width: 100%;
-  background: #000;
+  height: 100%;
   overflow: hidden;
+  background: #0B0B10;
+  font-family: 'Poppins', sans-serif;
+  color: #C0C0C8;
 }
 
-canvas {
-  position: fixed;
+/* Canvas full screen */
+#bgCanvas {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   display: block;
+  z-index: -1;
+}
+
+/* Hero text */
+.hero {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #E0D9FF;
+}
+.hero h1 {
+  font-size: 5rem;
+  letter-spacing: 2px;
+}
+.hero p {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  color: #BFAEFF;
 }
