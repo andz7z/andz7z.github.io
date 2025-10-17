@@ -129,6 +129,7 @@ html, body {
   background: white;
   border-radius: 50%;
   opacity: 0.8;
+  transition: transform 0.3s ease-out;
   animation: twinkle 3s infinite ease-in-out;
 }
 
@@ -140,6 +141,7 @@ html, body {
 /* TEXT PRINCIPAL */
 .content {
   position: relative;
+  top: -50px;
   z-index: 2;
   text-align: left;
   color: white;
@@ -148,16 +150,40 @@ html, body {
 .title {
   font-size: 3rem;
   font-weight: 800;
-  background: linear-gradient(90deg, #fff, #888, #000);
+  letter-spacing: 3px;
+  background: linear-gradient(90deg, #fff, #777, #000, #999, #fff);
+  background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 3px;
+  animation: shine 5s infinite linear;
+}
+
+@keyframes shine {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .subtitle {
   font-size: 1rem;
   margin-top: 0.5rem;
   color: rgba(255,255,255,0.7);
+}
+
+/* cuvintele apar unul câte unul */
+.word {
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(20px);
+  animation: fadeUp 1s forwards;
+}
+
+.word:nth-child(1) { animation-delay: 0.3s; }
+.word:nth-child(3) { animation-delay: 0.8s; }
+.word:nth-child(5) { animation-delay: 1.3s; }
+
+@keyframes fadeUp {
+  0% {opacity: 0; transform: translateY(20px);}
+  100% {opacity: 1; transform: translateY(0);}
 }
 
 /* Efecte de tranziție */
