@@ -1,10 +1,14 @@
-// După 3.5 secunde, face tranziția de la intro la meniul principal
-window.addEventListener("DOMContentLoaded", () => {
+// După 3 secunde dispare intro-ul și apare main menu-ul
+window.addEventListener("load", () => {
   const intro = document.getElementById("intro");
-  const menu = document.getElementById("menu");
+  const mainMenu = document.getElementById("main-menu");
 
   setTimeout(() => {
-    intro.style.display = "none"; // ascunde intro-ul complet
-    menu.classList.add("active"); // afișează meniul cu fade
-  }, 3600);
+    intro.style.opacity = "0";
+    intro.style.transition = "opacity 1s ease";
+    setTimeout(() => {
+      intro.classList.add("hidden");
+      mainMenu.classList.remove("hidden");
+    }, 1000);
+  }, 3000);
 });
