@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Bacley";
+  src: url("assets/fonts/bacley.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* ===== Global ===== */
 * {
   margin: 0;
@@ -6,7 +13,7 @@
 }
 
 body {
-  font-family: "bacley", sans-serif;
+  font-family: "Bacley", sans-serif;
   height: 100vh;
   overflow: hidden;
   background: #1a1a1a;
