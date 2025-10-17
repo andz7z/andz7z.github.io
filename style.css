@@ -198,3 +198,12 @@ body{
   .hero-inner{ width:85%; transform: rotateY(0deg) rotateX(0deg); padding-left:5vw; }
   .hero-line{ font-size: clamp(36px, 12vw, 72px); }
 }
+/* Fade-in effect */
+.fade-in {
+  opacity: 0;
+  transition: opacity 1.8s ease-in-out;
+}
+
+.fade-in.active {
+  opacity: 1;
+}
