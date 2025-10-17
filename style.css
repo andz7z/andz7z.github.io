@@ -3,114 +3,113 @@
   src: url("assets/fonts/Colmeak.ttf") format("truetype");
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-  background: #0b0b0d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0;
+  background-color: #000;
+  color: white;
   font-family: "Colmeak", sans-serif;
-}
-
-/* === INTRO === */
-.intro {
-  position: absolute;
-  inset: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: #0b0b0d;
-  color: #b69cff;
-  font-size: 5rem;
-  letter-spacing: 0.2em;
-  z-index: 10;
-  animation: fadeOut 1s ease 3.5s forwards;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.intro p {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  color: #a1a1a1;
-  opacity: 0;
-  animation: fadeIn 1.5s ease 1s forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeOut {
-  to { opacity: 0; visibility: hidden; }
-}
-
-/* === MAIN MENU === */
-.main-menu {
-  opacity: 0;
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, #130f2e 0%, #0b0b0d 100%);
-  color: #fff;
+/* INTRO / LOADER */
+.loader-wrapper {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: opacity 1s ease;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background-color: transparent;
+  user-select: none;
 }
 
-.main-menu.active {
-  opacity: 1;
-}
-
-.menu-title {
-  font-size: 3rem;
-  letter-spacing: 0.1em;
-  margin-bottom: 2rem;
-  color: #cbb4ff;
-}
-
-.buttons {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.buttons button {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 14px;
-  padding: 12px 36px;
-  color: #fff;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.buttons button:hover {
-  background: rgba(173, 95, 255, 0.2);
-  box-shadow: 0 0 20px rgba(173, 95, 255, 0.4);
-}
-
-/* === LIQUID EFFECT (SIMPLIFIED) === */
-.liquid {
+.loader {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at center, #471eec 0%, #1b103e 100%);
-  animation: moveLiquid 8s ease-in-out infinite alternate;
-  opacity: 0.3;
-  filter: blur(100px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-color: transparent;
+  animation: loader-rotate 2s linear infinite;
   z-index: 0;
 }
 
-@keyframes moveLiquid {
-  0% { transform: translate(-10%, -10%) scale(1); }
-  100% { transform: translate(10%, 10%) scale(1.1); }
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(90deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+  50% {
+    transform: rotate(270deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 10px 0 #d60a47 inset,
+      0 40px 60px 0 #311e80 inset;
+  }
+  100% {
+    transform: rotate(450deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+}
+
+.loader-letter {
+  display: inline-block;
+  opacity: 0.4;
+  transform: translateY(0);
+  animation: loader-letter-anim 2s infinite;
+  z-index: 1;
+}
+
+.loader-letter:nth-child(1) { animation-delay: 0s; }
+.loader-letter:nth-child(3) { animation-delay: 0.2s; }
+.loader-letter:nth-child(5) { animation-delay: 0.4s; }
+.loader-letter:nth-child(7) { animation-delay: 0.6s; }
+
+@keyframes loader-letter-anim {
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  20% { opacity: 1; transform: scale(1.15); }
+  40% { opacity: 0.7; transform: translateY(0); }
+}
+
+/* MAIN MENU */
+#main-menu {
+  text-align: center;
+}
+
+#main-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+#main-menu li {
+  margin: 15px 0;
+}
+
+#main-menu a {
+  text-decoration: none;
+  color: #ad5fff;
+  font-size: 1.5em;
+  transition: 0.3s;
+}
+
+#main-menu a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px #ad5fff;
+}
+
+/* Hidden class */
+.hidden {
+  display: none;
 }
