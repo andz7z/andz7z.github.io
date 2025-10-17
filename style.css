@@ -1,47 +1,140 @@
-/* -------- FONT + RESET -------- */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap");
+@font-face {
+  font-family: 'Colmeak';
+  src: url('assets/fonts/Colmeak.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Wishday';
+  src: url('assets/fonts/Wishday.otf') format('opentype');
+}
+
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* -------- BACKGROUND ANIMATION -------- */
-body {
-  height: 100vh;
-  overflow: hidden;
-  background: radial-gradient(circle at center, #0b0014 0%, #110021 60%, #1c002f 100%);
-  background-size: 300% 300%;
-  animation: bgMove 10s ease-in-out infinite alternate;
-  font-family: "Inter", sans-serif;
+/* Canvas fundal */
+#starfield {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: -1;
 }
 
-@keyframes bgMove {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-/* -------- INTRO LOADER -------- */
-.loader-wrapper {
+/* Text principal */
+.text-container {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  opacity: 0;
+  animation: fadeInContainer 2s ease forwards;
+  animation-delay: 3.5s;
+}
+
+#main-title {
+  font-family: 'Colmeak', sans-serif;
+  font-size: 4rem;
+  letter-spacing: 5px;
+}
+
+.word {
+  display: block;
+  opacity: 0;
+  animation: wordFade 2s ease forwards;
+}
+
+.word:nth-child(1) {
+  animation-delay: 3.5s;
+}
+.word:nth-child(2) {
+  animation-delay: 5s;
+}
+.word:nth-child(3) {
+  animation-delay: 6.5s;
+}
+
+#subtitle {
+  font-family: 'Wishday', cursive;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 2s ease forwards;
+  animation-delay: 8s;
+}
+
+/* Fade efecte */
+@keyframes fadeInContainer {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes wordFade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* LOADER */
+.loader-screen {
+  position: fixed;
   inset: 0;
+  background: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2em;
+  z-index: 10;
+  animation: hideLoader 1s ease forwards;
+  animation-delay: 3s;
+}
+
+@keyframes hideLoader {
+  to {
+    opacity: 0;
+    filter: blur(20px);
+    visibility: hidden;
+  }
+}
+
+.loader-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.2em;
   font-weight: 300;
   color: white;
-  background: transparent;
+  border-radius: 50%;
+  background-color: transparent;
+  user-select: none;
 }
 
 .loader {
   position: absolute;
   top: 0;
   left: 0;
-  width: 180px;
-  height: 180px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
+  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
+  z-index: 0;
 }
 
 @keyframes loader-rotate {
@@ -68,77 +161,38 @@ body {
   }
 }
 
-/* -------- LETTER ANIMATION -------- */
 .loader-letter {
   display: inline-block;
   opacity: 0.4;
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
+  z-index: 1;
+  border-radius: 50ch;
+  border: none;
 }
-.loader-letter:nth-child(n) { animation-delay: calc(0.1s * var(--i)); }
+
+.loader-letter:nth-child(1) { animation-delay: 0s; }
+.loader-letter:nth-child(2) { animation-delay: 0.1s; }
+.loader-letter:nth-child(3) { animation-delay: 0.2s; }
+.loader-letter:nth-child(4) { animation-delay: 0.3s; }
+.loader-letter:nth-child(5) { animation-delay: 0.4s; }
+.loader-letter:nth-child(6) { animation-delay: 0.5s; }
+.loader-letter:nth-child(7) { animation-delay: 0.6s; }
+.loader-letter:nth-child(8) { animation-delay: 0.7s; }
+.loader-letter:nth-child(9) { animation-delay: 0.8s; }
+.loader-letter:nth-child(10) { animation-delay: 0.9s; }
 
 @keyframes loader-letter-anim {
-  0%, 100% { opacity: 0.4; transform: translateY(0); }
-  20% { opacity: 1; transform: scale(1.15); }
-  40% { opacity: 0.7; transform: translateY(0); }
-}
-
-/* -------- BLUR TRANSITION -------- */
-.blur-out {
-  animation: blurFade 1s forwards;
-}
-@keyframes blurFade {
-  from { filter: blur(0px); opacity: 1; }
-  to { filter: blur(20px); opacity: 0; }
-}
-
-/* -------- HOMEPAGE -------- */
-.hidden {
-  display: none;
-}
-.homepage {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-}
-
-/* -------- METALLIC TEXT EFFECT -------- */
-.main-title {
-  font-size: 3.5em;
-  letter-spacing: 0.15em;
-  background: linear-gradient(90deg, #bbaaff, #ffffff, #bbaaff);
-  background-size: 200%;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: metallic 3s linear infinite;
-  display: flex;
-  gap: 1rem;
-}
-@keyframes metallic {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
-/* -------- SUBTEXT -------- */
-.subtitle {
-  position: absolute;
-  bottom: 30px;
-  left: 40px;
-  font-size: 0.9em;
-  opacity: 0.6;
-}
-
-/* -------- PARALLAX EFFECT -------- */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(80, 0, 150, 0.2), transparent 70%);
-  pointer-events: none;
-  transition: all 0.3s ease;
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
 }
