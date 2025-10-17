@@ -4,6 +4,7 @@
   --text-dark:#0a0a0a;
   --accent-purple:#471eec;
   --accent-purple-dark:#311e80;
+  --highlight-white:#ffffff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -98,7 +99,7 @@ body{
 .loader-letter:nth-child(6) { animation-delay: 0.5s; }
 .loader-letter:nth-child(7) { animation-delay: 0.6s; }
 .loader-letter:nth-child(8) { animation-delay: 0.7s; }
-.loader-letter:nth-child(9) { animation-delay: 0.8s; }
+.loader-letter:nth-child(9) { animation-delay: 0.8s }
 
 @keyframes loader-letter-anim {
   0%, 100% { opacity: 0.3; transform: translateY(0); }
@@ -120,17 +121,18 @@ body{
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
 
-/* Hero layout - left column 50% */
+/* Hero layout - left column 50%, higher on screen */
 .hero{
   position:relative;
   width:100%;
   height:100%;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:flex-start;
-  perspective:1200px;
+  perspective:1400px;
   transform-style:preserve-3d;
-  pointer-events:none; /* let canvas receive pointer */
+  pointer-events:none;
+  padding-top:12vh;
 }
 .hero-inner{
   width:50%;
@@ -138,7 +140,7 @@ body{
   min-width:320px;
   padding-left:6vw;
   transform-origin:center left;
-  transform: rotateY(-8deg) rotateX(6deg) translateZ(0);
+  transform: rotateY(-12deg) rotateX(12deg) translateZ(0);
   pointer-events:auto;
   z-index:10;
 }
@@ -157,10 +159,9 @@ body{
   display:inline-block;
   font-family: "Montserrat", sans-serif;
   letter-spacing:1px;
-  margin-bottom:4px;
+  margin-bottom:12px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
-
-/* animated white sweep */
 .hero-line::before{
   content:'';
   position:absolute;
@@ -171,6 +172,11 @@ body{
   mix-blend-mode:screen;
   animation: sweep 3s linear infinite;
   pointer-events:none;
+}
+
+.hero-line.highlight{
+  color: var(--highlight-white);
+  text-shadow: 0 4px 15px rgba(255,255,255,0.75);
 }
 
 @keyframes sweep{
@@ -192,13 +198,3 @@ body{
   .hero-inner{ width:85%; transform: rotateY(0deg) rotateX(0deg); padding-left:5vw; }
   .hero-line{ font-size: clamp(36px, 12vw, 72px); }
 }
-
-/* star hover glow handled in JS; we add a subtle overlay for contrast */
-.overlay-glow{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-}
-
-/* small helper */
-.hidden{display:none}
