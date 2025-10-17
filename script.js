@@ -1,9 +1,6 @@
-/* Main JS: Three.js Starfield + Loader transition + interactions */
-
 document.addEventListener('DOMContentLoaded', () => {
   const loaderScreen = document.getElementById('loader-screen');
   const app = document.getElementById('app');
-  const heroLines = document.querySelectorAll('.hero-line');
 
   setTimeout(() => {
     loaderScreen.classList.add('blur-out');
@@ -16,8 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 3000);
 
   let scene, camera, renderer, stars, starGeo;
-  let raycaster, mouse;
-  let hoverIndex = -1;
 
   function initStarfield(){
     const canvas = document.getElementById('starfield');
@@ -32,8 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const starsCount = 1200;
     starGeo = new THREE.BufferGeometry();
-    const positions = new Float32Array(starsCount * 3);
-    const colors = new Float32Array(starsCount * 3);
+    const positions = new Float32Array(starsCount*3);
+    const colors = new Float32Array(starsCount*3);
     const sizes = new Float32Array(starsCount);
 
     for(let i=0;i<starsCount;i++){
@@ -46,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
       sizes[i] = Math.random()*2.4+0.6;
       colors[i*3] = 1; colors[i*3+1]=1; colors[i*3+2]=1;
     }
-
     starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
     starGeo.setAttribute('size', new THREE.BufferAttribute(sizes,1));
     starGeo.setAttribute('color', new THREE.BufferAttribute(colors,3));
@@ -64,10 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
     stars = new THREE.Points(starGeo, material);
     scene.add(stars);
 
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-
-    document.addEventListener('mousemove', onMouseMove);
     window.addEventListener('resize', onWindowResize);
   }
 
@@ -88,8 +78,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   let t=0;
-  let mouseX=0, mouseY=0, targetX=0, targetY=0;
-
   function animate(){
     requestAnimationFrame(animate);
     t+=0.002;
@@ -103,33 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     starGeo.attributes.position.needsUpdate=true;
 
-    targetX+=(mouseX-targetX)*0.02;
-    targetY+=(mouseY-targetY)*0.02;
-    camera.position.x = targetX*0.6;
-    camera.position.y = -targetY*0.4;
-    camera.lookAt(0,0,0);
-
-    raycaster.setFromCamera(mouse,camera);
-    const intersects = raycaster.intersectObject(stars);
-    if(intersects.length>0){
-      if(heroLines.length){
-        heroLines.forEach(line=>line.classList.remove('highlight'));
-        heroLines.forEach((line,i)=>{
-          if(i===0) line.classList.add('highlight'); // simple demo: highlight first line on hover
-        });
-      }
-    } else {
-      heroLines.forEach(line=>line.classList.remove('highlight'));
-    }
-
     renderer.render(scene,camera);
-  }
-
-  function onMouseMove(e){
-    mouseX = (e.clientX - window.innerWidth/2);
-    mouseY = (e.clientY - window.innerHeight/2);
-    mouse.x = (e.clientX / window.innerWidth)*2-1;
-    mouse.y = -(e.clientY / window.innerHeight)*2+1;
   }
 
   function onWindowResize(){

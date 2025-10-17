@@ -1,21 +1,17 @@
-/* From Uiverse.io by dexter-st */
 :root{
   --bg:#000;
   --text-dark:#0a0a0a;
-  --accent-purple:#471eec;
-  --accent-purple-dark:#311e80;
-  --highlight-white:#ffffff;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{
   background:var(--bg);
-  font-family: "Montserrat", "Inter", sans-serif;
+  font-family: "Montserrat", sans-serif;
   overflow:hidden;
   color:#fff;
 }
 
-/* Loader screen */
+/* Loader */
 .loader-screen{
   position:fixed;
   inset:0;
@@ -41,7 +37,6 @@ body{
   background-color: transparent;
   user-select: none;
 }
-
 .loader {
   position: absolute;
   top: 0;
@@ -53,7 +48,6 @@ body{
   animation: loader-rotate 2s linear infinite;
   z-index: 0;
 }
-
 @keyframes loader-rotate {
   0% {
     transform: rotate(90deg);
@@ -77,7 +71,6 @@ body{
       0 60px 60px 0 #471eec inset;
   }
 }
-
 .loader-letter {
   display: inline-block;
   opacity: 0.4;
@@ -90,7 +83,6 @@ body{
   font-weight:700;
   letter-spacing:2px;
 }
-
 .loader-letter:nth-child(1) { animation-delay: 0s; }
 .loader-letter:nth-child(2) { animation-delay: 0.1s; }
 .loader-letter:nth-child(3) { animation-delay: 0.2s; }
@@ -100,14 +92,11 @@ body{
 .loader-letter:nth-child(7) { animation-delay: 0.6s; }
 .loader-letter:nth-child(8) { animation-delay: 0.7s; }
 .loader-letter:nth-child(9) { animation-delay: 0.8s }
-
 @keyframes loader-letter-anim {
   0%, 100% { opacity: 0.3; transform: translateY(0); }
   20% { opacity: 1; transform: scale(1.12); }
   40% { opacity: 0.6; transform: translateY(0); }
 }
-
-/* Blur-out class */
 .loader-screen.blur-out {
   opacity: 0;
   backdrop-filter: blur(10px);
@@ -117,11 +106,9 @@ body{
 /* App */
 .app{position:fixed;inset:0;overflow:hidden}
 .app.hidden{display:none}
+#starfield{position:absolute;inset:0;width:100%;height:100%;display:block;}
 
-/* Canvas */
-#starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-
-/* Hero layout - left column 50%, higher on screen */
+/* Hero layout - flat, stacked lines */
 .hero{
   position:relative;
   width:100%;
@@ -129,9 +116,6 @@ body{
   display:flex;
   align-items:flex-start;
   justify-content:flex-start;
-  perspective:1400px;
-  transform-style:preserve-3d;
-  pointer-events:none;
   padding-top:12vh;
 }
 .hero-inner{
@@ -139,28 +123,17 @@ body{
   max-width:50%;
   min-width:320px;
   padding-left:6vw;
-  transform-origin:center left;
-  transform: rotateY(-12deg) rotateX(12deg) translateZ(0);
-  pointer-events:auto;
-  z-index:10;
 }
-
-/* Big stacked headings */
 .hero-line{
   font-size:clamp(48px, 9vw, 120px);
-  line-height:0.88;
-  margin:0;
-  padding:0;
+  line-height:1;
+  margin-bottom:16px;
   font-weight:900;
-  color:rgba(8,7,7,0.98);
-  -webkit-text-fill-color: #0e0e0e;
+  color:#0a0a0a;
   position:relative;
-  overflow:hidden;
   display:inline-block;
+  overflow:hidden;
   font-family: "Montserrat", sans-serif;
-  letter-spacing:1px;
-  margin-bottom:12px;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 .hero-line::before{
   content:'';
@@ -171,30 +144,13 @@ body{
   transform:skewX(-12deg);
   mix-blend-mode:screen;
   animation: sweep 3s linear infinite;
-  pointer-events:none;
 }
-
-.hero-line.highlight{
-  color: var(--highlight-white);
-  text-shadow: 0 4px 15px rgba(255,255,255,0.75);
-}
-
 @keyframes sweep{
   0%{ left:-110%; }
   50%{ left:110%; }
   100%{ left:110%; }
 }
-
-/* subtle text shadow for depth */
-.hero-line{
-  text-shadow: 0 6px 12px rgba(0,0,0,0.45);
-}
-
-/* make sure text color remains near-black */
-.hero-line{ color: #0a0a0a; }
-
-/* Responsive adjustments */
 @media (max-width:800px){
-  .hero-inner{ width:85%; transform: rotateY(0deg) rotateX(0deg); padding-left:5vw; }
+  .hero-inner{ width:85%; padding-left:5vw; }
   .hero-line{ font-size: clamp(36px, 12vw, 72px); }
 }
