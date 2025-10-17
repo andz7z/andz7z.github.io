@@ -1,74 +1,47 @@
-/* === Loader fade out === */
+// Fade out loader and show homepage
 window.addEventListener("load", () => {
   setTimeout(() => {
-    document.getElementById("loader").style.opacity = "0";
+    const loader = document.querySelector(".loader-screen");
+    loader.classList.add("fade-out");
     setTimeout(() => {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("mainScene").style.opacity = "1";
-    }, 1500);
+      loader.style.display = "none";
+      document.querySelector(".homepage").classList.remove("hidden");
+    }, 1000);
   }, 3000);
 });
 
-/* === Text setup === */
-const sloganEl = document.getElementById("slogan");
-const words = ["CONCEPT.", "BUILD.", "LEAD."];
-sloganEl.innerHTML = words.map(w => `<span>${w}</span>`).join("");
-
-/* === Mouse parallax rotation === */
-const slogan = document.querySelector('.slogan');
-document.addEventListener('mousemove', (e) => {
-  const { innerWidth, innerHeight } = window;
-  const x = (e.clientX - innerWidth / 2) / innerWidth * 30;
-  const y = (e.clientY - innerHeight / 2) / innerHeight * 30;
-  slogan.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-});
-document.addEventListener('mouseleave', () => {
-  slogan.style.transform = `rotateY(0deg) rotateX(0deg)`;
-});
-
-/* === Stars Background === */
-const canvas = document.getElementById('stars');
-const ctx = canvas.getContext('2d');
-let stars = [];
-let w, h;
-
-function resize() {
-  w = canvas.width = window.innerWidth;
-  h = canvas.height = window.innerHeight;
-  stars = Array.from({length: 150}, () => ({
-    x: Math.random() * w,
-    y: Math.random() * h,
-    size: Math.random() * 2,
-    twinkle: Math.random(),
-  }));
+// Create subtle random stars
+const starsContainer = document.querySelector(".stars");
+for (let i = 0; i < 150; i++) {
+  const star = document.createElement("div");
+  star.classList.add("star");
+  star.style.top = `${Math.random() * 100}%`;
+  star.style.left = `${Math.random() * 100}%`;
+  star.style.opacity = 0.5 + Math.random() * 0.5;
+  star.style.animation = `twinkle ${3 + Math.random() * 5}s infinite ease-in-out`;
+  starsContainer.appendChild(star);
 }
-resize();
-window.addEventListener('resize', resize);
 
-let mouse = {x: w/2, y: h/2};
+// Twinkle animation
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}`;
+document.head.appendChild(style);
 
-document.addEventListener('mousemove', e => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
+// Tilt metal text towards mouse
+const title = document.querySelector(".metal-text");
+document.addEventListener("mousemove", (e) => {
+  const rect = title.getBoundingClientRect();
+  const x = e.clientX - rect.left - rect.width / 2;
+  const y = e.clientY - rect.top - rect.height / 2;
+  const tiltX = (y / rect.height) * 10;
+  const tiltY = -(x / rect.width) * 10;
+  title.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
 });
 
-function animate() {
-  ctx.clearRect(0, 0, w, h);
-  stars.forEach(s => {
-    const dx = s.x - mouse.x;
-    const dy = s.y - mouse.y;
-    const dist = Math.sqrt(dx*dx + dy*dy);
-    if (dist < 150) {
-      s.x += dx / dist * 0.5;
-      s.y += dy / dist * 0.5;
-    }
-    s.twinkle += 0.02;
-    const brightness = (Math.sin(s.twinkle) + 1) / 2;
-    ctx.fillStyle = `rgba(255,255,255,${0.3 + brightness * 0.7})`;
-    ctx.beginPath();
-    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-    ctx.fill();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
+document.addEventListener("mouseleave", () => {
+  title.style.transform = "rotateX(0deg) rotateY(0deg)";
+});
