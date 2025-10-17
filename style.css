@@ -12,7 +12,6 @@ body {
   overflow: hidden;
 }
 
-/* Layout general */
 .main {
   display: flex;
   height: 100vh;
@@ -24,29 +23,31 @@ body {
 .left-section {
   width: 70%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   background: #000;
   position: relative;
   overflow: hidden;
 }
 
-/* Fade perfect între sectiuni */
+/* FUM / BLEND între sectiuni */
 .left-section::after {
   content: "";
   position: absolute;
-  right: -5%;
+  right: -10%;
   top: 0;
-  width: 15%;
+  width: 25%;
   height: 100%;
   background: radial-gradient(
-    circle at right,
+    circle at right center,
     rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.8) 40%,
+    rgba(0,0,0,0.8) 25%,
+    rgba(20,0,30,0.3) 60%,
+    rgba(100,0,255,0.05) 90%,
     rgba(0,0,0,0) 100%
   );
-  filter: blur(100px);
-  z-index: 2;
+  filter: blur(150px);
+  z-index: 3;
 }
 
 /* ---------- TEXT ---------- */
@@ -54,27 +55,27 @@ body {
   position: relative;
   z-index: 5;
   text-align: left;
-  transform: translate(-5%, -10%);
+  transform: translate(8vw, 12vh); /* Poți modifica “12vh” ca să-l muți mai sus/jos */
 }
 
 .title {
-  font-size: 4vw;
+  font-size: 4.2vw;
   font-weight: 800;
   letter-spacing: 3px;
   text-transform: uppercase;
   background: linear-gradient(
     120deg,
-    #b47aff 0%,
+    #c08eff 0%,
     #fff 25%,
-    #7a32ff 50%,
-    #b47aff 75%,
+    #8a2be2 50%,
+    #c08eff 75%,
     #fff 100%
   );
   background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: metalShift 6s ease-in-out infinite;
-  filter: drop-shadow(0 0 15px rgba(180, 122, 255, 0.4));
+  filter: drop-shadow(0 0 18px rgba(150, 70, 255, 0.5));
 }
 
 @keyframes metalShift {
@@ -89,9 +90,10 @@ body {
   }
 }
 
+/* Poziția subtitlului — modifică margin-top pentru distanță */
 .subtitle {
   color: white;
-  margin-top: 1.2rem;
+  margin-top: 0.8rem; /* ← schimbă această valoare pentru apropiere/departare */
   font-weight: 400;
   letter-spacing: 2px;
   font-size: 1vw;
@@ -104,19 +106,19 @@ body {
   overflow: hidden;
 }
 
-/* AURA EFFECT */
+/* AURA LUMINATA */
 .aura {
   position: absolute;
   inset: -50%;
   background: conic-gradient(
     from 0deg,
-    rgba(100, 0, 255, 0.2),
+    rgba(150, 0, 255, 0.35),
     rgba(0, 0, 0, 0.95),
-    rgba(100, 0, 255, 0.3),
+    rgba(140, 0, 255, 0.4),
     rgba(0, 0, 0, 0.9)
   );
   background-size: 200% 200%;
-  filter: blur(180px);
+  filter: blur(160px) brightness(1.5);
   animation: auraMove 8s ease-in-out infinite alternate;
 }
 
@@ -126,7 +128,7 @@ body {
     background-position: 0% 50%;
   }
   50% {
-    transform: rotate(10deg) scale(1.1);
+    transform: rotate(10deg) scale(1.15);
     background-position: 100% 50%;
   }
   100% {
@@ -135,28 +137,31 @@ body {
   }
 }
 
-/* Blending effect între sectiuni (fade natural) */
+/* PARTICULE */
+.particles {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  filter: brightness(1.3) blur(0.5px);
+  opacity: 0.8;
+}
+
+/* Efect general de fum între secțiuni */
 .main::after {
   content: "";
   position: absolute;
   top: 0;
-  left: 68%;
-  width: 10%;
+  left: 67%;
+  width: 12%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    rgba(0,0,0,1) 0%,
-    rgba(0,0,0,0.7) 30%,
-    rgba(0,0,0,0.2) 60%,
-    rgba(0,0,0,0) 100%
+  background: radial-gradient(
+    circle at left center,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(60, 0, 90, 0.7) 40%,
+    rgba(80, 0, 150, 0.3) 70%,
+    rgba(0, 0, 0, 0) 100%
   );
-  filter: blur(120px);
-  z-index: 3;
-  pointer-events: none;
-}
-
-/* Hover effect - “aura push” */
-.right-section:hover .aura {
-  transform: scale(1.15) rotate(5deg);
-  filter: blur(160px) brightness(1.3);
+  filter: blur(180px);
+  z-index: 4;
 }
