@@ -1,12 +1,19 @@
-// Wait 3 seconds → hide intro → show homepage title
-window.addEventListener("DOMContentLoaded", () => {
-  const intro = document.getElementById("intro");
-  const title = document.querySelector(".title");
+// Blur + transition logic
+setTimeout(() => {
+  const intro = document.querySelector(".intro-screen");
+  intro.classList.add("blur-out");
 
   setTimeout(() => {
-    intro.classList.add("hide");
-    setTimeout(() => {
-      title.classList.add("show");
-    }, 800);
-  }, 3000);
+    intro.style.display = "none";
+    document.querySelector(".homepage").classList.remove("hidden");
+  }, 1000);
+}, 3000);
+
+// Parallax background
+document.addEventListener("mousemove", (e) => {
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  document.body.style.backgroundPosition = `${x * 100}% ${y * 100}%`;
+
+  const aura = document.body.querySelector("body::before");
 });
