@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>ANDZ</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.106/dist/ogl.umd.js"></script>
 </head>
 <body>
-  <!-- === INTRO LOADING SCREEN === -->
-  <div id="loading-screen">
-    <div class="loader-wrapper">
+  <!-- LOADING SCREEN (full black) -->
+  <div id="loading-screen" aria-hidden="true">
+    <div class="loader-wrapper" id="intro">
       <span class="loader-letter">A</span>
       <span class="loader-letter">N</span>
       <span class="loader-letter">D</span>
@@ -19,9 +18,18 @@
     </div>
   </div>
 
-  <!-- === MAIN MENU === -->
-  <div id="main-menu">
-    <div id="orb-container"></div>
+  <!-- MAIN (video background) -->
+  <div id="main-menu" aria-hidden="true">
+    <video
+      id="bgVideo"
+      class="video-bg"
+      src="assets/videos/dark_main.mp4"
+      preload="auto"
+      autoplay
+      muted
+      loop
+      playsinline
+    ></video>
   </div>
 
   <script src="script.js"></script>
