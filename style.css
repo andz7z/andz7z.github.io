@@ -1,62 +1,132 @@
-:root {
-  --bg: #07060b;
-  --accent: #8a5bff;
-  --accent-2: #471eec;
-  --accent-3: #00caff;
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body {
-  height: 100%;
+/* -------- INTRO -------- */
+body, html {
+  margin: 0;
+  padding: 0;
   overflow: hidden;
-  background: var(--bg);
+  background: black;
+  height: 100%;
+  width: 100%;
   font-family: "Inter", sans-serif;
 }
 
-/* ---------- Intro ---------- */
-.loader-wrapper{position:relative;display:flex;align-items:center;justify-content:center;width:200px;height:200px;font-size:1.6em;font-weight:600;color:#fff}
-.loader{position:absolute;top:0;left:0;width:100%;aspect-ratio:1;border-radius:50%;animation:loader-rotate 2.2s linear infinite}
-@keyframes loader-rotate{
-0%{transform:rotate(90deg);box-shadow:0 10px 20px 0 #fff inset,0 20px 30px 0 #ad5fff inset,0 60px 60px 0 #471eec inset}
-50%{transform:rotate(270deg);box-shadow:0 10px 20px 0 #fff inset,0 20px 10px 0 #d60a47 inset,0 40px 60px 0 #311e80 inset}
-100%{transform:rotate(450deg);box-shadow:0 10px 20px 0 #fff inset,0 20px 30px 0 #ad5fff inset,0 60px 60px 0 #471eec inset}
-}
-.loader-letter{opacity:0.4;animation:loader-letter-anim 2s infinite;color:#f6f2ff;text-shadow:0 0 12px rgba(138,91,255,0.6)}
-@keyframes loader-letter-anim{0%,100%{opacity:0.4;transform:translateY(0)}20%{opacity:1;transform:scale(1.15)}40%{opacity:0.7;transform:translateY(0)}}
-.loader-letter:nth-child(1){animation-delay:0s}.loader-letter:nth-child(2){animation-delay:0.12s}.loader-letter:nth-child(3){animation-delay:0.24s}.loader-letter:nth-child(4){animation-delay:0.36s}
-
-.intro-overlay{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(5,4,10,0.9);backdrop-filter:blur(8px);transition:opacity 0.8s ease,transform 0.8s ease,backdrop-filter 1.2s ease;z-index:999}
-.intro-overlay.blur-out{opacity:0;transform:scale(1.05);backdrop-filter:blur(0)}
-
-/* ---------- Universe ---------- */
-.main-grid { position: relative; width: 100%; height: 100vh; overflow: hidden; }
-#universe {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: radial-gradient(circle at 30% 50%, #120e20 0%, #07060b 100%);
-}
-.overlay {
-  position: relative;
+.intro {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #000 60%, #111);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 10;
+  animation: blurOut 3s forwards ease-in-out;
+}
+
+/* Loader (din Uiverse.io) */
+.loader-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 180px;
+  font-size: 1.2em;
+  font-weight: 300;
+  color: white;
+  border-radius: 50%;
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-color: transparent;
+  animation: loader-rotate 2s linear infinite;
+  z-index: 0;
+}
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(90deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+  50% {
+    transform: rotate(270deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 10px 0 #d60a47 inset,
+      0 40px 60px 0 #311e80 inset;
+  }
+  100% {
+    transform: rotate(450deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+}
+
+.loader-letter {
+  display: inline-block;
+  opacity: 0.4;
+  transform: translateY(0);
+  animation: loader-letter-anim 2s infinite;
+  z-index: 1;
+}
+
+.loader-letter:nth-child(n) { animation-delay: calc(var(--i, 0) * 0.1s); }
+
+@keyframes loader-letter-anim {
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+}
+
+/* Efect blur out */
+@keyframes blurOut {
+  0% { filter: blur(0px); opacity: 1; }
+  80% { filter: blur(8px); opacity: 0.6; }
+  100% { filter: blur(20px); opacity: 0; visibility: hidden; }
+}
+
+/* -------- MAIN -------- */
+main {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main h1 {
+  position: absolute;
+  color: white;
+  font-size: 2em;
+  text-shadow: 0 0 10px white;
+  z-index: 1;
+}
+
+/* Canvas (fundal stele) */
+#stars {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 18vh;
+  display: block;
 }
-.title {
-  font-size: clamp(80px, 10vw, 130px);
-  font-weight: 900;
-  color: #fff;
-  text-shadow:
-    0 0 30px rgba(138,91,255,0.8),
-    0 0 80px rgba(0,202,255,0.5),
-    0 0 150px rgba(138,91,255,0.2);
-  letter-spacing: 0.05em;
-}
-
-/* ---------- Animări ---------- */
-.hidden { opacity: 0; transform: translateY(10px); }
-.reveal { transition: opacity 1s ease, transform 1s ease; opacity: 1; transform: none; }
