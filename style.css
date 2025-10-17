@@ -169,7 +169,7 @@ body:not(.dark-mode) .notification {
   box-shadow: 0 0 30px rgba(200,230,255,0.25);
 }
 
-/* Gold theme */
+/* midnight-purple theme */
 body.dark-mode .notification {
   background: linear-gradient(135deg, rgba(60,50,20,0.9), rgba(20,15,5,0.85));
   color: #fff6d8;
@@ -191,9 +191,9 @@ body.dark-mode .notification {
   100% { box-shadow: 0 0 40px rgba(255,255,255,0.4); }
 }
 body.dark-mode .notification.show {
-  animation: auroraGold 4s ease-in-out infinite alternate;
+  animation: auroramidnight-purple 4s ease-in-out infinite alternate;
 }
-@keyframes auroraGold {
+@keyframes auroramidnight-purple {
   0% { box-shadow: 0 0 20px rgba(173,95,255,0.25); }
   100% { box-shadow: 0 0 45px rgba(173,95,255,0.5); }
 }
@@ -254,9 +254,9 @@ body:not(.dark-mode) .spark {
   box-shadow: 0 0 10px rgba(180,220,255,0.7);
 }
 
-/* Gold sparks */
+/* midnight-purple sparks */
 body.dark-mode .spark {
-  background: radial-gradient(circle, #ad5fff, #b48a1a, #8b6c00);
+  background: radial-gradient(circle, #ad5fff, ##8b5cff, #8b6c00);
   box-shadow: 0 0 10px rgba(173,95,255,0.6);
 }
 
@@ -399,7 +399,7 @@ body.dark-mode .starfield{opacity:1}
 /* Responsive for project cards */
 @media(max-width:800px){.work-card{width:45%}} @media(max-width:520px){.work-card{width:90%}}
 
-/* ===== ICE & GOLD CINEMATIC LOGO ===== */
+/* ===== ICE & midnight-purple CINEMATIC LOGO ===== */
 .main-logo-text {
   font-family: 'Rajdhani', sans-serif;
   font-weight: 700;
@@ -429,14 +429,14 @@ body:not(.dark-mode) .main-logo-text {
   filter: drop-shadow(0 0 10px rgba(255,255,255,0.15));
 }
 
-/* Dark Mode — GOLD METAL */
+/* Dark Mode — midnight-purple METAL */
 body.dark-mode .main-logo-text {
-  background: linear-gradient(135deg, #fff5c3 0%, #d6b85b 35%, #9c7e2b 75%, #fff0a1 100%);
+  background: linear-gradient(135deg, #fff5c3 0%, #d6b85b 35%, #8b5cff 75%, ##8b5cff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow:
     0 2px 4px rgba(173,95,255,0.4),
-    0 10px 18px rgba(255,200,100,0.25),
+    0 10px 18px rgba(#8b5cff,0.25),
     0 0 55px rgba(173,95,255,0.15);
   filter: drop-shadow(0 0 8px rgba(173,95,255,0.1));
 }
@@ -541,7 +541,7 @@ body.dark-mode #volume-slider {
 
 /* Thumb in dark mode */
 body.dark-mode #volume-slider::-webkit-slider-thumb {
-  background: radial-gradient(circle at 30% 30%, #ad5fff, #b48a1a);
+  background: radial-gradient(circle at 30% 30%, #ad5fff, ##8b5cff);
   box-shadow: 0 0 8px rgba(173,95,255,0.45), 0 0 15px rgba(173,95,255,0.25);
   border: 1px solid rgba(173,95,255,0.5);
 }
@@ -569,7 +569,7 @@ body.dark-mode #volume-slider::-moz-range-track {
   background: linear-gradient(90deg, rgba(50,50,50,0.9), rgba(100,80,40,0.6));
 }
 body.dark-mode #volume-slider::-moz-range-thumb {
-  background: radial-gradient(circle at 30% 30%, #ad5fff, #b48a1a);
+  background: radial-gradient(circle at 30% 30%, #ad5fff, ##8b5cff);
   box-shadow: 0 0 10px rgba(173,95,255,0.4);
 }
 /* ==========================================
@@ -601,9 +601,9 @@ body:not(.dark-mode) .intro-text {
   filter: drop-shadow(0 0 15px rgba(220,240,255,0.2));
 }
 
-/* Dark Mode — GOLD METAL */
+/* Dark Mode — midnight-purple METAL */
 body.dark-mode .intro-text {
-  background: linear-gradient(135deg, #fff5c3 0%, #d6b85b 40%, #9c7e2b 80%, #fff0a1 100%);
+  background: linear-gradient(135deg, #fff5c3 0%, #d6b85b 40%, #8b5cff 80%, ##8b5cff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow:
@@ -819,7 +819,7 @@ body:not(.dark-mode) .notification {
   box-shadow: 0 0 30px rgba(200,230,255,0.25);
 }
 
-/* Gold theme */
+/* midnight-purple theme */
 body.dark-mode .notification {
   background: linear-gradient(135deg, rgba(60,50,20,0.9), rgba(20,15,5,0.85));
   color: #fff6d8;
@@ -841,9 +841,9 @@ body.dark-mode .notification {
   100% { box-shadow: 0 0 40px rgba(255,255,255,0.4); }
 }
 body.dark-mode .notification.show {
-  animation: auroraGold 4s ease-in-out infinite alternate;
+  animation: auroramidnight-purple 4s ease-in-out infinite alternate;
 }
-@keyframes auroraGold {
+@keyframes auroramidnight-purple {
   0% { box-shadow: 0 0 20px rgba(173,95,255,0.25); }
   100% { box-shadow: 0 0 45px rgba(173,95,255,0.5); }
 }
@@ -904,9 +904,9 @@ body:not(.dark-mode) .spark {
   box-shadow: 0 0 10px rgba(180,220,255,0.7);
 }
 
-/* Gold sparks */
+/* midnight-purple sparks */
 body.dark-mode .spark {
-  background: radial-gradient(circle, #ad5fff, #b48a1a, #8b6c00);
+  background: radial-gradient(circle, #ad5fff, ##8b5cff, #8b6c00);
   box-shadow: 0 0 10px rgba(173,95,255,0.6);
 }
 /* ===== Floating Navigation Bar ===== */
@@ -1947,3 +1947,41 @@ body.dark-mode .chat-bubble.female {
   20% {opacity: 1; transform: scale(1.15);}
   40% {opacity: 0.7; transform: translateY(0);}
 }
+
+
+/* Sticky header and brand */
+.site-header{
+  position:sticky;top:0;left:0;right:0;z-index:9998;
+  backdrop-filter: blur(8px); background: linear-gradient(180deg, rgba(10,6,20,0.6), rgba(10,6,20,0.45));
+  border-bottom:1px solid rgba(139,92,255,0.12); padding:10px 18px;
+}
+.header-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;gap:8px;align-items:center;font-family:'Rajdhani',sans-serif;font-weight:700;color:#fff}
+.brand-line{display:inline-block;margin-right:6px;opacity:0;transform:translateY(6px);animation:brandPop 1s ease forwards;}
+.brand-line:nth-child(1){animation-delay:0.15s}
+.brand-line:nth-child(2){animation-delay:0.35s}
+.brand-line:nth-child(3){animation-delay:0.55s}
+
+.site-nav{display:flex;gap:14px;align-items:center}
+.site-nav .nav-link{padding:8px 14px;border-radius:12px;text-decoration:none;font-weight:600;background:transparent;color:rgba(255,255,255,0.9);transition:all .28s ease;border:1px solid transparent}
+.site-nav .nav-link:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(139,92,255,0.12);border-color:rgba(139,92,255,0.12)}
+
+/* SECTION flow and full-width stacking */
+.section{min-height:80vh;padding:90px 20px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;opacity:0;transform:translateY(12px);transition:opacity .8s ease, transform .8s ease}
+.section.visible{opacity:1;transform:none}
+
+/* Fade-in helpers for inner elements */
+.fade-in{opacity:0;transform:translateY(14px);transition:opacity .7s ease, transform .7s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+/* Brand animation */
+@keyframes brandPop{0%{opacity:0;transform:translateY(10px) scale(.98)}100%{opacity:1;transform:none}}
+
+/* Ensure body scroll layout */
+body{display:block}
+
+
+/* Dark mode purple accents */
+body.dark-mode .site-nav .nav-link{color:#e9e0ff;border-color:transparent}
+body.dark-mode .site-nav .nav-link:hover{box-shadow:0 8px 30px rgba(173,95,255,0.18);border-color:rgba(173,95,255,0.12)}
+body.dark-mode .header-inner{background:linear-gradient(180deg, rgba(8,4,25,0.55), rgba(6,3,20,0.45))}

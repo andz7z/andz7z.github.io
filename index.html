@@ -11,6 +11,13 @@
 </head>
 <body>
 
+    <!-- From Uiverse.io by dexter-st -->
+    <div class="loader-wrapper">
+      <span class="loader-letter">G</span><span class="loader-letter">e</span><span class="loader-letter">n</span><span class="loader-letter">e</span><span class="loader-letter">r</span><span class="loader-letter">a</span><span class="loader-letter">t</span><span class="loader-letter">i</span><span class="loader-letter">n</span><span class="loader-letter">g</span>
+      <div class="loader"></div>
+    </div>
+    
+
 <!-- From Uiverse.io by dexter-st -->
 <div class="loader-wrapper">
   <span class="loader-letter">G</span>
@@ -53,20 +60,25 @@
   </div>
 
   <!-- Header -->
-  <header>
-<h1 class="title" id="main-title">
-  <span id="main-logo" class="main-logo-text hidden">A N D Z</span>
-</h1>
-    <p class="title-desc">programming ● video/photo editing ● web development</p>
-    <nav class="nav-buttons hidden">
-      <button onclick="openSection('services')">Services 🤝🏻</button>
-      <button onclick="openSection('work')">Projects 📁</button>
-      <button onclick="openSection('contact')">Contact Me 📞</button>
-      <button onclick="openSection('reviews')">Reviews ⭐</button>
+  
+<header class="site-header" id="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-line">Concept.</span>
+      <span class="brand-line">Build.</span>
+      <span class="brand-line">Lead.</span>
+    </div>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#work" class="nav-link">Work</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <a href="#reviews" class="nav-link">Reviews</a>
     </nav>
-  </header>
+  </div>
+</header>
+
 <!-- servicii -->
-<section id="services" class="hidden section">
+<section id="services" class="section fade-in">
   <div class="section-bg"></div>
   <h2>🧩 My Services</h2>
 
@@ -137,7 +149,7 @@
 </section>
 
   <!-- MY WORK (REFACUT) -->
-<section id="work" class="hidden section">
+<section id="work" class="section fade-in">
   <div class="section-bg"></div>
   <h2>💎 My Projects</h2>
 
@@ -180,7 +192,7 @@
 </section>
   
   <!-- CONTACT -->
-<section id="contact" class="hidden section">
+<section id="contact" class="section fade-in">
   <div class="section-bg"></div>
   <h2>📩 Contact Me</h2>
   <div class="contact-cards">

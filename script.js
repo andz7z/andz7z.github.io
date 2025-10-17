@@ -629,3 +629,46 @@ if (titleElement) {
     typeFooterText(newMsg);
   });
 });
+
+
+// Controlled loader hide (appears briefly then fades)
+(function(){
+  const loader = document.querySelector('.loader-wrapper');
+  if(!loader) return;
+  // show for at least 1000ms from DOMContentLoaded, then hide after full load + 800ms
+  document.addEventListener('DOMContentLoaded', ()=>{
+    loader.style.opacity = '1';
+  });
+  window.addEventListener('load', ()=>{
+    setTimeout(()=>{
+      loader.style.transition = 'opacity 600ms ease, transform 600ms ease';
+      loader.style.opacity = '0';
+      loader.style.transform = 'translateY(-10px) scale(0.98)';
+      setTimeout(()=>{ loader.style.display='none'; }, 700);
+    }, 900); // small delay so it isn't instant
+  });
+})();
+
+
+
+// Intersection observer for scroll reveal (fade-in)
+(function(){
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+      }
+    });
+  }, {threshold: 0.15});
+  document.querySelectorAll('.fade-in, .section').forEach(el=>observer.observe(el));
+  // Smooth scrolling for nav links
+  document.querySelectorAll('.site-nav a').forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const id = a.getAttribute('href').slice(1);
+      const target = document.getElementById(id);
+      if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+  });
+})();
+
