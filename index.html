@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- INTRO / LOADING SCREEN -->
+  <!-- INTRO -->
   <div id="intro">
     <div class="loader-wrapper">
       <span class="loader-letter">A</span>
@@ -23,14 +23,18 @@
 
   <!-- MAIN MENU -->
   <div id="main-menu" class="hidden">
-    <h1>Welcome to ANDZ</h1>
-    <ul>
-      <li><a href="#">My Services</a></li>
-      <li><a href="#">About Me</a></li>
-      <li><a href="#">Reviews</a></li>
-    </ul>
+    <canvas id="liquid-bg"></canvas>
+    <div class="menu-content">
+      <h1>Welcome to A N D Z</h1>
+      <ul>
+        <li><a href="#">My Services</a></li>
+        <li><a href="#">About Me</a></li>
+        <li><a href="#">Reviews</a></li>
+      </ul>
+    </div>
   </div>
 
+  <script src="three.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
