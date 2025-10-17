@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ANDZ | Vision Build Lead</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANDZ | Design. Build. Lead.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Loader Screen -->
-  <div class="loader-screen" id="loader">
+
+  <!-- Intro Loader -->
+  <div class="intro-wrapper">
     <div class="loader-wrapper">
       <span class="loader-letter">G</span>
       <span class="loader-letter">e</span>
@@ -24,18 +26,18 @@
     </div>
   </div>
 
-  <!-- Main Page -->
-  <div class="main hidden" id="main">
-    <canvas id="stars"></canvas>
-    <div class="title">
-      <h1>
-        <span class="word">VISION</span> |
-        <span class="word">BUILD</span> |
-        <span class="word">LEAD</span>
-      </h1>
-      <p class="subtitle">concept by ANDZ.</p>
+  <!-- Main Home Screen -->
+  <main class="home hidden">
+    <div class="content">
+      <h1 class="motto"><span>D</span>esign. <span>B</span>uild. <span>L</span>ead.</h1>
+      <p class="signature">concept by <span>ANDZ</span></p>
+      <div class="btns">
+        <button class="glow-btn">My Work</button>
+        <button class="glow-btn">About Me</button>
+        <button class="glow-btn">Contact</button>
+      </div>
     </div>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
