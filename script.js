@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector(".main-header");
   const sections = document.querySelectorAll(".section");
 
-  // Intro transition
+  // Fade out intro
   setTimeout(() => {
     intro.style.filter = "blur(25px)";
     intro.style.opacity = "0";
@@ -20,16 +20,21 @@ window.addEventListener("DOMContentLoaded", () => {
     }, 100);
   }, 4200);
 
-  // Scroll animations for sections
+  // Scroll reveal
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      } else {
-        entry.target.classList.remove("show");
-      }
+      if (entry.isIntersecting) entry.target.classList.add("show");
+      else entry.target.classList.remove("show");
     });
   }, { threshold: 0.2 });
 
   sections.forEach(sec => observer.observe(sec));
+
+  // Parallax background movement
+  window.addEventListener("scroll", () => {
+    document.querySelectorAll(".parallax").forEach(el => {
+      const speed = el.getAttribute("data-speed");
+      el.style.backgroundPositionY = `${window.scrollY * speed}px`;
+    });
+  });
 });
