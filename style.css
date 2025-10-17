@@ -1,22 +1,35 @@
-html, body {
+/* GLOBAL */
+body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  height: 100%;
   background: black;
   font-family: "Inter", sans-serif;
+  color: white;
 }
 
-/* === LOADER === */
-.loader-wrapper {
+/* ========== LOADING SCREEN ========== */
+.loader-screen {
   position: fixed;
   inset: 0;
+  background: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: black;
-  z-index: 10;
-  transition: opacity 1.5s ease;
+  z-index: 999;
+  transition: filter 1s ease, opacity 1s ease;
+}
+
+.loader-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  font-size: 1.3em;
+  font-weight: 400;
+  color: white;
 }
 
 .loader {
@@ -26,7 +39,6 @@ html, body {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
   z-index: 0;
 }
@@ -34,129 +46,142 @@ html, body {
 @keyframes loader-rotate {
   0% {
     transform: rotate(90deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
+    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset;
   }
   50% {
     transform: rotate(270deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 10px 0 #d60a47 inset,
-      0 40px 60px 0 #311e80 inset;
+    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset;
   }
   100% {
     transform: rotate(450deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
+    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset;
   }
 }
 
 .loader-letter {
   display: inline-block;
   opacity: 0.4;
-  transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
   z-index: 1;
 }
 
-.loader-letter:nth-child(n) {
-  animation-delay: calc(var(--i) * 0.1s);
-}
+.loader-letter:nth-child(1) { animation-delay: 0s; }
+.loader-letter:nth-child(2) { animation-delay: 0.1s; }
+.loader-letter:nth-child(3) { animation-delay: 0.2s; }
+.loader-letter:nth-child(4) { animation-delay: 0.3s; }
+.loader-letter:nth-child(5) { animation-delay: 0.4s; }
+.loader-letter:nth-child(6) { animation-delay: 0.5s; }
+.loader-letter:nth-child(7) { animation-delay: 0.6s; }
+.loader-letter:nth-child(8) { animation-delay: 0.7s; }
+.loader-letter:nth-child(9) { animation-delay: 0.8s; }
+.loader-letter:nth-child(10) { animation-delay: 0.9s; }
 
 @keyframes loader-letter-anim {
-  0%,100% { opacity: 0.4; transform: translateY(0); }
-  20% { opacity: 1; transform: scale(1.15); }
-  40% { opacity: 0.7; transform: translateY(0); }
-}
-
-/* === MAIN SCENE === */
-.main-scene {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  opacity: 0;
-  transition: opacity 2s ease;
-}
-
-canvas#stars {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.slogan {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  gap: 15px;
-  font-size: 4em;
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  perspective: 1000px;
-}
-
-.slogan span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1.2s forwards;
-  background: linear-gradient(120deg, #ffffff 0%, #c9bff8 45%, #a081ff 60%, #ffffff 100%);
-  background-size: 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 15px rgba(150, 100, 255, 0.4);
-  filter: brightness(1.2);
-}
-
-@keyframes fadeUp {
-  to {
-    opacity: 1;
+  0%, 100% {
+    opacity: 0.4;
     transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  40% {
+    opacity: 0.7;
   }
 }
 
-.slogan span:nth-child(1) { animation-delay: 0.3s; }
-.slogan span:nth-child(2) { animation-delay: 0.8s; }
-.slogan span:nth-child(3) { animation-delay: 1.3s; }
+/* Fade out effect */
+.loader-screen.fade-out {
+  filter: blur(15px);
+  opacity: 0;
+  pointer-events: none;
+}
 
-.slogan::after {
+/* ========== HOMEPAGE ========== */
+.homepage {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(black 70%, #0a0a0a);
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
+}
+
+/* STARS BACKGROUND */
+.stars {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+.stars::before,
+.stars::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: -50%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent 0%, rgba(180,130,255,0.3) 50%, transparent 100%);
-  animation: glint 4s infinite linear;
-  transform: skewX(-20deg);
+  width: 200%;
+  height: 200%;
+  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
+  animation: moveStars 200s linear infinite;
+  opacity: 0.6;
 }
 
-@keyframes glint {
-  0% { left: -60%; }
-  100% { left: 160%; }
+.stars::after {
+  animation-duration: 400s;
+  opacity: 0.4;
 }
 
-.signature {
-  z-index: 1;
-  margin-top: 10px;
-  font-size: 1.1em;
-  color: #888;
-  letter-spacing: 1px;
-  text-transform: lowercase;
-  opacity: 0;
-  animation: fadeIn 1.5s ease 2.2s forwards;
+@keyframes moveStars {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50%, -50%); }
 }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
+/* STAR GLOW ON HOVER (custom smaller stars added in JS) */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+.star:hover {
+  box-shadow: 0 0 8px 4px #ad5fff;
+  transform: scale(1.8);
+}
+
+/* TITLE SECTION */
+.title-section {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  transform: translateY(-50%);
+}
+
+.metal-text {
+  font-size: 5em;
+  font-weight: 900;
+  line-height: 1.1em;
+  color: #cfcfcf;
+  background: linear-gradient(145deg, #9f9f9f, #ffffff, #7f7f7f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    0 2px 4px rgba(255,255,255,0.2),
+    0 4px 10px rgba(0,0,0,0.6);
+  transition: transform 0.3s ease;
+  cursor: default;
+  perspective: 1000px;
+}
+
+.metal-text span {
+  display: inline-block;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+/* Tilt effect will be controlled by JS */
