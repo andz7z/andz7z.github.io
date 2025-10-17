@@ -4,18 +4,25 @@ body {
   padding: 0;
   overflow: hidden;
   height: 100vh;
-  background-color: #000;
+  background: #000;
   font-family: "Inter", sans-serif;
   color: white;
 }
 
-/* ===== LOADER INTRO ===== */
-/* From Uiverse.io by dexter-st */
-.loader-wrapper {
-  position: absolute;
+/* ===== LOADER ===== */
+.loader-screen {
+  background: #000;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100;
+}
+
+.loader-wrapper {
+  position: relative;
   width: 180px;
   height: 180px;
   font-size: 1.3em;
@@ -23,11 +30,6 @@ body {
   color: white;
   border-radius: 50%;
   background-color: transparent;
-  user-select: none;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
 }
 
 .loader {
@@ -37,9 +39,7 @@ body {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
-  z-index: 0;
 }
 
 @keyframes loader-rotate {
@@ -71,9 +71,6 @@ body {
   opacity: 0.4;
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
-  z-index: 1;
-  border-radius: 50ch;
-  border: none;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
@@ -102,16 +99,12 @@ body {
   }
 }
 
-/* ===== TRANSITION ===== */
+/* ===== FADE TRANSITION ===== */
 .fade-out {
-  animation: blurOut 0.8s forwards;
+  animation: fadeOut 0.8s forwards;
 }
-
-@keyframes blurOut {
-  to {
-    opacity: 0;
-    filter: blur(30px);
-  }
+@keyframes fadeOut {
+  to { opacity: 0; filter: blur(30px); }
 }
 
 /* ===== MAINPAGE ===== */
@@ -119,66 +112,54 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
+  background: radial-gradient(circle at 50% 50%, #080008 0%, #000 100%);
   opacity: 0;
-  filter: blur(30px);
-  transition: opacity 1s ease, filter 1s ease;
+  transition: opacity 1s ease;
   overflow: hidden;
 }
-
 .mainpage.active {
   opacity: 1;
-  filter: blur(0);
 }
 
-/* ===== BLOBS (nebuloasă) ===== */
-.blob, .blob2 {
+/* ===== DISTORTION CANVAS ===== */
+#distortion {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.8;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.blob {
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(180,0,255,0.3), transparent 70%);
-  animation: float1 20s ease-in-out infinite alternate;
-}
-
-.blob2 {
-  width: 500px;
-  height: 500px;
-  left: 60%;
-  top: 20%;
-  background: radial-gradient(circle, rgba(90,0,255,0.25), transparent 70%);
-  animation: float2 25s ease-in-out infinite alternate-reverse;
-}
-
-@keyframes float1 {
-  from { transform: translate(-100px, 0); }
-  to { transform: translate(100px, -50px); }
-}
-@keyframes float2 {
-  from { transform: translate(50px, 100px); }
-  to { transform: translate(-80px, -60px); }
-}
-
-/* ===== TEXT ===== */
-.hero {
+/* ===== HERO SECTION ===== */
+.hero-section {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 15%;
-  font-size: 3rem;
-  color: #b388ff;
-  text-shadow: 0 0 10px #7e22ce;
-  letter-spacing: 4px;
+  transform: translateY(-50%);
+  z-index: 5;
 }
 
-.signature {
-  position: absolute;
-  top: 55%;
-  left: 15%;
-  font-size: 0.9rem;
-  color: rgba(255,255,255,0.6);
+.hero-text {
+  font-size: 3.5rem;
+  color: #d1c4ff;
+  background: linear-gradient(90deg, #b388ff, #7e22ce, #b388ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 300%;
+  animation: shimmer 6s linear infinite;
+  text-shadow: 0 0 20px rgba(150,0,255,0.2);
+  letter-spacing: 3px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.subtext {
+  font-size: 1rem;
+  margin-top: 10px;
+  color: rgba(255,255,255,0.5);
+  letter-spacing: 1px;
+  text-transform: uppercase;
   font-style: italic;
 }
