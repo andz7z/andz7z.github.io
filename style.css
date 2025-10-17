@@ -1,35 +1,36 @@
-@font-face {
-  font-family: "Colmeak";
-  src: url("assets/fonts/Colmeak.ttf") format("truetype");
-}
-
-body, html {
+/* ===== Global ===== */
+* {
   margin: 0;
   padding: 0;
-  background: black;
-  color: white;
-  font-family: "Colmeak", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "bacley", sans-serif;
   height: 100vh;
   overflow: hidden;
-}
-
-/* INTRO */
-#intro {
+  background: #1a1a1a;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 100vh;
-  transition: opacity 1s ease;
+  justify-content: center;
+  transition: background 1s ease, filter 1s ease;
 }
 
+/* ===== Loader ===== */
 .loader-wrapper {
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 180px;
   height: 180px;
+  font-size: 1.8em;
+  font-weight: 400;
+  color: white;
   border-radius: 50%;
+  background-color: transparent;
+  user-select: none;
+  animation: fadeOut 0.6s ease 2s forwards;
 }
 
 .loader {
@@ -45,9 +46,27 @@ body, html {
 }
 
 @keyframes loader-rotate {
-  0% { transform: rotate(90deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
-  50% { transform: rotate(270deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset; }
-  100% { transform: rotate(450deg); box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset; }
+  0% {
+    transform: rotate(90deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+  50% {
+    transform: rotate(270deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 10px 0 #d60a47 inset,
+      0 40px 60px 0 #311e80 inset;
+  }
+  100% {
+    transform: rotate(450deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
 }
 
 .loader-letter {
@@ -56,61 +75,78 @@ body, html {
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
   z-index: 1;
+  border-radius: 50ch;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
+.loader-letter:nth-child(2) { animation-delay: 0.1s; }
 .loader-letter:nth-child(3) { animation-delay: 0.2s; }
-.loader-letter:nth-child(5) { animation-delay: 0.4s; }
-.loader-letter:nth-child(7) { animation-delay: 0.6s; }
+.loader-letter:nth-child(4) { animation-delay: 0.3s; }
 
 @keyframes loader-letter-anim {
-  0%, 100% { opacity: 0.4; transform: translateY(0); }
-  20% { opacity: 1; transform: scale(1.15); }
-  40% { opacity: 0.7; transform: translateY(0); }
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
 }
 
-/* MAIN MENU */
-.hidden {
-  display: none;
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 
-#main-menu {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-#liquid-bg {
+/* ===== Main Menu ===== */
+.main-menu {
   position: absolute;
-  width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
-  z-index: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #b5b5b5, #9e9e9e);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 1s ease, filter 1s ease;
 }
 
-.menu-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
+.main-menu.visible {
+  opacity: 1;
+  filter: blur(0);
 }
 
-.menu-content h1 {
-  font-size: 3em;
-  margin-bottom: 30px;
+.main-menu h1 {
+  color: #222;
+  font-size: 3rem;
+  letter-spacing: 6px;
+  margin-bottom: 40px;
 }
 
-.menu-content a {
-  text-decoration: none;
-  color: #ad5fff;
-  font-size: 1.5em;
-  transition: 0.3s;
-}
-
-.menu-content a:hover {
+.main-menu button {
+  padding: 12px 30px;
+  margin: 10px;
+  border: none;
+  background: #333;
   color: #fff;
-  text-shadow: 0 0 10px #ad5fff;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.main-menu button:hover {
+  background: #555;
+  transform: scale(1.05);
 }
