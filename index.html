@@ -1,35 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Andzoworld Intro</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AndzoWorld — Concept Build Lead</title>
+
+  <!-- Google Font: Montserrat ExtraBold -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+  <!-- Three.js from CDN -->
+  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- LOADING SCREEN -->
-  <div class="loader-wrapper">
-    <span class="loader-letter">A</span>
-    <span class="loader-letter">n</span>
-    <span class="loader-letter">d</span>
-    <span class="loader-letter">z</span>
-    <span class="loader-letter">o</span>
-    <span class="loader-letter">w</span>
-    <span class="loader-letter">o</span>
-    <span class="loader-letter">r</span>
-    <span class="loader-letter">l</span>
-    <span class="loader-letter">d</span>
-    <div class="loader"></div>
+  <!-- Loader -->
+  <div id="loader-screen" class="loader-screen">
+    <div class="loader-wrapper" aria-hidden="true">
+      <span class="loader-letter">A</span>
+      <span class="loader-letter">N</span>
+      <span class="loader-letter">D</span>
+      <span class="loader-letter">Z</span>
+      <span class="loader-letter">W</span>
+      <span class="loader-letter">O</span>
+      <span class="loader-letter">R</span>
+      <span class="loader-letter">L</span>
+      <span class="loader-letter">D</span>
+
+      <div class="loader"></div>
+    </div>
   </div>
 
-  <!-- MAIN PAGE -->
-  <div class="main">
-    <div class="stars"></div>
-    <div class="content">
-      <h1 class="fade-word">CONCEPT.</h1>
-      <h1 class="fade-word">BUILD.</h1>
-      <h1 class="fade-word">LEAD.</h1>
-    </div>
+  <!-- Main content -->
+  <div id="app" class="app hidden">
+    <canvas id="starfield"></canvas>
+
+    <main class="hero">
+      <div class="hero-inner">
+        <h1 class="hero-line">CONCEPT.</h1>
+        <h1 class="hero-line">BUILD.</h1>
+        <h1 class="hero-line">LEAD.</h1>
+      </div>
+    </main>
   </div>
 
   <script src="script.js"></script>
