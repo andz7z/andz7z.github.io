@@ -125,11 +125,8 @@ body {
   width: 100%;
   opacity: 0;
   animation: fadeIn 1.5s ease forwards 0.5s;
-  background: linear-gradient(
-    to right,
-    rgba(10, 10, 15, 1) 65%,
-    rgba(10, 10, 15, 0) 70%
-  );
+  position: relative;
+  background: radial-gradient(circle at 68%, rgba(120, 0, 255, 0.1), #0a0a0f 80%);
 }
 
 @keyframes fadeIn {
@@ -143,26 +140,48 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to right, #0a0a0f, rgba(10, 10, 15, 0.6));
-  backdrop-filter: blur(10px);
+  background: linear-gradient(to right, #0a0a0f 80%, rgba(10, 10, 15, 0.1));
+  backdrop-filter: blur(15px);
   padding-left: 8vw;
   z-index: 2;
+  position: relative;
 }
 
 .text-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  width: 80%;
 }
 
 .title {
   font-size: 4vw;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   animation: slideInLeft 1.2s ease forwards;
   color: var(--purple-accent);
   text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Glow shine animation */
+.shine {
+  background: linear-gradient(
+    120deg,
+    var(--purple-accent) 0%,
+    #ffffff 50%,
+    var(--purple-accent) 100%
+  );
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shineMove 6s linear infinite;
+}
+
+@keyframes shineMove {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 @keyframes slideInLeft {
@@ -180,8 +199,9 @@ body {
   font-size: 1vw;
   font-weight: 300;
   color: #cfcfcf;
-  align-self: flex-end;
+  align-self: flex-start;
   margin-top: 0.5rem;
+  margin-left: 1rem;
   animation: fadeUp 1.5s ease forwards 0.8s;
 }
 
@@ -201,6 +221,7 @@ body {
   width: 30%;
   position: relative;
   overflow: hidden;
+  mix-blend-mode: lighten;
 }
 
 .gradient-bg {
@@ -215,8 +236,32 @@ body {
     var(--purple-deep)
   );
   filter: blur(120px) brightness(1.2);
-  animation: rotateGradient 15s linear infinite;
+  animation: rotateGradient 20s linear infinite;
   opacity: 0.85;
+}
+
+.dark-lines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    120deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 2px,
+    transparent 4px,
+    transparent 8px
+  );
+  animation: moveLines 12s linear infinite;
+  mix-blend-mode: overlay;
+  opacity: 0.4;
+}
+
+@keyframes moveLines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
 }
 
 @keyframes rotateGradient {
