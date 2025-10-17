@@ -217,9 +217,18 @@ header {
   display: flex;
   justify-content: flex-end;
   gap: 20px;
-  background: rgba(0,0,0,0.4); /* semi-transparent */
-  backdrop-filter: blur(10px); /* blur */
+  background: rgba(0,0,0,0.1); /* mai transparent la start */
+  backdrop-filter: blur(12px); /* blur pentru efect cinematic */
   z-index: 100;
+  opacity: 0; /* invizibil la start */
+  transform: translateY(-20px); /* pentru mic efect de slide */
+  transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+}
+
+/* când apare */
+header.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Buttons - stil Uiverse modificat */
@@ -237,12 +246,21 @@ header button {
   transition: 0.5s ease;
   cursor: pointer;
   user-select: none;
+  opacity: 0; /* fade in separat */
+  transform: translateY(-10px);
 }
 
+/* când butoanele apar */
+header button.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover mov */
 header button:hover,
 header button:focus {
   color: #ffffff;
-  background: #7a1fff; /* mov inchis */
+  background: #7a1fff;
   border: 1px solid #7a1fff;
   text-shadow: 0 0 5px #ffffff,
                0 0 10px #ffffff,
@@ -253,4 +271,4 @@ header button:focus {
               0 0 100px #7a1fff;
   font-size: 16px;
   border-color: transparent;
-  }
+}
