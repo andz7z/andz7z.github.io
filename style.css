@@ -1,189 +1,135 @@
-/* GLOBAL */
 body {
   margin: 0;
-  padding: 0;
-  overflow: hidden;
   background: black;
-  font-family: "Inter", sans-serif;
-  color: white;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
 }
 
-/* ========== LOADING SCREEN ========== */
-.loader-screen {
+/* LOADING SCREEN */
+.loader-wrapper {
   position: fixed;
   inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
-  transition: filter 1s ease, opacity 1s ease;
-}
-
-.loader-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 200px;
-  font-size: 1.3em;
-  font-weight: 400;
-  color: white;
+  z-index: 9999;
+  animation: fadeOut 1s ease 3s forwards;
 }
 
 .loader {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1 / 1;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
   animation: loader-rotate 2s linear infinite;
-  z-index: 0;
 }
 
 @keyframes loader-rotate {
-  0% {
-    transform: rotate(90deg);
-    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset;
-  }
-  50% {
-    transform: rotate(270deg);
-    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset;
-  }
-  100% {
-    transform: rotate(450deg);
-    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset;
-  }
+  0% { transform: rotate(0deg); box-shadow: 0 0 30px #ad5fff inset; }
+  50% { transform: rotate(180deg); box-shadow: 0 0 60px #471eec inset; }
+  100% { transform: rotate(360deg); box-shadow: 0 0 30px #ad5fff inset; }
 }
 
 .loader-letter {
-  display: inline-block;
+  font-size: 2em;
+  font-weight: 300;
+  color: white;
   opacity: 0.4;
-  animation: loader-letter-anim 2s infinite;
-  z-index: 1;
+  animation: pulse 2s infinite;
 }
 
-.loader-letter:nth-child(1) { animation-delay: 0s; }
-.loader-letter:nth-child(2) { animation-delay: 0.1s; }
-.loader-letter:nth-child(3) { animation-delay: 0.2s; }
-.loader-letter:nth-child(4) { animation-delay: 0.3s; }
-.loader-letter:nth-child(5) { animation-delay: 0.4s; }
-.loader-letter:nth-child(6) { animation-delay: 0.5s; }
-.loader-letter:nth-child(7) { animation-delay: 0.6s; }
-.loader-letter:nth-child(8) { animation-delay: 0.7s; }
-.loader-letter:nth-child(9) { animation-delay: 0.8s; }
-.loader-letter:nth-child(10) { animation-delay: 0.9s; }
-
-@keyframes loader-letter-anim {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  40% {
-    opacity: 0.7;
-  }
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
 
-.loader-screen.fade-out {
-  filter: blur(20px);
-  opacity: 0;
-  pointer-events: none;
+@keyframes fadeOut {
+  to { opacity: 0; visibility: hidden; }
 }
 
-/* ========== HOMEPAGE ========== */
-.homepage {
-  position: fixed;
-  inset: 0;
-  background: radial-gradient(black 70%, #0a0a0a);
-  overflow: hidden;
-}
-
-.hidden {
-  display: none;
-}
-
-/* STARS */
-.stars {
+/* STARS BACKGROUND */
+#stars {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: black;
+  inset: 0;
+  background: transparent;
   overflow: hidden;
+  z-index: 0;
 }
 
 .star {
   position: absolute;
-  width: 2px;
-  height: 2px;
   background: white;
   border-radius: 50%;
   opacity: 0.7;
-  transition: box-shadow 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-}
-.star.active {
-  box-shadow: 0 0 12px 6px #ad5fff;
-  transform: scale(1.8);
-  opacity: 1;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
-/* Text container */
-.title-section {
+.star:hover {
+  box-shadow: 0 0 10px 4px #fff;
+  transform: scale(1.3);
+}
+
+/* HERO TEXT */
+.hero-text {
   position: absolute;
   top: 50%;
-  left: 5%;
-  width: 50%;
+  left: 10%;
   transform: translateY(-50%);
+  width: 50%;
+  text-align: left;
 }
 
-/* 3D text with strong shadow */
-.white-3d {
-  font-size: 9vw;
-  font-weight: 900;
-  color: #fff;
+.fade-word {
+  font-size: 10vw;
+  color: #0d0d0d;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  line-height: 1.1;
-  text-shadow:
-    0 2px 0 #ccc,
-    0 4px 0 #999,
-    0 6px 0 #666,
-    0 8px 0 #333,
-    0 10px 12px rgba(0, 0, 0, 0.8);
-  transition: transform 0.15s ease-out, background-color 0.3s ease;
-  display: inline-block;
-  perspective: 1000px;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(20px);
+  font-weight: 900;
+  letter-spacing: 2px;
+  position: relative;
+  text-shadow: 
+    0 1px 0 #333, 
+    0 2px 0 #222, 
+    0 3px 0 #111, 
+    0 4px 2px rgba(0,0,0,0.8);
+  animation: appear 1s ease forwards;
   cursor: default;
 }
 
-/* Fade in each word sequentially */
-.fade-text span {
-  opacity: 0;
-  display: inline-block;
-  transform: translateY(20px);
-  animation: fadeInUp 1.2s forwards;
-}
-.fade-text span:nth-child(1) { animation-delay: 0.4s; }
-.fade-text span:nth-child(2) { animation-delay: 1.0s; }
-.fade-text span:nth-child(3) { animation-delay: 1.6s; }
+/* sequential appearance */
+#word1 { animation-delay: 3.2s; }
+#word2 { animation-delay: 4.2s; }
+#word3 { animation-delay: 5.2s; }
 
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
+@keyframes appear {
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* Hover black overlay */
-.white-3d:hover {
-  background-color: rgba(0, 0, 0, 0.15);
+/* light sweep effect */
+.fade-word::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.7), transparent);
+  animation: lightSweep 3s linear infinite;
 }
 
-/* Twinkle animation */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
+@keyframes lightSweep {
+  0% { left: -75%; }
+  100% { left: 125%; }
+}
+
+/* on hover tilt */
+.fade-word:hover {
+  color: #000;
+  filter: brightness(1.3);
+  transform: perspective(400px) rotateY(12deg);
+  transition: transform 0.5s ease, color 0.3s ease;
 }
