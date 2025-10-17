@@ -90,9 +90,8 @@ body {
   }
 }
 
-/* Fade out effect */
 .loader-screen.fade-out {
-  filter: blur(15px);
+  filter: blur(20px);
   opacity: 0;
   pointer-events: none;
 }
@@ -109,79 +108,64 @@ body {
   display: none;
 }
 
-/* STARS BACKGROUND */
+/* STAR FIELD */
 .stars {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: transparent;
+  background: black;
   overflow: hidden;
 }
 
-.stars::before,
-.stars::after {
-  content: "";
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: transparent url("https://www.transparenttextures.com/patterns/stardust.png") repeat;
-  animation: moveStars 200s linear infinite;
-  opacity: 0.6;
-}
-
-.stars::after {
-  animation-duration: 400s;
-  opacity: 0.4;
-}
-
-@keyframes moveStars {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-50%, -50%); }
-}
-
-/* STAR GLOW ON HOVER (custom smaller stars added in JS) */
 .star {
   position: absolute;
   width: 2px;
   height: 2px;
   background: white;
   border-radius: 50%;
-  opacity: 0.8;
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  opacity: 0.7;
+  transition: box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
 }
 .star:hover {
-  box-shadow: 0 0 8px 4px #ad5fff;
-  transform: scale(1.8);
+  box-shadow: 0 0 12px 5px #ad5fff;
+  transform: scale(2);
+  opacity: 1;
 }
 
-/* TITLE SECTION */
+/* Subtle twinkle animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* 3D WHITE TEXT */
 .title-section {
   position: absolute;
   top: 50%;
-  left: 15%;
+  left: 10%;
   transform: translateY(-50%);
 }
 
-.metal-text {
-  font-size: 5em;
+.white-3d {
+  font-size: 12vw; /* much larger */
   font-weight: 900;
-  line-height: 1.1em;
-  color: #cfcfcf;
-  background: linear-gradient(145deg, #9f9f9f, #ffffff, #7f7f7f);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  line-height: 1;
   text-shadow:
-    0 2px 4px rgba(255,255,255,0.2),
-    0 4px 10px rgba(0,0,0,0.6);
-  transition: transform 0.3s ease;
-  cursor: default;
+    0px 2px 0px #ccc,
+    0px 4px 0px #aaa,
+    0px 6px 0px #888,
+    0px 8px 0px #666,
+    0px 10px 15px rgba(0,0,0,0.9);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
   perspective: 1000px;
+  cursor: default;
 }
 
-.metal-text span {
+.white-3d span {
   display: inline-block;
   transform-origin: center;
-  transition: transform 0.3s ease;
 }
-
-/* Tilt effect will be controlled by JS */
