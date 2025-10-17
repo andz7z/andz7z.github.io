@@ -108,7 +108,7 @@ body {
   display: none;
 }
 
-/* STAR FIELD */
+/* STARS */
 .stars {
   position: absolute;
   width: 100%;
@@ -124,48 +124,66 @@ body {
   background: white;
   border-radius: 50%;
   opacity: 0.7;
-  transition: box-shadow 0.3s ease, transform 0.3s ease, opacity 0.3s ease;
+  transition: box-shadow 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
-.star:hover {
-  box-shadow: 0 0 12px 5px #ad5fff;
-  transform: scale(2);
+.star.active {
+  box-shadow: 0 0 12px 6px #ad5fff;
+  transform: scale(1.8);
   opacity: 1;
 }
 
-/* Subtle twinkle animation */
-@keyframes twinkle {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
-
-/* 3D WHITE TEXT */
+/* Text container */
 .title-section {
   position: absolute;
   top: 50%;
-  left: 10%;
+  left: 5%;
+  width: 50%;
   transform: translateY(-50%);
 }
 
+/* 3D text with strong shadow */
 .white-3d {
-  font-size: 12vw; /* much larger */
+  font-size: 9vw;
   font-weight: 900;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 3px;
-  line-height: 1;
+  line-height: 1.1;
   text-shadow:
-    0px 2px 0px #ccc,
-    0px 4px 0px #aaa,
-    0px 6px 0px #888,
-    0px 8px 0px #666,
-    0px 10px 15px rgba(0,0,0,0.9);
-  transform-style: preserve-3d;
-  transition: transform 0.15s ease-out;
+    0 2px 0 #ccc,
+    0 4px 0 #999,
+    0 6px 0 #666,
+    0 8px 0 #333,
+    0 10px 12px rgba(0, 0, 0, 0.8);
+  transition: transform 0.15s ease-out, background-color 0.3s ease;
+  display: inline-block;
   perspective: 1000px;
   cursor: default;
 }
 
-.white-3d span {
+/* Fade in each word sequentially */
+.fade-text span {
+  opacity: 0;
   display: inline-block;
-  transform-origin: center;
+  transform: translateY(20px);
+  animation: fadeInUp 1.2s forwards;
+}
+.fade-text span:nth-child(1) { animation-delay: 0.4s; }
+.fade-text span:nth-child(2) { animation-delay: 1.0s; }
+.fade-text span:nth-child(3) { animation-delay: 1.6s; }
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Hover black overlay */
+.white-3d:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* Twinkle animation */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }
