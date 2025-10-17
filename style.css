@@ -1,73 +1,91 @@
-/* reset minimal */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; width: 100%; background: #000; }
+/* From Uiverse.io by dexter-st adapted */
 
-/* ===== Loading screen ===== */
-#loading-screen {
-  position: fixed;
-  inset: 0;
-  background: #000;
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-  will-change: opacity;
-}
-#loading-screen.hidden {
-  opacity: 0;
-  visibility: hidden;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
 }
 
-/* loader visual */
 .loader-wrapper {
   position: relative;
-  width: 180px;
-  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: Inter, system-ui, sans-serif;
-  font-size: 2.2rem;
-  color: #fff;
+  width: 180px;
+  height: 180px;
+  font-size: 1.5em;
+  font-weight: 300;
+  color: white;
+  border-radius: 50%;
+  background-color: transparent;
   user-select: none;
+  transition: opacity 1s ease;
 }
 
 .loader {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
+  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
-  box-shadow:
-    0 10px 20px 0 #fff inset,
-    0 20px 30px 0 #ad5fff inset,
-    0 60px 60px 0 #471eec inset;
   z-index: 0;
 }
 
 @keyframes loader-rotate {
-  0% { transform: rotate(90deg); }
-  50% { transform: rotate(270deg); }
-  100% { transform: rotate(450deg); }
+  0% {
+    transform: rotate(90deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+  50% {
+    transform: rotate(270deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 10px 0 #d60a47 inset,
+      0 40px 60px 0 #311e80 inset;
+  }
+  100% {
+    transform: rotate(450deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
 }
 
-/* letters */
 .loader-letter {
-  position: relative;
-  z-index: 1;
   display: inline-block;
-  opacity: 0.45;
+  opacity: 0.4;
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
-  letter-spacing: 0.4rem;
+  z-index: 1;
+  border-radius: 50ch;
+  border: none;
+  margin: 0 2px;
 }
+
 .loader-letter:nth-child(1) { animation-delay: 0s; }
-.loader-letter:nth-child(2) { animation-delay: 0.12s; }
-.loader-letter:nth-child(3) { animation-delay: 0.24s; }
-.loader-letter:nth-child(4) { animation-delay: 0.36s; }
+.loader-letter:nth-child(2) { animation-delay: 0.1s; }
+.loader-letter:nth-child(3) { animation-delay: 0.2s; }
+.loader-letter:nth-child(4) { animation-delay: 0.3s; }
 
 @keyframes loader-letter-anim {
-  0%, 100% { opacity: 0.45; transform: translateY(0); }
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
   20% { opacity: 1; transform: scale(1.15); }
   40% { opacity: 0.7; transform: translateY(0); }
+}
+
+/* Fade-out */
+.loader-wrapper.fade-out {
+  opacity: 0;
 }
