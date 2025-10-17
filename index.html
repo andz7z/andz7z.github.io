@@ -7,27 +7,31 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- INTRO LOADER -->
-  <div class="loader-wrapper">
-    <span class="loader-letter">A</span>
-    <span class="loader-letter">N</span>
-    <span class="loader-letter">D</span>
-    <span class="loader-letter">Z</span>
-    <span class="loader-letter">O</span>
-    <span class="loader-letter">W</span>
-    <span class="loader-letter">O</span>
-    <span class="loader-letter">R</span>
-    <span class="loader-letter">L</span>
-    <span class="loader-letter">D</span>
-    <div class="loader"></div>
+  <!-- ===== LOADING SCREEN ===== -->
+  <div class="loader-screen">
+    <div class="loader-wrapper">
+      <span class="loader-letter">A</span>
+      <span class="loader-letter">N</span>
+      <span class="loader-letter">D</span>
+      <span class="loader-letter">Z</span>
+      <span class="loader-letter">O</span>
+      <span class="loader-letter">W</span>
+      <span class="loader-letter">O</span>
+      <span class="loader-letter">R</span>
+      <span class="loader-letter">L</span>
+      <span class="loader-letter">D</span>
+      <div class="loader"></div>
+    </div>
   </div>
 
-  <!-- MAINPAGE -->
+  <!-- ===== MAINPAGE ===== -->
   <div class="mainpage">
-    <div class="blob"></div>
-    <div class="blob blob2"></div>
-    <h1 class="hero">VISION | BUILD | LEAD</h1>
-    <p class="signature">concept by ANDZ.</p>
+    <canvas id="distortion"></canvas>
+
+    <section class="hero-section">
+      <h1 class="hero-text" data-text="VISION | BUILD | LEAD">VISION | BUILD | LEAD</h1>
+      <p class="subtext">concept by ANDZ.</p>
+    </section>
   </div>
 
   <script src="script.js"></script>
