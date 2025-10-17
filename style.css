@@ -9,8 +9,8 @@
 body {
   font-family: 'Inter', sans-serif;
   background-color: #0a0a0f;
-  color: white;
   overflow: hidden;
+  color: white;
 }
 
 /* ---------- COLORS ---------- */
@@ -44,20 +44,14 @@ body {
   font-weight: 300;
   color: white;
   border-radius: 50%;
-  background-color: transparent;
   user-select: none;
 }
 
 .loader {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1 / 1;
+  inset: 0;
   border-radius: 50%;
-  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
-  z-index: 0;
 }
 
 @keyframes loader-rotate {
@@ -89,8 +83,6 @@ body {
   opacity: 0.4;
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
-  z-index: 1;
-  border-radius: 50ch;
 }
 
 .loader-letter:nth-child(n) {
@@ -108,7 +100,6 @@ body {
   }
   40% {
     opacity: 0.7;
-    transform: translateY(0);
   }
 }
 
@@ -118,7 +109,7 @@ body {
   pointer-events: none;
 }
 
-/* ---------- MAIN SECTION ---------- */
+/* ---------- MAIN LAYOUT ---------- */
 .main {
   display: flex;
   height: 100vh;
@@ -137,29 +128,29 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  background: linear-gradient(
-    to right,
-    #0a0a0f 70%,
-    rgba(10, 10, 15, 0.2) 100%
-  );
-  backdrop-filter: blur(30px);
+  background-color: #0a0a0f;
   padding-left: 6vw;
-  padding-top: 10vh;
+  padding-top: 8vh;
   position: relative;
   z-index: 2;
 }
 
-/* SUPER BLEND — gradul de amestec */
+/* Fade/Blend zone between sections */
 .left-section::after {
   content: "";
   position: absolute;
-  right: 0;
+  right: -5%;
   top: 0;
-  width: 20%;
+  width: 15%;
   height: 100%;
-  background: linear-gradient(to right, rgba(10, 10, 15, 1), rgba(10, 10, 15, 0));
-  mix-blend-mode: screen;
-  filter: blur(80px);
+  background: linear-gradient(
+    to right,
+    #0a0a0f 0%,
+    rgba(10,10,15,0.6) 40%,
+    rgba(10,10,15,0) 100%
+  );
+  filter: blur(50px);
+  z-index: 3;
   pointer-events: none;
 }
 
@@ -167,55 +158,35 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 80%;
 }
 
 .title {
   font-size: 4vw;
   font-weight: 700;
-  letter-spacing: 3px;
-  animation: slideInLeft 1.2s ease forwards;
   text-transform: uppercase;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Black Shine Text Effect */
-.shine {
   background: linear-gradient(
     120deg,
-    #000000 0%,
-    #222222 50%,
-    #000000 100%
+    var(--purple-accent),
+    var(--purple-main),
+    var(--purple-dark)
   );
-  background-size: 200%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: darkShine 8s linear infinite;
+  animation: purpleShine 6s linear infinite;
+  letter-spacing: 2px;
 }
 
-@keyframes darkShine {
+@keyframes purpleShine {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
-}
-
-@keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-50px); }
-  to { opacity: 1; transform: translateX(0); }
 }
 
 .subtitle {
   font-size: 1vw;
   font-weight: 300;
-  color: #b0b0b0;
+  color: #c5a6ff;
   margin-top: 1rem;
   margin-left: 0.5rem;
-  animation: fadeUp 1.5s ease forwards 0.8s;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ---------- RIGHT GRADIENT ---------- */
@@ -223,12 +194,11 @@ body {
   width: 30%;
   position: relative;
   overflow: hidden;
-  mix-blend-mode: lighten;
 }
 
 .gradient-bg {
   position: absolute;
-  inset: 0;
+  inset: -30%;
   background: conic-gradient(
     from 0deg,
     var(--purple-deep),
@@ -237,32 +207,16 @@ body {
     var(--purple-main),
     var(--purple-deep)
   );
-  filter: blur(160px) brightness(1.2);
-  animation: rotateGradient 20s linear infinite;
-  opacity: 0.9;
+  filter: blur(140px) brightness(1.25);
+  animation: swirl 10s linear infinite;
+  transition: transform 1.5s ease;
 }
 
-.dark-lines {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    120deg,
-    rgba(0, 0, 0, 0.2) 0px,
-    rgba(0, 0, 0, 0.2) 2px,
-    transparent 6px,
-    transparent 12px
-  );
-  animation: moveLines 14s linear infinite;
-  mix-blend-mode: overlay;
-  opacity: 0.5;
-}
-
-@keyframes moveLines {
-  from { background-position: 0 0; }
-  to { background-position: 400px 0; }
-}
-
-@keyframes rotateGradient {
+@keyframes swirl {
   0% { transform: rotate(0deg) scale(1); }
   100% { transform: rotate(360deg) scale(1); }
+}
+
+.right-section:hover .gradient-bg {
+  transform: scale(1.1) rotate(10deg);
 }
