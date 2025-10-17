@@ -8,24 +8,24 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #0a0a0f;
-  overflow: hidden;
+  background-color: #000;
   color: white;
+  overflow: hidden;
 }
 
 /* ---------- COLORS ---------- */
 :root {
-  --purple-main: #7a00ff;
-  --purple-accent: #ad5fff;
-  --purple-dark: #471eec;
-  --purple-deep: #2d006b;
+  --purple-main: #8a2be2;
+  --purple-glow: #b47aff;
+  --purple-deep: #2a0066;
+  --aura-black: #050006;
 }
 
 /* ---------- LOADER ---------- */
 .loader-screen {
   position: fixed;
   inset: 0;
-  background-color: #0a0a0f;
+  background-color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,11 +40,7 @@ body {
   justify-content: center;
   width: 180px;
   height: 180px;
-  font-size: 1.2em;
-  font-weight: 300;
   color: white;
-  border-radius: 50%;
-  user-select: none;
 }
 
 .loader {
@@ -56,25 +52,25 @@ body {
 
 @keyframes loader-rotate {
   0% {
-    transform: rotate(90deg);
+    transform: rotate(0deg);
     box-shadow:
       0 10px 20px 0 #fff inset,
-      0 20px 30px 0 var(--purple-accent) inset,
-      0 60px 60px 0 var(--purple-dark) inset;
+      0 20px 30px 0 var(--purple-glow) inset,
+      0 60px 60px 0 var(--purple-deep) inset;
   }
   50% {
-    transform: rotate(270deg);
+    transform: rotate(180deg);
     box-shadow:
       0 10px 20px 0 #fff inset,
       0 20px 10px 0 #d60a47 inset,
       0 40px 60px 0 var(--purple-deep) inset;
   }
   100% {
-    transform: rotate(450deg);
+    transform: rotate(360deg);
     box-shadow:
       0 10px 20px 0 #fff inset,
-      0 20px 30px 0 var(--purple-accent) inset,
-      0 60px 60px 0 var(--purple-dark) inset;
+      0 20px 30px 0 var(--purple-glow) inset,
+      0 60px 60px 0 var(--purple-deep) inset;
   }
 }
 
@@ -109,114 +105,132 @@ body {
   pointer-events: none;
 }
 
-/* ---------- MAIN LAYOUT ---------- */
+/* ---------- MAIN ---------- */
 .main {
   display: flex;
   height: 100vh;
   width: 100%;
   opacity: 0;
   animation: fadeIn 1.5s ease forwards 0.5s;
-  position: relative;
 }
 
 @keyframes fadeIn {
   to { opacity: 1; }
 }
 
+/* LEFT SECTION */
 .left-section {
   width: 70%;
+  background-color: #000;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  background-color: #0a0a0f;
   padding-left: 6vw;
-  padding-top: 8vh;
+  padding-top: 10vh;
   position: relative;
-  z-index: 2;
 }
 
-/* Fade/Blend zone between sections */
+/* Perfect fade between sections */
 .left-section::after {
   content: "";
   position: absolute;
-  right: -5%;
+  right: -8%;
   top: 0;
-  width: 15%;
+  width: 20%;
   height: 100%;
-  background: linear-gradient(
-    to right,
-    #0a0a0f 0%,
-    rgba(10,10,15,0.6) 40%,
-    rgba(10,10,15,0) 100%
+  background: radial-gradient(
+    circle at left center,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,0.7) 40%,
+    rgba(0,0,0,0) 100%
   );
-  filter: blur(50px);
-  z-index: 3;
+  filter: blur(80px);
+  z-index: 2;
   pointer-events: none;
 }
 
 .text-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  position: relative;
+  z-index: 5;
 }
 
 .title {
   font-size: 4vw;
   font-weight: 700;
+  letter-spacing: 3px;
   text-transform: uppercase;
   background: linear-gradient(
-    120deg,
-    var(--purple-accent),
+    90deg,
     var(--purple-main),
-    var(--purple-dark)
+    var(--purple-glow),
+    var(--purple-main)
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: purpleShine 6s linear infinite;
-  letter-spacing: 2px;
+  animation: textGlass 6s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes purpleShine {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+/* Glassy dark shimmer passing through */
+@keyframes textGlass {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.5) contrast(1.2);
+  }
 }
 
 .subtitle {
   font-size: 1vw;
-  font-weight: 300;
-  color: #c5a6ff;
+  color: white;
   margin-top: 1rem;
   margin-left: 0.5rem;
 }
 
-/* ---------- RIGHT GRADIENT ---------- */
+/* RIGHT SECTION */
 .right-section {
   width: 30%;
   position: relative;
   overflow: hidden;
 }
 
-.gradient-bg {
+/* The moving aura */
+.aura-bg {
   position: absolute;
   inset: -30%;
-  background: conic-gradient(
-    from 0deg,
-    var(--purple-deep),
-    var(--purple-dark),
-    var(--purple-accent),
-    var(--purple-main),
-    var(--purple-deep)
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(90, 0, 255, 0.6),
+    rgba(10, 0, 20, 0.9) 60%,
+    #000 100%
   );
-  filter: blur(140px) brightness(1.25);
-  animation: swirl 10s linear infinite;
-  transition: transform 1.5s ease;
+  filter: blur(140px);
+  animation: auraMove 8s ease-in-out infinite alternate;
+  transition: transform 1s ease, filter 0.5s ease;
 }
 
-@keyframes swirl {
-  0% { transform: rotate(0deg) scale(1); }
-  100% { transform: rotate(360deg) scale(1); }
+/* Subtle white energy overlay */
+.aura-overlay {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 50%),
+    rgba(255,255,255,0.15),
+    transparent 60%
+  );
+  mix-blend-mode: screen;
+  transition: background 0.3s ease;
 }
 
-.right-section:hover .gradient-bg {
-  transform: scale(1.1) rotate(10deg);
+@keyframes auraMove {
+  0% { transform: translate(-5%, -5%) scale(1); }
+  50% { transform: translate(5%, 5%) scale(1.1); }
+  100% { transform: translate(-5%, 5%) scale(1.05); }
+}
+
+.right-section:hover .aura-bg {
+  filter: blur(120px) brightness(1.3);
+  transform: scale(1.1);
 }
