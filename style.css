@@ -1,45 +1,44 @@
-/* ===== GLOBAL ===== */
-body {
+/* ---------- RESET ---------- */
+* {
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  height: 100vh;
-  background: #000;
-  font-family: "Inter", sans-serif;
-  color: white;
+  box-sizing: border-box;
 }
 
-/* ===== LOADER ===== */
-.loader-screen {
-  background: #000;
+/* ---------- BACKGROUND STARS ---------- */
+body, html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background: black;
+  font-family: "Inter", sans-serif;
+}
+
+/* Hidden before loading ends */
+.hidden {
+  display: none;
+}
+
+/* ---------- LOADER ---------- */
+.loader-wrapper {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
-}
-
-.loader-wrapper {
-  position: relative;
-  width: 180px;
-  height: 180px;
-  font-size: 1.3em;
-  font-weight: 300;
-  color: white;
-  border-radius: 50%;
-  background-color: transparent;
+  background-color: black;
+  z-index: 9999;
+  transition: opacity 1s ease, filter 1s ease;
 }
 
 .loader {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  width: 180px;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
+  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
+  z-index: 0;
 }
 
 @keyframes loader-rotate {
@@ -71,6 +70,8 @@ body {
   opacity: 0.4;
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
+  z-index: 1;
+  color: white;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
@@ -99,67 +100,74 @@ body {
   }
 }
 
-/* ===== FADE TRANSITION ===== */
-.fade-out {
-  animation: fadeOut 0.8s forwards;
-}
-@keyframes fadeOut {
-  to { opacity: 0; filter: blur(30px); }
-}
-
-/* ===== MAINPAGE ===== */
-.mainpage {
+/* ---------- MAIN PAGE ---------- */
+main {
   position: relative;
   width: 100%;
-  height: 100vh;
-  background: radial-gradient(circle at 50% 50%, #080008 0%, #000 100%);
-  opacity: 0;
-  transition: opacity 1s ease;
+  height: 100%;
   overflow: hidden;
 }
-.mainpage.active {
-  opacity: 1;
+
+/* Stars Background */
+.stars {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(white, transparent 1%) center/2px 2px,
+              radial-gradient(#ad5fff, transparent 1%) center/3px 3px;
+  background-color: black;
+  background-repeat: repeat;
+  animation: moveStars 60s linear infinite;
+  filter: brightness(0.8);
 }
 
-/* ===== DISTORTION CANVAS ===== */
-#distortion {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+@keyframes moveStars {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-200px, 200px); }
 }
 
-/* ===== HERO SECTION ===== */
-.hero-section {
-  position: absolute;
+/* Flicker stars effect */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* ---------- TEXT ---------- */
+.text-container {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: center;
   top: 50%;
-  left: 15%;
   transform: translateY(-50%);
-  z-index: 5;
 }
 
-.hero-text {
+.text-container h1 {
   font-size: 3.5rem;
-  color: #d1c4ff;
-  background: linear-gradient(90deg, #b388ff, #7e22ce, #b388ff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 300%;
-  animation: shimmer 6s linear infinite;
-  text-shadow: 0 0 20px rgba(150,0,255,0.2);
-  letter-spacing: 3px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: white;
+  text-shadow:
+    0 0 10px #ad5fff,
+    0 0 20px #ad5fff,
+    0 0 30px #471eec,
+    0 0 40px #471eec;
+  -webkit-text-stroke: 1px #c8a2ff;
 }
 
-@keyframes shimmer {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 200% 50%; }
+.text-container h1 span {
+  color: #ad5fff;
 }
 
-.subtext {
-  font-size: 1rem;
+.text-container p {
   margin-top: 10px;
-  color: rgba(255,255,255,0.5);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-style: italic;
+  font-size: 1rem;
+  color: #d0baff;
+  text-shadow: 0 0 10px #ad5fff;
+}
+
+/* ---------- EXIT ANIMATION ---------- */
+.fade-out {
+  opacity: 0;
+  filter: blur(10px);
 }
