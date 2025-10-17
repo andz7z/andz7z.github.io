@@ -164,7 +164,7 @@ setTimeout(() => {
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
 });
-/* === HEADER EFFECTS (oval + scroll) === */
+/* === HEADER EFFECTS (oval + scroll + animare butoane) === */
 (function () {
   const header = document.getElementById("main-header");
 
@@ -176,4 +176,15 @@ setTimeout(() => {
   window.addEventListener("scroll", handleScroll);
   document.addEventListener("DOMContentLoaded", handleScroll);
   window.addEventListener("load", handleScroll);
+
+  // Fade-in header + butoane după loader
+  window.addEventListener("load", () => {
+    header.classList.add("active");
+    const buttons = header.querySelectorAll(".nav-btn");
+    buttons.forEach((btn, i) => {
+      setTimeout(() => {
+        btn.classList.add("active");
+      }, i * 150);
+    });
+  });
 })();
