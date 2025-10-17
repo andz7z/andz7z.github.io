@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ANDZ</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/ogl@0.0.106/dist/ogl.umd.js"></script>
 </head>
 <body>
-  <!-- ===== LOADING SCREEN ===== -->
+  <!-- === INTRO LOADING SCREEN === -->
   <div id="loading-screen">
-    <div class="loader-wrapper" id="intro">
+    <div class="loader-wrapper">
       <span class="loader-letter">A</span>
       <span class="loader-letter">N</span>
       <span class="loader-letter">D</span>
@@ -18,20 +19,11 @@
     </div>
   </div>
 
-  <!-- ===== MAIN MENU ===== -->
-  <div class="main-menu" id="mainMenu">
-    <div class="liquid-ether-container" id="liquid-bg"></div>
-    <div class="menu-content">
-      <h1>Welcome to ANDZ</h1>
-      <button>Home</button>
-      <button>Projects</button>
-      <button>About</button>
-      <button>Contact</button>
-    </div>
+  <!-- === MAIN MENU === -->
+  <div id="main-menu">
+    <div id="orb-container"></div>
   </div>
 
-  <audio id="introSound" src="assets/sounds/notificare.mp3" preload="auto"></audio>
-
-  <script type="module" src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
