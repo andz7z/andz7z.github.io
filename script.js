@@ -1,75 +1,111 @@
-const canvas = document.getElementById("background");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
 
-let width, height;
-let time = 0;
-const mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-let trail = [];
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
 
-function resize() {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
+const particles = [];
+const maxParticles = 120;
+const mouse = { x: width/2, y: height/2, trail: [] };
+
+// Utilitar
+function random(min, max) {
+  return Math.random() * (max - min) + min;
 }
-window.addEventListener("resize", resize);
-resize();
 
-document.addEventListener("mousemove", e => {
+// Particule
+class Particle {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.x = random(0, width);
+    this.y = random(0, height);
+    this.size = random(1, 3);
+    this.speedX = random(-0.3, 0.3);
+    this.speedY = random(-0.3, 0.3);
+    this.alpha = random(0.1, 0.7);
+  }
+
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+  }
+
+  draw() {
+    ctx.fillStyle = `rgba(123, 63, 228, ${this.alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+// Initialize particles
+for(let i=0; i<maxParticles; i++) {
+  particles.push(new Particle());
+}
+
+// Mouse tracking
+window.addEventListener('mousemove', e => {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
+  mouse.trail.push({x: e.clientX, y: e.clientY, alpha: 1});
+  if(mouse.trail.length > 20) mouse.trail.shift();
 });
 
-// Efect principal
-function draw() {
-  time += 0.015;
-
-  // fundal negru transparent pentru efect de dâră lungă
-  ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+// Animate
+function animate() {
+  // Gradient background animat
+  const gradient = ctx.createLinearGradient(0, 0, width, height);
+  const time = Date.now() * 0.0003;
+  gradient.addColorStop(0, `hsl(${200 + 50*Math.sin(time)}, 20%, 5%)`);
+  gradient.addColorStop(1, `hsl(${280 + 50*Math.cos(time)}, 30%, 8%)`);
+  ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, width, height);
 
-  // adaugă poziția actuală a mouse-ului în trail
-  trail.push({ x: mouse.x, y: mouse.y, t: time });
-  if (trail.length > 80) trail.shift();
+  // Draw particles
+  particles.forEach(p => {
+    p.update();
+    p.draw();
+  });
 
-  // creează efectul de "aura trail"
-  for (let i = 0; i < trail.length; i++) {
-    const p = trail[i];
-    const dist = (i / trail.length);
-    const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, 400 * dist + 100);
-    glow.addColorStop(0, `rgba(180, 0, 255, ${0.25 * (1 - dist)})`);
-    glow.addColorStop(0.4, `rgba(120, 0, 220, ${0.15 * (1 - dist)})`);
-    glow.addColorStop(1, "transparent");
-
-    ctx.fillStyle = glow;
+  // Draw mouse trail
+  for(let i = 0; i < mouse.trail.length; i++) {
+    const t = mouse.trail[i];
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 300 * dist + 50, 0, Math.PI * 2);
+    ctx.arc(t.x, t.y, (i+1)*2, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(123,63,228,${t.alpha*0.3})`;
     ctx.fill();
+    t.alpha -= 0.03;
   }
 
-  // adaugă mișcare fluidă și distorsionată în fundal
-  for (let i = 0; i < 10; i++) {
-    const angle = time * 0.3 + i;
-    const x = width / 2 + Math.cos(angle * 1.3) * 600 * Math.sin(time * 0.4 + i);
-    const y = height / 2 + Math.sin(angle * 1.7) * 400 * Math.cos(time * 0.6 + i);
-    const radius = 300 + 100 * Math.sin(time + i);
-
-    const g = ctx.createRadialGradient(x, y, 0, x, y, radius);
-    g.addColorStop(0, `rgba(140, 0, 255, 0.06)`);
-    g.addColorStop(1, "transparent");
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fill();
-  }
-
-  // efect de highlight central în funcție de mișcare
-  const mid = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 400);
-  mid.addColorStop(0, "rgba(220,0,255,0.25)");
-  mid.addColorStop(0.5, "rgba(80,0,180,0.05)");
-  mid.addColorStop(1, "transparent");
-  ctx.fillStyle = mid;
+  // Glow radial around cursor
+  const glow = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150);
+  glow.addColorStop(0, 'rgba(123,63,228,0.15)');
+  glow.addColorStop(1, 'rgba(123,63,228,0)');
+  ctx.fillStyle = glow;
   ctx.fillRect(0, 0, width, height);
 
-  requestAnimationFrame(draw);
+  // Random sparkles
+  if(Math.random() < 0.02) {
+    const sparkle = new Particle();
+    sparkle.x = random(0, width);
+    sparkle.y = random(0, height);
+    sparkle.size = random(1.5,3);
+    sparkle.alpha = 1;
+    particles.push(sparkle);
+    if(particles.length > maxParticles) particles.shift();
+  }
+
+  requestAnimationFrame(animate);
 }
 
-draw();
+animate();
+
+// Resize canvas
+window.addEventListener('resize', () => {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+});
