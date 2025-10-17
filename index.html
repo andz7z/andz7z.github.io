@@ -1,30 +1,34 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ANDZ — Midnight Universe</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intro + Stars Effect</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Intro (păstrat) -->
-  <div id="intro" class="intro-overlay">
+  <!-- INTRO -->
+  <div class="intro" id="intro">
+    <!-- Loader from Uiverse.io -->
     <div class="loader-wrapper">
-      <span class="loader-letter">A</span>
-      <span class="loader-letter">N</span>
-      <span class="loader-letter">D</span>
-      <span class="loader-letter">Z</span>
+      <span class="loader-letter">G</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">t</span>
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">g</span>
       <div class="loader"></div>
     </div>
   </div>
 
-  <!-- Main Universe -->
-  <main class="main-grid hidden" id="mainContent">
-    <canvas id="universe"></canvas>
-    <div class="overlay">
-      <h1 class="title">ANDZ</h1>
-    </div>
+  <!-- MAIN PAGE -->
+  <main id="main">
+    <canvas id="stars"></canvas>
+    <h1>Bine ai venit!</h1>
   </main>
 
   <script src="script.js"></script>
