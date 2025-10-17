@@ -1,58 +1,48 @@
-// Fade out loader and show homepage
-window.addEventListener("load", () => {
-  setTimeout(() => {
-    const loader = document.querySelector(".loader-screen");
-    loader.classList.add("fade-out");
-    setTimeout(() => {
-      loader.style.display = "none";
-      document.querySelector(".homepage").classList.remove("hidden");
-      generateStars();
-    }, 1000);
-  }, 3000);
-});
+// ==============================================
+// STARFIELD ANIMATION + INTERACTIVITY
+// ==============================================
 
-// Generate stars and interactive glow
-function generateStars() {
-  const starsContainer = document.querySelector(".stars");
-  const totalStars = 200;
-  const stars = [];
+// Selectează containerul de stele
+const starContainer = document.getElementById("stars");
+const numStars = 150; // numărul de stele
 
-  for (let i = 0; i < totalStars; i++) {
-    const star = document.createElement("div");
-    star.classList.add("star");
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.animation = `twinkle ${2 + Math.random() * 4}s infinite ease-in-out`;
-    starsContainer.appendChild(star);
-    stars.push(star);
-  }
+// Creează și poziționează stelele
+for (let i = 0; i < numStars; i++) {
+  const star = document.createElement("div");
+  star.classList.add("star");
 
-  document.addEventListener("mousemove", (e) => {
-    stars.forEach(star => {
-      const rect = star.getBoundingClientRect();
-      const dx = e.clientX - (rect.left + rect.width / 2);
-      const dy = e.clientY - (rect.top + rect.height / 2);
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 120) {
-        star.classList.add("active");
-      } else {
-        star.classList.remove("active");
-      }
-    });
-  });
+  const size = Math.random() * 2 + 1; // dimensiune între 1 și 3px
+  star.style.width = `${size}px`;
+  star.style.height = `${size}px`;
+  star.style.top = `${Math.random() * 100}%`;
+  star.style.left = `${Math.random() * 100}%`;
+
+  // animație individuală de sclipire
+  const duration = Math.random() * 5 + 5;
+  const delay = Math.random() * 5;
+  star.style.animation = `twinkle ${duration}s ease-in-out ${delay}s infinite`;
+
+  starContainer.appendChild(star);
 }
 
-// Tilt text effect (stronger tilt)
-const title = document.querySelector(".white-3d");
+// ==============================================
+// TEXT INTERACTION — tilt în funcție de mișcarea mouse-ului
+// ==============================================
+const heroText = document.querySelector(".hero-text");
+const words = document.querySelectorAll(".fade-word");
+
 document.addEventListener("mousemove", (e) => {
-  const rect = title.getBoundingClientRect();
-  const x = e.clientX - (rect.left + rect.width / 2);
-  const y = e.clientY - (rect.top + rect.height / 2);
-  const tiltX = (y / rect.height) * 20; // stronger tilt
-  const tiltY = -(x / rect.width) * 20;
-  title.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg)`;
+  const { innerWidth, innerHeight } = window;
+  const x = e.clientX / innerWidth - 0.5;
+  const y = e.clientY / innerHeight - 0.5;
+
+  words.forEach((word) => {
+    word.style.transform = `rotateY(${x * 20}deg) rotateX(${y * -10}deg)`;
+  });
 });
 
 document.addEventListener("mouseleave", () => {
-  title.style.transform = "rotateX(0deg) rotateY(0deg)";
+  words.forEach((word) => {
+    word.style.transform = "rotateY(0deg) rotateX(0deg)";
+  });
 });
