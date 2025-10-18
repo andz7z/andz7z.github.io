@@ -1,57 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moonlight Aesthetics: Web Development & Graphic Design</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AndzoWorld — Concept Build Lead</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <!-- Google Font: Montserrat ExtraBold -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+  <!-- Three.js from CDN -->
+  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="moonlight-theme">
+<body>
+  <!-- Loader -->
+  <div id="loader-screen" class="loader-screen">
+    <div class="loader-wrapper" aria-hidden="true">
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">d</span>
+      <span class="loader-letter">z</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">w</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">l</span>
+      <span class="loader-letter">d</span>
+      <div class="loader"></div>
+    </div>
+  </div>
 
-    <div class="mouse-aura" id="mouseAura"></div>
-
-    <div class="particles-container" id="particlesContainer"></div>
-
-    <header class="hero-section">
-        <div class="hero-content">
-            <h1 class="title-glow">MOONLIGHT AESTHETICS</h1>
-            <p class="subtitle">Web Development & Graphic Design</p>
-            <p class="description">Unde logica codului se întâlnește cu magia vizuală. Creăm experiențe digitale performante, învăluite în eleganța întunecată a nopții.</p>
-        </div>
-        <nav class="main-nav">
-            <a href="#proiecte" class="nav-link depth-effect">PROIECTE</a>
-            <a href="#servicii" class="nav-link depth-effect">SERVICII</a>
-            <a href="#contact" class="nav-link depth-effect">CONTACT</a>
-        </nav>
-    </header>
-
-    <main class="content-wrapper">
-        <section id="servicii" class="card-grid">
-            <div class="card depth-effect" data-depth="0.2">
-                <h2>Dezvoltare Front-End</h2>
-                <p>Arhitectură React și animații GSAP pentru viteză și fluiditate maximă.</p>
-                <a href="#" class="btn-glow">Află mai mult</a>
-            </div>
-            
-            <div class="card depth-effect" data-depth="0.5">
-                <h2>Design Grafic & UX/UI</h2>
-                <p>Identitate vizuală completă și interfețe centrate pe utilizator, cu accente neon.</p>
-                <a href="#" class="btn-glow">Află mai mult</a>
-            </div>
-            
-             <div class="card depth-effect" data-depth="0.8">
-                <h2>Branding Digital</h2>
-                <p>Dezvoltarea unei prezențe online memorabile, de la logo la landing page-uri.</p>
-                <a href="#" class="btn-glow">Află mai mult</a>
-            </div>
-        </section>
+  <!-- Main content -->
+  <div id="app" class="app hidden fade-in">
+    <canvas id="starfield"></canvas>
+    <main class="hero">
+      <div class="hero-inner">
+        <!-- Conținutul tău -->
+      </div>
     </main>
-    
-    <script src="../assets/js/script.js"></script>
+  </div>
+
+  <!-- Header Oval cu iconița în centru -->
+  <header id="main-header" class="header-oval">
+    <div class="header-inner">
+      <!-- 2 butoane stânga -->
+      <button class="nav-btn">About Us</button>
+      <button class="nav-btn">Services</button>
+
+      <!-- Iconița GIF în centru -->
+      <div class="logo-wrap">
+        <img src="assets/logos/iconita.gif" alt="Iconiță" class="brand-icon-gif">
+      </div>
+
+      <!-- 2 butoane dreapta -->
+      <button class="nav-btn">Ratings</button>
+      <button class="nav-btn">Contact Us</button>
+    </div>
+  </header>
+
+  <script src="script.js"></script>
 </body>
 </html>
