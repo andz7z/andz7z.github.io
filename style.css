@@ -5,7 +5,6 @@
   --accent-purple:#471eec;
   --accent-purple-dark:#311e80;
   --highlight-white:#ffffff;
-  --slogan-color: #ffffff; /* Culoare de bază: Alb */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -14,11 +13,9 @@ body{
   font-family: "Montserrat", "Inter", sans-serif;
   overflow:hidden;
   color:#fff;
-  /* Activez perspective-ul pe body/app pentru animațiile 3D ale textului */
-  perspective: 1000px;
 }
 
-/* Loader screen (Fără modificări) */
+/* Loader screen */
 .loader-screen{
   position:fixed;
   inset:0;
@@ -121,110 +118,118 @@ body{
 .app{position:fixed;inset:0;overflow:hidden}
 .app.hidden{display:none}
 
+/* Adăugat pentru fade-in-ul app-ului */
+.app.fade-in {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.app.fade-in.active {
+  opacity: 1;
+}
+
+
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
 
-/* === HERO SECTION ȘI SLOGAN 3D === */
+/* === STILURI HEADER ELIMINATE === */
+/* Toate stilurile de la .header-oval la .brand-icon-gif:hover au fost șterse */
+
+
+/* === NOUL CONȚINUT HERO === */
 .hero {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  padding: 0 5%;
+  align-items: center; /* Centrează vertical */
+  justify-content: flex-start; /* Aliniază la stânga */
+  z-index: 10;
+  pointer-events: none; /* Permite click-ul "prin" text pe canvas dacă e nevoie */
 }
-
 .hero-inner {
-  display: flex;
-  width: 100%;
-  max-width: 1400px;
-  align-items: center;
-  justify-content: space-between;
+  padding-left: 10vw; /* Spațiu față de marginea stângă */
+  max-width: 60%;
+}
+.hero-content {
+  color: var(--highlight-white);
 }
 
-.slogan-container {
-  /* Aliniere stânga și pregătire 3D */
-  text-align: left;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  /* Setează o lățime maximă pentru a lăsa spațiu dreapta */
-  max-width: 50%;
-  padding-left: 20px;
-}
-
-.slogan-line {
+.hero-title {
   font-family: 'Montserrat', sans-serif;
-  font-size: clamp(3.5rem, 8vw, 7.5rem); /* Responsive font size */
   font-weight: 900;
+  font-size: clamp(2.5rem, 6vw, 5.5rem); /* Mărime font responsivă */
   line-height: 1.1;
-  color: var(--slogan-color);
-  
-  /* Text Shadow / Glow alb-mov */
+  text-transform: uppercase;
+  margin: 0;
+  /* Efect 3D/de profunzime subtil */
   text-shadow: 
-    0 0 10px rgba(255, 255, 255, 0.4), /* Glow alb */
-    0 0 20px var(--accent-purple),    /* Glow mov */
-    0 0 40px rgba(71, 30, 236, 0.7);
-    
-  /* Setări 3D */
-  transform-style: preserve-3d;
-  transform: rotateX(0deg) rotateY(0deg);
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition */
-  
-  /* Efect de adâncime 3D (Text Stroke) */
-  &::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--accent-purple-dark); /* Contur mov */
-    opacity: 0.8;
-    /* Deplasare pe axa Z pentru a crea adâncimea */
-    transform: translateZ(-5px); 
-  }
+    0 2px 5px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 255, 255, 0.25);
 }
 
-/* Efect de hover pe container pentru a anima întregul text 3D */
-.slogan-container:hover .slogan-line {
-    transform: rotateX(5deg) rotateY(5deg) translateZ(10px);
+.hero-title .line {
+  display: block; /* Fiecare cuvânt pe o linie nouă */
+  overflow: hidden; /* Pentru animație */
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-.slogan-container:hover .slogan-line.line-1 { transform: rotateX(5deg) rotateY(5deg) translateZ(15px); }
-.slogan-container:hover .slogan-line.line-2 { transform: rotateX(5deg) rotateY(5deg) translateZ(10px); }
-.slogan-container:hover .slogan-line.line-3 { transform: rotateX(5deg) rotateY(5deg) translateZ(5px); }
 
-.slogan-subtext {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(1.2rem, 2.5vw, 2.2rem);
-  font-weight: 300;
+/* Animațiile declanșate de JS prin clasa .active pe .app */
+.app.active .hero-title .line:nth-child(1) {
+  transition-delay: 0.2s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.app.active .hero-title .line:nth-child(2) {
+  transition-delay: 0.4s;
+  opacity: 1;
+  transform: translateY(0);
+}
+.app.active .hero-title .line:nth-child(3) {
+  transition-delay: 0.6s;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-subtitle {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
   margin-top: 20px;
-  color: #ffffff90;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  letter-spacing: 1px;
+  
+  /* Efect de gradient pe text */
+  background: linear-gradient(90deg, #eee, #fff, #b49eff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  
+  /* Animație */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out 0.9s, transform 0.8s ease-out 0.9s;
 }
 
-/* Placeholder pentru conținutul viitor din dreapta */
-.right-content-placeholder {
-  width: 45%;
-  height: 50vh;
-  /* Poți adăuga un fundal subtil aici pentru a vedea spațiul */
-  /* background: rgba(71, 30, 236, 0.1); */
+.app.active .hero-subtitle {
+  opacity: 0.9; /* O ușoară transparență pentru gradient */
+  transform: translateY(0);
 }
 
-/* Responsive (Asigură o vizualizare bună pe mobil) */
-@media (max-width: 900px) {
+
+/* Responsive */
+@media (max-width: 720px) {
+  /* Stilurile responsive pentru header au fost eliminate */
+  
+  /* Ajustare conținut hero pentru mobil */
   .hero-inner {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    max-width: 100%;
+    text-align: center; /* Centrează textul pe mobil */
   }
-  .slogan-container, .right-content-placeholder {
-    max-width: 90%;
-    width: 100%;
-    text-align: center;
-    padding-left: 0;
+  .hero {
+    justify-content: center; /* Centrează blocul hero pe mobil */
   }
-  .slogan-line::before { -webkit-text-stroke: 0.5px var(--accent-purple-dark); }
 }
-
-/* Am eliminat stilurile .header-oval, .header-inner, .nav-btn, .brand-icon-gif */
