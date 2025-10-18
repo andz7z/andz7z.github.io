@@ -120,136 +120,108 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* ==== SLOGAN FINAL VERSION ==== */
-.slogan {
-  position: absolute;
-  top: 48%;
-  left: 8%;
-  transform: translateY(-50%) perspective(800px) rotateY(18deg);
-  font-family: "Montserrat", sans-serif;
-  text-transform: uppercase;
-  user-select: none;
-  line-height: 1.1;
-  letter-spacing: 2px;
-  opacity: 0;
-  transition: opacity 2.4s ease-in-out;
-}
-
-.slogan.visible {
-  opacity: 1;
-}
-
-.slogan-line {
-  font-size: 4.6rem;
-  font-weight: 900;
-  color: #0b0b0b; /* foarte închis */
-  position: relative;
-  display: inline-block;
-  background: linear-gradient(
-    90deg,
-    #0a0a0a 0%,
-    #0a0a0a 40%,
-    #ffffff 50%,
-    #0a0a0a 60%,
-    #0a0a0a 100%
-  );
-  background-size: 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shineSweep 11s linear infinite;
-  text-shadow:
-    1px 1px 1px rgba(255,255,255,0.05),
-    2px 2px 2px rgba(255,255,255,0.04),
-    -1px -1px 1px rgba(0,0,0,0.4),
-    -2px -2px 3px rgba(0,0,0,0.6),
-    0 8px 14px rgba(0,0,0,0.8);
-}
-
-.bottom-line {
-  font-size: 3.2rem;
-  margin-top: 0.8em;
-  display: block;
-  transform: translateX(0.5em);
-  color: #0a0a0a;
-}
-
-@keyframes shineSweep {
-  0% { background-position: 220% 0; }
-  100% { background-position: -220% 0; }
-}
-
-/* efect de relief 3D "bagat in site" */
-.slogan-line::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 3px;
-  left: 3px;
-  right: 0;
-  bottom: 0;
-  color: rgba(255,255,255,0.05);
-  text-shadow:
-    inset 0 2px 2px rgba(0,0,0,0.7),
-    0 -2px 6px rgba(255,255,255,0.05);
-  z-index: -1;
-  filter: blur(1px);
-}
-/* ==== GLASS PANEL CENTRAL ==== */
+/* ==== GLASS PANEL CENTRAL - VERSION 2 ==== */
 .glass-panel {
   position: absolute;
-  top: 55%;
+  top: 44%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80vw;
-  height: 70vh;
+  height: 65vh;
   border-radius: 24px;
-  backdrop-filter: blur(18px) saturate(150%);
-  background: rgba(10, 10, 10, 0.35);
+  backdrop-filter: blur(20px) saturate(160%);
+  background: rgba(10, 10, 10, 0.45);
   overflow: hidden;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
 }
 
-/* Interiorul efectiv în care poți adăuga lucruri */
+/* outline-ul cinematic */
+.glass-outline {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  z-index: 1;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    rgba(255,255,255,0.05) 0deg,
+    rgba(255,255,255,0.8) 25deg,
+    rgba(255,255,255,0.05) 60deg,
+    rgba(255,255,255,0.05) 360deg
+  );
+  animation: smoothWave 9s linear infinite;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  padding: 2px;
+}
+
+/* unda albă care se deplasează smooth pe margine */
+@keyframes smoothWave {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* interiorul panoului */
 .glass-content {
   position: relative;
   width: 100%;
   height: 100%;
   z-index: 2;
-  padding: 2rem 3rem;
+  padding: 3rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   color: #eaeaea;
-  overflow-y: auto;
 }
 
-/* Outline-ul luminos dinamic */
-.glass-outline {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
+/* ==== SLOGAN REFINED ==== */
+.slogan {
+  text-align: left;
+  user-select: none;
+  line-height: 1.15;
+  letter-spacing: 2px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 1.8s ease, transform 1.8s ease;
+}
+
+.slogan.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slogan-line {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 3.6rem;
   background: linear-gradient(
-    130deg,
-    rgba(255,255,255,0.12) 0%,
+    to right,
+    rgba(255,255,255,0.05) 0%,
     rgba(255,255,255,0.6) 20%,
-    rgba(255,255,255,0.12) 40%,
+    rgba(255,255,255,0.05) 40%,
     rgba(255,255,255,0.6) 60%,
-    rgba(255,255,255,0.12) 100%
+    rgba(255,255,255,0.05) 100%
   );
-  background-size: 300% 300%;
-  z-index: 1;
-  animation: borderWave 8s linear infinite;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  padding: 2px; /* grosimea efectivă a outline-ului */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200%;
+  animation: lightFlow 10s ease-in-out infinite;
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.05),
+    0 0 14px rgba(0,0,0,0.6);
 }
 
-/* animația valului de lumină pe contur */
-@keyframes borderWave {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.bottom-line {
+  margin-top: 0.5em;
+  font-size: 2.8rem;
 }
 
-/* mic efect de glow difuz când te apropii de el (pentru viitor) */
-.glass-panel:hover .glass-outline {
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.3));
+/* unda lentă de lumină prin text */
+@keyframes lightFlow {
+  0%, 100% { background-position: 200% 0; }
+  50% { background-position: -200% 0; }
 }
