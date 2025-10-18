@@ -3,14 +3,14 @@ body, html {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow: hidden;
+  scroll-behavior: smooth;
   font-family: "Poppins", sans-serif;
   color: white;
+  background: black;
   opacity: 0;
   animation: siteFadeIn 1.5s ease forwards;
 }
 
-/* ANIMATIE GLOBALĂ SITE */
 @keyframes siteFadeIn {
   to { opacity: 1; }
 }
@@ -43,12 +43,42 @@ body, html {
   to { opacity: 1; }
 }
 
+/* SECȚIUNEA SUPERIOARĂ */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 3;
+}
+
+.intro-text h2 {
+  font-size: 2.5rem;
+  font-family: 'Colmeak', sans-serif;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.intro-text p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.7);
+}
+
+/* SECȚIUNEA CU PANOU */
+.showcase {
+  position: relative;
+  height: 120vh; /* un pic mai mare ca să avem spațiu de scroll */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
 /* PANOU CENTRAL */
 .center-panel {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: sticky;
+  top: 65%; /* face să se vadă 30% inițial */
   width: 80vw;
   height: 80vh;
   border-radius: 30px;
@@ -99,7 +129,7 @@ body, html {
 /* TEXT */
 .slogan {
   position: absolute;
-  top: 8%;
+  top: 10%;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
@@ -116,7 +146,7 @@ body, html {
 }
 
 .slogan h1 {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 500;
   letter-spacing: 0.5px;
   line-height: 1.25;
@@ -163,7 +193,7 @@ body, html {
 .highlight-excellence {
   font-family: 'Alterday', serif;
   color: rgba(255,255,255,0.85);
-  font-size: 2.6rem;
+  font-size: 2.5rem;
   letter-spacing: 1px;
   transition: all 0.3s ease;
 }
