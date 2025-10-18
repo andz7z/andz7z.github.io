@@ -3,35 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Moonlight Dev & Design | Landing Page</title>
+    <title>Moonlight Aesthetics: Web Development & Graphic Design</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700;900&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="../assets/css/style.css">
-    </head>
-<body class="dark-theme">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</head>
+<body class="moonlight-theme">
+
     <div class="mouse-aura" id="mouseAura"></div>
 
+    <div class="particles-container" id="particlesContainer"></div>
+
     <header class="hero-section">
-        <h1 class="title-glow">Web Dev & Graphic Design</h1>
-        <p class="subtitle">Creăm experiențe digitale cu o notă de eleganță întunecată.</p>
+        <div class="hero-content">
+            <h1 class="title-glow">MOONLIGHT AESTHETICS</h1>
+            <p class="subtitle">Web Development & Graphic Design</p>
+            <p class="description">Unde logica codului se întâlnește cu magia vizuală. Creăm experiențe digitale performante, învăluite în eleganța întunecată a nopții.</p>
+        </div>
         <nav class="main-nav">
-            <a href="#projects" class="nav-link">Proiecte</a>
-            <a href="#services" class="nav-link">Servicii</a>
-            <a href="#contact" class="nav-link">Contact</a>
+            <a href="#proiecte" class="nav-link depth-effect">PROIECTE</a>
+            <a href="#servicii" class="nav-link depth-effect">SERVICII</a>
+            <a href="#contact" class="nav-link depth-effect">CONTACT</a>
         </nav>
     </header>
 
     <main class="content-wrapper">
-        <section id="services" class="card-section">
-            <div class="card depth-effect">
-                <h2>Dezvoltare Web</h2>
-                <p>Soluții front-end moderne (React, JS) și performante.</p>
+        <section id="servicii" class="card-grid">
+            <div class="card depth-effect" data-depth="0.2">
+                <h2>Dezvoltare Front-End</h2>
+                <p>Arhitectură React și animații GSAP pentru viteză și fluiditate maximă.</p>
+                <a href="#" class="btn-glow">Află mai mult</a>
             </div>
-            <div class="card depth-effect">
-                <h2>Editare Grafică</h2>
-                <p>Design UX/UI, branding și materiale promoționale în stil "moonlight purple".</p>
+            
+            <div class="card depth-effect" data-depth="0.5">
+                <h2>Design Grafic & UX/UI</h2>
+                <p>Identitate vizuală completă și interfețe centrate pe utilizator, cu accente neon.</p>
+                <a href="#" class="btn-glow">Află mai mult</a>
+            </div>
+            
+             <div class="card depth-effect" data-depth="0.8">
+                <h2>Branding Digital</h2>
+                <p>Dezvoltarea unei prezențe online memorabile, de la logo la landing page-uri.</p>
+                <a href="#" class="btn-glow">Află mai mult</a>
             </div>
         </section>
     </main>
-
+    
     <script src="../assets/js/script.js"></script>
 </body>
 </html>
