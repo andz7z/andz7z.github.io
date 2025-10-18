@@ -1,15 +1,222 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background: black;
-  height: 100%;
-  width: 100%;
-  font-family: sans-serif;
+/* From Uiverse.io by dexter-st */
+:root{
+  --bg:#000;
+  --text-dark:#0a0a0a;
+  --accent-purple:#471eec;
+  --accent-purple-dark:#311e80;
+  --highlight-white:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:var(--bg);
+  font-family: "Montserrat", "Inter", sans-serif;
+  overflow:hidden;
+  color:#fff;
 }
 
-#bg {
-  display: block;
-  width: 100vw;
-  height: 100vh;
+/* Loader screen */
+.loader-screen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--bg);
+  z-index:50;
+  transition:backdrop-filter 0.9s ease, opacity 0.9s ease;
+}
+.loader-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  font-family: "Inter", sans-serif;
+  font-size: 1.2em;
+  font-weight: 300;
+  color: white;
+  border-radius: 50%;
+  background-color: transparent;
+  user-select: none;
+}
+
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background-color: transparent;
+  animation: loader-rotate 2s linear infinite;
+  z-index: 0;
+}
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(90deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+  50% {
+    transform: rotate(270deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 10px 0 #d60a47 inset,
+      0 40px 60px 0 #311e80 inset;
+  }
+  100% {
+    transform: rotate(450deg);
+    box-shadow:
+      0 10px 20px 0 #fff inset,
+      0 20px 30px 0 #ad5fff inset,
+      0 60px 60px 0 #471eec inset;
+  }
+}
+
+.loader-letter {
+  display: inline-block;
+  opacity: 0.4;
+  transform: translateY(0);
+  animation: loader-letter-anim 2s infinite;
+  z-index: 1;
+  border-radius: 50ch;
+  border: none;
+  margin: 0 2px;
+  font-weight:700;
+  letter-spacing:2px;
+}
+
+.loader-letter:nth-child(1) { animation-delay: 0s; }
+.loader-letter:nth-child(2) { animation-delay: 0.1s; }
+.loader-letter:nth-child(3) { animation-delay: 0.2s; }
+.loader-letter:nth-child(4) { animation-delay: 0.3s; }
+.loader-letter:nth-child(5) { animation-delay: 0.4s; }
+.loader-letter:nth-child(6) { animation-delay: 0.5s; }
+.loader-letter:nth-child(7) { animation-delay: 0.6s; }
+.loader-letter:nth-child(8) { animation-delay: 0.7s; }
+.loader-letter:nth-child(9) { animation-delay: 0.8s }
+
+@keyframes loader-letter-anim {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  20% { opacity: 1; transform: scale(1.12); }
+  40% { opacity: 0.6; transform: translateY(0); }
+}
+
+/* Blur-out class */
+.loader-screen.blur-out {
+  opacity: 0;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+}
+
+/* App */
+.app{position:fixed;inset:0;overflow:hidden}
+.app.hidden{display:none}
+
+/* Canvas */
+#starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
+/* === HEADER OVAL CU ICONIȚA GIF ÎN CENTRU === */
+.header-oval {
+  position: fixed;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  background: rgba(255,255,255,0.08);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 4px 25px rgba(0,0,0,0.35);
+  border-radius: 50px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: fit-content;
+  transition: all 0.4s ease, opacity 0.6s ease;
+  opacity: 0;
+}
+.header-oval.active {
+  opacity: 1;
+}
+.header-oval.scrolled {
+  background: rgba(30, 10, 60, 0.65);
+  box-shadow: 0 6px 25px rgba(60, 0, 120, 0.45);
+  border-color: rgba(255,255,255,0.08);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  background: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
+  cursor: pointer;
+  text-shadow: none;
+  box-shadow: transparent;
+  opacity: 0;
+}
+.nav-btn.active {
+  opacity: 1;
+}
+.nav-btn:hover,
+.nav-btn:focus {
+  color: #fff;
+  background: #5a1aff; /* mov închis */
+  border: 1px solid #5a1aff;
+  text-shadow:
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #fff;
+  box-shadow:
+    0 0 5px #5a1aff,
+    0 0 20px #5a1aff,
+    0 0 50px #5a1aff,
+    0 0 100px #5a1aff;
+  font-size: 16px;
+  border-color: transparent;
+}
+.nav-btn:active {
+  transform: scale(0.97);
+}
+
+/* Iconița GIF */
+.brand-icon-gif {
+  width: 1.5cm;
+  height: 1.5cm;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+.brand-icon-gif:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px 6px rgba(255,255,255,0.7);
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .header-oval {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 8px 16px;
+  }
+  .nav-btn { font-size: 14px; padding: 8px 14px; }
+  .brand-icon-gif { width: 45px; height: 45px; }
 }
