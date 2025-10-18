@@ -1,94 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AndzoWorld</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AndzoWorld — Concept Build Lead</title>
+
+  <!-- Google Font: Montserrat ExtraBold -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+
+  <!-- Three.js from CDN -->
+  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Loading Screen -->
-    <div id="loading-screen">
-        <div class="loader-wrapper">
-            <span class="loader-letter">A</span>
-            <span class="loader-letter">n</span>
-            <span class="loader-letter">d</span>
-            <span class="loader-letter">z</span>
-            <span class="loader-letter">o</span>
-            <span class="loader-letter">w</span>
-            <span class="loader-letter">o</span>
-            <span class="loader-letter">r</span>
-            <span class="loader-letter">l</span>
-            <span class="loader-letter">d</span>
-            <div class="loader"></div>
-        </div>
+  <!-- Loader -->
+  <div id="loader-screen" class="loader-screen">
+    <div class="loader-wrapper" aria-hidden="true">
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">d</span>
+      <span class="loader-letter">z</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">w</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">l</span>
+      <span class="loader-letter">d</span>
+      <div class="loader"></div>
     </div>
+  </div>
 
-    <!-- Main Content -->
-    <div id="main-content" class="hidden">
-        <!-- Header -->
-        <header class="header">
-            <nav class="navbar">
-                <div class="nav-brand">AndzoWorld</div>
-                <ul class="nav-links">
-                    <li><a href="#about" class="nav-link">About Us</a></li>
-                    <li><a href="#services" class="nav-link">Services</a></li>
-                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                    <li><a href="#contact" class="nav-link">Contact Us</a></li>
-                </ul>
-                <div class="nav-actions">
-                    <button class="cta-button">Get Started</button>
-                </div>
-            </nav>
-        </header>
+  <!-- Main content -->
+  <div id="app" class="app hidden fade-in">
+    <canvas id="starfield"></canvas>
+    <main class="hero">
+      <div class="hero-inner">
+        <!-- Conținutul tău -->
+      </div>
+    </main>
+  </div>
 
-        <!-- Hero Section -->
-        <section id="hero" class="section active">
-            <div class="hero-content">
-                <div class="slogan-container">
-                    <div class="slogan-3d">
-                        <span class="word-3d">Design.</span>
-                        <span class="word-3d">Develop.</span>
-                        <span class="word-3d">Deliver.</span>
-                    </div>
-                    <div class="sub-slogan">WE DO IT ALL</div>
-                </div>
-            </div>
-        </section>
+  <!-- Header Oval cu iconița în centru -->
+  <header id="main-header" class="header-oval">
+    <div class="header-inner">
+      <!-- 2 butoane stânga -->
+      <button class="nav-btn">About Us</button>
+      <button class="nav-btn">Services</button>
 
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="container">
-                <h2>About Us</h2>
-                <p>We are a creative team dedicated to delivering exceptional digital experiences.</p>
-            </div>
-        </section>
+      <!-- Iconița GIF în centru -->
+      <div class="logo-wrap">
+        <img src="assets/logos/iconita.gif" alt="Iconiță" class="brand-icon-gif">
+      </div>
 
-        <!-- Services Section -->
-        <section id="services" class="section">
-            <div class="container">
-                <h2>Our Services</h2>
-                <p>From design to development, we've got you covered.</p>
-            </div>
-        </section>
-
-        <!-- Reviews Section -->
-        <section id="reviews" class="section">
-            <div class="container">
-                <h2>Client Reviews</h2>
-                <p>See what our clients say about our work.</p>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="container">
-                <h2>Contact Us</h2>
-                <p>Get in touch with our team.</p>
-            </div>
-        </section>
+      <!-- 2 butoane dreapta -->
+      <button class="nav-btn">Ratings</button>
+      <button class="nav-btn">Contact Us</button>
     </div>
+  </header>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
