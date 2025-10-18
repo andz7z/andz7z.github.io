@@ -170,7 +170,8 @@ document.addEventListener("DOMContentLoaded", () => {
     line.textContent = "";
     chars.forEach(ch => {
       const span = document.createElement("span");
-      span.textContent = ch;
+      // păstrează spațiile normale între cuvinte
+      span.textContent = ch === " " ? "\u00A0" : ch;
       line.appendChild(span);
     });
   });
