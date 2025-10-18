@@ -17,11 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
       app.classList.remove('hidden');
       initStarfield();
       animate();
-      // după ce aplicația devine vizibilă
-      setTimeout(() => {
-        const slogan = document.querySelector('.slogan');
-        slogan.classList.add('visible');
-      }, 1400);
       // fade-in pentru app (stele + hero content)
       setTimeout(() => {
         app.classList.add('active'); // clasa CSS .fade-in.active
