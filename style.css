@@ -247,35 +247,35 @@ body{
 .slogan-line span:hover {
   transform: scale(1.12);
 }
-/* ===== SOCIAL BAR STYLE ===== */
+/* ===== SOCIAL BAR ===== */
 .social-bar {
   position: absolute;
   top: 25px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 18px;
+  gap: 22px;
   z-index: 100;
 }
 
-/* Base style */
+/* ===== BASE BUTTON STYLE ===== */
 .button {
   cursor: pointer;
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
   border: none;
   position: relative;
-  z-index: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
 }
 
 .button svg {
-  width: 26px;
-  height: 26px;
+  width: 32px;
+  height: 32px;
   color: white;
   z-index: 2;
 }
@@ -283,12 +283,12 @@ body{
 .button::before {
   content: "";
   position: absolute;
-  width: 55px;
-  height: 55px;
-  background-color: #212121;
+  width: 65px;
+  height: 65px;
+  background-color: #1a1a1a;
   border-radius: 50%;
   z-index: -1;
-  transition: 0.4s;
+  transition: 0.4s ease;
 }
 
 .button:hover::before {
@@ -297,43 +297,64 @@ body{
 }
 
 .button:active {
-  transform: scale(0.88);
+  transform: scale(0.9);
 }
 
-/* ===== COLORS ===== */
+/* ===== PLATFORM COLORS ===== */
 .whatsapp {
   background: linear-gradient(135deg, #25d366, #128c7e);
 }
 
 .youtube {
-  background: linear-gradient(135deg, #ff0000, #cc0000);
+  background: linear-gradient(135deg, #ff0000, #b30000);
 }
 
 .github {
-  background: linear-gradient(135deg, #333, #000);
+  background: linear-gradient(135deg, #444, #000);
 }
 
 .linkedin {
-  background: linear-gradient(135deg, #0077b5, #004f7c);
+  background: linear-gradient(135deg, #0077b5, #005582);
 }
 
 .gmail {
   background: linear-gradient(135deg, #ea4335, #c5221f);
 }
 
-/* pulse ring subtle effect */
+/* ===== SUBTLE PULSE EFFECT ===== */
 .button::after {
   content: "";
   position: absolute;
-  width: 55px;
-  height: 55px;
+  width: 65px;
+  height: 65px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.08);
   z-index: -2;
-  animation: pulse 3s ease-in-out infinite;
+  animation: pulse 3.2s ease-in-out infinite;
 }
 
 @keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.15); opacity: 0.2; }
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.25); opacity: 0.15; }
+}
+
+/* ===== GLOW ON HOVER ===== */
+.whatsapp:hover {
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
+}
+
+.youtube:hover {
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+}
+
+.github:hover {
+  box-shadow: 0 0 25px rgba(180, 180, 180, 0.6);
+}
+
+.linkedin:hover {
+  box-shadow: 0 0 25px rgba(0, 119, 181, 0.6);
+}
+
+.gmail:hover {
+  box-shadow: 0 0 25px rgba(234, 67, 53, 0.6);
 }
