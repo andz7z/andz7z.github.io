@@ -8,7 +8,7 @@ body, html {
   color: white;
 }
 
-/* BACKGROUND principal */
+/* FUNDAL */
 .background {
   position: fixed;
   top: 0;
@@ -27,7 +27,7 @@ body, html {
   }
 }
 
-/* PANOU CENTRAL – efect de sticlă transparent */
+/* PANOU CENTRAL BLURAT */
 .center-panel {
   position: absolute;
   top: 50%;
@@ -35,39 +35,45 @@ body, html {
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 80vh;
+  border-radius: 30px;
+  overflow: hidden;
 
-  /* Efect de sticlă */
-  background: rgba(255, 255, 255, 0.05); /* aproape transparent */
+  /* efect sticlă */
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border-radius: 30px;
-
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
-  overflow: hidden;
   z-index: 2;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
 }
 
-/* CONTUR luminos animat */
-.outline {
+/* CONTUR LUMINOS CURGĂTOR – doar pe margine */
+.center-panel::before {
+  content: "";
   position: absolute;
   inset: 0;
   border-radius: 30px;
-  border: 2px solid transparent;
-
-  /* Gradient care “curge” de jur împrejur */
-  background: linear-gradient(90deg, transparent, white, transparent) no-repeat;
+  padding: 2px; /* grosimea marginii */
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
   background-size: 200% 200%;
-  animation: outlineFlow 4s linear infinite;
-  pointer-events: none;
+  animation: borderFlow 4s linear infinite;
 
-  /* Glow alb subtil */
-  box-shadow:
-    0 0 10px rgba(255, 255, 255, 0.7),
-    0 0 20px rgba(255, 255, 255, 0.3);
+  /* mascare interior ca să se vadă doar conturul */
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
 }
 
-/* Mișcare curgătoare */
-@keyframes outlineFlow {
+/* Animația liniei curgătoare */
+@keyframes borderFlow {
   0% {
     background-position: 200% 0;
   }
@@ -76,7 +82,7 @@ body, html {
   }
 }
 
-/* CONȚINUT interior */
+/* Conținutul interior */
 .content {
   position: relative;
   z-index: 3;
