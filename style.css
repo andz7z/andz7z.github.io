@@ -17,6 +17,18 @@ body{
   color:#fff;
 }
 
+/* === ANIMAȚII NOI === */
+@keyframes shimmer-text {
+  0% { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+
 /* Loader screen */
 .loader-screen{
   position:fixed;
@@ -156,7 +168,7 @@ body{
 }
 .hero-inner {
   padding-left: 10vw; /* Spațiu față de marginea stângă */
-  max-width: 85%; /* Mărit de la 60% */
+  max-width: 60%; /* REVENIT la 60% */
 }
 .hero-content {
   color: var(--highlight-white);
@@ -166,44 +178,53 @@ body{
 .hero-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  font-size: clamp(2.5rem, 6vw, 5.5rem); /* Ajustat pentru a încăpea */
+  font-size: clamp(3rem, 7.5vw, 6.5rem); /* REVENIT la font mai mare */
   line-height: 1.05; 
   text-transform: uppercase;
   margin: 0;
-  display: inline-flex; /* MODIFICAT: pentru alinierea subtitlului */
-  flex-wrap: nowrap; /* MODIFICAT: forțează un singur rând */
+  display: flex; /* REVENIT la flex */
+  flex-wrap: wrap; /* REVENIT la wrap */
   user-select: none; 
 
-  /* MODIFICAT: Text gradient de bază - "mai gri" */
-  background: linear-gradient(45deg, #aaa, #eee, #aaa);
+  /* MODIFICAT: Culoare mai deschisă + gradient pentru shimmer */
+  background: linear-gradient(90deg, #ccc 40%, #fff 50%, #ccc 60%);
+  background-size: 300% auto; /* Mărime mai mare pentru shimmer */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
   
-  /* Umbre 3D de bază (mai subtile acum) */
+  /* MODIFICAT: Animație shimmer aplicată */
+  animation: shimmer-text 6s linear infinite;
+
+  /* Umbre 3D de bază (subtile) */
   text-shadow: 
     -1px -1px 0px rgba(0,0,0,0.4),
     1px 1px 1px rgba(0,0,0,0.6),
-    2px 2px 2px rgba(0,0,0,0.5),
     0 0 15px rgba(255, 255, 255, 0.05);
 }
 
 .hero-title .word {
   display: inline-block; 
   margin-right: 2.5vw; /* Spațiu între cuvinte */
-  /* margin-bottom: 5px; - nu mai e nevoie pe desktop */
+  margin-bottom: 5px; /* RE-ADĂUGAT spațiu pentru wrap */
 }
 
 .hero-title .letter {
   display: inline-block;
   position: relative;
   transform-style: preserve-3d; 
-  transform: translateY(0) rotateX(0deg) rotateY(0deg); /* Stare inițială */
-  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), text-shadow 0.4s ease-out, background 0.4s ease-out; /* Adăugat text-shadow și background la tranziție */
-  will-change: transform, text-shadow, background; 
+  
+  /* MODIFICAT: Tranziție mai simplă, doar pe transform */
+  transition: transform 0.3s ease;
+  will-change: transform; 
   cursor: pointer; 
   overflow: visible; 
+
+  /* MODIFICAT: Animație "float" aplicată */
+  animation: float 5s ease-in-out infinite;
+  /* Decalajul este setat de JS folosind var(--letter-delay) */
+  animation-delay: var(--letter-delay, 0s);
 }
 
 
@@ -216,22 +237,23 @@ body{
 
 /* Stiluri pentru hover pe litere */
 .hero-title .letter:hover {
-  transform: translateY(-8px) rotateX(15deg) rotateY(5deg) translateZ(15px); /* Se ridică, se rotește și vine în față */
+  /* MODIFICAT: Efect de "mărire" */
+  transform: scale(1.15) translateY(-3px); 
   
-  /* MODIFICAT: "Glow alb" */
-  background: #fff; /* Alb pur pe litera */
+  /* MODIFICAT: Culoare alb pur la hover */
+  background: #fff; 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
 
-  /* MODIFICAT: Umbre de "glow alb", am scos umbrele întunecate */
+  /* MODIFICAT: O umbră "glow" foarte subtilă, în loc de cea 3D */
   text-shadow: 
-    0 0 10px #fff,
-    0 0 25px #fff,
-    0 0 50px #fff,
-    0 0 80px rgba(255, 255, 255, 0.7),
-    -1px 1px 5px rgba(0,0,0,0.3); /* Păstrăm o umbră f mică de separare */
+    0 0 15px rgba(255, 255, 255, 0.5),
+    0 0 30px rgba(255, 255, 255, 0.3);
+
+  /* Oprim animația de plutire la hover */
+  animation-play-state: paused;
 }
 
 
@@ -239,14 +261,14 @@ body{
   font-family: "Major Mono Display", monospace; 
   font-weight: 400; 
   font-size: clamp(1rem, 2vw, 1.4rem); 
-  margin-top: 15px; /* Mai aproape de titlu */
+  margin-top: 15px; 
   color: #c0c0c0; 
   letter-spacing: 2px;
   line-height: 1.4;
   
-  /* MODIFICAT: Aliniat la dreapta */
-  text-align: right;
-  padding-right: 5px; /* Ajustare fină pentru alinierea cu "Deliver" */
+  /* REVENIT: Aliniere stânga (default) */
+  text-align: left;
+  padding-right: 0;
 
   background: linear-gradient(90deg, #eee, #ddd, #aaa);
   -webkit-background-clip: text;
@@ -267,28 +289,20 @@ body{
 
 /* Responsive */
 @media (max-width: 720px) {
+  /* REVENIT: La layout-ul centrat pe mobil */
   .hero-inner {
     padding-left: 5vw;
     padding-right: 5vw;
     max-width: 100%;
-    text-align: center; /* Centrează textul pe mobil */
+    text-align: center; 
   }
   .hero {
-    justify-content: center; /* Centrează blocul hero pe mobil */
+    justify-content: center; 
   }
-
-  /* MODIFICAT: Resetări pentru mobil */
   .hero-title {
-    display: flex; /* Revine la flex */
-    flex-wrap: wrap; /* Permite împachetarea */
-    justify-content: center; /* Centrează cuvintele */
-  }
-  .hero-title .word {
-    margin-right: 1.5vw; 
-    margin-bottom: 5px; /* Readăugăm spațiul de jos */
+    justify-content: center; 
   }
   .hero-subtitle {
-    text-align: center; /* Revine la centrat */
-    padding-right: 0;
+    text-align: center; 
   }
 }
