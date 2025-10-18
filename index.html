@@ -3,24 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>andzoworld</title>
+  <title>Cinematic Scroll Reveal</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Colmeak&display=swap" rel="stylesheet">
 </head>
 <body>
   <div class="background"></div>
 
-  <!-- BARA BLURATĂ FIXĂ -->
-  <div class="bottom-blur"></div>
-
-  <!-- PANOU BLURAT care iese din bară -->
-  <div class="center-panel fade-section">
-    <div class="content">
-      <h1 class="slogan">
-        Powerful design. Relentless development. One signature touch that defines excellence.
-      </h1>
+  <!-- HERO SECTION -->
+  <section class="hero-section fade-section">
+    <div class="intro-text">
+      <h2>Welcome to the Vision</h2>
+      <p>Scroll down to discover the essence of design & development.</p>
     </div>
-  </div>
+  </section>
+
+  <!-- CINEMATIC PANEL -->
+  <section class="showcase fade-section">
+    <div class="center-panel">
+      <div class="content slogan">
+        <h1>
+          <span class="line">Powerful <span class="highlight">design</span>.</span><br>
+          <span class="line">Relentless <span class="highlight">development</span>.</span><br>
+          <span class="line">One signature <span class="highlight">touch</span> that defines <span class="highlight-excellence">excellence</span>.</span>
+        </h1>
+      </div>
+    </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
