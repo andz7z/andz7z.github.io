@@ -360,3 +360,133 @@ body{
   transform: scale(0.92);
 }
 
+/* ====== TABEL CENTRAL ====== */
+.table-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 60%;
+  transform: translate(-50%, -50%);
+  border-radius: 25px;
+  background: rgba(20, 20, 20, 0.35);
+  backdrop-filter: blur(12px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+}
+
+/* ====== GLOW OUTLINE ====== */
+.table-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 25px;
+  padding: 3px; /* grosimea conturului */
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3)
+  );
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: borderFlow 8s linear infinite;
+}
+
+@keyframes borderFlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* ====== GLOW INTERIOR ====== */
+.table-container::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 22px;
+  box-shadow: inset 0 0 25px rgba(255, 255, 255, 0.25);
+  pointer-events: none;
+}
+
+/* ====== TITLU SLOGAN ====== */
+.table-title {
+  position: absolute;
+  top: 10%;
+  font-size: 2.4em;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #f5f5f5;
+  text-align: center;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+  animation: breathe 5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.9; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+/* ====== CARDURI INTERIOARE ====== */
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  margin-top: 50px;
+}
+
+.container .glass {
+  position: relative;
+  width: 180px;
+  height: 200px;
+  background: linear-gradient(#ffffff22, transparent);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.6s;
+  border-radius: 15px;
+  backdrop-filter: blur(12px);
+  transform: rotate(calc(var(--r) * 1deg));
+}
+
+.container:hover .glass {
+  transform: rotate(0deg);
+  margin: 0 15px;
+}
+
+.container .glass::before {
+  content: attr(data-text);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  letter-spacing: 1px;
+  font-size: 1.1em;
+}
+
+.container .glass svg {
+  font-size: 2.8em;
+  fill: #fff;
+  opacity: 0.9;
+  transition: 0.4s;
+}
+
+.container .glass:hover svg {
+  transform: scale(1.15);
+  opacity: 1;
+}
