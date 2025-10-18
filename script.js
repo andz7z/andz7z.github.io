@@ -21,20 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
       // fade-in pentru app (stele + hero content)
       setTimeout(() => {
         app.classList.add('active'); // clasa CSS .fade-in.active
-        // fade-in header + butoane după ce app e vizibil
-setTimeout(() => {
-  const header = document.getElementById('main-header');
-  header.classList.add('active'); // header devine vizibil
-
-  // animare butoane secvențial
-  const buttons = header.querySelectorAll('button');
-  buttons.forEach((btn, i) => {
-    setTimeout(() => {
-      btn.classList.add('active');
-    }, i * 150); // delay între fiecare buton
-  });
-}, 400); // puțin delay după fade-in-ul app-ului
-
+        setTimeout(() => {
+  const slogan = document.querySelector('.slogan');
+  if (slogan) slogan.classList.add('visible');
+}, 600); // apare puțin după ce se termină loaderul
       }, 50);
 
     }, 900); // durata tranziției loader-ului
