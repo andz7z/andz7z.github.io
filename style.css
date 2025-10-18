@@ -251,29 +251,45 @@ body{
 .whatsapp-contact {
   position: fixed;
   top: 50%;
-  left: 60px; /* între marginea site-ului și panou */
+  left: 70px; /* exact între marginea ecranului și panoul blurat */
   transform: translateY(-50%);
   z-index: 60;
-  cursor: pointer;
 }
 
+/* ascuns implicit */
 .whatsapp-contact .tooltip {
-  background: linear-gradient(145deg, #1e1e1e, #141414);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    inset 3px 3px 6px rgba(0, 0, 0, 0.4),
-    inset -3px -3px 8px rgba(255, 255, 255, 0.05),
-    0 0 25px rgba(37, 211, 102, 0.3);
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.4s ease;
+  pointer-events: none;
 }
 
+/* apare doar la hover */
+.whatsapp-contact:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-120px);
+  pointer-events: auto;
+}
+
+/* card-ul tooltip */
 .whatsapp-contact .profile {
   background: #25d366;
   border: 1px solid #128c7e;
-  border-radius: 10px 15px;
-  padding: 12px;
+  border-radius: 15px;
+  padding: 18px 20px;
+  width: 230px;
   color: #fff;
+  box-shadow:
+    0 0 25px rgba(37, 211, 102, 0.3),
+    0 0 40px rgba(18, 140, 126, 0.25);
 }
 
+/* user info */
 .whatsapp-contact .user {
   display: flex;
   align-items: center;
@@ -281,11 +297,11 @@ body{
 }
 
 .whatsapp-contact .img {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   font-size: 22px;
   font-weight: 700;
-  border: 1px solid #25d366;
+  border: 2px solid #25d366;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -295,9 +311,8 @@ body{
 }
 
 .whatsapp-contact .name {
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 700;
-  color: #fff;
 }
 
 .whatsapp-contact .username {
@@ -316,8 +331,11 @@ body{
   color: #aaf2bf;
   font-size: 13px;
   margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* iconita principala */
 .whatsappSVG {
   display: flex;
   align-items: center;
@@ -325,32 +343,33 @@ body{
   border-radius: 50%;
   background: radial-gradient(circle, #25d366 20%, #128c7e 90%);
   box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+  animation: breatheGlow 4s ease-in-out infinite;
+}
+
+/* efect de "respirație" */
+@keyframes breatheGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 0 30px rgba(37, 211, 102, 0.8); }
 }
 
 .whatsapp-contact .icon .layer {
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   border: 3px solid #25d366;
   border-radius: 50%;
-  box-shadow: 0 0 15px rgba(37, 211, 102, 0.6),
-    0 0 25px rgba(37, 211, 102, 0.4);
   transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.6),
+              0 0 40px rgba(37, 211, 102, 0.3);
 }
 
 .whatsapp-contact .icon:hover .layer {
   transform: rotate(-35deg) skew(20deg);
-  box-shadow: 0 0 30px rgba(37, 211, 102, 1),
-    0 0 45px rgba(37, 211, 102, 0.7);
+  box-shadow: 0 0 35px rgba(37, 211, 102, 1),
+              0 0 55px rgba(37, 211, 102, 0.8);
 }
 
 .whatsapp-contact .icon .text {
   color: #25d366;
   font-weight: 600;
+  font-size: 14px;
 }
-
-/* glow verde moale */
-.whatsapp-contact .icon:hover .layer span:nth-child(1) { opacity: 0.2; }
-.whatsapp-contact .icon:hover .layer span:nth-child(2) { opacity: 0.4; transform: translate(5px, -5px); }
-.whatsapp-contact .icon:hover .layer span:nth-child(3) { opacity: 0.6; transform: translate(10px, -10px); }
-.whatsapp-contact .icon:hover .layer span:nth-child(4) { opacity: 0.8; transform: translate(15px, -15px); }
-.whatsapp-contact .icon:hover .layer span:nth-child(5) { opacity: 1; transform: translate(20px, -20px); }
