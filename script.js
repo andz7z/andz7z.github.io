@@ -164,3 +164,29 @@ setTimeout(() => {
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
 });
+// === Header link click reflection ===
+document.querySelectorAll('.nav-link').forEach(link => {
+  link.addEventListener('click', e => {
+    link.classList.remove('clicked');
+    void link.offsetWidth; // force reflow pentru a reporni animația
+    link.classList.add('clicked');
+  });
+});
+// === Fade-in Header after Loader ===
+window.addEventListener('load', () => {
+  const loader = document.getElementById('loader-screen');
+  const header = document.getElementById('main-header');
+  const links = header.querySelectorAll('.nav-link');
+
+  // Așteaptă ca loader-ul să dispară
+  setTimeout(() => {
+    header.classList.add('active');
+
+    // fade-in secvențial al linkurilor
+    links.forEach((link, i) => {
+      setTimeout(() => {
+        link.classList.add('visible');
+      }, 300 + i * 200);
+    });
+  }, 3600); // puțin după loader (care durează 3s)
+});
