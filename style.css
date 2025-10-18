@@ -193,3 +193,63 @@ body{
   z-index: -1;
   filter: blur(1px);
 }
+/* ==== GLASS PANEL CENTRAL ==== */
+.glass-panel {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 70vh;
+  border-radius: 24px;
+  backdrop-filter: blur(18px) saturate(150%);
+  background: rgba(10, 10, 10, 0.35);
+  overflow: hidden;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+}
+
+/* Interiorul efectiv în care poți adăuga lucruri */
+.glass-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  padding: 2rem 3rem;
+  color: #eaeaea;
+  overflow-y: auto;
+}
+
+/* Outline-ul luminos dinamic */
+.glass-outline {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    130deg,
+    rgba(255,255,255,0.12) 0%,
+    rgba(255,255,255,0.6) 20%,
+    rgba(255,255,255,0.12) 40%,
+    rgba(255,255,255,0.6) 60%,
+    rgba(255,255,255,0.12) 100%
+  );
+  background-size: 300% 300%;
+  z-index: 1;
+  animation: borderWave 8s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 2px; /* grosimea efectivă a outline-ului */
+}
+
+/* animația valului de lumină pe contur */
+@keyframes borderWave {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* mic efect de glow difuz când te apropii de el (pentru viitor) */
+.glass-panel:hover .glass-outline {
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.3));
+}
