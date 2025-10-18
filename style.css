@@ -1,189 +1,168 @@
-/* RESET */
-body, html {
+@import url('https://fonts.googleapis.com/css2?family=Colmeak&display=swap');
+
+* {
   margin: 0;
   padding: 0;
-  height: 100%;
+  box-sizing: border-box;
+}
+
+html, body {
   scroll-behavior: smooth;
-  background: black;
-  font-family: "Poppins", sans-serif;
-  color: white;
   overflow-x: hidden;
-  opacity: 0;
-  animation: siteFadeIn 1.5s ease forwards;
+  font-family: 'Colmeak', sans-serif;
+  background: url('/assets/logos/background.jpg') no-repeat center center/cover;
+  color: white;
+  animation: siteFadeIn 1.5s ease-in-out forwards;
 }
 
+/* === FADE-IN SITE === */
 @keyframes siteFadeIn {
-  to { opacity: 1; }
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-/* FONTURI */
-@font-face {
-  font-family: 'Colmeak';
-  src: url('assets/fonts/Colmeak.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Alterday';
-  src: url('assets/fonts/Alterday.otf') format('opentype');
+/* === GENERAL SECTIONS === */
+.section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 100px 10%;
+  text-align: center;
+  transition: all 1s ease;
 }
 
-/* FUNDAL */
-.background {
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #fff;
+  text-shadow: 0 0 40px rgba(0,0,0,0.3);
+}
+
+.hero p {
+  font-size: 1.3rem;
+  color: #ddd;
+}
+
+/* === FADE SECTIONS ON SCROLL === */
+.fade-section {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === BARA BLURATĂ FIXĂ === */
+.blur-bar {
   position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 90px;
+  border-radius: 40px 40px 0 0;
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  z-index: 10;
+  animation: glowPulse 4s infinite ease-in-out;
+}
+
+/* Glow subtil pulsant pe marginea superioară */
+.blur-bar::before {
+  content: '';
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 120%;
-  background: url("assets/logos/background.jpg") center/cover no-repeat;
-  transition: transform 0.3s ease-out;
-  opacity: 0;
-  animation: fadeInBg 2s ease-in forwards;
-  z-index: -3;
+  height: 4px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05), rgba(255,255,255,0.3));
+  animation: shimmer 6s infinite linear;
 }
 
-@keyframes fadeInBg {
-  to { opacity: 1; }
+/* === ANIMATIONS === */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 -10px 30px rgba(255, 255, 255, 0.08); }
+  50% { box-shadow: 0 -15px 40px rgba(255, 255, 255, 0.25); }
 }
 
-/* SECȚIUNE HERO */
-.hero-section {
-  height: 100vh;
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* === PANOU BLURAT === */
+.blur-panel {
   position: relative;
+  margin-top: 120vh; /* apare treptat */
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
-}
-
-.intro-text h2 {
-  font-size: 2.5rem;
-  font-family: 'Colmeak', sans-serif;
-  margin-bottom: 0.5rem;
-  opacity: 0.9;
-}
-
-.intro-text p {
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.7);
-}
-
-/* BARA BLURATĂ DE JOS */
-.bottom-blur {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 20vh;
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  z-index: 10;
-  box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.8);
-}
-
-/* PANOU (TABEL) */
-.showcase {
-  position: relative;
-  height: 120vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.center-panel {
-  position: sticky;
-  top: 55%;
-  width: 80vw;
   height: 80vh;
+  perspective: 1000px;
+}
+
+.blur-box {
+  position: relative;
+  width: 80%;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
-  z-index: 1;
+  box-shadow: 0 0 50px rgba(0,0,0,0.3);
+  transform: translateY(150px);
+  transition: transform 1.2s ease, opacity 1.2s ease;
   opacity: 0;
-  animation: fadeInPanel 2s ease forwards 1s;
 }
 
-@keyframes fadeInPanel {
-  to { opacity: 1; }
-}
-
-/* CONTUR DINAMIC */
-.center-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 30px;
-  padding: 2px;
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,0.5) 50%,
-    rgba(255,255,255,0) 100%
-  );
-  background-size: 200% 200%;
-  animation: borderFlow 5s linear infinite;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-@keyframes borderFlow {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* SLOGAN — PE PANOU */
-.slogan {
-  position: absolute;
-  bottom: 25%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-family: 'Colmeak', sans-serif;
-  color: rgba(255,255,255,0.75);
-  font-size: 1.6rem;
-  letter-spacing: 1px;
-  opacity: 0;
-  animation: fadeInSlogan 1.5s ease forwards 2.8s;
-  z-index: 3;
-  white-space: wrap;
-}
-
-@keyframes fadeInSlogan {
-  to { opacity: 1; }
-}
-
-.highlight {
-  transition: all 0.3s ease;
-  color: rgba(255,255,255,0.8);
-}
-.highlight:hover {
-  -webkit-text-stroke: 0.7px rgba(0,0,0,0.7);
-  transform: scale(1.05);
-}
-.highlight-excellence {
-  font-family: 'Alterday';
-  font-size: 1.8rem;
-  color: rgba(255,255,255,0.85);
-  transition: 0.3s ease;
-}
-.highlight-excellence:hover {
-  -webkit-text-stroke: 0.7px rgba(0,0,0,0.6);
-  transform: scale(1.05);
-}
-
-/* FADE SCROLL */
-.fade-section {
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* Când panoul devine vizibil */
+.fade-section.visible .blur-box {
+  transform: translateY(0);
   opacity: 1;
 }
-.fade-out {
-  opacity: 0;
-  transform: translateY(-20px);
+
+/* === SLOGAN === */
+.slogan {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.4rem;
+  width: 80%;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 1px;
+  line-height: 1.5;
+  backdrop-filter: blur(4px);
+  transition: transform 0.4s ease, opacity 0.4s ease, outline 0.4s ease;
+}
+
+.slogan:hover {
+  transform: translate(-50%, -50%) scale(1.03);
+  outline: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+/* === FINAL SECTION === */
+.end {
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+/* Scrollbar elegant */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.4);
 }
