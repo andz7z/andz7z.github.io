@@ -1,168 +1,99 @@
 @import url('https://fonts.googleapis.com/css2?family=Colmeak&display=swap');
 
-* {
+/* RESET GENERAL */
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
+  height: 200vh; /* ca să putem face scroll */
   font-family: 'Colmeak', sans-serif;
-  background: url('/assets/logos/background.jpg') no-repeat center center/cover;
   color: white;
-  animation: siteFadeIn 1.5s ease-in-out forwards;
+  background: url("assets/logos/background.jpg") center/cover no-repeat;
+  overflow-x: hidden;
+  animation: siteFadeIn 2s ease-in forwards;
 }
 
-/* === FADE-IN SITE === */
 @keyframes siteFadeIn {
-  from { opacity: 0; transform: translateY(40px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* === GENERAL SECTIONS === */
-.section {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 100px 10%;
-  text-align: center;
-  transition: all 1s ease;
+/* === FUNDAL === */
+.background {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url("assets/logos/background.jpg") center/cover no-repeat;
+  z-index: -2;
+  animation: fadeIn 2s ease-in forwards;
 }
+@keyframes fadeIn { to { opacity: 1; } }
 
-.hero h1 {
-  font-size: 4rem;
-  margin-bottom: 20px;
-  color: #fff;
-  text-shadow: 0 0 40px rgba(0,0,0,0.3);
-}
-
-.hero p {
-  font-size: 1.3rem;
-  color: #ddd;
-}
-
-/* === FADE SECTIONS ON SCROLL === */
-.fade-section {
-  opacity: 0;
-  transform: translateY(60px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
-}
-
-.fade-section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* === BARA BLURATĂ FIXĂ === */
-.blur-bar {
+/* === BARA BLURATĂ === */
+.bottom-blur {
   position: fixed;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  height: 90px;
-  border-radius: 40px 40px 0 0;
-  backdrop-filter: blur(20px);
+  width: 80%;
+  height: 80px;
   background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.4);
-  overflow: hidden;
-  z-index: 10;
-  animation: glowPulse 4s infinite ease-in-out;
-}
-
-/* Glow subtil pulsant pe marginea superioară */
-.blur-bar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0.05), rgba(255,255,255,0.3));
-  animation: shimmer 6s infinite linear;
-}
-
-/* === ANIMATIONS === */
-@keyframes glowPulse {
-  0%, 100% { box-shadow: 0 -10px 30px rgba(255, 255, 255, 0.08); }
-  50% { box-shadow: 0 -15px 40px rgba(255, 255, 255, 0.25); }
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  backdrop-filter: blur(20px);
+  border-radius: 40px 40px 0 0;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+  z-index: 5;
 }
 
 /* === PANOU BLURAT === */
-.blur-panel {
-  position: relative;
-  margin-top: 120vh; /* apare treptat */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.center-panel {
+  position: absolute;
+  top: 130vh; /* doar 30% vizibil inițial */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80vw;
   height: 80vh;
-  perspective: 1000px;
-}
-
-.blur-box {
-  position: relative;
-  width: 80%;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(25px);
   border-radius: 30px;
-  box-shadow: 0 0 50px rgba(0,0,0,0.3);
-  transform: translateY(150px);
-  transition: transform 1.2s ease, opacity 1.2s ease;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+  z-index: 10;
+  transition: all 1.5s ease;
   opacity: 0;
 }
 
-/* Când panoul devine vizibil */
-.fade-section.visible .blur-box {
-  transform: translateY(0);
-  opacity: 1;
+/* === TEXT PE PANOU === */
+.content {
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-/* === SLOGAN === */
 .slogan {
-  position: absolute;
-  top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   font-size: 1.4rem;
-  width: 80%;
-  text-align: center;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 85%;
+  margin: 0 auto;
   letter-spacing: 1px;
   line-height: 1.5;
-  backdrop-filter: blur(4px);
-  transition: transform 0.4s ease, opacity 0.4s ease, outline 0.4s ease;
+  text-align: center;
+  transition: all 0.4s ease;
 }
 
+/* Hover simplu, subtil */
 .slogan:hover {
-  transform: translate(-50%, -50%) scale(1.03);
   outline: 1px solid rgba(0, 0, 0, 0.6);
+  transform: scale(1.02);
 }
 
-/* === FINAL SECTION === */
-.end {
-  background: rgba(0, 0, 0, 0.3);
-  font-size: 1.2rem;
-  color: #ccc;
+/* === FADE PE SCROLL === */
+.fade-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
 }
-
-/* Scrollbar elegant */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.2);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255,255,255,0.4);
+.fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
