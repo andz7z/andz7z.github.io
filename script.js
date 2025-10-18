@@ -1,76 +1,59 @@
-import * as THREE from 'three';
+echo // script.js
+(function(){
+  const bg = document.getElementById('bg');
+  const turbulence = document.getElementById('turbulence');
+  const displacement = document.getElementById('displacement');
 
-// Scenă și cameră
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 2000);
-camera.position.z = 0;
+  const cfg = {
+    maxScale: 18,
+    baseFrequencyMax: 0.03,
+    baseFrequencyMin: 0.0001,
+    parallaxAmount: 18,
+    returnDuration: 900,
+    mouseMoveSmoothing: 0.12
+  }
 
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
+  let targetScale = 0;
+  let currentScale = 0;
+  let targetBaseFreq = cfg.baseFrequencyMin;
+  let currentBaseFreq = cfg.baseFrequencyMin;
+  let lastMouse = {x:0,y:0};
 
-// Stele albe
-const starGeometry = new THREE.BufferGeometry();
-const starCount = 1200; // mai puține
-const positions = new Float32Array(starCount * 3);
+  function norm(x, max){ return (x / max) * 2 - 1 }
 
-for (let i = 0; i < starCount; i++) {
-  const x = (Math.random() - 0.5) * 3000;
-  const y = (Math.random() - 0.5) * 3000;
-  const z = (Math.random() - 0.5) * 3000; // stele și în spate
-  positions.set([x, y, z], i * 3);
-}
-starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 1.5 });
-const stars = new THREE.Points(starGeometry, starMaterial);
-scene.add(stars);
+  function onMove(e){
+    const w = innerWidth, h = innerHeight;
+    const mx = e.clientX || (e.touches && e.touches[0].clientX);
+    const my = e.clientY || (e.touches && e.touches[0].clientY);
+    const dx = mx - lastMouse.x;
+    const dy = my - lastMouse.y;
+    const mag = Math.sqrt(dx*dx + dy*dy);
+    targetScale = Math.min(cfg.maxScale, mag * 0.6);
+    targetBaseFreq = Math.min(cfg.baseFrequencyMax, cfg.baseFrequencyMin + (targetScale / cfg.maxScale) * cfg.baseFrequencyMax);
+    const px = Math.round(50 + norm(mx,w) * cfg.parallaxAmount);
+    const py = Math.round(50 + norm(my,h) * cfg.parallaxAmount);
+    bg.style.backgroundPosition = `${px}% ${py}%`;
+    lastMouse = {x:mx,y:my};
+  }
 
-// Stele mov care sclipesc
-const purpleGeometry = new THREE.BufferGeometry();
-const purpleCount = 40;
-const purplePos = new Float32Array(purpleCount * 3);
-for (let i = 0; i < purpleCount; i++) {
-  purplePos.set([
-    (Math.random() - 0.5) * 3000,
-    (Math.random() - 0.5) * 3000,
-    (Math.random() - 0.5) * 3000
-  ], i * 3);
-}
-purpleGeometry.setAttribute('position', new THREE.BufferAttribute(purplePos, 3));
-const purpleMaterial = new THREE.PointsMaterial({ color: 0xaa66ff, size: 3, transparent: true, opacity: 0.8 });
-const purpleStars = new THREE.Points(purpleGeometry, purpleMaterial);
-scene.add(purpleStars);
+  function onLeave(){
+    targetScale = 0;
+    targetBaseFreq = cfg.baseFrequencyMin;
+    bg.style.transition = `background-position ${cfg.returnDuration}ms cubic-bezier(.2,.9,.2,1)`;
+    bg.style.backgroundPosition = `50% 50%`;
+  }
 
-// Mouse parallax
-let mouseX = 0, mouseY = 0;
-document.addEventListener('mousemove', (e) => {
-  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
-});
+  function tick(){
+    currentScale += (targetScale - currentScale) * cfg.mouseMoveSmoothing;
+    currentBaseFreq += (targetBaseFreq - currentBaseFreq) * cfg.mouseMoveSmoothing;
+    displacement.setAttribute('scale', currentScale);
+    turbulence.setAttribute('baseFrequency', `${currentBaseFreq} ${currentBaseFreq}`);
+    const s = 1 + currentScale * 0.0027;
+    bg.style.transform = `scale(${s})`;
+    requestAnimationFrame(tick);
+  }
 
-// Animație
-function animate() {
-  requestAnimationFrame(animate);
-
-  // Parallax mic
-  camera.position.x += (mouseX * 200 - camera.position.x) * 0.02;
-  camera.position.y += (-mouseY * 200 - camera.position.y) * 0.02;
-
-  // Stelele mov sclipesc
-  const time = Date.now() * 0.002;
-  purpleMaterial.opacity = 0.5 + Math.sin(time * 1.2) * 0.5; // fade in/out fluent
-
-  stars.rotation.y += 0.0005;
-  purpleStars.rotation.y += 0.0006;
-
-  renderer.render(scene, camera);
-}
-
-animate();
-
-// Resize
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-});
+  tick();
+  addEventListener('mousemove', onMove, {passive:true});
+  addEventListener('mouseleave', onLeave);
+})(); > script.js
