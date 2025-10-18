@@ -120,93 +120,76 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* ==== SLOGAN REFACUT ==== */
+/* ==== SLOGAN FINAL VERSION ==== */
 .slogan {
   position: absolute;
   top: 48%;
   left: 8%;
-  transform: translateY(-50%) perspective(600px) rotateY(-12deg);
+  transform: translateY(-50%) perspective(800px) rotateY(18deg);
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
   user-select: none;
   line-height: 1.1;
   letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 2.4s ease-in-out;
+}
+
+.slogan.visible {
+  opacity: 1;
 }
 
 .slogan-line {
-  font-size: 4rem;
+  font-size: 4.6rem;
   font-weight: 900;
-  color: #111; /* aproape negru */
+  color: #0b0b0b; /* foarte închis */
   position: relative;
   display: inline-block;
   background: linear-gradient(
     90deg,
     #0a0a0a 0%,
-    #0a0a0a 30%,
-    #fff 50%,
-    #0a0a0a 70%,
+    #0a0a0a 40%,
+    #ffffff 50%,
+    #0a0a0a 60%,
     #0a0a0a 100%
   );
   background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shineSweep 10s linear infinite;
-  text-shadow: 0 0 15px rgba(255,255,255,0.05);
+  animation: shineSweep 11s linear infinite;
+  text-shadow:
+    1px 1px 1px rgba(255,255,255,0.05),
+    2px 2px 2px rgba(255,255,255,0.04),
+    -1px -1px 1px rgba(0,0,0,0.4),
+    -2px -2px 3px rgba(0,0,0,0.6),
+    0 8px 14px rgba(0,0,0,0.8);
 }
 
 .bottom-line {
-  font-size: 3rem;
-  margin-top: 0.6em;
+  font-size: 3.2rem;
+  margin-top: 0.8em;
   display: block;
   transform: translateX(0.5em);
   color: #0a0a0a;
 }
 
-/* Efectul de lumină lent, care trece peste 3-5 litere */
 @keyframes shineSweep {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% { background-position: 220% 0; }
+  100% { background-position: -220% 0; }
 }
 
-/* Efect 3D subtil */
+/* efect de relief 3D "bagat in site" */
 .slogan-line::before {
   content: attr(data-text);
   position: absolute;
-  top: 4px;
-  left: 4px;
-  color: rgba(0,0,0,0.6);
-  z-index: -1;
-}
-
-/* === Sparkle pe TOUCH === */
-.sparkle {
-  position: relative;
-  color: #222;
+  top: 3px;
+  left: 3px;
+  right: 0;
+  bottom: 0;
+  color: rgba(255,255,255,0.05);
   text-shadow:
-    0 0 3px rgba(255,255,255,0.2),
-    0 0 5px rgba(255,255,255,0.15);
-  transition: all 0.3s ease;
-}
-
-.sparkle::after {
-  content: '';
-  position: absolute;
-  top: -40%;
-  left: -30%;
-  width: 160%;
-  height: 180%;
-  background: radial-gradient(circle, rgba(255,255,255,0.9) 10%, transparent 70%);
-  opacity: 0;
-  transform: scale(0.2);
-  pointer-events: none;
-}
-
-.sparkle:hover::after {
-  animation: sparkleFlash 1.4s ease-out;
-}
-
-@keyframes sparkleFlash {
-  0% { opacity: 0; transform: scale(0.3) rotate(0deg); }
-  30% { opacity: 1; transform: scale(1.2) rotate(60deg); }
-  100% { opacity: 0; transform: scale(1.6) rotate(120deg); }
+    inset 0 2px 2px rgba(0,0,0,0.7),
+    0 -2px 6px rgba(255,255,255,0.05);
+  z-index: -1;
+  filter: blur(1px);
 }
