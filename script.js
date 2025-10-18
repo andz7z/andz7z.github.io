@@ -1,105 +1,211 @@
-const canvas = document.getElementById("background");
-const gl = canvas.getContext("webgl");
+// script.js
+// 3D starfield with parallax & twinkle (three.js shader points)
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+(() => {
+  const container = document.getElementById('canvas-container');
 
-const vertexShaderSrc = `
-attribute vec2 a_position;
-void main() {
-  gl_Position = vec4(a_position, 0.0, 1.0);
-}
-`;
+  // Scene, camera, renderer
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 4000);
+  camera.position.z = 0;
 
-const fragmentShaderSrc = `
-precision mediump float;
-uniform vec2 u_mouse;
-uniform vec2 u_resolution;
-uniform float u_time;
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  container.appendChild(renderer.domElement);
 
-float noise(vec2 p){
-    return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453123);
-}
+  // Uniforms for shader
+  const uniforms = {
+    u_time: { value: 0.0 },
+    u_mouse: { value: new THREE.Vector2(0, 0) }, // normalized -1..1
+    u_resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
+  };
 
-float smoothNoise(vec2 p){
-    vec2 i = floor(p);
-    vec2 f = fract(p);
-    float a = noise(i);
-    float b = noise(i + vec2(1.0, 0.0));
-    float c = noise(i + vec2(0.0, 1.0));
-    float d = noise(i + vec2(1.0, 1.0));
-    vec2 u = f * f * (3.0 - 2.0 * f);
-    return mix(a, b, u.x) +
-           (c - a)*u.y*(1.0 - u.x) +
-           (d - b)*u.x*u.y;
-}
+  // Parameters
+  const COUNT = 7000;           // total stars
+  const PURPLE_RATIO = 0.10;    // % of stars that are purple twinklers
+  const STAR_FIELD_DEPTH = 1200; // depth range (0 .. -depth)
 
-void main() {
-    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
-    uv -= 0.5;
-    uv.x *= u_resolution.x / u_resolution.y;
+  // Geometry buffers
+  const geometry = new THREE.BufferGeometry();
+  const positions = new Float32Array(COUNT * 3);
+  const aRandom = new Float32Array(COUNT);      // random seed per star
+  const aScale = new Float32Array(COUNT);       // base scale
+  const aIsPurple = new Float32Array(COUNT);    // 0 = white, 1 = purple twinkle
+
+  // Fill buffers: distribute stars in a wide box in front of camera
+  for (let i = 0; i < COUNT; i++) {
+    const i3 = i * 3;
+
+    // Spread X and Y wider near camera, but we can use uniform range
+    positions[i3 + 0] = (Math.random() * 2 - 1) * 1400; // x
+    positions[i3 + 1] = (Math.random() * 2 - 1) * 900;  // y
+    positions[i3 + 2] = -Math.random() * STAR_FIELD_DEPTH - 10; // z (negative)
     
-    float t = u_time * 0.2;
-    float deform = smoothNoise(uv * 3.0 + t + u_mouse * 0.001);
-    deform += smoothNoise(uv * 5.0 - t * 1.5);
-    
-    float shade = smoothstep(0.2, 0.8, deform);
-    vec3 color = mix(vec3(0.02, 0.02, 0.02), vec3(0.07, 0.07, 0.07), shade);
-    
-    gl_FragColor = vec4(color, 1.0);
-}
-`;
+    aRandom[i] = Math.random() * 10.0;
+    aScale[i] = (Math.random() * 0.8 + 0.3); // small base sizes
+    aIsPurple[i] = Math.random() < PURPLE_RATIO ? 1.0 : 0.0;
+  }
 
-function createShader(type, source) {
-  const shader = gl.createShader(type);
-  gl.shaderSource(shader, source);
-  gl.compileShader(shader);
-  return shader;
-}
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geometry.setAttribute('aRandom', new THREE.BufferAttribute(aRandom, 1));
+  geometry.setAttribute('aScale', new THREE.BufferAttribute(aScale, 1));
+  geometry.setAttribute('aIsPurple', new THREE.BufferAttribute(aIsPurple, 1));
 
-const vertexShader = createShader(gl.VERTEX_SHADER, vertexShaderSrc);
-const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentShaderSrc);
-const program = gl.createProgram();
+  // Shader material for points
+  const vertexShader = `
+    attribute float aRandom;
+    attribute float aScale;
+    attribute float aIsPurple;
+    varying float vRandom;
+    varying float vIsPurple;
+    varying float vDepth;
 
-gl.attachShader(program, vertexShader);
-gl.attachShader(program, fragmentShader);
-gl.linkProgram(program);
-gl.useProgram(program);
+    uniform vec2 u_mouse;
+    uniform float u_time;
 
-const vertices = new Float32Array([
-  -1, -1,
-  1, -1,
-  -1, 1,
-  -1, 1,
-  1, -1,
-  1, 1,
-]);
+    void main(){
+      vRandom = aRandom;
+      vIsPurple = aIsPurple;
+      vDepth = -position.z; // positive value: farther => larger
 
-const buffer = gl.createBuffer();
-gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+      // depth factor 0..1
+      float depthFactor = clamp(vDepth / ${STAR_FIELD_DEPTH.toFixed(1)}, 0.0, 1.0);
 
-const aPosition = gl.getAttribLocation(program, "a_position");
-gl.enableVertexAttribArray(aPosition);
-gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+      // Parallax: move XY a bit depending on mouse and depth (closer = more movement)
+      vec3 pos = position;
+      float parallaxStrength = mix(1.4, 0.2, depthFactor); // close stars move more
+      pos.xy += u_mouse * parallaxStrength * (10.0 * (1.0 - depthFactor));
 
-const uMouse = gl.getUniformLocation(program, "u_mouse");
-const uResolution = gl.getUniformLocation(program, "u_resolution");
-const uTime = gl.getUniformLocation(program, "u_time");
+      // Slight longitudinal flicker (very subtle positional wobble)
+      float wobble = sin(u_time * 0.6 + aRandom * 2.3) * 0.6 * (1.0 - depthFactor) * 0.4;
+      pos.xy += vec2(cos(aRandom * 12.3), sin(aRandom * 7.7)) * wobble;
 
-let mouse = { x: 0, y: 0 };
-window.addEventListener("mousemove", (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-});
+      vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
 
-function render(time) {
-  gl.uniform2f(uResolution, canvas.width, canvas.height);
-  gl.uniform2f(uMouse, mouse.x, mouse.y);
-  gl.uniform1f(uTime, time * 0.001);
+      // Size attenuation: make points bigger when closer
+      float sizeAtten = (aScale * 20.0) * ( (200.0) / -mvPosition.z );
+      // Clamp to avoid too large
+      sizeAtten = clamp(sizeAtten, 1.0, 68.0);
 
-  gl.drawArrays(gl.TRIANGLES, 0, 6);
-  requestAnimationFrame(render);
-}
+      gl_PointSize = sizeAtten;
+      gl_Position = projectionMatrix * mvPosition;
+    }
+  `;
 
-render();
+  const fragmentShader = `
+    precision highp float;
+    varying float vRandom;
+    varying float vIsPurple;
+    varying float vDepth;
+
+    uniform float u_time;
+
+    void main(){
+      // make round points
+      vec2 coord = gl_PointCoord - vec2(0.5);
+      float dist = length(coord);
+      // soft circular falloff
+      float alpha = smoothstep(0.5, 0.05, dist);
+
+      // twinkle factor: base + pulsation depending on random seed and time
+      float tw = 0.9 + 0.6 * sin(u_time * 3.0 + vRandom * 6.2831);
+      // depth-based dimmer for far stars
+      float depthFade = mix(1.0, 0.45, clamp(vDepth / ${STAR_FIELD_DEPTH.toFixed(1)}, 0.0, 1.0));
+      float brightness = tw * depthFade;
+
+      // base color white, mix to purple if flagged
+      vec3 white = vec3(1.0, 1.0, 1.0);
+      vec3 purple = vec3(0.75, 0.27, 1.0); // slightly warm purple
+      vec3 color = mix(white, purple, vIsPurple);
+
+      // subtle halo: multiply color by a smooth radial ramp for glow
+      float halo = smoothstep(0.55, 0.0, dist);
+      float glow = pow(halo, 1.6);
+
+      // Compose final color
+      vec3 finalColor = color * brightness * (0.6 + 0.4 * glow);
+      float finalAlpha = alpha * (0.55 + 0.45 * glow);
+
+      // Very small additive boost for purple twinkles so they pop
+      if(vIsPurple > 0.5){
+        finalColor += vec3(0.08, 0.03, 0.15) * glow;
+      }
+
+      gl_FragColor = vec4(finalColor, finalAlpha);
+    }
+  `;
+
+  const material = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader,
+    fragmentShader,
+    transparent: true,
+    depthTest: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+
+  const points = new THREE.Points(geometry, material);
+  scene.add(points);
+
+  // Mouse handling: convert to normalized -1..1
+  const mouse = new THREE.Vector2(0, 0);
+  window.addEventListener('mousemove', (e) => {
+    const nx = (e.clientX / window.innerWidth) * 2 - 1;
+    const ny = -((e.clientY / window.innerHeight) * 2 - 1);
+    // smooth update for nicer effect
+    mouse.x = THREE.MathUtils.lerp(mouse.x, nx, 0.12);
+    mouse.y = THREE.MathUtils.lerp(mouse.y, ny, 0.12);
+  });
+
+  // touch support
+  window.addEventListener('touchmove', (e) => {
+    if(e.touches && e.touches.length){
+      const t = e.touches[0];
+      const nx = (t.clientX / window.innerWidth) * 2 - 1;
+      const ny = -((t.clientY / window.innerHeight) * 2 - 1);
+      mouse.x = THREE.MathUtils.lerp(mouse.x, nx, 0.18);
+      mouse.y = THREE.MathUtils.lerp(mouse.y, ny, 0.18);
+    }
+  }, { passive: true });
+
+  // subtle gentle camera forward movement to create 'moving through stars' feel
+  let camZOffset = 0;
+  let lastTime = performance.now();
+
+  function animate(time) {
+    const t = time * 0.001;
+    uniforms.u_time.value = t;
+    // smooth mouse uniform (slightly scaled)
+    uniforms.u_mouse.value.x = THREE.MathUtils.lerp(uniforms.u_mouse.value.x, mouse.x * 1.2, 0.08);
+    uniforms.u_mouse.value.y = THREE.MathUtils.lerp(uniforms.u_mouse.value.y, mouse.y * 1.2, 0.08);
+    // small forward/back movement
+    const dt = (time - lastTime) * 0.001;
+    lastTime = time;
+    camZOffset += dt * 18.0; // forward velocity
+    camera.position.z = Math.sin(t * 0.07) * 12.0 + Math.sin(t * 0.11) * 6.0; // gentle drift
+    // rotate the points cloud slowly for depth variation (very subtle)
+    points.rotation.y += 0.0006;
+    points.rotation.x += 0.0002;
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+
+  // Resize handling
+  function onResize() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    renderer.setSize(w, h);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    uniforms.u_resolution.value.set(w, h);
+  }
+  window.addEventListener('resize', onResize, { passive: true });
+
+  // kick off
+  onResize();
+  animate(performance.now());
+})();
