@@ -1,4 +1,4 @@
-/* Fundal general */
+/* Reset & stil general */
 body, html {
   margin: 0;
   padding: 0;
@@ -9,7 +9,7 @@ body, html {
   background-color: black;
 }
 
-/* Imaginea de fundal */
+/* Imaginea de fundal cu fade-in */
 .background {
   position: fixed;
   top: 0;
@@ -22,14 +22,13 @@ body, html {
   z-index: -2;
 }
 
-/* Fade-in fundal */
 @keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
 
-/* Panoul central (blur + transparent) */
+/* Panou central blurat */
 .center-panel {
   position: absolute;
   top: 50%;
@@ -37,49 +36,56 @@ body, html {
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 80vh;
-  backdrop-filter: blur(20px) brightness(1.1);
-  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(18px) brightness(1.1);
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 30px;
   overflow: hidden;
   z-index: 2;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
 }
 
-/* Linie albă vizibilă + efect glow */
+/* Outline animat: glow + efect curgător */
 .outline {
   position: absolute;
   inset: 0;
   border-radius: 30px;
-  border: 3px solid rgba(255, 255, 255, 0.8);
-  box-shadow:
-    0 0 15px rgba(255, 255, 255, 0.7),
-    0 0 30px rgba(255, 255, 255, 0.3),
-    inset 0 0 10px rgba(255, 255, 255, 0.3);
-  animation: borderPulse 3s ease-in-out infinite;
+  border: 3px solid transparent;
+  background: 
+    linear-gradient(0deg, rgba(255,255,255,0.3), rgba(255,255,255,1), rgba(255,255,255,0.3)) 0 0 / 400% 400%;
+  filter: blur(0.5px);
+  animation: borderFlow 6s linear infinite, borderGlow 3s ease-in-out infinite;
 }
 
-/* Efect subtil de pulsare + mișcare */
-@keyframes borderPulse {
+/* Efect curgător: mișcarea luminii de-a lungul marginilor */
+@keyframes borderFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 400% 50%;
+  }
+}
+
+/* Glow ușor pulsatoriu */
+@keyframes borderGlow {
   0%, 100% {
-    border-color: rgba(255, 255, 255, 0.9);
     box-shadow:
-      0 0 15px rgba(255, 255, 255, 0.8),
-      0 0 30px rgba(255, 255, 255, 0.4),
-      inset 0 0 15px rgba(255, 255, 255, 0.3);
+      0 0 10px rgba(255, 255, 255, 0.9),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 40px rgba(255, 255, 255, 0.3);
   }
   50% {
-    border-color: rgba(255, 255, 255, 0.5);
     box-shadow:
-      0 0 25px rgba(255, 255, 255, 1),
-      0 0 50px rgba(255, 255, 255, 0.6),
-      inset 0 0 20px rgba(255, 255, 255, 0.5);
+      0 0 20px rgba(255, 255, 255, 1),
+      0 0 35px rgba(255, 255, 255, 0.8),
+      0 0 60px rgba(255, 255, 255, 0.5);
   }
 }
 
-/* Conținutul interior */
+/* Conținutul din interior */
 .content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   text-align: center;
   top: 45%;
   transform: translateY(-50%);
