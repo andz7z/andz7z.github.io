@@ -247,99 +247,110 @@ body{
 .slogan-line span:hover {
   transform: scale(1.12);
 }
-/* ==== CONTACT BUTTON (PHONE) ==== */
-.contact-button {
+/* ==== WHATSAPP CONTACT TOOLTIP ==== */
+.whatsapp-contact {
   position: fixed;
-  left: 40px;
-  top: 40%;
+  top: 50%;
+  left: 60px; /* între marginea site-ului și panou */
   transform: translateY(-50%);
   z-index: 60;
-}
-
-.Btn {
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background-color: transparent;
-  position: relative;
-  border-radius: 7px;
   cursor: pointer;
-  transition: all 0.3s;
 }
 
-.svgContainer {
-  width: 100%;
-  height: 100%;
+.whatsapp-contact .tooltip {
+  background: linear-gradient(145deg, #1e1e1e, #141414);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 3px 3px 6px rgba(0, 0, 0, 0.4),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.05),
+    0 0 25px rgba(37, 211, 102, 0.3);
+}
+
+.whatsapp-contact .profile {
+  background: #25d366;
+  border: 1px solid #128c7e;
+  border-radius: 10px 15px;
+  padding: 12px;
+  color: #fff;
+}
+
+.whatsapp-contact .user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.whatsapp-contact .img {
+  width: 48px;
+  height: 48px;
+  font-size: 22px;
+  font-weight: 700;
+  border: 1px solid #25d366;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(4px);
-  border-radius: 10px;
-  transition: all 0.3s;
-  border: 1px solid rgba(156, 156, 156, 0.466);
+  background: #fff;
+  color: #25d366;
 }
 
-.BG {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #00d757 0%, #2ce07b 100%);
-  border-radius: 9px;
-  z-index: -1;
-  pointer-events: none;
-  transition: all 0.3s;
+.whatsapp-contact .name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
 }
 
-.Btn:hover .BG {
-  transform: rotate(35deg);
-  transform-origin: bottom;
+.whatsapp-contact .username {
+  font-size: 15px;
+  color: #e0f7df;
 }
 
-.Btn:hover .svgContainer {
-  background-color: rgba(156, 156, 156, 0.25);
-}
-
-/* ==== PREVIEW TEXT (PHONE NUMBER) ==== */
-.phone-preview {
-  position: absolute;
-  top: -70px;
-  left: 55px;
-  padding: 10px 18px;
-  background: rgba(20, 20, 20, 0.75);
-  backdrop-filter: blur(8px);
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 20px rgba(0,0,0,0.4);
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.4s ease;
-  pointer-events: none;
-}
-
-.phone-text {
-  margin: 0;
-  font-family: "Inter", sans-serif;
-  font-size: 1rem;
+.whatsapp-contact .about {
+  color: #fff;
+  padding-top: 6px;
+  font-size: 14px;
   font-weight: 500;
-  background: linear-gradient(90deg, #00ff7b, #ffffff, #00ff7b);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 200%;
-  animation: gradientMove 4s linear infinite;
 }
 
-/* animația gradientului trecător */
-@keyframes gradientMove {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.whatsapp-contact .platform {
+  color: #aaf2bf;
+  font-size: 13px;
+  margin-top: 3px;
 }
 
-/* activare preview */
-.phone-preview.active {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
+.whatsappSVG {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: radial-gradient(circle, #25d366 20%, #128c7e 90%);
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
 }
+
+.whatsapp-contact .icon .layer {
+  width: 55px;
+  height: 55px;
+  border: 3px solid #25d366;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(37, 211, 102, 0.6),
+    0 0 25px rgba(37, 211, 102, 0.4);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.whatsapp-contact .icon:hover .layer {
+  transform: rotate(-35deg) skew(20deg);
+  box-shadow: 0 0 30px rgba(37, 211, 102, 1),
+    0 0 45px rgba(37, 211, 102, 0.7);
+}
+
+.whatsapp-contact .icon .text {
+  color: #25d366;
+  font-weight: 600;
+}
+
+/* glow verde moale */
+.whatsapp-contact .icon:hover .layer span:nth-child(1) { opacity: 0.2; }
+.whatsapp-contact .icon:hover .layer span:nth-child(2) { opacity: 0.4; transform: translate(5px, -5px); }
+.whatsapp-contact .icon:hover .layer span:nth-child(3) { opacity: 0.6; transform: translate(10px, -10px); }
+.whatsapp-contact .icon:hover .layer span:nth-child(4) { opacity: 0.8; transform: translate(15px, -15px); }
+.whatsapp-contact .icon:hover .layer span:nth-child(5) { opacity: 1; transform: translate(20px, -20px); }
