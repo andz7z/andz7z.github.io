@@ -247,116 +247,99 @@ body{
 .slogan-line span:hover {
   transform: scale(1.12);
 }
-/* ==== CONTACT GMAIL TOOLTIP ==== */
-.gmail-contact {
+/* ==== CONTACT BUTTON (PHONE) ==== */
+.contact-button {
   position: fixed;
-  top: 50%;
-  left: 40px; /* ușor în afara panoului */
+  left: 40px;
+  top: 40%;
   transform: translateY(-50%);
+  z-index: 60;
+}
+
+.Btn {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  position: relative;
+  border-radius: 7px;
   cursor: pointer;
-  z-index: 50;
+  transition: all 0.3s;
 }
 
-.gmail-contact .tooltip {
-  background: linear-gradient(145deg, #2b2b2b, #1a1a1a);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: inset 5px 5px 8px rgba(0, 0, 0, 0.5),
-    inset -5px -5px 10px rgba(255, 255, 255, 0.05),
-    0 5px 15px rgba(0, 0, 0, 0.4);
-}
-
-.gmail-contact .profile {
-  background: #d32f2f;
-  border-radius: 10px 15px;
-  padding: 10px;
-  border: 1px solid #b71c1c;
-}
-
-.gmail-contact .icon .layer {
-  width: 55px;
-  height: 55px;
-  border: 3px solid #d32f2f;
-  border-radius: 50%;
-  box-shadow: 0 0 15px rgba(211, 47, 47, 0.7),
-    0 0 25px rgba(211, 47, 47, 0.4);
-  transition: transform 0.3s, border 0.3s, box-shadow 0.3s;
-}
-
-.gmail-contact .icon:hover .layer {
-  transform: rotate(-35deg) skew(20deg);
-  box-shadow: 0 0 35px rgba(244, 67, 54, 1),
-    0 0 60px rgba(255, 99, 71, 0.8);
-}
-
-.gmailSVG {
+.svgContainer {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(
-    45deg,
-    #d32f2f 0%,
-    #f44336 25%,
-    #ff7043 50%,
-    #d32f2f 75%,
-    #c62828 100%
-  );
-}
-
-.gmail-contact .img {
-  width: 50px;
-  height: 50px;
-  font-size: 25px;
-  font-weight: 700;
-  border: 1px solid #ff5252;
+  backdrop-filter: blur(4px);
   border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fff;
-  color: #d32f2f;
+  transition: all 0.3s;
+  border: 1px solid rgba(156, 156, 156, 0.466);
 }
 
-.gmail-contact .name {
-  font-size: 17px;
-  font-weight: 700;
-  color: #fff;
+.BG {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #00d757 0%, #2ce07b 100%);
+  border-radius: 9px;
+  z-index: -1;
+  pointer-events: none;
+  transition: all 0.3s;
 }
 
-.gmail-contact .username {
-  color: #ffcdd2;
-  font-size: 15px;
+.Btn:hover .BG {
+  transform: rotate(35deg);
+  transform-origin: bottom;
 }
 
-.gmail-contact .about {
-  color: #fff;
-  padding-top: 5px;
-  font-size: 14px;
+.Btn:hover .svgContainer {
+  background-color: rgba(156, 156, 156, 0.25);
 }
 
-.gmail-contact .icon .text {
-  color: #ff5252;
-  font-weight: 600;
+/* ==== PREVIEW TEXT (PHONE NUMBER) ==== */
+.phone-preview {
+  position: absolute;
+  top: -70px;
+  left: 55px;
+  padding: 10px 18px;
+  background: rgba(20, 20, 20, 0.75);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.4s ease;
+  pointer-events: none;
 }
 
-/* la hover apare tooltipul */
-.gmail-contact .tooltip-container:hover .tooltip {
-  top: -150px;
+.phone-text {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  background: linear-gradient(90deg, #00ff7b, #ffffff, #00ff7b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200%;
+  animation: gradientMove 4s linear infinite;
+}
+
+/* animația gradientului trecător */
+@keyframes gradientMove {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* activare preview */
+.phone-preview.active {
   opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
-}
-
-/* straturi interne la hover */
-.gmail-contact .icon:hover .layer span:nth-child(1) { opacity: 0.2; }
-.gmail-contact .icon:hover .layer span:nth-child(2) {
-  opacity: 0.4; transform: translate(5px, -5px);
-}
-.gmail-contact .icon:hover .layer span:nth-child(3) {
-  opacity: 0.6; transform: translate(10px, -10px);
-}
-.gmail-contact .icon:hover .layer span:nth-child(4) {
-  opacity: 0.8; transform: translate(15px, -15px);
-}
-.gmail-contact .icon:hover .layer span:nth-child(5) {
-  opacity: 1; transform: translate(20px, -20px);
 }
