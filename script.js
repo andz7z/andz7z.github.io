@@ -4,40 +4,37 @@ document.addEventListener('DOMContentLoaded', () => {
   const loaderScreen = document.getElementById('loader-screen');
   const app = document.getElementById('app');
   const heroTitleElement = document.querySelector('.hero-title');
-  const heroSubtitleElement = document.querySelector('.hero-subtitle'); // Selectăm și subtitlul
-  
-  let globalLetterIndex = 0; // Index global pentru decalajul animației "float"
+  const heroSubtitleElement = document.querySelector('.hero-subtitle');
 
-  // MODIFICAT: Funcție generalizată
-  function splitTextIntoLetters(element, textContent) {
+  // Funcție pentru a descompune textul în span-uri per literă și cuvânt
+  function populateHeroTitle(element, textContent) {
     element.innerHTML = ''; // Curățăm conținutul existent
     const words = textContent.split(' ');
-    
-    words.forEach((word) => {
+    words.forEach((word, wordIndex) => {
       const wordSpan = document.createElement('span');
       wordSpan.classList.add('word');
+      if (wordIndex < words.length - 1) { // Adaugă spațiu între cuvinte, dar nu după ultimul
+          wordSpan.innerHTML += word + '&nbsp;'; // Adaugăm cuvântul și un spațiu non-breaking
+      } else {
+          wordSpan.innerHTML += word;
+      }
       
-      Array.from(word).forEach((letter) => {
+      // Acum, descompunem fiecare cuvânt în litere individuale
+      wordSpan.innerHTML = ''; // Curățăm din nou pentru a adăuga span-uri per literă
+      Array.from(word).forEach(letter => {
         const letterSpan = document.createElement('span');
         letterSpan.classList.add('letter');
         letterSpan.textContent = letter;
-        
-        letterSpan.style.setProperty('--letter-delay', `${globalLetterIndex * 0.07}s`); 
-        
         wordSpan.appendChild(letterSpan);
-        globalLetterIndex++; // Incrementăm indexul global
       });
 
       element.appendChild(wordSpan);
     });
   }
 
-  // Populăm ambele elemente
-  splitTextIntoLetters(heroTitleElement, heroTitleElement.getAttribute('aria-label'));
-  splitTextIntoLetters(heroSubtitleElement, heroSubtitleElement.getAttribute('aria-label')); // MODIFICAT: Apelăm și pentru subtitlu
-
-  // MODIFICAT: Selectăm TOATE literele
-  const allHeroLetters = document.querySelectorAll('.hero-title .letter, .hero-subtitle .letter');
+  // Populăm titlul la început
+  populateHeroTitle(heroTitleElement, heroTitleElement.getAttribute('aria-label'));
+  const heroLetters = document.querySelectorAll('.hero-title .letter');
 
 
   // Loader + fade-in app
@@ -57,8 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         app.classList.add('active'); // clasa CSS .fade-in.active
 
-        // MODIFICAT: Animăm TOATE literele
-        allHeroLetters.forEach((letter, index) => {
+        // Animația de apariție a literelor individual
+        heroLetters.forEach((letter, index) => {
           setTimeout(() => {
             letter.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease-out';
             letter.style.transform = 'translateY(0) rotateX(0deg)';
@@ -74,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let scene, camera, renderer, stars, starGeo;
   let raycaster, mouse;
-  let hoverIndex = -1; 
+  let hoverIndex = -1; // Ne păstrăm hoverIndex pentru stele
 
   function initStarfield(){
     const canvas = document.getElementById('starfield');
@@ -166,9 +163,13 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.position.y = -targetY*0.4;
     camera.lookAt(0,0,0);
 
+    // Raycaster pentru stele - este menținut
     raycaster.setFromCamera(mouse,camera);
     const intersects = raycaster.intersectObject(stars);
     
+    // Logica pentru stele la hover poate fi adăugată aici, dacă e cazul
+    // Spre exemplu, stelele să-și schimbe culoarea sau mărimea la hover
+
     renderer.render(scene,camera);
   }
 
