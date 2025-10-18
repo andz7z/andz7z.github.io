@@ -1,4 +1,3 @@
-/* Fundal general */
 body, html {
   margin: 0;
   padding: 0;
@@ -8,7 +7,7 @@ body, html {
   color: white;
 }
 
-/* Fundal imagine */
+/* BACKGROUND */
 .background {
   position: fixed;
   top: 0;
@@ -25,7 +24,7 @@ body, html {
   to { opacity: 1; }
 }
 
-/* Panou blurat central */
+/* PANOU blurat */
 .center-panel {
   position: absolute;
   top: 50%;
@@ -33,78 +32,67 @@ body, html {
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 80vh;
-  border-radius: 30px;
-  overflow: hidden;
-
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px) saturate(150%);
   -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.08);
   z-index: 2;
-  box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
 }
 
-/* Linie de contur doar pe margine */
-.center-panel::before {
-  content: "";
+/* OUTLINE animat */
+.outline {
   position: absolute;
   inset: 0;
   border-radius: 30px;
-  padding: 2px;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(255, 255, 255, 0) 100%
-  );
+  border: 2px solid transparent;
+  background: linear-gradient(90deg, transparent, white, transparent) no-repeat;
   background-size: 200% 200%;
-  animation: borderFlow 4s linear infinite;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  animation: outlineFlow 4s linear infinite;
   pointer-events: none;
+  box-shadow: 0 0 10px rgba(255,255,255,0.6), 0 0 20px rgba(255,255,255,0.2);
 }
 
-@keyframes borderFlow {
+@keyframes outlineFlow {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
 /* TEXT METALIC */
-.metallic-text {
+#metalText {
   position: absolute;
-  bottom: 10%;
-  left: 10%;
+  top: 40px;
+  left: 50px;
   width: 80%;
-  font-size: 1.8rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 700;
   line-height: 1.6;
-  letter-spacing: 1px;
   text-transform: none;
   color: #ccc;
-  text-align: left;
-
-  /* efect metalic de bază */
-  background: linear-gradient(120deg, #ffffff 0%, #c0c0c0 25%, #8a8a8a 50%, #c0c0c0 75%, #ffffff 100%);
+  background: linear-gradient(120deg, #ffffff, #bcbcbc, #777, #e0e0e0, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  /* reflexie lucioasă */
-  background-size: 300% 300%;
-  animation: metallicShine 5s ease-in-out infinite;
-  transition: background-position 0.2s ease-out;
-  cursor: default;
-
-  /* ușor 3D */
-  text-shadow:
-    0 1px 1px rgba(255,255,255,0.2),
-    0 2px 2px rgba(0,0,0,0.3),
-    0 5px 10px rgba(0,0,0,0.4);
+  filter: drop-shadow(0 1px 2px rgba(255,255,255,0.3))
+          drop-shadow(0 3px 5px rgba(0,0,0,0.5));
+  transition: background-position 0.3s ease;
+  background-size: 200%;
+  opacity: 0;
 }
 
-@keyframes metallicShine {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Fiecare cuvânt pe rând */
+.word {
+  opacity: 0;
+  display: inline-block;
+  transform: translateY(20px);
+  filter: brightness(0.7);
+  animation: appear 0.6s forwards;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: brightness(1);
+  }
 }
