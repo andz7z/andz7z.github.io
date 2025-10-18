@@ -1,14 +1,31 @@
-// === FADE-IN PE SCROLL ===
-const fadeSections = document.querySelectorAll('.fade-section');
+// Fade pe secțiuni în funcție de scroll
+const fadeSections = document.querySelectorAll(".fade-section");
 
-const fadeObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    } else {
-      entry.target.classList.remove('visible');
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const windowH = window.innerHeight;
+
+  fadeSections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.offsetHeight;
+
+    // Dacă secțiunea e în afara view-ului, fade out
+    if (scrollY > sectionTop + sectionHeight / 2) {
+      section.classList.add("fade-out");
+    } else if (scrollY < sectionTop + sectionHeight) {
+      section.classList.remove("fade-out");
     }
   });
-}, { threshold: 0.3 });
 
-fadeSections.forEach(sec => fadeObserver.observe(sec));
+  // Parallax subtil pe fundal
+  const background = document.querySelector(".background");
+  background.style.transform = `translateY(${scrollY * 0.2}px)`;
+});
+
+// Reveal delay pentru text
+window.addEventListener("load", () => {
+  const lines = document.querySelectorAll(".line");
+  lines.forEach((line, index) => {
+    line.style.animationDelay = `${3 + index * 0.8}s`;
+  });
+});
