@@ -163,3 +163,15 @@ setTimeout(() => {
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const lines = document.querySelectorAll(".slogan-line");
+  lines.forEach(line => {
+    const chars = line.textContent.split("");
+    line.textContent = "";
+    chars.forEach(ch => {
+      const span = document.createElement("span");
+      span.textContent = ch;
+      line.appendChild(span);
+    });
+  });
+});
