@@ -127,7 +127,7 @@ body{
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80vw;
-  height: 78vh; /* puțin mai înalt */
+  height: 78vh;
   border-radius: 24px;
   backdrop-filter: blur(20px) saturate(160%);
   background: rgba(10, 10, 10, 0.42);
@@ -136,7 +136,7 @@ body{
   animation: panelBreath 10s ease-in-out infinite;
 }
 
-/* efect subtil de respirație */
+/* efect subtil de “respirație” */
 @keyframes panelBreath {
   0%, 100% {
     backdrop-filter: blur(18px) saturate(150%);
@@ -160,7 +160,7 @@ body{
     rgba(255,255,255,0.1) 100%
   );
   background-size: 300% 100%;
-  animation: outlineFlow 18s linear infinite;
+  animation: outlineFlow 22s linear infinite;
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -175,15 +175,34 @@ body{
   100% { background-position: 0% 0; }
 }
 
+/* Reflexia de jos - ușor curbată și difuză */
+.glass-reflection {
+  position: absolute;
+  bottom: -10%;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: radial-gradient(ellipse at center,
+    rgba(255,255,255,0.08) 0%,
+    rgba(255,255,255,0.02) 50%,
+    rgba(255,255,255,0) 100%);
+  filter: blur(10px);
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* interior */
 .glass-content {
   position: relative;
   width: 100%;
   height: 100%;
   z-index: 2;
-  padding: 3rem 4rem;
+  padding: 2rem 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* textul sus */
+  align-items: flex-start;
   color: #eaeaea;
 }
 
@@ -193,29 +212,19 @@ body{
   user-select: none;
   line-height: 1.15;
   letter-spacing: 2px;
-  opacity: 1; /* fără fade */
-  transform: none;
+  opacity: 1;
 }
 
 .slogan-line {
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 3.4rem;
-  background: linear-gradient(
-    to right,
-    rgba(255,255,255,0.06) 0%,
-    rgba(255,255,255,0.7) 20%,
-    rgba(255,255,255,0.06) 40%,
-    rgba(255,255,255,0.7) 60%,
-    rgba(255,255,255,0.06) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-size: 250%;
-  animation: textFlow 14s ease-in-out infinite;
-  text-shadow: 0 0 8px rgba(255,255,255,0.08);
-  transition: transform 0.3s ease;
+  font-size: 3.6rem;
+  color: rgba(230,230,230,0.9);
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.04),
+    0 2px 12px rgba(0,0,0,0.7);
+  margin: 0.3em 0;
 }
 
 /* Efect de mișcare luminoasă subtilă în text */
@@ -225,16 +234,16 @@ body{
 }
 
 .bottom-line {
-  margin-top: 0.6em;
   font-size: 2.8rem;
+  margin-top: 0.2em;
 }
 
 /* ===== Efect de mărire la hover pe litere ===== */
 .slogan-line span {
   display: inline-block;
-  transition: transform 0.3s ease;
+  transition: transform 0.25s ease;
 }
 
 .slogan-line span:hover {
-  transform: scale(1.1);
+  transform: scale(1.12);
 }
