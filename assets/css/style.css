@@ -1,0 +1,105 @@
+/* Paletă de culori Moonlight Purple: Negru, Mov închis/Neon, Gri foarte închis */
+:root {
+    --color-bg-dark: #0A0A10;          /* Negru foarte închis */
+    --color-accent-primary: #8A2BE2;   /* Purple intens - pentru accente */
+    --color-accent-secondary: #4B0082; /* Indigo - pentru fundal gradient */
+    --color-text-light: #F0F0F5;       /* Text deschis */
+    --color-text-subtle: #9999AA;      /* Text subtil */
+}
+
+/* Stiluri de bază și fluență */
+body {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-light);
+    font-family: 'Inter', sans-serif; /* Sugerez un font modern, curat */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* Fluență generală a tranzițiilor */
+    transition: background-color 0.5s ease;
+}
+
+/* Efectul de aură/gradient fluid care urmează mouse-ul (poziționare) */
+.mouse-aura {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px; /* Dimensiunea inițială a aurei */
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--color-accent-primary) 0%, transparent 70%);
+    opacity: 0.3; /* Opacitate scăzută pentru subtilitate */
+    filter: blur(50px); /* Efect de fluiditate/glow */
+    pointer-events: none; /* Asigură că nu blochează interacțiunea cu alte elemente */
+    transform: translate(-50%, -50%); /* Centrarea elementului pe cursor */
+    z-index: -1; /* Asigură că este în spatele conținutului */
+    transition: transform 0.1s linear; /* Tranziție rapidă, dar smooth */
+}
+
+/* Stiluri pentru text și navigare */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 40px;
+    position: relative;
+    /* Efect subtil de fundal pe secțiunea principală */
+    background-image: radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.05) 0%, transparent 70%);
+}
+
+.title-glow {
+    font-size: 3.5rem;
+    /* Efect subtil de neon */
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.7), 0 0 20px rgba(138, 43, 226, 0.3);
+}
+
+.card-section {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    padding: 60px;
+}
+
+/* Efectul de "Depth In" (cu pseudo-3D) */
+.card {
+    background-color: #1a1a2e; /* Culoare de fundal a cardului (puțin mai deschis) */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    border: 1px solid rgba(138, 43, 226, 0.1);
+    
+    /* Pregătirea pentru pseudo-3D */
+    transform-style: preserve-3d; 
+    perspective: 1000px; 
+}
+
+/* Efectul vizibil la hover: Mișcare subtilă (Parallax) */
+.card.depth-effect:hover {
+    /* TranslateZ simulează o mișcare ușoară "în afară" */
+    transform: translateZ(5px);
+    box-shadow: 0 15px 45px rgba(138, 43, 226, 0.3);
+}
+
+/* Element suplimentar pentru a îmbunătăți efectul de "depth" */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    /* Gradient interior care se mișcă */
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    transform: translateZ(-1px); /* Poziționare ușor în spate */
+}
+
+.card:hover::after {
+    opacity: 1; /* Apare la hover, simulând o reflexie subtilă */
+}
