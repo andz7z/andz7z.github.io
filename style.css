@@ -1,137 +1,73 @@
 /* Reset & base */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html,body { height: 100%; }
-body {
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  overflow: hidden;
-  background: linear-gradient(to bottom, #000 0 20%, #0f0f10 35%, #3a3a3a 100%);
-  color: white;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* canvas wrapper fills whole viewport and sits behind content */
-#bg-canvas-wrap {
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(to bottom, #000000 0%, #0c0c0d 20%, #2e2e2f 100%);
+}
+
+/* Starfield canvas */
+#starfield {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
 }
 
-/* Hero layout */
-.hero {
+/* Main content container */
+.content {
   position: relative;
-  width: 100%;
+  z-index: 2;
   height: 100vh;
   display: flex;
-  align-items: center; /* vertical center */
-  justify-content: flex-end; /* content on right */
-  padding-right: 6vw;
-  z-index: 2;
-  pointer-events: none; /* so starfield receives pointer events if needed */
-}
-
-/* inner container so we can center vertically a bit differently if needed */
-.hero-inner {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 10vw;
   text-align: right;
-  max-width: 42ch;
-  transform: translateY(0);
-  pointer-events: auto; /* allow interaction with text */
 }
 
-/* Slogan style - 3D-ish solid, inclined to left */
-.slogan {
+/* Title text */
+#title {
+  color: #4a4a4a; /* gri mediu */
+  font-size: clamp(3rem, 8vw, 8rem);
   font-weight: 900;
-  font-size: clamp(2.8rem, 8vw, 8rem);
-  letter-spacing: 0.02em;
-  line-height: 0.9;
-  margin-bottom: 0.6rem;
-  color: #1b1b1b; /* dark-grey front face */
-  transform: skewY(-8deg) rotateZ(-3deg);
-  display: inline-block;
-  position: relative;
-  /* depth illusion via multiple text-shadows to make it 'solid' */
-  text-shadow:
-    0.08rem 0.08rem 0 rgba(0,0,0,0.75),
-    0.16rem 0.16rem 0 rgba(0,0,0,0.7),
-    0.24rem 0.24rem 0 rgba(0,0,0,0.65),
-    0.32rem 0.32rem 0 rgba(0,0,0,0.6);
-  -webkit-font-smoothing: antialiased;
-  overflow: visible;
+  transform: skewY(-6deg) rotateY(-12deg);
+  letter-spacing: 2px;
+  transition: color 0.5s ease;
 }
 
-/* sub text */
-.sub {
+/* Subtext */
+#subtitle {
+  color: #4a4a4a; /* același gri */
+  font-size: clamp(1rem, 2vw, 1.6rem);
   font-weight: 500;
-  font-size: clamp(0.9rem, 1.8vw, 1.6rem);
-  opacity: 0.9;
-  margin-top: 6px;
-  transform: skewY(-8deg) rotateZ(-3deg);
+  margin-top: 0.8rem;
+  transform: skewY(-6deg) rotateY(-12deg);
 }
 
-/* Each letter span style (we will wrap letters in JS) */
-.letter {
+/* Per-letter animation */
+#title span {
   display: inline-block;
-  transform-origin: 50% 50%;
-  transition: transform 220ms cubic-bezier(.2,.9,.2,1), filter 220ms;
-  will-change: transform;
-  position: relative;
-  /* baseline face color */
-  color: #f5f5f5; /* actual letter color - but front appears dark because we'll place a pseudo 'face' */
+  transition: transform 0.3s ease, filter 0.4s ease;
 }
 
-/* create a front-face darker look by layering pseudo-element */
-.letter::before {
-  content: attr(data-char);
-  position: absolute;
-  inset: 0;
-  transform: translateZ(0);
-  color: #1f1f1f; /* face color (aproape negru / grey) */
-  z-index: 2;
-  /* create depth border behind the face */
-  -webkit-text-stroke: 0.2px rgba(0,0,0,0.6);
+/* Hover zoom + glow */
+#title span:hover {
+  transform: scale(1.25);
+  filter: drop-shadow(0 0 10px white);
 }
 
-/* animated white glow per-letter (fades in/out) - the visible white glow will sit as text-shadow on the letter itself (under the dark face) */
-.letter .glow {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  color: white;
-  opacity: 0;
-  pointer-events: none;
-  white-space: pre;
-  filter: blur(8px);
-  text-shadow: 0 0 14px rgba(255,255,255,0.85), 0 0 32px rgba(255,255,255,0.45);
-  transition: opacity 800ms ease;
-}
-
-/* animate glow with stagger; we also control via inline CSS var --delay */
-.letter[data-i] .glow {
-  animation: glowPulse 3.6s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.12s);
-}
-
-/* glow keyframes */
+/* Glow animation (letters pulse white) */
 @keyframes glowPulse {
-  0%   { opacity: 0; transform: scale(0.98); }
-  20%  { opacity: 0.5; transform: scale(1.01); }
-  50%  { opacity: 1; transform: scale(1.02); }
-  80%  { opacity: 0.45; transform: scale(0.995); }
-  100% { opacity: 0; transform: scale(0.98); }
-}
-
-/* hover zoom: slightly scale letter up when hovering */
-.letter:hover {
-  transform: translateY(-6px) scale(1.18);
-  z-index: 10;
-}
-
-/* make hover smoother on the face element too */
-.letter:hover::before {
-  transform: translateY(-6px);
-}
-
-/* responsive tweaks */
-@media (max-width: 720px) {
-  .hero { padding-right: 5vw; }
-  .slogan { font-size: clamp(2.2rem, 10vw, 4.2rem); }
-  .sub { font-size: 1rem; }
+  0%, 100% { filter: drop-shadow(0 0 0 white); }
+  50% { filter: drop-shadow(0 0 10px white); }
 }
