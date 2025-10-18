@@ -6,6 +6,7 @@ body, html {
   overflow: hidden;
   font-family: "Poppins", sans-serif;
   color: white;
+  background-color: black;
 }
 
 /* Imaginea de fundal */
@@ -21,14 +22,14 @@ body, html {
   z-index: -2;
 }
 
-/* Efect de fade in */
+/* Fade-in fundal */
 @keyframes fadeIn {
   to {
     opacity: 1;
   }
 }
 
-/* Panoul central (blurat) */
+/* Panoul central (blur + transparent) */
 .center-panel {
   position: absolute;
   top: 50%;
@@ -37,36 +38,45 @@ body, html {
   width: 80vw;
   height: 80vh;
   backdrop-filter: blur(20px) brightness(1.1);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 30px;
   overflow: hidden;
   z-index: 2;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
 }
 
-/* Linie animată pe margine */
+/* Linie albă vizibilă + efect glow */
 .outline {
   position: absolute;
   inset: 0;
   border-radius: 30px;
-  border: 2px solid transparent;
-  background: linear-gradient(120deg, rgba(255,255,255,0.6), rgba(255,255,255,0) 40%, rgba(255,255,255,0.6)) border-box;
-  -webkit-mask:
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: borderMove 4s linear infinite;
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.7),
+    0 0 30px rgba(255, 255, 255, 0.3),
+    inset 0 0 10px rgba(255, 255, 255, 0.3);
+  animation: borderPulse 3s ease-in-out infinite;
 }
 
-@keyframes borderMove {
-  0% {
-    background-position: 0% 50%;
+/* Efect subtil de pulsare + mișcare */
+@keyframes borderPulse {
+  0%, 100% {
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow:
+      0 0 15px rgba(255, 255, 255, 0.8),
+      0 0 30px rgba(255, 255, 255, 0.4),
+      inset 0 0 15px rgba(255, 255, 255, 0.3);
   }
-  100% {
-    background-position: 200% 50%;
+  50% {
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow:
+      0 0 25px rgba(255, 255, 255, 1),
+      0 0 50px rgba(255, 255, 255, 0.6),
+      inset 0 0 20px rgba(255, 255, 255, 0.5);
   }
 }
 
-/* Conținutul din interior */
+/* Conținutul interior */
 .content {
   position: relative;
   z-index: 2;
@@ -79,9 +89,10 @@ body, html {
   font-size: 3rem;
   margin-bottom: 1rem;
   letter-spacing: 2px;
+  text-shadow: 0 0 10px white, 0 0 30px rgba(255, 255, 255, 0.5);
 }
 
 .content p {
   font-size: 1.2rem;
-  opacity: 0.8;
+  opacity: 0.9;
 }
