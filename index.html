@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>AndzoWorld — Concept Build Lead</title>
 
-  <!-- Google Font: Montserrat ExtraBold -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap" rel="stylesheet">
 
-  <!-- Three.js from CDN -->
   <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Loader -->
   <div id="loader-screen" class="loader-screen">
     <div class="loader-wrapper" aria-hidden="true">
       <span class="loader-letter">a</span>
@@ -31,33 +29,22 @@
     </div>
   </div>
 
-  <!-- Main content -->
   <div id="app" class="app hidden fade-in">
     <canvas id="starfield"></canvas>
     <main class="hero">
       <div class="hero-inner">
-        <!-- Conținutul tău -->
+        <div class="slogan-container">
+          <h1 class="slogan-line line-1" data-text="Design.">Design.</h1>
+          <h1 class="slogan-line line-2" data-text="Develop.">Develop.</h1>
+          <h1 class="slogan-line line-3" data-text="Deliver">Deliver</h1>
+          <p class="slogan-subtext">we do it all.</p>
+        </div>
+        
+        <div class="right-content-placeholder">
+          </div>
       </div>
     </main>
   </div>
-
-  <!-- Header Oval cu iconița în centru -->
-  <header id="main-header" class="header-oval">
-    <div class="header-inner">
-      <!-- 2 butoane stânga -->
-      <button class="nav-btn">About Us</button>
-      <button class="nav-btn">Services</button>
-
-      <!-- Iconița GIF în centru -->
-      <div class="logo-wrap">
-        <img src="assets/logos/iconita.gif" alt="Iconiță" class="brand-icon-gif">
-      </div>
-
-      <!-- 2 butoane dreapta -->
-      <button class="nav-btn">Ratings</button>
-      <button class="nav-btn">Contact Us</button>
-    </div>
-  </header>
 
   <script src="script.js"></script>
 </body>
