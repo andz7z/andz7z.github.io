@@ -1,45 +1,28 @@
 <!doctype html>
-<html lang="ro">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AndzoWorld — Concept Build Lead</title>
-
-  <!-- Google Font: Montserrat ExtraBold -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
-
-  <!-- Three.js from CDN -->
-  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
-
+  <title>Site with Spline Background</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Loader -->
-  <div id="loader-screen" class="loader-screen">
-    <div class="loader-wrapper" aria-hidden="true">
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">d</span>
-      <span class="loader-letter">z</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">w</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">r</span>
-      <span class="loader-letter">l</span>
-      <span class="loader-letter">d</span>
-      <div class="loader"></div>
+  <div id="app">
+    <!-- Spline Background -->
+    <div class="spline-wrap" aria-hidden="true">
+      <iframe
+        class="spline-iframe"
+        src="https://prod.spline.design/mawXx1RYFWt4r7fY/scene.splinecode"
+        allow="autoplay; fullscreen; clipboard-write; encrypted-media;"
+        title="Spline scene">
+      </iframe>
     </div>
-  </div>
 
-  <!-- Main content -->
-  <div id="app" class="app hidden fade-in">
-    <canvas id="starfield"></canvas>
-    <main class="hero">
-      <div class="hero-inner">
-        <div class="slogan">
-  <h1 class="slogan-main">Design. Develop. Deliver</h1>
-  <p class="slogan-sub">we do it all</p>
-        </div>
+    <!-- Content Layer -->
+    <main class="content">
+      <div class="card">
+        <h1>Welcome — Spline Background</h1>
+        <p>This is a static site with a 3D Spline background. Works great on GitHub Pages!</p>
       </div>
     </main>
   </div>
