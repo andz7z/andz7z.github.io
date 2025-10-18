@@ -176,3 +176,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+document.addEventListener("DOMContentLoaded", () => {
+  const phoneBtn = document.getElementById("phoneBtn");
+  const phonePreview = document.getElementById("phonePreview");
+
+  phoneBtn.addEventListener("click", () => {
+    phonePreview.classList.toggle("active");
+
+    if (phonePreview.classList.contains("active")) {
+      setTimeout(() => {
+        phonePreview.classList.remove("active");
+      }, 4000); // dispare automat după 4 secunde
+    }
+  });
+});
