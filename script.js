@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const loaderScreen = document.getElementById('loader-screen');
   const app = document.getElementById('app');
-  const title = document.querySelector('.main-title');
+  const titleWrap = document.querySelector('.main-title-wrap');
 
   // Loader transition
   setTimeout(() => {
@@ -12,10 +12,10 @@ document.addEventListener('DOMContentLoaded', () => {
       initStarfield();
       animate();
 
-      // Fade-in dramatic pentru titlu
+      // Fade-in dramatic pentru text
       setTimeout(() => {
-        title.style.opacity = '1';
-        title.style.animationPlayState = 'running';
+        titleWrap.style.opacity = '1';
+        titleWrap.style.animationPlayState = 'running';
       }, 600);
     }, 900);
   }, 3000);
@@ -37,7 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
     starGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(starsCount * 3);
     const colors = new Float32Array(starsCount * 3);
-    const sizes = new Float32Array(starsCount);
 
     for(let i=0;i<starsCount;i++){
       const r = 800;
@@ -46,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
       positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
       positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta)*0.6;
       positions[i*3+2] = (Math.random()-0.5)*1200;
-      sizes[i] = Math.random()*2.4+0.6;
       colors[i*3] = 1; colors[i*3+1]=1; colors[i*3+2]=1;
     }
 
