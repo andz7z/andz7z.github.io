@@ -5,6 +5,7 @@
   --accent-purple:#471eec;
   --accent-purple-dark:#311e80;
   --highlight-white:#ffffff;
+  --slogan-color: #ffffff; /* Culoare de bază: Alb */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -13,9 +14,11 @@ body{
   font-family: "Montserrat", "Inter", sans-serif;
   overflow:hidden;
   color:#fff;
+  /* Activez perspective-ul pe body/app pentru animațiile 3D ale textului */
+  perspective: 1000px;
 }
 
-/* Loader screen */
+/* Loader screen (Fără modificări) */
 .loader-screen{
   position:fixed;
   inset:0;
@@ -120,103 +123,108 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* === HEADER OVAL CU ICONIȚA GIF ÎN CENTRU === */
-.header-oval {
-  position: fixed;
-  top: 25px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  background: rgba(255,255,255,0.08);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 4px 25px rgba(0,0,0,0.35);
-  border-radius: 50px;
-  padding: 12px 24px;
+
+/* === HERO SECTION ȘI SLOGAN 3D === */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
-  gap: 20px;
-  width: fit-content;
-  transition: all 0.4s ease, opacity 0.6s ease;
-  opacity: 0;
-}
-.header-oval.active {
-  opacity: 1;
-}
-.header-oval.scrolled {
-  background: rgba(30, 10, 60, 0.65);
-  box-shadow: 0 6px 25px rgba(60, 0, 120, 0.45);
-  border-color: rgba(255,255,255,0.08);
+  justify-content: center;
+  z-index: 1;
+  padding: 0 5%;
 }
 
-.header-inner {
+.hero-inner {
   display: flex;
+  width: 100%;
+  max-width: 1400px;
   align-items: center;
-  gap: 18px;
+  justify-content: space-between;
 }
 
-.nav-btn {
-  padding: 10px 20px;
-  text-transform: uppercase;
-  border-radius: 8px;
-  font-size: 17px;
-  font-weight: 500;
-  color: #ffffff80;
-  background: transparent;
-  border: 1px solid #ffffff80;
-  transition: 0.5s ease;
-  user-select: none;
-  cursor: pointer;
-  text-shadow: none;
-  box-shadow: transparent;
-  opacity: 0;
-}
-.nav-btn.active {
-  opacity: 1;
-}
-.nav-btn:hover,
-.nav-btn:focus {
-  color: #fff;
-  background: #5a1aff; /* mov închis */
-  border: 1px solid #5a1aff;
-  text-shadow:
-    0 0 5px #fff,
-    0 0 10px #fff,
-    0 0 20px #fff;
-  box-shadow:
-    0 0 5px #5a1aff,
-    0 0 20px #5a1aff,
-    0 0 50px #5a1aff,
-    0 0 100px #5a1aff;
-  font-size: 16px;
-  border-color: transparent;
-}
-.nav-btn:active {
-  transform: scale(0.97);
+.slogan-container {
+  /* Aliniere stânga și pregătire 3D */
+  text-align: left;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  /* Setează o lățime maximă pentru a lăsa spațiu dreapta */
+  max-width: 50%;
+  padding-left: 20px;
 }
 
-/* Iconița GIF */
-.brand-icon-gif {
-  width: 1.5cm;
-  height: 1.5cm;
-  border-radius: 50%;
-  object-fit: cover;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  cursor: pointer;
-}
-.brand-icon-gif:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 20px 6px rgba(255,255,255,0.7);
-}
-
-/* Responsive */
-@media (max-width: 720px) {
-  .header-oval {
-    flex-wrap: wrap;
-    gap: 12px;
-    padding: 8px 16px;
+.slogan-line {
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(3.5rem, 8vw, 7.5rem); /* Responsive font size */
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--slogan-color);
+  
+  /* Text Shadow / Glow alb-mov */
+  text-shadow: 
+    0 0 10px rgba(255, 255, 255, 0.4), /* Glow alb */
+    0 0 20px var(--accent-purple),    /* Glow mov */
+    0 0 40px rgba(71, 30, 236, 0.7);
+    
+  /* Setări 3D */
+  transform-style: preserve-3d;
+  transform: rotateX(0deg) rotateY(0deg);
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition */
+  
+  /* Efect de adâncime 3D (Text Stroke) */
+  &::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent-purple-dark); /* Contur mov */
+    opacity: 0.8;
+    /* Deplasare pe axa Z pentru a crea adâncimea */
+    transform: translateZ(-5px); 
   }
-  .nav-btn { font-size: 14px; padding: 8px 14px; }
-  .brand-icon-gif { width: 45px; height: 45px; }
 }
+
+/* Efect de hover pe container pentru a anima întregul text 3D */
+.slogan-container:hover .slogan-line {
+    transform: rotateX(5deg) rotateY(5deg) translateZ(10px);
+}
+.slogan-container:hover .slogan-line.line-1 { transform: rotateX(5deg) rotateY(5deg) translateZ(15px); }
+.slogan-container:hover .slogan-line.line-2 { transform: rotateX(5deg) rotateY(5deg) translateZ(10px); }
+.slogan-container:hover .slogan-line.line-3 { transform: rotateX(5deg) rotateY(5deg) translateZ(5px); }
+
+.slogan-subtext {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+  font-weight: 300;
+  margin-top: 20px;
+  color: #ffffff90;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+/* Placeholder pentru conținutul viitor din dreapta */
+.right-content-placeholder {
+  width: 45%;
+  height: 50vh;
+  /* Poți adăuga un fundal subtil aici pentru a vedea spațiul */
+  /* background: rgba(71, 30, 236, 0.1); */
+}
+
+/* Responsive (Asigură o vizualizare bună pe mobil) */
+@media (max-width: 900px) {
+  .hero-inner {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .slogan-container, .right-content-placeholder {
+    max-width: 90%;
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+  }
+  .slogan-line::before { -webkit-text-stroke: 0.5px var(--accent-purple-dark); }
+}
+
+/* Am eliminat stilurile .header-oval, .header-inner, .nav-btn, .brand-icon-gif */
