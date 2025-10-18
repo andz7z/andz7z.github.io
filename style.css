@@ -1,12 +1,12 @@
 /* From Uiverse.io by dexter-st */
 :root{
   --bg:#000;
-  --text-dark:#212121;
+  --text-dark:#0a0a0a;
   --accent-purple:#471eec;
   --accent-purple-dark:#311e80;
   --highlight-white:#ffffff;
-  --text-gradient-start: #b49eff; 
-  --text-gradient-end: #ffffff; 
+  --text-gradient-start: #b49eff; /* NOU */
+  --text-gradient-end: #ffffff; /* NOU */
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -16,19 +16,6 @@ body{
   overflow:hidden;
   color:#fff;
 }
-
-/* === ANIMAȚII TEXT === */
-@keyframes shimmer-text {
-  /* MODIFICAT: Efect de "glow alb" */
-  0% { background-position: 200% center; }
-  100% { background-position: -200% center; }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
 
 /* Loader screen */
 .loader-screen{
@@ -54,7 +41,7 @@ body{
   color: white;
   border-radius: 50%;
   background-color: transparent;
-  animation: pulse-border 2s infinite; 
+  animation: pulse-border 2s infinite; /* Adaugat o animatie la bordura loader-ului */
   user-select: none;
 }
 
@@ -166,103 +153,124 @@ body{
   align-items: center; /* Centrează vertical */
   justify-content: flex-start; /* Aliniază la stânga */
   z-index: 10;
+  /* pointer-events: none; - Am scos asta pentru a permite hover-ul pe litere */
 }
 .hero-inner {
   padding-left: 10vw; /* Spațiu față de marginea stângă */
-  max-width: 60%; 
+  max-width: 60%;
 }
 .hero-content {
   color: var(--highlight-white);
+  /* Asigură că transformările 3D funcționează corect pentru copiii săi */
   perspective: 1000px; 
 }
 
-/* MODIFICAT: Stiluri partajate pentru titlu și subtitlu */
-.hero-title,
-.hero-subtitle {
+.hero-title {
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
-  line-height: 1.05; 
+  font-size: clamp(3rem, 7.5vw, 6.5rem); /* Mărime font și mai responsivă și mai mare */
+  line-height: 1.05; /* Spatiere mai mică între linii */
   text-transform: uppercase;
   margin: 0;
-  display: flex; 
-  flex-wrap: wrap; 
-  user-select: none; 
+  display: flex; /* Pentru a aranja literele inline */
+  flex-wrap: wrap; /* Permite cuvintelor să treacă pe rândul următor */
+  user-select: none; /* Nu permite selectarea textului */
 
-  /* MODIFICAT: Culoare mult mai deschisă + gradient "glow alb" */
-  background: linear-gradient(90deg, #ccc 30%, #fff 50%, #ccc 70%);
-  background-size: 300% auto; 
+  /* Text gradient de bază, vizibil chiar și fără hover */
+  background: linear-gradient(45deg, var(--text-gradient-start), var(--text-gradient-end), var(--text-gradient-start));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
   
-  /* MODIFICAT: Animație shimmer (glow) aplicată */
-  animation: shimmer-text 5s linear infinite;
-
+  /* Umbre 3D mai complexe și mai profunde */
   text-shadow: 
     -1px -1px 0px rgba(0,0,0,0.4),
     1px 1px 1px rgba(0,0,0,0.6),
-    0 0 15px rgba(255, 255, 255, 0.05);
+    2px 2px 2px rgba(0,0,0,0.5),
+    3px 3px 3px rgba(0,0,0,0.4),
+    4px 4px 4px rgba(0,0,0,0.3),
+    5px 5px 5px rgba(0,0,0,0.2),
+    0 0 15px rgba(255, 255, 255, 0.15),
+    0 0 30px rgba(255, 255, 255, 0.05); /* Efect de strălucire subtil */
 }
 
-/* Ajustare mărime font pentru fiecare */
-.hero-title {
-  font-size: clamp(3rem, 7.5vw, 6.5rem); 
-}
-.hero-subtitle {
-  font-size: clamp(1.5rem, 4vw, 3.5rem); /* Mai mic decât titlul */
-  margin-top: 20px;
-}
-
-
-/* MODIFICAT: Stiluri partajate pentru cuvinte */
-.hero-title .word,
-.hero-subtitle .word {
-  display: inline-block; 
+.hero-title .word {
+  display: inline-block; /* Pentru a putea aplica margini între cuvinte */
   margin-right: 2.5vw; /* Spațiu între cuvinte */
-  margin-bottom: 5px; 
+  margin-bottom: 5px; /* Spațiu sub cuvinte dacă trec pe rând nou */
 }
 
-/* MODIFICAT: Stiluri partajate pentru litere */
-.hero-title .letter,
-.hero-subtitle .letter {
+.hero-title .letter {
   display: inline-block;
   position: relative;
-  transform-style: preserve-3d; 
-  transition: transform 0.3s ease;
-  will-change: transform; 
-  cursor: pointer; 
-  overflow: visible; 
-
-  animation: float 5s ease-in-out infinite;
-  animation-delay: var(--letter-delay, 0s);
+  transform-style: preserve-3d; /* Esențial pentru transformări 3D pe litere individuale */
+  transform: translateY(0) rotateX(0deg) rotateY(0deg); /* Stare inițială */
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), color 0.4s ease-out; /* Tranziție mai smooth */
+  will-change: transform, text-shadow, color; /* Optimizare performanță */
+  cursor: pointer; /* Indicăm că e interactiv */
+  
+  /* Mască pentru a preveni text-shadow să se suprapună deranjant la rotație */
+  overflow: visible; /* Lăsăm umbra să se vadă */
 }
 
 
-/* MODIFICAT: Animație de intrare partajată */
-.app.active .hero-title .word .letter,
-.app.active .hero-subtitle .word .letter {
+/* Animațiile inițiale pentru text */
+.app.active .hero-title .word .letter {
   opacity: 0;
   transform: translateY(100%) rotateX(-90deg);
-  transition: none; 
+  transition: none; /* Dezactivăm tranziția inițială pentru a o controla prin JS */
 }
 
-/* MODIFICAT: Efect "zoom" partajat la hover */
-.hero-title .letter:hover,
-.hero-subtitle .letter:hover {
-  transform: scale(1.15) translateY(-3px); 
+/* Stiluri pentru hover pe litere */
+.hero-title .letter:hover {
+  transform: translateY(-8px) rotateX(15deg) rotateY(5deg) translateZ(15px); /* Se ridică, se rotește și vine în față */
+  /* Umbre la hover - mai luminoase, mai "scoase" */
+  text-shadow: 
+    -2px -2px 0px rgba(255,255,255,0.7),
+    2px 2px 5px rgba(0,0,0,0.8),
+    4px 4px 10px rgba(0,0,0,0.7),
+    6px 6px 15px rgba(0,0,0,0.6),
+    0 0 30px rgba(255, 255, 255, 0.4),
+    0 0 60px rgba(255, 255, 255, 0.2);
+    /* Se pot adăuga mai multe umbre pentru un efect de "glow" mai intens */
+}
+
+/* Stări suplimentare pentru litere individuale la hover pentru gradient mai intens */
+.hero-title .letter:hover {
+    background: linear-gradient(45deg, #fff, #b49eff, #fff); /* Gradient mai pronunțat la hover */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+
+.hero-subtitle {
+  font-family: "Major Mono Display", monospace; /* NOU: Un font mai tehnic/minimalist */
+  font-weight: 400; /* Fontul Major Mono Display are un singur weight */
+  font-size: clamp(1rem, 2vw, 1.4rem); /* Mai mic pentru subtext */
+  margin-top: 25px; /* Spațiu mărit */
+  color: #c0c0c0; /* Un gri mai subtil */
+  letter-spacing: 2px;
+  line-height: 1.4;
   
-  background: #fff; 
+  /* Efect de gradient pe text */
+  background: linear-gradient(90deg, #eee, #ddd, #aaa);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   text-fill-color: transparent;
+  
+  /* Animație */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out 0.9s, transform 0.8s ease-out 0.9s;
+}
 
-  text-shadow: 
-    0 0 15px rgba(255, 255, 255, 0.5),
-    0 0 30px rgba(255, 255, 255, 0.3);
-
-  animation-play-state: paused;
+.app.active .hero-subtitle {
+  opacity: 0.9;
+  transform: translateY(0);
 }
 
 
@@ -272,15 +280,12 @@ body{
     padding-left: 5vw;
     padding-right: 5vw;
     max-width: 100%;
-    text-align: center; 
+    text-align: center; /* Centrează textul pe mobil */
   }
   .hero {
-    justify-content: center; 
+    justify-content: center; /* Centrează blocul hero pe mobil */
   }
-  
-  /* MODIFICAT: Aliniere partajată pe mobil */
-  .hero-title,
-  .hero-subtitle {
-    justify-content: center; 
+  .hero-title .word {
+    margin-right: 1.5vw; /* Spațiu mai mic între cuvinte pe mobil */
   }
 }
