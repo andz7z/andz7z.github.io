@@ -120,36 +120,47 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* ==== GLASS PANEL CENTRAL - VERSION 2 ==== */
+/* ==== GLASS PANEL FINAL ==== */
 .glass-panel {
   position: absolute;
-  top: 44%;
+  top: 42%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80vw;
   height: 65vh;
   border-radius: 24px;
   backdrop-filter: blur(20px) saturate(160%);
-  background: rgba(10, 10, 10, 0.45);
+  background: rgba(10, 10, 10, 0.4);
   overflow: hidden;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
+  animation: panelBreath 8s ease-in-out infinite;
 }
 
-/* outline-ul cinematic */
+/* “Respirația” subtilă: opacitate și blur care pulsează lent */
+@keyframes panelBreath {
+  0%, 100% {
+    backdrop-filter: blur(18px) saturate(150%);
+    background: rgba(10, 10, 10, 0.4);
+  }
+  50% {
+    backdrop-filter: blur(23px) saturate(180%);
+    background: rgba(10, 10, 10, 0.46);
+  }
+}
+
+/* Outline animat - undă albă care merge pe contur și revine */
 .glass-outline {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  z-index: 1;
-  pointer-events: none;
-  background: conic-gradient(
-    from 0deg,
-    rgba(255,255,255,0.05) 0deg,
-    rgba(255,255,255,0.8) 25deg,
-    rgba(255,255,255,0.05) 60deg,
-    rgba(255,255,255,0.05) 360deg
+  background: linear-gradient(90deg,
+    rgba(255,255,255,0.1) 0%,
+    rgba(255,255,255,0.9) 15%,
+    rgba(255,255,255,0.1) 30%,
+    rgba(255,255,255,0.1) 100%
   );
-  animation: smoothWave 9s linear infinite;
+  background-size: 300% 100%;
+  animation: outlineFlow 7s ease-in-out infinite;
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -158,13 +169,14 @@ body{
   padding: 2px;
 }
 
-/* unda albă care se deplasează smooth pe margine */
-@keyframes smoothWave {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* unda luminoasă smooth care se deplasează pe margine */
+@keyframes outlineFlow {
+  0%   { background-position: 300% 0; }
+  50%  { background-position: 0% 0; }
+  100% { background-position: 300% 0; }
 }
 
-/* interiorul panoului */
+/* interiorul */
 .glass-content {
   position: relative;
   width: 100%;
@@ -177,51 +189,56 @@ body{
   color: #eaeaea;
 }
 
-/* ==== SLOGAN REFINED ==== */
+/* ==== SLOGAN SOFT BLEND ==== */
 .slogan {
   text-align: left;
   user-select: none;
   line-height: 1.15;
   letter-spacing: 2px;
   opacity: 0;
-  transform: translateY(15px);
-  transition: opacity 1.8s ease, transform 1.8s ease;
+  transform: translateY(10px);
+  animation: fadeInSoft 2.4s ease forwards 1.5s;
 }
 
-.slogan.visible {
-  opacity: 1;
-  transform: translateY(0);
+/* smooth fade-in de apariție */
+@keyframes fadeInSoft {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .slogan-line {
   font-family: "Montserrat", sans-serif;
   font-weight: 800;
   text-transform: uppercase;
-  font-size: 3.6rem;
+  font-size: 3.4rem;
   background: linear-gradient(
     to right,
-    rgba(255,255,255,0.05) 0%,
-    rgba(255,255,255,0.6) 20%,
-    rgba(255,255,255,0.05) 40%,
-    rgba(255,255,255,0.6) 60%,
-    rgba(255,255,255,0.05) 100%
+    rgba(255,255,255,0.06) 0%,
+    rgba(255,255,255,0.7) 20%,
+    rgba(255,255,255,0.06) 40%,
+    rgba(255,255,255,0.7) 60%,
+    rgba(255,255,255,0.06) 100%
   );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200%;
-  animation: lightFlow 10s ease-in-out infinite;
-  text-shadow:
-    0 0 8px rgba(255,255,255,0.05),
-    0 0 14px rgba(0,0,0,0.6);
+  background-size: 250%;
+  animation: textFlow 12s ease-in-out infinite;
+  text-shadow: 0 0 8px rgba(255,255,255,0.08);
 }
 
 .bottom-line {
-  margin-top: 0.5em;
+  margin-top: 0.6em;
   font-size: 2.8rem;
 }
 
-/* unda lentă de lumină prin text */
-@keyframes lightFlow {
-  0%, 100% { background-position: 200% 0; }
-  50% { background-position: -200% 0; }
+/* mișcare lentă, naturală, prin text */
+@keyframes textFlow {
+  0%, 100% { background-position: 250% 0; }
+  50% { background-position: -250% 0; }
 }
