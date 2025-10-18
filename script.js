@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const loaderScreen = document.getElementById('loader-screen');
   const app = document.getElementById('app');
-  const titleWrap = document.querySelector('.main-title-wrap');
 
   // Loader transition
   setTimeout(() => {
@@ -11,16 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
       app.classList.remove('hidden');
       initStarfield();
       animate();
-
-      // Fade-in dramatic pentru text
-      setTimeout(() => {
-        titleWrap.style.opacity = '1';
-        titleWrap.style.animationPlayState = 'running';
-      }, 600);
     }, 900);
   }, 3000);
 
   let scene, camera, renderer, stars, starGeo;
+  let mouseX = 0, mouseY = 0, targetX = 0, targetY = 0;
 
   function initStarfield(){
     const canvas = document.getElementById('starfield');
@@ -65,6 +59,8 @@ document.addEventListener('DOMContentLoaded', () => {
     scene.add(stars);
 
     window.addEventListener("resize", onWindowResize);
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("touchmove", onTouchMove);
   }
 
   function generateSprite(){
@@ -91,8 +87,28 @@ document.addEventListener('DOMContentLoaded', () => {
       if(positions[i+2]>800) positions[i+2]=-800;
     }
     starGeo.attributes.position.needsUpdate=true;
-    if(stars) stars.rotation.y += 0.0005;
+    stars.rotation.y += 0.0005;
+
+    targetX += (mouseX - targetX) * 0.02;
+    targetY += (mouseY - targetY) * 0.02;
+    camera.position.x = targetX * 0.5;
+    camera.position.y = -targetY * 0.3;
+    camera.lookAt(0,0,0);
+
     renderer.render(scene,camera);
+  }
+
+  function onMouseMove(e){
+    mouseX = (e.clientX - window.innerWidth/2)/100;
+    mouseY = (e.clientY - window.innerHeight/2)/100;
+  }
+
+  function onTouchMove(e){
+    if(e.touches.length>0){
+      const t = e.touches[0];
+      mouseX = (t.clientX - window.innerWidth/2)/100;
+      mouseY = (t.clientY - window.innerHeight/2)/100;
+    }
   }
 
   function onWindowResize(){
