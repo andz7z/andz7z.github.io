@@ -1,21 +1,27 @@
-<!DOCTYPE html>
+echo ^<!-- index.html -->^
+<!doctype html>
 <html lang="ro">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Stele 3D — Landing</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Background Distort — GitHub-ready</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="canvas-container"></div>
+  <div id="bg" class="bg-layer"></div>
 
-  <div class="overlay">
-    <h1>Welcome</h1>
-    <p>Traverse the stars — mișcă mouse-ul pentru efect</p>
-  </div>
+  <main class="content">
+    <h1>Demo — Background Distort</h1>
+    <p>Mișcă mouse-ul pentru un efect subtil. Când îl iei, revine lin.</p>
+  </main>
 
-  <!-- three.js (CDN) -->
-  <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
+  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;">
+    <filter id="distortFilter">
+      <feTurbulence id="turbulence" baseFrequency="0.0001 0.0001" numOctaves="2" seed="1"/>
+      <feDisplacementMap id="displacement" in="SourceGraphic" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
   <script src="script.js"></script>
 </body>
-</html>
+</html> > index.html
