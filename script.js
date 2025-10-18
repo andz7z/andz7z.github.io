@@ -3,7 +3,39 @@
 document.addEventListener('DOMContentLoaded', () => {
   const loaderScreen = document.getElementById('loader-screen');
   const app = document.getElementById('app');
-  // const heroLines = document.querySelectorAll('.hero-line'); // Eliminat
+  const heroTitleElement = document.querySelector('.hero-title');
+  const heroSubtitleElement = document.querySelector('.hero-subtitle');
+
+  // Funcție pentru a descompune textul în span-uri per literă și cuvânt
+  function populateHeroTitle(element, textContent) {
+    element.innerHTML = ''; // Curățăm conținutul existent
+    const words = textContent.split(' ');
+    words.forEach((word, wordIndex) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.classList.add('word');
+      if (wordIndex < words.length - 1) { // Adaugă spațiu între cuvinte, dar nu după ultimul
+          wordSpan.innerHTML += word + '&nbsp;'; // Adaugăm cuvântul și un spațiu non-breaking
+      } else {
+          wordSpan.innerHTML += word;
+      }
+      
+      // Acum, descompunem fiecare cuvânt în litere individuale
+      wordSpan.innerHTML = ''; // Curățăm din nou pentru a adăuga span-uri per literă
+      Array.from(word).forEach(letter => {
+        const letterSpan = document.createElement('span');
+        letterSpan.classList.add('letter');
+        letterSpan.textContent = letter;
+        wordSpan.appendChild(letterSpan);
+      });
+
+      element.appendChild(wordSpan);
+    });
+  }
+
+  // Populăm titlul la început
+  populateHeroTitle(heroTitleElement, heroTitleElement.getAttribute('aria-label'));
+  const heroLetters = document.querySelectorAll('.hero-title .letter');
+
 
   // Loader + fade-in app
   setTimeout(() => {
@@ -21,15 +53,25 @@ document.addEventListener('DOMContentLoaded', () => {
       // fade-in pentru app (stele + hero content)
       setTimeout(() => {
         app.classList.add('active'); // clasa CSS .fade-in.active
-        // Blocul setTimeout pentru header a fost eliminat
+
+        // Animația de apariție a literelor individual
+        heroLetters.forEach((letter, index) => {
+          setTimeout(() => {
+            letter.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease-out';
+            letter.style.transform = 'translateY(0) rotateX(0deg)';
+            letter.style.opacity = '1';
+          }, index * 40); // Staggered delay for each letter
+        });
+
       }, 50);
 
     }, 900); // durata tranziției loader-ului
   }, 3000); // durata loader-ului
 
+
   let scene, camera, renderer, stars, starGeo;
   let raycaster, mouse;
-  let hoverIndex = -1;
+  let hoverIndex = -1; // Ne păstrăm hoverIndex pentru stele
 
   function initStarfield(){
     const canvas = document.getElementById('starfield');
@@ -121,10 +163,12 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.position.y = -targetY*0.4;
     camera.lookAt(0,0,0);
 
+    // Raycaster pentru stele - este menținut
     raycaster.setFromCamera(mouse,camera);
     const intersects = raycaster.intersectObject(stars);
     
-    // Logica if(intersects.length>0) care folosea heroLines a fost eliminată
+    // Logica pentru stele la hover poate fi adăugată aici, dacă e cazul
+    // Spre exemplu, stelele să-și schimbe culoarea sau mărimea la hover
 
     renderer.render(scene,camera);
   }
@@ -143,5 +187,3 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
 });
-
-/* === BLOCUL JS PENTRU HEADER A FOST ELIMINAT === */
