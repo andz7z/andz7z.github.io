@@ -1,192 +1,105 @@
-/* Main JS: Three.js Starfield + Loader transition + interactions */
+const canvas = document.getElementById("background");
+const gl = canvas.getContext("webgl");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const loaderScreen = document.getElementById('loader-screen');
-  const app = document.getElementById('app');
-  const heroLines = document.querySelectorAll('.hero-line');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-  // Loader + fade-in app
-  setTimeout(() => {
-    loaderScreen.classList.add('blur-out');
+const vertexShaderSrc = `
+attribute vec2 a_position;
+void main() {
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}
+`;
 
-    // după tranziția de blur
-    setTimeout(() => {
-      loaderScreen.style.display = 'none';
-      
-      // arată app și inițializează starfield
-      app.classList.remove('hidden');
-      initStarfield();
-      animate();
-      // fade-in pentru app (stele + hero content)
-      setTimeout(() => {
-        app.classList.add('active'); // clasa CSS .fade-in.active
-        // fade-in header + butoane după ce app e vizibil
-setTimeout(() => {
-  const header = document.getElementById('main-header');
-  header.classList.add('active'); // header devine vizibil
+const fragmentShaderSrc = `
+precision mediump float;
+uniform vec2 u_mouse;
+uniform vec2 u_resolution;
+uniform float u_time;
 
-  // animare butoane secvențial
-  const buttons = header.querySelectorAll('button');
-  buttons.forEach((btn, i) => {
-    setTimeout(() => {
-      btn.classList.add('active');
-    }, i * 150); // delay între fiecare buton
-  });
-}, 400); // puțin delay după fade-in-ul app-ului
+float noise(vec2 p){
+    return fract(sin(dot(p, vec2(12.9898,78.233))) * 43758.5453123);
+}
 
-      }, 50);
+float smoothNoise(vec2 p){
+    vec2 i = floor(p);
+    vec2 f = fract(p);
+    float a = noise(i);
+    float b = noise(i + vec2(1.0, 0.0));
+    float c = noise(i + vec2(0.0, 1.0));
+    float d = noise(i + vec2(1.0, 1.0));
+    vec2 u = f * f * (3.0 - 2.0 * f);
+    return mix(a, b, u.x) +
+           (c - a)*u.y*(1.0 - u.x) +
+           (d - b)*u.x*u.y;
+}
 
-    }, 900); // durata tranziției loader-ului
-  }, 3000); // durata loader-ului
+void main() {
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+    uv -= 0.5;
+    uv.x *= u_resolution.x / u_resolution.y;
+    
+    float t = u_time * 0.2;
+    float deform = smoothNoise(uv * 3.0 + t + u_mouse * 0.001);
+    deform += smoothNoise(uv * 5.0 - t * 1.5);
+    
+    float shade = smoothstep(0.2, 0.8, deform);
+    vec3 color = mix(vec3(0.02, 0.02, 0.02), vec3(0.07, 0.07, 0.07), shade);
+    
+    gl_FragColor = vec4(color, 1.0);
+}
+`;
 
-  let scene, camera, renderer, stars, starGeo;
-  let raycaster, mouse;
-  let hoverIndex = -1;
+function createShader(type, source) {
+  const shader = gl.createShader(type);
+  gl.shaderSource(shader, source);
+  gl.compileShader(shader);
+  return shader;
+}
 
-  function initStarfield(){
-    const canvas = document.getElementById('starfield');
-    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 1);
+const vertexShader = createShader(gl.VERTEX_SHADER, vertexShaderSrc);
+const fragmentShader = createShader(gl.FRAGMENT_SHADER, fragmentShaderSrc);
+const program = gl.createProgram();
 
-    scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 2000);
-    camera.position.z = 400;
+gl.attachShader(program, vertexShader);
+gl.attachShader(program, fragmentShader);
+gl.linkProgram(program);
+gl.useProgram(program);
 
-    const starsCount = 1200;
-    starGeo = new THREE.BufferGeometry();
-    const positions = new Float32Array(starsCount * 3);
-    const colors = new Float32Array(starsCount * 3);
-    const sizes = new Float32Array(starsCount);
+const vertices = new Float32Array([
+  -1, -1,
+  1, -1,
+  -1, 1,
+  -1, 1,
+  1, -1,
+  1, 1,
+]);
 
-    for(let i=0;i<starsCount;i++){
-      const r = 800;
-      const theta = Math.random()*Math.PI*2;
-      const phi = Math.acos((Math.random()*2)-1);
-      positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta)*0.6;
-      positions[i*3+2] = (Math.random()-0.5)*1200;
-      sizes[i] = Math.random()*2.4+0.6;
-      colors[i*3] = 1; colors[i*3+1]=1; colors[i*3+2]=1;
-    }
+const buffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
 
-    starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
-    starGeo.setAttribute('size', new THREE.BufferAttribute(sizes,1));
-    starGeo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+const aPosition = gl.getAttribLocation(program, "a_position");
+gl.enableVertexAttribArray(aPosition);
+gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
 
-    const sprite = generateSprite();
-    const material = new THREE.PointsMaterial({
-      size:3,
-      map:sprite,
-      blending:THREE.AdditiveBlending,
-      depthTest:true,
-      transparent:true,
-      vertexColors:true
-    });
+const uMouse = gl.getUniformLocation(program, "u_mouse");
+const uResolution = gl.getUniformLocation(program, "u_resolution");
+const uTime = gl.getUniformLocation(program, "u_time");
 
-    stars = new THREE.Points(starGeo, material);
-    scene.add(stars);
-
-    raycaster = new THREE.Raycaster();
-    mouse = new THREE.Vector2();
-
-    document.addEventListener('mousemove', onMouseMove);
-    window.addEventListener('resize', onWindowResize);
-  }
-
-  function generateSprite(){
-    const canvas = document.createElement('canvas');
-    canvas.width = 64; canvas.height = 64;
-    const ctx = canvas.getContext('2d');
-    const grad = ctx.createRadialGradient(32,32,2,32,32,30);
-    grad.addColorStop(0,'rgba(255,255,255,1)');
-    grad.addColorStop(0.2,'rgba(255,255,255,0.9)');
-    grad.addColorStop(0.6,'rgba(200,170,255,0.5)');
-    grad.addColorStop(1,'rgba(0,0,0,0)');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(32,32,30,0,Math.PI*2);
-    ctx.fill();
-    return new THREE.CanvasTexture(canvas);
-  }
-
-  let t=0;
-  let mouseX=0, mouseY=0, targetX=0, targetY=0;
-
-  function animate(){
-    requestAnimationFrame(animate);
-    t+=0.002;
-
-    if(stars) stars.rotation.y += 0.0005;
-
-    const positions = starGeo.attributes.position.array;
-    for(let i=0;i<positions.length;i+=3){
-      positions[i+2]+=0.3;
-      if(positions[i+2]>800) positions[i+2]=-800;
-    }
-    starGeo.attributes.position.needsUpdate=true;
-
-    targetX+=(mouseX-targetX)*0.02;
-    targetY+=(mouseY-targetY)*0.02;
-    camera.position.x = targetX*0.6;
-    camera.position.y = -targetY*0.4;
-    camera.lookAt(0,0,0);
-
-    raycaster.setFromCamera(mouse,camera);
-    const intersects = raycaster.intersectObject(stars);
-    if(intersects.length>0){
-      if(heroLines.length){
-        heroLines.forEach(line=>line.classList.remove('highlight'));
-        heroLines.forEach((line,i)=>{
-          if(i===0) line.classList.add('highlight'); // simplu demo
-        });
-      }
-    } else {
-      heroLines.forEach(line=>line.classList.remove('highlight'));
-    }
-
-    renderer.render(scene,camera);
-  }
-
-  function onMouseMove(e){
-    mouseX = (e.clientX - window.innerWidth/2);
-    mouseY = (e.clientY - window.innerHeight/2);
-    mouse.x = (e.clientX / window.innerWidth)*2-1;
-    mouse.y = -(e.clientY / window.innerHeight)*2+1;
-  }
-
-  function onWindowResize(){
-    if(!camera||!renderer) return;
-    camera.aspect = window.innerWidth/window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  }
+let mouse = { x: 0, y: 0 };
+window.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
 });
-document.addEventListener("DOMContentLoaded", () => {
-  const lines = document.querySelectorAll(".slogan-line");
-  lines.forEach(line => {
-    const chars = line.textContent.split("");
-    line.textContent = "";
-    chars.forEach(ch => {
-      const span = document.createElement("span");
-      // păstrează spațiile normale între cuvinte
-      span.textContent = ch === " " ? "\u00A0" : ch;
-      line.appendChild(span);
-    });
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const phoneBtn = document.getElementById("phoneBtn");
-  const phonePreview = document.getElementById("phonePreview");
 
-  phoneBtn.addEventListener("click", () => {
-    phonePreview.classList.toggle("active");
+function render(time) {
+  gl.uniform2f(uResolution, canvas.width, canvas.height);
+  gl.uniform2f(uMouse, mouse.x, mouse.y);
+  gl.uniform1f(uTime, time * 0.001);
 
-    if (phonePreview.classList.contains("active")) {
-      setTimeout(() => {
-        phonePreview.classList.remove("active");
-      }, 4000); // dispare automat după 4 secunde
-    }
-  });
-});
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+  requestAnimationFrame(render);
+}
+
+render();
