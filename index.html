@@ -3,35 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cinematic Scroll</title>
+  <title>Scroll Reveal</title>
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Colmeak&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="background"></div>
+  <div class="main-container">
+    <section class="hero">
+      <div class="hero-content fade-section">
+        <h1>Welcome to the Experience</h1>
+      </div>
+    </section>
 
-  <!-- HERO SECTION -->
-  <section class="hero-section fade-section">
-    <div class="intro-text">
-      <h2>Experience the Vision</h2>
-      <p>Scroll down to witness the signature touch of excellence.</p>
-    </div>
+    <section class="content fade-section">
+      <p>Descoperă designul, dezvoltarea și inovația redefinite.</p>
+    </section>
 
-    <!-- Bara blurată din partea de jos -->
-    <div class="bottom-blur"></div>
-  </section>
+    <!-- Bara blurată fixă -->
+    <div class="blur-bar"></div>
 
-  <!-- PANOU CINEMATIC -->
-  <section class="showcase fade-section">
-    <div class="center-panel"></div>
-
-    <!-- SLOGAN DEASUPRA PANOU -->
-    <div class="slogan">
-      Powerful <span class="highlight">design</span>. 
-      Relentless <span class="highlight">development</span>. 
-      One signature <span class="highlight">touch</span> that defines 
-      <span class="highlight-excellence">excellence</span>.
-    </div>
-  </section>
+    <!-- Panoul blurat care “iese” din bara de jos -->
+    <section class="blur-panel fade-section">
+      <h2 class="slogan">
+        Powerful design. Relentless development. One signature touch that defines excellence.
+      </h2>
+    </section>
+  </div>
 
   <script src="script.js"></script>
 </body>
