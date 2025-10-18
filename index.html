@@ -1,67 +1,94 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AndzoWorld — Concept Build Lead</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
-
-  <!-- Three.js -->
-  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
-
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AndzoWorld</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Loader -->
-  <div id="loader-screen" class="loader-screen">
-    <div class="loader-wrapper" aria-hidden="true">
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">d</span>
-      <span class="loader-letter">z</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">w</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">r</span>
-      <span class="loader-letter">l</span>
-      <span class="loader-letter">d</span>
-      <div class="loader"></div>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loader-wrapper">
+            <span class="loader-letter">A</span>
+            <span class="loader-letter">n</span>
+            <span class="loader-letter">d</span>
+            <span class="loader-letter">z</span>
+            <span class="loader-letter">o</span>
+            <span class="loader-letter">w</span>
+            <span class="loader-letter">o</span>
+            <span class="loader-letter">r</span>
+            <span class="loader-letter">l</span>
+            <span class="loader-letter">d</span>
+            <div class="loader"></div>
+        </div>
     </div>
-  </div>
 
-  <!-- App -->
-  <div id="app" class="app hidden fade-in">
-    <canvas id="starfield"></canvas>
+    <!-- Main Content -->
+    <div id="main-content" class="hidden">
+        <!-- Header -->
+        <header class="header">
+            <nav class="navbar">
+                <div class="nav-brand">AndzoWorld</div>
+                <ul class="nav-links">
+                    <li><a href="#about" class="nav-link">About Us</a></li>
+                    <li><a href="#services" class="nav-link">Services</a></li>
+                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                    <li><a href="#contact" class="nav-link">Contact Us</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="cta-button">Get Started</button>
+                </div>
+            </nav>
+        </header>
 
-    <!-- Overlay pentru blur în partea superioară -->
-    <div class="header-overlay"></div>
+        <!-- Hero Section -->
+        <section id="hero" class="section active">
+            <div class="hero-content">
+                <div class="slogan-container">
+                    <div class="slogan-3d">
+                        <span class="word-3d">Design.</span>
+                        <span class="word-3d">Develop.</span>
+                        <span class="word-3d">Deliver.</span>
+                    </div>
+                    <div class="sub-slogan">WE DO IT ALL</div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Conținut principal -->
-    <main class="hero">
-      <!-- Logo + text -->
-      <div class="logo-center">
-        <img src="assets/logos/iconita.gif" alt="Iconita Andz" class="brand-icon">
-        <span class="logo-text">ANDZ</span>
-      </div>
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>We are a creative team dedicated to delivering exceptional digital experiences.</p>
+            </div>
+        </section>
 
-      <!-- Text principal -->
-      <div class="main-title-wrap">
-        <h1 class="main-title">Design. Develop. Deliver</h1>
-        <h2 class="subtitle">WE DO IT ALL</h2>
-      </div>
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <div class="container">
+                <h2>Our Services</h2>
+                <p>From design to development, we've got you covered.</p>
+            </div>
+        </section>
 
-      <!-- Butoane -->
-      <div class="buttons-row">
-        <button class="button"><div class="wrap"><p><span>✧</span><span>✦</span>About Us</p></div></button>
-        <button class="button"><div class="wrap"><p><span>✧</span><span>✦</span>Services</p></div></button>
-        <button class="button"><div class="wrap"><p><span>✧</span><span>✦</span>Reviews</p></div></button>
-        <button class="button"><div class="wrap"><p><span>✧</span><span>✦</span>Contact Us</p></div></button>
-      </div>
-    </main>
-  </div>
+        <!-- Reviews Section -->
+        <section id="reviews" class="section">
+            <div class="container">
+                <h2>Client Reviews</h2>
+                <p>See what our clients say about our work.</p>
+            </div>
+        </section>
 
-  <script src="script.js"></script>
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Contact Us</h2>
+                <p>Get in touch with our team.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
