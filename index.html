@@ -1,55 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AndzoWorld — Concept Build Lead</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonlight Dev & Design | Landing Page</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    </head>
+<body class="dark-theme">
+    <div class="mouse-aura" id="mouseAura"></div>
 
-  <!-- Google Font: Montserrat ExtraBold -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <header class="hero-section">
+        <h1 class="title-glow">Web Dev & Graphic Design</h1>
+        <p class="subtitle">Creăm experiențe digitale cu o notă de eleganță întunecată.</p>
+        <nav class="main-nav">
+            <a href="#projects" class="nav-link">Proiecte</a>
+            <a href="#services" class="nav-link">Servicii</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+    </header>
 
-  <!-- Three.js from CDN -->
-  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
-
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- Loader -->
-  <div id="loader-screen" class="loader-screen">
-    <div class="loader-wrapper" aria-hidden="true">
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">d</span>
-      <span class="loader-letter">z</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">w</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">r</span>
-      <span class="loader-letter">l</span>
-      <span class="loader-letter">d</span>
-      <div class="loader"></div>
-    </div>
-  </div>
-
-  <!-- Main content -->
-  <div id="app" class="app hidden fade-in">
-    <canvas id="starfield"></canvas>
-    <main class="hero">
-      <div class="hero-inner">
-        <!-- Conținutul tău -->
-      </div>
+    <main class="content-wrapper">
+        <section id="services" class="card-section">
+            <div class="card depth-effect">
+                <h2>Dezvoltare Web</h2>
+                <p>Soluții front-end moderne (React, JS) și performante.</p>
+            </div>
+            <div class="card depth-effect">
+                <h2>Editare Grafică</h2>
+                <p>Design UX/UI, branding și materiale promoționale în stil "moonlight purple".</p>
+            </div>
+        </section>
     </main>
-  </div>
 
-<header id="main-header" class="modern-header">
-  <nav class="nav-menu">
-    <a href="#about" class="nav-link">About Us</a>
-    <a href="#services" class="nav-link">Services</a>
-    <a href="#reviews" class="nav-link">Reviews</a>
-    <a href="#contact" class="nav-link">Contact Us</a>
-  </nav>
-</header>
-
-  <script src="script.js"></script>
+    <script src="../assets/js/script.js"></script>
 </body>
 </html>
