@@ -1,230 +1,147 @@
-/* From Uiverse.io by dexter-st */
-:root{
-  --bg:#000;
-  --text-dark:#0a0a0a;
-  --accent-purple:#471eec;
-  --accent-purple-dark:#311e80;
-  --highlight-white:#ffffff;
-  --slogan-color: #ffffff; /* Culoare de bază: Alb */
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
-body{
-  background:var(--bg);
-  font-family: "Montserrat", "Inter", sans-serif;
-  overflow:hidden;
-  color:#fff;
-  /* Activez perspective-ul pe body/app pentru animațiile 3D ale textului */
-  perspective: 1000px;
-}
+/* Main JS: Three.js Starfield + Loader transition + interactions */
 
-/* Loader screen (Fără modificări) */
-.loader-screen{
-  position:fixed;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:var(--bg);
-  z-index:50;
-  transition:backdrop-filter 0.9s ease, opacity 0.9s ease;
-}
-.loader-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 200px;
-  font-family: "Inter", sans-serif;
-  font-size: 1.2em;
-  font-weight: 300;
-  color: white;
-  border-radius: 50%;
-  background-color: transparent;
-  user-select: none;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const loaderScreen = document.getElementById('loader-screen');
+  const app = document.getElementById('app');
+  // const heroLines = document.querySelectorAll('.hero-line'); // Eliminat
 
-.loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background-color: transparent;
-  animation: loader-rotate 2s linear infinite;
-  z-index: 0;
-}
+  // Loader + fade-in app
+  setTimeout(() => {
+    loaderScreen.classList.add('blur-out');
 
-@keyframes loader-rotate {
-  0% {
-    transform: rotate(90deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
+    // după tranziția de blur
+    setTimeout(() => {
+      loaderScreen.style.display = 'none';
+      
+      // arată app și inițializează starfield
+      app.classList.remove('hidden');
+      initStarfield();
+      animate();
+
+      // fade-in pentru app (stele + hero content)
+      setTimeout(() => {
+        app.classList.add('active'); // clasa CSS .fade-in.active
+        // Blocul setTimeout pentru header a fost eliminat
+      }, 50);
+
+    }, 900); // durata tranziției loader-ului
+  }, 3000); // durata loader-ului
+
+  let scene, camera, renderer, stars, starGeo;
+  let raycaster, mouse;
+  let hoverIndex = -1;
+
+  function initStarfield(){
+    const canvas = document.getElementById('starfield');
+    renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 1);
+
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth/window.innerHeight, 0.1, 2000);
+    camera.position.z = 400;
+
+    const starsCount = 1200;
+    starGeo = new THREE.BufferGeometry();
+    const positions = new Float32Array(starsCount * 3);
+    const colors = new Float32Array(starsCount * 3);
+    const sizes = new Float32Array(starsCount);
+
+    for(let i=0;i<starsCount;i++){
+      const r = 800;
+      const theta = Math.random()*Math.PI*2;
+      const phi = Math.acos((Math.random()*2)-1);
+      positions[i*3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta)*0.6;
+      positions[i*3+2] = (Math.random()-0.5)*1200;
+      sizes[i] = Math.random()*2.4+0.6;
+      colors[i*3] = 1; colors[i*3+1]=1; colors[i*3+2]=1;
+    }
+
+    starGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+    starGeo.setAttribute('size', new THREE.BufferAttribute(sizes,1));
+    starGeo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+
+    const sprite = generateSprite();
+    const material = new THREE.PointsMaterial({
+      size:3,
+      map:sprite,
+      blending:THREE.AdditiveBlending,
+      depthTest:true,
+      transparent:true,
+      vertexColors:true
+    });
+
+    stars = new THREE.Points(starGeo, material);
+    scene.add(stars);
+
+    raycaster = new THREE.Raycaster();
+    mouse = new THREE.Vector2();
+
+    document.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('resize', onWindowResize);
   }
-  50% {
-    transform: rotate(270deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 10px 0 #d60a47 inset,
-      0 40px 60px 0 #311e80 inset;
+
+  function generateSprite(){
+    const canvas = document.createElement('canvas');
+    canvas.width = 64; canvas.height = 64;
+    const ctx = canvas.getContext('2d');
+    const grad = ctx.createRadialGradient(32,32,2,32,32,30);
+    grad.addColorStop(0,'rgba(255,255,255,1)');
+    grad.addColorStop(0.2,'rgba(255,255,255,0.9)');
+    grad.addColorStop(0.6,'rgba(200,170,255,0.5)');
+    grad.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(32,32,30,0,Math.PI*2);
+    ctx.fill();
+    return new THREE.CanvasTexture(canvas);
   }
-  100% {
-    transform: rotate(450deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
-  }
-}
 
-.loader-letter {
-  display: inline-block;
-  opacity: 0.4;
-  transform: translateY(0);
-  animation: loader-letter-anim 2s infinite;
-  z-index: 1;
-  border-radius: 50ch;
-  border: none;
-  margin: 0 2px;
-  font-weight:700;
-  letter-spacing:2px;
-}
+  let t=0;
+  let mouseX=0, mouseY=0, targetX=0, targetY=0;
 
-.loader-letter:nth-child(1) { animation-delay: 0s; }
-.loader-letter:nth-child(2) { animation-delay: 0.1s; }
-.loader-letter:nth-child(3) { animation-delay: 0.2s; }
-.loader-letter:nth-child(4) { animation-delay: 0.3s; }
-.loader-letter:nth-child(5) { animation-delay: 0.4s; }
-.loader-letter:nth-child(6) { animation-delay: 0.5s; }
-.loader-letter:nth-child(7) { animation-delay: 0.6s; }
-.loader-letter:nth-child(8) { animation-delay: 0.7s; }
-.loader-letter:nth-child(9) { animation-delay: 0.8s }
+  function animate(){
+    requestAnimationFrame(animate);
+    t+=0.002;
 
-@keyframes loader-letter-anim {
-  0%, 100% { opacity: 0.3; transform: translateY(0); }
-  20% { opacity: 1; transform: scale(1.12); }
-  40% { opacity: 0.6; transform: translateY(0); }
-}
+    if(stars) stars.rotation.y += 0.0005;
 
-/* Blur-out class */
-.loader-screen.blur-out {
-  opacity: 0;
-  backdrop-filter: blur(10px);
-  pointer-events: none;
-}
+    const positions = starGeo.attributes.position.array;
+    for(let i=0;i<positions.length;i+=3){
+      positions[i+2]+=0.3;
+      if(positions[i+2]>800) positions[i+2]=-800;
+    }
+    starGeo.attributes.position.needsUpdate=true;
 
-/* App */
-.app{position:fixed;inset:0;overflow:hidden}
-.app.hidden{display:none}
+    targetX+=(mouseX-targetX)*0.02;
+    targetY+=(mouseY-targetY)*0.02;
+    camera.position.x = targetX*0.6;
+    camera.position.y = -targetY*0.4;
+    camera.lookAt(0,0,0);
 
-/* Canvas */
-#starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-
-/* === HERO SECTION ȘI SLOGAN 3D === */
-.hero {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  padding: 0 5%;
-}
-
-.hero-inner {
-  display: flex;
-  width: 100%;
-  max-width: 1400px;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.slogan-container {
-  /* Aliniere stânga și pregătire 3D */
-  text-align: left;
-  transform-style: preserve-3d;
-  perspective: 1000px;
-  /* Setează o lățime maximă pentru a lăsa spațiu dreapta */
-  max-width: 50%;
-  padding-left: 20px;
-}
-
-.slogan-line {
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(3.5rem, 8vw, 7.5rem); /* Responsive font size */
-  font-weight: 900;
-  line-height: 1.1;
-  color: var(--slogan-color);
-  
-  /* Text Shadow / Glow alb-mov */
-  text-shadow: 
-    0 0 10px rgba(255, 255, 255, 0.4), /* Glow alb */
-    0 0 20px var(--accent-purple),    /* Glow mov */
-    0 0 40px rgba(71, 30, 236, 0.7);
+    raycaster.setFromCamera(mouse,camera);
+    const intersects = raycaster.intersectObject(stars);
     
-  /* Setări 3D */
-  transform-style: preserve-3d;
-  transform: rotateX(0deg) rotateY(0deg);
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Smooth transition */
-  
-  /* Efect de adâncime 3D (Text Stroke) */
-  &::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--accent-purple-dark); /* Contur mov */
-    opacity: 0.8;
-    /* Deplasare pe axa Z pentru a crea adâncimea */
-    transform: translateZ(-5px); 
+    // Logica if(intersects.length>0) care folosea heroLines a fost eliminată
+
+    renderer.render(scene,camera);
   }
-}
 
-/* Efect de hover pe container pentru a anima întregul text 3D */
-.slogan-container:hover .slogan-line {
-    transform: rotateX(5deg) rotateY(5deg) translateZ(10px);
-}
-.slogan-container:hover .slogan-line.line-1 { transform: rotateX(5deg) rotateY(5deg) translateZ(15px); }
-.slogan-container:hover .slogan-line.line-2 { transform: rotateX(5deg) rotateY(5deg) translateZ(10px); }
-.slogan-container:hover .slogan-line.line-3 { transform: rotateX(5deg) rotateY(5deg) translateZ(5px); }
-
-.slogan-subtext {
-  font-family: 'Inter', sans-serif;
-  font-size: clamp(1.2rem, 2.5vw, 2.2rem);
-  font-weight: 300;
-  margin-top: 20px;
-  color: #ffffff90;
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-}
-
-/* Placeholder pentru conținutul viitor din dreapta */
-.right-content-placeholder {
-  width: 45%;
-  height: 50vh;
-  /* Poți adăuga un fundal subtil aici pentru a vedea spațiul */
-  /* background: rgba(71, 30, 236, 0.1); */
-}
-
-/* Responsive (Asigură o vizualizare bună pe mobil) */
-@media (max-width: 900px) {
-  .hero-inner {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+  function onMouseMove(e){
+    mouseX = (e.clientX - window.innerWidth/2);
+    mouseY = (e.clientY - window.innerHeight/2);
+    mouse.x = (e.clientX / window.innerWidth)*2-1;
+    mouse.y = -(e.clientY / window.innerHeight)*2+1;
   }
-  .slogan-container, .right-content-placeholder {
-    max-width: 90%;
-    width: 100%;
-    text-align: center;
-    padding-left: 0;
-  }
-  .slogan-line::before { -webkit-text-stroke: 0.5px var(--accent-purple-dark); }
-}
 
-/* Am eliminat stilurile .header-oval, .header-inner, .nav-btn, .brand-icon-gif */
+  function onWindowResize(){
+    if(!camera||!renderer) return;
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+});
+
+/* === BLOCUL JS PENTRU HEADER A FOST ELIMINAT === */
