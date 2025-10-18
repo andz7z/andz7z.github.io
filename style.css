@@ -120,47 +120,47 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* ==== GLASS PANEL FINAL ==== */
+/* ==== GLASS PANEL CENTRAT FINAL ==== */
 .glass-panel {
   position: absolute;
-  top: 42%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 80vw;
-  height: 65vh;
+  height: 78vh; /* puțin mai înalt */
   border-radius: 24px;
   backdrop-filter: blur(20px) saturate(160%);
-  background: rgba(10, 10, 10, 0.4);
+  background: rgba(10, 10, 10, 0.42);
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.5);
-  animation: panelBreath 8s ease-in-out infinite;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.55);
+  animation: panelBreath 10s ease-in-out infinite;
 }
 
-/* “Respirația” subtilă: opacitate și blur care pulsează lent */
+/* efect subtil de respirație */
 @keyframes panelBreath {
   0%, 100% {
     backdrop-filter: blur(18px) saturate(150%);
-    background: rgba(10, 10, 10, 0.4);
+    background: rgba(10, 10, 10, 0.42);
   }
   50% {
-    backdrop-filter: blur(23px) saturate(180%);
-    background: rgba(10, 10, 10, 0.46);
+    backdrop-filter: blur(24px) saturate(180%);
+    background: rgba(10, 10, 10, 0.47);
   }
 }
 
-/* Outline animat - undă albă care merge pe contur și revine */
+/* Outline elegant cu o singură trecere lentă */
 .glass-outline {
   position: absolute;
   inset: 0;
   border-radius: inherit;
   background: linear-gradient(90deg,
     rgba(255,255,255,0.1) 0%,
-    rgba(255,255,255,0.9) 15%,
+    rgba(255,255,255,0.85) 15%,
     rgba(255,255,255,0.1) 30%,
     rgba(255,255,255,0.1) 100%
   );
   background-size: 300% 100%;
-  animation: outlineFlow 7s ease-in-out infinite;
+  animation: outlineFlow 18s linear infinite;
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
@@ -169,47 +169,32 @@ body{
   padding: 2px;
 }
 
-/* unda luminoasă smooth care se deplasează pe margine */
+/* se deplasează doar într-o direcție, lent și fluent */
 @keyframes outlineFlow {
   0%   { background-position: 300% 0; }
-  50%  { background-position: 0% 0; }
-  100% { background-position: 300% 0; }
+  100% { background-position: 0% 0; }
 }
 
-/* interiorul */
 .glass-content {
   position: relative;
   width: 100%;
   height: 100%;
   z-index: 2;
-  padding: 3rem 3.5rem;
+  padding: 3rem 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: #eaeaea;
 }
 
-/* ==== SLOGAN SOFT BLEND ==== */
+/* ==== SLOGAN FINAL SOFT ==== */
 .slogan {
   text-align: left;
   user-select: none;
   line-height: 1.15;
   letter-spacing: 2px;
-  opacity: 0;
-  transform: translateY(10px);
-  animation: fadeInSoft 2.4s ease forwards 1.5s;
-}
-
-/* smooth fade-in de apariție */
-@keyframes fadeInSoft {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  opacity: 1; /* fără fade */
+  transform: none;
 }
 
 .slogan-line {
@@ -228,8 +213,15 @@ body{
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 250%;
-  animation: textFlow 12s ease-in-out infinite;
+  animation: textFlow 14s ease-in-out infinite;
   text-shadow: 0 0 8px rgba(255,255,255,0.08);
+  transition: transform 0.3s ease;
+}
+
+/* Efect de mișcare luminoasă subtilă în text */
+@keyframes textFlow {
+  0%   { background-position: 250% 0; }
+  100% { background-position: -250% 0; }
 }
 
 .bottom-line {
@@ -237,8 +229,12 @@ body{
   font-size: 2.8rem;
 }
 
-/* mișcare lentă, naturală, prin text */
-@keyframes textFlow {
-  0%, 100% { background-position: 250% 0; }
-  50% { background-position: -250% 0; }
+/* ===== Efect de mărire la hover pe litere ===== */
+.slogan-line span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.slogan-line span:hover {
+  transform: scale(1.1);
 }
