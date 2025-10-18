@@ -247,129 +247,93 @@ body{
 .slogan-line span:hover {
   transform: scale(1.12);
 }
-/* ==== WHATSAPP CONTACT TOOLTIP ==== */
-.whatsapp-contact {
-  position: fixed;
-  top: 50%;
-  left: 70px; /* exact între marginea ecranului și panoul blurat */
-  transform: translateY(-50%);
-  z-index: 60;
-}
-
-/* ascuns implicit */
-.whatsapp-contact .tooltip {
+/* ===== SOCIAL BAR STYLE ===== */
+.social-bar {
   position: absolute;
-  top: 0;
+  top: 25px;
   left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.4s ease;
-  pointer-events: none;
-}
-
-/* apare doar la hover */
-.whatsapp-contact:hover .tooltip {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(-120px);
-  pointer-events: auto;
-}
-
-/* card-ul tooltip */
-.whatsapp-contact .profile {
-  background: #25d366;
-  border: 1px solid #128c7e;
-  border-radius: 15px;
-  padding: 18px 20px;
-  width: 230px;
-  color: #fff;
-  box-shadow:
-    0 0 25px rgba(37, 211, 102, 0.3),
-    0 0 40px rgba(18, 140, 126, 0.25);
-}
-
-/* user info */
-.whatsapp-contact .user {
+  transform: translateX(-50%);
   display: flex;
-  align-items: center;
-  gap: 10px;
+  gap: 18px;
+  z-index: 100;
 }
 
-.whatsapp-contact .img {
+/* Base style */
+.button {
+  cursor: pointer;
   width: 50px;
   height: 50px;
-  font-size: 22px;
-  font-weight: 700;
-  border: 2px solid #25d366;
-  border-radius: 10px;
+  border-radius: 50px;
+  border: none;
+  position: relative;
+  z-index: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  color: #25d366;
+  transition: 0.2s;
 }
 
-.whatsapp-contact .name {
-  font-size: 18px;
-  font-weight: 700;
+.button svg {
+  width: 26px;
+  height: 26px;
+  color: white;
+  z-index: 2;
 }
 
-.whatsapp-contact .username {
-  font-size: 15px;
-  color: #e0f7df;
-}
-
-.whatsapp-contact .about {
-  color: #fff;
-  padding-top: 6px;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.whatsapp-contact .platform {
-  color: #aaf2bf;
-  font-size: 13px;
-  margin-top: 3px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* iconita principala */
-.whatsappSVG {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.button::before {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  background-color: #212121;
   border-radius: 50%;
-  background: radial-gradient(circle, #25d366 20%, #128c7e 90%);
-  box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
-  animation: breatheGlow 4s ease-in-out infinite;
+  z-index: -1;
+  transition: 0.4s;
 }
 
-/* efect de "respirație" */
-@keyframes breatheGlow {
-  0%, 100% { box-shadow: 0 0 15px rgba(37, 211, 102, 0.4); }
-  50% { box-shadow: 0 0 30px rgba(37, 211, 102, 0.8); }
+.button:hover::before {
+  width: 0;
+  height: 0;
 }
 
-.whatsapp-contact .icon .layer {
-  width: 60px;
-  height: 60px;
-  border: 3px solid #25d366;
+.button:active {
+  transform: scale(0.88);
+}
+
+/* ===== COLORS ===== */
+.whatsapp {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+}
+
+.youtube {
+  background: linear-gradient(135deg, #ff0000, #cc0000);
+}
+
+.github {
+  background: linear-gradient(135deg, #333, #000);
+}
+
+.linkedin {
+  background: linear-gradient(135deg, #0077b5, #004f7c);
+}
+
+.gmail {
+  background: linear-gradient(135deg, #ea4335, #c5221f);
+}
+
+/* pulse ring subtle effect */
+.button::after {
+  content: "";
+  position: absolute;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
-  transition: transform 0.3s, box-shadow 0.3s;
-  box-shadow: 0 0 20px rgba(37, 211, 102, 0.6),
-              0 0 40px rgba(37, 211, 102, 0.3);
+  background: rgba(255,255,255,0.05);
+  z-index: -2;
+  animation: pulse 3s ease-in-out infinite;
 }
 
-.whatsapp-contact .icon:hover .layer {
-  transform: rotate(-35deg) skew(20deg);
-  box-shadow: 0 0 35px rgba(37, 211, 102, 1),
-              0 0 55px rgba(37, 211, 102, 0.8);
-}
-
-.whatsapp-contact .icon .text {
-  color: #25d366;
-  font-weight: 600;
-  font-size: 14px;
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 0.2; }
 }
