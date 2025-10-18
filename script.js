@@ -199,4 +199,3 @@ renderer.domElement.style.pointerEvents = 'none';
 // Accessibility: allow keyboard focus to slogan (so it's discoverable)
 const sloganEl = document.getElementById('slogan');
 sloganEl.setAttribute('tabindex', '0');
--
