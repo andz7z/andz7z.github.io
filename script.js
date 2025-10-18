@@ -4,25 +4,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const loaderScreen = document.getElementById('loader-screen');
   const app = document.getElementById('app');
   const heroTitleElement = document.querySelector('.hero-title');
-  const heroSubtitleElement = document.querySelector('.hero-subtitle');
+  const heroSubtitleElement = document.querySelector('.hero-subtitle'); // Selectăm și subtitlul
+  
+  let globalLetterIndex = 0; // Index global pentru decalajul animației "float"
 
-  // Funcție pentru a descompune textul în span-uri per literă și cuvânt
-  function populateHeroTitle(element, textContent) {
+  // MODIFICAT: Funcție generalizată
+  function splitTextIntoLetters(element, textContent) {
     element.innerHTML = ''; // Curățăm conținutul existent
     const words = textContent.split(' ');
-    let globalLetterIndex = 0; // Index global pentru decalaj
-
+    
     words.forEach((word) => {
       const wordSpan = document.createElement('span');
       wordSpan.classList.add('word');
       
-      // Acum, descompunem fiecare cuvânt în litere individuale
       Array.from(word).forEach((letter) => {
         const letterSpan = document.createElement('span');
         letterSpan.classList.add('letter');
         letterSpan.textContent = letter;
         
-        // MODIFICAT: Adăugăm o variabilă CSS pentru decalajul animației "float"
         letterSpan.style.setProperty('--letter-delay', `${globalLetterIndex * 0.07}s`); 
         
         wordSpan.appendChild(letterSpan);
@@ -33,9 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Populăm titlul la început
-  populateHeroTitle(heroTitleElement, heroTitleElement.getAttribute('aria-label'));
-  const heroLetters = document.querySelectorAll('.hero-title .letter');
+  // Populăm ambele elemente
+  splitTextIntoLetters(heroTitleElement, heroTitleElement.getAttribute('aria-label'));
+  splitTextIntoLetters(heroSubtitleElement, heroSubtitleElement.getAttribute('aria-label')); // MODIFICAT: Apelăm și pentru subtitlu
+
+  // MODIFICAT: Selectăm TOATE literele
+  const allHeroLetters = document.querySelectorAll('.hero-title .letter, .hero-subtitle .letter');
 
 
   // Loader + fade-in app
@@ -55,10 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         app.classList.add('active'); // clasa CSS .fade-in.active
 
-        // Animația de apariție a literelor individual
-        heroLetters.forEach((letter, index) => {
+        // MODIFICAT: Animăm TOATE literele
+        allHeroLetters.forEach((letter, index) => {
           setTimeout(() => {
-            // Aplicăm tranziția DOAR pentru animația de intrare
             letter.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease-out';
             letter.style.transform = 'translateY(0) rotateX(0deg)';
             letter.style.opacity = '1';
