@@ -10,22 +10,23 @@ document.addEventListener('DOMContentLoaded', () => {
   function populateHeroTitle(element, textContent) {
     element.innerHTML = ''; // Curățăm conținutul existent
     const words = textContent.split(' ');
-    words.forEach((word, wordIndex) => {
+    let globalLetterIndex = 0; // Index global pentru decalaj
+
+    words.forEach((word) => {
       const wordSpan = document.createElement('span');
       wordSpan.classList.add('word');
-      if (wordIndex < words.length - 1) { // Adaugă spațiu între cuvinte, dar nu după ultimul
-          wordSpan.innerHTML += word + '&nbsp;'; // Adaugăm cuvântul și un spațiu non-breaking
-      } else {
-          wordSpan.innerHTML += word;
-      }
       
       // Acum, descompunem fiecare cuvânt în litere individuale
-      wordSpan.innerHTML = ''; // Curățăm din nou pentru a adăuga span-uri per literă
-      Array.from(word).forEach(letter => {
+      Array.from(word).forEach((letter) => {
         const letterSpan = document.createElement('span');
         letterSpan.classList.add('letter');
         letterSpan.textContent = letter;
+        
+        // MODIFICAT: Adăugăm o variabilă CSS pentru decalajul animației "float"
+        letterSpan.style.setProperty('--letter-delay', `${globalLetterIndex * 0.07}s`); 
+        
         wordSpan.appendChild(letterSpan);
+        globalLetterIndex++; // Incrementăm indexul global
       });
 
       element.appendChild(wordSpan);
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Animația de apariție a literelor individual
         heroLetters.forEach((letter, index) => {
           setTimeout(() => {
+            // Aplicăm tranziția DOAR pentru animația de intrare
             letter.style.transition = 'transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease-out';
             letter.style.transform = 'translateY(0) rotateX(0deg)';
             letter.style.opacity = '1';
@@ -71,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let scene, camera, renderer, stars, starGeo;
   let raycaster, mouse;
-  let hoverIndex = -1; // Ne păstrăm hoverIndex pentru stele
+  let hoverIndex = -1; 
 
   function initStarfield(){
     const canvas = document.getElementById('starfield');
@@ -163,13 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
     camera.position.y = -targetY*0.4;
     camera.lookAt(0,0,0);
 
-    // Raycaster pentru stele - este menținut
     raycaster.setFromCamera(mouse,camera);
     const intersects = raycaster.intersectObject(stars);
     
-    // Logica pentru stele la hover poate fi adăugată aici, dacă e cazul
-    // Spre exemplu, stelele să-și schimbe culoarea sau mărimea la hover
-
     renderer.render(scene,camera);
   }
 
