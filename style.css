@@ -120,66 +120,93 @@ body{
 
 /* Canvas */
 #starfield{position:absolute;inset:0;width:100%;height:100%;display:block;transform-style:preserve-3d;}
-/* ===== SLOGAN SECTION ===== */
+/* ==== SLOGAN REFACUT ==== */
 .slogan {
   position: absolute;
-  top: 50%;
-  left: 10%;
-  transform: translateY(-50%);
-  color: #2b2b2b; /* gri foarte închis */
+  top: 48%;
+  left: 8%;
+  transform: translateY(-50%) perspective(600px) rotateY(-12deg);
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
-  line-height: 1.3;
+  user-select: none;
+  line-height: 1.1;
   letter-spacing: 2px;
 }
 
-.glow-text {
-  font-size: 2.8rem;
-  font-weight: 800;
-  background: linear-gradient(90deg, #1a1a1a 0%, #ffffff 50%, #1a1a1a 100%);
+.slogan-line {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #111; /* aproape negru */
+  position: relative;
+  display: inline-block;
+  background: linear-gradient(
+    90deg,
+    #0a0a0a 0%,
+    #0a0a0a 30%,
+    #fff 50%,
+    #0a0a0a 70%,
+    #0a0a0a 100%
+  );
+  background-size: 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-size: 200%;
-  animation: lightSweep 6s linear infinite;
+  animation: shineSweep 10s linear infinite;
+  text-shadow: 0 0 15px rgba(255,255,255,0.05);
 }
 
-/* efectul de trecere al luminii */
-@keyframes lightSweep {
+.bottom-line {
+  font-size: 3rem;
+  margin-top: 0.6em;
+  display: block;
+  transform: translateX(0.5em);
+  color: #0a0a0a;
+}
+
+/* Efectul de lumină lent, care trece peste 3-5 litere */
+@keyframes shineSweep {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
-.glow-text span {
-  color: inherit;
-  font-weight: 900;
+/* Efect 3D subtil */
+.slogan-line::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  color: rgba(0,0,0,0.6);
+  z-index: -1;
 }
 
-/* Sparkling effect on TOUCH */
+/* === Sparkle pe TOUCH === */
 .sparkle {
   position: relative;
-  display: inline-block;
-  transition: filter 0.3s ease;
+  color: #222;
+  text-shadow:
+    0 0 3px rgba(255,255,255,0.2),
+    0 0 5px rgba(255,255,255,0.15);
+  transition: all 0.3s ease;
 }
 
 .sparkle::after {
   content: '';
   position: absolute;
-  top: -20%;
-  left: -10%;
-  width: 120%;
-  height: 140%;
-  background: radial-gradient(circle, rgba(255,255,255,0.9) 10%, transparent 60%);
+  top: -40%;
+  left: -30%;
+  width: 160%;
+  height: 180%;
+  background: radial-gradient(circle, rgba(255,255,255,0.9) 10%, transparent 70%);
   opacity: 0;
-  transform: scale(0.3);
+  transform: scale(0.2);
   pointer-events: none;
 }
 
 .sparkle:hover::after {
-  animation: sparkleAnim 1.2s ease-out;
+  animation: sparkleFlash 1.4s ease-out;
 }
 
-@keyframes sparkleAnim {
+@keyframes sparkleFlash {
   0% { opacity: 0; transform: scale(0.3) rotate(0deg); }
-  40% { opacity: 1; transform: scale(1.2) rotate(120deg); }
-  100% { opacity: 0; transform: scale(1.6) rotate(240deg); }
+  30% { opacity: 1; transform: scale(1.2) rotate(60deg); }
+  100% { opacity: 0; transform: scale(1.6) rotate(120deg); }
 }
