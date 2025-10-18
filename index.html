@@ -1,27 +1,22 @@
-echo ^<!-- index.html -->^
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Background Distort — GitHub-ready</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Background Cinematic</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="bg" class="bg-layer"></div>
+  <div class="background"></div>
 
-  <main class="content">
-    <h1>Demo — Background Distort</h1>
-    <p>Mișcă mouse-ul pentru un efect subtil. Când îl iei, revine lin.</p>
-  </main>
-
-  <svg xmlns="http://www.w3.org/2000/svg" style="position:absolute;width:0;height:0;">
-    <filter id="distortFilter">
-      <feTurbulence id="turbulence" baseFrequency="0.0001 0.0001" numOctaves="2" seed="1"/>
-      <feDisplacementMap id="displacement" in="SourceGraphic" scale="0" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
+  <div class="center-panel">
+    <div class="outline"></div>
+    <div class="content">
+      <h1>Bun venit!</h1>
+      <p>Aici vor apărea secțiunile tale...</p>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
-</html> > index.html
+</html>
