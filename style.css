@@ -247,51 +247,74 @@ body, html {
   top: calc(40% + 80px); /* fix sub titlu */
   left: 50%;
   transform: translateX(-50%);
-  padding: 6px 18px;
+  padding: 6px 20px;
   font-family: 'Noverich', sans-serif;
   font-size: 1rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.07);
   border-radius: 10px;
-  backdrop-filter: blur(8px) saturate(180%);
-  -webkit-backdrop-filter: blur(8px) saturate(180%);
-  overflow: hidden;
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
   box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1),
-              0 0 12px rgba(255, 255, 255, 0.05);
+              0 0 15px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  cursor: default;
+  transition: box-shadow 0.5s ease, transform 0.3s ease;
 }
 
-/* Conturul care pulsează pe margini */
+/* Efect la hover: glow pulsant */
+.concept-tag:hover {
+  box-shadow: 
+    0 0 20px rgba(255, 255, 255, 0.3),
+    inset 0 0 15px rgba(255, 255, 255, 0.15);
+  transform: translateX(-50%) scale(1.05);
+  animation: tagPulse 1.5s ease-in-out infinite alternate;
+}
+
+/* Glow breathing la hover */
+@keyframes tagPulse {
+  0% {
+    box-shadow: 
+      0 0 20px rgba(255, 255, 255, 0.25),
+      inset 0 0 10px rgba(255, 255, 255, 0.05);
+  }
+  100% {
+    box-shadow: 
+      0 0 35px rgba(255, 255, 255, 0.4),
+      inset 0 0 20px rgba(255, 255, 255, 0.15);
+  }
+}
+
+/* Conturul luminos care merge pe toate laturile */
 .tag-outline {
   position: absolute;
   inset: 0;
   border-radius: 10px;
-  border: 1px solid transparent;
   pointer-events: none;
-  animation: outline-border 3s linear infinite;
-  mask:
-    conic-gradient(from 0deg, #fff 0deg 5deg, transparent 5deg 360deg) content-box,
-    conic-gradient(from 0deg, #fff 0deg 5deg, transparent 5deg 360deg);
-  -webkit-mask:
-    conic-gradient(from 0deg, #fff 0deg 5deg, transparent 5deg 360deg) content-box,
-    conic-gradient(from 0deg, #fff 0deg 5deg, transparent 5deg 360deg);
-  mask-composite: intersect;
-  -webkit-mask-composite: destination-in;
-  background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.3), transparent);
 }
 
-/* Animația luminii care merge pe toate laturile */
-@keyframes outline-border {
-  0% {
-    transform: rotate(0deg);
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    transform: rotate(360deg);
-    opacity: 0.8;
-  }
+.tag-outline::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  background: linear-gradient(0deg, transparent, rgba(255,255,255,0.9), transparent);
+  animation: borderRotate 4s linear infinite;
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+}
+
+/* Animația liniei care traversează toate marginile */
+@keyframes borderRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
