@@ -4,25 +4,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const vision = document.getElementById("vision-text");
   const content = document.querySelector(".content");
 
-  // 1️⃣ Setăm content inițial ascuns
+  // 1️⃣ Ascundem landing și content din start
   landing.classList.add("hidden");
-  content.classList.add("hidden");
+  content.style.opacity = "0";
+  content.style.pointerEvents = "none";
 
-  // 2️⃣ Loader fade + blur după 3 secunde
+  // 2️⃣ Loader fade + blur
   setTimeout(() => {
     loader.style.filter = "blur(15px)";
     loader.style.opacity = "0";
 
-    // 3️⃣ După 1 secundă ascundem loader-ul și afișăm landing
     setTimeout(() => {
       loader.style.display = "none";
       landing.classList.remove("hidden");
 
-      // 4️⃣ Adăugăm clasa active pentru animații suplimentare
+      // 3️⃣ Landing active
       setTimeout(() => {
         landing.classList.add("active");
 
-        // 5️⃣ Spargem textul în litere și adăugăm animația
+        // 4️⃣ Spargem textul în litere
         if (vision && !vision.dataset.split) {
           const letters = [...vision.textContent];
           vision.textContent = "";
@@ -42,13 +42,16 @@ document.addEventListener("DOMContentLoaded", () => {
             span.style.animationDelay = `${i * 0.12}s`;
           });
         }
+      }, 100);
+    }, 1000);
+  }, 3000);
 
-        // 6️⃣ Apariția content-ului cu fade-in după ce textul animat începe
-        setTimeout(() => {
-          content.classList.remove("hidden");
-          content.classList.add("visible"); // clasa vizibilă pentru fade-in CSS
-        }, 800); // ajustați delay-ul după cum vrei
-      }, 100); // delay pentru landing active
-    }, 1000); // delay pentru fade loader
-  }, 3000); // timpul total de loading
+  // 5️⃣ Afișare content la scroll
+  window.addEventListener("scroll", () => {
+    const scrollY = window.scrollY;
+    const trigger = 100; // scroll minim înainte să apară content
+    if (scrollY > trigger && content.style.opacity === "0") {
+      content.classList.add("visible"); // fade-in
+    }
+  });
 });
