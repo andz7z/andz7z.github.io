@@ -396,3 +396,6 @@ html, body {
   background: rgba(255, 255, 255, 0.4);
   transform: translateX(-50%) scale(1.1);
 }
+html {
+  scroll-behavior: smooth;
+}
