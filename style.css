@@ -149,8 +149,8 @@ body, html {
   display: none;
 }
 @font-face {
-  font-family: 'Neptune';
-  src: url('assets/fonts/neptune.otf') format('opentype');
+  font-family: 'Noverich';
+  src: url('assets/fonts/noverich.otf') format('opentype');
 }
 
 /* --- TITLU GLASS EFFECT --- */
@@ -161,7 +161,7 @@ body, html {
   transform: translate(-50%, -50%);
   display: flex;
   gap: 6px;
-  font-family: 'Neptune', sans-serif;
+  font-family: 'Noverich', sans-serif;
   font-size: 4rem;
   color: rgba(255, 255, 255, 0.85);
   text-transform: uppercase;
