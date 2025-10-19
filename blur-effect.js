@@ -1,4 +1,21 @@
 import { Pane } from 'https://cdn.skypack.dev/tweakpane@4.0.4'
+
+const config = {
+  theme: 'system',
+  layers: 5,
+  debug: false,
+  mask: 45,
+  blur: 40,
+  padding: 50,
+  gap: 2,
+  saturate: 0.1,
+}
+
+const ctrl = new Pane({
+  title: 'config',
+  expanded: true,
+})
+
 const blur = document.querySelector('.blur')
 
 const update = () => {
