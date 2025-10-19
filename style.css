@@ -347,23 +347,57 @@ body, html {
   background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 100%);
 }
 
-/* --- CARD BLURAT --- */
+/* --- CARD BLURAT CU OUTLINE ANIMAT --- */
 .blur-card {
+  position: relative;
   width: 80%;
   max-width: 800px;
   height: 400px;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
   opacity: 0;
-  transform: translateY(100px);
+  transform: translateY(100px) scale(0.8);
   transition: opacity 1s ease, transform 1s ease;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
 }
 
-/* apare când faci scroll */
+/* apare la scroll (fade + zoom) */
 .blur-card.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+/* outline animat - pseudo element */
+.blur-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    #ffffff 0deg,
+    #b366ff 90deg,
+    #471eec 180deg,
+    #d60a47 270deg,
+    #ffffff 360deg
+  );
+  -webkit-mask: 
+    linear-gradient(#000 0 0) content-box, 
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: border-rotate 4s linear infinite;
+}
+
+/* animația liniei care se mișcă pe contur */
+@keyframes border-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
