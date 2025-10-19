@@ -720,3 +720,34 @@ body, html {
 div.tp-dfwv {
   position: fixed;
 }
+/* === FIX: layering pentru blur să se vadă imaginile === */
+.blur-preview {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  overflow: visible;
+}
+
+.blur-preview header {
+  position: relative;
+  z-index: 1;
+}
+
+.blur-preview ul {
+  z-index: 0;
+}
+
+.blur {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  pointer-events: none;
+  mix-blend-mode: normal;
+  z-index: 5;
+}
+
+/* dacă backdrop-filter nu funcționează, adaugă un fallback */
+.blur div::after {
+  background: rgba(255, 255, 255, 0.03);
+}
