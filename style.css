@@ -247,7 +247,6 @@ body, html {
     0 0 30px rgba(200,200,200,0.3);
 }
 /* concept */
-/* concept */
 .txt {
   position: relative;
   font-family: 'Noverich', sans-serif;
@@ -263,16 +262,27 @@ body, html {
 .txt::before {
   content: attr(data-text);
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #bfbfbf 50%, rgba(255,255,255,0) 100%);
   background-repeat: no-repeat;
   background-size: 80%;
   animation: light-move 3s linear infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* sparkling subtil */
+.txt::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 120%;
+  height: 100%;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+  opacity: 0;
+  animation: sparkle 5s ease-in-out infinite;
+  pointer-events: none;
 }
 
 /* animația luminii */
@@ -282,5 +292,25 @@ body, html {
   }
   100% {
     background-position: 500%;
+  }
+}
+
+/* animația sclipirilor */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: translateX(-30%) scale(0.8);
+  }
+  25% {
+    opacity: 0.6;
+    transform: translateX(10%) scale(1.1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translateX(50%) scale(0.9);
+  }
+  75% {
+    opacity: 0.7;
+    transform: translateX(90%) scale(1.2);
   }
 }
