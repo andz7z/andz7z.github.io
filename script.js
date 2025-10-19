@@ -28,9 +28,11 @@ setTimeout(() => {
           });
           vision.dataset.split = true;
         }
-
-        // Activează fade-ul
         vision.classList.add('show');
+        const letters = vision.querySelectorAll('span');
+        letters.forEach((span, i) => {
+          span.style.animationDelay = `${i * 0.12}s`;
+        });
       }, 400);
     }, 100);
   }, 1000);
