@@ -241,15 +241,14 @@ body, html {
     0 0 15px rgba(255,255,255,0.5),
     0 0 30px rgba(200,200,200,0.3);
 }
-/* --- CONCEPT TAG (efect metalic + linie cu sparkle) --- */
 .concept-tag {
   position: absolute;
-  top: calc(40% + 40px); /* imediat sub titlu */
+  top: calc(40% + 40px);
   left: 50%;
   transform: translateX(-50%);
-  padding: 4px 22px;
+  padding: 6px 26px;
   font-family: 'Noverich', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
@@ -268,69 +267,47 @@ body, html {
   to { opacity: 1; }
 }
 
-/* contur fix */
+/* contur static */
 .tag-outline {
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 10px;
   pointer-events: none;
 }
 
-/* linia metalică care înconjoară butonul */
+/* linia de mișcare care înconjoară tagul */
 .tag-line {
   position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
   border-radius: 10px;
   pointer-events: none;
+}
+
+.tag-line::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 40%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  animation: moveLine 6s linear infinite, sparkle 1.5s ease-in-out infinite alternate;
   filter: blur(1.2px);
-  animation: moveOutline 6s linear infinite, sparklePulse 1.5s ease-in-out infinite alternate;
-  background: linear-gradient(
-    90deg,
-    rgba(180, 220, 255, 0) 0%,
-    rgba(255, 255, 255, 0.9) 50%,
-    rgba(180, 220, 255, 0) 100%
-  );
 }
 
-/* efectul de “strălucire” subtil */
-@keyframes sparklePulse {
-  0% { filter: blur(1.2px) brightness(1); opacity: 0.8; }
-  50% { filter: blur(1.6px) brightness(1.4); opacity: 1; }
-  100% { filter: blur(1.2px) brightness(1); opacity: 0.8; }
+/* mișcare a liniei pe contur */
+@keyframes moveLine {
+  0%   { top: 0; left: 0; width: 40%; height: 2px; transform: rotate(0deg); }
+  25%  { top: 0; left: calc(100% - 2px); width: 2px; height: 100%; transform: rotate(90deg); }
+  50%  { top: calc(100% - 2px); left: 0; width: 100%; height: 2px; transform: rotate(180deg); }
+  75%  { top: 0; left: 0; width: 2px; height: 100%; transform: rotate(270deg); }
+  100% { top: 0; left: 0; width: 40%; height: 2px; transform: rotate(360deg); }
 }
 
-/* linia care se deplasează real pe fiecare latură */
-@keyframes moveOutline {
-  0% {
-    top: 0; left: 0;
-    width: 0%; height: 2px;
-  }
-  25% {
-    top: 0; left: 0;
-    width: 100%; height: 2px;
-  }
-  26% {
-    top: 0; right: 0;
-    width: 2px; height: 0%;
-  }
-  50% {
-    top: 0; right: 0;
-    width: 2px; height: 100%;
-  }
-  51% {
-    top: 100%; right: 0;
-    width: 0%; height: 2px;
-  }
-  75% {
-    top: 100%; left: 0;
-    width: 100%; height: 2px;
-  }
-  76% {
-    bottom: 0; left: 0;
-    width: 2px; height: 0%;
-  }
-  100% {
-    top: 0; left: 0;
-    width: 2px; height: 100%;
-  }
+/* mic efect de strălucire */
+@keyframes sparkle {
+  0% { opacity: 0.7; filter: blur(1px) brightness(1); }
+  50% { opacity: 1; filter: blur(1.5px) brightness(1.4); }
+  100% { opacity: 0.7; filter: blur(1px) brightness(1); }
 }
