@@ -37,3 +37,13 @@ setTimeout(() => {
     }, 100);
   }, 1000);
 }, 3000);
+// Detectează scroll pentru apariția cardului
+window.addEventListener('scroll', () => {
+  const card = document.querySelector('.blur-card');
+  const rect = card.getBoundingClientRect();
+  const windowHeight = window.innerHeight;
+
+  if (rect.top < windowHeight - 100) {
+    card.classList.add('visible');
+  }
+});
