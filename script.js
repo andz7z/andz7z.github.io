@@ -47,3 +47,8 @@ window.addEventListener('scroll', () => {
     card.classList.add('visible');
   }
 });
+// scroll automat spre card
+document.querySelector('.scroll-btn').addEventListener('click', () => {
+  const cardSection = document.querySelector('.scroll-section');
+  cardSection.scrollIntoView({ behavior: 'smooth' });
+});
