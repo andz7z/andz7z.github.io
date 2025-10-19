@@ -1,34 +1,38 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cinematic Scroll Reveal</title>
+  <title>andzoworld</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="background"></div>
-
-  <!-- HERO SECTION -->
-  <section class="hero-section fade-section">
-    <div class="intro-text">
-      <h2>Welcome to the Vision</h2>
-      <p>Scroll down to discover the essence of design & development.</p>
+  <!-- Loading Screen -->
+  <div class="loader-screen">
+    <div class="loader-wrapper">
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">d</span>
+      <span class="loader-letter">z</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">w</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">l</span>
+      <span class="loader-letter">d</span>
+      <div class="loader"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- CINEMATIC PANEL -->
-  <section class="showcase fade-section">
-    <div class="center-panel">
-      <div class="content slogan">
-        <h1>
-          <span class="line">Powerful <span class="highlight">design</span>.</span><br>
-          <span class="line">Relentless <span class="highlight">development</span>.</span><br>
-          <span class="line">One signature <span class="highlight">touch</span> that defines <span class="highlight-excellence">excellence</span>.</span>
-        </h1>
-      </div>
+  <!-- Landing Page -->
+  <div class="landing-page hidden">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+    </video>
+    <div class="content">
+      <h1>Welcome to Andzoworld</h1>
     </div>
-  </section>
+  </div>
 
   <script src="script.js"></script>
 </body>
