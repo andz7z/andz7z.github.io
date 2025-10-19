@@ -333,3 +333,37 @@ body, html {
     transform: translateY(-2px);
   }
 }
+/* --- SCROLLABLE CONTENT --- */
+body, html {
+  overflow-y: auto; /* activăm scroll-ul */
+}
+
+/* container pentru conținutul după landing */
+.scroll-section {
+  height: 200vh; /* pentru a avea spațiu de scroll */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 100%);
+}
+
+/* --- CARD BLURAT --- */
+.blur-card {
+  width: 80%;
+  max-width: 800px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* apare când faci scroll */
+.blur-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
