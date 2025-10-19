@@ -1,31 +1,18 @@
-// Fade pe secțiuni în funcție de scroll
-const fadeSections = document.querySelectorAll(".fade-section");
+setTimeout(() => {
+  const loader = document.querySelector('.loader-screen');
+  const landing = document.querySelector('.landing-page');
 
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  const windowH = window.innerHeight;
+  // blur out loading
+  loader.style.filter = "blur(15px)";
+  loader.style.opacity = "0";
 
-  fadeSections.forEach((section) => {
-    const sectionTop = section.offsetTop;
-    const sectionHeight = section.offsetHeight;
+  setTimeout(() => {
+    loader.style.display = "none";
+    landing.classList.remove('hidden');
 
-    // Dacă secțiunea e în afara view-ului, fade out
-    if (scrollY > sectionTop + sectionHeight / 2) {
-      section.classList.add("fade-out");
-    } else if (scrollY < sectionTop + sectionHeight) {
-      section.classList.remove("fade-out");
-    }
-  });
-
-  // Parallax subtil pe fundal
-  const background = document.querySelector(".background");
-  background.style.transform = `translateY(${scrollY * 0.2}px)`;
-});
-
-// Reveal delay pentru text
-window.addEventListener("load", () => {
-  const lines = document.querySelectorAll(".line");
-  lines.forEach((line, index) => {
-    line.style.animationDelay = `${3 + index * 0.8}s`;
-  });
-});
+    // blur in landing
+    setTimeout(() => {
+      landing.classList.add('active');
+    }, 100);
+  }, 1000);
+}, 3000);
