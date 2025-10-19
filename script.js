@@ -37,14 +37,3 @@ setTimeout(() => {
     }, 100);
   }, 1000);
 }, 3000);
-window.addEventListener('scroll', () => {
-  const section = document.querySelector('.blur-card-section');
-  const scrollY = window.scrollY;
-  const sectionTop = section.offsetTop;
-
-  if (scrollY + window.innerHeight > sectionTop + 100) {
-    section.classList.add('scrolled');
-  } else {
-    section.classList.remove('scrolled');
-  }
-});
