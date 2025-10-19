@@ -11,10 +11,10 @@ const config = {
   saturate: 0.1,
 }
 
-const ctrl = new Pane({
-  title: 'config',
-  expanded: true,
-})
+//const ctrl = new Pane({
+//  title: 'config',
+//  expanded: true,
+//})
 
 const blur = document.querySelector('.blur')
 
