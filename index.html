@@ -1,50 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>andzoworld</title>
-    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-<link rel="stylesheet" href="./style.css">
-
-  </head>
-    
-  <body>
-  <main id="container">
-  <header class="brand">
-    <h1 class="logo-text">ANDZ</h1>
-  </header>
-
-  <section class="controls" id="controls">
-    <button id="audioBtn" type="button" aria-label="Play audio">[ play ]</button>
-  </section>
-
-  <nav class="nav-links" role="navigation" aria-label="Main navigation">
-    <a href="#" aria-label="Home page">About Us</a>
-    <a href="#" aria-label="Gallery page">Services</a>
-    <a href="#" aria-label="About page">Reviews</a>
-    <a href="#" aria-label="Contact page">Contact</a>
-  </nav>
-
-  <aside class="help-hint" id="helpHint" role="complementary">
-    Press 'H' for controls • 'Space' to cycle themes
-  </aside>
-
-  <footer class="page-footer">
-    <div class="coordinates" id="coordinates" role="status" aria-live="polite">
-      concept by ANDZ.
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>andzoworld</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loader-screen">
+    <div class="loader-wrapper">
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">d</span>
+      <span class="loader-letter">z</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">w</span>
+      <span class="loader-letter">o</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">l</span>
+      <span class="loader-letter">d</span>
+      <div class="loader"></div>
     </div>
+  </div>
 
-      <nav class="social-links" role="navigation" aria-label="Contact and social media links">
-        <a href="https://wa.me/40748594335" aria-label="Contact via WhatsApp">WhatsApp</a>
-        <a href="https://www.linkedin.com/in/lehadus-andrei-25a807372" aria-label="Connect on LinkedIn">LinkedIn</a>
-        <a href="mailto:lehadus04@gmail.com" aria-label="Send an email">Gmail</a>
-        <a href="https://github.com/andz7z" aria-label="View GitHub profile">Github</a>
-      </nav>
-        </footer>
-      </main>
-    <script type="module" src="./script.js"></script>
+  <!-- Landing Page -->
+  <div class="landing-page hidden">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+    </video>
 
-  </body>
-  
+    <!-- Titlu Metalic -->
+    <div class="vision-wrapper">
+      <div class="vision-title" id="vision-text">VISION. BUILD. LEAD</div>
+      <div class="concept-tag">
+        <p class="txt">concept by andz</p>
+      </div>
+    </div>
+  <script src="script.js"></script>
+</body>
 </html>
