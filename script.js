@@ -37,3 +37,30 @@ setTimeout(() => {
     }, 100);
   }, 1000);
 }, 3000);
+window.addEventListener("load", () => {
+  const loader = document.querySelector(".loader-screen");
+  const landing = document.querySelector(".landing-page");
+  const visionText = document.getElementById("vision-text");
+
+  // Loader dispare + titlu apare
+  setTimeout(() => {
+    loader.style.opacity = "0";
+    loader.style.filter = "blur(10px)";
+    setTimeout(() => {
+      loader.style.display = "none";
+      visionText.classList.add("show");
+    }, 1000);
+  }, 2000);
+});
+
+// === Efect de fade pentru video la scroll ===
+window.addEventListener("scroll", () => {
+  const hero = document.querySelector(".hero");
+  const triggerPoint = window.innerHeight * 0.4;
+
+  if (window.scrollY > triggerPoint) {
+    hero.classList.add("scrolled");
+  } else {
+    hero.classList.remove("scrolled");
+  }
+});
