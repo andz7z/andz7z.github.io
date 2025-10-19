@@ -349,12 +349,11 @@ body, html {
 
 /* containerul care taie cardul la 30% */
 .card-shell {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  bottom: 6vh;
+  position: relative;
+  margin: 0 auto;
+  margin-top: -120px; /* ca să fie puțin urcat peste partea de jos a ecranului */
   width: min(92%, var(--card-w));
-  height: calc(var(--card-h) * 0.30); /* vezi doar ~30% din card */
+  height: calc(var(--card-h) * 0.30);
   overflow: hidden;
   z-index: 30;
   display: flex;
@@ -435,7 +434,6 @@ body, html {
   align-items: flex-start;
   justify-content: center;
   padding: 110px 20px 140px;
-  margin-top: calc(-30vh); /* trage secțiunea în sus puțin */
   background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%);
 }
 
