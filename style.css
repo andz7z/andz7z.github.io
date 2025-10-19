@@ -246,74 +246,51 @@ body, html {
     0 0 15px rgba(255,255,255,0.5),
     0 0 30px rgba(200,200,200,0.3);
 }
-/* concept */
+/* concept nou, inovativ */
+.concept-tag {
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
 .txt {
   position: relative;
   font-family: 'Noverich', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   letter-spacing: 3px;
   text-transform: uppercase;
-  color: #ffffff; /* text alb permanent */
-  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
   overflow: hidden;
+  user-select: none;
+  opacity: 0;
+  animation: fadeConcept 2s ease forwards 4s; /* apare după titlu */
 }
 
-/* efectul de lumină în mișcare */
-.txt::before {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #bfbfbf 50%, rgba(255,255,255,0) 100%);
-  background-repeat: no-repeat;
-  background-size: 80%;
-  animation: light-move 3s linear infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* sparkling subtil */
 .txt::after {
   content: "";
   position: absolute;
+  left: -50%;
   top: 0;
-  left: -10%;
-  width: 120%;
+  width: 50%;
   height: 100%;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-  opacity: 0;
-  animation: sparkle 5s ease-in-out infinite;
-  pointer-events: none;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent);
+  animation: neonSweep 3.5s linear infinite;
 }
 
-/* animația luminii */
-@keyframes light-move {
-  0% {
-    background-position: -500%;
-  }
-  100% {
-    background-position: 500%;
-  }
+/* sweep luminos prin text */
+@keyframes neonSweep {
+  0% { left: -60%; opacity: 0; }
+  30% { left: 110%; opacity: 1; }
+  100% { left: 110%; opacity: 0; }
 }
 
-/* animația sclipirilor */
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    transform: translateX(-30%) scale(0.8);
-  }
-  25% {
-    opacity: 0.6;
-    transform: translateX(10%) scale(1.1);
-  }
-  50% {
-    opacity: 0.3;
-    transform: translateX(50%) scale(0.9);
-  }
-  75% {
-    opacity: 0.7;
-    transform: translateX(90%) scale(1.2);
-  }
+/* fade de apariție */
+@keyframes fadeConcept {
+  to { opacity: 1; }
 }
+
 /* efect de apariție cursivă a literelor */
 .vision-title span {
   opacity: 0;
