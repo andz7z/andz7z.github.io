@@ -174,22 +174,6 @@ body, html {
   transition: opacity 1s ease, transform 1s ease;
   perspective: 1000px;
 }
-
-/* reflexie oglindită sub text */
-.vision-reflection {
-  font-family: 'Noverich', sans-serif;
-  font-size: 4.5rem;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.15);
-  transform: scaleY(-1) translateY(-10px);
-  filter: blur(4px);
-  opacity: 0;
-  transition: opacity 1s ease;
-  pointer-events: none;
-  user-select: none;
-}
-
 /* când e activ */
 .landing-page.active .vision-title.show {
   opacity: 1;
