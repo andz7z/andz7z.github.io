@@ -334,8 +334,8 @@ body, html {
   }
 }
 /* test */
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Special+Elite&display=swap');
-@import url('https://unpkg.com/normalize.css') layer(normalize);
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@0,14..32,100..900;1,14..32,100..900&family=Special+Elite&display=swap');
+@import url('https://unpkg.com/normalize.css');
 /* @import 'normalize.css' layer(normalize); */
 
 @layer normalize, base, demo, blurring, debug;
