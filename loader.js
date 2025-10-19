@@ -4,55 +4,49 @@ document.addEventListener("DOMContentLoaded", () => {
   const vision = document.getElementById("vision-text");
   const content = document.querySelector(".content");
 
-  // Ascundem landing și content
-  landing.classList.add("hidden");
-  content.style.display = "none";
+  // 1️⃣ Ascundem landing și content la start
+  landing.style.opacity = "0";
+  content.style.opacity = "0";
 
-  // Loader fade + blur
+  // 2️⃣ Loader fade + blur
   setTimeout(() => {
     loader.style.filter = "blur(15px)";
     loader.style.opacity = "0";
 
     setTimeout(() => {
       loader.style.display = "none";
-      landing.classList.remove("hidden");
 
-      // Forțăm scroll sus
-      window.scrollTo(0, 0);
+      // 3️⃣ Arătăm landing
+      landing.style.opacity = "1";
 
-      // Landing active + animație text
-      setTimeout(() => {
-        landing.classList.add("active");
+      // Spargem textul în litere
+      if (vision && !vision.dataset.split) {
+        const letters = [...vision.textContent];
+        vision.textContent = "";
+        letters.forEach((char, i) => {
+          const span = document.createElement("span");
+          span.textContent = char;
+          span.style.setProperty("--i", i);
+          vision.appendChild(span);
+        });
+        vision.dataset.split = "true";
+      }
 
-        if (vision && !vision.dataset.split) {
-          const letters = [...vision.textContent];
-          vision.textContent = "";
-          letters.forEach((char, i) => {
-            const span = document.createElement("span");
-            span.textContent = char;
-            span.style.setProperty("--i", i);
-            vision.appendChild(span);
-          });
-          vision.dataset.split = "true";
-        }
-
-        if (vision) {
-          vision.classList.add("show");
-          const letters = vision.querySelectorAll("span");
-          letters.forEach((span, i) => {
-            span.style.animationDelay = `${i * 0.12}s`;
-          });
-        }
-      }, 100);
+      if (vision) {
+        vision.classList.add("show");
+        const letters = vision.querySelectorAll("span");
+        letters.forEach((span, i) => {
+          span.style.animationDelay = `${i * 0.12}s`;
+        });
+      }
     }, 1000);
   }, 3000);
 
-  // Apariție content la scroll
+  // 4️⃣ Content apare la scroll
   window.addEventListener("scroll", () => {
-    const scrollY = window.scrollY;
-    const trigger = 100;
-    if (scrollY > trigger && !content.classList.contains("visible")) {
-      content.classList.add("visible"); // fade-in CSS
+    const trigger = 50; // scroll minim
+    if (window.scrollY > trigger && !content.classList.contains("visible")) {
+      content.classList.add("visible");
     }
   });
 });
