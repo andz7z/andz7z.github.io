@@ -4,12 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const vision = document.getElementById("vision-text");
   const content = document.querySelector(".content");
 
-  // 1️⃣ Ascundem landing și content din start
+  // Ascundem landing și content
   landing.classList.add("hidden");
-  content.style.opacity = "0";
-  content.style.pointerEvents = "none";
+  content.style.display = "none";
 
-  // 2️⃣ Loader fade + blur
+  // Loader fade + blur
   setTimeout(() => {
     loader.style.filter = "blur(15px)";
     loader.style.opacity = "0";
@@ -18,11 +17,13 @@ document.addEventListener("DOMContentLoaded", () => {
       loader.style.display = "none";
       landing.classList.remove("hidden");
 
-      // 3️⃣ Landing active
+      // Forțăm scroll sus
+      window.scrollTo(0, 0);
+
+      // Landing active + animație text
       setTimeout(() => {
         landing.classList.add("active");
 
-        // 4️⃣ Spargem textul în litere
         if (vision && !vision.dataset.split) {
           const letters = [...vision.textContent];
           vision.textContent = "";
@@ -46,12 +47,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 1000);
   }, 3000);
 
-  // 5️⃣ Afișare content la scroll
+  // Apariție content la scroll
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
     const trigger = 100; // scroll minim înainte să apară content
-    if (scrollY > trigger && content.style.opacity === "0") {
-      content.classList.add("visible"); // fade-in
+    if (scrollY > trigger && content.style.display === "none") {
+      content.style.display = "block";     // devine vizibil
+      setTimeout(() => {
+        content.classList.add("visible");  // fade-in
+      }, 10);
     }
   });
 });
