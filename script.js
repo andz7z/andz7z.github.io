@@ -13,26 +13,20 @@ setTimeout(() => {
     setTimeout(() => {
       landing.classList.add('active');
 
-      // apare textul complet cu delay-uri între cuvinte
       setTimeout(() => {
+        // când se termină fade-ul loaderului
         vision.classList.add('show');
 
-        // descompune literele pentru hover individual
+        // sparge textul în litere individuale
         if (!vision.dataset.split) {
-          const textNodes = [];
-          vision.childNodes.forEach(node => {
-            if (node.nodeType === 3) {
-              [...node.textContent].forEach(letter => {
-                const span = document.createElement('span');
-                span.textContent = letter;
-                textNodes.push(span);
-              });
-            } else {
-              textNodes.push(node);
-            }
-          });
+          const letters = [...vision.textContent];
           vision.textContent = "";
-          textNodes.forEach(el => vision.appendChild(el));
+          letters.forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.setProperty('--i', i);
+            vision.appendChild(span);
+          });
           vision.dataset.split = true;
         }
       }, 400);
