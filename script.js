@@ -37,25 +37,3 @@ setTimeout(() => {
     }, 100);
   }, 1000);
 }, 3000);
-// scroll automat la secțiunea următoare
-window.addEventListener('DOMContentLoaded', () => {
-  const scrollBtn = document.querySelector('.scroll-btn');
-  const nextSection = document.querySelector('.scroll-section');
-
-  if (scrollBtn && nextSection) {
-    scrollBtn.addEventListener('click', () => {
-      nextSection.scrollIntoView({ behavior: 'smooth' });
-    });
-  }
-});
-
-// animația de apariție a cardului la scroll
-window.addEventListener('scroll', () => {
-  const card = document.querySelector('.blur-card');
-  if (!card) return;
-  const rect = card.getBoundingClientRect();
-  const windowHeight = window.innerHeight;
-  if (rect.top < windowHeight - 100) {
-    card.classList.add('visible');
-  }
-});

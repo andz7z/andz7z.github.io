@@ -18,7 +18,7 @@
 body, html {
   width: 100%;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
   background: black;
   color: white;
   display: flex;
@@ -128,13 +128,11 @@ body, html {
 
 /* LANDING PAGE */
 .landing-page {
-  position: relative; /* era fixed — o schimbăm */
-  width: 100%;
-  height: 100vh; /* ocupă doar ecranul inițial */
+  position: fixed;
+  inset: 0;
   opacity: 0;
   filter: blur(20px);
   transition: opacity 1s ease, filter 1s ease;
-  overflow: hidden;
 }
 
 .landing-page.active {
@@ -333,120 +331,5 @@ body, html {
   50% {
     filter: brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.4));
     transform: translateY(-2px);
-  }
-}
-/* --- SCROLLABLE CONTENT --- */
-body, html {
-  overflow-y: auto; /* activăm scroll-ul */
-}
-/* --- STRUCTURA DE SCROLL --- */
-.scroll-section {
-  min-height: 150vh; /* mai mare pentru scroll */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: black;
-}
-
-/* --- CARD BLURAT MIDNIGHT PURPLE --- */
-.blur-card {
-  position: relative;
-  width: 80%;
-  max-width: 800px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(100px) scale(0.8);
-  transition: opacity 1s ease, transform 1s ease;
-  box-shadow: 0 0 25px rgba(120, 70, 200, 0.25);
-}
-
-/* apare la scroll (fade + zoom) */
-.blur-card.visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-/* outline animat - midnight purple pulse */
-.blur-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  padding: 2px;
-  background: conic-gradient(
-    from 0deg,
-    #b27fff,
-    #8c4bff,
-    #471eec,
-    #8c4bff,
-    #b27fff
-  );
-  -webkit-mask: 
-    linear-gradient(#000 0 0) content-box, 
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  animation: border-rotate 6s linear infinite, glowPulse 2.5s ease-in-out infinite;
-  filter: drop-shadow(0 0 12px rgba(140, 75, 255, 0.6));
-}
-
-/* animația liniei */
-@keyframes border-rotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* efect de glow */
-@keyframes glowPulse {
-  0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(140, 75, 255, 0.4))
-            drop-shadow(0 0 25px rgba(120, 70, 200, 0.3));
-  }
-  50% {
-    filter: drop-shadow(0 0 20px rgba(150, 90, 255, 0.8))
-            drop-shadow(0 0 40px rgba(100, 50, 255, 0.6));
-  }
-}
-
-/* --- BUTON --- */
-.scroll-btn {
-  margin-top: 60px;
-  padding: 14px 40px;
-  font-size: 1rem;
-  letter-spacing: 2px;
-  font-family: 'Roboto', sans-serif;
-  color: white;
-  background: transparent;
-  border: 2px solid rgba(255,255,255,0.5);
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  backdrop-filter: blur(6px);
-}
-
-.scroll-btn:hover {
-  border-color: #b27fff;
-  box-shadow: 0 0 20px rgba(140, 75, 255, 0.6);
-  color: #cba7ff;
-  transform: scale(1.08);
-}
-
-.landing-page.active .scroll-btn {
-  animation: fadeInUp 1.5s ease forwards 3s;
-  opacity: 0;
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
   }
 }
