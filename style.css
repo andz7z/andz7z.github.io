@@ -128,14 +128,11 @@ body, html {
 
 /* LANDING PAGE */
 .landing-page {
-  position: relative;
-  min-height: 100vh;
-  width: 100%;
+  position: fixed;
+  inset: 0;
   opacity: 0;
   filter: blur(20px);
   transition: opacity 1s ease, filter 1s ease;
-  overflow: visible;
-  display: block;
 }
 
 .landing-page.active {
@@ -334,140 +331,5 @@ body, html {
   50% {
     filter: brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.4));
     transform: translateY(-2px);
-  }
-}
-/* ===============================
-   CARD BLURAT + SECȚIUNE PREVIEW
-   =============================== */
-
-/* variabile de bază pentru dimensiuni card */
-:root {
-  --card-h: 380px;
-  --card-w: 880px;
-  --card-radius: 18px;
-}
-
-/* containerul care taie cardul la 30% */
-.card-shell {
-  position: relative;
-  margin: 0 auto;
-  margin-top: -120px; /* ca să fie puțin urcat peste partea de jos a ecranului */
-  width: min(92%, var(--card-w));
-  height: calc(var(--card-h) * 0.30);
-  overflow: hidden;
-  z-index: 30;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-/* cardul propriu-zis */
-.card {
-  width: 100%;
-  height: var(--card-h);
-  border-radius: var(--card-radius);
-  padding: 20px;
-  backdrop-filter: blur(10px) saturate(120%);
-  -webkit-backdrop-filter: blur(10px) saturate(120%);
-  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 12px;
-}
-
-/* titlu + subtitlu din capul cardului */
-.card-head h3 {
-  font-size: 1.2rem;
-  margin-bottom: 4px;
-  color: #fff;
-  letter-spacing: 1px;
-}
-.card-sub {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.75);
-}
-
-/* textul din corp + butoanele */
-.card-body {
-  flex: 1;
-  color: rgba(255,255,255,0.9);
-  font-size: 0.95rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.card-actions {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-/* butoane moderne */
-.btn {
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-.btn.primary {
-  background: rgba(140, 63, 255, 0.95);
-  color: white;
-  box-shadow: 0 6px 18px rgba(140,63,255,0.12);
-}
-.btn.ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.9);
-}
-
-/* secțiunea X completă de dedesubt */
-.section-x {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 110px 20px 140px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.55) 100%);
-}
-
-.container {
-  width: min(1100px, 94%);
-  margin: 0 auto;
-}
-
-/* card complet (fără tăiere) */
-.card.full {
-  position: relative;
-  height: auto;
-  padding: 28px;
-}
-
-/* text de test */
-.spacer {
-  margin-top: 40px;
-  color: rgba(255,255,255,0.6);
-  padding: 18px 0;
-}
-
-/* versiune mobil */
-@media (max-width: 880px) {
-  :root {
-    --card-w: 560px;
-    --card-h: 320px;
-  }
-  .card-shell {
-    height: calc(var(--card-h) * 0.32);
-    bottom: 4vh;
-  }
-  .card {
-    padding: 16px;
-    border-radius: 14px;
   }
 }
