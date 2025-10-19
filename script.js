@@ -1,6 +1,7 @@
 setTimeout(() => {
   const loader = document.querySelector('.loader-screen');
   const landing = document.querySelector('.landing-page');
+  const vision = document.getElementById('vision-text');
 
   loader.style.filter = "blur(15px)";
   loader.style.opacity = "0";
@@ -12,26 +13,29 @@ setTimeout(() => {
     setTimeout(() => {
       landing.classList.add('active');
 
-      // apare fiecare cuvânt la rând
-      const words = ["vision", "build", "lead"];
-      words.forEach((id, i) => {
-        setTimeout(() => {
-          const el = document.getElementById(id);
-          el.classList.add('show');
+      // apare textul complet cu delay-uri între cuvinte
+      setTimeout(() => {
+        vision.classList.add('show');
 
-          // desparte literele pentru efect hover individual
-          if (!el.dataset.split) {
-            const text = el.textContent;
-            el.textContent = "";
-            [...text].forEach(letter => {
-              const span = document.createElement('span');
-              span.textContent = letter;
-              el.appendChild(span);
-            });
-            el.dataset.split = true;
-          }
-        }, i * 800); // delay între cuvinte
-      });
-    }, 200);
+        // descompune literele pentru hover individual
+        if (!vision.dataset.split) {
+          const textNodes = [];
+          vision.childNodes.forEach(node => {
+            if (node.nodeType === 3) {
+              [...node.textContent].forEach(letter => {
+                const span = document.createElement('span');
+                span.textContent = letter;
+                textNodes.push(span);
+              });
+            } else {
+              textNodes.push(node);
+            }
+          });
+          vision.textContent = "";
+          textNodes.forEach(el => vision.appendChild(el));
+          vision.dataset.split = true;
+        }
+      }, 400);
+    }, 100);
   }, 1000);
 }, 3000);
