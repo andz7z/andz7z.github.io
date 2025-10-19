@@ -50,12 +50,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Apariție content la scroll
   window.addEventListener("scroll", () => {
     const scrollY = window.scrollY;
-    const trigger = 100; // scroll minim înainte să apară content
-    if (scrollY > trigger && content.style.display === "none") {
-      content.style.display = "block";     // devine vizibil
-      setTimeout(() => {
-        content.classList.add("visible");  // fade-in
-      }, 10);
+    const trigger = 100;
+    if (scrollY > trigger && !content.classList.contains("visible")) {
+      content.classList.add("visible"); // fade-in CSS
     }
   });
 });
