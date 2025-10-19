@@ -714,11 +714,9 @@ body, html {
 }
 .content {
   opacity: 0;
-  pointer-events: none; /* nu se poate interacționa */
   transition: opacity 1s ease;
 }
 
 .content.visible {
   opacity: 1;
-  pointer-events: auto;
 }
