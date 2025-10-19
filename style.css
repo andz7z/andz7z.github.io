@@ -128,11 +128,14 @@ body, html {
 
 /* LANDING PAGE */
 .landing-page {
-  position: fixed;
-  inset: 0;
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
   opacity: 0;
   filter: blur(20px);
   transition: opacity 1s ease, filter 1s ease;
+  overflow: visible;
+  display: block;
 }
 
 .landing-page.active {
