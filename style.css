@@ -410,3 +410,42 @@ body, html {
             drop-shadow(0 0 40px rgba(100, 50, 255, 0.6));
   }
 }
+/* --- BUTON LET'S START --- */
+.scroll-btn {
+  margin-top: 60px;
+  padding: 14px 40px;
+  font-size: 1rem;
+  letter-spacing: 2px;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  background: transparent;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(6px);
+}
+
+.scroll-btn:hover {
+  border-color: #b27fff;
+  box-shadow: 0 0 20px rgba(140, 75, 255, 0.6);
+  color: #cba7ff;
+  transform: scale(1.08);
+}
+
+/* când devine vizibil landing-page-ul */
+.landing-page.active .scroll-btn {
+  animation: fadeInUp 1.5s ease forwards 3s;
+  opacity: 0;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
