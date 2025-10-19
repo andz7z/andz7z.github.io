@@ -37,13 +37,3 @@ setTimeout(() => {
     }, 100);
   }, 1000);
 }, 3000);
-// fade-out la scroll pentru video + text
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  const triggerPoint = window.innerHeight * 0.3; // când ai dat puțin scroll
-  if (scrollY > triggerPoint) {
-    document.body.classList.add("scrolled");
-  } else {
-    document.body.classList.remove("scrolled");
-  }
-});
