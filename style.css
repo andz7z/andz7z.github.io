@@ -153,64 +153,67 @@ body, html {
   src: url('assets/fonts/noverich.otf') format('opentype');
 }
 
-/* --- TITLU GLASS EFFECT --- */
-.vision-title {
+.vision-container {
   position: absolute;
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
+  text-align: center;
   display: flex;
-  gap: 6px;
-  font-family: 'Noverich', sans-serif;
-  font-size: 4rem;
-  color: rgba(255, 255, 255, 0.85);
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px) saturate(180%);
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
-  padding: 10px 25px;
-  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.15),
-              0 0 40px rgba(255, 255, 255, 0.05);
-  overflow: hidden;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.vision-title span {
+.vision-title {
+  font-family: 'Noverich', sans-serif;
+  font-size: 5rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  display: inline-block;
   opacity: 0;
   transform: translateY(40px);
-  animation: glassTextReveal 0.8s ease forwards;
+  transition: opacity 1s ease, transform 1s ease;
+  background: linear-gradient(135deg, #e6e6e6 0%, #9c9c9c 20%, #cfcfcf 40%, #ffffff 60%, #7a7a7a 80%, #dcdcdc 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromeShine 6s ease-in-out infinite;
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.2),
+    0 0 20px rgba(255,255,255,0.1);
+  cursor: default;
+  perspective: 600px;
 }
 
-.vision-title span:nth-child(1) { animation-delay: 0.2s; }
-.vision-title span:nth-child(2) { animation-delay: 0.3s; }
-.vision-title span:nth-child(3) { animation-delay: 0.4s; }
-.vision-title span:nth-child(4) { animation-delay: 0.5s; }
-.vision-title span:nth-child(5) { animation-delay: 0.6s; }
-.vision-title span:nth-child(6) { animation-delay: 0.7s; }
-.vision-title span:nth-child(7) { animation-delay: 0.9s; }
-.vision-title span:nth-child(8) { animation-delay: 1.1s; }
-.vision-title span:nth-child(9) { animation-delay: 1.2s; }
-.vision-title span:nth-child(10){ animation-delay: 1.3s; }
-.vision-title span:nth-child(11){ animation-delay: 1.4s; }
-.vision-title span:nth-child(12){ animation-delay: 1.5s; }
-.vision-title span:nth-child(13){ animation-delay: 1.7s; }
-.vision-title span:nth-child(14){ animation-delay: 1.8s; }
-.vision-title span:nth-child(15){ animation-delay: 1.9s; }
-.vision-title span:nth-child(16){ animation-delay: 2.0s; }
-.vision-title span:nth-child(17){ animation-delay: 2.1s; }
-
-@keyframes glassTextReveal {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3),
-                 0 0 30px rgba(200, 230, 255, 0.2);
-  }
+/* efect metalic în mișcare */
+@keyframes chromeShine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
-/* punctele mai discrete */
-.vision-title .dot {
-  color: rgba(255, 255, 255, 0.4);
-  margin: 0 8px;
+/* efect hover pe litere */
+.vision-title span {
+  display: inline-block;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.vision-title span:hover {
+  transform: scale(1.25) rotateY(10deg);
+  text-shadow:
+    0 0 15px rgba(255,255,255,0.5),
+    0 0 25px rgba(200,200,200,0.3);
+}
+
+/* când apare landing page-ul */
+.landing-page.active .vision-title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* video background (păstrează stilul tău original) */
+.background-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
