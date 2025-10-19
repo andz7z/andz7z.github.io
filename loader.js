@@ -15,7 +15,7 @@ setTimeout(() => {
 
       setTimeout(() => {
         // Sparge textul în litere individuale
-        if (!vision.dataset.split) {
+        if (vision && !vision.dataset.split) { // Am adăugat o verificare pentru 'vision'
           const letters = [...vision.textContent];
           vision.textContent = "";
           letters.forEach((char, i) => {
@@ -28,11 +28,13 @@ setTimeout(() => {
           });
           vision.dataset.split = true;
         }
-        vision.classList.add('show');
-        const letters = vision.querySelectorAll('span');
-        letters.forEach((span, i) => {
-          span.style.animationDelay = `${i * 0.12}s`;
-        });
+        if (vision) { // Am adăugat o verificare pentru 'vision'
+            vision.classList.add('show');
+            const letters = vision.querySelectorAll('span');
+            letters.forEach((span, i) => {
+              span.style.animationDelay = `${i * 0.12}s`;
+            });
+        }
       }, 400);
     }, 100);
   }, 1000);
