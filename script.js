@@ -139,13 +139,13 @@ function createLogoTexture() {
       const fontSize = Math.max(16, Math.min(28, 22 * scale));
       const textY = y + logoSize + 60;
 
-      ctx.font = `400 ${fontSize}px "GT Standard", Arial, sans-serif`;
+      ctx.font = `400 ${fontSize}px "Noverich", sans-serif`;
       ctx.fillStyle = "#ffffff";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
       const paragraphText =
-        "Reality bends to the rhythm of consciousness, where every thought\nripples through the quantum field of infinite possibility.\nWe are not mere observers but co-creators in this dance\nof energy, frequency, and vibrational harmony.";
+        "";
 
       const paragraphLines = paragraphText.split("\n");
       const lineHeight = fontSize * 1.5;
