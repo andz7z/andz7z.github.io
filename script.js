@@ -38,11 +38,14 @@ setTimeout(() => {
   }, 1000);
 }, 3000);
 // Scroll la secțiunea de jos (video2)
+// Buton scroll la secțiunea 2
 document.addEventListener('DOMContentLoaded', () => {
   const scrollBtn = document.getElementById('scroll-bottom');
   const section2 = document.getElementById('section2');
 
-  scrollBtn.addEventListener('click', () => {
-    section2.scrollIntoView({ behavior: 'smooth' });
-  });
+  if (scrollBtn && section2) {
+    scrollBtn.addEventListener('click', () => {
+      section2.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
 });
