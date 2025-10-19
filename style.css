@@ -268,7 +268,7 @@ body, html {
   to { opacity: 1; }
 }
 
-/* text cu efect shine */
+/* text alb cu reflex shine */
 .btn-shine {
   position: relative;
   display: inline-block;
@@ -277,21 +277,37 @@ body, html {
   font-size: 0.95rem;
   letter-spacing: 2px;
   text-transform: uppercase;
-  background: linear-gradient(to right, #9f9f9f 0, #ffffff 10%, #868686 20%);
-  background-size: 200%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 3s infinite linear;
+  color: #fff;
   text-decoration: none;
-  color: transparent;
+  overflow: hidden;
 }
 
-/* efectul shine */
-@keyframes shine {
+/* reflexul animat peste text */
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.8),
+    transparent
+  );
+  animation: shineSweep 3s linear infinite;
+}
+
+/* efect shine fluent – de la stânga la dreapta */
+@keyframes shineSweep {
   0% {
-    background-position: 0;
+    left: -75%;
   }
-  60%, 100% {
-    background-position: 180px;
+  50% {
+    left: 125%;
+  }
+  100% {
+    left: 125%;
   }
 }
