@@ -241,13 +241,13 @@ body, html {
     0 0 15px rgba(255,255,255,0.5),
     0 0 30px rgba(200,200,200,0.3);
 }
-/* --- CONCEPT TAG --- */
+/* --- CONCEPT TAG cu linie care se deplasează pe contur --- */
 .concept-tag {
   position: absolute;
-  top: calc(40% + 70px);
+  top: calc(40% + 40px); /* imediat sub titlu */
   left: 50%;
   transform: translateX(-50%);
-  padding: 4px 18px;
+  padding: 4px 22px;
   font-family: 'Noverich', sans-serif;
   font-size: 0.85rem;
   letter-spacing: 2px;
@@ -255,62 +255,74 @@ body, html {
   color: rgba(255, 255, 255, 0.85);
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
-  backdrop-filter: blur(18px) saturate(180%);
-  -webkit-backdrop-filter: blur(18px) saturate(180%);
-  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1),
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.08),
               0 0 15px rgba(255, 255, 255, 0.05);
   overflow: hidden;
-  display: inline-block;
   opacity: 0;
-  animation: tagFadeIn 1.2s ease forwards 0.4s;
+  animation: tagFadeIn 1.2s ease forwards 0.6s;
 }
 
-/* fade-in la apariție */
 @keyframes tagFadeIn {
   to { opacity: 1; }
 }
 
-/* contur subtil */
+/* outline fix */
 .tag-outline {
   position: absolute;
   inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   pointer-events: none;
 }
 
-/* punctul luminos + dâră */
-.tag-glow {
+/* linia de lumină care parcurge fiecare latură */
+.tag-line {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.2) 70%);
-  border-radius: 50%;
-  box-shadow: 0 0 8px 3px rgba(255,255,255,0.7);
-  animation: traverseOutline 6s linear infinite;
+  border-radius: 10px;
+  pointer-events: none;
+  filter: blur(1.2px);
+  animation: moveOutline 6s linear infinite;
 }
 
-/* efect de dâră (lumina lasă o urmă mică în spate) */
-.tag-glow::after {
-  content: "";
-  position: absolute;
-  width: 40px;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent);
-  top: 50%;
-  left: -40px;
-  transform: translateY(-50%);
-  filter: blur(2px);
-  opacity: 0.6;
-}
-
-/* animația de mișcare lină a punctului */
-@keyframes traverseOutline {
-  0%   { top: 0; left: 0; transform: none; }
-  25%  { top: 0; left: 100%; transform: translateX(-100%) rotate(90deg); }
-  50%  { top: 100%; left: 100%; transform: translate(-100%, -100%) rotate(180deg); }
-  75%  { top: 100%; left: 0; transform: translateY(-100%) rotate(270deg); }
-  100% { top: 0; left: 0; transform: rotate(360deg); }
+/* fiecare etapă acoperă o latură a outline-ului */
+@keyframes moveOutline {
+  0% {
+    top: 0; left: 0;
+    width: 0%; height: 2px;
+    background: rgba(255,255,255,0.9);
+  }
+  25% {
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: rgba(255,255,255,0.9);
+  }
+  26% {
+    top: 0; right: 0;
+    width: 2px; height: 0%;
+  }
+  50% {
+    top: 0; right: 0;
+    width: 2px; height: 100%;
+    background: rgba(255,255,255,0.9);
+  }
+  51% {
+    top: 100%; right: 0;
+    width: 0%; height: 2px;
+  }
+  75% {
+    top: 100%; left: 0;
+    width: 100%; height: 2px;
+    background: rgba(255,255,255,0.9);
+  }
+  76% {
+    bottom: 0; left: 0;
+    width: 2px; height: 0%;
+  }
+  100% {
+    top: 0; left: 0;
+    width: 2px; height: 100%;
+    background: rgba(255,255,255,0.9);
+  }
 }
