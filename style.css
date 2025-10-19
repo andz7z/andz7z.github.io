@@ -246,19 +246,18 @@ body, html {
     0 0 15px rgba(255,255,255,0.5),
     0 0 30px rgba(200,200,200,0.3);
 }
-/* concept nou, inovativ */
+/* concept nou, poziție sub titlu */
 .concept-tag {
-  position: absolute;
-  top: 3%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+  position: relative;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .txt {
   position: relative;
   font-family: 'Noverich', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   letter-spacing: 3px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
@@ -268,10 +267,11 @@ body, html {
   animation: fadeConcept 2s ease forwards 4s; /* apare după titlu */
 }
 
+/* efect inovativ – linie luminoasă glisantă */
 .txt::after {
   content: "";
   position: absolute;
-  left: -50%;
+  left: -60%;
   top: 0;
   width: 50%;
   height: 100%;
@@ -291,7 +291,7 @@ body, html {
   to { opacity: 1; }
 }
 
-/* efect de apariție cursivă a literelor */
+/* apariție cursivă */
 .vision-title span {
   opacity: 0;
   transform: translateY(20px) scale(0.9);
@@ -299,7 +299,7 @@ body, html {
   animation-delay: calc(var(--i) * 0.12s);
 }
 
-/* animatia de apariție */
+/* animatia literelor */
 @keyframes letterFadeIn {
   0% {
     opacity: 0;
@@ -315,5 +315,21 @@ body, html {
     opacity: 1;
     transform: translateY(0) scale(1);
     filter: blur(0);
+  }
+}
+
+/* puls subtil (respirație) după ce apare complet */
+.vision-title.show {
+  animation: breathe 6s ease-in-out infinite 2s;
+}
+
+@keyframes breathe {
+  0%, 100% {
+    filter: brightness(1) drop-shadow(0 0 5px rgba(255,255,255,0.2));
+    transform: translateY(0);
+  }
+  50% {
+    filter: brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.4));
+    transform: translateY(-2px);
   }
 }
