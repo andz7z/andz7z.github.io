@@ -241,7 +241,7 @@ body, html {
     0 0 15px rgba(255,255,255,0.5),
     0 0 30px rgba(200,200,200,0.3);
 }
-/* --- CONCEPT TAG cu linie care se deplasează pe contur --- */
+/* --- CONCEPT TAG (efect metalic + linie cu sparkle) --- */
 .concept-tag {
   position: absolute;
   top: calc(40% + 40px); /* imediat sub titlu */
@@ -268,7 +268,7 @@ body, html {
   to { opacity: 1; }
 }
 
-/* outline fix */
+/* contur fix */
 .tag-outline {
   position: absolute;
   inset: 0;
@@ -277,26 +277,37 @@ body, html {
   pointer-events: none;
 }
 
-/* linia de lumină care parcurge fiecare latură */
+/* linia metalică care înconjoară butonul */
 .tag-line {
   position: absolute;
   border-radius: 10px;
   pointer-events: none;
   filter: blur(1.2px);
-  animation: moveOutline 6s linear infinite;
+  animation: moveOutline 6s linear infinite, sparklePulse 1.5s ease-in-out infinite alternate;
+  background: linear-gradient(
+    90deg,
+    rgba(180, 220, 255, 0) 0%,
+    rgba(255, 255, 255, 0.9) 50%,
+    rgba(180, 220, 255, 0) 100%
+  );
 }
 
-/* fiecare etapă acoperă o latură a outline-ului */
+/* efectul de “strălucire” subtil */
+@keyframes sparklePulse {
+  0% { filter: blur(1.2px) brightness(1); opacity: 0.8; }
+  50% { filter: blur(1.6px) brightness(1.4); opacity: 1; }
+  100% { filter: blur(1.2px) brightness(1); opacity: 0.8; }
+}
+
+/* linia care se deplasează real pe fiecare latură */
 @keyframes moveOutline {
   0% {
     top: 0; left: 0;
     width: 0%; height: 2px;
-    background: rgba(255,255,255,0.9);
   }
   25% {
     top: 0; left: 0;
     width: 100%; height: 2px;
-    background: rgba(255,255,255,0.9);
   }
   26% {
     top: 0; right: 0;
@@ -305,7 +316,6 @@ body, html {
   50% {
     top: 0; right: 0;
     width: 2px; height: 100%;
-    background: rgba(255,255,255,0.9);
   }
   51% {
     top: 100%; right: 0;
@@ -314,7 +324,6 @@ body, html {
   75% {
     top: 100%; left: 0;
     width: 100%; height: 2px;
-    background: rgba(255,255,255,0.9);
   }
   76% {
     bottom: 0; left: 0;
@@ -323,6 +332,5 @@ body, html {
   100% {
     top: 0; left: 0;
     width: 2px; height: 100%;
-    background: rgba(255,255,255,0.9);
   }
 }
