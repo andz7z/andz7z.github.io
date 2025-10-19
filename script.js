@@ -37,6 +37,3 @@ setTimeout(() => {
     }, 100);
   }, 1000);
 }, 3000);
-setTimeout(() => {
-  document.getElementById('scroll-preview')?.scrollIntoView({ behavior: 'smooth' });
-}, 5000);
