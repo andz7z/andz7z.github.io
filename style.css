@@ -339,17 +339,16 @@ body, html {
 body, html {
   overflow-y: auto; /* activăm scroll-ul */
 }
-
-/* container pentru conținutul după landing */
+/* --- STRUCTURA DE SCROLL --- */
 .scroll-section {
-  height: 200vh; /* pentru a avea spațiu de scroll */
+  min-height: 150vh; /* mai mare pentru scroll */
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 100%);
+  background: black;
 }
 
-/* --- CARD BLURAT CU OUTLINE MIDNIGHT PURPLE --- */
+/* --- CARD BLURAT MIDNIGHT PURPLE --- */
 .blur-card {
   position: relative;
   width: 80%;
@@ -395,13 +394,13 @@ body, html {
   filter: drop-shadow(0 0 12px rgba(140, 75, 255, 0.6));
 }
 
-/* animația liniei care se mișcă în jurul conturului */
+/* animația liniei */
 @keyframes border-rotate {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
 
-/* efect de glow pulsant */
+/* efect de glow */
 @keyframes glowPulse {
   0%, 100% {
     filter: drop-shadow(0 0 10px rgba(140, 75, 255, 0.4))
@@ -412,7 +411,8 @@ body, html {
             drop-shadow(0 0 40px rgba(100, 50, 255, 0.6));
   }
 }
-/* --- BUTON LET'S START --- */
+
+/* --- BUTON --- */
 .scroll-btn {
   margin-top: 60px;
   padding: 14px 40px;
@@ -435,7 +435,6 @@ body, html {
   transform: scale(1.08);
 }
 
-/* când devine vizibil landing-page-ul */
 .landing-page.active .scroll-btn {
   animation: fadeInUp 1.5s ease forwards 3s;
   opacity: 0;
