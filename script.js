@@ -2,6 +2,7 @@ setTimeout(() => {
   const loader = document.querySelector('.loader-screen');
   const landing = document.querySelector('.landing-page');
   const vision = document.getElementById('vision-text');
+  const reflection = document.getElementById('vision-reflection');
 
   loader.style.filter = "blur(15px)";
   loader.style.opacity = "0";
@@ -14,21 +15,26 @@ setTimeout(() => {
       landing.classList.add('active');
 
       setTimeout(() => {
-        // când se termină fade-ul loaderului
-        vision.classList.add('show');
-
-        // sparge textul în litere individuale
+        // Sparge textul în litere individuale
         if (!vision.dataset.split) {
           const letters = [...vision.textContent];
           vision.textContent = "";
+          reflection.textContent = "";
           letters.forEach((char, i) => {
             const span = document.createElement('span');
             span.textContent = char;
             span.style.setProperty('--i', i);
+
+            const mirror = span.cloneNode(true);
+            reflection.appendChild(mirror);
             vision.appendChild(span);
           });
           vision.dataset.split = true;
         }
+
+        // Activează fade-ul
+        vision.classList.add('show');
+        reflection.classList.add('show');
       }, 400);
     }, 100);
   }, 1000);
