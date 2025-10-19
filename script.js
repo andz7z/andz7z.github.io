@@ -47,8 +47,13 @@ window.addEventListener('scroll', () => {
     card.classList.add('visible');
   }
 });
-// scroll automat spre card
-document.querySelector('.scroll-btn').addEventListener('click', () => {
-  const cardSection = document.querySelector('.scroll-section');
-  cardSection.scrollIntoView({ behavior: 'smooth' });
-});
+// scroll automat la secțiunea următoare
+const scrollBtn = document.querySelector('.scroll-btn');
+if (scrollBtn) {
+  scrollBtn.addEventListener('click', () => {
+    const nextSection = document.querySelector('.scroll-section');
+    if (nextSection) {
+      nextSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+}
