@@ -45,7 +45,10 @@ body {
   overflow: hidden;
   background: var(--color-bg);
   font-family: var(--font-primary);
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   color: var(--color-text);
 }
 
