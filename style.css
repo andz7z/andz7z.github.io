@@ -132,7 +132,7 @@
 @layer demo {
   :root {
     --img-size: clamp(120px, 40vmin, 380px);
-    scrollbar-color: hsl(0 90% 50%) #0000;
+    scrollbar-color: hsl(270, 50%, 20%) #0000;
   }
 
   .clear {
