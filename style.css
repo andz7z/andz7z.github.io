@@ -5,7 +5,7 @@
 }
 @font-face {
   font-family: 'Roboto';
-  src: url('assets/fonts/roboto.otf') format('opentype');
+  src: url('assets/fonts/roboto.ttf') format('opentype');
   font-display: swap;
 }
 /* GLOBAL */
