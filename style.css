@@ -1,3 +1,13 @@
+/* imports */
+@font-face {
+  font-family: 'Noverich';
+  src: url('assets/fonts/noverich.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Neptune';
+  src: url('assets/fonts/neptune.otf') format('opentype');
+  font-display: swap;
+}
 /* GLOBAL */
 * {
   margin: 0;
@@ -148,11 +158,6 @@ body, html {
 .hidden {
   display: none;
 }
-@font-face {
-  font-family: 'Noverich';
-  src: url('assets/fonts/noverich.otf') format('opentype');
-}
-
 /* --- HEADER METALIC --- */
 .vision-wrapper {
   position: absolute;
@@ -247,71 +252,46 @@ body, html {
   top: calc(40% + 40px);
   left: 50%;
   transform: translateX(-50%);
-  padding: 6px 26px;
-  font-family: 'Noverich', sans-serif;
-  font-size: 0.9rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.85);
-  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 28px;
   border-radius: 10px;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.08),
-              0 0 15px rgba(255, 255, 255, 0.05);
-  overflow: hidden;
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05),
+              0 0 12px rgba(0, 0, 0, 0.25);
   opacity: 0;
   animation: tagFadeIn 1.2s ease forwards 0.6s;
 }
 
+/* fade-in smooth */
 @keyframes tagFadeIn {
   to { opacity: 1; }
 }
 
-.concept-text {
+/* text cu efect shine */
+.btn-shine {
   position: relative;
-  z-index: 2;
+  display: inline-block;
+  font-family: 'Neptune', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(to right, #9f9f9f 0, #ffffff 10%, #868686 20%);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  text-decoration: none;
+  color: transparent;
 }
 
-.tag-outline {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  pointer-events: none;
-}
-
-/* linia care se plimbă pe contur */
-.tag-line {
-  position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  pointer-events: none;
-}
-
-.tag-line::before {
-  content: "";
-  position: absolute;
-  width: 40%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #fff, transparent);
-  border-radius: 10px;
-  filter: blur(1px);
-  animation: moveOutline 4s linear infinite, sparkle 1.5s ease-in-out infinite alternate;
-}
-
-/* efect sclipire ușoară */
-@keyframes sparkle {
-  0% { opacity: 0.6; filter: blur(1px) brightness(1); }
-  50% { opacity: 1; filter: blur(1.5px) brightness(1.4); }
-  100% { opacity: 0.6; filter: blur(1px) brightness(1); }
-}
-
-/* mișcare linie pe contur — merge sus, dreapta, jos, stânga, loop */
-@keyframes moveOutline {
-  0%   { top: 0; left: 0; width: 40%; height: 2px; }
-  24.9% { top: 0; left: 60%; width: 2px; height: 100%; }
-  49.9% { top: 98%; left: 0; width: 100%; height: 2px; }
-  74.9% { top: 0; left: 0; width: 2px; height: 100%; }
-  100%  { top: 0; left: 0; width: 40%; height: 2px; }
+/* efectul shine */
+@keyframes shine {
+  0% {
+    background-position: 0;
+  }
+  60%, 100% {
+    background-position: 180px;
+  }
 }
