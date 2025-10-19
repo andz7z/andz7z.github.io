@@ -241,7 +241,7 @@ body, html {
     0 0 15px rgba(255,255,255,0.5),
     0 0 30px rgba(200,200,200,0.3);
 }
-/* --- CONCEPT TAG (minimal clean version) --- */
+/* --- CONCEPT TAG --- */
 .concept-tag {
   position: absolute;
   top: calc(40% + 70px);
@@ -249,7 +249,7 @@ body, html {
   transform: translateX(-50%);
   padding: 4px 18px;
   font-family: 'Noverich', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.85);
@@ -265,12 +265,12 @@ body, html {
   animation: tagFadeIn 1.2s ease forwards 0.4s;
 }
 
-/* Fade-in la apariție */
+/* fade-in la apariție */
 @keyframes tagFadeIn {
   to { opacity: 1; }
 }
 
-/* Outline subtire */
+/* contur subtil */
 .tag-outline {
   position: absolute;
   inset: 0;
@@ -279,24 +279,38 @@ body, html {
   pointer-events: none;
 }
 
-/* Glow mic care parcurge marginile */
+/* punctul luminos + dâră */
 .tag-glow {
   position: absolute;
   top: 0;
   left: 0;
-  width: 4px;
-  height: 4px;
-  background: white;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.2) 70%);
   border-radius: 50%;
-  box-shadow: 0 0 6px 3px rgba(255,255,255,0.6);
-  animation: traverseOutline 5s linear infinite;
+  box-shadow: 0 0 8px 3px rgba(255,255,255,0.7);
+  animation: traverseOutline 6s linear infinite;
 }
 
-/* mișcarea punctului pe contur (sus → dreapta → jos → stânga → sus) */
+/* efect de dâră (lumina lasă o urmă mică în spate) */
+.tag-glow::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.5), transparent);
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%);
+  filter: blur(2px);
+  opacity: 0.6;
+}
+
+/* animația de mișcare lină a punctului */
 @keyframes traverseOutline {
-  0%   { top: 0; left: 0; }
-  25%  { top: 0; left: 100%; transform: translateX(-100%); }
-  50%  { top: 100%; left: 100%; transform: translate(-100%, -100%); }
-  75%  { top: 100%; left: 0; transform: translateY(-100%); }
-  100% { top: 0; left: 0; transform: none; }
+  0%   { top: 0; left: 0; transform: none; }
+  25%  { top: 0; left: 100%; transform: translateX(-100%) rotate(90deg); }
+  50%  { top: 100%; left: 100%; transform: translate(-100%, -100%) rotate(180deg); }
+  75%  { top: 100%; left: 0; transform: translateY(-100%) rotate(270deg); }
+  100% { top: 0; left: 0; transform: rotate(360deg); }
 }
