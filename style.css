@@ -153,26 +153,56 @@ body, html {
   src: url('assets/fonts/noverich.otf') format('opentype');
 }
 
-/* --- TITLU METALIC --- */
-.vision-title {
+/* --- HEADER METALIC --- */
+.vision-wrapper {
   position: absolute;
   top: 10%;
   left: 50%;
   transform: translateX(-50%);
+  text-align: center;
+}
+
+.vision-title {
   font-family: 'Noverich', sans-serif;
   font-size: 4.5rem;
   letter-spacing: 6px;
   display: flex;
-  gap: 6px;
+  justify-content: center;
   text-transform: uppercase;
   user-select: none;
   opacity: 0;
-  transition: opacity 1.2s ease, transform 1s ease;
-  perspective: 800px;
+  transition: opacity 1s ease, transform 1s ease;
+  perspective: 1000px;
 }
 
-/* fiecare literă individuală */
-.vision-title span {
+/* reflexie oglindită sub text */
+.vision-reflection {
+  font-family: 'Noverich', sans-serif;
+  font-size: 4.5rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  transform: scaleY(-1) translateY(-10px);
+  filter: blur(4px);
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* când e activ */
+.landing-page.active .vision-title.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.landing-page.active .vision-reflection.show {
+  opacity: 0.5;
+}
+
+/* litere individuale */
+.vision-title span,
+.vision-reflection span {
   display: inline-block;
   background: linear-gradient(
     115deg,
@@ -187,15 +217,15 @@ body, html {
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: metalShine 5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 0.15s);
   text-shadow:
-    0 1px 1px rgba(255,255,255,0.5),
-    0 3px 3px rgba(0,0,0,0.25);
-  animation: metalShine 4s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.12s);
-  transform: rotateY(0deg);
+    0 1px 1px rgba(255,255,255,0.6),
+    0 3px 3px rgba(0,0,0,0.3);
+  transition: transform 0.4s ease, filter 0.4s ease, text-shadow 0.4s ease;
 }
 
-/* efect metalic individual */
+/* efect metalic mișcător per literă */
 @keyframes metalShine {
   0% {
     background-position: 0% 50%;
@@ -203,15 +233,15 @@ body, html {
   }
   25% {
     background-position: 50% 50%;
-    transform: rotateY(6deg);
+    transform: rotateY(4deg);
   }
   50% {
     background-position: 100% 50%;
-    transform: rotateY(-6deg);
+    transform: rotateY(-4deg);
   }
   75% {
     background-position: 50% 50%;
-    transform: rotateY(4deg);
+    transform: rotateY(3deg);
   }
   100% {
     background-position: 0% 50%;
@@ -219,7 +249,11 @@ body, html {
   }
 }
 
-.landing-page.active .vision-title.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+/* Efect blur + zoom la hover */
+.vision-title span:hover {
+  transform: scale(1.3) rotateY(6deg);
+  filter: blur(1.5px);
+  text-shadow:
+    0 0 15px rgba(255,255,255,0.5),
+    0 0 30px rgba(200,200,200,0.3);
 }
