@@ -148,3 +148,69 @@ body, html {
 .hidden {
   display: none;
 }
+@font-face {
+  font-family: 'Neptune';
+  src: url('assets/fonts/neptune.otf') format('opentype');
+}
+
+/* --- TITLU GLASS EFFECT --- */
+.vision-title {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 6px;
+  font-family: 'Neptune', sans-serif;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 10px 25px;
+  box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.15),
+              0 0 40px rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+}
+
+.vision-title span {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: glassTextReveal 0.8s ease forwards;
+}
+
+.vision-title span:nth-child(1) { animation-delay: 0.2s; }
+.vision-title span:nth-child(2) { animation-delay: 0.3s; }
+.vision-title span:nth-child(3) { animation-delay: 0.4s; }
+.vision-title span:nth-child(4) { animation-delay: 0.5s; }
+.vision-title span:nth-child(5) { animation-delay: 0.6s; }
+.vision-title span:nth-child(6) { animation-delay: 0.7s; }
+.vision-title span:nth-child(7) { animation-delay: 0.9s; }
+.vision-title span:nth-child(8) { animation-delay: 1.1s; }
+.vision-title span:nth-child(9) { animation-delay: 1.2s; }
+.vision-title span:nth-child(10){ animation-delay: 1.3s; }
+.vision-title span:nth-child(11){ animation-delay: 1.4s; }
+.vision-title span:nth-child(12){ animation-delay: 1.5s; }
+.vision-title span:nth-child(13){ animation-delay: 1.7s; }
+.vision-title span:nth-child(14){ animation-delay: 1.8s; }
+.vision-title span:nth-child(15){ animation-delay: 1.9s; }
+.vision-title span:nth-child(16){ animation-delay: 2.0s; }
+.vision-title span:nth-child(17){ animation-delay: 2.1s; }
+
+@keyframes glassTextReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3),
+                 0 0 30px rgba(200, 230, 255, 0.2);
+  }
+}
+
+/* punctele mai discrete */
+.vision-title .dot {
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0 8px;
+}
