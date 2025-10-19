@@ -712,3 +712,13 @@ body, html {
     transform: translateY(-2px);
   }
 }
+.content {
+  opacity: 0;           /* invizibil */
+  pointer-events: none;  /* nu se poate interacționa */
+  transition: opacity 1s ease;
+}
+
+.content.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
