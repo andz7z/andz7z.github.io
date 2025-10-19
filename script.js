@@ -28,7 +28,7 @@ let audioLevels = {
 let bassMonitor, midMonitor, trebleMonitor, overallMonitor;
 
 const audio = new Audio();
-audio.src = "https://assets.codepen.io/7558/switch.mp3";
+audio.src = "https://andz7z.github.io/assets/sounds/song.MP3";
 audio.preload = "auto";
 audio.volume = 1.0;
 audio.crossOrigin = "anonymous";
@@ -157,7 +157,7 @@ function createLogoTexture() {
       resolve(canvas);
     };
 
-    img.src = "https://assets.codepen.io/7558/sphere.png";
+    img.src = "https://raw.githubusercontent.com/andz7z/andz7z.github.io/main/assets/logos/iconita.gif";
   });
 }
 
