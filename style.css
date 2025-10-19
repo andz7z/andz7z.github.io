@@ -347,20 +347,20 @@ body, html {
   background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, black 100%);
 }
 
-/* --- CARD BLURAT CU OUTLINE ANIMAT --- */
+/* --- CARD BLURAT CU OUTLINE MIDNIGHT PURPLE --- */
 .blur-card {
   position: relative;
   width: 80%;
   max-width: 800px;
   height: 400px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(20px);
   border-radius: 20px;
   overflow: hidden;
   opacity: 0;
   transform: translateY(100px) scale(0.8);
   transition: opacity 1s ease, transform 1s ease;
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 25px rgba(120, 70, 200, 0.25);
 }
 
 /* apare la scroll (fade + zoom) */
@@ -369,7 +369,7 @@ body, html {
   transform: translateY(0) scale(1);
 }
 
-/* outline animat - pseudo element */
+/* outline animat - midnight purple pulse */
 .blur-card::before {
   content: "";
   position: absolute;
@@ -378,26 +378,35 @@ body, html {
   padding: 2px;
   background: conic-gradient(
     from 0deg,
-    #ffffff 0deg,
-    #b366ff 90deg,
-    #471eec 180deg,
-    #d60a47 270deg,
-    #ffffff 360deg
+    #b27fff,
+    #8c4bff,
+    #471eec,
+    #8c4bff,
+    #b27fff
   );
   -webkit-mask: 
     linear-gradient(#000 0 0) content-box, 
     linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
-  animation: border-rotate 4s linear infinite;
+  animation: border-rotate 6s linear infinite, glowPulse 2.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(140, 75, 255, 0.6));
 }
 
-/* animația liniei care se mișcă pe contur */
+/* animația liniei care se mișcă în jurul conturului */
 @keyframes border-rotate {
-  0% {
-    transform: rotate(0deg);
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* efect de glow pulsant */
+@keyframes glowPulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 10px rgba(140, 75, 255, 0.4))
+            drop-shadow(0 0 25px rgba(120, 70, 200, 0.3));
   }
-  100% {
-    transform: rotate(360deg);
+  50% {
+    filter: drop-shadow(0 0 20px rgba(150, 90, 255, 0.8))
+            drop-shadow(0 0 40px rgba(100, 50, 255, 0.6));
   }
 }
