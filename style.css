@@ -1,22 +1,58 @@
-/* ---------- RESET ---------- */
+/* ============================= */
+/* RESETE DE BAZĂ */
+/* ============================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* ---------- LOADER ORIGINAL ---------- */
-.loader-screen {
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "Inter", sans-serif;
+  background-color: black;
+  color: white;
+}
+
+/* ============================= */
+/* VIDEO BACKGROUND */
+/* ============================= */
+.video-bg {
+  position: fixed; /* Rămâne în fundal */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* sub conținut */
+  overflow: hidden;
+  opacity: 0; /* ascuns inițial */
+  filter: blur(20px); /* blur mare la început */
+  transition: opacity 1s ease, filter 1.5s ease; /* tranziție smooth */
+}
+
+.video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* acoperă tot ecranul */
+}
+
+/* ============================= */
+/* LOADER SCREEN */
+/* ============================= */
+.loader-container {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at center, #0b0b1b 0%, #000 100%);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9999;
+  align-items: center;
+  background: black;
+  z-index: 1000;
   transition: opacity 1s ease, filter 1s ease;
 }
 
+/* Loader original Uiverse.io */
 .loader-wrapper {
   position: relative;
   display: flex;
@@ -24,12 +60,10 @@
   justify-content: center;
   width: 180px;
   height: 180px;
-  font-family: "Inter", sans-serif;
   font-size: 1.2em;
   font-weight: 300;
   color: white;
   border-radius: 50%;
-  background-color: transparent;
   user-select: none;
 }
 
@@ -40,7 +74,6 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
   z-index: 0;
 }
@@ -48,24 +81,21 @@
 @keyframes loader-rotate {
   0% {
     transform: rotate(90deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
+    box-shadow: 0 10px 20px 0 #fff inset,
+                0 20px 30px 0 #ad5fff inset,
+                0 60px 60px 0 #471eec inset;
   }
   50% {
     transform: rotate(270deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 10px 0 #d60a47 inset,
-      0 40px 60px 0 #311e80 inset;
+    box-shadow: 0 10px 20px 0 #fff inset,
+                0 20px 10px 0 #d60a47 inset,
+                0 40px 60px 0 #311e80 inset;
   }
   100% {
     transform: rotate(450deg);
-    box-shadow:
-      0 10px 20px 0 #fff inset,
-      0 20px 30px 0 #ad5fff inset,
-      0 60px 60px 0 #471eec inset;
+    box-shadow: 0 10px 20px 0 #fff inset,
+                0 20px 30px 0 #ad5fff inset,
+                0 60px 60px 0 #471eec inset;
   }
 }
 
@@ -76,8 +106,8 @@
   animation: loader-letter-anim 2s infinite;
   z-index: 1;
   border-radius: 50ch;
-  border: none;
 }
+
 .loader-letter:nth-child(1) { animation-delay: 0s; }
 .loader-letter:nth-child(2) { animation-delay: 0.1s; }
 .loader-letter:nth-child(3) { animation-delay: 0.2s; }
@@ -87,7 +117,7 @@
 .loader-letter:nth-child(7) { animation-delay: 0.6s; }
 .loader-letter:nth-child(8) { animation-delay: 0.7s; }
 .loader-letter:nth-child(9) { animation-delay: 0.8s; }
-.loader-letter:nth-child(10){ animation-delay: 0.9s; }
+.loader-letter:nth-child(10) { animation-delay: 0.9s; }
 
 @keyframes loader-letter-anim {
   0%, 100% {
@@ -104,89 +134,17 @@
   }
 }
 
-.loader-screen.hidden {
-  opacity: 0;
-  filter: blur(20px);
-  pointer-events: none;
-}
-
-/* ---------- VIDEO BACKGROUND ---------- */
-.video-background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-  z-index: -1;
-}
-
-.video-background video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(20px);
-  opacity: 0;
-  transition: opacity 1.5s ease, filter 1.5s ease;
-}
-
-.video-background.active video {
-  opacity: 1;
-  filter: blur(0);
-}
-
-/* ---------- MAIN PAGE ---------- */
-html { color-scheme: dark; }
-body {
-  font-family: "Bowlby One", sans-serif;
-  color: white;
-  background: black;
-}
-
-main {
+/* ============================= */
+/* CONTENT PAGE */
+/* ============================= */
+.content {
   position: relative;
   z-index: 1;
-  min-height: 200vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 100px 20px;
 }
 
-/* Efectul overlap text */
-[overlap-text] {
-  text-transform: uppercase;
-  letter-spacing: -0.25ch;
-  text-shadow: 1px 1px 0.25ch black;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-size: clamp(2rem, 6vw + 1rem, 6rem);
-  color: white;
-}
-
-[overlap-text] > span {
-  z-index: calc(var(--m, 1) * var(--i, 1));
-  min-width: 0.25ch;
-}
-[overlap-text="front"] { --m: 1; }
-
-/* Subtext */
-.subtext {
-  font-size: clamp(1rem, 2vw + 0.5rem, 2rem);
-  color: #cfcfcf;
+section {
+  max-width: 800px;
+  margin: 100px auto;
   text-align: center;
-  margin-top: 1rem;
-  font-family: "Inter", sans-serif;
-  text-shadow: 0 0 10px rgba(255,255,255,0.2);
-}
-
-/* Fade-in pentru main content */
-.fade-section {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1.5s ease, transform 1.5s ease;
-}
-.fade-section.active {
-  opacity: 1;
-  transform: translateY(0);
 }
