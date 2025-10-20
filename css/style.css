@@ -24,11 +24,22 @@ body {
   transition: opacity 1s ease, filter 1s ease;
 }
 
+/* Container pentru cerc + text */
+.loader-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Cercul rotitor */
 .loader {
   position: absolute;
   top: 0;
   left: 0;
-  width: 180px;
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: transparent;
@@ -51,13 +62,22 @@ body {
   }
 }
 
+/* Textul "Generating" */
+.loader-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .loader-letter {
   display: inline-block;
   opacity: 0.4;
   animation: loader-letter-anim 2s infinite;
   color: white;
-  z-index: 1;
   font-size: 1.2em;
+  margin: 0 1px;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
