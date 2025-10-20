@@ -49,12 +49,11 @@ document.querySelectorAll('section').forEach((sec) => observer.observe(sec));
 function scrollToTop() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
-
 window.addEventListener("scroll", () => {
   const navbar = document.getElementById("navbar");
   if (window.scrollY > 100) {
-    navbar.classList.add("small");
+    navbar.classList.add("scrolled");
   } else {
-    navbar.classList.remove("small");
+    navbar.classList.remove("scrolled");
   }
 });
