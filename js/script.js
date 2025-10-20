@@ -47,5 +47,14 @@ const observer = new IntersectionObserver(
 document.querySelectorAll('section').forEach((sec) => observer.observe(sec));
 // BACK TO TOP 
 function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
+
+window.addEventListener("scroll", () => {
+  const navbar = document.getElementById("navbar");
+  if (window.scrollY > 100) {
+    navbar.classList.add("small");
+  } else {
+    navbar.classList.remove("small");
+  }
+});
