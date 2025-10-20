@@ -47,6 +47,16 @@ function loadSectionScript(sectionName) {
       // Dacă fișierul nu există, nu face nimic
     });
 }
-
+// Scroll lin către fiecare secțiune
+document.addEventListener("click", (e) => {
+  if (e.target.matches("nav a")) {
+    e.preventDefault();
+    const target = e.target.getAttribute("href").replace("#", "");
+    const section = document.getElementById(`${target}-container`);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+});
 // === Când DOM-ul este pregătit, încărcăm secțiunile ===
 window.addEventListener("DOMContentLoaded", loadSections);
