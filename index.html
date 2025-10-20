@@ -1,170 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>test</title>
-
-  <!-- CSS principale -->
+  <title>Portofoliu | Web Design & Video Editing</title>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/about.css" />
   <link rel="stylesheet" href="css/services.css" />
   <link rel="stylesheet" href="css/reviews.css" />
   <link rel="stylesheet" href="css/contact.css" />
 </head>
-
 <body>
 
-  <!-- LOADER -->
-  <div class="loader-wrapper">
-    <div class="loader-container">
-      <div class="loader-text">
-        <span class="loader-letter">G</span>
-        <span class="loader-letter">e</span>
-        <span class="loader-letter">n</span>
-        <span class="loader-letter">e</span>
-        <span class="loader-letter">r</span>
-        <span class="loader-letter">a</span>
-        <span class="loader-letter">t</span>
-        <span class="loader-letter">i</span>
-        <span class="loader-letter">n</span>
-        <span class="loader-letter">g</span>
-      </div>
-      <div class="loader"></div>
-    </div>
-  </div>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">nume.dev</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <!-- MAIN (ghost background + content) -->
-  <section class="ghost-section hidden" id="main-content">
-    <!-- preloader area inside ghost-section (will be hidden by script after Three ready) -->
-    <div id="demo-preloader" class="preloader">
-      <div class="preloader-content">
-        <div class="ghost-loader">
-          <svg class="ghost-svg" height="80" viewBox="0 0 512 512" width="80" xmlns="http://www.w3.org/2000/svg">
-            <path class="ghost-body" d="m508.374 432.802s-46.6-39.038-79.495-275.781c-8.833-87.68-82.856-156.139-172.879-156.139-90.015 0-164.046 68.458-172.879 156.138-32.895 236.743-79.495 275.782-79.495 275.782-15.107 25.181 20.733 28.178 38.699 27.94 35.254-.478 35.254 40.294 70.516 40.294 35.254 0 35.254-35.261 70.508-35.261s37.396 45.343 72.65 45.343 37.389-45.343 72.651-45.343c35.254 0 35.254 35.261 70.508 35.261s35.27-40.772 70.524-40.294c17.959.238 53.798-2.76 38.692-27.94z" fill="white" />
-            <circle class="ghost-eye left-eye" cx="208" cy="225" r="22" fill="black" />
-            <circle class="ghost-eye right-eye" cx="297" cy="225" r="22" fill="black" />
-          </svg>
-        </div>
-        <div class="loading-text">Summoning spirits</div>
-        <div class="loading-progress">
-          <div class="progress-bar"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- canvas will be appended/used by script; keep a placeholder to control stacking -->
-    <div class="canvas-wrap">
-      <canvas id="ghostCanvas"></canvas>
-    </div>
-
-    <!-- poetic main content -->
-    <div class="content-quote">
-      <h1 class="quote">Veil of Dust<br/>Trail of Ash<br/>Heart of Ice</h1>
-      <span class="author">Whispers through memory</span>
+  <!-- Home Section -->
+  <section id="home" class="home-section">
+    <div class="home-content">
+      <h1>Bun venit!</h1>
+      <p>Web Design | Video Editing | Programming</p>
     </div>
   </section>
 
-    <div class="overlay">
-      <h1 class="site-title">andzoworld</h1>
-      <nav class="nav-buttons">
-        <button onclick="scrollToSection('about')">About Us</button>
-        <button onclick="scrollToSection('services')">Services</button>
-        <button onclick="scrollToSection('reviews')">Reviews</button>
-        <button onclick="scrollToSection('contact')">Contact Us</button>
-      </nav>
-    </div>
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <h2>About</h2>
+    <p>Scurtă descriere despre tine, experiență și abilități.</p>
   </section>
 
-  <!-- ABOUT SECTION -->
-  <section id="about" class="page-section">
-    About section here...
+  <!-- Services Section -->
+  <section id="services" class="services-section">
+    <h2>Services</h2>
+    <p>Descrierea serviciilor oferite (ex: web design, editare video etc.).</p>
   </section>
-<!-- ===================== -->
-<!-- SERVICES SECTION -->
-<!-- ===================== -->
-<section id="services" class="page-section">
-  <div class="services-container">
-    <div class="slide">
-      <div
-        class="item"
-        style="background-image: url('https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=1074&auto=format&fit=crop');"
-      >
-        <div class="content">
-          <div class="name">Scotland</div>
-          <div class="des">
-            Experience the mystical Highlands under twilight skies and misty lochs.
-          </div>
-          <a class="seeMore" target="_blank" href="https://github.com/MDJAmin">
-            <button>See More</button>
-          </a>
-        </div>
-      </div>
 
-      <div
-        class="item"
-        style="background-image: url('https://images.unsplash.com/photo-1439792675105-701e6a4ab6f0?q=80&w=1173&auto=format&fit=crop');"
-      >
-        <div class="content">
-          <div class="name">Norway</div>
-          <div class="des">
-            Chase the Northern Lights under star-lit skies along scenic fjord roads.
-          </div>
-          <a class="seeMore" target="_blank" href="https://github.com/MDJAmin">
-            <button>See More</button>
-          </a>
-        </div>
-      </div>
+  <!-- Reviews Section -->
+  <section id="reviews" class="reviews-section">
+    <h2>Reviews</h2>
+    <p>Testimoniale de la clienți sau colaboratori.</p>
+  </section>
 
-      <div
-        class="item"
-        style="background-image: url('https://images.unsplash.com/photo-1483982258113-b72862e6cff6?q=80&w=1170&auto=format&fit=crop');"
-      >
-        <div class="content">
-          <div class="name">New Zealand</div>
-          <div class="des">
-            Wander dramatic, mist-laden mountain paths that feel straight out of a dream.
-          </div>
-          <a class="seeMore" target="_blank" href="https://github.com/MDJAmin">
-            <button>See More</button>
-          </a>
-        </div>
-      </div>
+  <!-- Contact Section -->
+  <section id="contact" class="contact-section">
+    <h2>Contact</h2>
+    <p>Formular sau date de contact (email, rețele sociale etc.).</p>
+  </section>
 
-      <div
-        class="item"
-        style="background-image: url('https://images.unsplash.com/photo-1477346611705-65d1883cee1e?q=80&w=2070&auto=format&fit=crop');"
-      >
-        <div class="content">
-          <div class="name">Japan</div>
-          <div class="des">
-            Discover serene mountain temples shrouded in dusk and ancient forest trails.
-          </div>
-          <a class="seeMore" target="_blank" href="https://github.com/MDJAmin">
-            <button>See More</button>
-          </a>
-        </div>
-      </div>
-    </div>
+  <footer>
+    <p>© 2025 nume.dev | Toate drepturile rezervate.</p>
+  </footer>
 
-    <div class="button">
-      <button class="prev">◁</button>
-      <button class="next">▷</button>
-    </div>
-  </div>
-</section>
-
-  <!-- REVIEWS & CONTACT -->
-  <section id="reviews" class="page-section">Reviews section here...</section>
-  <section id="contact" class="page-section">Contact section here...</section>
-  
-  <!-- 🔵 Scripturile tale -->
-  <script src="https://cdn.jsdelivr.net/npm/three@0.157.0/build/three.min.js"></script>
+  <!-- JS Files -->
   <script src="js/script.js"></script>
   <script src="js/about.js"></script>
   <script src="js/services.js"></script>
   <script src="js/reviews.js"></script>
   <script src="js/contact.js"></script>
-
 </body>
 </html>
