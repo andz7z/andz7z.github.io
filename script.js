@@ -1,55 +1,17 @@
 window.addEventListener("load", () => {
-  const loader = document.querySelector(".loader-wrapper");
-  const video = document.getElementById("bg-video");
+  const loaderScreen = document.querySelector(".loader-screen");
+  const bgVideo = document.getElementById("bg-video");
 
-  // După 3s → loader blur out, video fade/blur in
   setTimeout(() => {
-    loader.classList.add("blur-out");
+    // Blur out loader
+    loaderScreen.style.filter = "blur(10px)";
+    loaderScreen.style.opacity = "0";
 
-    setTimeout(() => {
-      loader.style.display = "none";
-      video.classList.add("active");
-      document.body.classList.remove("loading");
-      initSmoothScrolling();
-      initScrollAnimations();
-    }, 1200);
-  }, 3000);
+    // Blur in video
+    bgVideo.style.filter = "blur(0px)";
+    bgVideo.style.opacity = "1";
+
+    // Remove loader from DOM after transition
+    setTimeout(() => loaderScreen.remove(), 1000);
+  }, 3000); // 3 sec
 });
-
-// Smooth scrolling cu Lenis
-let lenis;
-function initSmoothScrolling() {
-  lenis = new Lenis({ lerp: 0.2, smoothWheel: true });
-  lenis.on("scroll", () => ScrollTrigger.update());
-  const scrollFn = (time) => {
-    lenis.raf(time);
-    requestAnimationFrame(scrollFn);
-  };
-  requestAnimationFrame(scrollFn);
-}
-
-// GSAP scroll-trigger effects
-function initScrollAnimations() {
-  const sections = document.querySelectorAll(".content--sticky");
-  sections.forEach((el, index) => {
-    const isLast = index === sections.length - 1;
-    gsap.timeline({
-      scrollTrigger: {
-        trigger: el,
-        start: "top top",
-        end: "+=100%",
-        scrub: true,
-      },
-    })
-    .to(el, {
-      ease: "none",
-      filter: isLast ? "none" : "brightness(60%) contrast(135%)",
-      yPercent: isLast ? 0 : -15,
-    }, 0)
-    .to(el.querySelector(".content__img"), {
-      ease: "power1.in",
-      yPercent: -40,
-      rotation: -20,
-    }, 0);
-  });
-}
