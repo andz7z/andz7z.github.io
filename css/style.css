@@ -1,125 +1,104 @@
-/* style.css — stil general pentru întreaga pagină */
-
-
-/* Reset & Font */
+/* ========== STIL GENERAL ========== */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background-color: #f9f9f9;
-  color: #1a1a1a;
+    color: #fff;
+    background: linear-gradient(180deg, #0e0e0e 0%, #1a1a1a 100%);
+    overflow-x: hidden;
 }
 
-/* Navbar */
+/* ========== NAVBAR ========== */
 .navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background-color: #0f172a; /* albastru închis */
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 3rem;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    margin: 15px auto;
+    padding: 12px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    z-index: 1000;
 }
 
-.navbar .logo {
-  font-weight: bold;
-  font-size: 1.2rem;
+/* efect "magnetic" la scroll */
+.navbar.scrolled {
+    width: 95%;
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(-50%) scale(1.02);
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
 }
 
 .nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
+    list-style: none;
+    display: flex;
+    gap: 25px;
 }
 
 .nav-links a {
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+    position: relative;
 }
 
-.nav-links a:hover {
-  color: #38bdf8; /* albastru deschis */
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s;
 }
 
-/* Home Section */
-.home-section {
-  position: relative;
-  height: 100vh;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
+.nav-links a:hover::after {
+    width: 100%;
 }
 
-.background-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  transform: translate(-50%, -50%);
-  object-fit: contain; /* 🔹 schimbă din cover în contain */
-  z-index: -1;
-  background-color: #000; /* fundal negru pentru barele laterale */
+/* ========== SECTIUNI GENERALE ========== */
+.section {
+    min-height: 100vh;
+    padding: 100px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.home-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
+.home {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #2a2a2a 0%, #0e0e0e 100%);
 }
 
 .home-content h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
 }
 
 .home-content p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-}
-
-/* General Section Styling */
-section {
-  height: 100vh; /* fiecare secțiune ocupă toată înălțimea ecranului */
-  padding: 100px 20px;
-  text-align: center;
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center; /* centrează vertical conținutul */
-  align-items: center;
-  scroll-snap-align: start; /* pentru efect de snap-scroll (opțional) */
-}
-
-
-footer {
-  text-align: center;
-  padding: 20px;
-  background-color: #0f172a;
-  color: #fff;
-}
-html, body {
-  height: 100%;
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
-}
-/* Alte secțiuni - fundal negru */
-.about-section,
-.services-section,
-.reviews-section,
-.contact-section {
-  background-color: #000;
-  color: #fff;
+    font-size: 1.1rem;
+    opacity: 0.8;
 }
