@@ -786,3 +786,11 @@ body {
 		position: static;
 	}
 }
+.slider-section {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
