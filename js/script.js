@@ -17,7 +17,19 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// ========== Detectează secțiunile vizibile ==========
+// ========== Fade-in words ==========
+const text = document.getElementById("animated-text");
+const words = text.textContent.split(" ");
+text.textContent = ""; // goli textul
+
+words.forEach((word, i) => {
+    const span = document.createElement("span");
+    span.textContent = word + " ";
+    span.style.animationDelay = `${i * 0.4}s`; // delay între cuvinte
+    text.appendChild(span);
+});
+
+// ========== Observer pentru secțiuni ==========
 const observer = new IntersectionObserver(
     (entries) => {
         entries.forEach((entry) => {
@@ -32,5 +44,4 @@ const observer = new IntersectionObserver(
     },
     { threshold: 0.4 }
 );
-
 document.querySelectorAll('section').forEach((sec) => observer.observe(sec));
