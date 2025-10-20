@@ -1,4 +1,4 @@
-/* ========== STIL GENERAL ========== */
+/* ========== RESET & FONT ========== */
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +11,17 @@ body {
     color: #fff;
     background: #0e0e0e;
     overflow-x: hidden;
+}
+
+/* ========== FADE-IN GENERAL ========== */
+.fade-all {
+    opacity: 0;
+    animation: fadeAll 2s ease forwards;
+}
+
+@keyframes fadeAll {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* ========== NAVBAR ========== */
@@ -73,7 +84,7 @@ body {
     width: 100%;
 }
 
-/* ========== SECTIUNI GENERALE ========== */
+/* ========== SECTIUNI ========== */
 .section {
     min-height: 100vh;
     padding: 100px 10%;
@@ -84,7 +95,7 @@ body {
     text-align: center;
 }
 
-/* ========== HOME ========== */
+/* ========== HOME SECTION ========== */
 .home {
     position: relative;
     min-height: 100vh;
@@ -94,7 +105,6 @@ body {
     overflow: hidden;
 }
 
-/* 🎥 Video Background */
 .bg-video {
     position: absolute;
     top: 0;
@@ -103,24 +113,40 @@ body {
     height: 100%;
     object-fit: cover;
     z-index: 0;
+    opacity: 0;
+    animation: fadeInVideo 3s ease forwards;
 }
 
-/* ✨ Text Content */
+@keyframes fadeInVideo {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ========== TEXT HOME ========== */
 .home-content {
     position: relative;
     z-index: 1;
     text-align: center;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1.5s ease forwards;
 }
 
-/* 🔥 Fade-in Animation */
-@keyframes fadeInUp {
+#animated-text span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: wordFadeUp 0.8s ease forwards;
+}
+
+@keyframes wordFadeUp {
     to {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+.fade-delay {
+    opacity: 0;
+    animation: fadeAll 2s ease forwards;
+    animation-delay: 2.5s;
 }
 
 .home-content h1 {
