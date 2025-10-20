@@ -165,6 +165,13 @@ html, body {
   opacity: 0;
   filter: blur(10px);
 }
+.loader-wrapper {
+  pointer-events: none; /* 🔥 nu mai blochează scroll-ul */
+}
+
+.video-section {
+  pointer-events: auto;
+}
 
 .visible {
   opacity: 1;
