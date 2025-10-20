@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Animated Landing Page</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Test</title>
+
+  <!-- CSS -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/services.css">
 </head>
@@ -37,8 +38,8 @@
     </ul>
   </nav>
 
-  <!-- Sections -->
-  <section id="home">
+  <!-- HOME section (singura scrisă direct aici) -->
+  <section id="home" class="section">
     <video autoplay muted loop id="bg-video">
       <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
     </video>
@@ -47,14 +48,14 @@
     </div>
   </section>
 
+  <!-- Containers pentru celelalte secțiuni -->
   <div id="about-container"></div>
-  <section id="services"><h1>Services</h1></section>
-  <section id="reviews"><h1>Reviews</h1></section>
-  <section id="contact"><h1>Contact Us</h1></section>
+  <div id="services-container"></div>
+  <div id="reviews-container"></div>
+  <div id="contact-container"></div>
 
-  <script src="script.js"></script>
+  <!-- JS -->
   <script src="js/vanilla-tilt.js"></script>
-  <script src="js/services.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
