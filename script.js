@@ -1,23 +1,20 @@
-// Activează efectul overlap text
-document.querySelectorAll("[overlap-text]").forEach(e => {
-  e.innerHTML = [...e.innerText]
-    .map((c, i) => `<span style="--i:${i}">${c}</span>`)
-    .join("");
-});
+// script.js
 
+// Așteptăm 3 secunde apoi ascundem loaderul și arătăm video-ul
 window.addEventListener("load", () => {
-  const loader = document.querySelector(".loader-screen");
-  const videoBg = document.querySelector(".video-background");
-  const mainContent = document.querySelector(".fade-section");
-
-  // După 3 secunde dispare loaderul
   setTimeout(() => {
-    loader.classList.add("hidden");
+    const loader = document.querySelector(".loader-container");
+    const videoBg = document.querySelector(".video-bg");
 
-    // După un mic delay apare videoclipul + conținutul fade-in
-    setTimeout(() => {
-      videoBg.classList.add("active");
-      mainContent.classList.add("active");
-    }, 800);
+    // Aplicăm efect de blur out pe loader
+    loader.style.filter = "blur(20px)";
+    loader.style.opacity = "0";
+
+    // Activăm tranziția video-ului
+    videoBg.style.opacity = "1";
+    videoBg.style.filter = "blur(0px)";
+
+    // După ce s-a terminat tranziția, eliminăm loaderul din DOM
+    setTimeout(() => loader.remove(), 1000);
   }, 3000);
 });
