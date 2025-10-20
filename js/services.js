@@ -80,3 +80,45 @@ document.addEventListener("DOMContentLoaded", () => {
     "max-glare": 1,
   });
 });
+// --- (păstrează clasa VanillaTilt completă aici, exact ca în codul tău) ---
+// (nu modifica clasa; adaugă următoarele linii după definiția/return-ul VanillaTilt)
+
+function initVanillaTiltOnce() {
+  const cards = document.querySelectorAll(".card");
+  if (!cards || cards.length === 0) return;
+
+  // dacă deja inițializat, distruge și reinițializează (curățenie)
+  cards.forEach(card => {
+    if (card.vanillaTilt && typeof card.vanillaTilt.destroy === "function") {
+      card.vanillaTilt.destroy();
+    }
+  });
+
+  // inițializează din nou
+  VanillaTilt.init(cards, {
+    max: 25,
+    speed: 400,
+    glare: true,
+    "max-glare": 1,
+    reset: true,
+  });
+}
+
+// Init sigur la DOMContentLoaded + load
+document.addEventListener("DOMContentLoaded", initVanillaTiltOnce);
+window.addEventListener("load", initVanillaTiltOnce);
+
+// Fallback: dacă ai un loader care ascunde secțiuni, re-initializare după ce loader dispare.
+// (dacă folosești exact codul cu loader din script.js, apelăm init după 3.5s)
+setTimeout(() => {
+  initVanillaTiltOnce();
+}, 3500);
+
+// Optional: re-init la resize (utile când s-au schimbat dimensiunile)
+window.addEventListener("resize", () => {
+  // debounce mic pentru performanță
+  clearTimeout(window.__tiltResizeTimeout);
+  window.__tiltResizeTimeout = setTimeout(() => {
+    initVanillaTiltOnce();
+  }, 200);
+});
