@@ -1,10 +1,11 @@
+// js/script.js
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js";
 
 window.addEventListener("load", () => {
   const loaderWrapper = document.querySelector(".loader-wrapper");
-  const videoSection = document.querySelector(".ghost-section"); // sau .video-section dacă ai video
+  const ghostSection = document.querySelector(".ghost-section");
 
-  // Ascunde loader-ul după 2.5s
+  // Fade-out loader
   setTimeout(() => {
     if (loaderWrapper) {
       loaderWrapper.style.transition = "opacity 1s ease, filter 1s ease";
@@ -14,24 +15,22 @@ window.addEventListener("load", () => {
 
     setTimeout(() => {
       if (loaderWrapper) loaderWrapper.style.display = "none";
-
-      if (videoSection) {
-        videoSection.classList.remove("hidden");
-        videoSection.classList.add("visible");
+      if (ghostSection) {
+        ghostSection.classList.remove("hidden");
+        ghostSection.classList.add("visible");
       }
-
-      initGhost(); // pornește efectul 3D după loader
+      initGhost();
     }, 1000);
   }, 2500);
 });
 
-// Scroll lin între secțiuni
+// ===== Scroll lin între secțiuni =====
 function scrollToSection(id) {
   const section = document.getElementById(id);
   if (section) section.scrollIntoView({ behavior: "smooth" });
 }
 
-// Fade-in la scroll
+// ===== Fade-in secțiuni =====
 const observer = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
@@ -42,13 +41,19 @@ const observer = new IntersectionObserver(
 );
 document.querySelectorAll(".page-section").forEach(section => observer.observe(section));
 
-// ============ Ghost Effect (Three.js) ============
+// ===== GHOST 3D EFFECT =====
 function initGhost() {
   const canvas = document.getElementById("ghostCanvas");
   if (!canvas) return;
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(
+    45,
+    canvas.clientWidth / canvas.clientHeight,
+    0.1,
+    100
+  );
+
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
@@ -59,7 +64,7 @@ function initGhost() {
       transparent: true,
       opacity: 0.35,
       roughness: 0.4,
-      metalness: 0.2,
+      metalness: 0.2
     })
   );
   scene.add(ghost);
@@ -67,8 +72,8 @@ function initGhost() {
   const light = new THREE.PointLight(0x88aaff, 1, 10);
   light.position.set(2, 3, 4);
   scene.add(light);
-
   scene.add(new THREE.AmbientLight(0x222233, 0.5));
+
   camera.position.z = 5;
 
   function animate() {
