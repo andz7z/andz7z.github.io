@@ -156,7 +156,9 @@ html, body {
   transition: opacity 1.5s ease, filter 1.5s ease;
   z-index: -1;
 }
-
+.background-video {
+  background: #000 url('../assets/wallpaper/loop.mp4') no-repeat center center;
+}
 .background-video.active {
   opacity: 1;
   filter: blur(0);
