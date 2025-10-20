@@ -47,19 +47,12 @@ const observer = new IntersectionObserver(
 document.querySelectorAll('section').forEach((sec) => observer.observe(sec));
 const backToTop = document.getElementById("backToTop");
 
-// Arată butonul doar când ești sub secțiunea #about
-window.addEventListener("scroll", () => {
-  const aboutSection = document.querySelector("#about");
-  const scrollY = window.scrollY;
-
-  if (aboutSection && scrollY > aboutSection.offsetTop - 100) {
-    backToTop.classList.add("show", "pulse");
+// Sidebar devine puțin mai vizibil când dai scroll
+const sidebar = document.querySelector('.sidebar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 150) {
+    sidebar.classList.add('scrolled');
   } else {
-    backToTop.classList.remove("show", "pulse");
+    sidebar.classList.remove('scrolled');
   }
-});
-
-// Scroll smooth la top
-backToTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
 });
