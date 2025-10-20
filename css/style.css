@@ -92,3 +92,8 @@ footer {
   background-color: #0f172a;
   color: #fff;
 }
+html, body {
+  height: 100%;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
