@@ -12,45 +12,61 @@ html, body {
   overflow-x: hidden;
 }
 
-/* =============== LOADER =============== */
+/* ================= LOADER ================= */
 .loader-wrapper {
   position: fixed;
   inset: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: black;
+  background: #000;
   z-index: 9999;
+  pointer-events: none; /* 🔥 permite scroll după dispariție */
+}
+
+.loader-container {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .loader {
-  position: relative;
-  width: 160px;
-  height: 160px;
+  position: absolute;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   animation: loader-rotate 2s linear infinite;
-  margin-bottom: 1.5rem;
+  z-index: 1;
 }
 
 @keyframes loader-rotate {
   0% {
     transform: rotate(0deg);
-    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset;
+    box-shadow: 0 10px 20px 0 #fff inset,
+                0 20px 30px 0 #ad5fff inset,
+                0 60px 60px 0 #471eec inset;
   }
   50% {
     transform: rotate(180deg);
-    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 10px 0 #d60a47 inset, 0 40px 60px 0 #311e80 inset;
+    box-shadow: 0 10px 20px 0 #fff inset,
+                0 20px 10px 0 #d60a47 inset,
+                0 40px 60px 0 #311e80 inset;
   }
   100% {
     transform: rotate(360deg);
-    box-shadow: 0 10px 20px 0 #fff inset, 0 20px 30px 0 #ad5fff inset, 0 60px 60px 0 #471eec inset;
+    box-shadow: 0 10px 20px 0 #fff inset,
+                0 20px 30px 0 #ad5fff inset,
+                0 60px 60px 0 #471eec inset;
   }
 }
 
 .loader-text {
   position: relative;
-  z-index: 2;
+  z-index: 2; /* deasupra bulei */
   text-align: center;
 }
 
@@ -78,7 +94,7 @@ html, body {
   40% { opacity: 0.7; transform: translateY(0); }
 }
 
-/* =============== VIDEO SECTION =============== */
+/* ================= VIDEO SECTION ================= */
 .video-section {
   position: relative;
   height: 100vh;
@@ -99,8 +115,8 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   background: rgba(0, 0, 0, 0.3);
+  text-align: center;
 }
 
 .site-title {
@@ -124,7 +140,7 @@ html, body {
   color: black;
 }
 
-/* =============== PAGE SECTIONS =============== */
+/* ================= PAGE SECTIONS ================= */
 .page-section {
   height: 100vh;
   display: flex;
@@ -134,7 +150,7 @@ html, body {
   font-size: 2rem;
 }
 
-/* =============== FADE STATES =============== */
+/* ================= STATES ================= */
 .hidden {
   opacity: 0;
   filter: blur(10px);
