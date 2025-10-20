@@ -1,4 +1,4 @@
-/* ===== GLOBAL ===== */
+/* ===== RESETE ===== */
 * {
   margin: 0;
   padding: 0;
@@ -8,8 +8,8 @@
 html, body {
   height: 100%;
   font-family: "Inter", sans-serif;
-  color: white;
   background: black;
+  color: white;
   overflow-x: hidden;
 }
 
@@ -21,7 +21,7 @@ html, body {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  z-index: -1;
+  z-index: -1; /* stă sub conținut */
   opacity: 0;
   filter: blur(25px);
   transition: opacity 1.5s ease, filter 2s ease;
@@ -33,6 +33,9 @@ html, body {
 }
 
 .bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -52,7 +55,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 1000;
   transition: opacity 1s ease, filter 1.5s ease;
 }
 
@@ -120,8 +123,6 @@ html, body {
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
   z-index: 1;
-  border-radius: 50ch;
-  border: none;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
@@ -150,7 +151,7 @@ html, body {
   }
 }
 
-/* ===== CONTENT ===== */
+/* ===== CONTINUT ===== */
 main {
   position: relative;
   z-index: 1;
@@ -163,8 +164,8 @@ main {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(2px);
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(3px);
 }
 
 .content {
