@@ -1,23 +1,23 @@
-// Wait for window load
 window.addEventListener("load", () => {
   const loader = document.querySelector(".loader-wrapper");
   const video = document.getElementById("bg-video");
 
-  // After 3s, blur out loader and blur in video
+  // După 3s → loader blur out, video fade/blur in
   setTimeout(() => {
     loader.classList.add("blur-out");
+
     setTimeout(() => {
       loader.style.display = "none";
-      video.style.opacity = "1";
-      video.style.filter = "blur(0)";
-    }, 1000);
+      video.classList.add("active");
+      document.body.classList.remove("loading");
+      initSmoothScrolling();
+      initScrollAnimations();
+    }, 1200);
   }, 3000);
 });
 
-// Smooth scroll + sticky animations
-const contentElements = [...document.querySelectorAll(".content--sticky")];
+// Smooth scrolling cu Lenis
 let lenis;
-
 function initSmoothScrolling() {
   lenis = new Lenis({ lerp: 0.2, smoothWheel: true });
   lenis.on("scroll", () => ScrollTrigger.update());
@@ -28,9 +28,11 @@ function initSmoothScrolling() {
   requestAnimationFrame(scrollFn);
 }
 
-function scrollAnimations() {
-  contentElements.forEach((el, i) => {
-    const isLast = i === contentElements.length - 1;
+// GSAP scroll-trigger effects
+function initScrollAnimations() {
+  const sections = document.querySelectorAll(".content--sticky");
+  sections.forEach((el, index) => {
+    const isLast = index === sections.length - 1;
     gsap.timeline({
       scrollTrigger: {
         trigger: el,
@@ -39,20 +41,15 @@ function scrollAnimations() {
         scrub: true,
       },
     })
-      .to(el, {
-        ease: "none",
-        filter: isLast ? "none" : "brightness(60%) contrast(135%)",
-        yPercent: isLast ? 0 : -15,
-      }, 0)
-      .to(el.querySelector(".content__img"), {
-        ease: "power1.in",
-        yPercent: -40,
-        rotation: -20,
-      }, 0);
+    .to(el, {
+      ease: "none",
+      filter: isLast ? "none" : "brightness(60%) contrast(135%)",
+      yPercent: isLast ? 0 : -15,
+    }, 0)
+    .to(el.querySelector(".content__img"), {
+      ease: "power1.in",
+      yPercent: -40,
+      rotation: -20,
+    }, 0);
   });
 }
-
-window.addEventListener("DOMContentLoaded", () => {
-  initSmoothScrolling();
-  scrollAnimations();
-});
