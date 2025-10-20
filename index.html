@@ -3,11 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loader + Video Background</title>
+    <title>Loader </title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Loader -->
+    <!-- BACKGROUND VIDEO -->
+    <div class="video-bg">
+      <video autoplay muted loop playsinline class="bg-video" id="bg-video">
+        <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+        Browserul tău nu suportă video.
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <!-- LOADER -->
     <div class="loader-screen">
       <div class="loader-wrapper">
         <span class="loader-letter">G</span>
@@ -24,19 +33,11 @@
       </div>
     </div>
 
-    <!-- Background video -->
-    <div class="video-bg">
-      <video autoplay muted loop playsinline class="bg-video">
-        <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
-      </video>
-      <div class="video-overlay"></div>
-    </div>
-
-    <!-- Example content for scroll -->
+    <!-- MAIN CONTENT (scrollabil) -->
     <main>
       <section class="hero">
         <h1>Bine ai venit!</h1>
-        <p>Acesta este conținutul tău peste video-ul de fundal.</p>
+        <p>Acesta este conținutul peste video-ul de fundal.</p>
       </section>
 
       <section class="content">
