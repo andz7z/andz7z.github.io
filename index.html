@@ -3,65 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>andz</title>
-  
-  <!-- CSS principal -->
-  <link rel="stylesheet" href="css/style.css" />
+  <title>andzoworld</title>
 
-  <!-- Fisiere pentru sectiuni -->
+  <!-- CSS principale -->
+  <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/about.css" />
   <link rel="stylesheet" href="css/services.css" />
   <link rel="stylesheet" href="css/reviews.css" />
   <link rel="stylesheet" href="css/contact.css" />
 </head>
 <body>
-<!-- LOADER -->
-<div class="loader-wrapper" id="loader">
-  <div class="loader">
-    <div class="loader-text">
-      <span class="loader-letter">G</span>
-      <span class="loader-letter">e</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">e</span>
-      <span class="loader-letter">r</span>
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">t</span>
-      <span class="loader-letter">i</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">g</span>
-    </div>
+
+  <!-- Loader -->
+  <div class="loader-wrapper">
+    <span class="loader-letter">G</span>
+    <span class="loader-letter">e</span>
+    <span class="loader-letter">n</span>
+    <span class="loader-letter">e</span>
+    <span class="loader-letter">r</span>
+    <span class="loader-letter">a</span>
+    <span class="loader-letter">t</span>
+    <span class="loader-letter">i</span>
+    <span class="loader-letter">n</span>
+    <span class="loader-letter">g</span>
+    <div class="loader"></div>
   </div>
-</div>
 
-  <!-- NAV -->
-  <nav class="main-nav">
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About us</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#contact">Contact us</a></li>
-    </ul>
-  </nav>
-
-  <!-- HOMEPAGE (VIDEO SECTION) -->
-  <section id="home" class="home-section">
-    <video autoplay muted loop playsinline class="background-video">
-      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+  <!-- Video Background -->
+  <section class="video-section hidden">
+    <video autoplay muted loop playsinline id="bg-video">
+      <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
-    <div class="home-content">
-      <h1>Welcome to AndzoWorld</h1>
-      <p>Discover. Create. Inspire.</p>
+    <div class="overlay">
+      <h1 class="site-title">andzoworld</h1>
+      <nav class="nav-buttons">
+        <button onclick="scrollToSection('about')">About Us</button>
+        <button onclick="scrollToSection('services')">Services</button>
+        <button onclick="scrollToSection('reviews')">Reviews</button>
+        <button onclick="scrollToSection('contact')">Contact Us</button>
+      </nav>
     </div>
   </section>
 
-  <!-- OTHER SECTIONS -->
-  <section id="about" class="section">About Section</section>
-  <section id="services" class="section">Services Section</section>
-  <section id="reviews" class="section">Reviews Section</section>
-  <section id="contact" class="section">Contact Section</section>
+  <!-- Sectoarele site-ului -->
+  <section id="about" class="page-section">About section here...</section>
+  <section id="services" class="page-section">Services section here...</section>
+  <section id="reviews" class="page-section">Reviews section here...</section>
+  <section id="contact" class="page-section">Contact section here...</section>
 
-  <!-- SCRIPTURI -->
+  <!-- Scripturi principale -->
   <script src="js/script.js"></script>
   <script src="js/about.js"></script>
   <script src="js/services.js"></script>
