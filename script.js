@@ -1,20 +1,39 @@
-// script.js
+setTimeout(() => {
+  const loader = document.querySelector('.loader-screen');
+  const landing = document.querySelector('.landing-page');
+  const vision = document.getElementById('vision-text');
 
-// Așteptăm 3 secunde apoi ascundem loaderul și arătăm video-ul
-window.addEventListener("load", () => {
+  loader.style.filter = "blur(15px)";
+  loader.style.opacity = "0";
+
   setTimeout(() => {
-    const loader = document.querySelector(".loader-container");
-    const videoBg = document.querySelector(".video-bg");
+    loader.style.display = "none";
+    landing.classList.remove('hidden');
 
-    // Aplicăm efect de blur out pe loader
-    loader.style.filter = "blur(20px)";
-    loader.style.opacity = "0";
+    setTimeout(() => {
+      landing.classList.add('active');
 
-    // Activăm tranziția video-ului
-    videoBg.style.opacity = "1";
-    videoBg.style.filter = "blur(0px)";
+      setTimeout(() => {
+        // Sparge textul în litere individuale
+        if (!vision.dataset.split) {
+          const letters = [...vision.textContent];
+          vision.textContent = "";
+          letters.forEach((char, i) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            span.style.setProperty('--i', i);
 
-    // După ce s-a terminat tranziția, eliminăm loaderul din DOM
-    setTimeout(() => loader.remove(), 1000);
-  }, 3000);
-});
+            const mirror = span.cloneNode(true);
+            vision.appendChild(span);
+          });
+          vision.dataset.split = true;
+        }
+        vision.classList.add('show');
+        const letters = vision.querySelectorAll('span');
+        letters.forEach((span, i) => {
+          span.style.animationDelay = `${i * 0.12}s`;
+        });
+      }, 400);
+    }, 100);
+  }, 1000);
+}, 3000);
