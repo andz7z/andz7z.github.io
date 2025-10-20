@@ -45,3 +45,7 @@ const observer = new IntersectionObserver(
     { threshold: 0.4 }
 );
 document.querySelectorAll('section').forEach((sec) => observer.observe(sec));
+// BACK TO TOP 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
