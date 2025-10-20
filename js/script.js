@@ -45,18 +45,21 @@ const observer = new IntersectionObserver(
     { threshold: 0.4 }
 );
 document.querySelectorAll('section').forEach((sec) => observer.observe(sec));
-// Show pulse on scroll
 const backToTop = document.getElementById("backToTop");
 
+// Arată butonul doar când ești sub secțiunea #about
 window.addEventListener("scroll", () => {
-  if (window.scrollY > 200) {
-    backToTop.classList.add("pulse");
+  const aboutSection = document.querySelector("#about");
+  const scrollY = window.scrollY;
+
+  if (aboutSection && scrollY > aboutSection.offsetTop - 100) {
+    backToTop.classList.add("show", "pulse");
   } else {
-    backToTop.classList.remove("pulse");
+    backToTop.classList.remove("show", "pulse");
   }
 });
 
-// Smooth scroll to top
+// Scroll smooth la top
 backToTop.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
