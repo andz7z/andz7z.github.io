@@ -8,57 +8,59 @@
   <!-- CSS principal -->
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- Fisierele pentru sectiuni -->
+  <!-- Fisiere pentru sectiuni -->
   <link rel="stylesheet" href="css/about.css" />
   <link rel="stylesheet" href="css/services.css" />
   <link rel="stylesheet" href="css/reviews.css" />
   <link rel="stylesheet" href="css/contact.css" />
 </head>
 <body>
-  <!-- Loader -->
+  <!-- LOADER -->
   <div class="loader-wrapper" id="loader">
-    <span class="loader-letter">G</span>
-    <span class="loader-letter">e</span>
-    <span class="loader-letter">n</span>
-    <span class="loader-letter">e</span>
-    <span class="loader-letter">r</span>
-    <span class="loader-letter">a</span>
-    <span class="loader-letter">t</span>
-    <span class="loader-letter">i</span>
-    <span class="loader-letter">n</span>
-    <span class="loader-letter">g</span>
     <div class="loader"></div>
+    <div class="loader-text">
+      <span class="loader-letter">G</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">t</span>
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">g</span>
+    </div>
   </div>
 
-  <!-- Videoclip fundal -->
-  <main id="home" class="main-section">
+  <!-- NAV -->
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About us</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#reviews">Reviews</a></li>
+      <li><a href="#contact">Contact us</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOMEPAGE (VIDEO SECTION) -->
+  <section id="home" class="home-section">
     <video autoplay muted loop playsinline class="background-video">
-      <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
     </video>
-
-    <!-- Navigație -->
-    <nav class="main-nav">
-      <ul>
-        <li><a href="#about">About us</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#reviews">Reviews</a></li>
-        <li><a href="#contact">Contact us</a></li>
-      </ul>
-    </nav>
-
-    <div class="main-title">
+    <div class="home-content">
       <h1>Welcome to AndzoWorld</h1>
-      <p>Scroll down to explore</p>
+      <p>Discover. Create. Inspire.</p>
     </div>
-  </main>
+  </section>
 
-  <!-- Secțiunile -->
+  <!-- OTHER SECTIONS -->
   <section id="about" class="section">About Section</section>
   <section id="services" class="section">Services Section</section>
   <section id="reviews" class="section">Reviews Section</section>
   <section id="contact" class="section">Contact Section</section>
 
-  <!-- Scripturi principale -->
+  <!-- SCRIPTURI -->
   <script src="js/script.js"></script>
   <script src="js/about.js"></script>
   <script src="js/services.js"></script>
