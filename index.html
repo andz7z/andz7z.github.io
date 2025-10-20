@@ -1,52 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>andzoworld</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <!-- Loading Screen -->
-  <div class="loader-screen">
-    <div class="loader-wrapper">
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">d</span>
-      <span class="loader-letter">z</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">w</span>
-      <span class="loader-letter">o</span>
-      <span class="loader-letter">r</span>
-      <span class="loader-letter">l</span>
-      <span class="loader-letter">d</span>
-      <div class="loader"></div>
-    </div>
-  </div>
-
-  <!-- Landing Page -->
-  <div class="landing-page hidden">
-    <video autoplay muted loop playsinline class="background-video">
-      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
-    </video>
-
-    <!-- Titlu Metalic -->
-    <div class="vision-wrapper">
-      <div class="vision-title" id="vision-text">VISION. BUILD. LEAD</div>
-      <div class="concept-tag">
-        <p class="txt">concept by andz</p>
+<html lang="ro">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Loader + Video Background</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Loader -->
+    <div class="loader-screen">
+      <div class="loader-wrapper">
+        <span class="loader-letter">G</span>
+        <span class="loader-letter">e</span>
+        <span class="loader-letter">n</span>
+        <span class="loader-letter">e</span>
+        <span class="loader-letter">r</span>
+        <span class="loader-letter">a</span>
+        <span class="loader-letter">t</span>
+        <span class="loader-letter">i</span>
+        <span class="loader-letter">n</span>
+        <span class="loader-letter">g</span>
+        <div class="loader"></div>
       </div>
     </div>
-  </div>
-    <!-- Section 2 -->
-  <section class="about-section">
-    <div class="content-wrapper">
-      <h2>About Andzo</h2>
-      <p>
-        Aici poți scrie despre conceptul tău, proiectele tale, sau orice alt conținut.
-      </p>
+
+    <!-- Background video -->
+    <div class="video-bg">
+      <video autoplay muted loop playsinline class="bg-video">
+        <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+      </video>
+      <div class="video-overlay"></div>
     </div>
-  </section>
-  <script src="script.js"></script>
-</body>
+
+    <!-- Example content for scroll -->
+    <main>
+      <section class="hero">
+        <h1>Bine ai venit!</h1>
+        <p>Acesta este conținutul tău peste video-ul de fundal.</p>
+      </section>
+
+      <section class="content">
+        <h2>Secțiune 1</h2>
+        <p>Lorem ipsum dolor sit amet...</p>
+      </section>
+
+      <section class="content">
+        <h2>Secțiune 2</h2>
+        <p>Mai mult conținut scrollabil...</p>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
 </html>
