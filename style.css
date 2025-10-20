@@ -1,94 +1,50 @@
-/* ===== RESET ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  height: 100%;
-  background: black;
-  overflow-x: hidden;
-  font-family: "Inter", sans-serif;
-}
-
-/* ===== BACKGROUND VIDEO ===== */
-.bg-video {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  opacity: 0;
-  transition: opacity 1.5s ease;
-}
-
-.bg-video.show {
-  opacity: 1;
-}
-
-/* ===== LOADER ===== */
-.loader-screen {
+/* ---------------- LOADER ---------------- */
+.loader-wrapper {
   position: fixed;
   inset: 0;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  transition: opacity 1s ease, filter 1.5s ease;
-}
-
-.loader-screen.fade-out {
-  opacity: 0;
-  filter: blur(20px);
-  pointer-events: none;
-}
-
-/* ===== Original Loader Design ===== */
-.loader-wrapper {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 180px;
-  height: 180px;
+  background: #000;
+  z-index: 10000;
+  flex-direction: row;
+  font-family: "Inter", sans-serif;
   font-size: 1.2em;
   font-weight: 300;
   color: white;
-  border-radius: 50%;
-  user-select: none;
+  transition: opacity 1.2s ease, filter 1.2s ease;
 }
 
 .loader {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  width: 180px;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
+  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
+  transform: translate(-50%, -50%);
+  z-index: 0;
 }
 
 @keyframes loader-rotate {
   0% {
-    transform: rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
     box-shadow:
       0 10px 20px 0 #fff inset,
       0 20px 30px 0 #ad5fff inset,
       0 60px 60px 0 #471eec inset;
   }
   50% {
-    transform: rotate(270deg);
+    transform: translate(-50%, -50%) rotate(270deg);
     box-shadow:
       0 10px 20px 0 #fff inset,
       0 20px 10px 0 #d60a47 inset,
       0 40px 60px 0 #311e80 inset;
   }
   100% {
-    transform: rotate(450deg);
+    transform: translate(-50%, -50%) rotate(450deg);
     box-shadow:
       0 10px 20px 0 #fff inset,
       0 20px 30px 0 #ad5fff inset,
@@ -101,6 +57,9 @@ html, body {
   opacity: 0.4;
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
+  z-index: 1;
+  border-radius: 50ch;
+  border: none;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
@@ -115,26 +74,69 @@ html, body {
 .loader-letter:nth-child(10) { animation-delay: 0.9s; }
 
 @keyframes loader-letter-anim {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  40% {
-    opacity: 0.7;
-    transform: translateY(0);
-  }
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  20% { opacity: 1; transform: scale(1.15); }
+  40% { opacity: 0.7; transform: translateY(0); }
 }
 
-/* ===== CONTENT ===== */
+/* ---------------- VIDEO BG ---------------- */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  opacity: 0;
+  filter: blur(10px);
+  transition: opacity 1.5s ease, filter 1.5s ease;
+}
+
+/* Show video after loader fades */
+body.loaded #bg-video {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Hide loader */
+body.loaded #loader-container {
+  opacity: 0;
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+/* ---------------- CONTENT ---------------- */
+body {
+  margin: 0;
+  color: #fff;
+  font-family: "area-variable", sans-serif;
+  background: #12100e;
+  overflow-x: hidden;
+}
+
 main {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+  padding-top: 100vh;
 }
 
-section {
-  height: 100vh;
+.content {
+  min-height: 100vh;
+  padding: 4rem;
+}
+
+.bg-1 { background: rgba(47, 37, 30, 0.85); }
+.bg-2 { background: rgba(67, 57, 47, 0.85); }
+.bg-3 { background: rgba(47, 37, 30, 0.85); }
+
+.content__title {
+  font-size: 4rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.content__text {
+  max-width: 500px;
+  line-height: 1.6;
 }
