@@ -1,5 +1,4 @@
 /* ---------- LOADING ANIMATION ---------- */
-/* From Uiverse.io by dexter-st */
 .loader-wrapper {
   position: relative;
   display: flex;
@@ -72,18 +71,9 @@
 .loader-letter:nth-child(10) { animation-delay: 0.9s; }
 
 @keyframes loader-letter-anim {
-  0%, 100% {
-    opacity: 0.4;
-    transform: translateY(0);
-  }
-  20% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-  40% {
-    opacity: 0.7;
-    transform: translateY(0);
-  }
+  0%, 100% { opacity: 0.4; transform: translateY(0); }
+  20% { opacity: 1; transform: scale(1.15); }
+  40% { opacity: 0.7; transform: translateY(0); }
 }
 
 /* ---------- LOADER SCREEN ---------- */
@@ -98,9 +88,15 @@
   transition: opacity 1s ease, filter 1s ease;
 }
 
-/* ---------- VIDEO BACKGROUND ---------- */
+/* ---------- VIDEO ONLY FOR HOME ---------- */
+#home {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
 #bg-video {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -110,6 +106,18 @@
   opacity: 0;
   transition: filter 1s ease, opacity 1s ease;
   z-index: -1;
+}
+
+.home-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: white;
+  font-size: 3rem;
+  text-shadow: 0 0 20px black;
 }
 
 /* ---------- NAVBAR ---------- */
@@ -145,24 +153,15 @@
   color: #ad5fff;
 }
 
-/* ---------- SECTIONS ---------- */
-section {
+/* ---------- OTHER SECTIONS ---------- */
+section:not(#home) {
   height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 3rem;
-  text-shadow: 0 0 20px black;
-}
-
-/* Specific backgrounds */
-#home { position: relative; background: transparent; }
-#about, #services, #reviews, #contact {
   background: #000;
+  font-size: 3rem;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
