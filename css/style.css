@@ -113,3 +113,11 @@ html, body {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
 }
+/* Alte secțiuni - fundal negru */
+.about-section,
+.services-section,
+.reviews-section,
+.contact-section {
+  background-color: #000;
+  color: #fff;
+}
