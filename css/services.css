@@ -1,14 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;800&display=swap");
 
-body {
+#services {
+  background-color: #f9ffe7;
   color: #121212;
   font-family: "Outfit", sans-serif;
-  background-color: #f9ffe7;
+  overflow: hidden;
 }
 
 .container {
   max-width: 1440px;
   padding: 2rem;
+  margin: 0 auto;
 }
 
 .spacer {
@@ -46,6 +48,7 @@ body {
 .arch__info p.desc {
   color: rgba(18, 18, 18, 0.8);
   font-size: 18px;
+  letter-spacing: -0.54px;
   margin-block: 6px 28px;
   line-height: normal;
 }
@@ -62,7 +65,6 @@ body {
 }
 
 .arch__right {
-  flex-shrink: 1;
   height: 100vh;
   width: 100%;
   max-width: 540px;
@@ -89,10 +91,27 @@ body {
   object-position: center;
 }
 
+/* 📱 Responsive */
+@media (max-width: 900px) {
+  .arch {
+    gap: 30px;
+  }
+}
+
 @media (max-width: 768px) {
   .arch {
     flex-direction: column;
     gap: 20px;
+  }
+
+  .arch__left,
+  .arch__right {
+    display: contents;
+  }
+
+  .arch__right {
+    height: auto;
+    max-width: 100%;
   }
 
   .arch__right .img-wrapper {
@@ -103,8 +122,23 @@ body {
     margin-bottom: 20px;
   }
 
-  .arch__info {
+  .arch__left .arch__info {
     height: auto;
     padding: 20px 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .arch {
+    gap: 12px;
+  }
+
+  .container {
+    padding: 10px;
+  }
+
+  .arch__right .img-wrapper {
+    border-radius: 10px;
+    height: 280px;
   }
 }
