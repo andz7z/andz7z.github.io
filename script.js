@@ -1,39 +1,7 @@
-setTimeout(() => {
-  const loader = document.querySelector('.loader-screen');
-  const landing = document.querySelector('.landing-page');
-  const vision = document.getElementById('vision-text');
-
-  loader.style.filter = "blur(15px)";
-  loader.style.opacity = "0";
-
+// După 3 secunde -> fade out la loader + fade in la video
+window.addEventListener("load", () => {
   setTimeout(() => {
-    loader.style.display = "none";
-    landing.classList.remove('hidden');
-
-    setTimeout(() => {
-      landing.classList.add('active');
-
-      setTimeout(() => {
-        // Sparge textul în litere individuale
-        if (!vision.dataset.split) {
-          const letters = [...vision.textContent];
-          vision.textContent = "";
-          letters.forEach((char, i) => {
-            const span = document.createElement('span');
-            span.textContent = char;
-            span.style.setProperty('--i', i);
-
-            const mirror = span.cloneNode(true);
-            vision.appendChild(span);
-          });
-          vision.dataset.split = true;
-        }
-        vision.classList.add('show');
-        const letters = vision.querySelectorAll('span');
-        letters.forEach((span, i) => {
-          span.style.animationDelay = `${i * 0.12}s`;
-        });
-      }, 400);
-    }, 100);
-  }, 1000);
-}, 3000);
+    document.querySelector(".loader-screen").classList.add("fade-out");
+    document.querySelector(".video-bg").classList.add("show");
+  }, 3000);
+});
