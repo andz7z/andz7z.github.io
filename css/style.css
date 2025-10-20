@@ -173,66 +173,59 @@ body {
 
 .navbar .button {
   position: relative;
-  width: 95px; /* 🔹 mai mic decât 120px */
-  height: 34px; /* 🔹 mai scund */
-  background-color: #000; /* fundal solid */
+  width: 100px; /* mai mic */
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0.6); /* fundal vizibil, dar translucid */
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  text-decoration: none;
   overflow: hidden;
+  transition: transform 0.2s ease;
   z-index: 1;
 }
 
+.navbar .button:hover {
+  transform: scale(1.05);
+}
+
+/* Gradient outline vizibil */
 .navbar .button::before {
   content: '';
   position: absolute;
-  inset: 0;
   left: -3px;
-  top: -2px;
-  margin: auto;
-  width: 101px;
-  height: 38px;
+  top: -3px;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
   border-radius: 10px;
   background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
   z-index: -1;
-  pointer-events: none;
   transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Glow subtil în jur */
 .navbar .button::after {
   content: "";
   z-index: -2;
   position: absolute;
   inset: 0;
   background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
-  transform: scale(0.95);
-  filter: blur(12px);
+  transform: scale(0.9);
+  filter: blur(15px);
   opacity: 0.6;
-  transition: filter 0.3s ease, opacity 0.3s ease;
+  border-radius: 10px;
 }
 
-.navbar .button:hover::after {
-  filter: blur(22px);
-  opacity: 1;
-}
-
+/* Efect de rotire DOAR al outline-ului */
 .navbar .button:hover::before {
   transform: rotate(-180deg);
 }
 
 .navbar .button:active::before {
-  scale: 0.8;
+  scale: 0.85;
 }
-
-.navbar .button:hover {
-  color: #e2e2e2;
-}
-
