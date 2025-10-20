@@ -1,42 +1,56 @@
 <!DOCTYPE html>
-<html lang="ro">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video Background + Loader</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <!-- LOADER -->
-    <div class="loader-screen">
-      <div class="loader-wrapper">
-        <span class="loader-letter">G</span>
-        <span class="loader-letter">e</span>
-        <span class="loader-letter">n</span>
-        <span class="loader-letter">e</span>
-        <span class="loader-letter">r</span>
-        <span class="loader-letter">a</span>
-        <span class="loader-letter">t</span>
-        <span class="loader-letter">i</span>
-        <span class="loader-letter">n</span>
-        <span class="loader-letter">g</span>
-        <div class="loader"></div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>andzoworld</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="loading">
+
+  <!-- LOADING SCREEN -->
+  <div id="loader-container" class="loader-wrapper">
+    <span class="loader-letter">G</span>
+    <span class="loader-letter">e</span>
+    <span class="loader-letter">n</span>
+    <span class="loader-letter">e</span>
+    <span class="loader-letter">r</span>
+    <span class="loader-letter">a</span>
+    <span class="loader-letter">t</span>
+    <span class="loader-letter">i</span>
+    <span class="loader-letter">n</span>
+    <span class="loader-letter">g</span>
+    <div class="loader"></div>
+  </div>
+
+  <!-- VIDEO BACKGROUND -->
+  <video id="bg-video" autoplay muted loop playsinline>
+    <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+  </video>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <div class="wrap">
+      <div class="content content--sticky content--grid bg-1">
+        <img class="content__img content__img--large content__img--left" src="https://tympanus.net/Development/StickySections/img/3.png" />
+        <h2 class="content__title"><i>The</i> Algorithm</h2>
+        <p class="content__text content__text--left text-meta">The algorithm's workings are shrouded in complexity...</p>
+      </div>
+
+      <div class="content content--sticky content--grid bg-2">
+        <img class="content__img content__img--large content__img--left" src="https://tympanus.net/Development/StickySections/img/2.png" />
+        <h2 class="content__title"><i>The</i> Dogma</h2>
+        <p class="content__text content__text--left text-meta">The digital gospel etched into the very code...</p>
+      </div>
+
+      <div class="content content--sticky content--grid bg-3">
+        <img class="content__img content__img--large content__img--left" src="https://tympanus.net/Development/StickySections/img/1.png" />
+        <h2 class="content__title"><i>The</i> Architects</h2>
+        <p class="content__text content__text--left text-meta">The elusive entities, lacking human form...</p>
       </div>
     </div>
+  </main>
 
-    <!-- VIDEO BACKGROUND -->
-    <video autoplay muted loop playsinline preload="auto" class="bg-video" id="bg-video">
-      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
-      Browserul tău nu suportă video.
-    </video>
-
-    <!-- CONȚINUTUL PAGINII -->
-    <main>
-      <section style="height: 100vh"></section>
-      <section style="height: 100vh"></section>
-      <section style="height: 100vh"></section>
-    </main>
-
-    <script src="script.js"></script>
-  </body>
+  <script src="script.js"></script>
+</body>
 </html>
