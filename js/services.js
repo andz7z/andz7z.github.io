@@ -1,124 +1,152 @@
-var VanillaTilt = (function () {
-  'use strict';
-  class VanillaTilt {
-    constructor(element, settings = {}) {
-      if (!(element instanceof Node)) {
-        throw ("Can't initialize VanillaTilt because " + element + " is not a Node.");
-      }
-      this.width = null;
-      this.height = null;
-      this.clientWidth = null;
-      this.clientHeight = null;
-      this.left = null;
-      this.top = null;
-      this.gammazero = null;
-      this.betazero = null;
-      this.lastgammazero = null;
-      this.lastbetazero = null;
-      this.transitionTimeout = null;
-      this.updateCall = null;
-      this.event = null;
-      this.updateBind = this.update.bind(this);
-      this.resetBind = this.reset.bind(this);
-      this.element = element;
-      this.settings = this.extendSettings(settings);
-      this.reverse = this.settings.reverse ? -1 : 1;
-      this.glare = VanillaTilt.isSettingTrue(this.settings.glare);
-      this.glarePrerender = VanillaTilt.isSettingTrue(this.settings["glare-prerender"]);
-      this.fullPageListening = VanillaTilt.isSettingTrue(this.settings["full-page-listening"]);
-      this.gyroscope = VanillaTilt.isSettingTrue(this.settings.gyroscope);
-      this.gyroscopeSamples = this.settings.gyroscopeSamples;
-      this.elementListener = this.getElementListener();
-      if (this.glare) this.prepareGlare();
-      if (this.fullPageListening) this.updateClientSize();
-      this.addEventListeners();
-      this.updateInitialPosition();
-    }
-    static isSettingTrue(setting) {
-      return setting === "" || setting === true || setting === 1;
-    }
-    getElementListener() {
-      if (this.fullPageListening) return window.document;
-      if (typeof this.settings["mouse-event-element"] === "string") {
-        const mouseEventElement = document.querySelector(this.settings["mouse-event-element"]);
-        if (mouseEventElement) return mouseEventElement;
-      }
-      if (this.settings["mouse-event-element"] instanceof Node) {
-        return this.settings["mouse-event-element"];
-      }
-      return this.element;
-    }
-    addEventListeners() {
-      this.onMouseEnterBind = this.onMouseEnter.bind(this);
-      this.onMouseMoveBind = this.onMouseMove.bind(this);
-      this.onMouseLeaveBind = this.onMouseLeave.bind(this);
-      this.onWindowResizeBind = this.onWindowResize.bind(this);
-      this.onDeviceOrientationBind = this.onDeviceOrientation.bind(this);
-      this.elementListener.addEventListener("mouseenter", this.onMouseEnterBind);
-      this.elementListener.addEventListener("mouseleave", this.onMouseLeaveBind);
-      this.elementListener.addEventListener("mousemove", this.onMouseMoveBind);
-      if (this.glare || this.fullPageListening)
-        window.addEventListener("resize", this.onWindowResizeBind);
-      if (this.gyroscope)
-        window.addEventListener("deviceorientation", this.onDeviceOrientationBind);
-    }
-    // ... (toată clasa VanillaTilt identică cu codul tău original)
-  }
+gsap.registerPlugin(ScrollTrigger);
 
-  if (typeof document !== "undefined") {
-    window.VanillaTilt = VanillaTilt;
-    VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
-  }
+// Shared velocity proxy for all canvases
+const velocityProxy = { v: 0, s: 0 }; // v = signed, s = strength (0..1)
+const clamp = gsap.utils.clamp(-2000, 2000);
 
-  return VanillaTilt;
-})();
-document.addEventListener("DOMContentLoaded", () => {
-  VanillaTilt.init(document.querySelectorAll(".card"), {
-    max: 25,
-    speed: 400,
-    glare: true,
-    "max-glare": 1,
-  });
+// A single ScrollTrigger to compute velocity and tween back to 0
+ScrollTrigger.create({
+  start: 0,
+  end: () => document.documentElement.scrollHeight - window.innerHeight,
+  onUpdate(self) {
+    const raw = clamp(self.getVelocity()); // px/s-ish
+    const norm = raw / 1000; // ~ -1..1
+    const strength = Math.min(1, Math.abs(norm));
+
+    if (Math.abs(strength) > Math.abs(velocityProxy.s)) {
+      velocityProxy.v = norm;
+      velocityProxy.s = strength;
+      gsap.to(velocityProxy, {
+        v: 0,
+        s: 0,
+        duration: 0.8,
+        ease: "sine.inOut",
+        overwrite: true
+      });
+    }
+  }
 });
-// --- (păstrează clasa VanillaTilt completă aici, exact ca în codul tău) ---
-// (nu modifica clasa; adaugă următoarele linii după definiția/return-ul VanillaTilt)
 
-function initVanillaTiltOnce() {
-  const cards = document.querySelectorAll(".card");
-  if (!cards || cards.length === 0) return;
+// Vertex shader
+const vert = /* glsl */ `
+    varying vec2 vUv;
+    varying vec2 vUvCover;
+    uniform vec2 uTextureSize;
+    uniform vec2 uQuadSize;
 
-  // dacă deja inițializat, distruge și reinițializează (curățenie)
-  cards.forEach(card => {
-    if (card.vanillaTilt && typeof card.vanillaTilt.destroy === "function") {
-      card.vanillaTilt.destroy();
+    void main(){
+      vUv = uv;
+
+      // "cover" mapping to preserve aspect ratio
+      float texR = uTextureSize.x / uTextureSize.y;
+      float quadR = uQuadSize.x / uQuadSize.y;
+      vec2 s = vec2(1.0);
+      if (quadR > texR) { s.y = texR / quadR; } else { s.x = quadR / texR; }
+      vUvCover = vUv * s + (1.0 - s) * 0.5;
+
+      gl_Position = vec4(position, 1);
     }
+  `;
+
+// Fragment shader
+const frag = `
+    precision highp float;
+
+    uniform sampler2D uTexture;
+    uniform vec2 uTextureSize;
+    uniform vec2 uQuadSize;
+    uniform float uTime;
+    uniform float uScrollVelocity;  // signed -1..1
+    uniform float uVelocityStrength; // 0..1, decays to 0
+
+    varying vec2 vUv;
+    varying vec2 vUvCover;
+
+    void main() {
+      vec2 texCoords = vUvCover;
+
+      // drive distortion amount from velocity strength
+      float amt = 0.03 * uVelocityStrength;
+
+      // small wave that doesn’t depend on mouse
+      float t = uTime * 0.8;
+      texCoords.y += sin((texCoords.x * 8.0) + t) * amt;
+      texCoords.x += cos((texCoords.y * 6.0) - t * 0.8) * amt * 0.6;
+
+      // optional directional tint: push R/G/B differently by scroll direction
+      float dir = sign(uScrollVelocity);
+      vec2 tc = texCoords;
+
+      float r = texture2D(uTexture, tc + vec2( amt * 0.50 * dir, 0.0)).r;
+      float g = texture2D(uTexture, tc + vec2( amt * 0.25 * dir, 0.0)).g;
+      float b = texture2D(uTexture, tc + vec2(-amt * 0.35 * dir, 0.0)).b;
+
+      gl_FragColor = vec4(r, g, b, 1.0);
+    }
+  `;
+
+// Build one tiny Three.js scene per frame
+document.querySelectorAll(".frame").forEach(initFrame);
+
+function initFrame(frameEl) {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  frameEl.appendChild(renderer.domElement);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const geom = new THREE.PlaneGeometry(2, 2);
+
+  const uniforms = {
+    uTexture: { value: null },
+    uTextureSize: { value: new THREE.Vector2(1, 1) },
+    uQuadSize: { value: new THREE.Vector2(1, 1) },
+    uTime: { value: 0 },
+    uScrollVelocity: { value: 0 },
+    uVelocityStrength: { value: 0 }
+  };
+
+  const mat = new THREE.ShaderMaterial({
+    uniforms,
+    vertexShader: vert,
+    fragmentShader: frag,
+    transparent: true
   });
 
-  // inițializează din nou
-  VanillaTilt.init(cards, {
-    max: 25,
-    speed: 400,
-    glare: true,
-    "max-glare": 1,
-    reset: true,
+  const mesh = new THREE.Mesh(geom, mat);
+  scene.add(mesh);
+
+  // Load the image for this frame
+  const url = frameEl.getAttribute("data-img");
+  const loader = new THREE.TextureLoader();
+  loader.setCrossOrigin("anonymous");
+  loader.load(url, (tex) => {
+    tex.colorSpace = THREE.SRGBColorSpace;
+
+    uniforms.uTexture.value = tex;
+    uniforms.uTextureSize.value.set(tex.image.width, tex.image.height);
+    layout(); // size once we know texture size
   });
+
+  function layout() {
+    const { width, height } = frameEl.getBoundingClientRect();
+    renderer.setSize(width, height, false);
+    uniforms.uQuadSize.value.set(width, height);
+  }
+
+  // Animate this canvas
+  let last = performance.now();
+  function tick(now) {
+    const dt = (now - last) * 0.001;
+    last = now;
+    uniforms.uTime.value += dt;
+
+    // pull shared velocity state into our uniforms
+    uniforms.uScrollVelocity.value = velocityProxy.v;
+    uniforms.uVelocityStrength.value = velocityProxy.s;
+
+    renderer.render(scene, camera);
+  }
+  gsap.ticker.add(tick);
 }
-
-// Init sigur la DOMContentLoaded + load
-document.addEventListener("DOMContentLoaded", initVanillaTiltOnce);
-window.addEventListener("load", initVanillaTiltOnce);
-
-// Fallback: dacă ai un loader care ascunde secțiuni, re-initializare după ce loader dispare.
-// (dacă folosești exact codul cu loader din script.js, apelăm init după 3.5s)
-setTimeout(() => {
-  initVanillaTiltOnce();
-}, 3500);
-
-// Optional: re-init la resize (utile când s-au schimbat dimensiunile)
-window.addEventListener("resize", () => {
-  // debounce mic pentru performanță
-  clearTimeout(window.__tiltResizeTimeout);
-  window.__tiltResizeTimeout = setTimeout(() => {
-    initVanillaTiltOnce();
-  }, 200);
-});
