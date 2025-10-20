@@ -71,12 +71,20 @@ body {
 }
 
 /* General Section Styling */
+/* General Section Styling */
 section {
+  height: 100vh; /* fiecare secțiune ocupă toată înălțimea ecranului */
   padding: 100px 20px;
   text-align: center;
   max-width: 1000px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centrează vertical conținutul */
+  align-items: center;
+  scroll-snap-align: start; /* pentru efect de snap-scroll (opțional) */
 }
+
 
 footer {
   text-align: center;
