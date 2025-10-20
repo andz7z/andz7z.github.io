@@ -164,87 +164,88 @@ body {
    BUTOANE NAVBAR CUSTOM
    ======================= */
 
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  margin-top: 15px;
+  padding: 12px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 100;
+}
+
+.navbar .logo {
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: white;
+  letter-spacing: 1px;
+}
+
 .nav-links {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    align-items: center;
+  list-style: none;
+  display: flex;
+  gap: 20px;
 }
 
 .navbar .button {
   position: relative;
-  width: 100px;
-  height: 35px;
-  background-color: #000; /* buton negru clar */
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  padding: 8px 20px;
+  border-radius: 10px;
+  background-color: #000; /* buton negru solid */
+  color: #fff;
   font-size: 0.9rem;
   text-decoration: none;
-  overflow: hidden;
-  transition: transform 0.2s ease;
+  border: none;
+  cursor: pointer;
   z-index: 1;
+  transition: transform 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible; /* ca să se vadă glow-ul din spate */
 }
 
-/* animație mică la hover */
 .navbar .button:hover {
   transform: scale(1.05);
 }
 
-/* 🔥 gradient outline în SPATE */
+/* 🔥 Gradientul “outline” în spate */
 .navbar .button::before {
-  content: '';
+  content: "";
   position: absolute;
-  left: -3px;
-  top: -3px;
-  width: calc(100% + 6px);
-  height: calc(100% + 6px);
-  border-radius: 10px;
-  background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
-  z-index: -2; /* ⬅️ îl împinge în spate */
-  transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  inset: -3px; /* se extinde puțin în jurul butonului */
+  border-radius: 12px;
+  background: linear-gradient(135deg, #e81cff, #40c9ff);
+  z-index: -1; /* ⬅️ în spatele butonului */
+  transition: transform 0.6s ease;
 }
 
-/* glow subtil în jurul gradientului */
+/* Glow subtil în spate */
 .navbar .button::after {
   content: "";
   position: absolute;
-  inset: 0;
-  border-radius: 10px;
-  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
-  transform: scale(1.1);
+  inset: -6px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fc00ff, #00dbde);
   filter: blur(20px);
-  opacity: 0.5;
-  z-index: -3; /* ⬅️ și mai în spate */
+  opacity: 0.6;
+  z-index: -2; /* și mai în spate */
+  transition: opacity 0.3s ease;
 }
 
-/* rotire DOAR a gradientului din spate */
+/* Hover: doar outline-ul se rotește */
 .navbar .button:hover::before {
-  transform: rotate(-180deg);
+  transform: rotate(180deg);
 }
 
-.navbar .button:active::before {
-  scale: 0.9;
-}
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px 80px;
-  background: transparent;
-  z-index: 100;
-}
-
-.nav-links {
-  display: flex;
-  gap: 20px;
-  list-style: none;
+.navbar .button:hover::after {
+  opacity: 1;
 }
