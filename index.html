@@ -1,65 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <meta charset="UTF-8">
-    <title>[threejs/webgl] ❍ Yet another Metaballs Hero Section with ThreeJS</title>
-    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-<link rel="stylesheet" href="./style.css">
-
-  </head>
-    
-  <body>
-  <section class="section hero-section">
-  <div id="container"></div>
-  <div id="stats"></div>
-  <div id="ui-container"></div>
-
-  <div class="header-area">
-    <div class="logo-container" id="theme-toggle">
-      <div class="logo-circles">
-        <div class="circle circle-1"></div>
-        <div class="circle circle-2"></div>
-      </div>
-    </div>
-    <div class="center-logo">
-      <h1 id="logo-text">Nexus.</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>andzoworld</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Loader Screen -->
+  <div class="loader-screen">
+    <div class="loader-wrapper">
+      <span class="loader-letter">G</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">r</span>
+      <span class="loader-letter">a</span>
+      <span class="loader-letter">t</span>
+      <span class="loader-letter">i</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">g</span>
+      <div class="loader"></div>
     </div>
   </div>
 
-  <div class="hero">
-    <h1>Where matter becomes<br>thought and thought<br>becomes form</h1>
-    <h2 id="story-text">
-      our vessel drifts at coordinates (0.00, 0.00)<br>
-      gravitational field extends 0.10 units into quantum foam<br>
-      currently merging with 0 other entities
-    </h2>
+  <!-- Video Background -->
+  <div class="video-background">
+    <video autoplay muted loop playsinline>
+      <source src="assets/background/loop.mp4" type="video/mp4" />
+    </video>
   </div>
 
-  <div class="contact-info">
-    <p class="contact-heading">+Get in touch</p>
-    <span class="contact-email">hi@filip.fyi</span>
-  </div>
+  <!-- Content (scrollabil) -->
+  <main>
+    <section class="content">
+      <h1>Bun venit în andzoworld</h1>
+      <p>Acesta este conținutul principal al paginii tale. Poți adăuga butoane, texte și alte secțiuni aici.</p>
+    </section>
+  </main>
 
-  <div class="footer-links">
-    <a href="#" class="footer-link">Fluid Dynamics</a>
-    <a href="#" class="footer-link">Organic Shapes</a>
-    <a href="#" class="footer-link">Interactive Forms</a>
-    <a href="#" class="footer-link">Motion Studies</a>
-    <a href="#" class="footer-link">Contact</a>
-  </div>
-
-  <div class="coordinates">
-    <p>Nexus State • Active</p>
-    <p>where consciousness flows</p>
-  </div>
-</section>
-
-<section class="section fin-section">
-  <div class="fin-text">{ Fin }</div>
-</section>
-    <script type="module" src="./script.js"></script>
-
-  </body>
-  
+  <script src="script.js"></script>
+</body>
 </html>
