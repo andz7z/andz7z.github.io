@@ -97,3 +97,11 @@ html, body {
   scroll-snap-type: y mandatory;
   overflow-y: scroll;
 }
+/* Canvas WebGL full-screen în spate */
+canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* rămâne în spatele conținutului */
+}
