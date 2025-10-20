@@ -156,10 +156,11 @@ section {
   text-shadow: 0 0 20px black;
 }
 
-#about { background: rgba(0, 0, 0, 0.4); }
-#services { background: rgba(0, 0, 0, 0.3); }
-#reviews { background: rgba(0, 0, 0, 0.2); }
-#contact { background: rgba(0, 0, 0, 0.1); }
+/* Specific backgrounds */
+#home { position: relative; background: transparent; }
+#about, #services, #reviews, #contact {
+  background: #000;
+}
 
 /* Smooth scroll */
 html {
