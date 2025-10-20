@@ -173,9 +173,9 @@ body {
 
 .navbar .button {
   position: relative;
-  width: 100px; /* mai mic */
+  width: 100px;
   height: 35px;
-  background-color: rgba(0, 0, 0, 0.6); /* fundal vizibil, dar translucid */
+  background-color: #000; /* buton negru clar */
   color: white;
   display: flex;
   align-items: center;
@@ -190,11 +190,12 @@ body {
   z-index: 1;
 }
 
+/* animație mică la hover */
 .navbar .button:hover {
   transform: scale(1.05);
 }
 
-/* Gradient outline vizibil */
+/* 🔥 gradient outline în SPATE */
 .navbar .button::before {
   content: '';
   position: absolute;
@@ -204,28 +205,28 @@ body {
   height: calc(100% + 6px);
   border-radius: 10px;
   background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
-  z-index: -1;
+  z-index: -2; /* ⬅️ îl împinge în spate */
   transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Glow subtil în jur */
+/* glow subtil în jurul gradientului */
 .navbar .button::after {
   content: "";
-  z-index: -2;
   position: absolute;
   inset: 0;
-  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
-  transform: scale(0.9);
-  filter: blur(15px);
-  opacity: 0.6;
   border-radius: 10px;
+  background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
+  transform: scale(1.1);
+  filter: blur(20px);
+  opacity: 0.5;
+  z-index: -3; /* ⬅️ și mai în spate */
 }
 
-/* Efect de rotire DOAR al outline-ului */
+/* rotire DOAR a gradientului din spate */
 .navbar .button:hover::before {
   transform: rotate(-180deg);
 }
 
 .navbar .button:active::before {
-  scale: 0.85;
+  scale: 0.9;
 }
