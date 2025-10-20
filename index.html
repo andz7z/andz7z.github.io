@@ -3,59 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Test</title>
+  <title>andzoworld</title>
+  
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="css/style.css" />
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/services.css">
+  <!-- Fisierele pentru sectiuni -->
+  <link rel="stylesheet" href="css/about.css" />
+  <link rel="stylesheet" href="css/services.css" />
+  <link rel="stylesheet" href="css/reviews.css" />
+  <link rel="stylesheet" href="css/contact.css" />
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div class="loader-screen">
-    <div class="loader-wrapper">
-      <span class="loader-letter">G</span>
-      <span class="loader-letter">e</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">e</span>
-      <span class="loader-letter">r</span>
-      <span class="loader-letter">a</span>
-      <span class="loader-letter">t</span>
-      <span class="loader-letter">i</span>
-      <span class="loader-letter">n</span>
-      <span class="loader-letter">g</span>
-      <div class="loader"></div>
-    </div>
+  <!-- Loader -->
+  <div class="loader-wrapper" id="loader">
+    <span class="loader-letter">G</span>
+    <span class="loader-letter">e</span>
+    <span class="loader-letter">n</span>
+    <span class="loader-letter">e</span>
+    <span class="loader-letter">r</span>
+    <span class="loader-letter">a</span>
+    <span class="loader-letter">t</span>
+    <span class="loader-letter">i</span>
+    <span class="loader-letter">n</span>
+    <span class="loader-letter">g</span>
+    <div class="loader"></div>
   </div>
 
-  <!-- Navigation -->
-  <nav class="navbar">
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About Us</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#reviews">Reviews</a></li>
-      <li><a href="#contact">Contact Us</a></li>
-    </ul>
-  </nav>
-
-  <!-- HOME section (singura scrisă direct aici) -->
-  <section id="home" class="section">
-    <video autoplay muted loop id="bg-video">
-      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+  <!-- Videoclip fundal -->
+  <main id="home" class="main-section">
+    <video autoplay muted loop playsinline class="background-video">
+      <source src="assets/wallpaper/loop.mp4" type="video/mp4">
     </video>
-    <div class="home-content">
-      <h1>Welcome to Our Site</h1>
+
+    <!-- Navigație -->
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact us</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-title">
+      <h1>Welcome to AndzoWorld</h1>
+      <p>Scroll down to explore</p>
     </div>
-  </section>
+  </main>
 
-  <!-- Containers pentru celelalte secțiuni -->
-  <div id="about-container"></div>
-  <div id="services-container"></div>
-  <div id="reviews-container"></div>
-  <div id="contact-container"></div>
+  <!-- Secțiunile -->
+  <section id="about" class="section">About Section</section>
+  <section id="services" class="section">Services Section</section>
+  <section id="reviews" class="section">Reviews Section</section>
+  <section id="contact" class="section">Contact Section</section>
 
-  <!-- JS -->
-  <script src="js/vanilla-tilt.js"></script>
+  <!-- Scripturi principale -->
   <script src="js/script.js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/contact.js"></script>
 </body>
 </html>
