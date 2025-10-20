@@ -1,8 +1,12 @@
-// Loader timeout
+// Asigură că pagina pornește mereu de sus
+window.history.scrollRestoration = "manual";
+window.scrollTo(0, 0);
+
 window.addEventListener("load", () => {
   const loader = document.querySelector(".loader-wrapper");
   const videoSection = document.querySelector(".video-section");
 
+  // Fade-out loader după 3s
   setTimeout(() => {
     loader.style.opacity = "0";
     loader.style.filter = "blur(10px)";
@@ -14,7 +18,7 @@ window.addEventListener("load", () => {
   }, 3000);
 });
 
-// Scroll function
+// Scroll smooth către secțiuni
 function scrollToSection(id) {
   const section = document.getElementById(id);
   if (section) {
