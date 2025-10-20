@@ -3,19 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Loader </title>
+    <title>Video Background + Loader</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- BACKGROUND VIDEO -->
-    <div class="video-bg">
-      <video autoplay muted loop playsinline class="bg-video" id="bg-video">
-        <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
-        Browserul tău nu suportă video.
-      </video>
-      <div class="video-overlay"></div>
-    </div>
-
     <!-- LOADER -->
     <div class="loader-screen">
       <div class="loader-wrapper">
@@ -33,22 +24,17 @@
       </div>
     </div>
 
-    <!-- MAIN CONTENT (scrollabil) -->
+    <!-- VIDEO BACKGROUND -->
+    <video autoplay muted loop playsinline preload="auto" class="bg-video" id="bg-video">
+      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+      Browserul tău nu suportă video.
+    </video>
+
+    <!-- CONȚINUTUL PAGINII -->
     <main>
-      <section class="hero">
-        <h1>Bine ai venit!</h1>
-        <p>Acesta este conținutul peste video-ul de fundal.</p>
-      </section>
-
-      <section class="content">
-        <h2>Secțiune 1</h2>
-        <p>Lorem ipsum dolor sit amet...</p>
-      </section>
-
-      <section class="content">
-        <h2>Secțiune 2</h2>
-        <p>Mai mult conținut scrollabil...</p>
-      </section>
+      <section style="height: 100vh"></section>
+      <section style="height: 100vh"></section>
+      <section style="height: 100vh"></section>
     </main>
 
     <script src="script.js"></script>
