@@ -1,44 +1,61 @@
+<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ANDZ. | Website</title>
+  <title>Site cu Loading + Video</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Loader Screen -->
-  <div class="loader-screen">
+
+  <!-- ========================= -->
+  <!-- LOADING SCREEN -->
+  <!-- ========================= -->
+  <!-- From Uiverse.io by dexter-st -->
+  <div class="loader-container">
     <div class="loader-wrapper">
-      <span class="loader-letter">L</span>
-      <span class="loader-letter">o</span>
+      <!-- Text animat -->
+      <span class="loader-letter">G</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">n</span>
+      <span class="loader-letter">e</span>
+      <span class="loader-letter">r</span>
       <span class="loader-letter">a</span>
-      <span class="loader-letter">d</span>
+      <span class="loader-letter">t</span>
       <span class="loader-letter">i</span>
       <span class="loader-letter">n</span>
       <span class="loader-letter">g</span>
-      <span class="loader-letter">.</span>
-      <span class="loader-letter">.</span>
-      <span class="loader-letter">.</span>
+
+      <!-- Cercul rotativ -->
       <div class="loader"></div>
     </div>
   </div>
 
-  <!-- Video Background -->
-  <div class="video-background">
-    <video autoplay muted loop playsinline>
-      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+  <!-- ========================= -->
+  <!-- BACKGROUND VIDEO -->
+  <!-- ========================= -->
+  <div class="video-bg">
+    <video autoplay muted loop playsinline id="bgVideo">
+      <source src="assets/wallpaper/loop.MP4" type="video/mp4">
     </video>
   </div>
 
-  <!-- MAIN PAGE CONTENT -->
-  <main>
-    <section class="content fade-section">
-      <div overlap-text="front">Design. Develop. Deliver</div>
-      <div class="subtext">we do it all</div>
+  <!-- ========================= -->
+  <!-- CONTENT PAGE -->
+  <!-- ========================= -->
+  <main class="content">
+    <section>
+      <h1>Bun venit pe site!</h1>
+      <p>Acesta este conținutul care apare după loader.</p>
+    </section>
+
+    <section>
+      <h2>Mai jos poți adăuga secțiuni, butoane, etc.</h2>
+      <button>Exemplu Buton</button>
     </section>
   </main>
-  
+
   <script src="script.js"></script>
 </body>
 </html>
