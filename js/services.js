@@ -72,10 +72,11 @@ var VanillaTilt = (function () {
 
   return VanillaTilt;
 })();
-
-VanillaTilt.init(document.querySelectorAll(".card"), {
-  max: 25,
-  speed: 400,
-  glare: true,
-  "max-glare": 1,
+document.addEventListener("DOMContentLoaded", () => {
+  VanillaTilt.init(document.querySelectorAll(".card"), {
+    max: 25,
+    speed: 400,
+    glare: true,
+    "max-glare": 1,
+  });
 });
