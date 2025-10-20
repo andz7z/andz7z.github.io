@@ -2,13 +2,16 @@ window.addEventListener("load", () => {
   const loader = document.querySelector(".loader-wrapper");
   const videoSection = document.querySelector(".video-section");
 
+  // așteptăm 2.5s pentru efect
   setTimeout(() => {
     loader.style.transition = "opacity 1s ease, filter 1s ease";
     loader.style.opacity = "0";
     loader.style.filter = "blur(20px)";
 
+    // după fade out
     setTimeout(() => {
       loader.style.display = "none";
+      document.body.style.overflowY = "auto"; // ✅ reactiva scroll-ul
       videoSection.classList.remove("hidden");
       videoSection.classList.add("visible");
     }, 1000);
