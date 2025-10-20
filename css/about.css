@@ -1,0 +1,7 @@
+/* about.css — stil pentru secțiunea "About" */
+
+/* TODO: adaugă design specific (ex: carduri de profil, animații etc.) */
+.about-section {
+  background-color: #ffffff;
+  transition: all 0.3s ease-in-out;
+}
