@@ -45,15 +45,18 @@ const observer = new IntersectionObserver(
     { threshold: 0.4 }
 );
 document.querySelectorAll('section').forEach((sec) => observer.observe(sec));
-// BACK TO TOP 
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+// Show pulse on scroll
+const backToTop = document.getElementById("backToTop");
+
 window.addEventListener("scroll", () => {
-  const navbar = document.getElementById("navbar");
-  if (window.scrollY > 100) {
-    navbar.classList.add("scrolled");
+  if (window.scrollY > 200) {
+    backToTop.classList.add("pulse");
   } else {
-    navbar.classList.remove("scrolled");
+    backToTop.classList.remove("pulse");
   }
+});
+
+// Smooth scroll to top
+backToTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
