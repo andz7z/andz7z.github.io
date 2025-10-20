@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Loader + Sticky Sections</title>
+  <title>Loading → Video → Sticky Scroll</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet" />
 </head>
+
 <body class="loading demo-1">
 
   <!-- LOADER -->
@@ -29,25 +30,25 @@
     <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
   </video>
 
-  <!-- MAIN CONTENT -->
-  <main>
+  <!-- MAIN SCROLLABLE CONTENT -->
+  <main id="main-content">
     <div class="wrap">
       <div class="content content--sticky content--grid bg-1">
         <img class="content__img content__img--large content__img--left" src="https://tympanus.net/Development/StickySections/img/3.png" />
         <h2 class="content__title"><i>The</i> Algorithm</h2>
-        <p class="content__text content__text--left text-meta">The algorithm's workings are shrouded in complexity...</p>
+        <p class="content__text content__text--left text-meta">The algorithm's workings are shrouded in complexity, and its decision-making processes are inscrutable to the general populace.</p>
       </div>
 
       <div class="content content--sticky content--grid bg-2">
         <img class="content__img content__img--large content__img--left" src="https://tympanus.net/Development/StickySections/img/2.png" />
         <h2 class="content__title"><i>The</i> Dogma</h2>
-        <p class="content__text content__text--left text-meta">The digital gospel etched into the very code...</p>
+        <p class="content__text content__text--left text-meta">The digital gospel etched into the very code of the algorithmic society, served as the bedrock of the cognitive regime.</p>
       </div>
 
       <div class="content content--sticky content--grid bg-3">
         <img class="content__img content__img--large content__img--left" src="https://tympanus.net/Development/StickySections/img/1.png" />
         <h2 class="content__title"><i>The</i> Architects</h2>
-        <p class="content__text content__text--left text-meta">The elusive entities, lacking human form, operate in the shadows...</p>
+        <p class="content__text content__text--left text-meta">The elusive entities, lacking human form, operate in the shadows, skillfully shaping societal norms through the complex interplay of algorithms and Dogmas.</p>
       </div>
     </div>
 
@@ -57,9 +58,12 @@
     </footer>
   </main>
 
+  <!-- LIBRARIES -->
   <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
   <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.31/bundled/lenis.min.js"></script>
+
+  <!-- SCRIPT -->
   <script src="script.js"></script>
 </body>
 </html>
