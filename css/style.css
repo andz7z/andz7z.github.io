@@ -1,4 +1,4 @@
-/* Reset general */
+/* === RESET === */
 *,
 *::before,
 *::after {
@@ -22,11 +22,12 @@ html, body {
   position: fixed;
   inset: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: black;
   z-index: 1000;
-  transition: all 0.8s ease;
+  transition: opacity 1s ease, filter 1s ease;
 }
 
 .loader-wrapper.fade-out {
@@ -36,13 +37,11 @@ html, body {
 }
 
 .loader {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 180px;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   animation: loader-rotate 2s linear infinite;
+  margin-bottom: 1rem;
 }
 
 @keyframes loader-rotate {
@@ -69,10 +68,16 @@ html, body {
   }
 }
 
+.loader-text {
+  display: flex;
+  gap: 0.1rem;
+}
+
 .loader-letter {
   display: inline-block;
   opacity: 0.4;
   animation: loader-letter-anim 2s infinite;
+  font-size: 1.2em;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
@@ -101,24 +106,6 @@ html, body {
   }
 }
 
-/* === VIDEO LANDING PAGE === */
-.background-video {
-  position: fixed;
-  inset: 0;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  opacity: 0;
-  filter: blur(10px);
-  transition: opacity 1.5s ease, filter 1.5s ease;
-}
-
-.background-video.active {
-  opacity: 1;
-  filter: blur(0);
-}
-
 /* === NAVBAR === */
 .main-nav {
   position: fixed;
@@ -144,22 +131,47 @@ html, body {
   color: #ad5fff;
 }
 
-/* === MAIN TITLE === */
-.main-title {
+/* === HOMEPAGE (VIDEO) === */
+.home-section {
   position: relative;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
 }
 
-.main-title h1 {
+.background-video {
+  position: absolute;
+  inset: 0;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 1.5s ease, filter 1.5s ease;
+  z-index: -1;
+}
+
+.background-video.active {
+  opacity: 1;
+  filter: blur(0);
+}
+
+.home-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.home-content h1 {
   font-size: 3rem;
   margin-bottom: 0.5rem;
 }
 
-.main-title p {
-  font-size: 1.2rem;
-  opacity: 0.8;
+.home-content p {
+  font-size: 1.3rem;
+  opacity: 0.85;
 }
 
 /* === SECTIONS === */
