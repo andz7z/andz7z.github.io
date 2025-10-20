@@ -24,11 +24,6 @@
     </div>
   </div>
 
-  <!-- Video Background (Only for Home section) -->
-  <video autoplay muted loop id="bg-video">
-    <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
-  </video>
-
   <!-- Navigation -->
   <nav class="navbar">
     <ul>
@@ -41,7 +36,15 @@
   </nav>
 
   <!-- Sections -->
-  <section id="home"><h1>Welcome to Our Site</h1></section>
+  <section id="home">
+    <video autoplay muted loop id="bg-video">
+      <source src="assets/wallpaper/loop.mp4" type="video/mp4" />
+    </video>
+    <div class="home-content">
+      <h1>Welcome to Our Site</h1>
+    </div>
+  </section>
+
   <section id="about"><h1>About Us</h1></section>
   <section id="services"><h1>Services</h1></section>
   <section id="reviews"><h1>Reviews</h1></section>
