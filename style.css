@@ -1,41 +1,68 @@
-/* imports */
-@font-face {
-  font-family: 'Noverich';
-  src: url('assets/fonts/noverich.otf') format('opentype');
-}
-@font-face {
-  font-family: 'Roboto';
-  src: url('assets/fonts/roboto.ttf') format('opentype');
-  font-display: swap;
-}
-/* GLOBAL */
+/* ===== GLOBAL ===== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body, html {
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden; /* doar orizontal ascuns, vertical scroll permis */
-  background: black;
+html, body {
+  height: 100%;
+  font-family: "Inter", sans-serif;
   color: white;
-  font-family: "Roboto", sans-serif;
+  background: black;
+  overflow-x: hidden;
 }
 
-/* LOADER SCREEN */
+/* ===== VIDEO BACKGROUND ===== */
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  opacity: 0;
+  filter: blur(25px);
+  transition: opacity 1.5s ease, filter 2s ease;
+}
+
+.video-bg.show {
+  opacity: 1;
+  filter: blur(10px);
+}
+
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* ===== LOADER ===== */
 .loader-screen {
   position: fixed;
   inset: 0;
-  background: black;
+  background-color: black;
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 10;
-  transition: filter 1s ease, opacity 1s ease;
+  align-items: center;
+  z-index: 999;
+  transition: opacity 1s ease, filter 1.5s ease;
 }
 
+.loader-screen.fade-out {
+  opacity: 0;
+  filter: blur(20px);
+  pointer-events: none;
+}
+
+/* Original loader styles */
 .loader-wrapper {
   position: relative;
   display: flex;
@@ -123,233 +150,25 @@ body, html {
   }
 }
 
-/* LANDING PAGE */
-.landing-page {
-  position: fixed;
-  inset: 0;
-  opacity: 0;
-  filter: blur(20px);
-  transition: opacity 1s ease, filter 1s ease;
+/* ===== CONTENT ===== */
+main {
+  position: relative;
+  z-index: 1;
 }
 
-.landing-page.active {
-  opacity: 1;
-  filter: blur(0);
-}
-
-.background-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
 }
 
 .content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-/* HIDE */
-.hidden {
-  display: none;
-}
-/* --- HEADER METALIC --- */
-.vision-wrapper {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-.vision-title {
-  font-family: 'Noverich', sans-serif;
-  font-size: 4.5rem;
-  letter-spacing: 6px;
-  display: flex;
-  justify-content: center;
-  text-transform: uppercase;
-  user-select: none;
-  opacity: 0;
-  transition: opacity 1s ease, transform 1s ease;
-  perspective: 1000px;
-}
-/* când e activ */
-.landing-page.active .vision-title.show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.landing-page.active .vision-reflection.show {
-  opacity: 0.5;
-}
-
-/* litere individuale */
-.vision-title span,
-.vision-reflection span {
-  display: inline-block;
-  background: linear-gradient(
-    115deg,
-    #f0f0f0 0%,
-    #b5b5b5 10%,
-    #ffffff 25%,
-    #8b8b8b 45%,
-    #fefefe 60%,
-    #a1a1a1 80%,
-    #d9d9d9 100%
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: metalShine 5s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.15s);
-  text-shadow:
-    0 1px 1px rgba(255,255,255,0.6),
-    0 3px 3px rgba(0,0,0,0.3);
-  transition: transform 0.4s ease, filter 0.4s ease, text-shadow 0.4s ease;
-}
-
-/* efect metalic mișcător per literă */
-@keyframes metalShine {
-  0% {
-    background-position: 0% 50%;
-    transform: rotateY(0deg);
-  }
-  25% {
-    background-position: 50% 50%;
-    transform: rotateY(4deg);
-  }
-  50% {
-    background-position: 100% 50%;
-    transform: rotateY(-4deg);
-  }
-  75% {
-    background-position: 50% 50%;
-    transform: rotateY(3deg);
-  }
-  100% {
-    background-position: 0% 50%;
-    transform: rotateY(0deg);
-  }
-}
-
-/* Efect blur + zoom la hover */
-.vision-title span:hover {
-  transform: scale(1.3) rotateY(6deg);
-  filter: blur(1.5px);
-  text-shadow:
-    0 0 15px rgba(255,255,255,0.5),
-    0 0 30px rgba(200,200,200,0.3);
-}
-/* concept nou, poziție sub titlu */
-.concept-tag {
-  position: relative;
-  margin-top: 8px;
-  display: flex;
-  justify-content: center;
-}
-
-.txt {
-  position: relative;
-  font-family: 'Roboto', sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.7);
-  overflow: hidden;
-  user-select: none;
-  opacity: 0;
-  animation: fadeConcept 2s ease forwards 4s; /* apare după titlu */
-}
-
-/* efect inovativ – linie luminoasă glisantă */
-.txt::after {
-  content: "";
-  position: absolute;
-  left: -60%;
-  top: 0;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.8), transparent);
-  animation: neonSweep 3.5s linear infinite;
-}
-
-/* sweep luminos prin text */
-@keyframes neonSweep {
-  0% { left: -60%; opacity: 0; }
-  30% { left: 110%; opacity: 1; }
-  100% { left: 110%; opacity: 0; }
-}
-
-/* fade de apariție */
-@keyframes fadeConcept {
-  to { opacity: 1; }
-}
-
-/* apariție cursivă */
-.vision-title span {
-  opacity: 0;
-  transform: translateY(20px) scale(0.9);
-  animation: letterFadeIn 0.6s forwards;
-  animation-delay: calc(var(--i) * 0.12s);
-}
-
-/* animatia literelor */
-@keyframes letterFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.9);
-    filter: blur(4px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(0) scale(1.05);
-    filter: blur(1px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-
-/* puls subtil (respirație) după ce apare complet */
-.vision-title.show {
-  animation: breathe 6s ease-in-out infinite 2s;
-}
-
-@keyframes breathe {
-  0%, 100% {
-    filter: brightness(1) drop-shadow(0 0 5px rgba(255,255,255,0.2));
-    transform: translateY(0);
-  }
-  50% {
-    filter: brightness(1.2) drop-shadow(0 0 20px rgba(255,255,255,0.4));
-    transform: translateY(-2px);
-  }
-}
-.about-section {
-  width: 100%;
-  min-height: 100vh;
-  background: #0a0a0a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 4rem 2rem;
-}
-
-.about-section h2 {
-  font-size: 2.5rem;
-  letter-spacing: 3px;
-  margin-bottom: 1rem;
-}
-
-.about-section p {
-  max-width: 600px;
-  text-align: center;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.8);
+  padding: 8rem 2rem;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(3px);
 }
