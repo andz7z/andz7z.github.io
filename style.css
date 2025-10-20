@@ -1,42 +1,19 @@
-/* ---------------- GLOBAL RESET ---------------- */
-*,
-*::after,
-*::before { box-sizing: border-box; }
-
-:root {
-  --color-bg: #12100e;
-  --color-text: #fff;
-  --color-bg-1: #2f251e;
-  --color-bg-2: #43392f;
-  --color-bg-3: #2f251e;
-  --page-padding: 1.5rem;
-  font-family: "Inter", sans-serif;
-}
-
-body {
-  margin: 0;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  overflow-x: hidden;
-}
-
-/* ---------------- LOADER ---------------- */
+/* ---------- LOADING ANIMATION ---------- */
+/* From Uiverse.io by dexter-st */
 .loader-wrapper {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 180px;
-  height: 180px;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  width: 180px;
+  height: 180px;
+  font-family: "Inter", sans-serif;
   font-size: 1.2em;
+  font-weight: 300;
+  color: white;
   border-radius: 50%;
-  background: transparent;
-  z-index: 9999;
-  transition: all 1s ease;
+  background-color: transparent;
+  user-select: none;
 }
 
 .loader {
@@ -46,7 +23,9 @@ body {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
+  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
+  z-index: 0;
 }
 
 @keyframes loader-rotate {
@@ -76,8 +55,11 @@ body {
 .loader-letter {
   display: inline-block;
   opacity: 0.4;
+  transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
+  z-index: 1;
 }
+
 .loader-letter:nth-child(1) { animation-delay: 0s; }
 .loader-letter:nth-child(2) { animation-delay: 0.1s; }
 .loader-letter:nth-child(3) { animation-delay: 0.2s; }
@@ -90,18 +72,33 @@ body {
 .loader-letter:nth-child(10) { animation-delay: 0.9s; }
 
 @keyframes loader-letter-anim {
-  0%,100% { opacity: 0.4; transform: translateY(0); }
-  20% { opacity: 1; transform: scale(1.15); }
-  40% { opacity: 0.7; transform: translateY(0); }
+  0%, 100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+  40% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
 }
 
-/* Loader transitions */
-.loader-wrapper.blur-out {
-  filter: blur(20px);
-  opacity: 0;
+/* ---------- LOADER SCREEN ---------- */
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 1s ease, filter 1s ease;
 }
 
-/* ---------------- BACKGROUND VIDEO ---------------- */
+/* ---------- VIDEO BACKGROUND ---------- */
 #bg-video {
   position: fixed;
   top: 0;
@@ -109,50 +106,62 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  filter: blur(10px);
   opacity: 0;
-  filter: blur(30px);
-  transition: opacity 1.5s ease, filter 2s ease;
-}
-#bg-video.active {
-  opacity: 1;
-  filter: blur(0);
+  transition: filter 1s ease, opacity 1s ease;
+  z-index: -1;
 }
 
-/* ---------------- STICKY CONTENT ---------------- */
-.content {
-  padding: var(--page-padding);
+/* ---------- NAVBAR ---------- */
+.navbar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  z-index: 1000;
 }
 
-.content--sticky {
-  position: sticky;
-  top: 0;
-  width: 100%;
+.navbar ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #ad5fff;
+}
+
+/* ---------- SECTIONS ---------- */
+section {
   height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 3rem;
+  text-shadow: 0 0 20px black;
 }
 
-.content__title {
-  font-size: clamp(2rem, 6vw, 5rem);
-  text-transform: uppercase;
-  font-weight: 700;
-}
+#about { background: rgba(0, 0, 0, 0.4); }
+#services { background: rgba(0, 0, 0, 0.3); }
+#reviews { background: rgba(0, 0, 0, 0.2); }
+#contact { background: rgba(0, 0, 0, 0.1); }
 
-.content__text {
-  max-width: 500px;
-  text-align: center;
-  line-height: 1.5;
-}
-
-.bg-1 { background: var(--color-bg-1); }
-.bg-2 { background: var(--color-bg-2); }
-.bg-3 { background: var(--color-bg-3); }
-
-footer {
-  text-align: center;
-  padding: 2rem;
-  background: rgba(0,0,0,0.2);
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
 }
