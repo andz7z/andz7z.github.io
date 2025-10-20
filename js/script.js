@@ -25,3 +25,10 @@ function scrollToSection(id) {
     section.scrollIntoView({ behavior: "smooth" });
   }
 }
+window.addEventListener("load", () => {
+  document.querySelector(".loader-wrapper").classList.add("fade-out");
+  setTimeout(() => {
+    document.querySelector(".loader-wrapper").style.display = "none";
+    document.querySelector(".video-section").classList.remove("hidden");
+  }, 1000);
+});
