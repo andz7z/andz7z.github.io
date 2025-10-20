@@ -4,27 +4,39 @@ window.addEventListener("load", () => {
   const loader = document.querySelector(".loader-wrapper");
   const ghostSection = document.querySelector(".ghost-section");
 
-  // Fade-out loader
+  // Asigură-te că ghostSection există și e ascuns la start
+  ghostSection.classList.add("hidden");
+
+  // După 2.5 secunde — dispare loaderul și apare ghost-ul
   setTimeout(() => {
-    loader.style.transition = "opacity 1s ease, filter 1s ease";
-    loader.style.opacity = "0";
-    loader.style.filter = "blur(20px)";
+    if (loader) {
+      loader.style.transition = "opacity 1s ease, filter 1s ease";
+      loader.style.opacity = "0";
+      loader.style.filter = "blur(20px)";
+    }
 
     setTimeout(() => {
-      loader.style.display = "none";
-      ghostSection.classList.remove("hidden");
-      ghostSection.classList.add("visible");
-      initGhost(); // 🧿 start ghost anim
+      if (loader) loader.style.display = "none";
+
+      // ✅ Activează ghost section
+      if (ghostSection) {
+        ghostSection.classList.remove("hidden");
+        ghostSection.classList.add("visible");
+      }
+
+      // Inițializează animația 3D
+      initGhost();
     }, 1000);
   }, 2500);
 });
 
-// Smooth scroll for buttons
+// Smooth scroll pentru butoane
 function scrollToSection(id) {
-  document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+  const target = document.getElementById(id);
+  if (target) target.scrollIntoView({ behavior: "smooth" });
 }
 
-// Fade-in sections on scroll
+// Fade-in pentru secțiuni
 const observer = new IntersectionObserver(
   entries => {
     entries.forEach(entry => {
@@ -43,8 +55,15 @@ document.querySelectorAll(".page-section").forEach(section => {
 // ==================== 3D GHOST ====================
 function initGhost() {
   const canvas = document.getElementById("ghostCanvas");
+  if (!canvas) return;
+
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+  const camera = new THREE.PerspectiveCamera(
+    45,
+    canvas.clientWidth / canvas.clientHeight,
+    0.1,
+    100
+  );
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 
@@ -76,7 +95,7 @@ function initGhost() {
   }
   animate();
 
-  // Handle resize
+  // Redimensionare automată
   window.addEventListener("resize", () => {
     camera.aspect = canvas.clientWidth / canvas.clientHeight;
     camera.updateProjectionMatrix();
