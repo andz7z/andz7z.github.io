@@ -175,7 +175,7 @@ body {
   position: relative;
   width: 120px;
   height: 40px;
-  background-color: #000;
+  background-color: transparent; /* 🔹 era #000 — acum transparent ca să vezi gradientul */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -187,7 +187,8 @@ body {
   overflow: hidden;
   font-weight: 500;
   letter-spacing: 0.5px;
-  transition: transform 0.2s ease;
+  z-index: 1;
+  transition: transform 0.2s ease, color 0.3s ease;
 }
 
 .button::before {
@@ -201,19 +202,20 @@ body {
   height: 48px;
   border-radius: 10px;
   background: linear-gradient(-45deg, #e81cff 0%, #40c9ff 100%);
-  z-index: -10;
+  z-index: -1;
   pointer-events: none;
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* 🔥 un efect subtil de glow în jurul butonului */
 .button::after {
   content: "";
-  z-index: -1;
+  z-index: -2;
   position: absolute;
   inset: 0;
   background: linear-gradient(-45deg, #fc00ff 0%, #00dbde 100%);
   transform: scale(0.95);
-  filter: blur(20px);
+  filter: blur(15px);
   transition: filter 0.3s ease;
 }
 
@@ -231,4 +233,5 @@ body {
 
 .button:hover {
   transform: translateY(-2px);
+  color: #e3e3e3;
 }
