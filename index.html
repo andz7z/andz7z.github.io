@@ -1,138 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Test</title>
-  <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
-  <link rel="stylesheet" href="./style.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <title>[threejs/webgl] ❍ Yet another Metaballs Hero Section with ThreeJS</title>
+    <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
+<link rel="stylesheet" href="./style.css">
 
-<body>
-  <!-- ================= HERO SECTION ================= -->
+  </head>
+    
+  <body>
   <section class="section hero-section">
-    <div id="container"></div>
-    <div id="stats"></div>
-    <div id="ui-container"></div>
+  <div id="container"></div>
+  <div id="stats"></div>
+  <div id="ui-container"></div>
 
-    <div class="header-area">
-      <div class="logo-container" id="theme-toggle">
-        <div class="logo-circles">
-          <div class="circle circle-1"></div>
-          <div class="circle circle-2"></div>
-        </div>
-      </div>
-      <div class="center-logo">
-        <h1 id="logo-text">Nexus.</h1>
+  <div class="header-area">
+    <div class="logo-container" id="theme-toggle">
+      <div class="logo-circles">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
       </div>
     </div>
-
-    <div class="hero">
-      <h1>Where matter becomes<br>thought and thought<br>becomes form</h1>
-      <h2 id="story-text">
-        our vessel drifts at coordinates (0.00, 0.00)<br>
-        gravitational field extends 0.10 units into quantum foam<br>
-        currently merging with 0 other entities
-      </h2>
+    <div class="center-logo">
+      <h1 id="logo-text">Nexus.</h1>
     </div>
+  </div>
 
-    <div class="contact-info">
-      <p class="contact-heading">+Get in touch</p>
-      <span class="contact-email">hi@filip.fyi</span>
-    </div>
+  <div class="hero">
+    <h1>Where matter becomes<br>thought and thought<br>becomes form</h1>
+    <h2 id="story-text">
+      our vessel drifts at coordinates (0.00, 0.00)<br>
+      gravitational field extends 0.10 units into quantum foam<br>
+      currently merging with 0 other entities
+    </h2>
+  </div>
 
-    <div class="footer-links">
-      <a href="#" class="footer-link">Fluid Dynamics</a>
-      <a href="#" class="footer-link">Organic Shapes</a>
-      <a href="#" class="footer-link">Interactive Forms</a>
-      <a href="#" class="footer-link">Motion Studies</a>
-      <a href="#" class="footer-link">Contact</a>
-    </div>
+  <div class="contact-info">
+    <p class="contact-heading">+Get in touch</p>
+    <span class="contact-email">hi@filip.fyi</span>
+  </div>
 
-    <div class="coordinates">
-      <p>Nexus State • Active</p>
-      <p>where consciousness flows</p>
-    </div>
-  </section>
+  <div class="footer-links">
+    <a href="#" class="footer-link">Fluid Dynamics</a>
+    <a href="#" class="footer-link">Organic Shapes</a>
+    <a href="#" class="footer-link">Interactive Forms</a>
+    <a href="#" class="footer-link">Motion Studies</a>
+    <a href="#" class="footer-link">Contact</a>
+  </div>
 
-  <!-- ================= SLIDER SECTION (DEDESUBT) ================= -->
-  <section class="section slider-section">
-    <div class="slider-container">
-      <div class="now-showing">Now in Showroom</div>
+  <div class="coordinates">
+    <p>Nexus State • Active</p>
+    <p>where consciousness flows</p>
+  </div>
+</section>
 
-      <div class="accordion-slider">
-        <!-- SLIDE 1 -->
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')">
-          <div class="slide-content">
-            <div class="slide-number">01</div>
-            <div class="car-brand">BMW M3</div>
-            <div class="car-name">BMW M3 Competition</div>
-            <div class="car-subtitle">Twin-Turbo Inline-6 Performance</div>
-            <div class="car-specs">
-              <div class="spec-row"><span class="spec-label">Engine:</span><span class="spec-value">3.0L Twin-Turbo Inline-6</span></div>
-              <div class="spec-row"><span class="spec-label">Power:</span><span class="spec-value">503 HP @ 6,250 RPM</span></div>
-              <div class="spec-row"><span class="spec-label">Torque:</span><span class="spec-value">650 Nm @ 2,750 RPM</span></div>
-              <div class="spec-row"><span class="spec-label">Transmission:</span><span class="spec-value">8-Speed Automatic</span></div>
-            </div>
-            <div class="performance-badges">
-              <div class="badge"><div class="badge-icon"></div><span>0-100: 3.9s</span></div>
-              <div class="badge"><div class="badge-icon"></div><span>Top Speed: 290 km/h</span></div>
-              <div class="badge"><div class="badge-icon"></div><span>Price: $73,400</span></div>
-            </div>
-          </div>
-          <div class="add-button"></div>
-        </div>
+<section class="section fin-section">
+  <div class="fin-text">{ Fin }</div>
+</section>
+    <script type="module" src="./script.js"></script>
 
-        <!-- SLIDE 2 -->
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1544636331-e26879cd4d9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1974&q=80')">
-          <div class="slide-content">
-            <div class="slide-number">02</div>
-            <div class="car-brand">Lamborghini Huracán</div>
-            <div class="car-name">Lamborghini Huracán</div>
-            <div class="car-subtitle">Naturally Aspirated V10 Excellence</div>
-            <div class="car-specs">
-              <div class="spec-row"><span class="spec-label">Engine:</span><span class="spec-value">5.2L V10</span></div>
-              <div class="spec-row"><span class="spec-label">Power:</span><span class="spec-value">610 HP</span></div>
-              <div class="spec-row"><span class="spec-label">Torque:</span><span class="spec-value">560 Nm</span></div>
-              <div class="spec-row"><span class="spec-label">Transmission:</span><span class="spec-value">7-Speed DCT</span></div>
-            </div>
-            <div class="performance-badges">
-              <div class="badge"><div class="badge-icon"></div><span>0-100: 3.2s</span></div>
-              <div class="badge"><div class="badge-icon"></div><span>Top Speed: 325 km/h</span></div>
-              <div class="badge"><div class="badge-icon"></div><span>Price: $248,295</span></div>
-            </div>
-          </div>
-          <div class="add-button"></div>
-        </div>
-
-        <!-- SLIDE 3 -->
-        <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')">
-          <div class="slide-content">
-            <div class="slide-number">03</div>
-            <div class="car-brand">Ferrari SF90</div>
-            <div class="car-name">Ferrari SF90 Stradale</div>
-            <div class="car-subtitle">Plug-in Hybrid Revolution</div>
-            <div class="car-specs">
-              <div class="spec-row"><span class="spec-label">Engine:</span><span class="spec-value">4.0L V8 + Electric</span></div>
-              <div class="spec-row"><span class="spec-label">Power:</span><span class="spec-value">1000 HP</span></div>
-              <div class="spec-row"><span class="spec-label">Torque:</span><span class="spec-value">800 Nm</span></div>
-              <div class="spec-row"><span class="spec-label">Transmission:</span><span class="spec-value">8-Speed F1 DCT</span></div>
-            </div>
-            <div class="performance-badges">
-              <div class="badge"><div class="badge-icon"></div><span>0-100: 2.5s</span></div>
-              <div class="badge"><div class="badge-icon"></div><span>Top Speed: 340 km/h</span></div>
-              <div class="badge"><div class="badge-icon"></div><span>Price: $625,000</span></div>
-            </div>
-          </div>
-          <div class="add-button"></div>
-        </div>
-      </div>
-
-      <button class="navigation-arrows nav-prev">‹</button>
-      <button class="navigation-arrows nav-next">›</button>
-    </div>
-  </section>
-
-  <script type="module" src="./script.js"></script>
-</body>
+  </body>
+  
 </html>
