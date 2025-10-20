@@ -12,7 +12,7 @@ window.addEventListener("load", () => {
       videoSection.classList.remove("hidden");
       videoSection.classList.add("visible");
     }, 1000);
-  }, 3000);
+  }, 2500);
 });
 
 function scrollToSection(id) {
