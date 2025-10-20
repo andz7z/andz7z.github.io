@@ -2,22 +2,37 @@ window.addEventListener("load", () => {
   const loader = document.querySelector(".loader-wrapper");
   const videoSection = document.querySelector(".video-section");
 
-  // așteptăm 2.5s pentru efect
+  // Fade-out loader
   setTimeout(() => {
     loader.style.transition = "opacity 1s ease, filter 1s ease";
     loader.style.opacity = "0";
     loader.style.filter = "blur(20px)";
 
-    // după fade out
     setTimeout(() => {
       loader.style.display = "none";
-      document.body.style.overflowY = "auto"; // ✅ reactiva scroll-ul
       videoSection.classList.remove("hidden");
       videoSection.classList.add("visible");
     }, 1000);
   }, 2500);
 });
 
+// Smooth scroll for buttons
 function scrollToSection(id) {
   document.getElementById(id).scrollIntoView({ behavior: "smooth" });
 }
+
+// Fade-in sections on scroll
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible-scroll");
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+
+document.querySelectorAll(".page-section").forEach(section => {
+  observer.observe(section);
+});
