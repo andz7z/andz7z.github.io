@@ -89,3 +89,22 @@
   font-weight: 500;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
 }
+/* ensures 3d transforms are preserved */
+.container .card {
+  transform-style: preserve-3d;   /* păstrează contextul 3D */
+  will-change: transform;         /* hint browser-ului pentru optimizare */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  perspective: 1000px;            /* adaugă perspective la container (opțional) */
+}
+
+/* ensure the inner content doesn't capture pointer events that break the card */
+.container .card .content {
+  pointer-events: none; /* permite cardului (.card) să primească mouse events */
+}
+
+/* but make links/buttons clickable again */
+.container .card .content a {
+  pointer-events: auto;
+  /* restul stilului tău rămâne */
+}
