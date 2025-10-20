@@ -1,4 +1,4 @@
-/* ===== RESETE ===== */
+/* ===== RESET ===== */
 * {
   margin: 0;
   padding: 0;
@@ -7,44 +7,26 @@
 
 html, body {
   height: 100%;
-  font-family: "Inter", sans-serif;
   background: black;
-  color: white;
   overflow-x: hidden;
+  font-family: "Inter", sans-serif;
 }
 
-/* ===== VIDEO BACKGROUND ===== */
-.video-bg {
+/* ===== BACKGROUND VIDEO ===== */
+.bg-video {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
-  z-index: -1; /* stă sub conținut */
-  opacity: 0;
-  filter: blur(25px);
-  transition: opacity 1.5s ease, filter 2s ease;
-}
-
-.video-bg.show {
-  opacity: 1;
-  filter: blur(10px);
-}
-
-.bg-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 1.5s ease;
 }
 
-.video-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+.bg-video.show {
+  opacity: 1;
 }
 
 /* ===== LOADER ===== */
@@ -65,7 +47,7 @@ html, body {
   pointer-events: none;
 }
 
-/* Original loader styles */
+/* ===== Original Loader Design ===== */
 .loader-wrapper {
   position: relative;
   display: flex;
@@ -77,7 +59,6 @@ html, body {
   font-weight: 300;
   color: white;
   border-radius: 50%;
-  background-color: transparent;
   user-select: none;
 }
 
@@ -88,9 +69,7 @@ html, body {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background-color: transparent;
   animation: loader-rotate 2s linear infinite;
-  z-index: 0;
 }
 
 @keyframes loader-rotate {
@@ -122,7 +101,6 @@ html, body {
   opacity: 0.4;
   transform: translateY(0);
   animation: loader-letter-anim 2s infinite;
-  z-index: 1;
 }
 
 .loader-letter:nth-child(1) { animation-delay: 0s; }
@@ -151,25 +129,12 @@ html, body {
   }
 }
 
-/* ===== CONTINUT ===== */
+/* ===== CONTENT ===== */
 main {
   position: relative;
   z-index: 1;
 }
 
-.hero {
+section {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(3px);
-}
-
-.content {
-  padding: 8rem 2rem;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(3px);
 }
