@@ -1,7 +1,10 @@
-// După 3 secunde -> fade out la loader + fade in la video
 window.addEventListener("load", () => {
+  const loader = document.querySelector(".loader-screen");
+  const videoBg = document.querySelector(".video-bg");
+
+  // așteaptă 3 secunde înainte de tranziție
   setTimeout(() => {
-    document.querySelector(".loader-screen").classList.add("fade-out");
-    document.querySelector(".video-bg").classList.add("show");
+    loader.classList.add("fade-out");
+    videoBg.classList.add("show");
   }, 3000);
 });
