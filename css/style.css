@@ -35,17 +35,16 @@ html, body {
   pointer-events: none;
 }
 
+/* Cercul rotativ */
 .loader {
   position: relative;
   width: 180px;
-  aspect-ratio: 1/1;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   animation: loader-rotate 2s linear infinite;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
+/* Textul static in mijloc */
 .loader-text {
   position: absolute;
   font-size: 1.2em;
@@ -88,6 +87,7 @@ html, body {
   }
 }
 
+/* Animația bulei */
 @keyframes loader-rotate {
   0% {
     transform: rotate(90deg);
