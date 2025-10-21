@@ -115,13 +115,20 @@ window.addEventListener('scroll', () => {
   }
 });
 
-// back button behaviour (safe-guard)
+// ==================== Back button behaviour (go to Home section) ====================
 if (backBtn) {
   backBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    // dacă avem istoric, mergem back; altfel mergem sus.
-    if (window.history.length > 1) window.history.back();
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Caută secțiunea home (#home)
+    const homeSection = document.querySelector('#home');
+
+    if (homeSection) {
+      homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      // fallback — dacă nu există secțiunea home, du-te sus
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   });
 }
 
