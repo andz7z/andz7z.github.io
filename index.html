@@ -3,342 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ | Portfolio</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>A</text></svg>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/contact.css">
+    <title>ANDZ — Design. Develop. Deliver.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/about.css">
+    <link rel="stylesheet" href="./css/services.css">
+    <link rel="stylesheet" href="./css/portfolio.css">
+    <link rel="stylesheet" href="./css/reviews.css">
+    <link rel="stylesheet" href="./css/contact.css">
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+
+    <div class="custom-cursor" data-cursor-target></div>
+    <div class="custom-cursor-follower" data-cursor-target></div>
+
+    <div id="scroll-progress-bar"></div>
+
+    <header id="main-header">
+        <a href="#home" class="logo">ANDZ</a>
+        <nav class="desktop-nav">
+            <a href="#about" class="nav-item" data-section="About">About</a>
+            <a href="#services" class="nav-item" data-section="Services">Services</a>
+            <a href="#portfolio" class="nav-item" data-section="Portfolio">Portfolio</a>
+            <a href="#reviews" class="nav-item" data-section="Reviews">Reviews</a>
+            <a href="#contact" class="nav-item" data-section="Contact">Contact</a>
+        </nav>
+        <div class="minimal-nav hidden">
+            <span class="back-icon">⬅</span>
+            <span class="current-section-display">Currently on: Home</span>
+        </div>
+        <button class="hamburger-menu" aria-label="Open menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+    </header>
+
+    <div id="mobile-menu-overlay" class="hidden">
+        <a href="#about" class="nav-item">About</a>
+        <a href="#services" class="nav-item">Services</a>
+        <a href="#portfolio" class="nav-item">Portfolio</a>
+        <a href="#reviews" class="nav-item">Reviews</a>
+        <a href="#contact" class="nav-item">Contact</a>
     </div>
 
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-logo">
-            <span class="logo-text">ANDZ</span>
-            <div class="logo-reflection"></div>
-        </div>
-        <div class="nav-icons">
-            <a href="#home" class="nav-icon active" data-section="home">
-                <i class="fas fa-home"></i>
-            </a>
-            <a href="#about" class="nav-icon" data-section="about">
-                <i class="fas fa-user"></i>
-            </a>
-            <a href="#services" class="nav-icon" data-section="services">
-                <i class="fas fa-cogs"></i>
-            </a>
-            <a href="#portfolio" class="nav-icon" data-section="portfolio">
-                <i class="fas fa-briefcase"></i>
-            </a>
-            <a href="#reviews" class="nav-icon" data-section="reviews">
-                <i class="fas fa-star"></i>
-            </a>
-            <a href="#contact" class="nav-icon" data-section="contact">
-                <i class="fas fa-envelope"></i>
-            </a>
-        </div>
-    </nav>
-
-    <!-- Back Button -->
-    <div class="back-nav">
-        <a href="#home" class="back-btn">
-            <i class="fas fa-arrow-up"></i>
-            <span class="current-section">Currently on: Home</span>
-        </a>
-    </div>
-
-    <!-- Sections -->
-    <main>
-        <section id="home" class="section active">
-            <div class="video-background">
-                <video autoplay muted loop id="bgVideo">
-                    <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                </video>
-                <div class="video-overlay"></div>
-            </div>
+    <main id="scroll-container">
+        <section id="home" class="section active-section snap-scroll reveal-section">
             <div class="home-content">
                 <div class="text-block">
-                    <h1 class="animated-text">
-                        <span class="line-1">DESIGN. DEVELOP</span>
-                        <span class="line-2">DELIVER.</span>
-                        <span class="line-3">&lt;we do it all/&gt;</span>
-                    </h1>
+                    <h1 class="main-text parallax-target" data-speed="0.05">DESIGN.</h1>
+                    <h1 class="main-text parallax-target" data-speed="0.03">DEVELOP.</h1>
+                    <h1 class="main-text parallax-target" data-speed="0.01">DELIVER.</h1>
+                    <p class="tagline parallax-target" data-speed="-0.02">&lt;we do it all/&gt;</p>
+                    <a href="#about" class="discover-btn">
+                        Discover Now <span class="arrow">→</span>
+                    </a>
                 </div>
-                <div class="social-block">
-                    <div class="line"></div>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                    </div>
-                    <div class="line"></div>
+                <div class="social-links-container">
+                    <div class="social-line top-line"></div>
+                    <a href="#" target="_blank" aria-label="LinkedIn" class="social-link">LinkedIn</a>
+                    <a href="#" target="_blank" aria-label="GitHub" class="social-link">GitHub</a>
+                    <a href="#" target="_blank" aria-label="Facebook" aria-label="Facebook" class="social-link">Facebook</a>
+                    <a href="#" target="_blank" aria-label="Instagram" class="social-link">Instagram</a>
+                    <div class="social-line bottom-line"></div>
                 </div>
-            </div>
-            <div class="scroll-indicator">
-                <div class="arrow"></div>
             </div>
         </section>
 
-        <section id="about" class="section">
+        <section id="about" class="section snap-scroll reveal-section">
             <div class="section-content">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-container">
-                    <div class="about-card">
-                        <div class="card-content">
-                            <div class="profile-image">
-                                <div class="image-placeholder"></div>
-                            </div>
-                            <h3>ANDZ</h3>
-                            <p class="title">Full-Stack Developer & Creative Designer</p>
-                            <p>With over 5 years of experience in web development and digital design, I create stunning, functional digital experiences that blend aesthetics with performance.</p>
-                            <div class="skills">
-                                <span class="skill-tag">HTML/CSS</span>
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">React</span>
-                                <span class="skill-tag">Node.js</span>
-                                <span class="skill-tag">UI/UX Design</span>
-                                <span class="skill-tag">Video Editing</span>
-                            </div>
-                        </div>
+                <h2>About <span class="glow-accent">Us</span></h2>
+                <div class="about-grid">
+                    <p class="about-text">We are a collective of senior developers and visionary designers, specializing in creating high-performance, aesthetically stunning web experiences. Our philosophy is rooted in **minimalism** and **perfect execution**.</p>
+                    <div class="glass-card metric-card">
+                        <h3>99.9%</h3>
+                        <p>Performance Score</p>
+                    </div>
+                    <div class="glass-card metric-card">
+                        <h3>10+</h3>
+                        <p>Years Experience</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="services" class="section">
+        <section id="services" class="section snap-scroll reveal-section">
             <div class="section-content">
-                <h2 class="section-title">Services</h2>
+                <h2>Our <span class="glow-accent">Services</span></h2>
                 <div class="services-grid">
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Web Development</h3>
-                        <p>Custom websites and web applications built with modern technologies and best practices.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
+                    <div class="service-card glass-card">
                         <h3>UI/UX Design</h3>
-                        <p>User-centered design that combines aesthetics with functionality for optimal user experience.</p>
+                        <p>Stunning, intuitive interfaces inspired by the best of modern mobile design.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3>Video Editing</h3>
-                        <p>Professional video editing services for commercials, social media, and corporate content.</p>
+                    <div class="service-card glass-card">
+                        <h3>Front-End Dev</h3>
+                        <p>Expert-level HTML, CSS (SCSS), and JavaScript (ES6+) for flawless execution.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <h3>Photo Editing</h3>
-                        <p>High-quality photo retouching, color correction, and creative manipulation.</p>
+                    <div class="service-card glass-card">
+                        <h3>Performance Audit</h3>
+                        <p>Optimizing for speed, accessibility, and SEO using the latest techniques.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="section">
+        <section id="portfolio" class="section snap-scroll reveal-section">
             <div class="section-content">
-                <h2 class="section-title">Portfolio</h2>
+                <h2>Featured <span class="glow-accent">Projects</span></h2>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3>E-commerce Platform</h3>
-                            <p>Full-stack development of a modern e-commerce solution with React and Node.js</p>
-                            <button class="portfolio-btn">View Project</button>
-                        </div>
+                    <div class="project-card glass-card" data-title="AURA">
+                        <p>Minimalist E-Commerce</p>
                     </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3>Corporate Website</h3>
-                            <p>Complete redesign and development for a multinational corporation</p>
-                            <button class="portfolio-btn">View Project</button>
-                        </div>
+                    <div class="project-card glass-card" data-title="ZENITH">
+                        <p>Data Visualization Tool</p>
                     </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3>Mobile App UI</h3>
-                            <p>User interface design for a fitness tracking mobile application</p>
-                            <button class="portfolio-btn">View Project</button>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3>Video Campaign</h3>
-                            <p>Complete video production for a product launch campaign</p>
-                            <button class="portfolio-btn">View Project</button>
-                        </div>
+                    <div class="project-card glass-card" data-title="ECHO">
+                        <p>Futuristic Landing Page</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="reviews" class="section">
+        <section id="reviews" class="section snap-scroll reveal-section">
             <div class="section-content">
-                <h2 class="section-title">Client Reviews</h2>
-                <div class="reviews-container">
-                    <div class="review-card">
-                        <div class="review-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>"ANDZ delivered beyond our expectations. The website is not only beautiful but also performs exceptionally well."</p>
-                            <div class="review-author">
-                                <h4>Sarah Johnson</h4>
-                                <span>CEO, TechSolutions Inc.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>"The video editing work was professional and creative. ANDZ understood our vision perfectly."</p>
-                            <div class="review-author">
-                                <h4>Michael Brown</h4>
-                                <span>Marketing Director, BrandVision</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>"Working with ANDZ was a pleasure. The UI/UX design significantly improved our conversion rates."</p>
-                            <div class="review-author">
-                                <h4>Emily Chen</h4>
-                                <span>Product Manager, AppFlow</span>
-                            </div>
-                        </div>
+                <h2>Client <span class="glow-accent">Feedback</span></h2>
+                <div class="reviews-carousel glass-card">
+                    <blockquote class="review-item">
+                        <p>"Absolutely top-tier. The animations are buttery smooth, and the attention to detail is unmatched. Performance is stellar."</p>
+                        <footer>— C. W., Tech CEO</footer>
+                    </blockquote>
+                    <blockquote class="review-item hidden">
+                        <p>"They delivered a true work of art. Minimalist, luxurious, and performs flawlessly on all devices."</p>
+                        <footer>— A. P., Creative Director</footer>
+                    </blockquote>
+                    <div class="carousel-nav">
+                        <button class="nav-dot active"></button>
+                        <button class="nav-dot"></button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="section">
+        <section id="contact" class="section snap-scroll reveal-section">
             <div class="section-content">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="contact-container">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h3>Email</h3>
-                                <p>contact@andz.dev</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h3>Phone</h3>
-                                <p>+1 (555) 123-4567</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h3>Location</h3>
-                                <p>San Francisco, CA</p>
-                            </div>
-                        </div>
-                    </div>
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
+                <h2>Get in <span class="glow-accent">Touch</span></h2>
+                <form class="contact-form glass-card">
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <p class="footer-text">© ANDZ 2025 — All rights reserved.</p>
-            <button class="tos-btn" id="tosBtn">TOS</button>
-        </div>
+    <footer id="main-footer">
+        <p>© 2025 ANDZ. All rights reserved.</p>
+        <a href="#" class="terms-link">Terms of Service</a>
+        <div class="footer-glow-line"></div>
     </footer>
 
-    <!-- TOS Modal -->
-    <div class="modal-overlay" id="tosModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Terms of Service</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>These Terms of Service govern your use of the website located at andz.dev and any related services provided by ANDZ.</p>
-                <p>By accessing andz.dev, you agree to abide by these Terms of Service and to comply with all applicable laws and regulations.</p>
-                <h3>Intellectual Property</h3>
-                <p>The intellectual property in the materials contained in this website are owned by or licensed to ANDZ and are protected by applicable copyright and trademark law.</p>
-                <h3>User Responsibilities</h3>
-                <p>As a user of our services, you agree not to:</p>
-                <ul>
-                    <li>Systematically retrieve data or other content from the services to create a collection</li>
-                    <li>Trick, defraud, or mislead us and other users</li>
-                    <li>Circumvent, disable, or otherwise interfere with security-related features</li>
-                </ul>
-                <h3>Termination</h3>
-                <p>These Terms of Service are effective unless and until terminated by either you or ANDZ.</p>
-            </div>
-        </div>
-    </div>
-
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/about.js"></script>
+    <script src="./js/services.js"></script>
+    <script src="./js/portfolio.js"></script>
+    <script src="./js/reviews.js"></script>
+    <script src="./js/contact.js"></script>
 </body>
 </html>
