@@ -1,78 +1,76 @@
 /* css/portfolio.css */
-/* 
-HOW TO EDIT PORTFOLIO SECTION:
-- Grid layout: Adjust columns and gaps
-- Placeholders: Replace with actual project images
-- Project data: Update titles and descriptions
-*/
 
-.portfolio-section {
-    background: var(--color-bg-dark);
+.filter-buttons {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.filter-btn.active {
+    /* Stil pentru butonul activ */
+    background: var(--gradient-main);
+    color: #fff;
+    border-color: transparent;
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--space-xl);
-    margin-top: var(--space-lg);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
 .portfolio-item {
-    background: var(--color-glass);
-    backdrop-filter: blur(var(--blur-amount));
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--border-radius);
-    padding: var(--space-lg);
-    text-align: center;
-    transition: all var(--transition-normal);
-    opacity: 0;
-    transform: translateY(30px);
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-.portfolio-item.visible {
-    opacity: 1;
+.portfolio-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-fast);
+}
+
+/* Efect Overlay (Req 5) */
+.portfolio-item .overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    color: #fff;
+    padding: 2rem 1rem 1rem;
+    transform: translateY(100%);
+    transition: transform var(--transition-fast);
+}
+
+.portfolio-item:hover .overlay {
     transform: translateY(0);
 }
 
-.portfolio-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--color-primary);
+.portfolio-item:hover img {
+    transform: scale(1.1);
 }
 
-.portfolio-placeholder {
-    width: 100%;
-    height: 200px;
-    background: var(--color-glass-dark);
-    border-radius: var(--border-radius);
-    margin-bottom: var(--space-lg);
-    position: relative;
-    overflow: hidden;
+.overlay h3 {
+    margin: 0;
+    font-size: 1.5rem;
 }
-
-.portfolio-placeholder::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
-    animation: shimmer 2s infinite;
-}
-
-.portfolio-item h3 {
-    font-size: 1.25rem;
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text);
-    margin-bottom: var(--space-sm);
-}
-
-.portfolio-item p {
-    color: var(--color-text-muted);
+.overlay p {
+    margin: 0;
     font-size: 0.9rem;
+    color: var(--color-primary);
 }
 
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
-}
+/* Modal (Req 5) */
+/* (Stilurile pentru modal vor fi mai complexe și ar trebui adăugate aici) */
