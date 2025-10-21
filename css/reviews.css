@@ -1,4 +1,12 @@
-/* --- CSS/REVIEWS.CSS --- */
+/* css/reviews.css */
+
+/* HOW TO EDIT
+  - This file styles ONLY the #reviews section.
+  - Add styles for testimonial cards, sliders, quote blocks, etc.
+*/
+
 #reviews {
-  background: var(--bg-about);
+    /* Example: Style a testimonial slider */
+    /* .review-slider { ... } */
+    /* .review-card { ... } */
 }
