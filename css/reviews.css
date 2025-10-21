@@ -1,58 +1,54 @@
-/* Reviews Section */
-#reviews {
-    background: linear-gradient(135deg, #111111, #222222);
+#reviews .section-content {
+    max-width: 800px;
 }
 
-.reviews-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.review-card {
-    padding: 2rem;
-}
-
-.review-content {
-    height: 100%;
+.reviews-carousel {
+    padding: 3rem;
+    min-height: 250px;
     display: flex;
     flex-direction: column;
-}
-
-.stars {
-    margin-bottom: 1.5rem;
-    color: gold;
-    font-size: 1.2rem;
-}
-
-.review-content p {
-    font-style: italic;
-    margin-bottom: 2rem;
-    flex-grow: 1;
-    color: var(--metal-light);
-    line-height: 1.6;
+    justify-content: space-between;
     position: relative;
 }
 
-.review-content p::before,
-.review-content p::after {
-    content: '"';
-    font-size: 2rem;
-    color: var(--chrome);
-    opacity: 0.5;
+.review-item {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--color-text-main);
+    transition: opacity 0.5s ease-in-out;
 }
 
-.review-author h4 {
-    font-size: 1.1rem;
-    margin-bottom: 0.3rem;
-    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+.review-item.hidden {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
-.review-author span {
-    font-size: 0.9rem;
-    color: var(--metal-dark);
+.review-item footer {
+    margin-top: 1rem;
+    font-size: 1rem;
+    font-style: normal;
+    color: var(--color-text-faded);
+}
+
+.carousel-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-text-faded);
+    border: none;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.nav-dot.active {
+    background-color: var(--color-accent-red);
+    transform: scale(1.2);
 }
