@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusCreative | Code. Create. Captivate.</title>
+    <title>ANDZ | Portfolio</title>
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -11,555 +13,162 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    
+    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Progress Bar -->
-    <div class="progress-bar"></div>
+    <div class="progress-bar" id="progressBar"></div>
     
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <a href="#home">NexusCreative</a>
-        </div>
-        
-        <div class="nav-icons">
-            <a href="#home" class="nav-icon active" data-section="home">
-                <i class="fas fa-home"></i>
-                <span>Home</span>
-            </a>
-            <a href="#about" class="nav-icon" data-section="about">
-                <i class="fas fa-user"></i>
-                <span>About</span>
-            </a>
-            <a href="#services" class="nav-icon" data-section="services">
-                <i class="fas fa-cogs"></i>
-                <span>Services</span>
-            </a>
-            <a href="#portfolio" class="nav-icon" data-section="portfolio">
-                <i class="fas fa-briefcase"></i>
-                <span>Portfolio</span>
-            </a>
-            <a href="#reviews" class="nav-icon" data-section="reviews">
-                <i class="fas fa-star"></i>
-                <span>Reviews</span>
-            </a>
-            <a href="#contact" class="nav-icon" data-section="contact">
-                <i class="fas fa-envelope"></i>
-                <span>Contact</span>
-            </a>
-        </div>
-        
-        <!-- Mobile Menu Button -->
-        <div class="mobile-menu-btn">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </nav>
-    
-    <!-- Compact Navbar (appears on scroll) -->
-    <nav class="compact-navbar">
-        <a href="#home" class="back-btn">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <div class="current-section">Currently on: Home</div>
-    </nav>
-    
-    <!-- Social Media Icons -->
-    <div class="social-icons">
-        <div class="line"></div>
-        <a href="#" class="social-icon">
-            <i class="fab fa-github"></i>
-        </a>
-        <a href="#" class="social-icon">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="#" class="social-icon">
-            <i class="fab fa-youtube"></i>
-        </a>
-        <a href="#" class="social-icon">
-            <i class="fab fa-behance"></i>
-        </a>
-        <div class="line"></div>
-    </div>
-    
-    <!-- Sections -->
-    <main class="sections-container">
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="video-background">
-                <video autoplay muted loop id="bg-video">
-                    <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                    <!-- Fallback image if video doesn't load -->
-                    <img src="assets/wallpaper/fallback.jpg" alt="Background">
-                </video>
-                <div class="video-overlay"></div>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Brand Name -->
+            <div class="brand">
+                <a href="#home">ANDZ</a>
             </div>
             
-            <div class="home-content">
-                <h1 class="main-title">
-                    <span class="title-line">Code. Create.</span>
-                    <span class="title-line">Captivate.</span>
-                </h1>
-                <p class="subtitle">&lt;web dev & creative media/&gt;</p>
-                <a href="#about" class="discover-btn">
-                    Discover Now <i class="fas fa-arrow-right"></i>
+            <!-- Navigation Icons -->
+            <div class="nav-icons">
+                <a href="#home" class="nav-icon active" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span class="tooltip">Home</span>
                 </a>
+                <a href="#about" class="nav-icon" data-section="about">
+                    <i class="fas fa-user"></i>
+                    <span class="tooltip">About</span>
+                </a>
+                <a href="#services" class="nav-icon" data-section="services">
+                    <i class="fas fa-cogs"></i>
+                    <span class="tooltip">Services</span>
+                </a>
+                <a href="#portfolio" class="nav-icon" data-section="portfolio">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="tooltip">Portfolio</span>
+                </a>
+                <a href="#reviews" class="nav-icon" data-section="reviews">
+                    <i class="fas fa-star"></i>
+                    <span class="tooltip">Reviews</span>
+                </a>
+                <a href="#contact" class="nav-icon" data-section="contact">
+                    <i class="fas fa-envelope"></i>
+                    <span class="tooltip">Contact</span>
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- Scrolled Navigation -->
+        <div class="scrolled-nav" id="scrolledNav">
+            <a href="#home" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <div class="current-section" id="currentSection">Home</div>
+        </div>
+    </nav>
+    
+    <!-- Main Content Sections -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="home-container">
+                <!-- Background Video -->
+                <div class="video-container">
+                    <video autoplay muted loop id="bgVideo">
+                        <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+                        <!-- Fallback for browsers that don't support video -->
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="video-overlay"></div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="home-content">
+                    <div class="text-content">
+                        <h1 class="main-title">
+                            <span class="title-line">Design. Develop.</span>
+                            <span class="title-line">Deliver.</span>
+                            <span class="title-sub">&lt;we do it all/&gt;</span>
+                        </h1>
+                        <div class="cta-container">
+                            <button class="discover-btn" id="discoverBtn">
+                                Discover Now <i class="fas fa-arrow-right"></i>
+                            </button>
+                            <div class="arrow-animation">
+                                <i class="fas fa-arrow-down"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media Icons -->
+                    <div class="social-icons">
+                        <div class="line"></div>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <div class="line"></div>
+                    </div>
+                </div>
             </div>
         </section>
         
         <!-- About Section -->
         <section id="about" class="section">
-            <div class="container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Full-Stack Developer & Creative Media Specialist</h3>
-                        <p>With over 5 years of experience in both web development and creative media production, I bridge the gap between technical excellence and visual storytelling. I create digital experiences that not only function flawlessly but also captivate audiences.</p>
-                        
-                        <div class="skills-container">
-                            <div class="skill">
-                                <div class="skill-info">
-                                    <span>Web Development</span>
-                                    <span>95%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="95"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="skill">
-                                <div class="skill-info">
-                                    <span>Video Editing</span>
-                                    <span>90%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="90"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="skill">
-                                <div class="skill-info">
-                                    <span>Photo Editing</span>
-                                    <span>88%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="88"></div>
-                                </div>
-                            </div>
-                            
-                            <div class="skill">
-                                <div class="skill-info">
-                                    <span>UI/UX Design</span>
-                                    <span>85%</span>
-                                </div>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="about-image">
-                        <div class="image-container">
-                            <img src="assets/about/profile.jpg" alt="Profile Image">
-                            <div class="image-overlay"></div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="tools-section">
-                    <h3>Tools & Technologies</h3>
-                    <div class="tools-grid">
-                        <div class="tool-category">
-                            <h4>Development</h4>
-                            <div class="tools-list">
-                                <span class="tool-tag">HTML5/CSS3</span>
-                                <span class="tool-tag">JavaScript</span>
-                                <span class="tool-tag">React</span>
-                                <span class="tool-tag">Node.js</span>
-                                <span class="tool-tag">Python</span>
-                                <span class="tool-tag">Git</span>
-                            </div>
-                        </div>
-                        
-                        <div class="tool-category">
-                            <h4>Creative Media</h4>
-                            <div class="tools-list">
-                                <span class="tool-tag">Adobe Premiere Pro</span>
-                                <span class="tool-tag">After Effects</span>
-                                <span class="tool-tag">Photoshop</span>
-                                <span class="tool-tag">Lightroom</span>
-                                <span class="tool-tag">DaVinci Resolve</span>
-                                <span class="tool-tag">Figma</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="section-container">
+                <h2 class="section-title">About</h2>
+                <!-- About content will be loaded here -->
             </div>
         </section>
         
         <!-- Services Section -->
         <section id="services" class="section">
-            <div class="container">
+            <div class="section-container">
                 <h2 class="section-title">Services</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Web Development</h3>
-                        <p>Full-stack web applications, responsive websites, and custom solutions using modern technologies and best practices.</p>
-                        <div class="card-hover-effect"></div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-film"></i>
-                        </div>
-                        <h3>Video Editing</h3>
-                        <p>Professional video editing, color grading, motion graphics, and visual effects for various content types.</p>
-                        <div class="card-hover-effect"></div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-camera"></i>
-                        </div>
-                        <h3>Photo Editing</h3>
-                        <p>Advanced photo manipulation, retouching, color correction, and creative visual enhancements.</p>
-                        <div class="card-hover-effect"></div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
-                        <h3>UI/UX Design</h3>
-                        <p>User-centered design approach creating intuitive and engaging digital experiences across platforms.</p>
-                        <div class="card-hover-effect"></div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3>Motion Graphics</h3>
-                        <p>Dynamic animations, title sequences, and visual elements that bring stories to life through movement.</p>
-                        <div class="card-hover-effect"></div>
-                    </div>
-                    
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h3>App Development</h3>
-                        <p>Cross-platform mobile applications with focus on performance, usability, and modern design principles.</p>
-                        <div class="card-hover-effect"></div>
-                    </div>
-                </div>
+                <!-- Services content will be loaded here -->
             </div>
         </section>
         
         <!-- Portfolio Section -->
         <section id="portfolio" class="section">
-            <div class="container">
+            <div class="section-container">
                 <h2 class="section-title">Portfolio</h2>
-                
-                <div class="portfolio-filters">
-                    <button class="filter-btn active" data-filter="all">All</button>
-                    <button class="filter-btn" data-filter="web-dev">Web Development</button>
-                    <button class="filter-btn" data-filter="video">Video Projects</button>
-                    <button class="filter-btn" data-filter="photo">Photo Editing</button>
-                    <button class="filter-btn" data-filter="design">UI/UX Design</button>
-                </div>
-                
-                <div class="portfolio-grid">
-                    <!-- Web Development Projects -->
-                    <div class="portfolio-item" data-category="web-dev">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/web1.jpg" alt="E-commerce Website">
-                            <div class="portfolio-overlay">
-                                <h3>Modern E-commerce Platform</h3>
-                                <p>Web Development</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="portfolio-item" data-category="web-dev">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/web2.jpg" alt="Business Dashboard">
-                            <div class="portfolio-overlay">
-                                <h3>Analytics Dashboard</h3>
-                                <p>Web Development</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Video Projects -->
-                    <div class="portfolio-item" data-category="video">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/video1.jpg" alt="Commercial Video">
-                            <div class="portfolio-overlay">
-                                <h3>Brand Commercial</h3>
-                                <p>Video Editing</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="portfolio-item" data-category="video">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/video2.jpg" alt="Music Video">
-                            <div class="portfolio-overlay">
-                                <h3>Music Video Production</h3>
-                                <p>Video Editing</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Photo Editing -->
-                    <div class="portfolio-item" data-category="photo">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/photo1.jpg" alt="Product Photography">
-                            <div class="portfolio-overlay">
-                                <h3>Product Photography Enhancement</h3>
-                                <p>Photo Editing</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="portfolio-item" data-category="photo">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/photo2.jpg" alt="Portrait Retouching">
-                            <div class="portfolio-overlay">
-                                <h3>Portrait Retouching</h3>
-                                <p>Photo Editing</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- UI/UX Design -->
-                    <div class="portfolio-item" data-category="design">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/design1.jpg" alt="Mobile App Design">
-                            <div class="portfolio-overlay">
-                                <h3>Fitness App UI/UX</h3>
-                                <p>UI/UX Design</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="portfolio-item" data-category="design">
-                        <div class="portfolio-image">
-                            <img src="assets/portfolio/design2.jpg" alt="Website Design">
-                            <div class="portfolio-overlay">
-                                <h3>Corporate Website Design</h3>
-                                <p>UI/UX Design</p>
-                                <button class="view-project">View Project</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Portfolio Modal -->
-            <div class="portfolio-modal">
-                <div class="modal-content">
-                    <span class="close-modal">&times;</span>
-                    <div class="modal-body">
-                        <!-- Content will be dynamically inserted here -->
-                    </div>
-                </div>
+                <!-- Portfolio content will be loaded here -->
             </div>
         </section>
         
         <!-- Reviews Section -->
         <section id="reviews" class="section">
-            <div class="container">
-                <h2 class="section-title">Client Reviews</h2>
-                
-                <div class="reviews-carousel">
-                    <div class="carousel-container">
-                        <div class="review-slide active">
-                            <div class="review-content">
-                                <div class="review-text">
-                                    <p>"The website developed by NexusCreative exceeded our expectations. The attention to detail and user experience is remarkable. Highly recommended for any web development project!"</p>
-                                </div>
-                                <div class="review-author">
-                                    <div class="author-image">
-                                        <img src="assets/reviews/client1.jpg" alt="Sarah Johnson">
-                                    </div>
-                                    <div class="author-info">
-                                        <h4>Sarah Johnson</h4>
-                                        <p>CEO, TechSolutions</p>
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="review-slide">
-                            <div class="review-content">
-                                <div class="review-text">
-                                    <p>"The video editing work was exceptional. They transformed our raw footage into a compelling story that perfectly captured our brand message. The turnaround time was impressive!"</p>
-                                </div>
-                                <div class="review-author">
-                                    <div class="author-image">
-                                        <img src="assets/reviews/client2.jpg" alt="Michael Chen">
-                                    </div>
-                                    <div class="author-info">
-                                        <h4>Michael Chen</h4>
-                                        <p>Marketing Director, VisionMedia</p>
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="review-slide">
-                            <div class="review-content">
-                                <div class="review-text">
-                                    <p>"As a photographer, I needed someone who could enhance my work without losing its essence. The photo editing was flawless and helped my portfolio stand out significantly."</p>
-                                </div>
-                                <div class="review-author">
-                                    <div class="author-image">
-                                        <img src="assets/reviews/client3.jpg" alt="Emma Rodriguez">
-                                    </div>
-                                    <div class="author-info">
-                                        <h4>Emma Rodriguez</h4>
-                                        <p>Professional Photographer</p>
-                                        <div class="rating">
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star"></i>
-                                            <i class="fas fa-star-half-alt"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="carousel-controls">
-                        <button class="carousel-prev">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <div class="carousel-indicators">
-                            <span class="indicator active"></span>
-                            <span class="indicator"></span>
-                            <span class="indicator"></span>
-                        </div>
-                        <button class="carousel-next">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
+            <div class="section-container">
+                <h2 class="section-title">Reviews</h2>
+                <!-- Reviews content will be loaded here -->
             </div>
         </section>
         
         <!-- Contact Section -->
         <section id="contact" class="section">
-            <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <h3>Let's Create Something Amazing Together</h3>
-                        <p>Whether you need a stunning website, professional video editing, or creative photo enhancements, I'm here to bring your vision to life.</p>
-                        
-                        <div class="contact-details">
-                            <div class="contact-item">
-                                <div class="contact-icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <h4>Email</h4>
-                                    <p>hello@nexuscreative.com</p>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-item">
-                                <div class="contact-icon">
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <h4>Phone</h4>
-                                    <p>+1 (555) 123-4567</p>
-                                </div>
-                            </div>
-                            
-                            <div class="contact-item">
-                                <div class="contact-icon">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </div>
-                                <div class="contact-text">
-                                    <h4>Location</h4>
-                                    <p>San Francisco, CA</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-github"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-youtube"></i></a>
-                            <a href="#"><i class="fab fa-behance"></i></a>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-form">
-                        <form id="contactForm">
-                            <div class="form-group">
-                                <input type="text" id="name" name="name" required>
-                                <label for="name">Your Name</label>
-                            </div>
-                            
-                            <div class="form-group">
-                                <input type="email" id="email" name="email" required>
-                                <label for="email">Your Email</label>
-                            </div>
-                            
-                            <div class="form-group">
-                                <input type="text" id="subject" name="subject" required>
-                                <label for="subject">Subject</label>
-                            </div>
-                            
-                            <div class="form-group">
-                                <textarea id="message" name="message" rows="5" required></textarea>
-                                <label for="message">Your Message</label>
-                            </div>
-                            
-                            <button type="submit" class="submit-btn">
-                                Send Message <i class="fas fa-paper-plane"></i>
-                            </button>
-                        </form>
-                    </div>
-                </div>
+            <div class="section-container">
+                <h2 class="section-title">Contact</h2>
+                <!-- Contact content will be loaded here -->
             </div>
         </section>
     </main>
-
+    
     <!-- JavaScript Files -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
