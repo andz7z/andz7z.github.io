@@ -1,8 +1,16 @@
 // js/services.js
-
-/* HOW TO EDIT
-  - This file is for JavaScript logic specific to the #services section.
-  - It is imported by js/main.js and runs on page load.
+/*
+HOW TO EDIT SERVICES SECTION JS:
+- Service data: Update services array with actual content
+- Interactions: Add modal popups or detailed views
+- Animations: Custom entrance effects
 */
 
-// console.log("Services section JS loaded.");
+// Services section specific functionality
+function initServices() {
+    // Services section doesn't need specific JS yet
+    // Add service filtering or modal interactions here
+}
+
+// Export for module usage
+export { initServices };
