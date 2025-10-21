@@ -166,4 +166,40 @@
     }
     50% { 
         transform: translateY(10px);
-       
+        opacity: 1;
+    }
+}
+
+/* Responsive Home */
+@media (max-width: 768px) {
+    .home-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 3rem;
+    }
+    
+    .home-text {
+        text-align: center;
+    }
+    
+    .line1 {
+        font-size: 2.5rem;
+    }
+    
+    .line2 {
+        font-size: 3rem;
+    }
+    
+    .line3 {
+        font-size: 1.2rem;
+    }
+    
+    .social-icons {
+        gap: 1rem;
+    }
+    
+    .social-icon {
+        width: 45px;
+        height: 45px;
+    }
+}
