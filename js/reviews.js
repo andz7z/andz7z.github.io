@@ -1,52 +1,23 @@
-function initReviews() {
-    // Initialize reviews slider
-    initReviewsSlider();
-}
+// Reviews section specific functionality
 
-function initReviewsSlider() {
-    const slider = document.querySelector('.reviews-slider');
-    const slides = document.querySelectorAll('.review-card');
-    const dots = document.querySelectorAll('.dot');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
+document.addEventListener('DOMContentLoaded', function() {
+    initReviewCards();
+});
+
+function initReviewCards() {
+    const reviewCards = document.querySelectorAll('.review-card');
     
-    let currentSlide = 0;
-    const slideCount = slides.length;
-    
-    // Function to update slider position
-    function updateSlider() {
-        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+    reviewCards.forEach((card, index) => {
+        // Staggered animation
+        card.style.animationDelay = `${index * 0.2}s`;
+        card.classList.add('fade-in-up');
         
-        // Update active dot
-        dots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSlide);
-        });
-    }
-    
-    // Next slide function
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slideCount;
-        updateSlider();
-    }
-    
-    // Previous slide function
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + slideCount) % slideCount;
-        updateSlider();
-    }
-    
-    // Event listeners
-    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
-    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
-    
-    // Dot navigation
-    dots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            currentSlide = index;
-            updateSlider();
+        // Star animation
+        const stars = card.querySelectorAll('.fa-star');
+        
+        stars.forEach((star, starIndex) => {
+            star.style.animationDelay = `${index * 0.2 + starIndex * 0.1}s`;
+            star.classList.add('pulse');
         });
     });
-    
-    // Auto slide every 5 seconds
-    setInterval(nextSlide, 5000);
 }
