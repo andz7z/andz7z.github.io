@@ -1,14 +1,26 @@
-function initServices() {
-    // Add hover effects to service cards
+// Services section specific functionality
+
+document.addEventListener('DOMContentLoaded', function() {
+    initServiceCards();
+});
+
+function initServiceCards() {
     const serviceCards = document.querySelectorAll('.service-card');
     
-    serviceCards.forEach(card => {
+    serviceCards.forEach((card, index) => {
+        // Staggered animation
+        card.style.animationDelay = `${index * 0.2}s`;
+        card.classList.add('fade-in-up');
+        
+        // Interactive hover effects
         card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
+            const icon = this.querySelector('.card-icon');
+            icon.style.transform = 'scale(1.1) rotate(5deg)';
         });
         
         card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
+            const icon = this.querySelector('.card-icon');
+            icon.style.transform = 'scale(1) rotate(0deg)';
         });
     });
 }
