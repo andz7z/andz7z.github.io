@@ -1,4 +1,12 @@
-/* --- CSS/PORTFOLIO.CSS --- */
+/* css/portfolio.css */
+
+/* HOW TO EDIT
+  - This file styles ONLY the #portfolio section.
+  - Add styles for your portfolio grid, thumbnails, filters, etc.
+*/
+
 #portfolio {
-  background: var(--bg-portfolio);
+    /* Example: Style a portfolio gallery */
+    /* .portfolio-gallery { ... } */
+    /* .gallery-item { ... } */
 }
