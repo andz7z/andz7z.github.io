@@ -1,9 +1,13 @@
-// js/contact.js
-
-// Contact section specific functionality
-
 function initContact() {
-    const contactForm = document.querySelector('.contact-form');
+    // Contact form handling
+    initContactForm();
+    
+    // Contact item animations
+    initContactAnimations();
+}
+
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
@@ -11,44 +15,83 @@ function initContact() {
             
             // Get form data
             const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
             
-            // In a real implementation, you would send this data to a server
-            // For this demo, we'll just show a success message
+            // Simple validation
+            if (!name || !email || !subject || !message) {
+                showNotification('Please fill in all fields.', 'error');
+                return;
+            }
             
-            // Show loading state
-            const submitBtn = this.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Sending...';
-            submitBtn.disabled = true;
+            // Simulate form submission
+            showNotification('Message sent successfully!', 'success');
+            this.reset();
             
-            // Simulate API call
-            setTimeout(function() {
-                // Reset button
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-                // Show success message
-                alert(`Thank you, ${name}! Your message has been sent successfully.`);
-                
-                // Reset form
-                contactForm.reset();
-            }, 1500);
+            // In a real application, you would send the data to a server here
+            console.log('Form submitted:', { name, email, subject, message });
         });
     }
+}
+
+function showNotification(message, type) {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
     
-    // Add focus effects to form inputs
-    const formInputs = document.querySelectorAll('.form-group input, .form-group textarea');
+    // Add styles
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 5px;
+        color: white;
+        font-weight: 500;
+        z-index: 10000;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+    `;
     
-    formInputs.forEach(input => {
-        input.addEventListener('focus', function() {
-            this.parentElement.classList.add('focused');
-        });
+    // Set background color based on type
+    if (type === 'success') {
+        notification.style.background = 'linear-gradient(145deg, #27ae60, #2ecc71)';
+    } else {
+        notification.style.background = 'linear-gradient(145deg, #c0392b, #e74c3c)';
+    }
+    
+    // Add to page
+    document.body.appendChild(notification);
+    
+    // Animate in
+    setTimeout(() => {
+        notification.style.transform = 'translateX(0)';
+    }, 100);
+    
+    // Remove after 3 seconds
+    setTimeout(() => {
+        notification.style.transform = 'translateX(100%)';
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
+
+function initContactAnimations() {
+    const contactItems = document.querySelectorAll('.contact-item');
+    
+    contactItems.forEach((item, index) => {
+        gsap.set(item, { opacity: 0, x: -50 });
         
-        input.addEventListener('blur', function() {
-            if (this.value === '') {
-                this.parentElement.classList.remove('focused');
-            }
+        gsap.to(item, {
+            opacity: 1,
+            x: 0,
+            duration: 0.6,
+            delay: index * 0.1,
+            ease: "power2.out"
         });
     });
 }
