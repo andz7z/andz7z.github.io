@@ -1,4 +1,12 @@
-/* --- CSS/CONTACT.CSS --- */
+/* css/contact.css */
+
+/* HOW TO EDIT
+  - This file styles ONLY the #contact section.
+  - Add styles for your contact form, email links, etc.
+*/
+
 #contact {
-  background: var(--bg-about);
+    /* Example: Style a contact form */
+    /* .contact-form { ... } */
+    /* .form-group { ... } */
 }
