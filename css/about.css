@@ -1,87 +1,102 @@
 /* ===== STILURI SPECIFICE PENTRU SECȚIUNEA ABOUT ===== */
 
 #about {
-    background: var(--color-dark);
+  background: var(--color-darker);
 }
 
 .about-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    animation: fadeInUp 0.8s ease 0.4s both;
-}
-
-.about-text {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--color-gray-light);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
 }
 
 .about-text p {
-    margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
 }
 
-.about-stats {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
-.stat {
-    text-align: center;
-    padding: 2rem;
-    background: var(--glass-bg);
-    backdrop-filter: var(--blur-intensity);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
-    transition: transform var(--transition-fast);
+.skill-item {
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  text-align: center;
+  transition: var(--transition-normal);
 }
 
-.stat:hover {
-    transform: translateY(-5px);
+.skill-item:hover {
+  transform: translateY(-5px);
+  border-color: rgba(138, 43, 226, 0.3);
 }
 
-.stat h3 {
-    font-size: 3rem;
-    font-weight: 700;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-bottom: 0.5rem;
+.skill-icon {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 1rem;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--color-light);
 }
 
-.stat p {
-    color: var(--color-gray-light);
-    font-weight: 500;
+.skill-item h3 {
+  margin-bottom: 0.5rem;
+  color: var(--color-light);
 }
 
-/* ===== MEDIA QUERIES PENTRU RESPONSIVITATE ===== */
+.skill-item p {
+  font-size: 0.9rem;
+  color: var(--color-gray);
+  margin: 0;
+}
+
+/* Animații pentru secțiunea About */
+.about-text,
+.skills-grid {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.about-content.animated .about-text,
+.about-content.animated .skills-grid {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.about-content.animated .skills-grid {
+  animation-delay: 0.3s;
+}
+
+/* Responsive design pentru About */
 @media (max-width: 968px) {
-    .about-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .about-stats {
-        flex-direction: row;
-        justify-content: space-around;
-    }
-    
-    .stat {
-        flex: 1;
-        min-width: 120px;
-    }
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .about-text {
+    text-align: center;
+  }
 }
 
 @media (max-width: 768px) {
-    .about-stats {
-        flex-direction: column;
-    }
-    
-    .stat h3 {
-        font-size: 2.5rem;
-    }
+  .skills-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .skill-item {
+    padding: 1.5rem;
+  }
 }
