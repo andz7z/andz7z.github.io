@@ -25,12 +25,13 @@ HOW TO EDIT:
     --color-accent: #06b6d4;
     --color-text: #ffffff;
     --color-text-muted: #a1a1aa;
-    --color-glass: rgba(139, 92, 246, 0.08);
-    --color-glass-dark: rgba(139, 92, 246, 0.04);
-    --color-glass-border: rgba(139, 92, 246, 0.15);
+    --color-glass: rgba(0, 0, 0, 0.8);
+    --color-glass-dark: rgba(0, 0, 0, 0.6);
+    --color-glass-border: rgba(139, 92, 246, 0.3);
     
     /* Gradients - Purple-Red-Blue */
     --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
+    --gradient-nav: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1), rgba(6, 182, 212, 0.1));
     --gradient-bg: radial-gradient(circle at top right, var(--color-primary-dark), transparent 50%),
                   radial-gradient(circle at bottom left, var(--color-secondary), transparent 50%),
                   radial-gradient(circle at center, var(--color-accent), transparent 60%);
@@ -56,7 +57,7 @@ HOW TO EDIT:
     --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
     /* Effects */
-    --blur-amount: 12px;
+    --blur-amount: 20px;
     --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     --border-radius: 12px;
 }
@@ -214,10 +215,41 @@ body {
     pointer-events: auto;
     background: var(--color-glass);
     backdrop-filter: blur(var(--blur-amount));
-    border: 1px solid var(--color-glass-border);
+    border: 1px solid transparent;
     border-radius: var(--border-radius);
     padding: var(--space-sm);
     transition: all var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-full::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: var(--border-radius);
+    padding: 2px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: borderFlow 3s linear infinite;
+}
+
+@keyframes borderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .nav-icons {
@@ -280,7 +312,7 @@ body {
     pointer-events: auto;
     background: var(--color-glass);
     backdrop-filter: blur(var(--blur-amount));
-    border: 1px solid var(--color-glass-border);
+    border: 1px solid transparent;
     border-radius: 50px;
     padding: var(--space-sm) var(--space-md);
     opacity: 0;
@@ -290,6 +322,24 @@ body {
     right: 0;
     top: 50%;
     transform: translateY(-50%) scale(0.9);
+    overflow: hidden;
+}
+
+.nav-minimal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    padding: 2px;
+    background: var(--gradient-primary);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: borderFlow 3s linear infinite;
 }
 
 .nav-minimal.active {
@@ -301,6 +351,8 @@ body {
     display: flex;
     align-items: center;
     gap: var(--space-lg);
+    position: relative;
+    z-index: 1;
 }
 
 .go-back-btn {
