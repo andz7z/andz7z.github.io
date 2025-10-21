@@ -16,6 +16,7 @@
     --glass: rgba(255, 255, 255, 0.1);
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     --glow: 0 0 10px rgba(255, 255, 255, 0.5);
+    --button-glow: 0 0 15px rgba(255, 255, 255, 0.7);
 }
 
 html {
@@ -62,12 +63,50 @@ body {
     transition: all 0.5s ease;
 }
 
+.main-nav.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
 .nav-logo {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--primary-color);
     text-shadow: var(--glow);
     letter-spacing: 2px;
+    position: relative;
+    perspective: 500px;
+}
+
+.logo-text {
+    display: inline-block;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.nav-logo:hover .logo-text {
+    transform: rotateX(15deg) translateZ(10px);
+}
+
+.logo-reflection {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+    transform: scaleY(-1) rotateX(180deg);
+    opacity: 0.5;
+    filter: blur(2px);
+    transform-origin: center;
+    transition: all 0.5s ease;
+}
+
+.nav-logo:hover .logo-reflection {
+    opacity: 0.8;
+    transform: scaleY(-1) rotateX(180deg) translateY(-5px);
 }
 
 .nav-icons {
@@ -95,64 +134,53 @@ body {
 .nav-icon:hover, .nav-icon.active {
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3), var(--button-glow);
 }
 
 /* Back Navigation */
 .back-nav {
     position: fixed;
     top: -100px;
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
+    right: 2rem;
     z-index: 99;
     transition: all 0.5s ease;
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.7);
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
 }
 
 .back-nav.visible {
-    top: 0;
+    top: 2rem;
 }
 
 .back-btn {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
     color: var(--primary-color);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 30px;
-    background: var(--glass);
-    backdrop-filter: blur(10px);
 }
 
 .back-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
 }
 
 .current-section {
     font-weight: 300;
     letter-spacing: 1px;
+    font-size: 0.75rem;
 }
 
 /* Sections */
 .section {
     min-height: 100vh;
     width: 100%;
-    display: none;
     position: relative;
-}
-
-.section.active {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    opacity: 1;
+    visibility: visible;
 }
 
 .section-content {
@@ -245,12 +273,31 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-btn::before,
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.portfolio-btn:hover::before,
+.submit-btn:hover::before {
+    left: 100%;
 }
 
 .portfolio-btn:hover,
 .submit-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3), var(--button-glow);
 }
 
 .tos-btn {
@@ -263,6 +310,7 @@ body {
 
 .tos-btn:hover {
     background: rgba(255, 255, 255, 0.1);
+    box-shadow: var(--button-glow);
 }
 
 /* Modal */
@@ -407,8 +455,12 @@ footer {
         gap: 1rem;
     }
     
+    .back-nav {
+        right: 1rem;
+    }
+    
     .back-btn {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -428,5 +480,9 @@ footer {
     
     .section-title {
         font-size: 1.8rem;
+    }
+    
+    .back-nav {
+        padding: 0.3rem 0.8rem;
     }
 }
