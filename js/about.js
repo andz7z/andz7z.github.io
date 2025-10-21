@@ -1,5 +1,8 @@
-/* FILE: js/about.js */
+/* --- JS/HOME.JS --- */
+// Logica specifică pentru secțiunea Home.
+// De exemplu: animații complexe la hover pe titlu,
+// sau schimbarea textului la intervale regulate.
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Aici se poate adăuga JS specific secțiunii "About"
-    // De exemplu, un efect parallax pe imagine.
+    // console.log("Logica Home încărcată.");
 });
