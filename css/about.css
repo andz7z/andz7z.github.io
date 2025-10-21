@@ -1,12 +1,65 @@
 /* css/about.css */
-
-/* HOW TO EDIT
-  - This file styles ONLY the #about section.
-  - Currently, it only uses the solid black background from style.css.
-  - Add specific layouts (e.g., 2-column) here.
+/* 
+HOW TO EDIT ABOUT SECTION:
+- Grid layout: Modify .about-grid columns
+- Content: Update text and add more items as needed
+- Colors: Adjust card backgrounds and text colors
 */
 
-#about {
-    /* Example: Add specific styles for the about section */
-    /* .about-content-grid { ... } */
+.about-section {
+    background: var(--color-bg-dark);
+    position: relative;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-bg);
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+}
+
+.about-item {
+    background: var(--color-glass);
+    backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-xl);
+    text-align: center;
+    transition: all var(--transition-normal);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.about-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.about-item h3 {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-primary);
+    margin-bottom: var(--space-md);
+}
+
+.about-item p {
+    color: var(--color-text-muted);
+    line-height: 1.6;
 }
