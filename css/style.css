@@ -160,149 +160,135 @@ body {
     opacity: 0.9;
     text-shadow: 1px 1px 8px rgba(0,0,0,0.6);
 }
-/* === Sidebar top-center glass === */
+/* === Top Center Navbar === */
 .sidebar {
   position: fixed;
-  top: 25px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  background: rgba(15, 15, 25, 0.4);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 50px;
-  padding: 0.7rem 1.5rem;
-  box-shadow: 0 0 25px rgba(199, 125, 255, 0.2);
-  opacity: 1;
-  transition: all 0.6s ease;
   z-index: 1000;
-}
-
-.menu {
-  list-style: none;
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  padding: 0;
-  margin: 0;
-}
-
-/* === Linkuri === */
-.menu a {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: rgba(255, 255, 255, 0.5);
-  font-family: "Inter", sans-serif;
-  font-size: 0.75rem;
-  text-decoration: none;
-  letter-spacing: 0.4px;
-  opacity: 0.7;
-  transition: all 0.35s ease;
-}
-
-/* Iconițe */
-.menu svg {
-  width: 18px;
-  height: 18px;
-  fill: rgba(255, 255, 255, 0.5);
-  transition: all 0.35s ease;
-  margin-bottom: 0.25rem;
-}
-
-/* === Hover glow === */
-.menu a:hover {
-  color: #c77dff;
-  opacity: 1;
-  transform: translateY(-2px);
-}
-
-.menu a:hover svg {
-  fill: #c77dff;
-  filter: drop-shadow(0 0 8px #c77dff);
-}
-
-/* === Hover underline === */
-.menu a::before {
-  content: "";
-  position: absolute;
-  bottom: -4px;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #9d4edd, #c77dff);
-  transition: all 0.35s ease;
-  transform: translateX(-50%);
-}
-.menu a:hover::before {
-  width: 60%;
-}
-
-/* === Scroll hide === */
-.sidebar.hide {
-  opacity: 0;
-  transform: translate(-50%, -50px);
   pointer-events: none;
 }
 
-/* === Back button (apare după scroll) === */
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  pointer-events: auto;
+}
+
+/* === Iconițe === */
+.menu a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.menu svg {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+/* === Textul care apare în dreapta === */
+.menu a::after {
+  content: attr(data-text);
+  margin-left: 6px;
+  color: #fff;
+  opacity: 0;
+  transform: translateX(-6px);
+  font-family: "Inter", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.4px;
+  transition: all 0.25s ease;
+}
+
+/* === Hover logic: text + înghesuire === */
+.menu:hover a {
+  transform: scale(0.9);
+  opacity: 0.6;
+}
+
+.menu a:hover {
+  transform: scale(1.25);
+  opacity: 1;
+}
+
+.menu a:hover::after {
+  opacity: 1;
+  transform: translateX(4px);
+}
+
+.menu:hover a:hover {
+  margin-right: 0.8rem;
+}
+
+/* === Animatie secvențială de intrare === */
+.menu a {
+  opacity: 0;
+  transform: translateY(-15px);
+  animation: fadeInSeq 0.6s forwards ease-out;
+}
+
+.menu a:nth-child(1) { animation-delay: 0.2s; }
+.menu a:nth-child(2) { animation-delay: 0.4s; }
+.menu a:nth-child(3) { animation-delay: 0.6s; }
+.menu a:nth-child(4) { animation-delay: 0.8s; }
+
+@keyframes fadeInSeq {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* === Back button (Home return) === */
 .back-btn {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background: rgba(15, 15, 25, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  top: 25px;
+  left: 40px;
+  width: 42px;
+  height: 42px;
+  border: 1px solid #fff;
   border-radius: 50%;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.4s ease;
   pointer-events: none;
-  transform: scale(0.7);
-  transition: all 0.5s ease;
-  box-shadow: 0 0 10px rgba(199, 125, 255, 0.3);
+  z-index: 1001;
 }
 
 .back-btn svg {
+  fill: #fff;
   width: 22px;
   height: 22px;
-  fill: #c77dff;
-  transition: transform 0.5s ease;
-}
-
-/* === Back button active + animatie puls === */
-.back-btn.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: scale(1);
-  animation: pulseGlow 2.5s infinite ease-in-out;
+  transition: transform 0.3s ease;
 }
 
 .back-btn:hover svg {
-  transform: rotate(-180deg) scale(1.1);
+  transform: translateX(-3px);
 }
 
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 10px rgba(199, 125, 255, 0.2); }
-  50% { box-shadow: 0 0 25px rgba(199, 125, 255, 0.5); }
+.back-btn.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
 }
 
-/* === Responsivitate === */
-@media (max-width: 768px) {
-  .sidebar {
-    padding: 0.5rem 1rem;
-    gap: 1rem;
-  }
-  .menu span {
-    display: none;
-  }
+/* === Magnetic subtle movement === */
+.menu a.magnetic {
+  transition: transform 0.1s ease-out;
 }
