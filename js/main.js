@@ -1,171 +1,278 @@
-/* --- JS/MAIN.JS --- */
-/* Logica globală, inițializări și listeners */
+// js/main.js
 
-// Așteptăm ca DOM-ul să fie complet încărcat
-document.addEventListener('DOMContentLoaded', () => {
+/* HOW TO EDIT
+  - This is the main entry point for all site JavaScript.
+  - It imports other section-specific JS files (currently placeholders).
+  - It handles global logic:
+    1. `initApp()`: Runs on DOMContentLoaded, sets up everything.
+    2. `handleIntroAnimation()`: Manages the initial blur-in.
+    3. `setupNavigation()`: Handles nav link clicks (scrolling).
+    4. `setupSectionObserver()`: Uses IntersectionObserver to update nav active state.
+    5. `setupModal()`: Controls the Privacy/TOS dialogs.
+    6. `setupScrollListeners()`: Updates the scroll progress bar.
+    7. `checkReducedMotion()`: Disables animations if user prefers.
+*/
 
-    console.log("Portofoliu Inițializat. DOM gata.");
+// Import section-specific modules.
+// These are currently placeholders but allow for future expansion.
+import './home.js';
+import './about.js';
+import './services.js';
+import './portfolio.js';
+import './reviews.js';
+import './contact.js';
 
-    // Inițializăm toate sistemele principale
-    initThemeSwitcher();
-    initScrollAnimations();
-    initNavbarActiveState();
-    initFooterCopyright();
+// --- Constants ---
+const SELECTORS = {
+    mainContainer: '#main-content',
+    nav: '.main-nav',
+    navLinks: '.nav-item[data-target]',
+    sections: 'section.fullscreen[data-section-name]',
+    scrollProgress: '.scroll-progress',
+    modalTriggers: 'button[data-modal-target]',
+    modalCloseBtns: 'button[data-modal-close]',
+    modals: '.modal-dialog',
+};
 
-});
+// --- State ---
+let isReducedMotion = false;
+let updateScrollProgress = () => {}; // Will be assigned a throttled function
 
+// --- Utility Functions ---
 
 /**
- * 1. SISTEM AVANSAT DE TEMĂ (NIGHT/LIGHT MODE)
- * Gestionează comutarea temei și salvarea preferinței.
+ * Throttles a function to run at most once per animation frame.
+ * @param {function} callback - The function to throttle.
+ * @returns {function} - The throttled function.
  */
-function initThemeSwitcher() {
-    const themeToggle = document.getElementById('theme-toggle');
-    const body = document.body;
-
-    // Funcție pentru a aplica tema (dark/light)
-    const applyTheme = (theme) => {
-        body.classList.toggle('dark-mode', theme === 'dark');
-        // Salvăm preferința în localStorage
-        localStorage.setItem('theme', theme);
-    };
-
-    // Verificăm tema salvată în localStorage
-    const savedTheme = localStorage.getItem('theme');
-    
-    // Verificăm preferința de sistem a utilizatorului (matchMedia)
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    // Stabilim tema inițială:
-    // 1. Prioritate: Tema salvată de utilizator
-    // 2. Fallback: Preferința de sistem
-    // 3. Default: 'light'
-    const initialTheme = savedTheme ? savedTheme : (prefersDark ? 'dark' : 'light');
-    applyTheme(initialTheme);
-
-    // Adăugăm listener pe butonul de toggle
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-        // ---
-        // 1. TRANZIȚIE ANIMATĂ (VIEW TRANSITIONS API)
-        // Verificăm dacă browser-ul suportă View Transitions API
-        // Acest API oferă un cross-fade fluid (Cerința 1)
-        // ---
-        if (document.startViewTransition) {
-            // API-ul este suportat
-            document.startViewTransition(() => {
-                applyTheme(newTheme);
+function throttle(callback) {
+    let ticking = false;
+    return function (...args) {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                callback.apply(this, args);
+                ticking = false;
             });
-        } else {
-            // Fallback pentru browsere mai vechi (ex. Firefox)
-            // Tranziția CSS din main.css (cea simplă) va fi folosită
-            applyTheme(newTheme);
+            ticking = true;
         }
+    };
+}
+
+/**
+ * Checks if the user prefers reduced motion.
+ * Sets a global flag and a class on the <html> element.
+ */
+function checkReducedMotion() {
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    isReducedMotion = motionQuery.matches;
+    if (isReducedMotion) {
+        document.documentElement.classList.add('reduced-motion');
+    }
+    motionQuery.addEventListener('change', () => {
+        isReducedMotion = motionQuery.matches;
+        document.documentElement.classList.toggle('reduced-motion', isReducedMotion);
     });
 }
 
+// --- Core Logic ---
 
 /**
- * 2. ANIMAȚII DE INTRARE/IEȘIRE (IN/OUT EFFECTS)
- * Folosește Intersection Observer pentru a adăuga clasa '.visible'
- * elementelor cu clasa '.reveal-*' când intră în viewport.
+ * Handles the initial page load animation (fade out loader, blur in content).
  */
-function initScrollAnimations() {
-    // Selectăm toate elementele pe care dorim să le animăm
-    const revealElements = document.querySelectorAll('.reveal-fade, .reveal-up');
+function handleIntroAnimation() {
+    // Use window.onload to wait for all assets (like video poster)
+    window.addEventListener('load', () => {
+        // Add a small delay to ensure rendering is stable
+        setTimeout(() => {
+            document.body.classList.add('loaded');
+        }, 100); // 100ms delay
+    });
+}
 
-    // Opțiuni pentru observer:
-    // root: null (viewport-ul browser-ului)
-    // threshold: 0.1 (declanșează când 10% din element e vizibil)
-    const observerOptions = {
-        root: null, 
-        threshold: 0.1 
-    };
+/**
+ * Sets up click listeners for the main navigation links.
+ * Scrolls to the corresponding section.
+ */
+function setupNavigation() {
+    const mainContainer = document.querySelector(SELECTORS.mainContainer);
+    if (!mainContainer) return;
 
-    // Callback-ul care se execută când vizibilitatea se schimbă
-    const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Elementul a intrat în viewport, adăugăm clasa 'visible'
-                entry.target.classList.add('visible');
-                
-                // Life-Hack: Odată animat, nu mai trebuie să-l observăm.
-                // Acest lucru îmbunătățește performanța.
-                observer.unobserve(entry.target);
+    document.querySelectorAll(SELECTORS.navLinks).forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('data-target');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                // We scroll the main container, not the window
+                mainContainer.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: isReducedMotion ? 'auto' : 'smooth'
+                });
             }
-            // Nu facem nimic când iese (conform cerinței de "In Effect")
         });
-    };
-
-    // Creăm și pornim observer-ul
-    const animationObserver = new IntersectionObserver(observerCallback, observerOptions);
-    revealElements.forEach(el => animationObserver.observe(el));
+    });
 }
 
-
 /**
- * 7. NAVBAR INTELIGENT (ACTIVE STATE)
- * Folosește Intersection Observer pentru a detecta ce secțiune 
- * este vizibilă și a actualiza link-ul activ din navbar.
+ * Uses IntersectionObserver to detect which section is currently visible.
+ * Updates the active state on the corresponding navigation icon.
  */
-function initNavbarActiveState() {
-    const sections = document.querySelectorAll('.full-section');
-    const navLinks = document.querySelectorAll('.main-header nav a');
-    
-    // Convertim NodeList într-un Map pentru căutare rapidă (href -> link element)
-    const linkMap = new Map();
+function setupSectionObserver() {
+    const sections = document.querySelectorAll(SELECTORS.sections);
+    const navLinks = document.querySelectorAll(SELECTORS.navLinks);
+    const nav = document.querySelector(SELECTORS.nav);
+    if (sections.length === 0 || navLinks.length === 0 || !nav) return;
+
+    const navLinkMap = new Map();
     navLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href) {
-            linkMap.set(href, link);
-        }
+        navLinkMap.set(link.getAttribute('data-target'), link);
     });
 
-    // Opțiuni pentru observer:
-    // root: .scroll-container (container-ul nostru cu scroll-snap)
-    // threshold: 0.5 (declanșează când 50% din secțiune e vizibilă)
-    // Acest 'threshold' de 0.5 asigură că doar o secțiune e activă la un moment dat.
-    const observerOptions = {
-        root: document.querySelector('.scroll-container'),
-        threshold: 0.5 
-    };
-
-    // Callback-ul observer-ului
     const observerCallback = (entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Identificăm ID-ul secțiunii vizibile
-                const id = entry.target.getAttribute('id');
-                const href = `#${id}`;
-                
-                // Găsim link-ul corespunzător
-                const activeLink = linkMap.get(href);
+            const targetId = `#${entry.target.id}`;
+            const correspondingLink = navLinkMap.get(targetId);
+            
+            if (!correspondingLink) return;
 
-                if (activeLink) {
-                    // Înlăturăm clasa 'active' de la toate link-urile
-                    navLinks.forEach(link => link.classList.remove('active'));
-                    // Adăugăm clasa 'active' link-ului curent
-                    activeLink.classList.add('active');
-                }
+            // Add 'is-visible' class to section for content animations
+            entry.target.classList.toggle('is-visible', entry.isIntersecting);
+
+            // Set 'active' state on nav icon
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+                // Remove 'active' from all other links
+                navLinks.forEach(link => link.classList.remove('active'));
+                // Add 'active' to the current link
+                correspondingLink.classList.add('active');
+            }
+
+            // --- "Magnet" Effect ---
+            // Add a 'magnet-active' class when section is *approaching* (e.g., 20% visible)
+            // but not yet fully 'active' (e.g., 60% visible).
+            // This threshold array [0.2, 0.6] triggers the callback at both points.
+            if (entry.intersectionRatio > 0.2 && entry.intersectionRatio < 0.6) {
+                correspondingLink.classList.add('magnet-active');
+            } else {
+                correspondingLink.classList.remove('magnet-active');
             }
         });
     };
 
-    // Creăm și pornim observer-ul
-    const navObserver = new IntersectionObserver(observerCallback, observerOptions);
-    sections.forEach(section => navObserver.observe(section));
+    const observer = new IntersectionObserver(observerCallback, {
+        root: document.querySelector(SELECTORS.mainContainer), // Observe scrolling within the main container
+        threshold: [0.2, 0.6, 0.8], // Fire at 20%, 60%, and 80% visibility
+    });
+
+    sections.forEach(section => observer.observe(section));
 }
 
 
 /**
- * 8. FOOTER (An Curent)
- * Actualizează anul curent în footer pentru copyright.
+ * Sets up listeners for the modal dialogs (Privacy & TOS).
+ * Uses native <dialog> element methods.
  */
-function initFooterCopyright() {
-    const yearSpan = document.getElementById('current-year');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
-    }
+function setupModal() {
+    const modalTriggers = document.querySelectorAll(SELECTORS.modalTriggers);
+    const modals = document.querySelectorAll(SELECTORS.modals);
+    const mainContainer = document.querySelector(SELECTORS.mainContainer);
+
+    // Function to open a modal
+    const openModal = (dialog) => {
+        if (dialog) {
+            dialog.showModal();
+            // Add class to main content to prevent scrolling
+            if (mainContainer) mainContainer.classList.add('scroll-locked');
+        }
+    };
+
+    // Function to close a modal
+    const closeModal = (dialog) => {
+        if (dialog) {
+            // Add a class to trigger the closing animation
+            dialog.classList.add('is-closing');
+            
+            // Wait for animation to finish before truly closing
+            dialog.addEventListener('animationend', () => {
+                dialog.classList.remove('is-closing');
+                dialog.close();
+            }, { once: true });
+            
+            dialog.addEventListener('transitionend', () => {
+                dialog.classList.remove('is-closing');
+                dialog.close();
+            }, { once: true });
+        }
+    };
+
+    // Open triggers
+    modalTriggers.forEach(button => {
+        button.addEventListener('click', () => {
+            const modalId = button.getAttribute('data-modal-target');
+            const modal = document.querySelector(modalId);
+            openModal(modal);
+        });
+    });
+
+    // Close triggers
+    modals.forEach(dialog => {
+        // Close button inside modal
+        const closeBtn = dialog.querySelector('button[data-modal-close]');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => closeModal(dialog));
+        }
+
+        // Close when clicking the backdrop
+        dialog.addEventListener('click', (event) => {
+            if (event.target === dialog) {
+                closeModal(dialog);
+            }
+        });
+
+        // Re-enable main scrolling when modal is fully closed
+        dialog.addEventListener('close', () => {
+            if (mainContainer) mainContainer.classList.remove('scroll-locked');
+        });
+    });
 }
+
+
+/**
+ * Sets up scroll event listeners for the scroll progress bar.
+ * Uses rAF throttling for performance.
+ */
+function setupScrollListeners() {
+    const mainContainer = document.querySelector(SELECTORS.mainContainer);
+    const scrollProgressBar = document.querySelector(SELECTORS.scrollProgress);
+    if (!mainContainer || !scrollProgressBar) return;
+
+    // Create the throttled function
+    updateScrollProgress = throttle(() => {
+        const scrollAmount = mainContainer.scrollTop;
+        const maxScroll = mainContainer.scrollHeight - mainContainer.clientHeight;
+        const progress = (scrollAmount / maxScroll) * 100;
+        
+        // Update the progress bar width
+        // Use 3D transform for hardware acceleration if possible, but width is fine.
+        scrollProgressBar.style.width = `${progress}%`;
+    });
+
+    // Add passive event listener for scroll performance
+    mainContainer.addEventListener('scroll', updateScrollProgress, { passive: true });
+}
+
+/**
+ * Initializes the application.
+ * Runs once the DOM is fully loaded.
+ */
+function initApp() {
+    checkReducedMotion();
+    handleIntroAnimation();
+    setupNavigation();
+    setupSectionObserver();
+    setupModal();
+    setupScrollListeners();
+}
+
+// --- Execution ---
+document.addEventListener('DOMContentLoaded', initApp);
