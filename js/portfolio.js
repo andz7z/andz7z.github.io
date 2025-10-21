@@ -1,8 +1,9 @@
-/* --- JS/HOME.JS --- */
-// Logica specifică pentru secțiunea Home.
-// De exemplu: animații complexe la hover pe titlu,
-// sau schimbarea textului la intervale regulate.
+// js/portfolio.js
 
-document.addEventListener('DOMContentLoaded', () => {
-    // console.log("Logica Home încărcată.");
-});
+/* HOW TO EDIT
+  - This file is for JavaScript logic specific to the #portfolio section.
+  - Example: Initializing a filterable gallery or a slider.
+  - It is imported by js/main.js and runs on page load.
+*/
+
+// console.log("Portfolio section JS loaded.");
