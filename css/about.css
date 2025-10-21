@@ -1,61 +1,87 @@
-/* FILE: css/about.css */
+/* ===== STILURI SPECIFICE PENTRU SECȚIUNEA ABOUT ===== */
 
 #about {
-    background-color: var(--color-bg);
-    /* Efect subtil de lumini */
-    background-image: radial-gradient(circle at 10% 20%, rgba(159, 85, 255, 0.1), transparent 40%),
-                      radial-gradient(circle at 90% 80%, rgba(0, 191, 255, 0.1), transparent 40%);
+    background: var(--color-dark);
 }
 
-.about-grid {
+.about-content {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 2fr 1fr;
     gap: 3rem;
     align-items: center;
+    animation: fadeInUp 0.8s ease 0.4s both;
 }
 
-.about-text h2 {
-    color: var(--color-text);
-    position: relative;
-    padding-bottom: 0.5rem;
-}
-
-.about-text h2::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 3px;
-    background: var(--gradient-main);
-    margin-top: 0.5rem;
-    border-radius: 2px;
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-gray-light);
 }
 
 .about-text p {
-    font-size: 1.1rem;
-    color: var(--color-text-dark);
+    margin-bottom: 1.5rem;
 }
 
-.about-image img {
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
-                0 0 25px var(--shadow-color);
-    border: 1px solid rgba(159, 85, 255, 0.3);
+.about-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
 }
 
-/* Responsive pentru About */
-@media (max-width: 900px) {
-    .about-grid {
+.stat {
+    text-align: center;
+    padding: 2rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur-intensity);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: transform var(--transition-fast);
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+}
+
+.stat h3 {
+    font-size: 3rem;
+    font-weight: 700;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.stat p {
+    color: var(--color-gray-light);
+    font-weight: 500;
+}
+
+/* ===== MEDIA QUERIES PENTRU RESPONSIVITATE ===== */
+@media (max-width: 968px) {
+    .about-content {
         grid-template-columns: 1fr;
-        text-align: center;
+        gap: 2rem;
     }
-
-    .about-text h2::after {
-        margin-left: auto;
-        margin-right: auto;
+    
+    .about-stats {
+        flex-direction: row;
+        justify-content: space-around;
     }
+    
+    .stat {
+        flex: 1;
+        min-width: 120px;
+    }
+}
 
-    .about-image {
-        order: -1; /* Pune imaginea deasupra pe mobil */
-        margin-bottom: 2rem;
+@media (max-width: 768px) {
+    .about-stats {
+        flex-direction: column;
+    }
+    
+    .stat h3 {
+        font-size: 2.5rem;
     }
 }
