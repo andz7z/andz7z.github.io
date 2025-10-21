@@ -1,105 +1,67 @@
 /* css/services.css */
 /* 
 HOW TO EDIT SERVICES SECTION:
-- Service cards: Modify .services-grid layout
-- Icons: Update .service-icon styles or replace with images
-- Colors: Change card background and hover effects
+- Card layout: Adjust .services-grid columns
+- Icons: Replace with actual icons or images
+- Hover effects: Modify transform and border colors
 */
 
-#services {
+.services-section {
     background: var(--color-bg-dark);
-    position: relative;
-}
-
-#services::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 70% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-    opacity: 0.3;
-}
-
-#services h2 {
-    font-size: 3rem;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-xl);
-    text-align: center;
-    background: linear-gradient(135deg, var(--color-gradient-2), var(--color-gradient-3));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-xl);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
 }
 
 .service-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-glass);
+    backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--color-glass-border);
     border-radius: var(--border-radius);
     padding: var(--space-xl);
     text-align: center;
     transition: all var(--transition-normal);
-    position: relative;
-    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
 }
 
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-    transition: left var(--transition-slow);
-}
-
-.service-card:hover::before {
-    left: 100%;
+.service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .service-card:hover {
     transform: translateY(-8px);
-    border-color: rgba(139, 92, 246, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--color-primary);
+    box-shadow: var(--glass-shadow);
 }
 
 .service-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(45deg, var(--color-gradient-1), var(--color-gradient-2));
-    border-radius: 12px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0 auto var(--space-lg);
-    position: relative;
-    opacity: 0.8;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    font-size: 1.2rem;
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
-    font-weight: var(--font-weight-medium);
-    margin-bottom: var(--space-md);
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
     color: var(--color-text);
+    margin-bottom: var(--space-md);
 }
 
 .service-card p {
-    color: var(--color-text-secondary);
+    color: var(--color-text-muted);
     line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    #services h2 {
-        font-size: 2.5rem;
-    }
 }
