@@ -1,1 +1,61 @@
-/* Stiluri specifice pentru secțiunea About */
+/* FILE: css/about.css */
+
+#about {
+    background-color: var(--color-bg);
+    /* Efect subtil de lumini */
+    background-image: radial-gradient(circle at 10% 20%, rgba(159, 85, 255, 0.1), transparent 40%),
+                      radial-gradient(circle at 90% 80%, rgba(0, 191, 255, 0.1), transparent 40%);
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-text h2 {
+    color: var(--color-text);
+    position: relative;
+    padding-bottom: 0.5rem;
+}
+
+.about-text h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-main);
+    margin-top: 0.5rem;
+    border-radius: 2px;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    color: var(--color-text-dark);
+}
+
+.about-image img {
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5),
+                0 0 25px var(--shadow-color);
+    border: 1px solid rgba(159, 85, 255, 0.3);
+}
+
+/* Responsive pentru About */
+@media (max-width: 900px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .about-text h2::after {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .about-image {
+        order: -1; /* Pune imaginea deasupra pe mobil */
+        margin-bottom: 2rem;
+    }
+}
