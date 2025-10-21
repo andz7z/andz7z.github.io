@@ -1,6 +1,5 @@
-// about.js — logica pentru secțiunea "About"
-
-function initAboutSection() {
-  console.log("Secțiunea About este acum vizibilă.");
-  // TODO: adaugă animații, efecte sau conținut dinamic aici.
-}
+/* FILE: js/about.js */
+document.addEventListener('DOMContentLoaded', () => {
+    // Aici se poate adăuga JS specific secțiunii "About"
+    // De exemplu, un efect parallax pe imagine.
+});
