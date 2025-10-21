@@ -1,338 +1,185 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ | Futuristic Digital Experience</title>
-    <meta name="description" content="ANDZ - Innovative digital solutions with futuristic design">
+    <title>NexusCreative - Design. Develop. Deliver.</title>
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%238b5cf6'>A</text></svg>">
+    <link rel="stylesheet" href="css/global.css">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="assets/wallpaper/loop.mp4" as="video" type="video/mp4">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script src="js/script.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/services.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/reviews.js" defer></script>
+    <script src="js/contact.js" defer></script>
 </head>
 <body>
-    <!-- Reduced motion overlay -->
-    <div id="reduced-motion-overlay" class="reduced-motion-overlay" aria-hidden="true"></div>
+
+    <div class="scroll-progress-bar"></div>
+
+    <header id="main-header">
+        <nav id="main-nav">
+            <a href="#home" class="brand-name nav-link-magnetic">NexusCreative</a>
+            <ul class="nav-links">
+                <li class="nav-link-magnetic"><a href="#home" title="Home"><i class="fas fa-home"></i></a></li>
+                <li class="nav-link-magnetic"><a href="#about" title="About"><i class="fas fa-user"></i></a></li>
+                <li class="nav-link-magnetic"><a href="#services" title="Services"><i class="fas fa-cogs"></i></a></li>
+                <li class="nav-link-magnetic"><a href="#portfolio" title="Portfolio"><i class="fas fa-briefcase"></i></a></li>
+                <li class="nav-link-magnetic"><a href="#reviews" title="Reviews"><i class="fas fa-star"></i></a></li>
+                <li class="nav-link-magnetic"><a href="#contact" title="Contact"><i class="fas fa-envelope"></i></a></li>
+            </ul>
+        </nav>
+    </header>
     
-    <!-- Loading animation -->
-    <div id="loader" class="loader">
-        <div class="loader-content">
-            <div class="brand-pulse"></div>
-            <span class="loader-text">ANDZ</span>
-        </div>
-    </div>
-
-    <!-- Scroll progress indicator -->
-    <div class="scroll-progress" aria-hidden="true">
-        <div class="scroll-progress-bar"></div>
-    </div>
-
-    <!-- Navigation System -->
-    <nav id="main-nav" class="main-nav" role="navigation" aria-label="Main navigation">
-        <!-- Brand - Only visible on home -->
-        <div class="nav-brand" id="nav-brand">
-            <span class="brand-text">ANDZ</span>
-        </div>
-
-        <!-- Full Navigation (visible on home) -->
-        <div class="nav-full" id="nav-full">
-            <div class="nav-icons">
-                <a href="#home" class="nav-icon" data-section="home" aria-label="Home">
-                    <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                    </svg>
-                    <span class="nav-label">Home</span>
-                </a>
-                <a href="#about" class="nav-icon" data-section="about" aria-label="About">
-                    <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-                    </svg>
-                    <span class="nav-label">About</span>
-                </a>
-                <a href="#services" class="nav-icon" data-section="services" aria-label="Services">
-                    <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M12 2l9 4.9V17L12 22l-9-4.9V6.9L12 2zm0 2.2L5 7.5V16l7 3.8 7-3.8V7.5L12 4.2z"/>
-                    </svg>
-                    <span class="nav-label">Services</span>
-                </a>
-                <a href="#portfolio" class="nav-icon" data-section="portfolio" aria-label="Portfolio">
-                    <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
-                    </svg>
-                    <span class="nav-label">Portfolio</span>
-                </a>
-                <a href="#reviews" class="nav-icon" data-section="reviews" aria-label="Reviews">
-                    <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                    </svg>
-                    <span class="nav-label">Reviews</span>
-                </a>
-                <a href="#contact" class="nav-icon" data-section="contact" aria-label="Contact">
-                    <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                    <span class="nav-label">Contact</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Minimal Navigation (appears when scrolled past home) -->
-        <div class="nav-minimal" id="nav-minimal">
-            <div class="nav-minimal-content">
-                <button class="go-back-btn" id="go-back-btn" aria-label="Go back to home">
-                    <svg class="go-back-svg" viewBox="0 0 24 24">
-                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-                    </svg>
-                </button>
-                <div class="current-section" id="current-section">
-                    <span class="current-prefix">Exploring:</span>
-                    <span class="current-name" id="current-section-name">Home</span>
-                </div>
-            </div>
-        </div>
+    <nav id="scrolled-nav" class="hidden">
+        <a href="#home" class="back-button"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <span class="current-section-display">Currently on: Home</span>
     </nav>
 
-    <!-- Main Content Sections -->
-    <main id="main-content" class="main-content">
-        <!-- Home Section -->
-        <section id="home" class="section home-section" data-section="home">
+    <div class="social-bar">
+        <div class="social-line"></div>
+        <a href="#" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" target="_blank" title="Discord"><i class="fab fa-discord"></i></a>
+        <div class="social-line"></div>
+    </div>
+
+    <main id="fullpage-container">
+
+        <section id="home" class="fullscreen-section" data-section-name="Home">
             <div class="video-background">
-                <video id="bg-video" class="bg-video" autoplay muted loop playsinline preload="auto" 
-                       aria-label="Background video showing abstract digital patterns">
-                    <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                    <!-- Fallback image if video doesn't load -->
-                    <img src="assets/images/fallback-bg.jpg" alt="Abstract digital background">
-                </video>
-                <div class="video-overlay"></div>
+                <video src="assets/wallpaper/loop.mp4" autoplay muted loop playsinline></video>
             </div>
-            
             <div class="home-content">
-                <h1 class="home-title">
-                    <span class="title-line">DIGITAL</span>
-                    <span class="title-line">EXPERIENCE</span>
-                    <span class="title-line">REDEFINED</span>
-                </h1>
-                <p class="home-subtitle">Innovative solutions for the future, today</p>
-                <button class="cta-button" aria-label="Discover our work">
-                    <span class="cta-text">Begin Journey</span>
-                    <svg class="cta-arrow" viewBox="0 0 24 24">
-                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                    </svg>
-                </button>
+                <h1 class="hero-text-1">Design. Develop.</h1>
+                <h1 class="hero-text-2">Deliver.</h1>
+                <p class="hero-text-3">&lt;we do it all/&gt;</p>
+                <a href="#about" class="cta-button metallic-button">
+                    Discover Now <span class="arrow">&gt;</span>
+                </a>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section about-section" data-section="about">
-            <div class="section-content">
-                <h2 class="section-title">About ANDZ</h2>
-                <div class="about-grid">
-                    <div class="about-item">
-                        <h3>Vision</h3>
-                        <p>Creating digital experiences that transcend expectations and redefine possibilities.</p>
+        <section id="about" class="fullscreen-section" data-section-name="About">
+            <div class="section-content glassmorphism">
+                <h2>About Me</h2>
+                <p>Creative developer with a passion for interactive web experiences...</p>
+                <div class="skills-container">
+                    <h3>My Skills</h3>
+                    <div class="skill-bar">
+                        <span class="skill-name">JavaScript</span>
+                        <div class="progress-bar"><div class="progress" style="--progress-width: 90%;"></div></div>
                     </div>
-                    <div class="about-item">
-                        <h3>Mission</h3>
-                        <p>To blend cutting-edge technology with elegant design for transformative solutions.</p>
+                    <div class="skill-bar">
+                        <span class="skill-name">CSS3 & Animations</span>
+                        <div class="progress-bar"><div class="progress" style="--progress-width: 95%;"></div></div>
                     </div>
-                    <div class="about-item">
-                        <h3>Values</h3>
-                        <p>Innovation, precision, and user-centric design at our core.</p>
+                    <div class="skill-bar">
+                        <span class="skill-name">React / Vue</span>
+                        <div class="progress-bar"><div class="progress" style="--progress-width: 80%;"></div></div>
                     </div>
                 </div>
-            </div>
+                </div>
         </section>
 
-        <!-- Services Section -->
-        <section id="services" class="section services-section" data-section="services">
+        <section id="services" class="fullscreen-section" data-section-name="Services">
             <div class="section-content">
-                <h2 class="section-title">Our Services</h2>
+                <h2>Our Services</h2>
                 <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-icon">WD</div>
-                        <h3>Web Development</h3>
-                        <p>Modern, performant websites and web applications.</p>
+                    <div class="service-card glassmorphism">
+                        <div class="card-content">
+                            <i class="fas fa-laptop-code card-icon"></i>
+                            <h3>Web Development</h3>
+                            <p>Blazing fast, responsive, and modern websites.</p>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">UX</div>
-                        <h3>UX Design</h3>
-                        <p>Intuitive user experiences that delight and engage.</p>
+                    <div class="service-card glassmorphism">
+                        <div class="card-content">
+                            <i class="fas fa-palette card-icon"></i>
+                            <h3>UI/UX Design</h3>
+                            <p>Intuitive and beautiful user-centric designs.</p>
+                        </div>
                     </div>
-                    <div class="service-card">
-                        <div class="service-icon">CD</div>
-                        <h3>Creative Direction</h3>
-                        <p>Strategic vision for digital products and brands.</p>
+                    <div class="service-card glassmorphism">
+                        <div class="card-content">
+                            <i class="fas fa-server card-icon"></i>
+                            <h3>Backend Solutions</h3>
+                            <p>Robust and scalable server-side logic.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="section portfolio-section" data-section="portfolio">
+        <section id="portfolio" class="fullscreen-section" data-section-name="Portfolio">
             <div class="section-content">
-                <h2 class="section-title">Portfolio</h2>
+                <h2>Portfolio</h2>
+                <div class="filter-buttons">
+                    <button class="filter-btn metallic-button active" data-filter="all">All</button>
+                    <button class="filter-btn metallic-button" data-filter="web">Web</button>
+                    <button class="filter-btn metallic-button" data-filter="design">Design</button>
+                    <button class="filter-btn metallic-button" data-filter="app">App</button>
+                </div>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <div class="portfolio-placeholder"></div>
-                        <h3>Project Aurora</h3>
-                        <p>Next-gen e-commerce platform</p>
+                    <div class="portfolio-item" data-category="web">
+                        <img src="https://via.placeholder.com/400x300.png?text=Project+1" alt="Project 1" loading="lazy">
+                        <div class="overlay"><h3>Project One</h3><p>Web Development</p></div>
                     </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-placeholder"></div>
-                        <h3>Nexus Dashboard</h3>
-                        <p>Real-time analytics interface</p>
+                     <div class="portfolio-item" data-category="design">
+                        <img src="https://via.placeholder.com/400x300.png?text=Project+2" alt="Project 2" loading="lazy">
+                        <div class="overlay"><h3>Project Two</h3><p>UI/UX Design</p></div>
                     </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-placeholder"></div>
-                        <h3>Quantum App</h3>
-                        <p>Mobile productivity suite</p>
                     </div>
+                <div id="portfolio-modal" class="modal hidden">
+                    </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="fullscreen-section" data-section-name="Reviews">
+            <div class="section-content">
+                <h2>Reviews</h2>
+                <div class="review-carousel">
+                    <p>Carousel logic (auto-slide, manual controls) goes here.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Reviews Section -->
-        <section id="reviews" class="section reviews-section" data-section="reviews">
-            <div class="section-content">
-                <h2 class="section-title">Client Reviews</h2>
-                <div class="reviews-carousel">
-                    <div class="review-card">
-                        <p>"ANDZ transformed our digital presence completely. Exceptional work."</p>
-                        <span class="review-author">- Sarah Chen, TechCorp</span>
-                    </div>
-                    <div class="review-card">
-                        <p>"The attention to detail and innovative approach was remarkable."</p>
-                        <span class="review-author">- Marcus Rivera, StartupXYZ</span>
-                    </div>
-                    <div class="review-card">
-                        <p>"A truly futuristic digital experience that exceeded expectations."</p>
-                        <span class="review-author">- Elena Petrova, Global Inc</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="section contact-section" data-section="contact">
-            <div class="section-content">
-                <h2 class="section-title">Get In Touch</h2>
-                <form class="contact-form" id="contact-form">
+        <section id="contact" class="fullscreen-section" data-section-name="Contact">
+            <div class="section-content glassmorphism">
+                <h2>Get In Touch</h2>
+                <form id="contact-form">
                     <div class="form-group">
-                        <input type="text" id="name" name="name" required aria-required="true">
-                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="name">Name</label>
+                        <span class="error-message"></span>
                     </div>
                     <div class="form-group">
-                        <input type="email" id="email" name="email" required aria-required="true">
-                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                        <label for="email">Email</label>
+                        <span class="error-message"></span>
                     </div>
                     <div class="form-group">
-                        <textarea id="message" name="message" rows="4" required aria-required="true"></textarea>
-                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                        <label for="message">Message</label>
+                        <span class="error-message"></span>
                     </div>
-                    <button type="submit" class="submit-btn">
-                        <span>Send Message</span>
-                        <svg viewBox="0 0 24 24">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
+                    <button type="submit" class="cta-button metallic-button">Send Message &gt;</button>
                 </form>
             </div>
         </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="main-footer" role="contentinfo">
-        <div class="footer-content">
-            <div class="footer-sections">
-                <div class="footer-section">
-                    <h3 class="footer-title">Socials</h3>
-                    <div class="social-links">
-                        <a href="https://discord.gg/example" aria-label="Discord">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.18.33.25c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z"/>
-                            </svg>
-                        </a>
-                        <a href="https://github.com/example" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12 22 6.48 17.52 2 12 2z"/>
-                            </svg>
-                        </a>
-                        <a href="https://linkedin.com/in/example" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M19.7 3H4.3C3.6 3 3 3.6 3 4.3v15.4c0 .7.6 1.3 1.3 1.3h15.4c.7 0 1.3-.6 1.3-1.3V4.3c0-.7-.6-1.3-1.3-1.3zM8.3 18.3H5.7V9.8h2.6v8.5zM7 8.7c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm11.3 9.6h-2.6v-4.2c0-1-.02-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.6V9.8h2.5v1.2h.04c.3-.6 1.1-1.2 2.2-1.2 2.4 0 2.8 1.6 2.8 3.6v5z"/>
-                            </svg>
-                        </a>
-                        <a href="https://youtube.com/c/example" aria-label="YouTube">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
-                            </svg>
-                        </a>
-                        <a href="mailto:contact@example.com" aria-label="Gmail">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                            </svg>
-                        </a>
-                        <a href="https://wa.me/1234567890" aria-label="WhatsApp">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3 class="footer-title">Legal</h3>
-                    <div class="footer-links">
-                        <button class="footer-link" id="tos-btn">Terms of Service</button>
-                        <button class="footer-link" id="privacy-btn">Privacy Policy</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <div class="copyright">
-                    &copy; 2024 ANDZ. All rights reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Modal System -->
-    <div id="modal-backdrop" class="modal-backdrop" aria-hidden="true">
-        <div class="modal-container" role="dialog" aria-labelledby="modal-title">
-            <button class="modal-close" id="modal-close" aria-label="Close dialog">
-                <svg viewBox="0 0 24 24">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                </svg>
-            </button>
-            <div class="modal-content">
-                <h2 id="modal-title">Modal Title</h2>
-                <div id="modal-body">
-                    <!-- Content will be injected here -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
-    <script src="js/main.js" type="module"></script>
-    <script src="js/home.js" type="module"></script>
-    <script src="js/about.js" type="module"></script>
-    <script src="js/services.js" type="module"></script>
-    <script src="js/portfolio.js" type="module"></script>
-    <script src="js/reviews.js" type="module"></script>
-    <script src="js/contact.js" type="module"></script>
 </body>
 </html>
