@@ -1,23 +1,10 @@
-// js/about.js
-
-// About section specific functionality
-
 function initAbout() {
-    // Animate skill bars when section comes into view
+    // Animate skill bars when section becomes active
     const aboutSection = document.getElementById('about');
-    const skillBars = document.querySelectorAll('.skill-progress');
-    
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Animate skill bars
-                skillBars.forEach(bar => {
-                    const width = bar.getAttribute('data-width');
-                    bar.style.width = `${width}%`;
-                });
-                
-                // Unobserve after animation to prevent retriggering
-                observer.unobserve(aboutSection);
+                animateSkillBars();
             }
         });
     }, { threshold: 0.5 });
@@ -25,4 +12,18 @@ function initAbout() {
     if (aboutSection) {
         observer.observe(aboutSection);
     }
+}
+
+function animateSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-progress');
+    
+    skillBars.forEach(bar => {
+        const width = bar.getAttribute('data-width');
+        gsap.to(bar, {
+            width: width,
+            duration: 1.5,
+            ease: "power2.out",
+            delay: 0.2
+        });
+    });
 }
