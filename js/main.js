@@ -43,7 +43,7 @@ const elements = {
 const sections = {
     home: { element: document.getElementById('home'), threshold: 0.5 },
     about: { element: document.getElementById('about'), threshold: 0.6 },
-    services: { element: document.getElementById('services'), threshold: 0.6 },
+    services: { element: document.getElementById('services'), threshold: 0.3 },
     portfolio: { element: document.getElementById('portfolio'), threshold: 0.6 },
     reviews: { element: document.getElementById('reviews'), threshold: 0.6 },
     contact: { element: document.getElementById('contact'), threshold: 0.6 }
@@ -72,7 +72,7 @@ function setupEventListeners() {
     elements.goBackBtn.addEventListener('click', scrollToHome);
     
     // Scroll events with debouncing
-    window.addEventListener('scroll', debounce(handleScroll, 16), passiveOptions); // ~60fps
+    window.addEventListener('scroll', debounce(handleScroll, 16), passiveOptions);
     window.addEventListener('wheel', handleWheel, { passive: false });
     
     // Keyboard navigation
@@ -95,12 +95,12 @@ function setupIntersectionObserver() {
     const observerOptions = {
         root: null,
         rootMargin: '-20% 0px -20% 0px',
-        threshold: [0, 0.1, 0.5, 0.9, 1]
+        threshold: [0, 0.1, 0.3, 0.5, 0.9, 1]
     };
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
                 const section = entry.target.id;
                 if (section !== state.currentSection) {
                     state.previousSection = state.currentSection;
@@ -120,7 +120,7 @@ function setupIntersectionObserver() {
             }
             
             // Always trigger animations when section is visible
-            if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
                 const section = entry.target.id;
                 triggerSectionAnimations(section);
             }
@@ -168,10 +168,19 @@ function scrollToSection(sectionId) {
     if (state.isScrolling || !sections[sectionId]) return;
     
     state.isScrolling = true;
-    sections[sectionId].element.scrollIntoView({
-        behavior: state.reducedMotion ? 'auto' : 'smooth',
-        block: 'start'
-    });
+    
+    // For services section, scroll to top
+    if (sectionId === 'services') {
+        window.scrollTo({
+            top: sections[sectionId].element.offsetTop,
+            behavior: state.reducedMotion ? 'auto' : 'smooth'
+        });
+    } else {
+        sections[sectionId].element.scrollIntoView({
+            behavior: state.reducedMotion ? 'auto' : 'smooth',
+            block: 'start'
+        });
+    }
     
     // Reset scrolling flag after animation
     setTimeout(() => {
@@ -195,6 +204,11 @@ function handleScroll() {
 // Handle wheel events for section snapping
 function handleWheel(e) {
     if (state.isScrolling || state.reducedMotion) return;
+    
+    // Don't prevent default for services section to allow normal scrolling
+    if (state.currentSection === 'services') {
+        return;
+    }
     
     e.preventDefault();
     
