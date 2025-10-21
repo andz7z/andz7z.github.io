@@ -1,67 +1,46 @@
 /* css/services.css */
-/* 
-HOW TO EDIT SERVICES SECTION:
-- Card layout: Adjust .services-grid columns
-- Icons: Replace with actual icons or images
-- Hover effects: Modify transform and border colors
-*/
-
-.services-section {
-    background: var(--color-bg-dark);
-}
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-xl);
-    margin-top: var(--space-lg);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    /* Setează perspectiva pentru cardurile 3D */
+    perspective: 1500px;
 }
 
+/* Cardul 3D (Req 5) */
 .service-card {
-    background: var(--color-glass);
-    backdrop-filter: blur(var(--blur-amount));
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--border-radius);
-    padding: var(--space-xl);
+    /* Păstrează transformările 3D pentru elementele copil */
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    min-height: 300px;
+}
+
+/* Conținutul cardului - îl mutăm puțin în față (pe axa Z)
+   pentru a crea un efect de adâncime mai bun la hover */
+.card-content {
+    transform: translateZ(20px);
     text-align: center;
-    transition: all var(--transition-normal);
-    opacity: 0;
-    transform: translateY(30px);
 }
 
-.service-card.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.service-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--color-primary);
-    box-shadow: var(--glass-shadow);
-}
-
-.service-icon {
-    width: 60px;
-    height: 60px;
-    background: var(--gradient-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto var(--space-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text);
-    font-size: 1.2rem;
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    /* Aplică gradientul pe iconiță */
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .service-card h3 {
-    font-size: 1.25rem;
-    font-weight: var(--font-weight-bold);
+    font-size: 1.8rem;
     color: var(--color-text);
-    margin-bottom: var(--space-md);
+    margin-bottom: 0.5rem;
 }
 
 .service-card p {
-    color: var(--color-text-muted);
-    line-height: 1.6;
+    font-size: 1rem;
+    color: var(--color-text);
+    opacity: 0.8;
 }
