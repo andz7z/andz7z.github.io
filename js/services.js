@@ -1,5 +1,8 @@
-/* FILE: js/services.js */
-document.addEventListener('DOMContentLoaded', () => {
-    // Aici se poate adăuga JS specific secțiunii "Services"
-    // De exemplu, efecte suplimentare la hover pe carduri.
-});
+// js/services.js
+
+/* HOW TO EDIT
+  - This file is for JavaScript logic specific to the #services section.
+  - It is imported by js/main.js and runs on page load.
+*/
+
+// console.log("Services section JS loaded.");
