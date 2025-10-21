@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initNavigation();
     initBackButton();
     initTOSModal();
-    initSmoothScrolling();
+    initScrollNavigation();
     
     // Set initial active section
     setActiveSection('home');
@@ -50,12 +50,11 @@ function initNavigation() {
     window.addEventListener('scroll', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down
-            mainNav.style.transform = 'translateY(-100%)';
+        // Hide navbar when not on home section
+        if (scrollTop > window.innerHeight * 0.8) {
+            mainNav.classList.add('hidden');
         } else {
-            // Scrolling up
-            mainNav.style.transform = 'translateY(0)';
+            mainNav.classList.remove('hidden');
         }
         
         lastScrollTop = scrollTop;
@@ -116,10 +115,24 @@ function initTOSModal() {
     });
 }
 
-// Smooth Scrolling
-function initSmoothScrolling() {
-    // This is handled by CSS with scroll-behavior: smooth
-    // Additional JS can be added here if needed for more control
+// Scroll Navigation
+function initScrollNavigation() {
+    const sections = document.querySelectorAll('.section');
+    
+    // Update active section on scroll
+    window.addEventListener('scroll', function() {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.pageYOffset >= sectionTop - sectionHeight / 3) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        setActiveSection(current);
+    });
 }
 
 // Set Active Section
@@ -132,14 +145,6 @@ function setActiveSection(sectionId) {
             icon.classList.add('active');
         }
     });
-    
-    // Update sections
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    document.getElementById(sectionId).classList.add('active');
 }
 
 // Magnetic Scrolling Effect
