@@ -1,27 +1,20 @@
-/**
- * ABOUT SECTION SCRIPT
- * about.js - Placeholder for about section functionality
- */
+// js/services.js
 
-class ServicesSection {
-    constructor() {
-        this.init();
-    }
+// Services section specific functionality
+
+function initServices() {
+    // Add hover effects to service cards
+    const serviceCards = document.querySelectorAll('.service-card');
     
-    init() {
-        console.log('Services section initialized');
-        // About section specific functionality will be added here
-    }
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Add subtle glow effect
+            this.style.boxShadow = '0 15px 30px rgba(67, 97, 238, 0.3)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            // Remove glow effect
+            this.style.boxShadow = '';
+        });
+    });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    new ServicesSection();
-});
-
-/**
- * Similar structure for:
- * - services.js
- * - portfolio.js
- * - reviews.js
- * - contact.js
- */
