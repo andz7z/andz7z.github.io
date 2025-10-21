@@ -1,188 +1,108 @@
 // js/services.js
 /*
-HOW TO EDIT SERVICES SECTION JS:
-- Animation timing: Adjust delays and durations
-- Image handling: Update image sources and alt texts
-- Mobile behavior: Modify breakpoints and layouts
+HOW TO EDIT SERVICES SECTION JAVASCRIPT:
+- Service cards: Add custom hover animations
+- Interactions: Implement click handlers for service details
+- Dynamic content: Service data can be loaded from JSON
 */
 
-import { debounce } from './main.js';
-
-// Services section specific functionality
-function initServices() {
-    setupArchSection();
-    setupImageReveal();
-}
-
-// Setup the architecture section
-function setupArchSection() {
-    const archInfos = document.querySelectorAll('.arch__info');
-    const imgWrappers = document.querySelectorAll('.arch__right .img-wrapper');
-    
-    // Set z-index for images
-    imgWrappers.forEach((element) => {
-        const order = element.getAttribute('data-index');
-        if (order !== null) {
-            element.style.zIndex = order;
-        }
-    });
-    
-    // Handle mobile layout
-    handleMobileLayout();
-    
-    // Setup scroll animations for desktop
-    if (window.matchMedia('(min-width: 769px)').matches) {
-        setupDesktopAnimations();
-    } else {
-        setupMobileAnimations();
+class ServicesSection {
+    constructor() {
+        this.section = document.getElementById('services');
+        this.serviceCards = this.section?.querySelectorAll('.service-card');
+        this.init();
     }
     
-    // Handle resize events
-    window.addEventListener('resize', debounce(handleResize, 150));
-}
-
-// Handle mobile layout
-function handleMobileLayout() {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
-    const leftItems = document.querySelectorAll('.arch__left .arch__info');
-    const rightItems = document.querySelectorAll('.arch__right .img-wrapper');
-    
-    if (isMobile) {
-        // Interleave items using order
-        leftItems.forEach((item, i) => {
-            item.style.order = i * 2;
-        });
-        rightItems.forEach((item, i) => {
-            item.style.order = i * 2 + 1;
-        });
-    } else {
-        // Clear order for desktop
-        leftItems.forEach((item) => {
-            item.style.order = '';
-        });
-        rightItems.forEach((item) => {
-            item.style.order = '';
-        });
+    init() {
+        this.setupAnimations();
+        this.setupCardInteractions();
     }
-}
-
-// Setup desktop animations
-function setupDesktopAnimations() {
-    const archInfos = document.querySelectorAll('.arch__info');
-    const imgWrappers = document.querySelectorAll('.img-wrapper');
     
-    // Create Intersection Observer for arch items
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const archInfo = entry.target;
-                const index = Array.from(archInfos).indexOf(archInfo);
-                const correspondingImage = imgWrappers[imgWrappers.length - 1 - index];
-                
-                // Show current arch info
-                archInfo.classList.add('visible');
-                
-                // Show corresponding image
-                imgWrappers.forEach(img => img.classList.remove('active'));
-                if (correspondingImage) {
-                    correspondingImage.classList.add('active');
-                }
-            }
-        });
-    }, {
-        threshold: 0.5,
-        rootMargin: '-20% 0px -20% 0px'
-    });
-    
-    // Observe all arch info elements
-    archInfos.forEach(archInfo => {
-        observer.observe(archInfo);
-    });
-}
-
-// Setup mobile animations
-function setupMobileAnimations() {
-    const imgWrappers = document.querySelectorAll('.img-wrapper');
-    
-    // Create Intersection Observer for mobile images
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const imgWrapper = entry.target;
-                imgWrapper.classList.add('active');
-                
-                // Find corresponding arch info and show it
-                const index = Array.from(imgWrappers).indexOf(imgWrapper);
-                const archInfos = document.querySelectorAll('.arch__info');
-                const correspondingArch = archInfos[archInfos.length - 1 - index];
-                
-                if (correspondingArch) {
-                    correspondingArch.classList.add('visible');
-                }
-            }
-        });
-    }, {
-        threshold: 0.3,
-        rootMargin: '-10% 0px -10% 0px'
-    });
-    
-    // Observe all image wrappers
-    imgWrappers.forEach(imgWrapper => {
-        observer.observe(imgWrapper);
-    });
-}
-
-// Handle resize events
-function handleResize() {
-    handleMobileLayout();
-    
-    // Re-initialize animations based on screen size
-    if (window.matchMedia('(min-width: 769px)').matches) {
-        setupDesktopAnimations();
-    } else {
-        setupMobileAnimations();
-    }
-}
-
-// Setup image reveal on scroll
-function setupImageReveal() {
-    const images = document.querySelectorAll('.arch__right img');
-    
-    images.forEach((img, index) => {
-        // Preload images
-        img.setAttribute('loading', 'lazy');
+    setupAnimations() {
+        if (!this.section) return;
         
-        // Add fade-in effect when image loads
-        img.addEventListener('load', () => {
-            img.style.opacity = '1';
-        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateCards();
+                }
+            });
+        }, { threshold: 0.3 });
         
-        // Set initial opacity
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.5s ease';
+        observer.observe(this.section);
+    }
+    
+    animateCards() {
+        if (!this.serviceCards) return;
+        
+        this.serviceCards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(40px) scale(0.9)';
+            
+            setTimeout(() => {
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) scale(1)';
+            }, index * 150);
+        });
+    }
+    
+    setupCardInteractions() {
+        if (!this.serviceCards) return;
+        
+        this.serviceCards.forEach(card => {
+            card.addEventListener('click', () => {
+                this.handleCardClick(card);
+            });
+            
+            // Add touch support for mobile
+            card.addEventListener('touchstart', () => {
+                card.classList.add('touched');
+            }, { passive: true });
+            
+            card.addEventListener('touchend', () => {
+                card.classList.remove('touched');
+            }, { passive: true });
+        });
+    }
+    
+    handleCardClick(card) {
+        // Add ripple effect
+        const ripple = document.createElement('div');
+        ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(139, 92, 246, 0.3);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        `;
+        
+        const rect = card.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = rect.width / 2;
+        const y = rect.height / 2;
+        
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x - size / 2}px`;
+        ripple.style.top = `${y - size / 2}px`;
+        
+        card.style.position = 'relative';
+        card.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    }
+}
+
+// Initialize services section
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new ServicesSection();
     });
+} else {
+    new ServicesSection();
 }
 
-// Reset animations when section becomes active again
-function resetAnimations() {
-    const archInfos = document.querySelectorAll('.arch__info');
-    const imgWrappers = document.querySelectorAll('.img-wrapper');
-    
-    archInfos.forEach(info => info.classList.remove('visible'));
-    imgWrappers.forEach(wrapper => wrapper.classList.remove('active'));
-    
-    // Re-initialize after a short delay
-    setTimeout(() => {
-        if (window.matchMedia('(min-width: 769px)').matches) {
-            setupDesktopAnimations();
-        } else {
-            setupMobileAnimations();
-        }
-    }, 100);
-}
-
-// Initialize services section when DOM is ready
-document.addEventListener('DOMContentLoaded', initServices);
-
-// Export for module usage
-export { initServices, resetAnimations };
+export default ServicesSection;
