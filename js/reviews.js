@@ -1,135 +1,80 @@
-// ===== JAVASCRIPT SPECIFIC PENTRU SECȚIUNEA REVIEWS =====
+// ===== MODUL REVIEWS - JAVASCRIPT SPECIFIC PENTRU SECȚIUNEA REVIEWS =====
 
-document.addEventListener('DOMContentLoaded', function() {
-    initReviewsAnimations();
-    initReviewsInteractions();
-    initReviewsCarousel();
-});
+function initializeReviewsModule() {
+    console.log('Reviews module initialized');
+    
+    // Inițializează sistemul de reviews
+    setupReviewCards();
+    initReviewsCarousel(); // Pentru viitoare implementări carousel
+}
 
-// Animații specifice pentru secțiunea Reviews
-function initReviewsAnimations() {
-    const reviewCards = document.querySelectorAll('.review-card');
+function animateReviewsSection() {
+    const reviewsContainer = document.querySelector('.reviews-container');
     
-    // Setează delay-uri pentru animații
-    reviewCards.forEach((card, index) => {
-        card.style.animationDelay = `${0.3 + index * 0.1}s`;
-    });
-    
-    // Intersection Observer pentru trigger la scroll
-    const reviewsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateReviewStars();
-                reviewsObserver.unobserve(entry.target);
-            }
+    if (reviewsContainer && !reviewsContainer.classList.contains('animated')) {
+        reviewsContainer.classList.add('animated');
+        
+        // Configurează delay-urile pentru animații
+        const reviewCards = document.querySelectorAll('.review-card');
+        reviewCards.forEach((card, index) => {
+            card.style.animationDelay = `${0.2 + index * 0.2}s`;
         });
-    }, { threshold: 0.3 });
-    
-    const reviewsSection = document.getElementById('reviews');
-    if (reviewsSection) {
-        reviewsObserver.observe(reviewsSection);
     }
 }
 
-// Animație pentru stelele din recenzii
-function animateReviewStars() {
-    const starContainers = document.querySelectorAll('.review-stars');
-    
-    starContainers.forEach(container => {
-        const stars = container.querySelectorAll('.fa-star, .fa-star-half-alt');
-        stars.forEach((star, index) => {
-            star.style.animation = `starPop 0.3s ease ${index * 0.1}s forwards`;
-        });
-    });
-}
-
-// Interacțiuni pentru secțiunea Reviews
-function initReviewsInteractions() {
+function setupReviewCards() {
     const reviewCards = document.querySelectorAll('.review-card');
     
     reviewCards.forEach(card => {
-        // Efect de expand la hover
+        // Efect de hover cu shadow dinamic
         card.addEventListener('mouseenter', function() {
-            this.style.zIndex = '10';
+            this.style.boxShadow = '0 15px 35px rgba(138, 43, 226, 0.2)';
         });
         
         card.addEventListener('mouseleave', function() {
-            this.style.zIndex = '1';
+            this.style.boxShadow = '';
         });
         
-        // Click pentru a citi întreaga recenzie
+        // Interacțiune la click pentru a marca ca util
         card.addEventListener('click', function() {
-            const reviewerName = this.querySelector('h4').textContent;
-            const reviewText = this.querySelector('p').textContent;
-            showFullReview(reviewerName, reviewText);
+            const wasHelpful = confirm('A fost acest review util?');
+            if (wasHelpful) {
+                // Aici poți adăuga logica pentru tracking
+                console.log('Review marked as helpful');
+            }
         });
     });
 }
 
-// Carousel pentru recenzii (pentru versiunea mobile)
+// Sistem de carousel pentru reviews (pentru viitor)
 function initReviewsCarousel() {
-    const reviewsGrid = document.querySelector('.reviews-grid');
-    if (!reviewsGrid) return;
-    
-    // Verifică dacă suntem pe un dispozitiv mobil
-    if (window.innerWidth <= 768) {
-        reviewsGrid.style.overflowX = 'auto';
-        reviewsGrid.style.scrollSnapType = 'x mandatory';
-        reviewsGrid.style.display = 'flex';
-        reviewsGrid.style.gap = '1rem';
-        reviewsGrid.style.padding = '1rem 0';
-        
-        const reviewCards = document.querySelectorAll('.review-card');
-        reviewCards.forEach(card => {
-            card.style.flex = '0 0 85%';
-            card.style.scrollSnapAlign = 'start';
-        });
-        
-        // Adaugă indicatori pentru carousel
-        addCarouselIndicators(reviewCards.length);
-    }
+    // Această funcționalitate poate fi extinsă pentru a afișa reviews într-un carousel
+    // Momentan, reviews sunt afișate static
 }
 
-// Adaugă indicatori pentru carousel
-function addCarouselIndicators(count) {
-    const reviewsSection = document.getElementById('reviews');
-    const container = reviewsSection.querySelector('.container');
+// Generare stele dinamice (dacă rating-ul vine dintr-o sursă externă)
+function generateStars(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 !== 0;
+    let starsHTML = '';
     
-    const indicators = document.createElement('div');
-    indicators.className = 'carousel-indicators';
-    indicators.style.display = 'flex';
-    indicators.style.justifyContent = 'center';
-    indicators.style.gap = '0.5rem';
-    indicators.style.marginTop = '1rem';
-    
-    for (let i = 0; i < count; i++) {
-        const indicator = document.createElement('button');
-        indicator.className = 'carousel-indicator';
-        indicator.style.width = '10px';
-        indicator.style.height = '10px';
-        indicator.style.borderRadius = '50%';
-        indicator.style.border = 'none';
-        indicator.style.backgroundColor = i === 0 ? '#8A2BE2' : 'rgba(255, 255, 255, 0.3)';
-        indicator.style.cursor = 'pointer';
-        indicator.style.transition = 'background-color 0.3s ease';
-        
-        indicator.addEventListener('click', () => {
-            scrollToReview(i);
-        });
-        
-        indicators.appendChild(indicator);
+    for (let i = 0; i < fullStars; i++) {
+        starsHTML += '<i class="fas fa-star"></i>';
     }
     
-    container.appendChild(indicators);
+    if (hasHalfStar) {
+        starsHTML += '<i class="fas fa-star-half-alt"></i>';
+    }
     
-    // Actualizează indicatorii la scroll
-    const reviewsGrid = document.querySelector('.reviews-grid');
-    reviewsGrid.addEventListener('scroll', updateCarouselIndicators);
+    const emptyStars = 5 - Math.ceil(rating);
+    for (let i = 0; i < emptyStars; i++) {
+        starsHTML += '<i class="far fa-star"></i>';
+    }
+    
+    return starsHTML;
 }
 
-// Funcție pentru afișarea recenziei complete
-function showFullReview(name, text) {
-    // Într-o implementare reală, aceasta ar deschide un modal
+window.animateReviewsSection = animateReviewsSection;    // Într-o implementare reală, aceasta ar deschide un modal
     console.log(`Recenzie completă de la ${name}: ${text}`);
 }
 
