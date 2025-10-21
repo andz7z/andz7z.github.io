@@ -1,78 +1,106 @@
 /* css/portfolio.css */
 /* 
 HOW TO EDIT PORTFOLIO SECTION:
-- Grid layout: Adjust columns and gaps
-- Placeholders: Replace with actual project images
-- Project data: Update titles and descriptions
+- Portfolio items: Modify .portfolio-grid layout
+- Item styles: Update .portfolio-item appearance
+- Hover effects: Customize interaction animations
 */
 
-.portfolio-section {
+#portfolio {
     background: var(--color-bg-dark);
+    position: relative;
+}
+
+#portfolio::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+    opacity: 0.3;
+}
+
+#portfolio h2 {
+    font-size: 3rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+    text-align: center;
+    background: linear-gradient(135deg, var(--color-gradient-3), var(--color-gradient-1));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+#portfolio > .section-content > p {
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 1.125rem;
+    margin-bottom: var(--space-xl);
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--space-xl);
-    margin-top: var(--space-lg);
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
 }
 
 .portfolio-item {
-    background: var(--color-glass);
-    backdrop-filter: blur(var(--blur-amount));
-    border: 1px solid var(--color-glass-border);
+    background: linear-gradient(45deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--border-radius);
-    padding: var(--space-lg);
-    text-align: center;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
     transition: all var(--transition-normal);
-    opacity: 0;
-    transform: translateY(30px);
 }
 
-.portfolio-item.visible {
+.portfolio-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+}
+
+.portfolio-item:hover::before {
     opacity: 1;
-    transform: translateY(0);
 }
 
 .portfolio-item:hover {
     transform: translateY(-5px);
-    border-color: var(--color-primary);
+    border-color: rgba(139, 92, 246, 0.3);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
 
-.portfolio-placeholder {
-    width: 100%;
-    height: 200px;
-    background: var(--color-glass-dark);
-    border-radius: var(--border-radius);
-    margin-bottom: var(--space-lg);
-    position: relative;
-    overflow: hidden;
-}
-
-.portfolio-placeholder::before {
-    content: '';
+.portfolio-item::after {
+    content: 'View Project';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
-    animation: shimmer 2s infinite;
-}
-
-.portfolio-item h3 {
-    font-size: 1.25rem;
-    font-weight: var(--font-weight-bold);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: var(--color-text);
-    margin-bottom: var(--space-sm);
+    font-weight: var(--font-weight-medium);
+    opacity: 0;
+    transition: opacity var(--transition-normal);
 }
 
-.portfolio-item p {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
+.portfolio-item:hover::after {
+    opacity: 1;
 }
 
-@keyframes shimmer {
-    0% { left: -100%; }
-    100% { left: 100%; }
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #portfolio h2 {
+        font-size: 2.5rem;
+    }
 }
