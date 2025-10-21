@@ -1,112 +1,100 @@
 /* css/contact.css */
 /* 
 HOW TO EDIT CONTACT SECTION:
-- Form layout: Modify .contact-form structure
-- Input styles: Update form field appearances
-- Submit button: Customize button colors and effects
+- Form styling: Adjust input styles and layout
+- Validation: Add error states in JavaScript
+- Submission: Connect to your backend service
 */
 
-#contact {
+.contact-section {
     background: var(--color-bg-dark);
-    position: relative;
-}
-
-#contact::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
-    opacity: 0.3;
-}
-
-#contact h2 {
-    font-size: 3rem;
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--space-xl);
-    text-align: center;
-    background: linear-gradient(135deg, var(--color-gradient-2), var(--color-gradient-1));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
 }
 
 .contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
+    max-width: 500px;
+    margin: var(--space-xl) auto 0;
+    text-align: left;
 }
 
-.contact-form input,
-.contact-form textarea {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.form-group {
+    position: relative;
+    margin-bottom: var(--space-lg);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
     border-radius: var(--border-radius);
-    padding: var(--space-md) var(--space-lg);
+    padding: var(--space-md);
     color: var(--color-text);
     font-size: 1rem;
-    font-family: inherit;
     transition: all var(--transition-normal);
+    backdrop-filter: blur(var(--blur-amount));
+}
+
+.form-group textarea {
     resize: vertical;
+    min-height: 120px;
 }
 
-.contact-form input::placeholder,
-.contact-form textarea::placeholder {
-    color: var(--color-text-secondary);
+.form-group label {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    color: var(--color-text-muted);
+    transition: all var(--transition-normal);
+    pointer-events: none;
+    background: var(--color-bg-dark);
+    padding: 0 var(--space-xs);
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
+.form-group input:focus,
+.form-group textarea:focus {
     outline: none;
-    border-color: var(--color-accent);
-    background: rgba(255, 255, 255, 0.08);
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
 }
 
-.contact-form button {
-    background: linear-gradient(45deg, var(--color-gradient-1), var(--color-gradient-2));
+.form-group input:focus + label,
+.form-group textarea:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:not(:placeholder-shown) + label {
+    top: -10px;
+    left: var(--space-sm);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+}
+
+.submit-btn {
+    background: var(--gradient-primary);
     border: none;
-    color: var(--color-text);
+    border-radius: 50px;
     padding: var(--space-md) var(--space-xl);
+    color: var(--color-text);
     font-size: 1rem;
     font-weight: var(--font-weight-medium);
-    border-radius: 50px;
     cursor: pointer;
-    transition: all var(--transition-normal);
-    position: relative;
-    overflow: hidden;
+    transition: all var(--transition-bounce);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: 0 auto;
 }
 
-.contact-form button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left var(--transition-slow);
+.submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
 }
 
-.contact-form button:hover::before {
-    left: 100%;
+.submit-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform var(--transition-normal);
 }
 
-.contact-form button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
-}
-
-@media (max-width: 768px) {
-    #contact h2 {
-        font-size: 2.5rem;
-    }
-    
-    .contact-form {
-        gap: var(--space-md);
-    }
+.submit-btn:hover svg {
+    transform: translateX(4px);
 }
