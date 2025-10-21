@@ -1,9 +1,16 @@
 // js/portfolio.js
-
-/* HOW TO EDIT
-  - This file is for JavaScript logic specific to the #portfolio section.
-  - Example: Initializing a filterable gallery or a slider.
-  - It is imported by js/main.js and runs on page load.
+/*
+HOW TO EDIT PORTFOLIO SECTION JS:
+- Project data: Update with actual project information
+- Lightbox: Add image/video lightbox functionality
+- Filtering: Add category filtering if needed
 */
 
-// console.log("Portfolio section JS loaded.");
+// Portfolio section specific functionality
+function initPortfolio() {
+    // Portfolio section doesn't need specific JS yet
+    // Add project modal or filtering functionality here
+}
+
+// Export for module usage
+export { initPortfolio };
