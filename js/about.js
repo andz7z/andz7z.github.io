@@ -1,27 +1,28 @@
-/**
- * ABOUT SECTION SCRIPT
- * about.js - Placeholder for about section functionality
- */
+// js/about.js
 
-class AboutSection {
-    constructor() {
-        this.init();
-    }
+// About section specific functionality
+
+function initAbout() {
+    // Animate skill bars when section comes into view
+    const aboutSection = document.getElementById('about');
+    const skillBars = document.querySelectorAll('.skill-progress');
     
-    init() {
-        console.log('About section initialized');
-        // About section specific functionality will be added here
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Animate skill bars
+                skillBars.forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    bar.style.width = `${width}%`;
+                });
+                
+                // Unobserve after animation to prevent retriggering
+                observer.unobserve(aboutSection);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    if (aboutSection) {
+        observer.observe(aboutSection);
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    new AboutSection();
-});
-
-/**
- * Similar structure for:
- * - services.js
- * - portfolio.js
- * - reviews.js
- * - contact.js
- */
