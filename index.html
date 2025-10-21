@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Modern Single-Page</title>
+    <title>ANDZ | Portofoliu Personal</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="css/contact.css">
 </head>
 <body class="preload">
-    <!-- Header cu bara de navigare -->
+    <!-- Header cu navigație -->
     <header id="header">
         <nav class="navbar">
             <div class="nav-container">
@@ -42,7 +42,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="#services" class="nav-link">
-                            <i class="fas fa-tools"></i>
+                            <i class="fas fa-cogs"></i>
                             <span>Services</span>
                         </a>
                     </li>
@@ -64,18 +64,24 @@
     </header>
 
     <!-- Conținut principal -->
-    <main class="main-content">
+    <main class="main-container">
         <!-- Secțiunea Home -->
         <section id="home" class="section">
             <div class="video-background">
                 <video autoplay muted loop id="bg-video">
                     <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                    Browser-ul tău nu suportă elementul video.
+                    <!-- Fallback pentru browsere care nu suportă video -->
+                    Your browser does not support the video tag.
                 </video>
+                <div class="video-overlay"></div>
             </div>
             <div class="home-content">
                 <h1 class="home-title">Bun Venit</h1>
-                <p class="home-subtitle">Descoperă experiența noastră modernă</p>
+                <p class="home-subtitle">Web Developer & Creative Specialist</p>
+                <div class="scroll-indicator">
+                    <span>Scroll Down</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
         </section>
 
@@ -85,21 +91,37 @@
                 <h2 class="section-title">About Us</h2>
                 <div class="about-content">
                     <div class="about-text">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <p>Cu o pasiune profundă pentru tehnologie și creativitate, am dezvoltat expertiză în domeniile web development, programare și editare video/foto. Fiecare proiect este o oportunitate de a transforma idei în realități digitale impresionante.</p>
+                        <p>Abordarea mea combină precizia tehnică cu sensibilitatea artistică, asigurând că fiecare soluție nu doar că funcționează perfect, dar și captează atenția și transmite mesajul dorit.</p>
                     </div>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <h3>5+</h3>
-                            <p>Ani de experiență</p>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Web Development</h3>
+                            <p>Creare de site-uri moderne, responsive și performante</p>
                         </div>
-                        <div class="stat">
-                            <h3>100+</h3>
-                            <p>Proiecte finalizate</p>
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3>Programming</h3>
+                            <p>Soluții software personalizate și eficiente</p>
                         </div>
-                        <div class="stat">
-                            <h3>50+</h3>
-                            <p>Clienți mulțumiți</p>
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3>Video Editing</h3>
+                            <p>Editare profesională pentru conținut de calitate</p>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h3>Photo Editing</h3>
+                            <p>Manipulare și îmbunătățire imaginice profesională</p>
                         </div>
                     </div>
                 </div>
@@ -112,25 +134,40 @@
                 <h2 class="section-title">Services</h2>
                 <div class="services-grid">
                     <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-code"></i>
+                        <div class="card-icon">
+                            <i class="fas fa-desktop"></i>
                         </div>
-                        <h3>Dezvoltare Web</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h3>Web Development</h3>
+                        <p>Dezvoltare site-uri moderne cu tehnologii de ultimă generație: HTML5, CSS3, JavaScript, React, etc.</p>
+                        <ul class="service-features">
+                            <li>Design Responsive</li>
+                            <li>Optimizare SEO</li>
+                            <li>Performanță Maximă</li>
+                        </ul>
                     </div>
                     <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
-                        <h3>Design UI/UX</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="service-icon">
+                        <div class="card-icon">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <h3>Aplicații Mobile</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <h3>App Development</h3>
+                        <p>Creare aplicații mobile și desktop personalizate pentru diverse nevoi și platforme.</p>
+                        <ul class="service-features">
+                            <li>Interfețe Intuitive</li>
+                            <li>Funcționalități Avansate</li>
+                            <li>Testare Riguroasă</li>
+                        </ul>
+                    </div>
+                    <div class="service-card">
+                        <div class="card-icon">
+                            <i class="fas fa-film"></i>
+                        </div>
+                        <h3>Video Production</h3>
+                        <p>Servicii complete de producție video: de la filmare și editare până la post-producție.</p>
+                        <ul class="service-features">
+                            <li>Editare Profesională</li>
+                            <li>Efecte Speciale</li>
+                            <li>Color Grading</li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -140,15 +177,15 @@
         <section id="reviews" class="section">
             <div class="container">
                 <h2 class="section-title">Reviews</h2>
-                <div class="reviews-grid">
+                <div class="reviews-container">
                     <div class="review-card">
                         <div class="review-header">
-                            <div class="review-avatar">
+                            <div class="reviewer-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="review-info">
-                                <h4>Alexandra Popescu</h4>
-                                <div class="review-stars">
+                            <div class="reviewer-info">
+                                <h4>Alexandra M.</h4>
+                                <div class="stars">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -157,16 +194,16 @@
                                 </div>
                             </div>
                         </div>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+                        <p class="review-text">"Servicii excepționale! Site-ul creat este exact ce doream - modern, funcțional și cu un design uimitor. Recomand cu încredere!"</p>
                     </div>
                     <div class="review-card">
                         <div class="review-header">
-                            <div class="review-avatar">
+                            <div class="reviewer-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="review-info">
-                                <h4>Mihai Ionescu</h4>
-                                <div class="review-stars">
+                            <div class="reviewer-info">
+                                <h4>Robert P.</h4>
+                                <div class="stars">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -175,16 +212,16 @@
                                 </div>
                             </div>
                         </div>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+                        <p class="review-text">"Editarea videoclipurilor a fost făcută profesional și în timp record. Calitatea finală a depășit așteptările!"</p>
                     </div>
                     <div class="review-card">
                         <div class="review-header">
-                            <div class="review-avatar">
+                            <div class="reviewer-avatar">
                                 <i class="fas fa-user"></i>
                             </div>
-                            <div class="review-info">
-                                <h4>Elena Vasilescu</h4>
-                                <div class="review-stars">
+                            <div class="reviewer-info">
+                                <h4>Elena D.</h4>
+                                <div class="stars">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -193,7 +230,7 @@
                                 </div>
                             </div>
                         </div>
-                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+                        <p class="review-text">"Aplicația dezvoltată pentru afacerea mea a simplificat enorm procesele interne. Interfața este intuitivă și funcționalitățile exact ce aveam nevoie."</p>
                     </div>
                 </div>
             </div>
@@ -206,38 +243,47 @@
                 <div class="contact-content">
                     <div class="contact-info">
                         <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h3>Adresă</h3>
-                                <p>Strada Exemplu, Nr. 123, București</p>
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
                             </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h3>Telefon</h3>
-                                <p>+40 712 345 678</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
+                            <div class="contact-details">
                                 <h3>Email</h3>
                                 <p>contact@andz.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Telefon</h3>
+                                <p>+40 123 456 789</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h3>Locație</h3>
+                                <p>București, România</p>
                             </div>
                         </div>
                     </div>
                     <form class="contact-form">
                         <div class="form-group">
-                            <input type="text" placeholder="Nume" required>
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Nume</label>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Email" required>
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Email</label>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Mesaj" rows="5" required></textarea>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Mesaj</label>
                         </div>
-                        <button type="submit" class="btn-gradient">Trimite Mesaj</button>
+                        <button type="submit" class="btn-submit">Trimite Mesaj</button>
                     </form>
                 </div>
             </div>
@@ -257,8 +303,8 @@
                     <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                 </div>
                 <div class="footer-links">
-                    <a href="#" id="privacy-link">Privacy Policy</a>
-                    <a href="#" id="tos-link">Terms of Service</a>
+                    <a href="#" class="policy-link" data-policy="privacy">Privacy Policy</a>
+                    <a href="#" class="policy-link" data-policy="terms">Terms of Service</a>
                 </div>
                 <div class="copyright">
                     <p>&copy; 2025 ANDZ. All rights reserved.</p>
@@ -268,28 +314,36 @@
     </footer>
 
     <!-- Modal pentru Privacy Policy / TOS -->
-    <div class="modal" id="modal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-content">
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
             <div class="modal-header">
-                <h2 id="modal-title">Privacy Policy</h2>
-                <button class="modal-close" id="modal-close">
+                <h2 id="modalTitle">Privacy Policy</h2>
+                <button class="modal-close" id="modalClose">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            <div class="modal-content">
+                <div id="privacyContent" class="policy-content">
+                    <h3>Politica de Confidențialitate</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                    <p>Sed euismod, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed euismod, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                </div>
+                <div id="termsContent" class="policy-content hidden">
+                    <h3>Termeni și Condiții</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                    <p>Sed euismod, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                    <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed euismod, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Fișiere JavaScript -->
-    <script src="js/script.js" defer></script>
-    <script src="js/about.js" defer></script>
-    <script src="js/services.js" defer></script>
-    <script src="js/reviews.js" defer></script>
-    <script src="js/contact.js" defer></script>
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+    <script src="js/about.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>
