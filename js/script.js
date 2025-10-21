@@ -405,4 +405,5 @@ document.addEventListener('DOMContentLoaded', init);
 
 // Export for potential module usage
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { init, CON
+    module.exports = { init, CONFIG };
+}
