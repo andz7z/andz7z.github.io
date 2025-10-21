@@ -15,24 +15,25 @@ HOW TO EDIT:
 }
 
 :root {
-    /* Color Palette - Moonlight Purple Theme */
-    --color-bg-dark: #0a0a14;
-    --color-bg-darker: #050508;
+    /* Color Palette - Black with Purple-Red-Blue Gradient */
+    --color-bg-dark: #000000;
+    --color-bg-darker: #050505;
     --color-primary: #8b5cf6;
     --color-primary-dark: #7c3aed;
     --color-primary-light: #a78bfa;
     --color-secondary: #ec4899;
     --color-accent: #06b6d4;
-    --color-text: #f8fafc;
-    --color-text-muted: #cbd5e1;
-    --color-glass: rgba(139, 92, 246, 0.1);
-    --color-glass-dark: rgba(139, 92, 246, 0.05);
-    --color-glass-border: rgba(139, 92, 246, 0.2);
+    --color-text: #ffffff;
+    --color-text-muted: #a1a1aa;
+    --color-glass: rgba(139, 92, 246, 0.08);
+    --color-glass-dark: rgba(139, 92, 246, 0.04);
+    --color-glass-border: rgba(139, 92, 246, 0.15);
     
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    /* Gradients - Purple-Red-Blue */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-accent));
     --gradient-bg: radial-gradient(circle at top right, var(--color-primary-dark), transparent 50%),
-                  radial-gradient(circle at bottom left, var(--color-secondary), transparent 50%);
+                  radial-gradient(circle at bottom left, var(--color-secondary), transparent 50%),
+                  radial-gradient(circle at center, var(--color-accent), transparent 60%);
     
     /* Typography */
     --font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -56,7 +57,7 @@ HOW TO EDIT:
     
     /* Effects */
     --blur-amount: 12px;
-    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     --border-radius: 12px;
 }
 
@@ -373,6 +374,7 @@ body {
     opacity: 1;
     transform: translateY(0);
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--color-bg-dark);
 }
 
 .section.scrolling-out {
@@ -420,6 +422,8 @@ body {
     background: var(--color-bg-darker);
     padding: var(--space-2xl) 0 var(--space-xl);
     border-top: 1px solid var(--color-glass-border);
+    position: relative;
+    z-index: 10;
 }
 
 .footer-content {
@@ -523,7 +527,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
