@@ -1,4 +1,12 @@
-/* --- CSS/ABOUT.CSS --- */
+/* css/about.css */
+
+/* HOW TO EDIT
+  - This file styles ONLY the #about section.
+  - Currently, it only uses the solid black background from style.css.
+  - Add specific layouts (e.g., 2-column) here.
+*/
+
 #about {
-  background: var(--bg-about);
+    /* Example: Add specific styles for the about section */
+    /* .about-content-grid { ... } */
 }
