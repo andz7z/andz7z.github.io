@@ -12,14 +12,17 @@ const passiveOptions = { passive: true };
 // Global state
 const state = {
     currentSection: 'home',
+    previousSection: 'home',
     isScrolling: false,
     scrollTimeout: null,
-    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    scrollDirection: 'down'
 };
 
 // DOM Elements
 const elements = {
     mainNav: document.getElementById('main-nav'),
+    navBrand: document.getElementById('nav-brand'),
     navFull: document.getElementById('nav-full'),
     navMinimal: document.getElementById('nav-minimal'),
     goBackBtn: document.getElementById('go-back-btn'),
@@ -55,6 +58,7 @@ function init() {
     // Set initial state
     updateNavigationState();
     updateScrollProgress();
+    updateBrandVisibility();
 }
 
 // Set up all event listeners
@@ -67,8 +71,8 @@ function setupEventListeners() {
     elements.goBackBtn.addEventListener('click', scrollToHome);
     
     // Scroll events with debouncing
-    window.addEventListener('scroll', debounce(handleScroll, 100), passiveOptions);
-    window.addEventListener('wheel', debounce(handleWheel, 100), passiveOptions);
+    window.addEventListener('scroll', debounce(handleScroll, 16), passiveOptions); // ~60fps
+    window.addEventListener('wheel', handleWheel, { passive: false });
     
     // Keyboard navigation
     document.addEventListener('keydown', handleKeydown);
@@ -98,10 +102,16 @@ function setupIntersectionObserver() {
             if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
                 const section = entry.target.id;
                 if (section !== state.currentSection) {
+                    state.previousSection = state.currentSection;
                     state.currentSection = section;
+                    
+                    // Add scroll effects
+                    addScrollEffects(state.previousSection, section);
+                    
                     updateActiveNav();
                     updateNavigationState();
                     updateCurrentSectionName();
+                    updateBrandVisibility();
                     
                     // Trigger section-specific animations
                     triggerSectionAnimations(section);
@@ -114,6 +124,29 @@ function setupIntersectionObserver() {
     Object.values(sections).forEach(({ element }) => {
         observer.observe(element);
     });
+}
+
+// Add scroll in/out effects
+function addScrollEffects(previousSection, currentSection) {
+    if (state.reducedMotion) return;
+    
+    const prevElement = sections[previousSection].element;
+    const currElement = sections[currentSection].element;
+    
+    // Determine scroll direction
+    const prevIndex = Object.keys(sections).indexOf(previousSection);
+    const currIndex = Object.keys(sections).indexOf(currentSection);
+    state.scrollDirection = currIndex > prevIndex ? 'down' : 'up';
+    
+    // Add transition classes
+    prevElement.classList.add('scrolling-out');
+    currElement.classList.add('scrolling-in', 'active');
+    
+    // Remove classes after animation
+    setTimeout(() => {
+        prevElement.classList.remove('scrolling-out', 'active');
+        currElement.classList.remove('scrolling-in');
+    }, 600);
 }
 
 // Handle navigation clicks
@@ -155,6 +188,8 @@ function handleScroll() {
 // Handle wheel events for section snapping
 function handleWheel(e) {
     if (state.isScrolling || state.reducedMotion) return;
+    
+    e.preventDefault();
     
     clearTimeout(state.scrollTimeout);
     state.scrollTimeout = setTimeout(() => {
@@ -223,6 +258,16 @@ function updateNavigationState() {
     }
 }
 
+// Update brand visibility
+function updateBrandVisibility() {
+    const isHome = state.currentSection === 'home';
+    if (isHome) {
+        elements.navBrand.classList.remove('hidden');
+    } else {
+        elements.navBrand.classList.add('hidden');
+    }
+}
+
 // Update current section name in minimal nav
 function updateCurrentSectionName() {
     const sectionNames = {
@@ -243,10 +288,13 @@ function updateNavigationTransform() {
     
     const scrollY = window.scrollY;
     const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollProgress = scrollY / maxScroll;
+    const scrollProgress = Math.min(scrollY / maxScroll, 1);
     
-    // Subtle parallax effect
-    elements.mainNav.style.transform = `translateY(${scrollProgress * 20}px)`;
+    // Smooth parallax effect using requestAnimationFrame
+    requestAnimationFrame(() => {
+        const translateY = scrollProgress * 40; // Increased from 20 to 40 for more noticeable effect
+        elements.mainNav.style.transform = `translateY(${translateY}px)`;
+    });
 }
 
 // Update scroll progress indicator
@@ -255,26 +303,38 @@ function updateScrollProgress() {
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const scrollPercent = (scrollTop / docHeight) * 100;
     
-    if (elements.scrollProgressBar) {
-        elements.scrollProgressBar.style.width = `${scrollPercent}%`;
-    }
-    
-    // Show/hide progress bar
-    if (elements.scrollProgress) {
-        elements.scrollProgress.style.opacity = scrollPercent > 5 ? '1' : '0';
-    }
+    // Use requestAnimationFrame for smooth progress bar
+    requestAnimationFrame(() => {
+        if (elements.scrollProgressBar) {
+            elements.scrollProgressBar.style.width = `${scrollPercent}%`;
+        }
+        
+        // Show/hide progress bar
+        if (elements.scrollProgress) {
+            elements.scrollProgress.style.opacity = scrollPercent > 5 ? '1' : '0';
+        }
+    });
 }
 
 // Trigger section-specific animations
 function triggerSectionAnimations(section) {
     const sectionElement = sections[section].element;
+    const sectionTitle = sectionElement.querySelector('.section-title');
     const animatedElements = sectionElement.querySelectorAll('.about-item, .service-card, .portfolio-item, .review-card');
     
+    // Animate section title
+    if (sectionTitle && !sectionTitle.classList.contains('revealed')) {
+        setTimeout(() => {
+            sectionTitle.classList.add('revealed');
+        }, 300);
+    }
+    
+    // Animate other elements with staggered delay
     animatedElements.forEach((element, index) => {
         if (!element.classList.contains('visible')) {
             setTimeout(() => {
                 element.classList.add('visible');
-            }, index * 150);
+            }, 500 + (index * 150));
         }
     });
 }
@@ -285,6 +345,8 @@ function startLoaderAnimation() {
         elements.loader.style.opacity = '0';
         setTimeout(() => {
             elements.loader.style.display = 'none';
+            // Trigger initial animations
+            triggerSectionAnimations('home');
         }, 500);
     }, 1500);
 }
