@@ -1,8 +1,9 @@
-/* --- JS/CONTACT.JS --- */
-// Logica specifică pentru secțiunea Contact.
-// De exemplu: animații complexe la hover pe titlu,
-// sau schimbarea textului la intervale regulate.
+// js/contact.js
 
-document.addEventListener('DOMContentLoaded', () => {
-    // console.log("Logica Contact încărcată.");
-});
+/* HOW TO EDIT
+  - This file is for JavaScript logic specific to the #contact section.
+  - Example: Adding client-side validation to a contact form.
+  - It is imported by js/main.js and runs on page load.
+*/
+
+// console.log("Contact section JS loaded.");
