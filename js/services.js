@@ -1,26 +1,14 @@
-// Services section specific functionality
-
-document.addEventListener('DOMContentLoaded', function() {
-    initServiceCards();
-});
-
-function initServiceCards() {
+// Functionality for the Services section
+document.addEventListener('DOMContentLoaded', () => {
+    // GSAP animation for service cards on hover for extra polish
     const serviceCards = document.querySelectorAll('.service-card');
-    
-    serviceCards.forEach((card, index) => {
-        // Staggered animation
-        card.style.animationDelay = `${index * 0.2}s`;
-        card.classList.add('fade-in-up');
-        
-        // Interactive hover effects
-        card.addEventListener('mouseenter', function() {
-            const icon = this.querySelector('.card-icon');
-            icon.style.transform = 'scale(1.1) rotate(5deg)';
+
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            gsap.to(card, { y: -5, duration: 0.3, ease: 'back.out(1.7)' });
         });
-        
-        card.addEventListener('mouseleave', function() {
-            const icon = this.querySelector('.card-icon');
-            icon.style.transform = 'scale(1) rotate(0deg)';
+        card.addEventListener('mouseleave', () => {
+            gsap.to(card, { y: 0, duration: 0.3, ease: 'power2.out' });
         });
     });
-}
+});
