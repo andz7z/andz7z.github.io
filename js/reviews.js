@@ -1,16 +1,13 @@
-// js/reviews.js
-/*
-HOW TO EDIT REVIEWS SECTION JS:
-- Review data: Update with actual client testimonials
-- Carousel: Implement auto-rotation if desired
-- Interactions: Add click to expand functionality
-*/
+/* js/reviews.js */
 
-// Reviews section specific functionality
-function initReviews() {
-    // Reviews section doesn't need specific JS yet
-    // Add auto-rotating carousel or expandable reviews here
-}
-
-// Export for module usage
-export { initReviews };
+// Logica pentru Caruselul de Recenzii (Req 5)
+// ar fi adăugată aici.
+//
+// Implementare sugerată:
+// 1. Un container (.review-carousel) cu overflow: hidden.
+// 2. Un slider intern (.carousel-track) cu display: flex.
+// 3. Elemente (.review-slide) în interiorul track-ului.
+// 4. JS care calculează 'index'-ul curent.
+// 5. Aplică 'transform: translateX(-${index * slideWidth}px)' pe .carousel-track.
+// 6. Adaugă 'setInterval' pentru tranziție automată (Req 5).
+// 7. Adaugă click listeners pe butoanele "next" și "prev" (Req 5).
