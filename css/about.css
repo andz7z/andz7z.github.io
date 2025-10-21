@@ -1,38 +1,198 @@
-/* css/about.css */
+/* About Section Styles */
+#about {
+    background: var(--secondary-bg);
+    display: flex;
+    align-items: center;
+}
 
-/* Stiluri pentru skill bars (Req 5) */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.about-text h3 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about-text p {
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
 .skills-container {
     margin-top: 2rem;
-    text-align: left;
+}
+
+.skill {
+    margin-bottom: 1.5rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
 }
 
 .skill-bar {
-    margin-bottom: 1rem;
-}
-
-.skill-name {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-}
-
-.progress-bar {
-    width: 100%;
-    height: 10px;
+    height: 8px;
     background: rgba(255, 255, 255, 0.1);
-    border-radius: 5px;
+    border-radius: 10px;
     overflow: hidden;
+    position: relative;
 }
 
-.progress {
+.skill-progress {
     height: 100%;
-    width: 0; /* Inițial 0, va fi animat */
-    background: var(--gradient-main);
-    border-radius: 5px;
-    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+    background: linear-gradient(90deg, var(--accent-red), var(--accent-purple));
+    border-radius: 10px;
+    width: 0;
+    transition: width 1.5s ease-in-out;
+    position: relative;
 }
 
-/* Când secțiunea devine vizibilă (via JS), animăm bara */
-#about.is-visible .progress {
-    width: var(--progress-width); /* Folosește variabila setată in-line */
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 20px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3));
+    animation: shimmer 2s infinite;
+}
+
+.about-image {
+    position: relative;
+}
+
+.image-container {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: transform 0.5s ease;
+}
+
+.image-container:hover {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.05);
+}
+
+.image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(255, 46, 99, 0.1), rgba(157, 78, 221, 0.1));
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.image-container:hover .image-overlay {
+    opacity: 1;
+}
+
+/* Tools Section */
+.tools-section {
+    margin-top: 4rem;
+}
+
+.tools-section h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.tool-category h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+}
+
+.tools-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tool-tag {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    border: 1px solid var(--glass-border);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.tool-tag:hover {
+    background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 46, 99, 0.3);
+}
+
+/* Animations */
+@keyframes shimmer {
+    0% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 0.3;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 968px) {
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .tools-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .image-container {
+        transform: none;
+        max-width: 500px;
+        margin: 0 auto;
+    }
 }
