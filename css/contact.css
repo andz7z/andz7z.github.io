@@ -1,53 +1,63 @@
-/* Stiluri specifice pentru secțiunea Contact. */
+/* FILE: css/contact.css */
+
+#contact {
+    background-color: #08040f;
+    background-image: radial-gradient(circle at 50% 100%, rgba(159, 85, 255, 0.15), transparent 50%);
+}
+
+.contact-container {
+    max-width: 700px;
+}
+
+#contact .section-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
 
 .contact-form {
-    max-width: 600px;
-    margin: 2rem auto 0 auto;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
+    width: 100%;
 }
 
-.form-group label {
-    margin-bottom: 0.5rem;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: var(--color-light-text);
-}
-
-.form-group input,
-.form-group textarea {
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-bg-glass);
+    border: 1px solid rgba(159, 85, 255, 0.2);
+    border-radius: 8px;
+    color: var(--color-text);
     font-family: var(--font-main);
     font-size: 1rem;
-    padding: 0.9rem 1.2rem;
-    
-    /* Stilul Glassy */
-    background: var(--glass-bg);
-    border: var(--glass-border);
-    border-radius: 10px;
-    
-    color: var(--color-white);
-    transition: all 0.3s ease;
+    transition: var(--transition-fast);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--color-text-dark);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
     outline: none;
-    border-color: var(--color-accent-blue);
-    box-shadow: 0 0 10px rgba(65, 105, 225, 0.5);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 15px var(--shadow-color);
 }
 
-.form-group textarea {
-    resize: vertical; /* Permite redimensionarea doar pe verticală */
+.contact-form textarea {
+    resize: vertical;
+    min-height: 150px;
 }
 
 .contact-form .btn {
-    align-self: center; /* Centrează butonul */
-    margin-top: 1rem;
+    align-self: center;
+    width: 200px;
 }
