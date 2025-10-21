@@ -3,234 +3,374 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Design. Develop. Deliver.</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <link rel="stylesheet" href="css/global.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/contact.css">
-    <link rel="stylesheet" href="css/responsive.css">
-
+    <title>ANDZ | Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-
-    <div id="progress-bar"></div>
-
-    <header id="main-header">
-        <a href="#home" class="brand-name magnetic-item">ANDZ</a>
-
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#home" class="nav-icon magnetic-item active" data-tooltip="Home" data-section="home"><i class="fas fa-home"></i></a></li>
-                <li><a href="#about" class="nav-icon magnetic-item" data-tooltip="About" data-section="about"><i class="fas fa-user"></i></a></li>
-                <li><a href="#services" class="nav-icon magnetic-item" data-tooltip="Services" data-section="services"><i class="fas fa-cogs"></i></a></li>
-                <li><a href="#portfolio" class="nav-icon magnetic-item" data-tooltip="Portfolio" data-section="portfolio"><i class="fas fa-briefcase"></i></a></li>
-                <li><a href="#reviews" class="nav-icon magnetic-item" data-tooltip="Reviews" data-section="reviews"><i class="fas fa-star"></i></a></li>
-                <li><a href="#contact" class="nav-icon magnetic-item" data-tooltip="Contact" data-section="contact"><i class="fas fa-envelope"></i></a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <nav id="scrolled-nav">
-        <a href="#home" class="back-to-home magnetic-item">
-            <i class="fas fa-arrow-left"></i>
-            <span>Back to Home</span>
-        </a>
-        <div class="current-section-display">
-            Currently on: <span id="current-section-name">Home</span>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="brand">
+            <a href="#home">ANDZ</a>
+        </div>
+        
+        <div class="nav-icons">
+            <a href="#home" class="nav-icon active" data-section="home">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="#about" class="nav-icon" data-section="about">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="#services" class="nav-icon" data-section="services">
+                <i class="fas fa-cogs"></i>
+            </a>
+            <a href="#portfolio" class="nav-icon" data-section="portfolio">
+                <i class="fas fa-briefcase"></i>
+            </a>
+            <a href="#reviews" class="nav-icon" data-section="reviews">
+                <i class="fas fa-star"></i>
+            </a>
+            <a href="#contact" class="nav-icon" data-section="contact">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+        
+        <div class="nav-minimized">
+            <a href="#home" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <span class="current-section">Currently on: Home</span>
+        </div>
+        
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </nav>
-
-    <aside class="social-links">
-        <div class="line"></div> <ul>
-            <li><a href="#" target="_blank" class="magnetic-item" data-tooltip="GitHub"><i class="fab fa-github"></i></a></li>
-            <li><a href="#" target="_blank" class="magnetic-item" data-tooltip="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
-            <li><a href="#" target="_blank" class="magnetic-item" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
-            <li><a href="#" target="_blank" class="magnetic-item" data-tooltip="Discord"><i class="fab fa-discord"></i></a></li>
-        </ul>
-        <div class="line"></div> </aside>
-
-    <button class="hamburger" id="hamburger-btn" aria-label="Toggle Menu">
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-    </button>
-
-    <div class="mobile-nav" id="mobile-nav-menu">
-        <a href="#home" class="mobile-nav-link" data-section="home">Home</a>
-        <a href="#about" class="mobile-nav-link" data-section="about">About</a>
-        <a href="#services" class="mobile-nav-link" data-section="services">Services</a>
-        <a href="#portfolio" class="mobile-nav-link" data-section="portfolio">Portfolio</a>
-        <a href="#reviews" class="mobile-nav-link" data-section="reviews">Reviews</a>
-        <a href="#contact" class="mobile-nav-link" data-section="contact">Contact</a>
+    
+    <!-- Social Media Icons -->
+    <div class="social-icons">
+        <div class="line"></div>
+        <a href="#" class="social-icon">
+            <i class="fab fa-github"></i>
+        </a>
+        <a href="#" class="social-icon">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="#" class="social-icon">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+        <a href="#" class="social-icon">
+            <i class="fab fa-discord"></i>
+        </a>
+        <div class="line"></div>
     </div>
-
-    <main id="fullpage-container">
-
-        <section id="home" class="section full-screen" data-section-name="Home">
-            <div class="video-background">
-                <video autoplay muted loop playsinline id="bg-video">
+    
+    <!-- Sections -->
+    <main class="sections-container">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="bg-video">
+                <video autoplay muted loop>
                     <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                    Browser-ul tău nu suportă tag-ul video.
+                    <!-- Fallback image if video doesn't load -->
+                    <div class="fallback-bg"></div>
                 </video>
             </div>
-
-            <div class="section-content home-content">
-                <h1 class="main-headline">
-                    <span class="line-1 reveal-up" data-text="Design. Develop.">Design. Develop.</span>
-                    <span class="line-2 reveal-up" data-text="Deliver.">Deliver.</span>
-                </h1>
-                <p class="subtitle reveal-up">&lt;we do it all/&gt;</p>
-                <a href="#about" class="btn btn-metallic magnetic-item reveal-up">
-                    Discover Now <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
             
-            <a href="#about" class="scroll-down-indicator magnetic-item">
-                <i class="fas fa-mouse"></i>
-                <span>Scroll Down</span>
-            </a>
+            <div class="home-content">
+                <div class="text-container">
+                    <h1 class="main-text">
+                        <span class="design">Design.</span>
+                        <span class="develop">Develop.</span>
+                    </h1>
+                    <h1 class="deliver">Deliver.</h1>
+                    <p class="subtext">&lt;we do it all/&gt;</p>
+                    <button class="discover-btn">Discover Now <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
         </section>
-
-        <section id="about" class="section full-screen" data-section-name="About">
-            <div class="section-content container">
-                <h2 class="section-title reveal-item">About <span class="gradient-text">Me</span></h2>
-                <div class="about-grid">
-                    <div class="about-image reveal-item">
-                        <div class="img-placeholder glassmorphism">
-                            <i class="fas fa-user-astronaut fa-5x"></i>
+        
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I'm a passionate web developer with 5+ years of experience creating modern, interactive websites and applications. My expertise spans front-end and back-end technologies, with a focus on user experience and performance optimization.</p>
+                        
+                        <div class="skills">
+                            <div class="skill-item">
+                                <span class="skill-name">HTML5/CSS3</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="95"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">JavaScript</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="90"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">React</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="85"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Node.js</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="80"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="about-text reveal-item">
-                        <h3>Hi, I'm ANDZ.</h3>
-                        <p class="text-muted">A creative developer and designer focused on building clean, interactive, and high-performance digital experiences. I turn complex problems into simple, beautiful, and intuitive designs.</p>
-                        <p class="text-muted">My mission is to deliver products that are not only visually stunning but also technically robust and a pleasure to use.</p>
-                        <a href="#portfolio" class="btn btn-secondary magnetic-item">View My Work</a>
+                    
+                    <div class="about-image">
+                        <div class="image-placeholder">
+                            <i class="fas fa-user"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <section id="services" class="section full-screen" data-section-name="Services">
-            <div class="section-content container">
-                <h2 class="section-title reveal-item">What I <span class="gradient-text">Do</span></h2>
+        
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="section-title">Services</h2>
                 <div class="services-grid">
-                    <div class="service-card glassmorphism reveal-item">
-                        <div class="card-icon"><i class="fas fa-palette"></i></div>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Custom websites and web applications built with modern technologies and best practices.</p>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
                         <h3>UI/UX Design</h3>
-                        <p class="text-muted">Crafting intuitive, user-centric interfaces that engage and delight.</p>
+                        <p>User-centered design solutions that enhance usability and create engaging experiences.</p>
                     </div>
-                    <div class="service-card glassmorphism reveal-item">
-                        <div class="card-icon"><i class="fas fa-code"></i></div>
-                        <h3>Development</h3>
-                        <p class="text-muted">Building responsive, high-performance websites using modern technologies.</p>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Responsive Design</h3>
+                        <p>Websites that look and function perfectly on all devices and screen sizes.</p>
                     </div>
-                    <div class="service-card glassmorphism reveal-item">
-                        <div class="card-icon"><i class="fas fa-rocket"></i></div>
-                        <h3>Performance & SEO</h3>
-                        <p class="text-muted">Optimizing for speed, accessibility, and search engine visibility.</p>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h3>Performance Optimization</h3>
+                        <p>Speed optimization and performance enhancements for faster loading times.</p>
                     </div>
                 </div>
             </div>
         </section>
-
-        <section id="portfolio" class="section full-screen" data-section-name="Portfolio">
-            <div class="section-content container">
-                <h2 class="section-title reveal-item">My <span class="gradient-text">Portfolio</span></h2>
+        
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section">
+            <div class="container">
+                <h2 class="section-title">Portfolio</h2>
                 <div class="portfolio-grid">
-                    <a href="#" class="portfolio-item glassmorphism reveal-item">
-                        <img src="https://via.placeholder.com/600x400/1a1a1a/4361ee?text=Project+One" alt="Project One" loading="lazy">
-                        <div class="portfolio-caption">
-                            <h3>Project One</h3>
-                            <p class="text-muted">Web Design</p>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                            </div>
                         </div>
-                    </a>
-                    <a href="#" class="portfolio-item glassmorphism reveal-item">
-                        <img src="https://via.placeholder.com/600x400/1a1a1a/3a0ca3?text=Project+Two" alt="Project Two" loading="lazy">
-                        <div class="portfolio-caption">
-                            <h3>Project Two</h3>
-                            <p class="text-muted">Development</p>
+                        <div class="portfolio-info">
+                            <h3>E-commerce Website</h3>
+                            <p>Modern online store with shopping cart and payment integration.</p>
+                            <button class="portfolio-btn">View Details</button>
                         </div>
-                    </a>
-                    <a href="#" class="portfolio-item glassmorphism reveal-item">
-                        <img src="https://via.placeholder.com/600x400/1a1a1a/4361ee?text=Project+Three" alt="Project Three" loading="lazy">
-                        <div class="portfolio-caption">
-                            <h3>Project Three</h3>
-                            <p class="text-muted">UI/UX</p>
+                    </div>
+                    
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                            </div>
                         </div>
-                    </a>
-                    <a href="#" class="portfolio-item glassmorphism reveal-item">
-                        <img src="https://via.placeholder.com/600x400/1a1a1a/3a0ca3?text=Project+Four" alt="Project Four" loading="lazy">
-                        <div class="portfolio-caption">
-                            <h3>Project Four</h3>
-                            <p class="text-muted">Branding</p>
+                        <div class="portfolio-info">
+                            <h3>Corporate Dashboard</h3>
+                            <p>Data visualization dashboard for business analytics.</p>
+                            <button class="portfolio-btn">View Details</button>
                         </div>
-                    </a>
+                    </div>
+                    
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Travel Blog</h3>
+                            <p>Responsive travel blog with interactive maps and photo galleries.</p>
+                            <button class="portfolio-btn">View Details</button>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder">
+                                <i class="fas fa-image"></i>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Fitness App</h3>
+                            <p>Mobile-first fitness tracking application with workout plans.</p>
+                            <button class="portfolio-btn">View Details</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
-        <section id="reviews" class="section full-screen" data-section-name="Reviews">
-            <div class="section-content container">
-                <h2 class="section-title reveal-item">Testimonials</h2>
-                <div class="reviews-grid">
-                    <div class="review-card glassmorphism reveal-item">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        
+        <!-- Reviews Section -->
+        <section id="reviews" class="section">
+            <div class="container">
+                <h2 class="section-title">Client Reviews</h2>
+                <div class="reviews-slider">
+                    <div class="review-card active">
+                        <div class="review-content">
+                            <p>"Working with ANDZ was an exceptional experience. The attention to detail and commitment to quality resulted in a website that exceeded our expectations."</p>
                         </div>
-                        <p class="text-muted">"ANDZ transformed our vision into a stunning reality. The magnetic effects and smooth animations are incredible. Highly recommend!"</p>
-                        <h4>- Jane Doe, CEO @ TechCo</h4>
+                        <div class="review-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Sarah Johnson</h4>
+                                <p>CEO, TechSolutions</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="review-card glassmorphism reveal-item">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    
+                    <div class="review-card">
+                        <div class="review-content">
+                            <p>"The website ANDZ developed for us has significantly improved our online presence. The user experience is seamless and the performance is outstanding."</p>
                         </div>
-                        <p class="text-muted">"Professional, creative, and technically brilliant. The final product was delivered on time and exceeded all our expectations."</p>
-                        <h4>- John Smith, Founder @ Innovate</h4>
+                        <div class="review-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Michael Chen</h4>
+                                <p>Marketing Director, GlobalBrands</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="review-card">
+                        <div class="review-content">
+                            <p>"I'm impressed with the technical expertise and creative solutions provided. The project was delivered on time and within budget. Highly recommended!"</p>
+                        </div>
+                        <div class="review-author">
+                            <div class="author-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="author-info">
+                                <h4>Emma Wilson</h4>
+                                <p>Founder, StartupXYZ</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-controls">
+                        <button class="slider-btn prev">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div class="slider-dots">
+                            <span class="dot active" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                        </div>
+                        <button class="slider-btn next">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
                 </div>
             </div>
         </section>
-
-        <section id="contact" class="section full-screen" data-section-name="Contact">
-            <div class="section-content container">
-                <h2 class="section-title reveal-item">Get In <span class="gradient-text">Touch</span></h2>
-                <p class="section-subtitle reveal-item text-muted">Have a project in mind? Let's build something amazing together.</p>
-                <form id="contact-form" class="contact-form glassmorphism reveal-item">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" required>
-                        <label for="name">Your Name</label>
+        
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Email</h3>
+                                <p>contact@andz.dev</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Phone</h3>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Location</h3>
+                                <p>San Francisco, CA</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" required>
-                        <label for="email">Your Email</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                        <label for="message">Your Message</label>
-                    </div>
-                    <button type="submit" class="btn btn-metallic magnetic-item">
-                        Send Message <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
+                    
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Subject" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
             </div>
         </section>
-
     </main>
 
-    <script src="js/script.js" defer></script>
-    
-    <script src="js/home.js" defer></script>
-    <script src="js/about.js" defer></script>
-    <script src="js/services.js" defer></script>
-    <script src="js/portfolio.js" defer></script>
-    <script src="js/reviews.js" defer></script>
-    <script src="js/contact.js" defer></script>
+    <!-- JavaScript Files -->
+    <script src="js/script.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/about.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>
