@@ -1,8 +1,9 @@
-/* --- JS/REVIEWS.JS --- */
-// Logica specifică pentru secțiunea Reviews.
-// De exemplu: animații complexe la hover pe titlu,
-// sau schimbarea textului la intervale regulate.
+// js/reviews.js
 
-document.addEventListener('DOMContentLoaded', () => {
-    // console.log("Logica Home încărcată.");
-});
+/* HOW TO EDIT
+  - This file is for JavaScript logic specific to the #reviews section.
+  - Example: Initializing a testimonial carousel.
+  - It is imported by js/main.js and runs on page load.
+*/
+
+// console.log("Reviews section JS loaded.");
