@@ -178,6 +178,21 @@ if (q('.sidebar') && menuLinks.length) {
   // For touch devices, disable magnetic (no pointer)
   // (optional) you can check pointer type if needed
 }
+// ==================== Magnetic effect for Back Button ====================
+if (backBtn) {
+  const strength = 40; // cât de puternic "atrage"
+  const scale = 1.12;  // mărire ușoară
 
+  backBtn.addEventListener('mousemove', (e) => {
+    const rect = backBtn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    backBtn.style.transform = `translate(${x / 5}px, ${y / 5}px) scale(${scale})`;
+  });
+
+  backBtn.addEventListener('mouseleave', () => {
+    backBtn.style.transform = 'translate(0, 0) scale(1)';
+  });
+}
 // ==================== Safety: prevent errors if elements lipsesc ====================
 // (to avoid console errors in pagini partiale)
