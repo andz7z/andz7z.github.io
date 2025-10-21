@@ -1,4 +1,12 @@
-/* --- CSS/SERVICES.CSS --- */
+/* css/services.css */
+
+/* HOW TO EDIT
+  - This file styles ONLY the #services section.
+  - Add styles for service cards, icons, etc., here.
+*/
+
 #services {
-  background: var(--bg-about);
+    /* Example: Style a grid of services */
+    /* .services-grid { ... } */
+    /* .service-card { ... } */
 }
