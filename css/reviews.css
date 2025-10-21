@@ -1,112 +1,73 @@
-/* ===== STILURI SPECIFICE PENTRU SECȚIUNEA REVIEWS ===== */
+/* FILE: css/reviews.css */
 
 #reviews {
-  background: var(--color-darker);
+    background-color: var(--color-bg);
 }
 
-.reviews-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 0 auto;
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
 }
 
 .review-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--backdrop-blur);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--border-radius);
-  padding: 2rem;
-  transition: var(--transition-normal);
-  position: relative;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
 }
 
+/* Efect de lumină la hover */
 .review-card::before {
-  content: '"';
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 4rem;
-  color: rgba(138, 43, 226, 0.2);
-  font-family: Georgia, serif;
-  line-height: 1;
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(159, 85, 255, 0.15) 0%, transparent 40%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    transform: translate(var(--x, -50%), var(--y, -50%)); /* Va fi controlat de JS (sau lăsat așa pentru efect simplu) */
 }
 
 .review-card:hover {
-  transform: translateY(-5px);
-  border-color: rgba(65, 105, 225, 0.3);
+    border-color: rgba(159, 85, 255, 0.5);
+}
+.review-card:hover::before {
+    opacity: 1;
 }
 
-.review-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+
+.review-card .stars {
+    color: #ffd700;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
 }
 
-.reviewer-avatar {
-  width: 50px;
-  height: 50px;
-  background: var(--gradient-primary);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--color-light);
-  font-size: 1.2rem;
+/* Animație subtilă pe steluțe */
+.review-card .stars i {
+    display: inline-block;
+    animation: star-glow 2.5s infinite alternate;
+}
+.review-card .stars i:nth-child(2) { animation-delay: 0.2s; }
+.review-card .stars i:nth-child(3) { animation-delay: 0.4s; }
+.review-card .stars i:nth-child(4) { animation-delay: 0.6s; }
+.review-card .stars i:nth-child(5) { animation-delay: 0.8s; }
+
+.review-card p {
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
 }
 
-.reviewer-info h4 {
-  margin-bottom: 0.25rem;
-  color: var(--color-light);
-}
-
-.stars {
-  display: flex;
-  gap: 0.25rem;
-  color: #FFD700;
-}
-
-.stars i {
-  font-size: 0.9rem;
-}
-
-.review-text {
-  font-style: italic;
-  line-height: 1.7;
-  color: var(--color-gray);
-  margin: 0;
-  position: relative;
-  z-index: 1;
-}
-
-/* Animații pentru review cards */
-.review-card {
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.reviews-container.animated .review-card:nth-child(1) {
-  animation: fadeInUp 0.8s ease 0.2s forwards;
-}
-
-.reviews-container.animated .review-card:nth-child(2) {
-  animation: fadeInUp 0.8s ease 0.4s forwards;
-}
-
-.reviews-container.animated .review-card:nth-child(3) {
-  animation: fadeInUp 0.8s ease 0.6s forwards;
-}
-
-/* Responsive design pentru Reviews */
-@media (max-width: 768px) {
-  .reviews-container {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  
-  .review-card {
-    padding: 1.5rem;
-  }
+.review-card h4 {
+    font-size: 1rem;
+    color: var(--color-primary);
+    text-align: right;
+    margin-bottom: 0;
 }
