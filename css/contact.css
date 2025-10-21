@@ -1,124 +1,186 @@
 /* ===== STILURI SPECIFICE PENTRU SECȚIUNEA CONTACT ===== */
 
 #contact {
-    background: var(--color-dark);
+  background: var(--color-dark);
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    animation: fadeInUp 0.8s ease 0.4s both;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
 }
 
 .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 1.5rem;
-    background: var(--glass-bg);
-    backdrop-filter: var(--blur-intensity);
-    border-radius: var(--border-radius);
-    border: 1px solid var(--glass-border);
-    transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  transition: var(--transition-normal);
 }
 
 .contact-item:hover {
-    transform: translateX(5px);
-    border-color: rgba(138, 43, 226, 0.3);
+  transform: translateX(5px);
+  border-color: rgba(255, 0, 0, 0.3);
 }
 
-.contact-item i {
-    font-size: 1.5rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    width: 40px;
-    flex-shrink: 0;
+.contact-icon {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: var(--color-light);
+  flex-shrink: 0;
 }
 
-.contact-item h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--color-white);
+.contact-details h3 {
+  margin-bottom: 0.25rem;
+  color: var(--color-light);
 }
 
-.contact-item p {
-    color: var(--color-gray-light);
+.contact-details p {
+  margin: 0;
+  color: var(--color-gray);
 }
 
 .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 2rem;
 }
 
 .form-group {
-    position: relative;
+  position: relative;
+  margin-bottom: 2rem;
 }
 
 .form-group input,
 .form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    background: var(--glass-bg);
-    backdrop-filter: var(--blur-intensity);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius);
-    color: var(--color-white);
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    transition: all var(--transition-fast);
+  width: 100%;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius-sm);
+  color: var(--color-light);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: var(--transition-fast);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: none;
-    border-color: #8A2BE2;
-    box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.2);
+  outline: none;
+  border-color: #4169E1;
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: var(--color-gray);
+.form-group label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: var(--color-gray);
+  transition: var(--transition-fast);
+  pointer-events: none;
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
+.form-group input:focus + label,
+.form-group textarea:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:not(:placeholder-shown) + label {
+  top: -0.5rem;
+  left: 0.5rem;
+  font-size: 0.8rem;
+  background: var(--color-dark);
+  padding: 0 0.5rem;
+  color: #4169E1;
 }
 
-/* ===== MEDIA QUERIES PENTRU RESPONSIVITATE ===== */
+.btn-submit {
+  width: 100%;
+  background: var(--gradient-primary);
+  color: var(--color-light);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-submit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-primary-reverse);
+  transition: var(--transition-normal);
+  z-index: 1;
+}
+
+.btn-submit:hover::before {
+  left: 0;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(138, 43, 226, 0.3);
+}
+
+.btn-submit span {
+  position: relative;
+  z-index: 2;
+}
+
+/* Animații pentru secțiunea Contact */
+.contact-info,
+.contact-form {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.contact-content.animated .contact-info {
+  animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+.contact-content.animated .contact-form {
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+/* Responsive design pentru Contact */
 @media (max-width: 968px) {
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .contact-info {
-        order: 2;
-    }
-    
-    .contact-form {
-        order: 1;
-    }
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
 }
 
 @media (max-width: 768px) {
-    .contact-item {
-        padding: 1rem;
-    }
-    
-    .contact-item i {
-        font-size: 1.2rem;
-        width: 30px;
-    }
+  .contact-form {
+    padding: 1.5rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
 }
