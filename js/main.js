@@ -1,93 +1,91 @@
 // js/main.js
 /*
 HOW TO EDIT MAIN JAVASCRIPT:
-- Section configuration: Update section IDs and order in sections array
-- Scroll behavior: Modify snapThreshold and magnetStrength values
-- Performance: Adjust debounce timings and intersection observer thresholds
-- Navigation: Update icon mappings and transition effects
+- Section management: Update section IDs and navigation mapping
+- Scroll behavior: Adjust snap thresholds and timing
+- Performance: Modify debounce timing and will-change usage
 */
 
-// Configuration
-const CONFIG = {
-    snapThreshold: 0.3, // Percentage of viewport for snap triggering
-    magnetStrength: 0.8, // Strength of magnet effect (0-1)
-    scrollDebounce: 16, // ms to debounce scroll events
-    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches
-};
+// Performance optimization: Use passive event listeners
+const passiveOptions = { passive: true };
 
-// State management
-let state = {
+// Global state
+const state = {
     currentSection: 'home',
+    previousSection: 'home',
     isScrolling: false,
     scrollTimeout: null,
-    mousePosition: { x: 0, y: 0 },
-    navIcons: []
+    reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+    scrollDirection: 'down'
 };
 
 // DOM Elements
 const elements = {
-    body: document.body,
-    navbar: document.querySelector('.navbar'),
-    navIcons: document.querySelectorAll('.nav-icon'),
-    navCompact: document.querySelector('.nav-compact'),
-    sectionName: document.querySelector('.section-name'),
-    sections: document.querySelectorAll('.section'),
+    mainNav: document.getElementById('main-nav'),
+    navBrand: document.getElementById('nav-brand'),
+    navFull: document.getElementById('nav-full'),
+    navMinimal: document.getElementById('nav-minimal'),
+    goBackBtn: document.getElementById('go-back-btn'),
+    currentSectionName: document.getElementById('current-section-name'),
+    mainContent: document.getElementById('main-content'),
+    loader: document.getElementById('loader'),
     scrollProgress: document.querySelector('.scroll-progress'),
     scrollProgressBar: document.querySelector('.scroll-progress-bar'),
-    backHome: document.querySelector('.back-home'),
-    modals: document.querySelectorAll('.modal'),
-    modalBackdrops: document.querySelectorAll('.modal-backdrop'),
-    modalCloses: document.querySelectorAll('.modal-close'),
-    footerLinks: document.querySelectorAll('.footer-link')
+    reducedMotionOverlay: document.getElementById('reduced-motion-overlay'),
+    modalBackdrop: document.getElementById('modal-backdrop'),
+    modalClose: document.getElementById('modal-close'),
+    privacyBtn: document.getElementById('privacy-btn'),
+    tosBtn: document.getElementById('tos-btn')
 };
 
 // Section configuration
-const sections = [
-    { id: 'home', name: 'Home' },
-    { id: 'about', name: 'About' },
-    { id: 'services', name: 'Services' },
-    { id: 'portfolio', name: 'Portfolio' },
-    { id: 'reviews', name: 'Reviews' },
-    { id: 'contact', name: 'Contact' }
-];
+const sections = {
+    home: { element: document.getElementById('home'), threshold: 0.5 },
+    about: { element: document.getElementById('about'), threshold: 0.6 },
+    services: { element: document.getElementById('services'), threshold: 0.6 },
+    portfolio: { element: document.getElementById('portfolio'), threshold: 0.6 },
+    reviews: { element: document.getElementById('reviews'), threshold: 0.6 },
+    contact: { element: document.getElementById('contact'), threshold: 0.6 }
+};
 
-// Initialize application
+// Initialize the application
 function init() {
     setupEventListeners();
     setupIntersectionObserver();
-    setupMagnetEffect();
-    setupModals();
-    setActiveSection('home');
+    startLoaderAnimation();
+    setupModalSystem();
     
-    // Initial animations
-    requestAnimationFrame(() => {
-        elements.body.classList.add('loaded');
-    });
+    // Set initial state
+    updateNavigationState();
+    updateScrollProgress();
+    updateBrandVisibility();
 }
 
-// Event listeners setup
+// Set up all event listeners
 function setupEventListeners() {
     // Navigation
-    elements.navIcons.forEach(icon => {
+    document.querySelectorAll('.nav-icon').forEach(icon => {
         icon.addEventListener('click', handleNavClick);
-        icon.addEventListener('mouseenter', handleNavHover);
     });
     
-    elements.backHome.addEventListener('click', scrollToHome);
+    elements.goBackBtn.addEventListener('click', scrollToHome);
     
     // Scroll events with debouncing
-    window.addEventListener('scroll', debounce(handleScroll, CONFIG.scrollDebounce), { passive: true });
+    window.addEventListener('scroll', debounce(handleScroll, 16), passiveOptions); // ~60fps
     window.addEventListener('wheel', handleWheel, { passive: false });
-    
-    // Mouse movement for magnet effect
-    document.addEventListener('mousemove', handleMouseMove);
     
     // Keyboard navigation
     document.addEventListener('keydown', handleKeydown);
     
-    // Footer links
-    elements.footerLinks.forEach(link => {
-        link.addEventListener('click', handleFooterLinkClick);
+    // Reduced motion support
+    const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
+    reducedMotionMedia.addEventListener('change', e => {
+        state.reducedMotion = e.matches;
+        if (state.reducedMotion) {
+            elements.reducedMotionOverlay.style.opacity = '1';
+        } else {
+            elements.reducedMotionOverlay.style.opacity = '0';
+        }
     });
 }
 
@@ -95,126 +93,83 @@ function setupEventListeners() {
 function setupIntersectionObserver() {
     const observerOptions = {
         root: null,
-        rootMargin: '0px',
-        threshold: buildThresholdList()
+        rootMargin: '-20% 0px -20% 0px',
+        threshold: [0, 0.1, 0.5, 0.9, 1]
     };
     
-    const observer = new IntersectionObserver(handleIntersection, observerOptions);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                const section = entry.target.id;
+                if (section !== state.currentSection) {
+                    state.previousSection = state.currentSection;
+                    state.currentSection = section;
+                    
+                    // Add scroll effects
+                    addScrollEffects(state.previousSection, section);
+                    
+                    updateActiveNav();
+                    updateNavigationState();
+                    updateCurrentSectionName();
+                    updateBrandVisibility();
+                    
+                    // Trigger section-specific animations
+                    triggerSectionAnimations(section);
+                }
+            }
+        });
+    }, observerOptions);
     
-    elements.sections.forEach(section => {
-        observer.observe(section);
+    // Observe all sections
+    Object.values(sections).forEach(({ element }) => {
+        observer.observe(element);
     });
 }
 
-// Build threshold list for intersection observer
-function buildThresholdList() {
-    const thresholds = [];
-    const numSteps = 20;
+// Add scroll in/out effects
+function addScrollEffects(previousSection, currentSection) {
+    if (state.reducedMotion) return;
     
-    for (let i = 1.0; i <= numSteps; i++) {
-        const ratio = i / numSteps;
-        thresholds.push(ratio);
-    }
+    const prevElement = sections[previousSection].element;
+    const currElement = sections[currentSection].element;
     
-    return thresholds;
-}
-
-// Handle intersection changes
-function handleIntersection(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
-            const sectionId = entry.target.id;
-            setActiveSection(sectionId);
-        }
-    });
-}
-
-// Set active section with smooth transitions
-function setActiveSection(sectionId) {
-    if (state.currentSection === sectionId) return;
+    // Determine scroll direction
+    const prevIndex = Object.keys(sections).indexOf(previousSection);
+    const currIndex = Object.keys(sections).indexOf(currentSection);
+    state.scrollDirection = currIndex > prevIndex ? 'down' : 'up';
     
-    state.currentSection = sectionId;
+    // Add transition classes
+    prevElement.classList.add('scrolling-out');
+    currElement.classList.add('scrolling-in', 'active');
     
-    // Update sections
-    elements.sections.forEach(section => {
-        section.classList.toggle('active', section.id === sectionId);
-    });
-    
-    // Update navigation
-    updateNavigation(sectionId);
-    
-    // Update compact nav
-    const sectionData = sections.find(s => s.id === sectionId);
-    if (sectionData && elements.sectionName) {
-        elements.sectionName.textContent = sectionData.name;
-    }
-    
-    // Update navbar state
-    const isHome = sectionId === 'home';
-    elements.navbar.classList.toggle('scrolled', !isHome);
-}
-
-// Update navigation active states
-function updateNavigation(activeSection) {
-    elements.navIcons.forEach(icon => {
-        const section = icon.getAttribute('data-section');
-        icon.classList.toggle('active', section === activeSection);
-    });
+    // Remove classes after animation
+    setTimeout(() => {
+        prevElement.classList.remove('scrolling-out', 'active');
+        currElement.classList.remove('scrolling-in');
+    }, 600);
 }
 
 // Handle navigation clicks
-function handleNavClick(event) {
-    event.preventDefault();
-    const sectionId = event.currentTarget.getAttribute('data-section');
-    scrollToSection(sectionId);
-}
-
-// Handle navigation hover for magnet effect
-function handleNavHover(event) {
-    if (CONFIG.reducedMotion) return;
-    
-    const icon = event.currentTarget;
-    const rect = icon.getBoundingClientRect();
-    const iconCenterX = rect.left + rect.width / 2;
-    const iconCenterY = rect.top + rect.height / 2;
-    
-    // Calculate distance from mouse to icon center
-    const distance = Math.sqrt(
-        Math.pow(state.mousePosition.x - iconCenterX, 2) + 
-        Math.pow(state.mousePosition.y - iconCenterY, 2)
-    );
-    
-    // Apply magnet effect based on distance
-    const maxDistance = 100;
-    const strength = Math.max(0, 1 - distance / maxDistance) * CONFIG.magnetStrength;
-    
-    if (strength > 0.1) {
-        const moveX = (iconCenterX - state.mousePosition.x) * strength * 0.1;
-        const moveY = (iconCenterY - state.mousePosition.y) * strength * 0.1;
-        const scale = 1 + strength * 0.2;
-        
-        icon.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale})`;
-    } else {
-        icon.style.transform = '';
-    }
+function handleNavClick(e) {
+    e.preventDefault();
+    const targetSection = this.getAttribute('href').substring(1);
+    scrollToSection(targetSection);
 }
 
 // Scroll to specific section
 function scrollToSection(sectionId) {
-    const section = document.getElementById(sectionId);
-    if (!section) return;
+    if (state.isScrolling || !sections[sectionId]) return;
     
     state.isScrolling = true;
-    
-    section.scrollIntoView({
-        behavior: CONFIG.reducedMotion ? 'auto' : 'smooth',
+    sections[sectionId].element.scrollIntoView({
+        behavior: state.reducedMotion ? 'auto' : 'smooth',
         block: 'start'
     });
     
-    // Reset scrolling flag
+    // Reset scrolling flag after animation
     setTimeout(() => {
         state.isScrolling = false;
-    }, 1000);
+    }, state.reducedMotion ? 0 : 500);
 }
 
 // Scroll to home section
@@ -227,166 +182,269 @@ function handleScroll() {
     if (state.isScrolling) return;
     
     updateScrollProgress();
-    handleAutoSnap();
+    updateNavigationTransform();
 }
 
-// Handle wheel events for improved snapping
-function handleWheel(event) {
-    if (CONFIG.reducedMotion || state.isScrolling) return;
+// Handle wheel events for section snapping
+function handleWheel(e) {
+    if (state.isScrolling || state.reducedMotion) return;
     
-    // Prevent default only when we're going to handle the snap
-    const currentIndex = sections.findIndex(s => s.id === state.currentSection);
-    let targetIndex = currentIndex;
+    e.preventDefault();
     
-    if (event.deltaY > 0 && currentIndex < sections.length - 1) {
-        // Scrolling down
-        targetIndex = currentIndex + 1;
-    } else if (event.deltaY < 0 && currentIndex > 0) {
-        // Scrolling up
-        targetIndex = currentIndex - 1;
-    }
-    
-    if (targetIndex !== currentIndex) {
-        event.preventDefault();
-        scrollToSection(sections[targetIndex].id);
-    }
-}
-
-// Update scroll progress indicator
-function updateScrollProgress() {
-    const scrollTop = window.pageYOffset;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const scrollPercent = (scrollTop / docHeight) * 100;
-    
-    if (scrollPercent > 0) {
-        elements.scrollProgress.classList.add('active');
-    } else {
-        elements.scrollProgress.classList.remove('active');
-    }
-    
-    elements.scrollProgressBar.style.width = `${scrollPercent}%`;
-}
-
-// Auto-snap to sections based on scroll position
-function handleAutoSnap() {
-    if (CONFIG.reducedMotion || state.isScrolling) return;
-    
-    const currentScroll = window.pageYOffset;
-    const viewportHeight = window.innerHeight;
-    const threshold = viewportHeight * CONFIG.snapThreshold;
-    
-    let closestSection = null;
-    let minDistance = Infinity;
-    
-    elements.sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top);
-        
-        if (distance < threshold && distance < minDistance) {
-            minDistance = distance;
-            closestSection = section.id;
-        }
-    });
-    
-    if (closestSection && closestSection !== state.currentSection) {
-        setActiveSection(closestSection);
-    }
-}
-
-// Mouse movement tracking for magnet effect
-function handleMouseMove(event) {
-    state.mousePosition.x = event.clientX;
-    state.mousePosition.y = event.clientY;
-}
-
-// Setup magnet effect for navigation
-function setupMagnetEffect() {
-    if (CONFIG.reducedMotion) return;
-    
-    // Store original positions
-    elements.navIcons.forEach(icon => {
-        state.navIcons.push({
-            element: icon,
-            originalX: 0,
-            originalY: 0
-        });
-    });
-}
-
-// Keyboard navigation
-function handleKeydown(event) {
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-        event.preventDefault();
-        
-        const currentIndex = sections.findIndex(s => s.id === state.currentSection);
+    clearTimeout(state.scrollTimeout);
+    state.scrollTimeout = setTimeout(() => {
+        const currentIndex = Object.keys(sections).indexOf(state.currentSection);
         let targetIndex = currentIndex;
         
-        if (event.key === 'ArrowDown' && currentIndex < sections.length - 1) {
+        if (e.deltaY > 0 && currentIndex < Object.keys(sections).length - 1) {
             targetIndex = currentIndex + 1;
-        } else if (event.key === 'ArrowUp' && currentIndex > 0) {
+        } else if (e.deltaY < 0 && currentIndex > 0) {
             targetIndex = currentIndex - 1;
         }
         
         if (targetIndex !== currentIndex) {
-            scrollToSection(sections[targetIndex].id);
+            const targetSection = Object.keys(sections)[targetIndex];
+            scrollToSection(targetSection);
         }
-    } else if (event.key === 'Home') {
-        event.preventDefault();
+    }, 150);
+}
+
+// Handle keyboard navigation
+function handleKeydown(e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        const currentIndex = Object.keys(sections).indexOf(state.currentSection);
+        if (currentIndex < Object.keys(sections).length - 1) {
+            scrollToSection(Object.keys(sections)[currentIndex + 1]);
+        }
+    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const currentIndex = Object.keys(sections).indexOf(state.currentSection);
+        if (currentIndex > 0) {
+            scrollToSection(Object.keys(sections)[currentIndex - 1]);
+        }
+    } else if (e.key === 'Home') {
+        e.preventDefault();
         scrollToHome();
-    } else if (event.key === 'End') {
-        event.preventDefault();
+    } else if (e.key === 'End') {
+        e.preventDefault();
         scrollToSection('contact');
     }
 }
 
-// Modal handling
-function setupModals() {
-    elements.footerLinks.forEach(link => {
-        link.addEventListener('click', (event) => {
-            const modalType = event.target.getAttribute('data-modal');
-            openModal(`${modalType}-modal`);
-        });
-    });
-    
-    elements.modalCloses.forEach(close => {
-        close.addEventListener('click', closeAllModals);
-    });
-    
-    elements.modalBackdrops.forEach(backdrop => {
-        backdrop.addEventListener('click', closeAllModals);
-    });
-    
-    // ESC key to close modals
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-            closeAllModals();
+// Update active navigation state
+function updateActiveNav() {
+    // Update nav icons
+    document.querySelectorAll('.nav-icon').forEach(icon => {
+        icon.classList.remove('active');
+        if (icon.getAttribute('data-section') === state.currentSection) {
+            icon.classList.add('active');
         }
     });
 }
 
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        closeAllModals();
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-        // Focus trap
-        const focusableElements = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        if (focusableElements.length > 0) {
-            focusableElements[0].focus();
-        }
+// Update navigation state (full vs minimal)
+function updateNavigationState() {
+    const isHome = state.currentSection === 'home';
+    
+    if (isHome) {
+        elements.navFull.style.opacity = '1';
+        elements.navFull.style.pointerEvents = 'auto';
+        elements.navMinimal.classList.remove('active');
+    } else {
+        elements.navFull.style.opacity = '0';
+        elements.navFull.style.pointerEvents = 'none';
+        elements.navMinimal.classList.add('active');
     }
 }
 
-function closeAllModals() {
-    elements.modals.forEach(modal => {
-        modal.classList.remove('active');
+// Update brand visibility
+function updateBrandVisibility() {
+    const isHome = state.currentSection === 'home';
+    if (isHome) {
+        elements.navBrand.classList.remove('hidden');
+    } else {
+        elements.navBrand.classList.add('hidden');
+    }
+}
+
+// Update current section name in minimal nav
+function updateCurrentSectionName() {
+    const sectionNames = {
+        home: 'Home',
+        about: 'About',
+        services: 'Services',
+        portfolio: 'Portfolio',
+        reviews: 'Reviews',
+        contact: 'Contact'
+    };
+    
+    elements.currentSectionName.textContent = sectionNames[state.currentSection];
+}
+
+// Update navigation transform based on scroll
+function updateNavigationTransform() {
+    if (!elements.mainNav) return;
+    
+    const scrollY = window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollProgress = Math.min(scrollY / maxScroll, 1);
+    
+    // Smooth parallax effect using requestAnimationFrame
+    requestAnimationFrame(() => {
+        const translateY = scrollProgress * 40; // Increased from 20 to 40 for more noticeable effect
+        elements.mainNav.style.transform = `translateY(${translateY}px)`;
     });
+}
+
+// Update scroll progress indicator
+function updateScrollProgress() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    
+    // Use requestAnimationFrame for smooth progress bar
+    requestAnimationFrame(() => {
+        if (elements.scrollProgressBar) {
+            elements.scrollProgressBar.style.width = `${scrollPercent}%`;
+        }
+        
+        // Show/hide progress bar
+        if (elements.scrollProgress) {
+            elements.scrollProgress.style.opacity = scrollPercent > 5 ? '1' : '0';
+        }
+    });
+}
+
+// Trigger section-specific animations
+function triggerSectionAnimations(section) {
+    const sectionElement = sections[section].element;
+    const sectionTitle = sectionElement.querySelector('.section-title');
+    const animatedElements = sectionElement.querySelectorAll('.about-item, .service-card, .portfolio-item, .review-card');
+    
+    // Animate section title
+    if (sectionTitle && !sectionTitle.classList.contains('revealed')) {
+        setTimeout(() => {
+            sectionTitle.classList.add('revealed');
+        }, 300);
+    }
+    
+    // Animate other elements with staggered delay
+    animatedElements.forEach((element, index) => {
+        if (!element.classList.contains('visible')) {
+            setTimeout(() => {
+                element.classList.add('visible');
+            }, 500 + (index * 150));
+        }
+    });
+}
+
+// Start loader animation
+function startLoaderAnimation() {
+    setTimeout(() => {
+        elements.loader.style.opacity = '0';
+        setTimeout(() => {
+            elements.loader.style.display = 'none';
+            // Trigger initial animations
+            triggerSectionAnimations('home');
+        }, 500);
+    }, 1500);
+}
+
+// Modal system
+function setupModalSystem() {
+    if (!elements.modalBackdrop) return;
+    
+    // Privacy Policy
+    elements.privacyBtn.addEventListener('click', () => {
+        openModal(
+            'Privacy Policy',
+            `
+            <p>Your privacy is important to us. This Privacy Policy explains how ANDZ collects, uses, and protects your personal information.</p>
+            
+            <h3>Information We Collect</h3>
+            <p>We may collect personal information such as your name, email address, and usage data when you interact with our services.</p>
+            
+            <h3>How We Use Your Information</h3>
+            <p>We use your information to provide and improve our services, communicate with you, and ensure the security of our platform.</p>
+            
+            <h3>Data Protection</h3>
+            <p>We implement appropriate security measures to protect your personal information from unauthorized access or disclosure.</p>
+            
+            <h3>Your Rights</h3>
+            <p>You have the right to access, correct, or delete your personal information. Contact us to exercise these rights.</p>
+            
+            <p><em>This is a placeholder privacy policy. Please consult with legal professionals to create an appropriate policy for your business.</em></p>
+            `
+        );
+    });
+    
+    // Terms of Service
+    elements.tosBtn.addEventListener('click', () => {
+        openModal(
+            'Terms of Service',
+            `
+            <p>Welcome to ANDZ. These Terms of Service govern your use of our website and services.</p>
+            
+            <h3>Acceptance of Terms</h3>
+            <p>By accessing or using our services, you agree to be bound by these Terms and our Privacy Policy.</p>
+            
+            <h3>Use of Services</h3>
+            <p>You may use our services only for lawful purposes and in accordance with these Terms. You are responsible for maintaining the confidentiality of your account.</p>
+            
+            <h3>Intellectual Property</h3>
+            <p>All content, features, and functionality on our platform are owned by ANDZ and are protected by intellectual property laws.</p>
+            
+            <h3>Limitation of Liability</h3>
+            <p>ANDZ shall not be liable for any indirect, incidental, special, or consequential damages resulting from your use of our services.</p>
+            
+            <h3>Changes to Terms</h3>
+            <p>We may modify these Terms at any time. Continued use of our services after changes constitutes acceptance of the new Terms.</p>
+            
+            <p><em>This is a placeholder terms of service. Please consult with legal professionals to create appropriate terms for your business.</em></p>
+            `
+        );
+    });
+    
+    // Close modal
+    elements.modalClose.addEventListener('click', closeModal);
+    elements.modalBackdrop.addEventListener('click', (e) => {
+        if (e.target === elements.modalBackdrop) {
+            closeModal();
+        }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && elements.modalBackdrop.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}
+
+function openModal(title, content) {
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    modalTitle.textContent = title;
+    modalBody.innerHTML = content;
+    
+    elements.modalBackdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus trap
+    const focusableElements = elements.modalBackdrop.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+    }
+}
+
+function closeModal() {
+    elements.modalBackdrop.classList.remove('active');
     document.body.style.overflow = '';
 }
 
-// Utility function for debouncing
+// Utility function: Debounce
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -399,18 +457,8 @@ function debounce(func, wait) {
     };
 }
 
-// Handle footer link clicks
-function handleFooterLinkClick(event) {
-    event.preventDefault();
-    // Handled by modal setup
-}
-
 // Initialize when DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
+document.addEventListener('DOMContentLoaded', init);
 
-// Export for potential module use
-export { init, scrollToSection, setActiveSection };
+// Export for module usage
+export { state, elements, sections, scrollToSection, debounce };
