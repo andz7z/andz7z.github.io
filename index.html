@@ -1,93 +1,156 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Modern Glassmorphism Single Page Website" />
-  <title>ANDZ | Modern One Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="css/about.css">
-  <link rel="stylesheet" href="css/services.css">
-  <link rel="stylesheet" href="css/reviews.css">
-  <link rel="stylesheet" href="css/contact.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proiect Skeleton - Single Page</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/services.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="css/contact.css">
+
+    <script src="js/script.js" defer></script>
+    <script src="js/about.js" defer></script>
+    <script src="js/services.js" defer></script>
+    <script src="js/reviews.js" defer></script>
+    <script src="js/contact.js" defer></script>
 </head>
 <body class="preload">
-  <header class="navbar">
-    <div class="logo">ANDZ</div>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="#home" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
-        <li><a href="#about"><i class="fa-solid fa-user-group"></i> About</a></li>
-        <li><a href="#services"><i class="fa-solid fa-gear"></i> Services</a></li>
-        <li><a href="#reviews"><i class="fa-solid fa-star"></i> Reviews</a></li>
-        <li><a href="#contact"><i class="fa-solid fa-phone"></i> Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section id="home" class="snap">
-      <video autoplay muted loop id="bg-video">
-        <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-      </video>
-      <div class="home-content"><h1 class="intro-text">Bun Venit</h1></div>
-    </section>
-    <section id="about" class="snap">
-      <h2>About Us</h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </section>
-    <section id="services" class="snap">
-      <h2>Services</h2>
-      <div class="service-cards">
-        <div class="card">Service One</div>
-        <div class="card">Service Two</div>
-        <div class="card">Service Three</div>
-      </div>
-    </section>
-    <section id="reviews" class="snap">
-      <h2>Reviews</h2>
-      <div class="review-cards">
-        <div class="card">"Excelent!" ★★★★★</div>
-        <div class="card">"Foarte mulțumit!" ★★★★☆</div>
-        <div class="card">"Recomand!" ★★★★★</div>
-      </div>
-    </section>
-    <section id="contact" class="snap">
-      <h2>Contact</h2>
-      <form>
-        <input type="text" placeholder="Nume" required>
-        <input type="email" placeholder="Email" required>
-        <textarea placeholder="Mesaj" required></textarea>
-        <button type="submit">Trimite</button>
-      </form>
-    </section>
-  </main>
-  <footer>
-    <div class="socials">
-      <i class="fa-brands fa-facebook"></i>
-      <i class="fa-brands fa-instagram"></i>
-      <i class="fa-brands fa-twitter"></i>
-      <i class="fa-brands fa-linkedin"></i>
-      <i class="fa-brands fa-tiktok"></i>
-      <i class="fa-brands fa-youtube"></i>
+    
+    <header class="animated-item" style="animation-delay: 0.2s;">
+        <div class="logo">
+            <a href="#home">LOGO</a>
+        </div>
+        <nav>
+            <ul>
+                <li class="animated-item" style="animation-delay: 0.4s;"><a href="#home" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+                <li class="animated-item" style="animation-delay: 0.5s;"><a href="#about"><i class="fa-solid fa-users"></i> About Us</a></li>
+                <li class="animated-item" style="animation-delay: 0.6s;"><a href="#services"><i class="fa-solid fa-gears"></i> Services</a></li>
+                <li class="animated-item" style="animation-delay: 0.7s;"><a href="#reviews"><i class="fa-solid fa-star"></i> Reviews</a></li>
+                <li class="animated-item" style="animation-delay: 0.8s;"><a href="#contact"><i class="fa-solid fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="scroll-container">
+
+        <section id="home">
+            <video class="video-bg" autoplay muted loop poster="assets/wallpaper/placeholder.jpg">
+                <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+                Videoclipul de fundal nu poate fi redat.
+            </video>
+            <div class="home-content">
+                <h1 class="animated-item" style="animation-delay: 1s;">BUN VENIT</h1>
+                <p class="animated-item" style="animation-delay: 1.2s;">Un șablon modern pentru proiectul tău.</p>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="section-content">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="section-content">
+                <h2>Services</h2>
+                <div class="services-grid">
+                    <div class="card">
+                        <h3>Serviciul 1</h3>
+                        <p>Descriere scurtă a serviciului. Focus pe beneficii.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Serviciul 2</h3>
+                        <p>Descriere scurtă a serviciului. Focus pe beneficii.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Serviciul 3</h3>
+                        <p>Descriere scurtă a serviciului. Focus pe beneficii.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews">
+            <div class="section-content">
+                <h2>Reviews</h2>
+                <div class="reviews-grid">
+                    <div class="card testimonial-card">
+                        <p>"O experiență fantastică! Recomand cu încredere."</p>
+                        <h4>- Client Mulțumit</h4>
+                    </div>
+                    <div class="card testimonial-card">
+                        <p>"Profesionalism și calitate. Totul la superlativ."</p>
+                        <h4>- Partener Inc.</h4>
+                    </div>
+                    <div class="card testimonial-card">
+                        <p>"Au depășit toate așteptările. Vom colabora din nou."</p>
+                        <h4>- Ana D.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-content">
+                <h2>Contact</h2>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Nume</label>
+                        <input type="text" id="name" name="name" placeholder="Numele tău" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Emailul tău" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mesaj</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Scrie mesajul tău..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-gradient">Trimite Mesajul</button>
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="modal-trigger" data-modal-title="Privacy Policy">Privacy Policy</a>
+                <a href="#" class="modal-trigger" data-modal-title="Terms of Service">Terms of Service</a>
+            </div>
+            <div class="copyright">
+                © 2025 ANDZ. All rights reserved.
+            </div>
+        </footer>
+
+    </main>
+
+    <div class="modal-backdrop"></div>
+    <div class="modal">
+        <button class="modal-close-btn" aria-label="Închide modalul">&times;</button>
+        <div class="modal-content">
+            <h3 id="modal-title">Privacy Policy</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus.</p>
+            <p>Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet. Nunc eu ullamcorper orci. Quisque eget odio ac lectus vestibulum faucibus eget in metus.</p>
+        </div>
     </div>
-    <div class="links">
-      <a href="#" id="privacy-link">Privacy Policy</a> |
-      <a href="#" id="tos-link">Terms of Service</a>
-    </div>
-    <p>© 2025 ANDZ. All rights reserved.</p>
-  </footer>
-  <div class="modal-backdrop"></div>
-  <div class="modal">
-    <button class="close-modal">×</button>
-    <h2 id="modal-title">Privacy Policy</h2>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-  </div>
-  <script src="js/script.js" defer></script>
-  <script src="js/about.js" defer></script>
-  <script src="js/services.js" defer></script>
-  <script src="js/reviews.js" defer></script>
-  <script src="js/contact.js" defer></script>
+
 </body>
 </html>
