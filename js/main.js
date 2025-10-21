@@ -319,4 +319,153 @@ function updateScrollProgress() {
         // Show/hide progress bar
         if (elements.scrollProgress) {
             elements.scrollProgress.style.opacity = scrollPercent > 5 ? '1' : '0';
-       
+        }
+    });
+}
+
+// Trigger section-specific animations
+function triggerSectionAnimations(section) {
+    const sectionElement = sections[section].element;
+    const sectionTitle = sectionElement.querySelector('.section-title');
+    const animatedElements = sectionElement.querySelectorAll('.about-item, .service-card, .portfolio-item, .review-card, .arch__info');
+    
+    // Animate section title
+    if (sectionTitle && !sectionTitle.classList.contains('revealed')) {
+        setTimeout(() => {
+            sectionTitle.classList.add('revealed');
+        }, 300);
+    }
+    
+    // Animate other elements with staggered delay
+    animatedElements.forEach((element, index) => {
+        if (!element.classList.contains('visible')) {
+            setTimeout(() => {
+                element.classList.add('visible');
+            }, 500 + (index * 150));
+        }
+    });
+}
+
+// Start loader animation
+function startLoaderAnimation() {
+    setTimeout(() => {
+        elements.loader.style.opacity = '0';
+        setTimeout(() => {
+            elements.loader.style.display = 'none';
+            // Trigger initial animations
+            triggerSectionAnimations('home');
+        }, 500);
+    }, 1500);
+}
+
+// Modal system
+function setupModalSystem() {
+    if (!elements.modalBackdrop) return;
+    
+    // Privacy Policy
+    elements.privacyBtn.addEventListener('click', () => {
+        openModal(
+            'Privacy Policy',
+            `
+            <p>Your privacy is important to us. This Privacy Policy explains how ANDZ collects, uses, and protects your personal information.</p>
+            
+            <h3>Information We Collect</h3>
+            <p>We may collect personal information such as your name, email address, and usage data when you interact with our services.</p>
+            
+            <h3>How We Use Your Information</h3>
+            <p>We use your information to provide and improve our services, communicate with you, and ensure the security of our platform.</p>
+            
+            <h3>Data Protection</h3>
+            <p>We implement appropriate security measures to protect your personal information from unauthorized access or disclosure.</p>
+            
+            <h3>Your Rights</h3>
+            <p>You have the right to access, correct, or delete your personal information. Contact us to exercise these rights.</p>
+            
+            <p><em>This is a placeholder privacy policy. Please consult with legal professionals to create an appropriate policy for your business.</em></p>
+            `
+        );
+    });
+    
+    // Terms of Service
+    elements.tosBtn.addEventListener('click', () => {
+        openModal(
+            'Terms of Service',
+            `
+            <p>Welcome to ANDZ. These Terms of Service govern your use of our website and services.</p>
+            
+            <h3>Acceptance of Terms</h3>
+            <p>By accessing or using our services, you agree to be bound by these Terms and our Privacy Policy.</p>
+            
+            <h3>Use of Services</h3>
+            <p>You may use our services only for lawful purposes and in accordance with these Terms. You are responsible for maintaining the confidentiality of your account.</p>
+            
+            <h3>Intellectual Property</h3>
+            <p>All content, features, and functionality on our platform are owned by ANDZ and are protected by intellectual property laws.</p>
+            
+            <h3>Limitation of Liability</h3>
+            <p>ANDZ shall not be liable for any indirect, incidental, special, or consequential damages resulting from your use of our services.</p>
+            
+            <h3>Changes to Terms</h3>
+            <p>We may modify these Terms at any time. Continued use of our services after changes constitutes acceptance of the new Terms.</p>
+            
+            <p><em>This is a placeholder terms of service. Please consult with legal professionals to create appropriate terms for your business.</em></p>
+            `
+        );
+    });
+    
+    // Close modal
+    elements.modalClose.addEventListener('click', closeModal);
+    elements.modalBackdrop.addEventListener('click', (e) => {
+        if (e.target === elements.modalBackdrop) {
+            closeModal();
+        }
+    });
+    
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && elements.modalBackdrop.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}
+
+function openModal(title, content) {
+    const modalTitle = document.getElementById('modal-title');
+    const modalBody = document.getElementById('modal-body');
+    
+    modalTitle.textContent = title;
+    modalBody.innerHTML = content;
+    
+    elements.modalBackdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Focus trap
+    const focusableElements = elements.modalBackdrop.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+    if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+    }
+}
+
+function closeModal() {
+    elements.modalBackdrop.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Utility function: Debounce
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', init);
+
+// Export for module usage
+export { state, elements, sections, scrollToSection, debounce };
