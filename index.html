@@ -3,181 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Welcome</title>
-
+    <title>Site Modern Single-Page</title>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fișiere CSS -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
 </head>
-<body>
-
-    <header class="navbar" id="navbar">
-        <a href="#home" class="nav-logo">ANDZ</a>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="#home" data-section="home" class="nav-link active"><span>Home</span></a></li>
-                <li><a href="#about" data-section="about" class="nav-link"><i class="fas fa-user"></i> <span>About</span></a></li>
-                <li><a href="#services" data-section="services" class="nav-link"><i class="fas fa-cogs"></i> <span>Services</span></a></li>
-                <li><a href="#reviews" data-section="reviews" class="nav-link"><i class="fas fa-star"></i> <span>Reviews</span></a></li>
-                <li><a href="#contact" data-section="contact" class="nav-link"><i class="fas fa-phone"></i> <span>Contact</span></a></li>
-            </ul>
+<body class="preload">
+    <!-- Header cu bara de navigare -->
+    <header id="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#home" class="nav-logo">ANDZ</a>
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link active">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#about" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>About Us</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#services" class="nav-link">
+                            <i class="fas fa-tools"></i>
+                            <span>Services</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#reviews" class="nav-link">
+                            <i class="fas fa-star"></i>
+                            <span>Reviews</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#contact" class="nav-link">
+                            <i class="fas fa-phone"></i>
+                            <span>Contact</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </nav>
-        <button class="hamburger" id="hamburger-button" aria-label="Toggle menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
     </header>
 
-    <main class="scroll-container" id="scroll-container">
-
-        <section id="home" class="fullscreen-section">
-            <video class="video-bg" autoplay muted loop playsinline>
-                <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay"></div>
-            <div class="container content-center animate-on-scroll" data-animation="blur-in">
-                <h1>Welcome to ANDZ</h1>
-                <p>Your digital journey begins here.</p>
-                <a href="#about" class="btn btn-glow">Explore</a>
+    <!-- Conținut principal -->
+    <main class="main-content">
+        <!-- Secțiunea Home -->
+        <section id="home" class="section">
+            <div class="video-background">
+                <video autoplay muted loop id="bg-video">
+                    <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+                    Browser-ul tău nu suportă elementul video.
+                </video>
+            </div>
+            <div class="home-content">
+                <h1 class="home-title">Bun Venit</h1>
+                <p class="home-subtitle">Descoperă experiența noastră modernă</p>
             </div>
         </section>
 
-        <section id="about" class="fullscreen-section">
-            <div class="container about-grid">
-                <div class="about-text animate-on-scroll" data-animation="slide-up">
-                    <h2>About Us</h2>
-                    <p>We are a team of passionate developers, designers, and strategists dedicated to crafting premium digital experiences. Our mission is to blend technology and art to create solutions that are not only functional but also beautiful and engaging.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eget sapien sapien.</p>
-                </div>
-                <div class="about-image animate-on-scroll" data-animation="fade-in">
-                    <img src="assets/images/about-placeholder.jpg" alt="About Us Team">
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="fullscreen-section">
+        <!-- Secțiunea About -->
+        <section id="about" class="section">
             <div class="container">
-                <h2 class="section-title animate-on-scroll" data-animation="slide-up">Our Services</h2>
+                <h2 class="section-title">About Us</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <h3>5+</h3>
+                            <p>Ani de experiență</p>
+                        </div>
+                        <div class="stat">
+                            <h3>100+</h3>
+                            <p>Proiecte finalizate</p>
+                        </div>
+                        <div class="stat">
+                            <h3>50+</h3>
+                            <p>Clienți mulțumiți</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Secțiunea Services -->
+        <section id="services" class="section">
+            <div class="container">
+                <h2 class="section-title">Services</h2>
                 <div class="services-grid">
-                    <div class="service-card animate-on-scroll" data-animation="scale-in">
-                        <i class="fas fa-laptop-code"></i>
-                        <h3>Web Development</h3>
-                        <p>Crafting responsive, high-performance websites with modern technologies.</p>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Dezvoltare Web</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
-                    <div class="service-card animate-on-scroll" data-animation="scale-in" style="animation-delay: 0.2s;">
-                        <i class="fas fa-palette"></i>
-                        <h3>UI/UX Design</h3>
-                        <p>Designing intuitive and beautiful user interfaces that users love.</p>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Design UI/UX</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
-                    <div class="service-card animate-on-scroll" data-animation="scale-in" style="animation-delay: 0.4s;">
-                        <i class="fas fa-bullhorn"></i>
-                        <h3>Digital Marketing</h3>
-                        <p>Expanding your reach and connecting with your audience effectively.</p>
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Aplicații Mobile</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="reviews" class="fullscreen-section">
+        <!-- Secțiunea Reviews -->
+        <section id="reviews" class="section">
             <div class="container">
-                <h2 class="section-title animate-on-scroll" data-animation="slide-up">What Our Clients Say</h2>
+                <h2 class="section-title">Reviews</h2>
                 <div class="reviews-grid">
-                    <div class="review-card animate-on-scroll" data-animation="fade-in">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Alexandra Popescu</h4>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
                         </div>
-                        <p>"Incredible work! The final product exceeded all our expectations. Cinematic and flawless."</p>
-                        <h4>- Alex M.</h4>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
                     </div>
-                    <div class="review-card animate-on-scroll" data-animation="fade-in" style="animation-delay: 0.2s;">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Mihai Ionescu</h4>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
                         </div>
-                        <p>"The design is stunning and the user experience is seamless. Highly recommend ANDZ."</p>
-                        <h4>- Julia R.</h4>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
                     </div>
-                    <div class="review-card animate-on-scroll" data-animation="fade-in" style="animation-delay: 0.4s;">
-                        <div class="stars">
-                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div class="review-avatar">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="review-info">
+                                <h4>Elena Vasilescu</h4>
+                                <div class="review-stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
                         </div>
-                        <p>"A truly professional team. They delivered on time and the quality is top-notch."</p>
-                        <h4>- Mark T.</h4>
+                        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="fullscreen-section">
-            <div class="container contact-container">
-                <h2 class="section-title animate-on-scroll" data-animation="slide-up">
-                    <i class="fas fa-paper-plane"></i> Get In Touch
-                </h2>
-                <form id="contact-form" class="contact-form animate-on-scroll" data-animation="fade-in">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" required placeholder="Your Name">
+        <!-- Secțiunea Contact -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Contact</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Adresă</h3>
+                                <p>Strada Exemplu, Nr. 123, București</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Telefon</h3>
+                                <p>+40 712 345 678</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>contact@andz.com</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" required placeholder="Your Email">
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-glow">Send Message</button>
-                </form>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Nume" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Mesaj" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-gradient">Trimite Mesaj</button>
+                    </form>
+                </div>
             </div>
         </section>
-
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="social-icons">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="footer-links">
+                    <a href="#" id="privacy-link">Privacy Policy</a>
+                    <a href="#" id="tos-link">Terms of Service</a>
+                </div>
+                <div class="copyright">
+                    <p>&copy; 2025 ANDZ. All rights reserved.</p>
+                </div>
             </div>
-            <div class="legal-links">
-                <a href="#" class="modal-trigger" data-modal-target="privacy-modal">Privacy Policy</a>
-                <a href="#" class="modal-trigger" data-modal-target="terms-modal">Terms of Service</a>
-            </div>
-            <p class="copyright">© 2025 ANDZ. All rights reserved.</p>
         </div>
     </footer>
 
-    <div class="modal-overlay" id="modal-overlay">
-        
-        <div class="modal-content" id="privacy-modal">
-            <button class="modal-close" aria-label="Close modal">&times;</button>
-            <h2>Privacy Policy</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vel enim a elit viverra elementuma. Aliquam erat volutpat. Mauris id sublate et posuere quis, venenatis eget erat. Fusce nec hac habitasse platea dictumst.</p>
-            <p>Nullam in diam ultricies, facilisis lorem quis, lobortis nisi. Cras portitor felis ut un tellus consectetur, et pretra. Proin facilisis, nisl in lobortis facilisis, sapien sem egestas turpis, ut censectetur.</p>
+    <!-- Modal pentru Privacy Policy / TOS -->
+    <div class="modal" id="modal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Privacy Policy</h2>
+                <button class="modal-close" id="modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
         </div>
-
-        <div class="modal-content" id="terms-modal">
-            <button class="modal-close" aria-label="Close modal">&times;</button>
-            <h2>Terms of Service</h2>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-        </div>
-
     </div>
 
-    <script src="js/main.js"></script> 
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
+    <!-- Fișiere JavaScript -->
+    <script src="js/script.js" defer></script>
+    <script src="js/about.js" defer></script>
+    <script src="js/services.js" defer></script>
+    <script src="js/reviews.js" defer></script>
+    <script src="js/contact.js" defer></script>
 </body>
 </html>
