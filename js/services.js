@@ -1,6 +1,5 @@
-// services.js — logica pentru secțiunea "Services"
-
-function initServicesSection() {
-  console.log("Secțiunea Services este acum vizibilă.");
-  // TODO: adaugă animații, carduri dinamice, efecte hover etc.
-}
+/* FILE: js/services.js */
+document.addEventListener('DOMContentLoaded', () => {
+    // Aici se poate adăuga JS specific secțiunii "Services"
+    // De exemplu, efecte suplimentare la hover pe carduri.
+});
