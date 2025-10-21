@@ -1,8 +1,16 @@
 // js/about.js
-
-/* HOW TO EDIT
-  - This file is for JavaScript logic specific to the #about section.
-  - It is imported by js/main.js and runs on page load.
+/*
+HOW TO EDIT ABOUT SECTION JS:
+- Content: Update about items data
+- Animations: Add custom entrance animations
+- Interactions: Add hover effects or click handlers
 */
 
-// console.log("About section JS loaded.");
+// About section specific functionality
+function initAbout() {
+    // About section doesn't need specific JS yet
+    // Add any interactive features here
+}
+
+// Export for module usage
+export { initAbout };
