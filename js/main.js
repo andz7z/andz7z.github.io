@@ -16,7 +16,9 @@ const state = {
     isScrolling: false,
     scrollTimeout: null,
     reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-    scrollDirection: 'down'
+    scrollDirection: 'down',
+    isManualScroll: false,
+    lastScrollTime: 0
 };
 
 // DOM Elements
@@ -42,7 +44,7 @@ const elements = {
 const sections = {
     home: { element: document.getElementById('home'), threshold: 0.5 },
     about: { element: document.getElementById('about'), threshold: 0.6 },
-    services: { element: document.getElementById('services'), threshold: 0.6 },
+    services: { element: document.getElementById('services'), threshold: 0.3 },
     portfolio: { element: document.getElementById('portfolio'), threshold: 0.6 },
     reviews: { element: document.getElementById('reviews'), threshold: 0.6 },
     contact: { element: document.getElementById('contact'), threshold: 0.6 }
@@ -71,11 +73,15 @@ function setupEventListeners() {
     elements.goBackBtn.addEventListener('click', scrollToHome);
     
     // Scroll events with debouncing
-    window.addEventListener('scroll', debounce(handleScroll, 16), passiveOptions); // ~60fps
-    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('scroll', debounce(handleScroll, 16), passiveOptions);
+    window.addEventListener('wheel', handleWheel, { passive: true }); // Changed to passive: true
     
     // Keyboard navigation
     document.addEventListener('keydown', handleKeydown);
+    
+    // Touch events for mobile
+    window.addEventListener('touchstart', handleTouchStart, passiveOptions);
+    window.addEventListener('touchmove', handleTouchMove, passiveOptions);
     
     // Reduced motion support
     const reducedMotionMedia = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -89,24 +95,63 @@ function setupEventListeners() {
     });
 }
 
+let touchStartY = 0;
+
+function handleTouchStart(e) {
+    touchStartY = e.touches[0].clientY;
+}
+
+function handleTouchMove(e) {
+    if (state.reducedMotion) return;
+    
+    const touchY = e.touches[0].clientY;
+    const deltaY = touchStartY - touchY;
+    
+    // Only handle large swipe gestures
+    if (Math.abs(deltaY) > 50) {
+        handleSwipe(deltaY);
+        touchStartY = touchY;
+    }
+}
+
+function handleSwipe(deltaY) {
+    if (state.isScrolling) return;
+    
+    const currentIndex = Object.keys(sections).indexOf(state.currentSection);
+    let targetIndex = currentIndex;
+    
+    if (deltaY > 0 && currentIndex < Object.keys(sections).length - 1) {
+        targetIndex = currentIndex + 1;
+    } else if (deltaY < 0 && currentIndex > 0) {
+        targetIndex = currentIndex - 1;
+    }
+    
+    if (targetIndex !== currentIndex) {
+        const targetSection = Object.keys(sections)[targetIndex];
+        scrollToSection(targetSection);
+    }
+}
+
 // Intersection Observer for section detection
 function setupIntersectionObserver() {
     const observerOptions = {
         root: null,
         rootMargin: '-20% 0px -20% 0px',
-        threshold: [0, 0.1, 0.5, 0.9, 1]
+        threshold: [0, 0.1, 0.3, 0.5, 0.9, 1]
     };
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
                 const section = entry.target.id;
                 if (section !== state.currentSection) {
                     state.previousSection = state.currentSection;
                     state.currentSection = section;
                     
-                    // Add scroll effects
-                    addScrollEffects(state.previousSection, section);
+                    // Only add scroll effects if not manually scrolling
+                    if (!state.isManualScroll) {
+                        addScrollEffects(state.previousSection, section);
+                    }
                     
                     updateActiveNav();
                     updateNavigationState();
@@ -116,6 +161,12 @@ function setupIntersectionObserver() {
                     // Trigger section-specific animations
                     triggerSectionAnimations(section);
                 }
+            }
+            
+            // Always trigger animations when section is visible
+            if (entry.isIntersecting && entry.intersectionRatio > 0.1) {
+                const section = entry.target.id;
+                triggerSectionAnimations(section);
             }
         });
     }, observerOptions);
@@ -161,14 +212,19 @@ function scrollToSection(sectionId) {
     if (state.isScrolling || !sections[sectionId]) return;
     
     state.isScrolling = true;
+    state.isManualScroll = true;
+    
     sections[sectionId].element.scrollIntoView({
         behavior: state.reducedMotion ? 'auto' : 'smooth',
         block: 'start'
     });
     
-    // Reset scrolling flag after animation
+    // Reset scrolling flags after animation
     setTimeout(() => {
         state.isScrolling = false;
+        setTimeout(() => {
+            state.isManualScroll = false;
+        }, 100);
     }, state.reducedMotion ? 0 : 500);
 }
 
@@ -183,30 +239,50 @@ function handleScroll() {
     
     updateScrollProgress();
     updateNavigationTransform();
+    
+    // Reset manual scroll flag after user stops scrolling
+    state.lastScrollTime = Date.now();
+    if (!state.isManualScroll) {
+        setTimeout(() => {
+            if (Date.now() - state.lastScrollTime > 100) {
+                state.isManualScroll = false;
+            }
+        }, 150);
+    }
 }
 
-// Handle wheel events for section snapping
+// Handle wheel events - ALLOW NORMAL SCROLLING
 function handleWheel(e) {
-    if (state.isScrolling || state.reducedMotion) return;
+    if (state.reducedMotion) return;
     
-    e.preventDefault();
+    // Mark as manual scrolling when user uses wheel
+    state.isManualScroll = true;
+    state.lastScrollTime = Date.now();
+    
+    // Only auto-snap if it's a large wheel movement (not normal scrolling)
+    if (Math.abs(e.deltaY) < 10) return;
     
     clearTimeout(state.scrollTimeout);
     state.scrollTimeout = setTimeout(() => {
-        const currentIndex = Object.keys(sections).indexOf(state.currentSection);
-        let targetIndex = currentIndex;
-        
-        if (e.deltaY > 0 && currentIndex < Object.keys(sections).length - 1) {
-            targetIndex = currentIndex + 1;
-        } else if (e.deltaY < 0 && currentIndex > 0) {
-            targetIndex = currentIndex - 1;
+        // Check if user is still scrolling manually
+        if (Date.now() - state.lastScrollTime > 200) {
+            const currentScroll = window.scrollY;
+            const windowHeight = window.innerHeight;
+            
+            // Only snap if we're near a section boundary
+            Object.values(sections).forEach(({ element }) => {
+                const rect = element.getBoundingClientRect();
+                if (Math.abs(rect.top) < windowHeight * 0.3) {
+                    const targetSection = element.id;
+                    if (targetSection !== state.currentSection) {
+                        scrollToSection(targetSection);
+                    }
+                }
+            });
+            
+            state.isManualScroll = false;
         }
-        
-        if (targetIndex !== currentIndex) {
-            const targetSection = Object.keys(sections)[targetIndex];
-            scrollToSection(targetSection);
-        }
-    }, 150);
+    }, 100);
 }
 
 // Handle keyboard navigation
@@ -292,7 +368,7 @@ function updateNavigationTransform() {
     
     // Smooth parallax effect using requestAnimationFrame
     requestAnimationFrame(() => {
-        const translateY = scrollProgress * 40; // Increased from 20 to 40 for more noticeable effect
+        const translateY = scrollProgress * 40;
         elements.mainNav.style.transform = `translateY(${translateY}px)`;
     });
 }
@@ -320,7 +396,7 @@ function updateScrollProgress() {
 function triggerSectionAnimations(section) {
     const sectionElement = sections[section].element;
     const sectionTitle = sectionElement.querySelector('.section-title');
-    const animatedElements = sectionElement.querySelectorAll('.about-item, .service-card, .portfolio-item, .review-card');
+    const animatedElements = sectionElement.querySelectorAll('.about-item, .service-card, .portfolio-item, .review-card, .arch__info');
     
     // Animate section title
     if (sectionTitle && !sectionTitle.classList.contains('revealed')) {
