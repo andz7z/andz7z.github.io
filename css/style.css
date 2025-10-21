@@ -160,61 +160,62 @@ body {
     opacity: 0.9;
     text-shadow: 1px 1px 8px rgba(0,0,0,0.6);
 }
-/* === Sidebar orizontal minimalist === */
+/* === Bara orizontală centrată sus === */
 .sidebar {
   position: fixed;
   top: 30px;
-  right: 40px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  padding: 0.7rem 1.4rem;
+  padding: 0.8rem 1.6rem;
   background: rgba(20, 20, 30, 0.4);
   border-radius: 50px;
   backdrop-filter: blur(12px);
-  box-shadow: 0 0 15px rgba(199, 125, 255, 0.15);
-  z-index: 1000;
+  box-shadow: 0 0 20px rgba(199, 125, 255, 0.15);
   overflow: hidden;
+  z-index: 1000;
 }
 
-/* === Outline animat (luminos, se mișcă pe margini) === */
+/* === Outline animat – dâră de lumină care se rotește === */
 .sidebar::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 50px;
-  padding: 2px; /* grosimea outline-ului */
-  background: linear-gradient(
-    120deg,
-    rgba(255,255,255,0.9),
-    rgba(199,125,255,0.7),
-    rgba(255,255,255,0.9)
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 70deg,
+    rgba(255,255,255,0.9) 90deg,
+    rgba(199,125,255,0.8) 120deg,
+    transparent 140deg,
+    transparent 360deg
   );
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
-  mask-composite: exclude; /* păstrează doar conturul */
+  mask-composite: exclude;
   -webkit-mask-composite: destination-out;
-  animation: moveOutline 4s linear infinite;
+  animation: rotateStreak 3.5s linear infinite;
   filter: blur(2px);
   pointer-events: none;
   z-index: -1;
 }
 
-/* === Animație outline — mișcare fluidă === */
-@keyframes moveOutline {
-  0% {
-    background-position: 0% 50%;
+/* === Animația dârei de lumină === */
+@keyframes rotateStreak {
+  from {
+    transform: rotate(0deg);
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+  to {
+    transform: rotate(360deg);
   }
 }
 
-/* === Linkuri / iconițe minimaliste === */
+/* === Meniu === */
 .menu {
   display: flex;
   align-items: center;
@@ -224,30 +225,43 @@ body {
   padding: 0;
 }
 
+/* === Linkuri === */
 .menu a {
-  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.75);
   font-family: "Inter", sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   text-decoration: none;
   transition: all 0.3s ease;
+  padding: 0.2rem 0.4rem;
 }
 
 .menu a:hover {
   color: #c77dff;
-  transform: scale(1.05);
+  transform: translateY(-1px) scale(1.05);
 }
 
-/* === Iconițe (dacă vrei) === */
+/* === Iconițe – ușor coborâte pentru aliniere cu textul === */
 .menu svg {
   width: 18px;
   height: 18px;
   fill: currentColor;
+  position: relative;
+  top: 2px; /* ✅ ajustează alinierea */
+  transition: all 0.3s ease;
 }
 
-/* === Responsivitate simplă === */
+.menu a:hover svg {
+  fill: #c77dff;
+  filter: drop-shadow(0 0 8px #c77dff);
+}
+
+/* === Responsivitate === */
 @media (max-width: 768px) {
   .sidebar {
-    right: 15px;
+    top: 20px;
     padding: 0.6rem 1rem;
   }
   .menu {
