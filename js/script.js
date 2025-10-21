@@ -1,50 +1,128 @@
-// JavaScript Global (Navigație, Modal, Intro)
+// JavaScript Global (Preloader, Cursor, Navigație, Modal, Teme)
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. GESTIONAREA ANIMAȚIEI DE INTRO ---
-    // Elimină clasa .preload de pe body după ce pagina s-a încărcat
-    // Aceasta va declanșa animațiile CSS definite în style.css
+    // --- 1. GESTIONAREA PRELOADER-ULUI ---
     window.addEventListener('load', () => {
-        document.body.classList.remove('preload');
+        // Simulează o mică întârziere după ce totul s-a încărcat (ex. 2s de la animatia CSS)
+        setTimeout(() => {
+            document.body.classList.add('preload-finished');
+            document.body.classList.remove('preload');
+        }, 2200); // Trebuie să corespundă cu animația 'load' din CSS
     });
 
 
-    // --- 2. SCROLLSPY PENTRU BARA DE NAVIGARE (Intersection Observer) ---
-    const sections = document.querySelectorAll('section');
+    // --- 2. CUSTOM CURSOR ---
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+
+    window.addEventListener('mousemove', (e) => {
+        const posX = e.clientX;
+        const posY = e.clientY;
+
+        cursorDot.style.left = `${posX}px`;
+        cursorDot.style.top = `${posY}px`;
+
+        cursorOutline.animate({
+            left: `${posX}px`,
+            top: `${posY}px`
+        }, { duration: 500, fill: 'forwards' });
+    });
+
+    // Adaugă clasa 'cursor-hover' pe body când mouse-ul e peste elemente interactive
+    const interactiveElements = document.querySelectorAll('a, button, [data-magnetic], .modal-trigger');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+
+
+    // --- 3. BUTOANE MAGNETICE ---
+    const magneticElements = document.querySelectorAll('[data-magnetic]');
+    const magneticStrength = 0.4; // Puterea de atracție (0-1)
+
+    magneticElements.forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+            const { clientX, clientY } = e;
+            const { left, top, width, height } = el.getBoundingClientRect();
+            
+            const centerX = left + width / 2;
+            const centerY = top + height / 2;
+
+            const deltaX = (clientX - centerX) * magneticStrength;
+            const deltaY = (clientY - centerY) * magneticStrength;
+
+            // Folosim GSAP dacă ar fi importat, dar pentru Vanilla JS folosim transform
+            el.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        });
+
+        el.addEventListener('mouseleave', () => {
+            el.style.transform = 'translate(0, 0)';
+        });
+    });
+
+
+    // --- 4. THEME TOGGLE (Light/Dark Mode) ---
+    const themeToggle = document.querySelector('.theme-toggle');
+    const rootHtml = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+        if (rootHtml.classList.contains('dark-mode')) {
+            rootHtml.classList.remove('dark-mode');
+            rootHtml.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            rootHtml.classList.remove('light-mode');
+            rootHtml.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+
+    // Verifică tema salvată la încărcare
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        rootHtml.classList.remove('dark-mode');
+        rootHtml.classList.add('light-mode');
+    } // Dark este default
+
+
+    // --- 5. SCROLLSPY (Navigare) ȘI ANIMAȚII (Scroll-Triggered) ---
+    const sections = document.querySelectorAll('section, footer#footer');
     const navLinks = document.querySelectorAll('header nav a');
     const mainScrollContainer = document.getElementById('scroll-container');
 
     const observerOptions = {
-        root: mainScrollContainer, // Observăm scroll-ul în containerul principal
+        root: mainScrollContainer,
         rootMargin: '0px',
-        threshold: 0.6 // Secțiunea trebuie să fie vizibilă 60% pentru a fi "activă"
+        threshold: 0.5 // 50% vizibil
     };
 
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            const activeLink = document.querySelector(`header nav a[href="#${id}"]`);
+            
             if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                const activeLink = document.querySelector(`header nav a[href="#${id}"]`);
-
-                // Elimină clasa 'active' de la toate link-urile
-                navLinks.forEach(link => link.classList.remove('active'));
+                // Adaugă clasa .in-view pentru a porni animațiile
+                entry.target.classList.add('in-view');
                 
-                // Adaugă clasa 'active' la link-ul corespunzător
+                // Actualizează link-ul activ din nav
+                navLinks.forEach(link => link.classList.remove('active'));
                 if (activeLink) {
                     activeLink.classList.add('active');
                 }
+            } else {
+                // Opțional: elimină clasa pentru a re-anima la fiecare scroll
+                // entry.target.classList.remove('in-view'); 
             }
         });
     }, observerOptions);
 
-    // Observă fiecare secțiune
     sections.forEach(section => {
         sectionObserver.observe(section);
     });
-
-
-    // --- 3. GESTIONAREA MODALULUI (POP-UP) ---
+    
+    // --- 6. GESTIONAREA MODALULUI (POP-UP) ---
     const modalTriggers = document.querySelectorAll('.modal-trigger');
     const modalCloseBtn = document.querySelector('.modal-close-btn');
     const modalBackdrop = document.querySelector('.modal-backdrop');
@@ -55,31 +133,20 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if(show) {
             modalTitleElement.textContent = title;
-            // Aici s-ar putea adăuga logică pentru a încărca conținut diferit
-            // ex. fetch(`content/${title.toLowerCase().replace(' ', '-')}.txt`)
         }
     };
 
-    // Deschide modalul la click pe link-urile din footer
     modalTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
-            e.preventDefault(); // Previne saltul paginii la href="#"
+            e.preventDefault();
             const modalTitle = trigger.getAttribute('data-modal-title');
             toggleModal(true, modalTitle);
         });
     });
 
-    // Închide modalul la click pe butonul 'X'
-    modalCloseBtn.addEventListener('click', () => {
-        toggleModal(false);
-    });
+    modalCloseBtn.addEventListener('click', () => toggleModal(false));
+    modalBackdrop.addEventListener('click', () => toggleModal(false));
 
-    // Închide modalul la click pe fundal (backdrop)
-    modalBackdrop.addEventListener('click', () => {
-        toggleModal(false);
-    });
-
-    // Închide modalul la apăsarea tastei 'Escape'
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && document.body.classList.contains('modal-open')) {
             toggleModal(false);
