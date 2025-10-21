@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANDZ | Futuristic Digital Experience</title>
-    <meta name="description" content="ANDZ - Innovative digital solutions with futuristic design">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%238b5cf6'>A</text></svg>">
+    <meta name="description" content="ANDZ - Revolutionary digital solutions with futuristic design">
     
     <!-- Preload critical resources -->
     <link rel="preload" href="assets/wallpaper/loop.mp4" as="video" type="video/mp4">
@@ -26,364 +23,253 @@
     <!-- Reduced motion overlay -->
     <div id="reduced-motion-overlay" class="reduced-motion-overlay" aria-hidden="true"></div>
     
-    <!-- Loading animation -->
-    <div id="loader" class="loader">
-        <div class="loader-content">
-            <div class="brand-pulse"></div>
-            <span class="loader-text">ANDZ</span>
-        </div>
-    </div>
-
     <!-- Scroll progress indicator -->
-    <div class="scroll-progress" aria-hidden="true">
+    <div class="scroll-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100">
         <div class="scroll-progress-bar"></div>
     </div>
 
-    <!-- Navigation System -->
-    <nav id="main-nav" class="main-nav" role="navigation" aria-label="Main navigation">
-        <!-- Brand - Only visible on home -->
-        <div class="nav-brand" id="nav-brand">
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-brand">
             <span class="brand-text">ANDZ</span>
         </div>
-
-        <!-- Full Navigation (visible on home) -->
-        <div class="nav-full" id="nav-full">
+        
+        <div class="nav-container">
             <div class="nav-icons">
-                <a href="#home" class="nav-icon" data-section="home" aria-label="Home">
+                <button class="nav-icon" data-section="home" aria-label="Home">
                     <svg class="nav-svg" viewBox="0 0 24 24">
                         <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
                     </svg>
                     <span class="nav-label">Home</span>
-                </a>
-                <a href="#about" class="nav-icon" data-section="about" aria-label="About">
+                </button>
+                
+                <button class="nav-icon" data-section="about" aria-label="About">
                     <svg class="nav-svg" viewBox="0 0 24 24">
                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
                     </svg>
                     <span class="nav-label">About</span>
-                </a>
-                <a href="#services" class="nav-icon" data-section="services" aria-label="Services">
+                </button>
+                
+                <button class="nav-icon" data-section="services" aria-label="Services">
                     <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M12 2l9 4.9V17L12 22l-9-4.9V6.9L12 2zm0 2.2L5 7.5V16l7 3.8 7-3.8V7.5L12 4.2z"/>
+                        <path d="M12 2l9 4.9V17L12 22l-9-4.9V7z"/>
                     </svg>
                     <span class="nav-label">Services</span>
-                </a>
-                <a href="#portfolio" class="nav-icon" data-section="portfolio" aria-label="Portfolio">
+                </button>
+                
+                <button class="nav-icon" data-section="portfolio" aria-label="Portfolio">
                     <svg class="nav-svg" viewBox="0 0 24 24">
-                        <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                        <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0 4h2v-2H3v2zm12 0h2v-2h-2v2zm-4 0h2v-2h-2v2zm-4 0h2v-2H7v2zm8-4h2v-2h-2v2zm-4 0h2v-2h-2v2zm-4 0h2v-2H7v2zm8-8h2V7h-2v2zm-4 0h2V7h-2v2zm-4 0h2V7H7v2z"/>
                     </svg>
                     <span class="nav-label">Portfolio</span>
-                </a>
-                <a href="#reviews" class="nav-icon" data-section="reviews" aria-label="Reviews">
+                </button>
+                
+                <button class="nav-icon" data-section="reviews" aria-label="Reviews">
                     <svg class="nav-svg" viewBox="0 0 24 24">
                         <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
                     </svg>
                     <span class="nav-label">Reviews</span>
-                </a>
-                <a href="#contact" class="nav-icon" data-section="contact" aria-label="Contact">
+                </button>
+                
+                <button class="nav-icon" data-section="contact" aria-label="Contact">
                     <svg class="nav-svg" viewBox="0 0 24 24">
                         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                     </svg>
                     <span class="nav-label">Contact</span>
-                </a>
+                </button>
             </div>
-        </div>
-
-        <!-- Minimal Navigation (appears when scrolled past home) -->
-        <div class="nav-minimal" id="nav-minimal">
-            <div class="nav-minimal-content">
-                <button class="go-back-btn" id="go-back-btn" aria-label="Go back to home">
-                    <svg class="go-back-svg" viewBox="0 0 24 24">
+            
+            <!-- Compact nav for scrolled state -->
+            <div class="nav-compact">
+                <button class="back-home" aria-label="Back to Home">
+                    <svg class="back-svg" viewBox="0 0 24 24">
                         <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
                     </svg>
                 </button>
-                <div class="current-section" id="current-section">
-                    <span class="current-prefix">Exploring:</span>
-                    <span class="current-name" id="current-section-name">Home</span>
+                <div class="current-section">
+                    <span class="current-label">Current:</span>
+                    <span class="section-name">Home</span>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Sections -->
-    <main id="main-content" class="main-content">
+    <!-- Main content -->
+    <main>
         <!-- Home Section -->
-        <section id="home" class="section home-section" data-section="home">
-            <div class="video-background">
-                <video id="bg-video" class="bg-video" autoplay muted loop playsinline preload="auto" 
+        <section id="home" class="section active" data-section="home">
+            <div class="video-container">
+                <video class="background-video" autoplay muted loop playsinline preload="auto" 
                        aria-label="Background video showing abstract digital patterns">
                     <source src="assets/wallpaper/loop.mp4" type="video/mp4">
                     <!-- Fallback image if video doesn't load -->
-                    <img src="assets/images/fallback-bg.jpg" alt="Abstract digital background">
+                    <img src="assets/images/fallback.jpg" alt="Digital background pattern">
                 </video>
                 <div class="video-overlay"></div>
             </div>
             
             <div class="home-content">
-                <h1 class="home-title">
+                <h1 class="main-title">
+                    <span class="title-line">REVOLUTIONARY</span>
                     <span class="title-line">DIGITAL</span>
                     <span class="title-line">EXPERIENCE</span>
-                    <span class="title-line">REDEFINED</span>
                 </h1>
-                <p class="home-subtitle">Innovative solutions for the future, today</p>
+                <p class="subtitle">Where innovation meets elegant design</p>
                 <button class="cta-button" aria-label="Discover our work">
-                    <span class="cta-text">Begin Journey</span>
-                    <svg class="cta-arrow" viewBox="0 0 24 24">
-                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
-                    </svg>
+                    <span class="cta-text">EXPLORE</span>
+                    <div class="cta-glow"></div>
                 </button>
+            </div>
+            
+            <div class="scroll-indicator">
+                <div class="scroll-arrow"></div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="section about-section" data-section="about">
+        <section id="about" class="section" data-section="about">
             <div class="section-content">
-                <h2 class="section-title">About ANDZ</h2>
-                <div class="about-grid">
-                    <div class="about-item">
-                        <h3>Vision</h3>
-                        <p>Creating digital experiences that transcend expectations and redefine possibilities.</p>
+                <h2>About ANDZ</h2>
+                <div class="content-grid">
+                    <div class="content-text">
+                        <p>We create digital experiences that push boundaries and redefine possibilities.</p>
+                        <p>Our approach combines cutting-edge technology with human-centered design.</p>
                     </div>
-                    <div class="about-item">
-                        <h3>Mission</h3>
-                        <p>To blend cutting-edge technology with elegant design for transformative solutions.</p>
-                    </div>
-                    <div class="about-item">
-                        <h3>Values</h3>
-                        <p>Innovation, precision, and user-centric design at our core.</p>
+                    <div class="content-visual">
+                        <div class="visual-placeholder"></div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="section services-section" data-section="services">
-            <div class="services-container">
-                <div class="spacer"></div>
-
-                <div class="arch">
-                    <div class="arch__left">
-                        <div class="arch__info" id="green-arch">
-                            <div class="content">
-                                <h2 class="header">Green Cityscape</h2>
-                                <p class="desc">Vibrant streets with vertical gardens and solar buildings. This oasis thrives on renewable energy, smart transport, and green spaces for biodiversity.</p>
-                                <a class="link" href="#" style="background-color: #D5FF37">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
-                                        <path fill="#121212" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
-                                    </svg> <span>Learn More</span></a>
-                            </div>
-                        </div>
-
-                        <div class="arch__info" id="blue-arch">
-                            <div class="content">
-                                <h2 class="header">Blue Urban Oasis</h2>
-                                <p class="desc">Avenues with azure facades and eco-structures. This hub uses clean energy, smart transit, and parks for urban wildlife.</p>
-                                <a class="link" href="#" style="background-color: #7DD6FF">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
-                                        <path fill="#121212" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
-                                    </svg> <span>Learn More</span></a>
-                            </div>
-                        </div>
-
-                        <div class="arch__info" id="pink-arch">
-                            <div class="content">
-                                <h2 class="header">Fluid Architecture</h2>
-                                <p class="desc">Desert refuge with fluid architecture and glowing interiors. This sanctuary harnesses solar power, sustainable design, and natural harmony for resilient living.</p>
-                                <a class="link" href="#" style="background-color: #FFA0B0">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
-                                        <path fill="#121212" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
-                                    </svg> <span>Learn More</span></a>
-                            </div>
-                        </div>
-
-                        <div class="arch__info" id="orange-arch">
-                            <div class="content">
-                                <h2 class="header">Martian Arches</h2>
-                                <p class="desc">Ethereal structures arc over tranquil waters, bathed in the glow of a setting Martian sun. This desolate beauty showcases the stark, captivating landscape of the red planet.</p>
-                                <a class="link" href="#" style="background-color: #FFA17B">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
-                                        <path fill="#121212" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
-                                    </svg> <span>Learn More</span></a>
-                            </div>
-                        </div>
+        <section id="services" class="section" data-section="services">
+            <div class="section-content">
+                <h2>Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Web Development</h3>
+                        <p>Modern, performant web applications</p>
                     </div>
-
-                    <div class="arch__right">
-                        <div class="img-wrapper" data-index="4">
-                            <img src="https://ik.imagekit.io/kg2nszxjp/GSAP%20pinned%20image%20mask%20reveal%20on%20scroll/cu8978xjlsjjpjk52ta0.webp" alt="Green Architecture">
-                        </div>
-
-                        <div class="img-wrapper" data-index="3">
-                            <img src="https://ik.imagekit.io/kg2nszxjp/GSAP%20pinned%20image%20mask%20reveal%20on%20scroll/trh7c8ufv1dqfrofdytd.webp" alt="Blue Architecture">
-                        </div>
-
-                        <div class="img-wrapper" data-index="2">
-                            <img src="https://ik.imagekit.io/kg2nszxjp/GSAP%20pinned%20image%20mask%20reveal%20on%20scroll/aw6qwur0pggp5r03whjq.webp" alt="Pink Architecture">
-                        </div>
-
-                        <div class="img-wrapper" data-index="1">
-                            <img src="https://ik.imagekit.io/kg2nszxjp/GSAP%20pinned%20image%20mask%20reveal%20on%20scroll/sqwn8u84zd1besgl0zpd.webp" alt="Orange Architecture">
-                        </div>
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>UX Design</h3>
+                        <p>Intuitive user experiences</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"></div>
+                        <h3>Consulting</h3>
+                        <p>Strategic digital guidance</p>
                     </div>
                 </div>
-
-                <div class="spacer"></div>
             </div>
         </section>
 
         <!-- Portfolio Section -->
-        <section id="portfolio" class="section portfolio-section" data-section="portfolio">
+        <section id="portfolio" class="section" data-section="portfolio">
             <div class="section-content">
-                <h2 class="section-title">Portfolio</h2>
+                <h2>Portfolio</h2>
+                <p>Selected works that demonstrate our capabilities</p>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <div class="portfolio-placeholder"></div>
-                        <h3>Project Aurora</h3>
-                        <p>Next-gen e-commerce platform</p>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-placeholder"></div>
-                        <h3>Nexus Dashboard</h3>
-                        <p>Real-time analytics interface</p>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-placeholder"></div>
-                        <h3>Quantum App</h3>
-                        <p>Mobile productivity suite</p>
-                    </div>
+                    <div class="portfolio-item"></div>
+                    <div class="portfolio-item"></div>
+                    <div class="portfolio-item"></div>
                 </div>
             </div>
         </section>
 
         <!-- Reviews Section -->
-        <section id="reviews" class="section reviews-section" data-section="reviews">
+        <section id="reviews" class="section" data-section="reviews">
             <div class="section-content">
-                <h2 class="section-title">Client Reviews</h2>
-                <div class="reviews-carousel">
+                <h2>Client Reviews</h2>
+                <div class="reviews-container">
                     <div class="review-card">
-                        <p>"ANDZ transformed our digital presence completely. Exceptional work."</p>
-                        <span class="review-author">- Sarah Chen, TechCorp</span>
+                        <p>"Exceptional quality and attention to detail."</p>
+                        <span class="review-author">- Tech Company</span>
                     </div>
                     <div class="review-card">
-                        <p>"The attention to detail and innovative approach was remarkable."</p>
-                        <span class="review-author">- Marcus Rivera, StartupXYZ</span>
-                    </div>
-                    <div class="review-card">
-                        <p>"A truly futuristic digital experience that exceeded expectations."</p>
-                        <span class="review-author">- Elena Petrova, Global Inc</span>
+                        <p>"Transformed our digital presence completely."</p>
+                        <span class="review-author">- Startup Inc</span>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section contact-section" data-section="contact">
+        <section id="contact" class="section" data-section="contact">
             <div class="section-content">
-                <h2 class="section-title">Get In Touch</h2>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" required aria-required="true">
-                        <label for="name">Your Name</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" required aria-required="true">
-                        <label for="email">Email Address</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="4" required aria-required="true"></textarea>
-                        <label for="message">Your Message</label>
-                    </div>
-                    <button type="submit" class="submit-btn">
-                        <span>Send Message</span>
-                        <svg viewBox="0 0 24 24">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
+                <h2>Get In Touch</h2>
+                <form class="contact-form">
+                    <input type="text" placeholder="Name" aria-label="Your name" required>
+                    <input type="email" placeholder="Email" aria-label="Your email" required>
+                    <textarea placeholder="Message" aria-label="Your message" rows="5" required></textarea>
+                    <button type="submit">Send Message</button>
                 </form>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="main-footer" role="contentinfo">
+    <footer class="footer" role="contentinfo">
         <div class="footer-content">
-            <div class="footer-sections">
-                <div class="footer-section">
-                    <h3 class="footer-title">Socials</h3>
-                    <div class="social-links">
-                        <a href="https://discord.gg/example" aria-label="Discord">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M19.27 5.33C17.94 4.71 16.5 4.26 15 4a.09.09 0 0 0-.07.03c-.18.33-.39.76-.53 1.09a16.09 16.09 0 0 0-4.8 0c-.14-.34-.35-.76-.54-1.09c-.01-.02-.04-.03-.07-.03c-1.5.26-2.93.71-4.27 1.33c-.01 0-.02.01-.03.02c-2.72 4.07-3.47 8.03-3.1 11.95c0 .02.01.04.03.05c1.8 1.32 3.53 2.12 5.24 2.65c.03.01.06 0 .07-.02c.4-.55.76-1.13 1.07-1.74c.02-.04 0-.08-.04-.09c-.57-.22-1.11-.48-1.64-.78c-.04-.02-.04-.08-.01-.11c.11-.08.22-.17.33-.25c.02-.02.05-.02.07-.01c3.44 1.57 7.15 1.57 10.55 0c.02-.01.05-.01.07.01c.11.09.22.18.33.25c.04.03.04.09-.01.11c-.52.31-1.07.56-1.64.78c-.04.01-.05.06-.04.09c.32.61.68 1.19 1.07 1.74c.03.01.06.02.09.01c1.72-.53 3.45-1.33 5.25-2.65c.02-.01.03-.03.03-.05c.44-4.53-.73-8.46-3.1-11.95c-.01-.01-.02-.02-.04-.02zM8.52 14.91c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.84 2.12-1.89 2.12zm6.97 0c-1.03 0-1.89-.95-1.89-2.12s.84-2.12 1.89-2.12c1.06 0 1.9.96 1.89 2.12c0 1.17-.83 2.12-1.89 2.12z"/>
-                            </svg>
-                        </a>
-                        <a href="https://github.com/example" aria-label="GitHub">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12 22 6.48 17.52 2 12 2z"/>
-                            </svg>
-                        </a>
-                        <a href="https://linkedin.com/in/example" aria-label="LinkedIn">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M19.7 3H4.3C3.6 3 3 3.6 3 4.3v15.4c0 .7.6 1.3 1.3 1.3h15.4c.7 0 1.3-.6 1.3-1.3V4.3c0-.7-.6-1.3-1.3-1.3zM8.3 18.3H5.7V9.8h2.6v8.5zM7 8.7c-.8 0-1.5-.7-1.5-1.5s.7-1.5 1.5-1.5 1.5.7 1.5 1.5-.7 1.5-1.5 1.5zm11.3 9.6h-2.6v-4.2c0-1-.02-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3h-2.6V9.8h2.5v1.2h.04c.3-.6 1.1-1.2 2.2-1.2 2.4 0 2.8 1.6 2.8 3.6v5z"/>
-                            </svg>
-                        </a>
-                        <a href="https://youtube.com/c/example" aria-label="YouTube">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
-                            </svg>
-                        </a>
-                        <a href="mailto:contact@example.com" aria-label="Gmail">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                            </svg>
-                        </a>
-                        <a href="https://wa.me/1234567890" aria-label="WhatsApp">
-                            <svg viewBox="0 0 24 24">
-                                <path d="M16.75 13.96c.25.13.41.2.46.3.06.11.04.61-.21 1.18-.2.56-1.24 1.1-1.7 1.12-.46.02-.47.36-2.96-.73-2.49-1.09-3.99-3.75-4.11-3.92-.12-.17-.96-1.38-.92-2.61.05-1.22.69-1.8.95-2.04.24-.26.51-.29.68-.26h.47c.15 0 .36-.06.55.45l.69 1.87c.06.13.1.28.01.44l-.27.41-.39.42c-.12.12-.26.25-.12.5.12.26.62 1.09 1.32 1.78.91.88 1.71 1.17 1.95 1.3.24.14.39.12.54-.04l.81-.94c.19-.25.35-.19.58-.11l1.67.88M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10c-1.97 0-3.8-.57-5.35-1.55L2 22l1.55-4.65A9.969 9.969 0 0 1 2 12 10 10 0 0 1 12 2m0 2a8 8 0 0 0-8 8c0 1.72.54 3.31 1.46 4.61L4.5 19.5l2.89-.96A7.95 7.95 0 0 0 12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8z"/>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h3 class="footer-title">Legal</h3>
-                    <div class="footer-links">
-                        <button class="footer-link" id="tos-btn">Terms of Service</button>
-                        <button class="footer-link" id="privacy-btn">Privacy Policy</button>
-                    </div>
-                </div>
+            <div class="social-links">
+                <a href="https://example.com/twitter" aria-label="Twitter">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                    </svg>
+                </a>
+                <a href="https://example.com/linkedin" aria-label="LinkedIn">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19.7 3H4.3C3.582 3 3 3.582 3 4.3v15.4c0 .718.582 1.3 1.3 1.3h15.4c.718 0 1.3-.582 1.3-1.3V4.3c0-.718-.582-1.3-1.3-1.3zM8.339 18.338H5.667v-8.59h2.672v8.59zM7.004 8.574c-.857 0-1.549-.694-1.549-1.548 0-.856.692-1.549 1.549-1.549.854 0 1.547.693 1.547 1.549 0 .854-.693 1.548-1.547 1.548zm11.335 9.764H15.67v-4.177c0-.996-.017-2.278-1.387-2.278-1.389 0-1.601 1.086-1.601 2.206v4.25h-2.667v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.779 3.203 4.092v4.71z"/>
+                    </svg>
+                </a>
+                <a href="https://example.com/github" aria-label="GitHub">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.167 6.839 9.49.5.091.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+                    </svg>
+                </a>
             </div>
             
-            <div class="footer-bottom">
-                <div class="copyright">
-                    &copy; 2024 ANDZ. All rights reserved.
-                </div>
+            <div class="footer-links">
+                <button class="footer-link" data-modal="privacy">Privacy Policy</button>
+                <button class="footer-link" data-modal="terms">Terms of Service</button>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2024 ANDZ. All rights reserved.
             </div>
         </div>
     </footer>
 
-    <!-- Modal System -->
-    <div id="modal-backdrop" class="modal-backdrop" aria-hidden="true">
-        <div class="modal-container" role="dialog" aria-labelledby="modal-title">
-            <button class="modal-close" id="modal-close" aria-label="Close dialog">
-                <svg viewBox="0 0 24 24">
-                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-                </svg>
-            </button>
-            <div class="modal-content">
-                <h2 id="modal-title">Modal Title</h2>
-                <div id="modal-body">
-                    <!-- Content will be injected here -->
-                </div>
+    <!-- Modals -->
+    <div class="modal" id="privacy-modal" role="dialog" aria-labelledby="privacy-title" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close dialog">&times;</button>
+            <h2 id="privacy-title">Privacy Policy</h2>
+            <div class="modal-body">
+                <p>This is a placeholder privacy policy. Replace with your actual privacy policy content.</p>
+                <p>Your privacy is important to us. This section should explain how we collect, use, and protect your personal information.</p>
+                <p>Include details about data collection, cookies, third-party services, and user rights.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="terms-modal" role="dialog" aria-labelledby="terms-title" aria-hidden="true">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close dialog">&times;</button>
+            <h2 id="terms-title">Terms of Service</h2>
+            <div class="modal-body">
+                <p>This is a placeholder terms of service agreement. Replace with your actual terms.</p>
+                <p>Include sections about user responsibilities, intellectual property, limitations of liability, and governing law.</p>
+                <p>Make sure to consult with legal professionals for proper terms of service documentation.</p>
             </div>
         </div>
     </div>
 
     <!-- JavaScript -->
     <script src="js/main.js" type="module"></script>
-    <script src="js/home.js" type="module"></script>
-    <script src="js/about.js" type="module"></script>
-    <script src="js/services.js" type="module"></script>
-    <script src="js/portfolio.js" type="module"></script>
-    <script src="js/reviews.js" type="module"></script>
-    <script src="js/contact.js" type="module"></script>
 </body>
 </html>
