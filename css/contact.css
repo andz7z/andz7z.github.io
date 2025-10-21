@@ -1,12 +1,100 @@
 /* css/contact.css */
-
-/* HOW TO EDIT
-  - This file styles ONLY the #contact section.
-  - Add styles for your contact form, email links, etc.
+/* 
+HOW TO EDIT CONTACT SECTION:
+- Form styling: Adjust input styles and layout
+- Validation: Add error states in JavaScript
+- Submission: Connect to your backend service
 */
 
-#contact {
-    /* Example: Style a contact form */
-    /* .contact-form { ... } */
-    /* .form-group { ... } */
+.contact-section {
+    background: var(--color-bg-dark);
+}
+
+.contact-form {
+    max-width: 500px;
+    margin: var(--space-xl) auto 0;
+    text-align: left;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: var(--space-lg);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-md);
+    color: var(--color-text);
+    font-size: 1rem;
+    transition: all var(--transition-normal);
+    backdrop-filter: blur(var(--blur-amount));
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-group label {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    color: var(--color-text-muted);
+    transition: all var(--transition-normal);
+    pointer-events: none;
+    background: var(--color-bg-dark);
+    padding: 0 var(--space-xs);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.1);
+}
+
+.form-group input:focus + label,
+.form-group textarea:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:not(:placeholder-shown) + label {
+    top: -10px;
+    left: var(--space-sm);
+    font-size: 0.8rem;
+    color: var(--color-primary);
+}
+
+.submit-btn {
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 50px;
+    padding: var(--space-md) var(--space-xl);
+    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: all var(--transition-bounce);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin: 0 auto;
+}
+
+.submit-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+}
+
+.submit-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    transition: transform var(--transition-normal);
+}
+
+.submit-btn:hover svg {
+    transform: translateX(4px);
 }
