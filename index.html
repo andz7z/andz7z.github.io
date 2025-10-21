@@ -3,179 +3,228 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ | Portfolio</title>
-    
-    <!-- CSS Files -->
+    <title>ANDZ - Design. Develop. Deliver.</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/contact.css">
-    
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <script src="js/script.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/about.js" defer></script>
+    <script src="js/services.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/reviews.js" defer></script>
+    <script src="js/contact.js" defer></script>
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
-    
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <!-- Brand Name -->
-            <div class="brand">
-                <a href="#home">ANDZ</a>
-            </div>
-            
-            <!-- Navigation Icons -->
-            <div class="nav-icons">
-                <a href="#home" class="nav-icon active" data-section="home">
-                    <i class="fas fa-home"></i>
-                    <span class="tooltip">Home</span>
-                </a>
-                <a href="#about" class="nav-icon" data-section="about">
-                    <i class="fas fa-user"></i>
-                    <span class="tooltip">About</span>
-                </a>
-                <a href="#services" class="nav-icon" data-section="services">
-                    <i class="fas fa-cogs"></i>
-                    <span class="tooltip">Services</span>
-                </a>
-                <a href="#portfolio" class="nav-icon" data-section="portfolio">
-                    <i class="fas fa-briefcase"></i>
-                    <span class="tooltip">Portfolio</span>
-                </a>
-                <a href="#reviews" class="nav-icon" data-section="reviews">
-                    <i class="fas fa-star"></i>
-                    <span class="tooltip">Reviews</span>
-                </a>
-                <a href="#contact" class="nav-icon" data-section="contact">
-                    <i class="fas fa-envelope"></i>
-                    <span class="tooltip">Contact</span>
-                </a>
-            </div>
-            
-            <!-- Mobile Menu Toggle -->
-            <div class="mobile-toggle" id="mobileToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        
-        <!-- Scrolled Navigation -->
-        <div class="scrolled-nav" id="scrolledNav">
-            <a href="#home" class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-            <div class="current-section" id="currentSection">Home</div>
+
+    <div id="progress-bar"></div>
+
+    <header id="main-header">
+        <a href="#home" class="brand-name magnetic-item">ANDZ</a>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#home" class="nav-icon magnetic-item active" data-tooltip="Home" data-section="home"><i class="fas fa-home"></i></a></li>
+                <li><a href="#about" class="nav-icon magnetic-item" data-tooltip="About" data-section="about"><i class="fas fa-user"></i></a></li>
+                <li><a href="#services" class="nav-icon magnetic-item" data-tooltip="Services" data-section="services"><i class="fas fa-cogs"></i></a></li>
+                <li><a href="#portfolio" class="nav-icon magnetic-item" data-tooltip="Portfolio" data-section="portfolio"><i class="fas fa-briefcase"></i></a></li>
+                <li><a href="#reviews" class="nav-icon magnetic-item" data-tooltip="Reviews" data-section="reviews"><i class="fas fa-star"></i></a></li>
+                <li><a href="#contact" class="nav-icon magnetic-item" data-tooltip="Contact" data-section="contact"><i class="fas fa-envelope"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav id="scrolled-nav">
+        <a href="#home" class="back-to-home magnetic-item">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Home</span>
+        </a>
+        <div class="current-section-display">
+            Currently on: <span id="current-section-name">Home</span>
         </div>
     </nav>
-    
-    <!-- Main Content Sections -->
-    <main class="main-content">
-        <!-- Home Section -->
-        <section id="home" class="section active">
-            <div class="home-container">
-                <!-- Background Video -->
-                <div class="video-container">
-                    <video autoplay muted loop id="bgVideo">
-                        <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                        <!-- Fallback for browsers that don't support video -->
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-overlay"></div>
+
+    <aside class="social-links">
+        <div class="line"></div> <ul>
+            <li><a href="httpsa://github.com" target="_blank" class="magnetic-item" data-tooltip="GitHub"><i class="fab fa-github"></i></a></li>
+            <li><a href="httpsa://linkedin.com" target="_blank" class="magnetic-item" data-tooltip="LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a href="httpsa://whatsapp.com" target="_blank" class="magnetic-item" data-tooltip="WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+            <li><a href="httpsa://discord.com" target="_blank" class="magnetic-item" data-tooltip="Discord"><i class="fab fa-discord"></i></a></li>
+        </ul>
+        <div class="line"></div> </aside>
+
+    <button id="hamburger-btn" class="hamburger-menu magnetic-item" aria-label="Toggle Menu">
+        <span class="line"></span>
+        <span class="line"></span>
+    </button>
+
+    <div id="mobile-nav" class="mobile-nav-overlay">
+        <nav>
+            <ul>
+                <li><a href="#home" class="mobile-nav-link">Home</a></li>
+                <li><a href="#about" class="mobile-nav-link">About</a></li>
+                <li><a href="#services" class="mobile-nav-link">Services</a></li>
+                <li><a href="#portfolio" class="mobile-nav-link">Portfolio</a></li>
+                <li><a href="#reviews" class="mobile-nav-link">Reviews</a></li>
+                <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <main id="fullpage-container">
+
+        <section id="home" class="section full-screen" data-section-name="Home">
+            
+            <div class="video-background">
+                <video autoplay muted loop playsinline id="bg-video">
+                    <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="section-content home-content">
+                <h1 class="reveal-text">
+                    <span class="line-1">Design. Develop.</span>
+                    <span class="line-2">Deliver.</span>
+                </h1>
+                <p class="subtitle reveal-text">&lt;we do it all/&gt;</p>
+                <a href="#about" class="btn btn-metallic magnetic-item reveal-text">
+                    Discover Now <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </section>
+
+        <section id="about" class="section full-screen" data-section-name="About">
+            <div class="section-content container">
+                <h2 class="section-title reveal-item">About <span class="gradient-text">Me</span></h2>
+                <div class="about-grid">
+                    <div class="about-text reveal-item">
+                        <p>Hi, I'm ANDZ, a passionate developer and designer focused on creating modern, interactive, and user-centric web experiences. I thrive on bringing ideas to life, from the first concept to the final, polished product.</p>
+                        <p>My goal is to 'Design, Develop, and Deliver' high-quality solutions that not only look good but also perform exceptionally.</p>
+                        <a href="#contact" class="btn btn-secondary magnetic-item">Let's Talk</a>
+                    </div>
+                    <div class="about-skills reveal-item">
+                        <h3>My Toolkit</h3>
+                        <ul class="skills-list">
+                            <li>HTML5 & CSS3</li>
+                            <li>JavaScript (ES6+)</li>
+                            <li>React & Vue</li>
+                            <li>Node.js</li>
+                            <li>UI/UX Design</li>
+                            <li>Figma</li>
+                        </ul>
+                    </div>
                 </div>
-                
-                <!-- Main Content -->
-                <div class="home-content">
-                    <div class="text-content">
-                        <h1 class="main-title">
-                            <span class="title-line">Design. Develop.</span>
-                            <span class="title-line">Deliver.</span>
-                            <span class="title-sub">&lt;we do it all/&gt;</span>
-                        </h1>
-                        <div class="cta-container">
-                            <button class="discover-btn" id="discoverBtn">
-                                Discover Now <i class="fas fa-arrow-right"></i>
-                            </button>
-                            <div class="arrow-animation">
-                                <i class="fas fa-arrow-down"></i>
-                            </div>
+            </div>
+        </section>
+
+        <section id="services" class="section full-screen" data-section-name="Services">
+            <div class="section-content container">
+                <h2 class="section-title reveal-item">What I <span class="gradient-text">Do</span></h2>
+                <div class="services-grid">
+                    <div class="service-card glassmorphism reveal-item">
+                        <i class="fas fa-paint-brush"></i>
+                        <h3>UI/UX Design</h3>
+                        <p>Crafting intuitive and beautiful user interfaces that users love.</p>
+                    </div>
+                    <div class="service-card glassmorphism reveal-item">
+                        <i class="fas fa-code"></i>
+                        <h3>Web Development</h3>
+                        <p>Building responsive, high-performance websites from scratch.</p>
+                    </div>
+                    <div class="service-card glassmorphism reveal-item">
+                        <i class="fas fa-rocket"></i>
+                        <h3>Optimization</h3>
+                        <p>Ensuring your site is fast, accessible, and SEO-friendly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section full-screen" data-section-name="Portfolio">
+            <div class="section-content container">
+                <h2 class="section-title reveal-item">My <span class="gradient-text">Work</span></h2>
+                <div class="portfolio-grid">
+                    <a href="#" class="portfolio-item glassmorphism reveal-item">
+                        <img src="httpss://via.placeholder.com/600x400.png?text=Project+1" alt="Project 1" loading="lazy">
+                        <div class="portfolio-info">
+                            <h3>Project Title 1</h3>
+                            <span>Web Design / Development</span>
+                        </div>
+                    </a>
+                    <a href="#" class="portfolio-item glassmorphism reveal-item">
+                        <img src="httpss://via.placeholder.com/600x400.png?text=Project+2" alt="Project 2" loading="lazy">
+                        <div class="portfolio-info">
+                            <h3>Project Title 2</h3>
+                            <span>UI/UX</span>
+                        </div>
+                    </a>
+                    </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="section full-screen" data-section-name="Reviews">
+            <div class="section-content container">
+                <h2 class="section-title reveal-item">Client <span class="gradient-text">Feedback</span></h2>
+                <div class="reviews-grid">
+                    <div class="review-card glassmorphism reveal-item">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"Working with ANDZ was a game-changer. The final product exceeded all our expectations. Truly professional."</p>
+                        <h4>- Jane Doe, CEO of TechCorp</h4>
+                    </div>
+                    <div class="review-card glassmorphism reveal-item">
+                        <div class="stars">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <p>"The attention to detail and creative input were outstanding. Our user engagement has skyrocketed."</p>
+                        <h4>- John Smith, Founder of Creative Co.</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section full-screen" data-section-name="Contact">
+            <div class="section-content container">
+                <h2 class="section-title reveal-item">Get In <span class="gradient-text">Touch</span></h2>
+                <div class="contact-wrapper">
+                    <div class="contact-info reveal-item">
+                        <p>Have a project in mind or just want to say hi? Feel free to reach out. I'm always open to discussing new ideas.</p>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>hello@andz.design</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Based in Planet Earth</span>
                         </div>
                     </div>
-                    
-                    <!-- Social Media Icons -->
-                    <div class="social-icons">
-                        <div class="line"></div>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-discord"></i>
-                        </a>
-                        <div class="line"></div>
-                    </div>
+                    <form id="contact-form" class="contact-form glassmorphism reveal-item">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Your Email</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <button type="submit" class="btn btn-metallic magnetic-item">
+                            Send Message <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
         </section>
-        
-        <!-- About Section -->
-        <section id="about" class="section">
-            <div class="section-container">
-                <h2 class="section-title">About</h2>
-                <!-- About content will be loaded here -->
-            </div>
-        </section>
-        
-        <!-- Services Section -->
-        <section id="services" class="section">
-            <div class="section-container">
-                <h2 class="section-title">Services</h2>
-                <!-- Services content will be loaded here -->
-            </div>
-        </section>
-        
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="section">
-            <div class="section-container">
-                <h2 class="section-title">Portfolio</h2>
-                <!-- Portfolio content will be loaded here -->
-            </div>
-        </section>
-        
-        <!-- Reviews Section -->
-        <section id="reviews" class="section">
-            <div class="section-container">
-                <h2 class="section-title">Reviews</h2>
-                <!-- Reviews content will be loaded here -->
-            </div>
-        </section>
-        
-        <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="section-container">
-                <h2 class="section-title">Contact</h2>
-                <!-- Contact content will be loaded here -->
-            </div>
-        </section>
+
     </main>
-    
-    <!-- JavaScript Files -->
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
 </body>
 </html>
