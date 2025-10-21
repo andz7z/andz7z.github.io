@@ -1,54 +1,46 @@
-/* --- CSS/HOME.CSS --- */
-/* Stiluri specifice pentru secțiunea #home */
+/* css/home.css */
+
+/* HOW TO EDIT
+  - This file styles ONLY the #home section.
+  - The video background and overlay are defined here.
+  - The specific layout and typography for the H1/subtitle are here.
+*/
 
 #home {
-  color: white; /* Textul va fi alb, pentru contrast pe video */
+    color: #ffffff; /* Override default text for better visibility on video */
 }
 
-.video-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Centrare perfectă */
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  z-index: -1; /* În spatele conținutului */
-  object-fit: cover; /* Acoperă tot containerul */
+.video-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: var(--z-video-bg);
+    object-fit: cover; /* Cover the entire screen */
 }
 
-/* Overlay pentru a asigura lizibilitatea textului peste video.
-  Folosim un pseudo-element.
-*/
-#home::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: var(--video-overlay);
-  z-index: 0; /* Între video (-1) și conținut (2) */
-  transition: background-color var(--transition-speed) ease;
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    /* Dark overlay + subtle gradient for text readability */
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%);
+    z-index: var(--z-video-overlay);
 }
 
-/* LOGICA DE SCHIMBARE A VIDEOCLIPULUI
-  Afișăm videoclipul corespunzător temei active.
-*/
-
-/* În Light Mode (default), ascundem video-ul de dark */
-body:not(.dark-mode) #home-video-dark {
-  display: none;
+.home-content h1 {
+    font-size: clamp(2.5rem, 8vw, 5rem); /* Responsive font size */
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* În Dark Mode, ascundem video-ul de light */
-body.dark-mode #home-video-light {
-  display: none;
-}
-
-/* Suprascriem textul pentru #home ca să fie mereu lizibil */
-#home h1, #home p {
-  color: #FFFFFF;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* Umbră pentru lizibilitate */
+.home-content p {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    color: var(--color-text);
+    font-weight: 300;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
