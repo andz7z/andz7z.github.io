@@ -1,186 +1,155 @@
-/* js/script.js */
+// Main JavaScript file - Controls core functionality
 
-/**
- * Clasa PortfolioManager
- * ----------------------
- * Această clasă gestionează funcționalitățile globale ale site-ului,
- * cum ar fi bara de progres a scroll-ului, transformarea barei de navigare
- * și detectarea secțiunii curente folosind Intersection Observer.
- * Utilizarea unei clase ajută la organizarea codului (Req 7).
- */
-class PortfolioManager {
+class PortfolioApp {
     constructor() {
-        // Cache DOM elements
-        this.progressBar = document.querySelector('.scroll-progress-bar');
-        this.mainNav = document.querySelector('#main-header');
-        this.scrolledNav = document.querySelector('#scrolled-nav');
-        this.currentSectionDisplay = document.querySelector('.current-section-display');
-        this.sections = document.querySelectorAll('.fullscreen-section');
-        this.navLinks = document.querySelectorAll('#main-nav .nav-links a');
-
-        // Inițializare
-        this.initScrollListener();
-        this.initIntersectionObserver();
-        this.initSmoothScroll();
-        this.registerServiceWorker(); // Bonus (Req 7)
+        this.currentSection = 'home';
+        this.sections = document.querySelectorAll('.section');
+        this.navIcons = document.querySelectorAll('.nav-icon');
+        this.progressBar = document.querySelector('.progress-bar');
+        this.compactNav = document.querySelector('.compact-navbar');
+        this.currentSectionText = document.querySelector('.current-section');
+        
+        this.init();
     }
-
-    /**
-     * Funcție Debounce (Req 6)
-     * ------------------------
-     * Limitează frecvența cu care o funcție este executată.
-     * Esențial pentru performanța event listener-ilor precum 'scroll' sau 'resize'.
-     * @param {Function} func - Funcția care trebuie executată.
-     * @param {number} delay - Timpul de așteptare în milisecunde.
-     */
-    debounce(func, delay = 10) {
-        let timeoutId;
-        return (...args) => {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => {
-                func.apply(this, args);
-            }, delay);
-        };
+    
+    init() {
+        // Initialize all event listeners
+        this.setupEventListeners();
+        this.setupScrollEffects();
+        this.setupIntersectionObserver();
+        
+        // Set initial active section
+        this.setActiveSection('home');
+        
+        // Initialize modules
+        if (typeof HomeModule !== 'undefined') new HomeModule();
+        if (typeof AboutModule !== 'undefined') new AboutModule();
+        if (typeof ServicesModule !== 'undefined') new ServicesModule();
+        if (typeof PortfolioModule !== 'undefined') new PortfolioModule();
+        if (typeof ReviewsModule !== 'undefined') new ReviewsModule();
+        if (typeof ContactModule !== 'undefined') new ContactModule();
     }
-
-    /**
-     * Inițiază listener-ul de scroll
-     * ---------------------------------
-     * Gestionează actualizarea barei de progres și transformarea barei de navigare.
-     * Folosește funcția 'debounce' pentru optimizare (Req 6).
-     */
-    initScrollListener() {
+    
+    setupEventListeners() {
+        // Navigation clicks
+        this.navIcons.forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.preventDefault();
+                const section = icon.getAttribute('href').substring(1);
+                this.setActiveSection(section);
+            });
+        });
+        
+        // Back button in compact nav
+        document.querySelector('.back-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.setActiveSection('home');
+        });
+        
+        // Window scroll for progress bar and compact nav
         window.addEventListener('scroll', this.debounce(() => {
-            this.updateScrollProgress();
-            this.handleNavTransform();
-        }));
+            this.updateProgressBar();
+            this.toggleCompactNav();
+        }, 10));
     }
-
-    /**
-     * Actualizează Bara de Progres (Req 2)
-     */
-    updateScrollProgress() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        
-        // Se folosește 'transform' pentru performanță (Req 6)
-        this.progressBar.style.width = `${scrollPercent}%`;
-    }
-
-    /**
-     * Gestionează Transformarea Barei de Navigare (Req 2)
-     * ----------------------------------------------------
-     * Ascunde navigația principală și afișează navigația de scroll
-     * odată ce utilizatorul a derulat suficient (ex: 100vh).
-     */
-    handleNavTransform() {
-        const scrollPosition = window.scrollY;
-        
-        // pragul este 90% din înălțimea viewport-ului
-        const threshold = window.innerHeight * 0.9; 
-
-        if (scrollPosition > threshold) {
-            // Când s-a derulat în jos: ascunde navigația principală, arată cea secundară
-            this.mainNav.style.opacity = '0';
-            this.mainNav.style.transform = 'translateY(-100%)';
-            this.scrolledNav.classList.remove('hidden');
-        } else {
-            // Când s-a derulat înapoi sus: arată navigația principală, ascunde cea secundară
-            this.mainNav.style.opacity = '1';
-            this.mainNav.style.transform = 'translateY(0)';
-            this.scrolledNav.classList.add('hidden');
-        }
-    }
-
-    /**
-     * Inițiază Intersection Observer (Req 3 & 7)
-     * -----------------------------------------
-     * Observă secțiunile full-screen pentru a:
-     * 1. Activa animațiile de fade-in (Req 3).
-     * 2. Actualiza textul "Currently on:" (Req 2).
-     * 3. Anima barele de progres (Req 5).
-     */
-    initIntersectionObserver() {
-        const options = {
-            root: null, // Observă în raport cu viewport-ul
-            rootMargin: '0px',
-            threshold: 0.5 // Se activează când 50% din secțiune e vizibilă
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Adaugă clasa 'is-visible' pentru animația de fade-in
-                    entry.target.classList.add('is-visible');
-                    
-                    // Actualizează textul "Currently on:"
-                    const sectionName = entry.target.getAttribute('data-section-name');
-                    if (sectionName) {
-                        this.currentSectionDisplay.textContent = `Currently on: ${sectionName}`;
-                    }
-                } else {
-                    // Opțional: elimină clasa pentru animație la ieșire
-                    entry.target.classList.remove('is-visible');
+    
+    setupScrollEffects() {
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
                 }
             });
-        }, options);
-
-        // Observă fiecare secțiune
+        });
+    }
+    
+    setupIntersectionObserver() {
+        // Observe section changes for updating navigation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    this.setActiveSection(sectionId);
+                }
+            });
+        }, { threshold: 0.5 });
+        
         this.sections.forEach(section => {
             observer.observe(section);
         });
     }
-
-    /**
-     * Inițiază Smooth Scroll (Req 3)
-     * ------------------------------
-     * Gestionează click-urile pe link-urile ancore pentru a derula lin
-     * folosind scrollIntoView (alternativă la 'scroll-behavior: smooth'
-     * pentru un control mai bun, deși CSS este mai simplu).
-     */
-    initSmoothScroll() {
-        const allLinks = document.querySelectorAll('a[href^="#"]');
-        allLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                const href = link.getAttribute('href');
-                // Verifică dacă este un link ancore real, nu doar "#"
-                if (href.length > 1) {
-                    e.preventDefault();
-                    const targetId = href;
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start' // Aliniază la începutul secțiunii
-                        });
-                    }
-                }
-            });
+    
+    setActiveSection(sectionId) {
+        // Update sections
+        this.sections.forEach(section => {
+            section.classList.remove('active');
+            if (section.id === sectionId) {
+                section.classList.add('active');
+            }
         });
+        
+        // Update navigation
+        this.navIcons.forEach(icon => {
+            icon.classList.remove('active');
+            if (icon.getAttribute('href') === `#${sectionId}`) {
+                icon.classList.add('active');
+            }
+        });
+        
+        // Update current section
+        this.currentSection = sectionId;
+        this.updateCurrentSectionText();
     }
-
-    /**
-     * Înregistrează Service Worker (Bonus - Req 7)
-     * -------------------------------------------
-     * Activează funcționalități PWA de bază, cum ar fi caching-ul offline.
-     */
-    registerServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('ServiceWorker registered:', registration);
-                    })
-                    .catch(error => {
-                        console.log('ServiceWorker registration failed:', error);
-                    });
-            });
+    
+    updateCurrentSectionText() {
+        const sectionNames = {
+            'home': 'Home',
+            'about': 'About',
+            'services': 'Services',
+            'portfolio': 'Portfolio',
+            'reviews': 'Reviews',
+            'contact': 'Contact'
+        };
+        
+        this.currentSectionText.textContent = `Currently on: ${sectionNames[this.currentSection]}`;
+    }
+    
+    updateProgressBar() {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        this.progressBar.style.width = scrolled + "%";
+    }
+    
+    toggleCompactNav() {
+        if (window.scrollY > 200) {
+            this.compactNav.classList.add('visible');
+        } else {
+            this.compactNav.classList.remove('visible');
         }
+    }
+    
+    // Utility function to debounce events for performance
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
     }
 }
 
-// Inițiază managerul principal după ce DOM-ul este încărcat
+// Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new PortfolioManager();
+    new PortfolioApp();
 });
