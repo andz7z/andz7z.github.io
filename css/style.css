@@ -160,97 +160,67 @@ body {
     opacity: 0.9;
     text-shadow: 1px 1px 8px rgba(0,0,0,0.6);
 }
-/* === Bara orizontală centrată sus === */
-.sidebar {
+/* === Navbar minimalist cu blur (orizontal, centrat sus) === */
+.navbar {
   position: fixed;
-  top: 30px;
+  top: 25px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
-  padding: 0.8rem 1.6rem;
-  background: rgba(20, 20, 30, 0.4);
-  border-radius: 50px;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 20px rgba(199, 125, 255, 0.15);
-  overflow: hidden;
   z-index: 1000;
-}
-
-/* === Outline animat – dâră de lumină care se rotește === */
-.sidebar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50px;
-  padding: 2px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 70deg,
-    rgba(255,255,255,0.9) 90deg,
-    rgba(199,125,255,0.8) 120deg,
-    transparent 140deg,
-    transparent 360deg
-  );
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask-composite: destination-out;
-  animation: rotateStreak 3.5s linear infinite;
-  filter: blur(2px);
   pointer-events: none;
-  z-index: -1;
-}
-
-/* === Animația dârei de lumină === */
-@keyframes rotateStreak {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+  background: rgba(20, 20, 30, 0.25);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  padding: 0.6rem 1.2rem;
+  border-radius: 2rem;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
 }
 
 /* === Meniu === */
 .menu {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1.5rem;
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 /* === Linkuri === */
 .menu a {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.4rem;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.4);
   font-family: "Inter", sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   text-decoration: none;
-  transition: all 0.3s ease;
-  padding: 0.2rem 0.4rem;
+  letter-spacing: 0.4px;
+  opacity: 0.7;
+  transition: all 0.35s ease;
+  pointer-events: auto;
 }
 
+/* === Iconițe === */
+.menu svg {
+  width: 20px;
+  height: 20px;
+  fill: rgba(255, 255, 255, 0.6);
+  transition: all 0.35s ease;
+  margin-bottom: 0.15rem;
+}
+
+/* === Hover violet elegant === */
 .menu a:hover {
   color: #c77dff;
-  transform: translateY(-1px) scale(1.05);
-}
-
-/* === Iconițe – ușor coborâte pentru aliniere cu textul === */
-.menu svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-  position: relative;
-  top: 2px; /* ✅ ajustează alinierea */
-  transition: all 0.3s ease;
+  opacity: 1;
+  transform: translateY(-2px);
 }
 
 .menu a:hover svg {
@@ -258,13 +228,59 @@ body {
   filter: drop-shadow(0 0 8px #c77dff);
 }
 
+/* === Text invizibil, apare doar la hover === */
+.menu span {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.menu a:hover span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === Ripple click efect subtil === */
+.menu a:active::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: rgba(199, 125, 255, 0.7);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  animation: ripple 0.45s ease-out forwards;
+}
+
+@keyframes ripple {
+  to {
+    transform: translate(-50%, -50%) scale(12);
+    opacity: 0;
+  }
+}
+
+/* === Home pulse subtil === */
+.home-btn svg {
+  animation: homePulse 3s infinite ease-in-out;
+}
+
+@keyframes homePulse {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(199,125,255,0.3)); }
+  50% { filter: drop-shadow(0 0 10px rgba(199,125,255,0.6)); }
+}
+
 /* === Responsivitate === */
 @media (max-width: 768px) {
-  .sidebar {
-    top: 20px;
-    padding: 0.6rem 1rem;
-  }
-  .menu {
+  .navbar {
+    top: 15px;
+    padding: 0.5rem 0.8rem;
     gap: 1rem;
+    backdrop-filter: blur(8px);
+  }
+  .menu span {
+    display: none;
   }
 }
