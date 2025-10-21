@@ -1,12 +1,67 @@
 /* css/services.css */
-
-/* HOW TO EDIT
-  - This file styles ONLY the #services section.
-  - Add styles for service cards, icons, etc., here.
+/* 
+HOW TO EDIT SERVICES SECTION:
+- Card layout: Adjust .services-grid columns
+- Icons: Replace with actual icons or images
+- Hover effects: Modify transform and border colors
 */
 
-#services {
-    /* Example: Style a grid of services */
-    /* .services-grid { ... } */
-    /* .service-card { ... } */
+.services-section {
+    background: var(--color-bg-dark);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+}
+
+.service-card {
+    background: var(--color-glass);
+    backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-xl);
+    text-align: center;
+    transition: all var(--transition-normal);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-primary);
+    box-shadow: var(--glass-shadow);
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto var(--space-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    font-size: 1.2rem;
+}
+
+.service-card h3 {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-md);
+}
+
+.service-card p {
+    color: var(--color-text-muted);
+    line-height: 1.6;
 }
