@@ -1,53 +1,38 @@
-// js/home.js
-
-// Home section specific functionality
-
 function initHome() {
-    const discoverBtn = document.querySelector('.discover-btn');
+    // Text animation for home section
+    animateHomeText();
     
-    // Add click event to discover button
-    if (discoverBtn) {
-        discoverBtn.addEventListener('click', function() {
-            // Scroll to about section
-            document.getElementById('about').scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    }
-    
-    // Add typing effect to main text (optional enhancement)
-    initTypingEffect();
+    // Social icons hover effects
+    initSocialIcons();
 }
 
-// Optional: Typing effect for the main text
-function initTypingEffect() {
-    const designText = document.querySelector('.design');
-    const developText = document.querySelector('.develop');
+function animateHomeText() {
+    const line1 = document.querySelector('.line1');
+    const line2 = document.querySelector('.line2');
+    const line3 = document.querySelector('.line3');
     
-    if (designText && developText) {
-        // Reset text for animation
-        const designOriginal = designText.textContent;
-        const developOriginal = developText.textContent;
+    if (line1 && line2 && line3) {
+        // Initial state
+        gsap.set([line1, line2, line3], { opacity: 0, y: 50 });
         
-        designText.textContent = '';
-        developText.textContent = '';
-        
-        // Type design text
-        typeText(designText, designOriginal, 0, function() {
-            // When design is done, type develop text
-            typeText(developText, developOriginal, 0);
-        });
+        // Animate in sequence
+        const tl = gsap.timeline();
+        tl.to(line1, { opacity: 1, y: 0, duration: 1, ease: "power2.out" })
+          .to(line2, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "-=0.5")
+          .to(line3, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "-=0.5");
     }
 }
 
-// Helper function for typing effect
-function typeText(element, text, index, callback) {
-    if (index < text.length) {
-        element.textContent += text.charAt(index);
-        setTimeout(function() {
-            typeText(element, text, index + 1, callback);
-        }, 100);
-    } else if (callback) {
-        callback();
-    }
+function initSocialIcons() {
+    const socialIcons = document.querySelectorAll('.social-icon');
+    
+    socialIcons.forEach(icon => {
+        icon.addEventListener('mouseenter', function() {
+            this.style.transform = 'scale(1.2) rotate(5deg)';
+        });
+        
+        icon.addEventListener('mouseleave', function() {
+            this.style.transform = 'scale(1) rotate(0deg)';
+        });
+    });
 }
