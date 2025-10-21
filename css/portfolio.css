@@ -1,12 +1,78 @@
 /* css/portfolio.css */
-
-/* HOW TO EDIT
-  - This file styles ONLY the #portfolio section.
-  - Add styles for your portfolio grid, thumbnails, filters, etc.
+/* 
+HOW TO EDIT PORTFOLIO SECTION:
+- Grid layout: Adjust columns and gaps
+- Placeholders: Replace with actual project images
+- Project data: Update titles and descriptions
 */
 
-#portfolio {
-    /* Example: Style a portfolio gallery */
-    /* .portfolio-gallery { ... } */
-    /* .gallery-item { ... } */
+.portfolio-section {
+    background: var(--color-bg-dark);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+}
+
+.portfolio-item {
+    background: var(--color-glass);
+    backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-lg);
+    text-align: center;
+    transition: all var(--transition-normal);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.portfolio-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.portfolio-placeholder {
+    width: 100%;
+    height: 200px;
+    background: var(--color-glass-dark);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--space-lg);
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.1), transparent);
+    animation: shimmer 2s infinite;
+}
+
+.portfolio-item h3 {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-sm);
+}
+
+.portfolio-item p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
 }
