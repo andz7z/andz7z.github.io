@@ -1,0 +1,375 @@
+/* --- CSS/MAIN.CSS --- */
+/* Resurse globale, variabile de temă, și stiluri de bază */
+
+/* --- 
+  10. ARHITECTURĂ ȘI VARIABILE CSS (CUSTOM PROPERTIES)
+  Definim totul aici pentru o mentenabilitate ușoară.
+--- */
+:root {
+  /* Paleta LIGHT MODE (Default) - Aspect "glassy, chrome, metal, steel" */
+  --color-bg: #EFEEF6; /* Un alb-gri foarte deschis, metalic */
+  --color-text: #1a1a1a;
+  --color-primary: #005A9C; /* Un albastru oțelit */
+  --color-accent: #D9006C; /* Un accent vibrant */
+  --color-glass-bg: rgba(255, 255, 255, 0.1); /* Fundal sticlă mată */
+  --color-vignette: rgba(239, 238, 246, 0.7); /* Vigneta de jos */
+  --video-overlay: rgba(255, 255, 255, 0.1); /* Overlay peste video (light) */
+
+  /* Fundaluri specifice secțiunilor (Light) */
+  --bg-about: #F5F5F7;
+  --bg-services: #EFEFF6;
+  --bg-portfolio: #F5F5F7;
+  --bg-reviews: #EFEFF6;
+  --bg-contact: #F5F5F7;
+
+  /* Fonturi (Cerința 5) */
+  --font-primary: 'Poppins', sans-serif;
+  --font-secondary: 'Source Code Pro', monospace;
+  
+  /* Efecte (Cerința 1 & 12) */
+  --blur-effect: blur(12px);
+  --transition-speed: 0.4s;
+}
+
+/* 1. SISTEM AVANSAT DE TEMĂ (NIGHT MODE)
+  Suprascriem variabilele când 'body' are clasa .dark-mode.
+  Paletă "dark, midnight purple, red, blue"
+*/
+body.dark-mode {
+  --color-bg: #0D0B14; /* Un mov-negru (midnight purple) */
+  --color-text: #EAEAEA;
+  --color-primary: #8A4FFF; /* Un mov vibrant */
+  --color-accent: #FF3B80; /* Un roz/roșu electric */
+  --color-glass-bg: rgba(13, 11, 20, 0.15); /* Fundal sticlă mată (întunecat) */
+  --color-vignette: rgba(13, 11, 20, 0.8); /* Vigneta de jos (întunecată) */
+  --video-overlay: rgba(0, 0, 0, 0.4); /* Overlay peste video (dark) */
+
+  /* Fundaluri specifice (Dark)
+    Folosim gradientul subtil menționat (red, blue, purple)
+  */
+  --bg-about: linear-gradient(160deg, #0D0B14 60%, #1A0F29);
+  --bg-services: linear-gradient(160deg, #0D0B14 60%, #1D102F);
+  --bg-portfolio: linear-gradient(160deg, #0D0B14 60%, #221235);
+  --bg-reviews: linear-gradient(160deg, #0D0B14 60%, #1D102F);
+  --bg-contact: linear-gradient(160deg, #0D0B14 60%, #1A0F29);
+}
+
+/* --- RESET ȘI STILURI GLOBALE --- */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Life-Hack: Folosind 'html' și 'body' așa, forțăm 'main.scroll-container' 
+  să fie singurul element care face scroll. Esențial pentru scroll-snap.
+*/
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden; /* Prevenim scroll-ul pe body */
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-primary);
+  /* 1. TRANZIȚIE ANIMATĂ (TEMA)
+    Aplicăm o tranziție fluidă la schimbarea culorilor.
+    Acest lucru este îmbunătățit de View Transitions API în JS.
+  */
+  transition: background-color var(--transition-speed) ease, 
+              color var(--transition-speed) ease;
+}
+
+/* Scroll-behavior smooth pentru link-urile ancore (#) */
+html {
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+p { font-size: 1.1rem; line-height: 1.6; }
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+/* 8. MICRO-INTERACȚIUNI (HOVER) */
+a:hover, button:hover {
+  color: var(--color-accent);
+  transform: translateY(-2px);
+}
+
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+}
+
+/* --- 
+  3. STRUCTURĂ ȘI NAVIGARE (SCROLL-SNAPPING)
+--- */
+
+/* Container-ul principal care va gestiona scroll-ul */
+.scroll-container {
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  /* Efectul de 'magnet' (scroll-snapping) */
+  scroll-snap-type: y mandatory;
+}
+
+/* Stilul de bază pentru fiecare secțiune full-screen */
+.full-section {
+  height: 100vh; /* Ocupă tot viewport-ul */
+  width: 100%;
+  position: relative; /* Pentru poziționarea conținutului intern */
+  overflow: hidden; /* Previne conținutul să iasă */
+  
+  /* Alinierea precisă la începutul secțiunii */
+  scroll-snap-align: start; 
+  
+  /* Centrarea conținutului placeholder */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+  
+  /* Tranziție pentru schimbarea fundalurilor */
+  transition: background var(--transition-speed) ease;
+}
+
+.section-content {
+  position: relative; /* Peste fundaluri video/etc */
+  z-index: 2;
+  max-width: 900px;
+}
+
+
+/* --- 
+  7. NAVBAR INTELIGENT (FROSTED GLASS)
+--- */
+.main-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100; /* Deasupra la tot */
+
+  /* 1 & 12. EFECTUL DE STICLĂ MATĂ (FROSTED GLASS)
+    Folosim 'backdrop-filter' pentru a blura ce este în spate.
+  */
+  background-color: var(--color-glass-bg);
+  backdrop-filter: var(--blur-effect);
+  -webkit-backdrop-filter: var(--blur-effect); /* Suport Safari */
+  border-bottom: 1px solid var(--color-glass-bg); /* O margine subtilă */
+}
+
+.main-header nav {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.main-header nav a {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text);
+  opacity: 0.7;
+  position: relative;
+  transition: opacity 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.main-header nav a:hover {
+  opacity: 1;
+  color: var(--color-accent);
+  transform: none; /* Anulăm hover-ul global */
+}
+
+/* 7. ACTIVE STATE (PENTRU NAVBAR) */
+.main-header nav a.active {
+  opacity: 1;
+  color: var(--color-primary);
+}
+/* Linie subtilă sub link-ul activ */
+.main-header nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-primary);
+}
+
+
+/* --- 
+  1. THEME TOGGLE BUTTON
+--- */
+#theme-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1.5rem;
+  z-index: 101; /* Peste navbar */
+  font-size: 1.5rem; /* Mărime iconiță */
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  
+  /* Estetică de sticlă și pentru buton */
+  background-color: var(--color-glass-bg);
+  backdrop-filter: var(--blur-effect);
+  -webkit-backdrop-filter: var(--blur-effect);
+}
+
+/* Ascundem iconița care nu e relevantă pentru tema curentă */
+body.dark-mode .icon-sun { display: none; }
+body:not(.dark-mode) .icon-moon { display: none; }
+
+
+/* --- 
+  8. FOOTER
+--- */
+.main-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: var(--color-text);
+  opacity: 0.6;
+  z-index: 100; /* La același nivel cu navbar */
+  
+  /* Efect de sticlă și pentru footer */
+  background-color: var(--color-glass-bg);
+  backdrop-filter: var(--blur-effect);
+  -webkit-backdrop-filter: var(--blur-effect);
+  border-top: 1px solid var(--color-glass-bg);
+}
+
+.main-footer nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.main-footer nav a {
+  color: var(--color-text);
+  font-size: 0.8rem;
+}
+.main-footer nav a:hover {
+  color: var(--color-accent);
+  transform: none;
+}
+
+
+/* --- 
+  9. SISTEM DE BLUR INFERIOR (VIGNETĂ)
+--- */
+#bottom-vignette {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25vh; /* Ocupă 25% din înălțime, de jos în sus */
+  
+  /* Un gradient de la transparent la culoarea de fundal a temei */
+  background: linear-gradient(to top, var(--color-vignette), transparent);
+  
+  z-index: 50; /* Sub navbar/footer, dar peste conținut */
+  pointer-events: none; /* Permite click-ul "prin" el */
+  transition: background var(--transition-speed) ease;
+}
+
+
+/* --- 
+  2. ANIMAȚII DE INTRARE/IEȘIRE (IN/OUT EFFECTS)
+  Implementare custom cu Intersection Observer.
+  Definim starea inițială (ascuns) și starea finală (vizibil).
+--- */
+
+/* Starea inițială comună: ascuns */
+.reveal-fade,
+.reveal-up {
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Starea inițială specifică pentru slide-up */
+.reveal-up {
+  transform: translateY(40px);
+}
+
+/* Starea finală (vizibil) - adăugată de JS */
+.reveal-fade.visible,
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* --- 
+  11. DOCUMENTARE ȘI STILURI PENTRU RESPONSIVE (Exemplu)
+--- */
+@media (max-width: 768px) {
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 2rem; }
+  
+  /* Ascundem textul link-urilor și lăsăm doar iconițe (dacă am folosi) */
+  .main-header nav {
+    gap: 1rem;
+  }
+  
+  .main-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    text-align: center;
+  }
+  
+  #theme-toggle {
+    top: 0.75rem;
+    left: 1rem;
+  }
+}
+
+/* 1. TRANZIȚIE ANIMATĂ (TEMA) - Implementare cu View Transitions API
+  Acesta este un API nou care creează un "snapshot" al paginii
+  vechi și al celei noi și le animează fluid.
+*/
+::view-transition-old(root) {
+  animation: fade-out 0.5s ease-out forwards;
+}
+
+::view-transition-new(root) {
+  animation: fade-in 0.5s ease-in forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
