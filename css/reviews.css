@@ -1,106 +1,112 @@
 /* ===== STILURI SPECIFICE PENTRU SECȚIUNEA REVIEWS ===== */
 
 #reviews {
-    background: var(--color-dark);
+  background: var(--color-darker);
 }
 
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2rem;
-    animation: fadeInUp 0.8s ease 0.4s both;
+.reviews-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
 .review-card {
-    background: var(--glass-bg);
-    backdrop-filter: var(--blur-intensity);
-    border: 1px solid var(--glass-border);
-    border-radius: var(--border-radius);
-    padding: 2rem;
-    transition: all var(--transition-fast);
-    box-shadow: var(--glass-shadow);
-    position: relative;
-    overflow: hidden;
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  transition: var(--transition-normal);
+  position: relative;
 }
 
 .review-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-primary);
-    opacity: 0.05;
-    transition: left var(--transition-fast);
-}
-
-.review-card:hover::before {
-    left: 0;
+  content: '"';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 4rem;
+  color: rgba(138, 43, 226, 0.2);
+  font-family: Georgia, serif;
+  line-height: 1;
 }
 
 .review-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(138, 43, 226, 0.3);
+  transform: translateY(-5px);
+  border-color: rgba(65, 105, 225, 0.3);
 }
 
 .review-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.review-avatar {
-    width: 50px;
-    height: 50px;
-    background: var(--gradient-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: white;
+.reviewer-avatar {
+  width: 50px;
+  height: 50px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-light);
+  font-size: 1.2rem;
 }
 
-.review-info h4 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--color-white);
+.reviewer-info h4 {
+  margin-bottom: 0.25rem;
+  color: var(--color-light);
 }
 
-.review-stars {
-    color: #FFD700;
-    font-size: 0.9rem;
+.stars {
+  display: flex;
+  gap: 0.25rem;
+  color: #FFD700;
 }
 
-.review-card p {
-    color: var(--color-gray-light);
-    line-height: 1.6;
-    font-style: italic;
-    position: relative;
-    padding-left: 1rem;
+.stars i {
+  font-size: 0.9rem;
 }
 
-.review-card p::before {
-    content: '"';
-    position: absolute;
-    left: 0;
-    top: -0.5rem;
-    font-size: 2rem;
-    color: var(--color-gray);
-    opacity: 0.5;
+.review-text {
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--color-gray);
+  margin: 0;
+  position: relative;
+  z-index: 1;
 }
 
-/* ===== MEDIA QUERIES PENTRU RESPONSIVITATE ===== */
+/* Animații pentru review cards */
+.review-card {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.reviews-container.animated .review-card:nth-child(1) {
+  animation: fadeInUp 0.8s ease 0.2s forwards;
+}
+
+.reviews-container.animated .review-card:nth-child(2) {
+  animation: fadeInUp 0.8s ease 0.4s forwards;
+}
+
+.reviews-container.animated .review-card:nth-child(3) {
+  animation: fadeInUp 0.8s ease 0.6s forwards;
+}
+
+/* Responsive design pentru Reviews */
 @media (max-width: 768px) {
-    .reviews-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .review-card {
-        padding: 1.5rem;
-    }
+  .reviews-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .review-card {
+    padding: 1.5rem;
+  }
 }
