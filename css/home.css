@@ -1,13 +1,21 @@
-/* Home Section Styles */
+/* Home Section Specific Styles */
 #home {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
 }
 
-.video-background {
+.home-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+/* Video Background */
+.video-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -16,10 +24,11 @@
     z-index: -1;
 }
 
-#bg-video {
+#bgVideo {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    filter: brightness(0.7);
 }
 
 .video-overlay {
@@ -28,63 +37,86 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(10, 10, 10, 0.4);
-    filter: brightness(0.7);
+    background: linear-gradient(
+        45deg,
+        rgba(10, 10, 10, 0.8) 0%,
+        rgba(10, 10, 10, 0.4) 50%,
+        rgba(10, 10, 10, 0.8) 100%
+    );
 }
 
+/* Home Content */
 .home-content {
-    text-align: center;
-    z-index: 2;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 2rem;
 }
 
+.text-content {
+    flex: 1;
+    max-width: 600px;
+}
+
 .main-title {
-    font-size: 5rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
+    font-size: 4rem;
+    font-weight: 700;
     line-height: 1.1;
+    margin-bottom: 2rem;
 }
 
 .title-line {
     display: block;
-    background: linear-gradient(45deg, var(--accent-red), var(--accent-purple), var(--accent-blue));
+    background: var(--gradient-primary);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: titleReveal 1.5s ease-out forwards;
+    color: transparent;
+    animation: textGlow 3s ease-in-out infinite alternate;
 }
 
 .title-line:nth-child(2) {
-    animation-delay: 0.3s;
-    opacity: 0;
+    animation-delay: 0.5s;
 }
 
-.subtitle {
+.title-sub {
+    display: block;
     font-size: 1.5rem;
-    color: var(--text-secondary);
-    margin-bottom: 3rem;
-    font-family: 'Courier New', monospace;
-    animation: fadeInUp 1s ease-out 0.6s forwards;
-    opacity: 0;
+    color: var(--text-gray);
+    margin-top: 1rem;
+    font-weight: 400;
+}
+
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 46, 99, 0.5);
+    }
+    to {
+        text-shadow: 0 0 20px rgba(255, 46, 99, 0.8), 0 0 30px rgba(255, 46, 99, 0.6);
+    }
+}
+
+/* CTA Button */
+.cta-container {
+    margin-top: 3rem;
 }
 
 .discover-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding: 1rem 2.5rem;
-    background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
-    color: var(--text-primary);
-    text-decoration: none;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: var(--transition);
     position: relative;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-light);
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
     overflow: hidden;
-    animation: fadeInUp 1s ease-out 0.9s forwards;
-    opacity: 0;
+    transition: all var(--transition-fast);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .discover-btn::before {
@@ -94,8 +126,8 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: left 0.5s ease;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
 }
 
 .discover-btn:hover::before {
@@ -104,52 +136,131 @@
 
 .discover-btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255, 46, 99, 0.3);
+    box-shadow: var(--shadow-heavy);
 }
 
 .discover-btn i {
-    transition: transform 0.3s ease;
+    margin-left: 0.5rem;
+    transition: transform var(--transition-fast);
 }
 
 .discover-btn:hover i {
     transform: translateX(5px);
 }
 
-/* Home Animations */
-@keyframes titleReveal {
-    0% {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    100% {
-        opacity: 1;
+/* Arrow Animation */
+.arrow-animation {
+    margin-top: 1.5rem;
+    text-align: center;
+    animation: bounce 2s infinite;
+}
+
+.arrow-animation i {
+    font-size: 1.5rem;
+    color: var(--accent-red);
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
     }
 }
 
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Social Icons */
+.social-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: var(--gradient-glass);
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.social-icon:hover {
+    transform: translateY(-5px);
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-medium);
+}
+
+.line {
+    width: 2px;
+    height: 30px;
+    background: var(--gradient-primary);
+    border-radius: 1px;
+}
+
+/* Responsive Home */
+@media (max-width: 1024px) {
     .main-title {
         font-size: 3rem;
     }
     
-    .subtitle {
+    .home-content {
+        flex-direction: column;
+        justify-content: center;
+        gap: 3rem;
+        text-align: center;
+    }
+    
+    .social-icons {
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .social-icons .line {
+        width: 30px;
+        height: 2px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-title {
+        font-size: 2.5rem;
+    }
+    
+    .title-sub {
         font-size: 1.2rem;
     }
     
+    .home-container {
+        padding: 0 1rem;
+    }
+    
+    .home-content {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 2rem;
+    }
+    
+    .title-sub {
+        font-size: 1rem;
+    }
+    
     .discover-btn {
-        padding: 0.8rem 2rem;
+        padding: 0.8rem 1.5rem;
         font-size: 1rem;
     }
 }
