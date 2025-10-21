@@ -1,12 +1,54 @@
 /* css/reviews.css */
-
-/* HOW TO EDIT
-  - This file styles ONLY the #reviews section.
-  - Add styles for testimonial cards, sliders, quote blocks, etc.
+/* 
+HOW TO EDIT REVIEWS SECTION:
+- Carousel: Adjust spacing and card styles
+- Add more reviews: Duplicate .review-card elements
+- Animation: Modify transition timing
 */
 
-#reviews {
-    /* Example: Style a testimonial slider */
-    /* .review-slider { ... } */
-    /* .review-card { ... } */
+.reviews-section {
+    background: var(--color-bg-dark);
+}
+
+.reviews-carousel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-lg);
+}
+
+.review-card {
+    background: var(--color-glass);
+    backdrop-filter: blur(var(--blur-amount));
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--border-radius);
+    padding: var(--space-xl);
+    text-align: center;
+    transition: all var(--transition-normal);
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.review-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--color-primary);
+}
+
+.review-card p {
+    font-size: 1.1rem;
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.review-author {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-medium);
+    font-size: 0.9rem;
 }
