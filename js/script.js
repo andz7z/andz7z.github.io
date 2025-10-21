@@ -1,242 +1,124 @@
-// js/script.js
-
-// Main JavaScript file that initializes and coordinates all functionality
-
+// Main initialization script
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
     initNavigation();
-    initScrollProgress();
+    initSmoothScrolling();
     initSectionTransitions();
-    initMagneticEffects();
+    initTOSModal();
     
     // Initialize section-specific scripts
-    if (document.getElementById('home')) initHome();
-    if (document.getElementById('about')) initAbout();
-    if (document.getElementById('services')) initServices();
-    if (document.getElementById('portfolio')) initPortfolio();
-    if (document.getElementById('reviews')) initReviews();
-    if (document.getElementById('contact')) initContact();
-    
-    // Set up responsive behavior
-    initResponsive();
+    if (typeof initHome === 'function') initHome();
+    if (typeof initAbout === 'function') initAbout();
+    if (typeof initServices === 'function') initServices();
+    if (typeof initPortfolio === 'function') initPortfolio();
+    if (typeof initReviews === 'function') initReviews();
+    if (typeof initContact === 'function') initContact();
 });
 
 // Navigation functionality
 function initNavigation() {
-    const navbar = document.querySelector('.navbar');
     const navIcons = document.querySelectorAll('.nav-icon');
-    const navMinimized = document.querySelector('.nav-minimized');
-    const currentSectionText = document.querySelector('.current-section');
-    const backBtn = document.querySelector('.back-btn');
-    const hamburger = document.querySelector('.hamburger');
-    const navIconsContainer = document.querySelector('.nav-icons');
-    
-    let lastScrollY = window.scrollY;
-    let isNavMinimized = false;
-    
-    // Update active nav icon based on current section
-    function updateActiveNav() {
-        const sections = document.querySelectorAll('.section');
-        let currentSection = '';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            const scrollPosition = window.scrollY + 100;
-            
-            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                currentSection = section.id;
-            }
-        });
-        
-        // Update nav icons
-        navIcons.forEach(icon => {
-            icon.classList.remove('active');
-            if (icon.getAttribute('href') === `#${currentSection}`) {
-                icon.classList.add('active');
-            }
-        });
-        
-        // Update minimized nav text
-        if (currentSectionText) {
-            const sectionNames = {
-                'home': 'Home',
-                'about': 'About',
-                'services': 'Services',
-                'portfolio': 'Portfolio',
-                'reviews': 'Reviews',
-                'contact': 'Contact'
-            };
-            
-            currentSectionText.textContent = `Currently on: ${sectionNames[currentSection] || 'Home'}`;
-        }
-        
-        return currentSection;
-    }
-    
-    // Handle scroll behavior for navbar
-    function handleScroll() {
-        const scrollY = window.scrollY;
-        
-        // Add/remove scrolled class based on scroll position
-        if (scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        // Show/hide minimized navbar based on scroll direction
-        if (scrollY > 300 && scrollY > lastScrollY && !isNavMinimized) {
-            // Scrolling down - show minimized nav
-            navMinimized.classList.add('active');
-            isNavMinimized = true;
-        } else if (scrollY < lastScrollY && isNavMinimized) {
-            // Scrolling up - hide minimized nav
-            navMinimized.classList.remove('active');
-            isNavMinimized = false;
-        }
-        
-        lastScrollY = scrollY;
-        updateActiveNav();
-    }
-    
-    // Back button functionality
-    if (backBtn) {
-        backBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
-    }
-    
-    // Hamburger menu for mobile
-    if (hamburger && navIconsContainer) {
-        hamburger.addEventListener('click', function() {
-            navIconsContainer.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        });
-    }
-    
-    // Debounced scroll event for performance
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        if (scrollTimeout) {
-            cancelAnimationFrame(scrollTimeout);
-        }
-        
-        scrollTimeout = requestAnimationFrame(handleScroll);
-    });
-    
-    // Initial call to set active nav
-    updateActiveNav();
-}
-
-// Scroll progress bar
-function initScrollProgress() {
-    const progressBar = document.querySelector('.progress-bar');
-    
-    if (!progressBar) return;
-    
-    function updateProgressBar() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
-        const scrollTop = window.scrollY;
-        const progress = (scrollTop / documentHeight) * 100;
-        
-        progressBar.style.width = `${progress}%`;
-    }
-    
-    // Debounced scroll event for performance
-    let scrollTimeout;
-    window.addEventListener('scroll', function() {
-        if (scrollTimeout) {
-            cancelAnimationFrame(scrollTimeout);
-        }
-        
-        scrollTimeout = requestAnimationFrame(updateProgressBar);
-    });
-}
-
-// Section transitions
-function initSectionTransitions() {
     const sections = document.querySelectorAll('.section');
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.5
-    };
     
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
+    navIcons.forEach(icon => {
+        icon.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetSection = this.getAttribute('data-section');
+            
+            // Update active navigation icon
+            navIcons.forEach(nav => nav.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show target section
+            showSection(targetSection);
         });
-    }, observerOptions);
-    
-    sections.forEach(section => {
-        observer.observe(section);
     });
 }
 
-// Magnetic effect for interactive elements
-function initMagneticEffects() {
-    const magneticElements = document.querySelectorAll('.nav-icon, .social-icon, .discover-btn, .service-card, .portfolio-btn');
+// Smooth scrolling between sections
+function initSmoothScrolling() {
+    const scrollIndicator = document.querySelector('.pulsing-arrow');
+    
+    if (scrollIndicator) {
+        scrollIndicator.addEventListener('click', function() {
+            const aboutSection = document.getElementById('about');
+            aboutSection.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+}
+
+// Section transition management
+function initSectionTransitions() {
+    // Show home section by default
+    showSection('home');
+}
+
+function showSection(sectionId) {
+    const sections = document.querySelectorAll('.section');
+    const targetSection = document.getElementById(sectionId);
+    
+    // Hide all sections
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    // Show target section
+    if (targetSection) {
+        targetSection.classList.add('active');
+        
+        // Trigger animations for specific sections
+        if (sectionId === 'about' && typeof animateSkillBars === 'function') {
+            setTimeout(animateSkillBars, 300);
+        }
+    }
+}
+
+// TOS Modal functionality
+function initTOSModal() {
+    const tosBtn = document.getElementById('tosBtn');
+    const tosModal = document.getElementById('tosModal');
+    const closeModal = document.getElementById('closeModal');
+    
+    if (tosBtn && tosModal && closeModal) {
+        tosBtn.addEventListener('click', function() {
+            tosModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeModal.addEventListener('click', function() {
+            tosModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Close modal when clicking outside
+        tosModal.addEventListener('click', function(e) {
+            if (e.target === tosModal) {
+                tosModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+}
+
+// Magnetic scrolling effect
+document.addEventListener('mousemove', function(e) {
+    const magneticElements = document.querySelectorAll('.nav-icon, .social-icon, .btn');
     
     magneticElements.forEach(element => {
-        element.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const deltaX = (x - centerX) / centerX;
-            const deltaY = (y - centerY) / centerY;
-            
-            // Apply transform based on cursor position
-            this.style.transform = `translate(${deltaX * 5}px, ${deltaY * 5}px)`;
-        });
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
         
-        element.addEventListener('mouseleave', function() {
-            this.style.transform = 'translate(0, 0)';
-        });
-    });
-}
-
-// Responsive behavior
-function initResponsive() {
-    function handleResize() {
-        const navIconsContainer = document.querySelector('.nav-icons');
-        const hamburger = document.querySelector('.hamburger');
+        const distance = Math.sqrt(x * x + y * y);
+        const maxDistance = 100;
         
-        if (window.innerWidth <= 768) {
-            // Mobile behavior
-            if (navIconsContainer && hamburger) {
-                navIconsContainer.classList.remove('active');
-                hamburger.classList.remove('active');
-            }
+        if (distance < maxDistance) {
+            const translateX = x * 0.2;
+            const translateY = y * 0.2;
+            
+            element.style.transform = `translate(${translateX}px, ${translateY}px)`;
         } else {
-            // Desktop behavior - ensure nav icons are visible
-            if (navIconsContainer) {
-                navIconsContainer.style.display = 'flex';
-            }
+            element.style.transform = 'translate(0, 0)';
         }
-    }
-    
-    // Debounced resize event
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
-        }
-        
-        resizeTimeout = setTimeout(handleResize, 250);
     });
-    
-    // Initial call
-    handleResize();
-}
+});
