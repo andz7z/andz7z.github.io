@@ -1,113 +1,99 @@
-/* css/reviews.css */
-
-/* Reviews Section Specific Styles */
-#reviews {
-    background: var(--primary-bg);
-    position: relative;
-}
-
 .reviews-slider {
-    max-width: 800px;
-    margin: 0 auto;
+    display: flex;
+    overflow: hidden;
     position: relative;
-    padding: 2rem 0;
+    margin-bottom: 2rem;
 }
 
 .review-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    padding: 2.5rem;
-    display: none;
-    position: relative;
-}
-
-.review-card::before {
-    content: '"';
-    position: absolute;
-    top: 20px;
-    left: 25px;
-    font-size: 4rem;
-    color: var(--accent-blue);
-    opacity: 0.3;
-    font-family: Georgia, serif;
-}
-
-.review-card.active {
-    display: block;
-    animation: slideIn 0.5s ease;
-}
-
-@keyframes slideIn {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    min-width: 100%;
+    padding: 0 1rem;
+    transition: transform 0.5s ease;
 }
 
 .review-content {
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-    font-style: italic;
-    color: var(--text-secondary);
-    line-height: 1.8;
+    background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    border-radius: 15px;
+    padding: 3rem 2rem 2rem;
+    text-align: center;
     position: relative;
-    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.review-author {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.author-avatar {
-    width: 60px;
-    height: 60px;
+.quote-icon {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(145deg, var(--metallic-light), var(--metallic-dark));
     border-radius: 50%;
-    background: var(--secondary-bg);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    color: var(--text-muted);
-    border: 2px solid var(--glass-border);
-    flex-shrink: 0;
+    color: var(--primary-color);
+    box-shadow: 0 5px 15px var(--shadow-color);
 }
 
-.author-info h4 {
+.review-content p {
+    font-style: italic;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    color: var(--text-color);
+}
+
+.reviewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.reviewer-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.reviewer-info h4 {
+    color: var(--text-color);
     margin-bottom: 0.3rem;
-    color: var(--text-primary);
+    font-family: 'Orbitron', monospace;
 }
 
-.author-info p {
-    color: var(--text-muted);
+.reviewer-info span {
+    color: var(--text-secondary);
     font-size: 0.9rem;
 }
 
 .slider-controls {
     display: flex;
-    align-items: center;
     justify-content: center;
-    gap: 1.5rem;
-    margin-top: 2rem;
+    align-items: center;
+    gap: 2rem;
 }
 
 .slider-btn {
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
-    background: var(--glass-bg);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid var(--glass-border);
-    color: var(--text-primary);
+    background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
     cursor: pointer;
     transition: var(--transition);
     display: flex;
@@ -116,9 +102,8 @@
 }
 
 .slider-btn:hover {
-    background: var(--accent-blue);
-    border-color: var(--accent-blue);
-    transform: scale(1.1);
+    background: var(--accent-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
 .slider-dots {
@@ -130,69 +115,12 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--text-muted);
+    background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
     transition: var(--transition);
 }
 
 .dot.active {
-    background: var(--accent-blue);
-    transform: scale(1.2);
-}
-
-.dot:hover {
-    background: var(--accent-blue);
-}
-
-/* Reviews Section Responsive */
-@media (max-width: 768px) {
-    .reviews-slider {
-        padding: 1rem 0;
-    }
-    
-    .review-card {
-        padding: 2rem 1.5rem;
-    }
-    
-    .review-card::before {
-        top: 15px;
-        left: 20px;
-        font-size: 3rem;
-    }
-    
-    .review-content {
-        font-size: 1rem;
-    }
-    
-    .author-avatar {
-        width: 50px;
-        height: 50px;
-        font-size: 1.3rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .review-card {
-        padding: 1.5rem 1rem;
-    }
-    
-    .review-content {
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .review-author {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.5rem;
-    }
-    
-    .slider-controls {
-        gap: 1rem;
-    }
-    
-    .slider-btn {
-        width: 40px;
-        height: 40px;
-    }
+    background: var(--accent-color);
+    box-shadow: 0 0 10px var(--glow-color);
 }
