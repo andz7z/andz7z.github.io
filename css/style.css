@@ -1,284 +1,253 @@
-/* css/global.css */
-
-/* --- Variabile Globale (Req 4) --- */
+/* CSS Variables for consistent theming */
 :root {
-    /* Paleta de culori */
-    --color-bg: #0a0a0a;
-    --color-text: #f0f0f0;
-    --color-primary: #ff2e63;   /* Roșu */
-    --color-secondary: #9d4edd; /* Mov */
-    --color-tertiary: #4361ee;  /* Albastru */
-    
-    /* Gradient accent */
-    --gradient-main: linear-gradient(90deg, var(--color-primary), var(--color-secondary), var(--color-tertiary));
-    
-    /* Glassmorphism */
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-blur: 10px;
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-
-    /* Timpi tranziție */
-    --transition-fast: 0.3s ease;
-    --transition-slow: 0.5s ease;
+    --primary-bg: #0a0a0a;
+    --secondary-bg: #1a1a1a;
+    --accent-red: #ff2e63;
+    --accent-purple: #9d4edd;
+    --accent-blue: #4361ee;
+    --text-primary: #ffffff;
+    --text-secondary: #b0b0b0;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* --- Resetare și Setări de Bază --- */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* Reset and Base Styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-    /* Activează smooth scroll pentru link-urile ancore */
     scroll-behavior: smooth;
-    /* Previne scroll-ul orizontal */
-    overflow-x: hidden;
 }
 
 body {
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
     line-height: 1.6;
-    overflow-x: hidden; /* Asigură că nu există scroll orizontal */
 }
 
-/* --- Scrollbar Styling (Bonus) --- */
-body::-webkit-scrollbar {
-    width: 8px;
-}
-body::-webkit-scrollbar-track {
-    background: var(--color-bg);
-}
-body::-webkit-scrollbar-thumb {
-    background: var(--gradient-main);
-    border-radius: 4px;
-}
-
-/* --- Scroll Progress Bar (Req 2) --- */
-.scroll-progress-bar {
+/* Progress Bar */
+.progress-bar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 0%; /* Va fi actualizat de JS */
-    height: 4px;
-    background: var(--gradient-main);
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-red), var(--accent-purple), var(--accent-blue));
     z-index: 1000;
-    transition: width 0.1s linear;
+    transition: width 0.1s ease;
 }
 
-/* --- Structura Secțiunilor Full-Screen (Req 3) --- */
-.fullscreen-section {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden; /* Previne conținutul să iasă */
-    
-    /* Tranziții Fade-in/out (Req 3) */
-    opacity: 0;
-    transform: translateY(20px); /* Animație subtilă de intrare */
-    transition: opacity var(--transition-slow), transform var(--transition-slow);
-}
-
-/* Clasa adăugată de Intersection Observer */
-.fullscreen-section.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.section-content {
-    max-width: 1200px;
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-    z-index: 2; /* Peste background video */
-}
-
-/* --- Stiluri Header & Navigare (Req 1 & 2) --- */
-#main-header {
+/* Navigation Styles */
+.navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 2rem 5%;
-    z-index: 100;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-#main-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1.5rem 3rem;
+    z-index: 100;
+    transition: var(--transition);
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(10px);
 }
 
-.brand-name {
+.nav-brand a {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--color-text);
+    color: var(--text-primary);
     text-decoration: none;
-    letter-spacing: 1px;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 1.5rem;
-}
-
-.nav-links a {
-    color: var(--color-text);
-    text-decoration: none;
-    font-size: 1.5rem; /* Iconițe mai mari */
-    padding: 0.5rem;
-    position: relative;
-    display: block;
-    transition: color var(--transition-fast), transform var(--transition-fast);
-}
-
-/* Efecte Hover Navbar (Req 1) */
-.nav-links a:hover {
-    color: var(--color-primary);
-    transform: scale(1.2);
-}
-
-/* Efect 'magnetic' - JS va controla transformarea */
-.nav-link-magnetic {
-    transition: transform 0.1s linear;
-}
-
-/* --- Navigare la Scroll (Req 2) --- */
-#scrolled-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 99;
-    
-    /* Aplică glassmorphism când apare */
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    border-bottom: var(--glass-border);
-    
-    transition: transform var(--transition-fast), opacity var(--transition-fast);
-    transform: translateY(-100%); /* Începe ascunsă */
-    opacity: 0;
-}
-
-#scrolled-nav:not(.hidden) {
-    transform: translateY(0);
-    opacity: 1;
-}
-
-.back-button {
-    color: var(--color-text);
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 500;
-    transition: color var(--transition-fast);
-}
-.back-button:hover {
-    color: var(--color-primary);
-}
-.current-section-display {
-    font-size: 1rem;
-    font-weight: 500;
-    background: var(--gradient-main);
+    background: linear-gradient(45deg, var(--accent-red), var(--accent-purple), var(--accent-blue));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-/* --- Bară Socială Verticală (Req 1) --- */
-.social-bar {
+.nav-icons {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-secondary);
+    transition: var(--transition);
+    position: relative;
+    padding: 0.5rem;
+}
+
+.nav-icon i {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.nav-icon span {
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.nav-icon.active,
+.nav-icon:hover {
+    color: var(--text-primary);
+    transform: translateY(-5px);
+}
+
+.nav-icon.active::after,
+.nav-icon:hover::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
+}
+
+/* Compact Navbar (appears on scroll) */
+.compact-navbar {
     position: fixed;
-    right: 3%;
+    top: -100px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 99;
+    transition: top 0.4s ease;
+}
+
+.compact-navbar.visible {
+    top: 0;
+}
+
+.back-btn {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin-right: 1.5rem;
+    transition: var(--transition);
+}
+
+.back-btn:hover {
+    color: var(--accent-red);
+}
+
+.current-section {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Social Icons */
+.social-icons {
+    position: fixed;
+    right: 3rem;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    z-index: 50;
+    z-index: 90;
 }
 
-.social-bar a {
-    color: var(--color-text);
+.social-icon {
+    color: var(--text-secondary);
     font-size: 1.2rem;
-    transition: color var(--transition-fast), transform var(--transition-fast);
-}
-.social-bar a:hover {
-    color: var(--color-secondary);
-    transform: scale(1.2);
-}
-
-.social-line {
-    width: 1px;
-    height: 30px;
-    background: var(--color-text);
-    opacity: 0.5;
-}
-
-/* --- Clase Utilitare (Req 4) --- */
-.glassmorphism {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    border: var(--glass-border);
-    border-radius: 15px;
-    padding: 2rem;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-.metallic-button {
-    padding: 0.8rem 1.8rem;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all var(--transition-fast);
+    margin: 0.8rem 0;
+    transition: var(--transition);
     position: relative;
-    overflow: hidden;
-    
-    /* Efect metalic (Req 4) */
-    background: linear-gradient(145deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05));
-    color: var(--color-text);
 }
 
-.metallic-button:hover {
-    box-shadow: 0 0 15px var(--color-secondary);
-    border-color: var(--color-secondary);
-    color: var(--color-text);
+.social-icon:hover {
+    color: var(--text-primary);
+    transform: translateX(-5px);
 }
 
-/* Clasa ascunsă */
-.hidden {
-    display: none !important;
+.line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, var(--text-secondary), transparent);
+    margin: 0.5rem 0;
 }
 
-/* --- Responsive Design (Req 7) --- */
+/* Sections Container */
+.sections-container {
+    position: relative;
+}
+
+.section {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.section.active {
+    display: block;
+    opacity: 1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(45deg, var(--accent-red), var(--accent-purple), var(--accent-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    /* Aici va veni logica pentru meniul hamburger */
-    #main-nav .nav-links {
-        display: none; /* Ascunde link-urile pe mobil (se va adăuga un hamburger) */
+    .navbar {
+        padding: 1rem;
     }
     
-    .social-bar {
-        /* Ascunde bara socială pe mobil sau repoziționeaz-o */
+    .nav-icons {
         display: none;
     }
-
-    .fullscreen-section {
-        /* Permite secțiunilor să crească dacă e nevoie */
-        height: auto;
-        min-height: 100vh;
-        padding: 6rem 0;
+    
+    .mobile-menu-btn {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+    
+    .mobile-menu-btn span {
+        width: 25px;
+        height: 3px;
+        background: var(--text-primary);
+        margin: 3px 0;
+        transition: var(--transition);
+    }
+    
+    .social-icons {
+        right: 1rem;
+    }
+    
+    .section-title {
+        font-size: 2.5rem;
     }
 }
