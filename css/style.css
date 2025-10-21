@@ -160,10 +160,10 @@ body {
     opacity: 0.9;
     text-shadow: 1px 1px 8px rgba(0,0,0,0.6);
 }
-/* === Navbar minimalist cu blur (orizontal, centrat sus) === */
+/* === Navbar minimalist plutitor === */
 .navbar {
   position: fixed;
-  top: 25px;
+  top: 40px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -172,12 +172,13 @@ body {
   gap: 1.5rem;
   z-index: 1000;
   pointer-events: none;
-  background: rgba(20, 20, 30, 0.25);
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  background: rgba(30, 30, 40, 0.8); /* opac ușor */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   padding: 0.6rem 1.2rem;
   border-radius: 2rem;
   box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
+  transition: all 0.4s ease;
 }
 
 /* === Meniu === */
@@ -185,7 +186,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1.4rem;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -197,43 +198,44 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.6);
   font-family: "Inter", sans-serif;
   font-size: 0.7rem;
   text-decoration: none;
   letter-spacing: 0.4px;
-  opacity: 0.7;
-  transition: all 0.35s ease;
+  opacity: 0.9;
+  transition: all 0.3s ease;
   pointer-events: auto;
 }
 
 /* === Iconițe === */
 .menu svg {
-  width: 20px;
-  height: 20px;
-  fill: rgba(255, 255, 255, 0.6);
+  width: 22px;
+  height: 22px;
+  fill: rgba(255, 255, 255, 0.75);
   transition: all 0.35s ease;
-  margin-bottom: 0.15rem;
 }
 
-/* === Hover violet elegant === */
-.menu a:hover {
-  color: #c77dff;
-  opacity: 1;
-  transform: translateY(-2px);
-}
-
-.menu a:hover svg {
-  fill: #c77dff;
-  filter: drop-shadow(0 0 8px #c77dff);
-}
-
-/* === Text invizibil, apare doar la hover === */
+/* === Text dedesubt bară === */
 .menu span {
+  position: absolute;
+  bottom: -1.4rem;
+  background: rgba(25, 25, 35, 0.85);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.65rem;
   opacity: 0;
   transform: translateY(4px);
-  transition: all 0.3s ease;
   pointer-events: none;
+  color: #fff;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+/* === Hover === */
+.menu a:hover svg {
+  transform: translateY(-2px) scale(1.1);
+  filter: drop-shadow(0 0 6px #c77dff);
 }
 
 .menu a:hover span {
@@ -241,44 +243,25 @@ body {
   transform: translateY(0);
 }
 
-/* === Ripple click efect subtil === */
-.menu a:active::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  background: rgba(199, 125, 255, 0.7);
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  animation: ripple 0.45s ease-out forwards;
+/* === Click efect – pulsare mică === */
+.menu a:active svg {
+  transform: scale(0.85);
+  filter: drop-shadow(0 0 10px rgba(199,125,255,0.8));
 }
 
-@keyframes ripple {
-  to {
-    transform: translate(-50%, -50%) scale(12);
-    opacity: 0;
-  }
-}
-
-/* === Home pulse subtil === */
-.home-btn svg {
-  animation: homePulse 3s infinite ease-in-out;
-}
-
-@keyframes homePulse {
-  0%, 100% { filter: drop-shadow(0 0 4px rgba(199,125,255,0.3)); }
-  50% { filter: drop-shadow(0 0 10px rgba(199,125,255,0.6)); }
+/* === Buton activ (secțiune curentă) === */
+.menu a.active svg {
+  fill: #c77dff;
+  filter: drop-shadow(0 0 10px #c77dff);
+  transform: scale(1.15);
 }
 
 /* === Responsivitate === */
 @media (max-width: 768px) {
   .navbar {
     top: 15px;
-    padding: 0.5rem 0.8rem;
+    padding: 0.4rem 0.8rem;
     gap: 1rem;
-    backdrop-filter: blur(8px);
   }
   .menu span {
     display: none;
