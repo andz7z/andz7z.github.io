@@ -43,12 +43,13 @@
 
 .text-block {
     flex: 1;
+    margin-left: 5%;
 }
 
 .animated-text {
-    font-size: 4rem;
+    font-size: 4.5rem;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.1;
     text-transform: uppercase;
 }
 
@@ -58,21 +59,22 @@
 
 .line-1 {
     animation: pulse 3s infinite;
+    margin-bottom: 0.5rem;
 }
 
 .line-2 {
     animation: glow 4s infinite;
-    margin: 0.5rem 0;
+    margin-bottom: 1rem;
 }
 
 .line-3 {
     font-size: 1.5rem;
-    margin-top: 1rem;
     font-weight: 400;
     text-transform: none;
     font-family: monospace;
     color: var(--chrome);
     animation: fade 5s infinite;
+    letter-spacing: 2px;
 }
 
 .animated-text span {
@@ -124,7 +126,7 @@
 .social-icons a:hover {
     transform: translateY(-5px) scale(1.1);
     background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), var(--button-glow);
 }
 
 .scroll-indicator {
@@ -188,6 +190,10 @@
         flex-direction: column;
         text-align: center;
         gap: 3rem;
+    }
+    
+    .text-block {
+        margin-left: 0;
     }
     
     .animated-text {
