@@ -651,3 +651,30 @@ body {
         height: 20px;
     }
 }
+/* css/style.css */
+/* Adaugă acest cod la sfârșitul fișierului style.css */
+
+/* Disable snap scrolling for normal scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+.main-content {
+    scroll-snap-type: none !important;
+}
+
+.section {
+    scroll-snap-align: none !important;
+    scroll-snap-stop: normal !important;
+}
+
+/* Ensure footer is accessible */
+.main-footer {
+    position: relative;
+    z-index: 10;
+}
+
+/* Improve scroll performance */
+* {
+    scroll-behavior: smooth;
+}
