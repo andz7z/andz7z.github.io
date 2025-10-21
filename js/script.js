@@ -1,168 +1,244 @@
-// ===== SCRIPT PRINCIPAL - CONTROLE GLOBALE =====
+// ===== SCRIPT PRINCIPAL - COORDONARE GENERALĂ =====
 
-// Inițializare la încărcarea DOM-ului
+// Starea aplicației
+const AppState = {
+    currentSection: 'home',
+    isModalOpen: false,
+    isScrolling: false
+};
+
+// Inițializare aplicație
 document.addEventListener('DOMContentLoaded', function() {
-    // Elimină clasa de preîncărcare pentru a declanșa animațiile
-    setTimeout(() => {
-        document.body.classList.remove('preload');
-    }, 500);
-    
-    // Inițializează funcționalitățile
-    initNavbar();
-    initScrollSnap();
-    initModal();
-    initScrollAnimations();
+    initializeApp();
 });
 
-// ===== NAVBAR FUNCTIONALITY =====
-function initNavbar() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.section');
+function initializeApp() {
+    // Elimină clasa de preload după încărcarea completă a paginii
+    window.addEventListener('load', function() {
+        document.body.classList.remove('preload');
+        
+        // Adaugă clase de animație pentru elementele din prima secțiune
+        animateHomeSection();
+    });
+
+    // Inițializează funcționalitățile
+    initNavigation();
+    initScrollSnapping();
+    initModal();
+    initIntersectionObserver();
     
-    // Intersection Observer pentru a detecta secțiunea activă
-    const observerOptions = {
+    // Inițializează modulele specifice
+    initializeAboutModule();
+    initializeServicesModule();
+    initializeReviewsModule();
+    initializeContactModule();
+}
+
+// ===== NAVIGAȚIE ȘI SCROLL =====
+
+function initNavigation() {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                // Scroll smooth către secțiunea țintă
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Actualizează navigația activă
+                updateActiveNavLink(targetId);
+            }
+        });
+    });
+}
+
+function updateActiveNavLink(sectionId) {
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${sectionId}`) {
+            link.classList.add('active');
+        }
+    });
+    
+    AppState.currentSection = sectionId;
+}
+
+// ===== OBSERVER PENTRU SECȚIUNI VIZIBILE =====
+
+function initIntersectionObserver() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    const options = {
         root: null,
         rootMargin: '-50% 0px -50% 0px',
         threshold: 0
     };
     
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                setActiveNavLink(id);
+                const sectionId = entry.target.id;
+                
+                // Actualizează navigația
+                updateActiveNavLink(sectionId);
+                
+                // Declanșează animațiile specifice secțiunii
+                triggerSectionAnimations(sectionId);
             }
         });
-    }, observerOptions);
+    }, options);
     
-    // Observă fiecare secțiune
     sections.forEach(section => {
         observer.observe(section);
     });
+}
+
+function triggerSectionAnimations(sectionId) {
+    const section = document.getElementById(sectionId);
     
-    // Funcție pentru setarea link-ului activ
-    function setActiveNavLink(sectionId) {
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${sectionId}`) {
-                link.classList.add('active');
-            }
-        });
+    switch(sectionId) {
+        case 'about':
+            animateAboutSection();
+            break;
+        case 'services':
+            animateServicesSection();
+            break;
+        case 'reviews':
+            animateReviewsSection();
+            break;
+        case 'contact':
+            animateContactSection();
+            break;
     }
+}
+
+// ===== SCROLL SNAPPING ÎMBUNĂTĂȚIT =====
+
+function initScrollSnapping() {
+    let isScrolling = false;
     
-    // Smooth scroll pentru link-urile din navbar
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
+    window.addEventListener('scroll', function() {
+        if (!isScrolling) {
+            window.requestAnimationFrame(function() {
+                handleScrollSnap();
+                isScrolling = false;
+            });
+            isScrolling = true;
+        }
+    }, { passive: true });
+}
+
+function handleScrollSnap() {
+    const sections = document.querySelectorAll('section');
+    const scrollY = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        // Verifică dacă secțiunea este în centrul viewport-ului
+        if (scrollY >= sectionTop - windowHeight / 3 && 
+            scrollY < sectionTop + sectionHeight - windowHeight / 3) {
             
-            if (targetSection) {
-                targetSection.scrollIntoView({
+            // Forțează scroll snapping dacă este aproape de centru
+            if (Math.abs(scrollY + windowHeight / 2 - (sectionTop + sectionHeight / 2)) < 100) {
+                section.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
             }
+        }
+    });
+}
+
+// ===== MODAL PENTRU POLITICI =====
+
+function initModal() {
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalClose = document.getElementById('modalClose');
+    const policyLinks = document.querySelectorAll('.policy-link');
+    
+    // Handler pentru deschidere modal
+    policyLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const policyType = this.getAttribute('data-policy');
+            openModal(policyType);
         });
     });
-}
-
-// ===== SCROLL SNAPPING =====
-function initScrollSnap() {
-    // Scroll snapping este implementat în CSS
-    // Această funcție poate fi folosită pentru ajustări suplimentare
-    const mainContent = document.querySelector('.main-content');
     
-    // Asigură-te că scroll snapping funcționează corect
-    mainContent.style.scrollSnapType = 'y mandatory';
-}
-
-// ===== MODAL FUNCTIONALITY =====
-function initModal() {
-    const modal = document.getElementById('modal');
-    const modalBackdrop = modal.querySelector('.modal-backdrop');
-    const modalClose = document.getElementById('modal-close');
-    const privacyLink = document.getElementById('privacy-link');
-    const tosLink = document.getElementById('tos-link');
-    const modalTitle = document.getElementById('modal-title');
-    const modalBody = modal.querySelector('.modal-body');
-    
-    // Conținut pentru modal
-    const modalContent = {
-        privacy: {
-            title: 'Privacy Policy',
-            content: `
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-            `
-        },
-        tos: {
-            title: 'Terms of Service',
-            content: `
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-                <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
-            `
-        }
-    };
-    
-    // Funcție pentru deschiderea modalului
-    function openModal(type) {
-        if (modalContent[type]) {
-            modalTitle.textContent = modalContent[type].title;
-            modalBody.innerHTML = modalContent[type].content;
-            document.body.classList.add('modal-open');
-        }
-    }
-    
-    // Funcție pentru închiderea modalului
-    function closeModal() {
-        document.body.classList.remove('modal-open');
-    }
-    
-    // Event listeners
-    privacyLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal('privacy');
-    });
-    
-    tosLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        openModal('tos');
-    });
-    
+    // Handler pentru închidere modal
     modalClose.addEventListener('click', closeModal);
-    modalBackdrop.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
     
-    // Închide modalul cu tasta Escape
+    // Închidere cu tasta ESC
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && document.body.classList.contains('modal-open')) {
+        if (e.key === 'Escape' && AppState.isModalOpen) {
             closeModal();
         }
     });
 }
 
-// ===== SCROLL ANIMATIONS =====
-function initScrollAnimations() {
-    // Intersection Observer pentru animații la scroll
-    const animationObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animationPlayState = 'running';
-            }
-        });
-    });
+function openModal(policyType) {
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const privacyContent = document.getElementById('privacyContent');
+    const termsContent = document.getElementById('termsContent');
     
-    // Observă elementele cu animații
-    const animatedElements = document.querySelectorAll('.section-title, .about-content, .services-grid, .reviews-grid, .contact-content');
-    animatedElements.forEach(el => {
-        animationObserver.observe(el);
-    });
+    // Setează conținutul în funcție de tipul de politică
+    if (policyType === 'privacy') {
+        modalTitle.textContent = 'Privacy Policy';
+        privacyContent.classList.remove('hidden');
+        termsContent.classList.add('hidden');
+    } else if (policyType === 'terms') {
+        modalTitle.textContent = 'Terms of Service';
+        termsContent.classList.remove('hidden');
+        privacyContent.classList.add('hidden');
+    }
+    
+    // Afișează modalul
+    modalOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    AppState.isModalOpen = true;
 }
 
-// ===== PERFORMANȚĂ ȘI OPTIMIZĂRI =====
-// Debounce pentru event listeners care se declanșează frecvent
+function closeModal() {
+    const modalOverlay = document.getElementById('modalOverlay');
+    
+    modalOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    AppState.isModalOpen = false;
+}
+
+// ===== ANIMAȚII GENERALE =====
+
+function animateHomeSection() {
+    // Animațiile pentru home sunt deja definite în CSS cu delay-uri
+    // Aici putem adăuga logici suplimentare dacă este necesar
+    console.log('Home section animations initialized');
+}
+
+// Funcții pentru animațiile altor secțiuni vor fi completate în modulele specifice
+
+// ===== UTILITARE =====
+
+// Debounce pentru performanță
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -175,7 +251,13 @@ function debounce(func, wait) {
     };
 }
 
-// Rezize observer pentru optimizări
-window.addEventListener('resize', debounce(function() {
-    // Recalculează layout-ul sau ajustări la redimensionare
-}, 250));
+// Detectare suport pentru backdrop-filter
+function supportsBackdropFilter() {
+    return CSS.supports('backdrop-filter', 'blur(10px)') || 
+           CSS.supports('-webkit-backdrop-filter', 'blur(10px)');
+}
+
+// Fallback pentru browsere vechi
+if (!supportsBackdropFilter()) {
+    document.body.classList.add('no-backdrop-filter');
+}
