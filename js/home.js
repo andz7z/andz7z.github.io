@@ -1,68 +1,43 @@
-// js/home.js
-/*
-HOW TO EDIT HOME SECTION JS:
-- Video handling: Adjust autoplay and fallback behavior
-- Animations: Modify timing and effects
-- Content: Update text content dynamically if needed
-*/
+/* js/home.js */
 
-import { elements } from './main.js';
+/**
+ * Efect Magnetic pentru Navigare (Req 2)
+ * -------------------------------------
+ * Aplică un efect de "atracție" link-urilor din bara de navigare
+ * atunci când mouse-ul se apropie de ele.
+ * * Cum funcționează:
+ * 1. Adăugăm un listener 'mousemove' pe fiecare element magnetic.
+ * 2. Calculăm poziția cursorului relativ la centrul elementului.
+ * 3. Aplicăm un 'transform: translate(x, y)' pentru a muta elementul
+ * spre cursor, cu o forță redusă (ex: 30% din distanță).
+ * 4. La 'mouseleave', resetăm transformarea.
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    const magneticLinks = document.querySelectorAll('.nav-link-magnetic');
+    
+    // Factorul de "putere" a magnetului (0.3 = 30%)
+    const magneticStrength = 0.3;
 
-// Home section specific functionality
-function initHome() {
-    setupVideo();
-    setupCTAButton();
-}
-
-// Setup video background
-function setupVideo() {
-    const video = document.getElementById('bg-video');
-    if (!video) return;
-    
-    // Video event listeners
-    video.addEventListener('loadeddata', () => {
-        console.log('Home video loaded successfully');
-    });
-    
-    video.addEventListener('error', () => {
-        console.warn('Video failed to load, using fallback background');
-        // Fallback background style could be applied here
-    });
-    
-    // Attempt to play video (required for some browsers)
-    const playPromise = video.play();
-    if (playPromise !== undefined) {
-        playPromise.catch(error => {
-            console.warn('Video autoplay failed:', error);
-            // Fallback to poster image or static background
+    magneticLinks.forEach(link => {
+        link.addEventListener('mousemove', (e) => {
+            const rect = link.getBoundingClientRect();
+            
+            // Calculează centrul elementului
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            
+            // Calculează distanța de la cursor la centru
+            const deltaX = e.clientX - centerX;
+            const deltaY = e.clientY - centerY;
+            
+            // Aplică transformarea (mișcă 30% din distanță)
+            // Se folosește 'transform' pentru performanță (accelerare GPU)
+            link.style.transform = `translate(${deltaX * magneticStrength}px, ${deltaY * magneticStrength}px)`;
         });
-    }
-}
 
-// Setup CTA button functionality
-function setupCTAButton() {
-    const ctaButton = document.querySelector('.cta-button');
-    if (!ctaButton) return;
-    
-    ctaButton.addEventListener('click', () => {
-        // Scroll to about section
-        const aboutSection = document.getElementById('about');
-        if (aboutSection) {
-            aboutSection.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        link.addEventListener('mouseleave', () => {
+            // Resetează poziția la părăsirea mouse-ului
+            link.style.transform = 'translate(0, 0)';
+        });
     });
-}
-
-// Home section specific cleanup (if needed)
-function cleanupHome() {
-    // Cleanup any home-specific event listeners or intervals
-}
-
-// Initialize home section when DOM is ready
-document.addEventListener('DOMContentLoaded', initHome);
-
-// Export for module usage
-export { initHome, cleanupHome };
+});
