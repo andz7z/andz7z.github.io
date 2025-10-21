@@ -1,9 +1,16 @@
 // js/reviews.js
-
-/* HOW TO EDIT
-  - This file is for JavaScript logic specific to the #reviews section.
-  - Example: Initializing a testimonial carousel.
-  - It is imported by js/main.js and runs on page load.
+/*
+HOW TO EDIT REVIEWS SECTION JS:
+- Review data: Update with actual client testimonials
+- Carousel: Implement auto-rotation if desired
+- Interactions: Add click to expand functionality
 */
 
-// console.log("Reviews section JS loaded.");
+// Reviews section specific functionality
+function initReviews() {
+    // Reviews section doesn't need specific JS yet
+    // Add auto-rotating carousel or expandable reviews here
+}
+
+// Export for module usage
+export { initReviews };
