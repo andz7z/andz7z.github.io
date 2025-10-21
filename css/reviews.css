@@ -1,44 +1,117 @@
 /* Stiluri specifice pentru secțiunea Reviews. */
 
-.reviews-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+#reviews .section-content {
+    /* Permite slider-ului să ocupe toată lățimea */
+    max-width: 100%;
+    padding: 0;
+}
+
+#reviews h2 {
+    padding: 0 5%; /* Adaugă padding-ul înapoi la titlu */
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reviews-slider-container {
+    width: 100%;
+    overflow: hidden; /* Ascunde scrollbar-ul containerului */
     margin-top: 3rem;
 }
 
-/* Stil specific pentru cardurile de testimonial */
-.testimonial-card p {
+.reviews-slider {
+    display: flex;
+    /* Activează scroll orizontal și snap */
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    
+    /* Spațiu pentru umbrele cardurilor */
+    padding: 2rem 0; 
+    
+    /* Ascunde scrollbar-ul efectiv */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.reviews-slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.review-slide {
+    /* Fiecare slide ocupă 60% din lățime, centrat */
+    flex: 0 0 60%;
+    max-width: 600px;
+    scroll-snap-align: center; /* Se centrează slide-ul */
+    margin: 0 1.5rem;
+    text-align: left;
+    
+    /* .glass-card este aplicat din HTML */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Primul și ultimul slide au spațiu pt a se putea centra */
+.reviews-slider::before,
+.reviews-slider::after {
+    content: '';
+    /* (100% - 60%) / 2 = 20% */
+    width: calc((100% - 60%) / 2 - 1.5rem); 
+    flex-shrink: 0;
+}
+@media (max-width: 900px) {
+    .review-slide { flex-basis: 80%; }
+    .reviews-slider::before,
+    .reviews-slider::after { width: calc((100% - 80%) / 2 - 1.5rem); }
+}
+@media (max-width: 600px) {
+    .review-slide { flex-basis: 90%; }
+    .reviews-slider::before,
+    .reviews-slider::after { width: calc((100% - 90%) / 2 - 1.5rem); }
+}
+
+
+.review-slide p {
     font-style: italic;
     font-size: 1.1rem;
     margin-bottom: 1.5rem;
     position: relative;
     padding-left: 2rem;
+    color: var(--color-text-primary);
 }
 
-/* Adăugarea ghilimelelor stilizate */
-.testimonial-card p::before {
+.review-slide p::before {
     content: '“';
     position: absolute;
-    left: 0;
-    top: -0.5rem;
-    font-size: 3rem;
-    color: var(--color-accent-blue);
-    opacity: 0.5;
+    left: -0.5rem;
+    top: -1rem;
+    font-size: 4rem;
+    color: var(--color-accent);
+    opacity: 0.3;
+    font-family: Georgia, serif;
 }
 
-.testimonial-card h4 {
+.review-slide h4 {
     text-align: right;
     font-weight: 500;
-    color: var(--color-light-text);
+    color: var(--color-text-secondary);
 }
 
-/* Responsive (similar cu services) */
-@media (max-width: 900px) {
-    .reviews-grid {
-        grid-template-columns: 1fr; /* Trecem direct la 1 coloană */
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+/* Navigare cu Puncte */
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin-top: 2rem;
+}
+
+.slider-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+}
+
+.slider-dots .dot.active {
+    background: var(--color-accent);
+    transform: scale(1.2);
 }
