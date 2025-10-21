@@ -1,72 +1,48 @@
-// ===== JAVASCRIPT SPECIFIC PENTRU SECȚIUNEA ABOUT =====
+// ===== MODUL ABOUT - JAVASCRIPT SPECIFIC PENTRU SECȚIUNEA ABOUT =====
 
-document.addEventListener('DOMContentLoaded', function() {
-    initAboutAnimations();
-    initAboutInteractions();
-});
+function initializeAboutModule() {
+    console.log('About module initialized');
+    
+    // Inițializează animațiile și interacțiunile specifice secțiunii About
+    setupSkillItems();
+}
 
-// Animații specifice pentru secțiunea About
-function initAboutAnimations() {
-    const aboutStats = document.querySelectorAll('.stat');
+function animateAboutSection() {
+    const aboutContent = document.querySelector('.about-content');
     
-    // Animație pentru statistici
-    aboutStats.forEach((stat, index) => {
-        stat.style.animationDelay = `${0.5 + index * 0.2}s`;
-    });
-    
-    // Intersection Observer pentru trigger la scroll
-    const aboutObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateStats();
-                aboutObserver.unobserve(entry.target);
-            }
+    if (aboutContent && !aboutContent.classList.contains('animated')) {
+        aboutContent.classList.add('animated');
+        
+        // Animație pentru fiecare skill item
+        const skillItems = document.querySelectorAll('.skill-item');
+        skillItems.forEach((item, index) => {
+            item.style.animationDelay = `${0.5 + index * 0.1}s`;
         });
-    }, { threshold: 0.3 });
-    
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-        aboutObserver.observe(aboutSection);
     }
 }
 
-// Animație pentru numerele din statistici
-function animateStats() {
-    const stats = document.querySelectorAll('.stat h3');
+function setupSkillItems() {
+    const skillItems = document.querySelectorAll('.skill-item');
     
-    stats.forEach(stat => {
-        const target = parseInt(stat.textContent);
-        let current = 0;
-        const increment = target / 50;
-        const duration = 1500;
-        const stepTime = duration / 50;
+    skillItems.forEach(item => {
+        // Efect de hover îmbunătățit
+        item.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        });
         
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            stat.textContent = Math.floor(current) + '+';
-        }, stepTime);
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+        
+        // Animație la click
+        item.addEventListener('click', function() {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
     });
 }
 
-// Interacțiuni pentru secțiunea About
-function initAboutInteractions() {
-    const aboutText = document.querySelector('.about-text');
-    
-    // Efect de highlight la hover pe paragrafe
-    const paragraphs = aboutText.querySelectorAll('p');
-    
-    paragraphs.forEach(paragraph => {
-        paragraph.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateX(10px)';
-            this.style.transition = 'transform 0.3s ease';
-        });
-        
-        paragraph.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateX(0)';
-        });
-    });
-}
+// Export funcții pentru utilizare globală (dacă este necesar)
+window.animateAboutSection = animateAboutSection;
