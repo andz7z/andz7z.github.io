@@ -1,108 +1,150 @@
-// Main initialization script
+// Main script file - handles global functionality
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize all modules
+    initProgressBar();
     initNavigation();
-    initSmoothScrolling();
-    initSectionTransitions();
+    initBackButton();
     initTOSModal();
+    initSmoothScrolling();
     
-    // Initialize section-specific scripts
-    if (typeof initHome === 'function') initHome();
-    if (typeof initAbout === 'function') initAbout();
-    if (typeof initServices === 'function') initServices();
-    if (typeof initPortfolio === 'function') initPortfolio();
-    if (typeof initReviews === 'function') initReviews();
-    if (typeof initContact === 'function') initContact();
+    // Set initial active section
+    setActiveSection('home');
 });
 
-// Navigation functionality
+// Progress Bar
+function initProgressBar() {
+    const progressBar = document.getElementById('progressBar');
+    
+    window.addEventListener('scroll', function() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
+        
+        progressBar.style.width = progress + '%';
+    });
+}
+
+// Navigation
 function initNavigation() {
     const navIcons = document.querySelectorAll('.nav-icon');
-    const sections = document.querySelectorAll('.section');
+    const mainNav = document.querySelector('.main-nav');
     
+    // Handle nav icon clicks
     navIcons.forEach(icon => {
         icon.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetSection = this.getAttribute('data-section');
+            const targetSection = this.getAttribute('href').substring(1);
+            setActiveSection(targetSection);
             
-            // Update active navigation icon
-            navIcons.forEach(nav => nav.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Show target section
-            showSection(targetSection);
+            // Scroll to section
+            document.getElementById(targetSection).scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     });
-}
-
-// Smooth scrolling between sections
-function initSmoothScrolling() {
-    const scrollIndicator = document.querySelector('.pulsing-arrow');
     
-    if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', function() {
-            const aboutSection = document.getElementById('about');
-            aboutSection.scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-}
-
-// Section transition management
-function initSectionTransitions() {
-    // Show home section by default
-    showSection('home');
-}
-
-function showSection(sectionId) {
-    const sections = document.querySelectorAll('.section');
-    const targetSection = document.getElementById(sectionId);
-    
-    // Hide all sections
-    sections.forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Show target section
-    if (targetSection) {
-        targetSection.classList.add('active');
+    // Hide/show nav on scroll
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        // Trigger animations for specific sections
-        if (sectionId === 'about' && typeof animateSkillBars === 'function') {
-            setTimeout(animateSkillBars, 300);
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down
+            mainNav.style.transform = 'translateY(-100%)';
+        } else {
+            // Scrolling up
+            mainNav.style.transform = 'translateY(0)';
         }
-    }
+        
+        lastScrollTop = scrollTop;
+    });
 }
 
-// TOS Modal functionality
+// Back Button
+function initBackButton() {
+    const backNav = document.querySelector('.back-nav');
+    const currentSectionText = document.querySelector('.current-section');
+    
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > window.innerHeight * 0.5) {
+            backNav.classList.add('visible');
+            
+            // Update current section text
+            const sections = document.querySelectorAll('.section');
+            let currentSection = 'Home';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    currentSection = section.id.charAt(0).toUpperCase() + section.id.slice(1);
+                }
+            });
+            
+            currentSectionText.textContent = `Currently on: ${currentSection}`;
+        } else {
+            backNav.classList.remove('visible');
+        }
+    });
+}
+
+// TOS Modal
 function initTOSModal() {
     const tosBtn = document.getElementById('tosBtn');
     const tosModal = document.getElementById('tosModal');
     const closeModal = document.getElementById('closeModal');
     
-    if (tosBtn && tosModal && closeModal) {
-        tosBtn.addEventListener('click', function() {
-            tosModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-        
-        closeModal.addEventListener('click', function() {
+    tosBtn.addEventListener('click', function() {
+        tosModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    closeModal.addEventListener('click', function() {
+        tosModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside
+    tosModal.addEventListener('click', function(e) {
+        if (e.target === tosModal) {
             tosModal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-        
-        // Close modal when clicking outside
-        tosModal.addEventListener('click', function(e) {
-            if (e.target === tosModal) {
-                tosModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    }
+            document.body.style.overflow = 'auto';
+        }
+    });
 }
 
-// Magnetic scrolling effect
+// Smooth Scrolling
+function initSmoothScrolling() {
+    // This is handled by CSS with scroll-behavior: smooth
+    // Additional JS can be added here if needed for more control
+}
+
+// Set Active Section
+function setActiveSection(sectionId) {
+    // Update nav icons
+    const navIcons = document.querySelectorAll('.nav-icon');
+    navIcons.forEach(icon => {
+        icon.classList.remove('active');
+        if (icon.getAttribute('href') === `#${sectionId}`) {
+            icon.classList.add('active');
+        }
+    });
+    
+    // Update sections
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    document.getElementById(sectionId).classList.add('active');
+}
+
+// Magnetic Scrolling Effect
 document.addEventListener('mousemove', function(e) {
-    const magneticElements = document.querySelectorAll('.nav-icon, .social-icon, .btn');
+    const magneticElements = document.querySelectorAll('.nav-icon, .social-icons a, .portfolio-btn, .submit-btn');
     
     magneticElements.forEach(element => {
         const rect = element.getBoundingClientRect();
@@ -113,10 +155,10 @@ document.addEventListener('mousemove', function(e) {
         const maxDistance = 100;
         
         if (distance < maxDistance) {
-            const translateX = x * 0.2;
-            const translateY = y * 0.2;
+            const moveX = x * 0.2;
+            const moveY = y * 0.2;
             
-            element.style.transform = `translate(${translateX}px, ${translateY}px)`;
+            element.style.transform = `translate(${moveX}px, ${moveY}px)`;
         } else {
             element.style.transform = 'translate(0, 0)';
         }
