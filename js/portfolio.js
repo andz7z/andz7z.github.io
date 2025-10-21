@@ -1,39 +1,55 @@
-// js/portfolio.js
-
-// Portfolio section specific functionality
-
 function initPortfolio() {
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
-    const portfolioButtons = document.querySelectorAll('.portfolio-btn');
+    // Portfolio filtering
+    initPortfolioFilter();
     
-    // Add click events to portfolio buttons
-    portfolioButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
+    // Portfolio item animations
+    initPortfolioAnimations();
+}
+
+function initPortfolioFilter() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Update active filter button
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
             
-            // In a real implementation, this would open a modal or navigate to project details
-            const portfolioItem = this.closest('.portfolio-item');
-            const projectTitle = portfolioItem.querySelector('h3').textContent;
+            const filter = this.getAttribute('data-filter');
             
-            alert(`Viewing details for: ${projectTitle}`);
+            // Filter portfolio items
+            portfolioItems.forEach(item => {
+                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                    item.style.display = 'block';
+                    gsap.to(item, { opacity: 1, scale: 1, duration: 0.5 });
+                } else {
+                    gsap.to(item, { 
+                        opacity: 0, 
+                        scale: 0.8, 
+                        duration: 0.5,
+                        onComplete: () => {
+                            item.style.display = 'none';
+                        }
+                    });
+                }
+            });
         });
     });
+}
+
+function initPortfolioAnimations() {
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
     
-    // Add intersection observer for fade-in animation
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
+    portfolioItems.forEach((item, index) => {
+        gsap.set(item, { opacity: 0, y: 50 });
+        
+        gsap.to(item, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            delay: index * 0.1,
+            ease: "power2.out"
         });
-    }, { threshold: 0.1 });
-    
-    // Set initial state and observe each portfolio item
-    portfolioItems.forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        observer.observe(item);
     });
 }
