@@ -1,25 +1,28 @@
-// About section specific functionality
+// Functionality for the About section (e.g., stats counter animation)
+document.addEventListener('DOMContentLoaded', () => {
+    const metricCards = document.querySelectorAll('.metric-card h3');
 
-document.addEventListener('DOMContentLoaded', function() {
-    initAboutAnimations();
+    // Simple counter animation on Intersection
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                metricCards.forEach(card => {
+                    const target = parseInt(card.textContent.replace(/[^\d.]/g, ''));
+                    gsap.fromTo(card, { innerHTML: 0 }, {
+                        innerHTML: target,
+                        duration: 2,
+                        snap: "innerHTML",
+                        ease: "power1.out",
+                        onUpdate: function() {
+                            card.textContent = Math.ceil(this.targets()[0].innerHTML) + (card.textContent.includes('%') ? '%' : '+');
+                        }
+                    });
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) counterObserver.observe(aboutSection);
 });
-
-function initAboutAnimations() {
-    // Skill tags animation
-    const skillTags = document.querySelectorAll('.skill-tag');
-    
-    skillTags.forEach((tag, index) => {
-        tag.style.animationDelay = `${index * 0.1}s`;
-        tag.classList.add('fade-in');
-    });
-    
-    // Profile image shine effect
-    const profileImage = document.querySelector('.image-placeholder');
-    
-    setInterval(() => {
-        profileImage.style.animation = 'none';
-        setTimeout(() => {
-            profileImage.style.animation = 'shine 3s ease-in-out';
-        }, 10);
-    }, 5000);
-}
