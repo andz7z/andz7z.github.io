@@ -1,103 +1,199 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANDZ - Creative Portfolio</title>
+    <meta name="description" content="A modern, single-page portfolio website with smooth scrolling and animations.">
     
-    <title>ANDZ | Portfolio</title>
-    <meta name="description" content="Portofoliu personal realizat de ANDZ prezentând proiecte de web development și viziune creativă.">
+    <link rel="modulepreload" href="js/main.js">
+    <link rel="preload" href="assets/images/video-poster.jpg" as="image">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/contact.css">
-    <script src="js/main.js" defer></script>
-    <script src="js/home.js" defer></script>
-    <script src="js/about.js" defer></script>
-    <script src="js/services.js" defer></script>
-    <script src="js/portfolio.js" defer></script>
-    <script src="js/reviews.js" defer></script>
-    <script src="js/contact.js" defer></script>
-    </head>
+    <link rel="stylesheet" href="css/home.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/about.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/services.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/portfolio.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/reviews.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="css/contact.css" media="print" onload="this.media='all'">
 
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>A</text></svg>">
+</head>
 <body>
 
-    <button id="theme-toggle" aria-label="Comută tema">
-        <span classs="icon-sun">☀️</span> <span classs="icon-moon">🌙</span> </button>
+    <svg width="0" height="0" class="hidden">
+      <defs>
+        <symbol id="icon-home" viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8h5z"/></symbol>
+        <symbol id="icon-about" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10s10-4.48 10-10S17.52 2 12 2zm0 4c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm0 14c-2.03 0-4.43-.82-6.14-2.88a9.96 9.96 0 0 1 12.28 0C16.43 19.18 14.03 20 12 20z"/></symbol>
+        <symbol id="icon-services" viewBox="0 0 24 24"><path fill="currentColor" d="M20 7h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v3H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zM10 4h4v3h-4V4zm10 17H4V9h16v12z"/><path fill="currentColor" d="M7 10h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></symbol>
+        <symbol id="icon-portfolio" viewBox="0 0 24 24"><path fill="currentColor" d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2l-.01-12zM19 16H5V4h14v12z"/><path fill="currentColor" d="m14.5 11l-2.5-3.03L9.5 11.5l-2-2.5L4 16h16l-5.5-5z"/></symbol>
+        <symbol id="icon-reviews" viewBox="0 0 24 24"><path fill="currentColor" d="M22 4H2.01L2 22l4-4h16V4zm-4 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></symbol>
+        <symbol id="icon-contact" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5l8-5v10zm-8-7L4 6h16l-8 5z"/></symbol>
+        <symbol id="icon-close" viewBox="0 0 24 24"><path fill="currentColor" d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41z"/></symbol>
+        <symbol id="icon-twitter" viewBox="0 0 24 24"><path fill="currentColor" d="M22.46 6c-.77.35-1.6.58-2.46.67c.88-.53 1.56-1.37 1.88-2.38c-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29c0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79C2.63 5.42 2.42 6.16 2.42 6.94c0 1.49.76 2.8 1.9 3.56c-.71 0-1.37-.22-1.95-.54v.05c0 2.08 1.48 3.82 3.44 4.21c-.36.1-.74.15-1.13.15c-.28 0-.55-.03-.81-.08c.55 1.7 2.13 2.94 4 2.97c-1.47 1.15-3.32 1.83-5.33 1.83c-.35 0-.69-.02-1.03-.06C2.64 20.44 4.77 21 7 21c7.14 0 11.04-5.92 11.04-11.04c0-.17 0-.34-.01-.51c.76-.55 1.42-1.23 1.94-1.99z"/></symbol>
+        <symbol id="icon-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-11 5H5v11h3V8m-1.5-2a1.5 1.5 0 1 0 0-3a1.5 1.5 0 0 0 0 3M19 8h-3a3.36 3.36 0 0 0-3.11 1.7A3.33 3.33 0 0 0 13 11.2V19h-3V8h3v1.3a3.6 3.6 0 0 1 3.3-1.6A3.7 3.7 0 0 1 19 11.2V19z"/></symbol>
+        <symbol id="icon-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.5 2.3.9 2.87.7c.1-.55.34-1.04.6-1.28c-2.2-.25-4.51-1.1-4.51-4.9A3.87 3.87 0 0 1 7.7 8.06A3.66 3.66 0 0 1 7.76 7c0 0 .84-.27 2.75 1.02A9.58 9.58 0 0 1 12 8.3a9.58 9.58 0 0 1 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.1.7.03 1.4-.02 1.7c.53.57.85 1.3.85 2.1c0 3.81-2.31 4.65-4.52 4.9c.36.31.69.92.69 1.85v2.73c0 .27.16.58.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></symbol>
+      </defs>
+    </svg>
 
-    <header class="main-header">
-        <nav>
-            <a href="#home" class="active">Home</a>
-            <a href="#about">About</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#contact">Contact</a>
-        </nav>
+    <div class="intro-loader" aria-hidden="true"></div>
+
+    <div class="scroll-progress" aria-hidden="true"></div>
+
+    <header class="brand">
+        <a href="#home" aria-label="Homepage">ANDZ</a>
     </header>
 
-    <main class="scroll-container">
+    <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+            <li>
+                <a href="#home" class="nav-item" data-target="#home" aria-label="Home section">
+                    <svg class="nav-icon" aria-hidden="true"><use xlink:href="#icon-home"></use></svg>
+                    <span class="nav-label">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#about" class="nav-item" data-target="#about" aria-label="About section">
+                    <svg class="nav-icon" aria-hidden="true"><use xlink:href="#icon-about"></use></svg>
+                    <span class="nav-label">About</span>
+                </a>
+            </li>
+            <li>
+                <a href="#services" class="nav-item" data-target="#services" aria-label="Services section">
+                    <svg class="nav-icon" aria-hidden="true"><use xlink:href="#icon-services"></use></svg>
+                    <span class="nav-label">Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="#portfolio" class="nav-item" data-target="#portfolio" aria-label="Portfolio section">
+                    <svg class="nav-icon" aria-hidden="true"><use xlink:href="#icon-portfolio"></use></svg>
+                    <span class="nav-label">Portfolio</span>
+                </a>
+            </li>
+            <li>
+                <a href="#reviews" class="nav-item" data-target="#reviews" aria-label="Reviews section">
+                    <svg class="nav-icon" aria-hidden="true"><use xlink:href="#icon-reviews"></use></svg>
+                    <span class="nav-label">Reviews</span>
+                </a>
+            </li>
+            <li>
+                <a href="#contact" class="nav-item" data-target="#contact" aria-label="Contact section">
+                    <svg class="nav-icon" aria-hidden="true"><use xlink:href="#icon-contact"></use></svg>
+                    <span class="nav-label">Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
 
-        <section id="home" class="full-section">
-            <video id="home-video-dark" class="video-bg" src="assets/wallpaper/loop.mp4" 
-                   autoplay muted loop playsinline loading="lazy"></video>
-            <video id="home-video-light" class="video-bg" src="assets/wallpaper/loop2.mp4" 
-                   autoplay muted loop playsinline loading="lazy"></video>
-            
-            <div class="section-content">
-                <h1 class="reveal-up">Creative Developer & Visionary</h1>
-                <p class="reveal-up" style="transition-delay: 0.2s;">Transforming ideas into digital experiences.</p>
+    <main id="main-content" class="blur-in">
+
+        <section id="home" class="fullscreen" data-section-name="home" aria-label="Home">
+            <div class="video-overlay" aria-hidden="true"></div>
+            <video class="video-background" 
+                   src="assets/wallpaper/loop.mp4" 
+                   poster="assets/images/video-poster.jpg" 
+                   autoplay 
+                   muted 
+                   loop 
+                   playsinline 
+                   preload="auto">
+                Your browser does not support the video tag.
+            </video>
+            <div class="content-wrapper home-content">
+                <h1>ANDZ CREATIVE</h1>
+                <p>Modern Web Experiences &amp; UX Design</p>
+                <a href="#portfolio" class="cta-button">View Work</a>
             </div>
         </section>
 
-        <section id="about" class="full-section">
-            <div class="section-content">
-                <h2 class="reveal-fade">My Journey & Philosophy</h2>
+        <section id="about" class="fullscreen" data-section-name="about" aria-label="About">
+            <div class="content-wrapper">
+                <h2>About Me</h2>
+                <p>Placeholder text for the 'About' section. This is where you would introduce yourself, your philosophy, and your passion for development and design.</p>
             </div>
         </section>
 
-        <section id="services" class="full-section">
-            <div class="section-content">
-                <h2 class="reveal-fade">What I Offer</h2>
+        <section id="services" class="fullscreen" data-section-name="services" aria-label="Services">
+            <div class="content-wrapper">
+                <h2>Services</h2>
+                <p>Placeholder text for the 'Services' section. List your core competencies here, such as Front-End Development, UX/UI Design, and Performance Optimization.</p>
             </div>
         </section>
 
-        <section id="portfolio" class="full-section">
-            <div class="section-content">
-                <h2 class="reveal-fade">Featured Projects</h2>
+        <section id="portfolio" class="fullscreen" data-section-name="portfolio" aria-label="Portfolio">
+            <div class="content-wrapper">
+                <h2>Portfolio</h2>
+                <p>Placeholder text for the 'Portfolio' section. This area will showcase your best projects, ideally with links or case studies (which would navigate away or open in a modal).</p>
             </div>
         </section>
 
-        <section id="reviews" class="full-section">
-            <div class="section-content">
-                <h2 class="reveal-fade">Client Testimonials</h2>
+        <section id="reviews" class="fullscreen" data-section-name="reviews" aria-label="Reviews">
+            <div class="content-wrapper">
+                <h2>Reviews</h2>
+                <p>Placeholder text for the 'Reviews' or 'Testimonials' section. Client feedback and quotes build trust and demonstrate your value.</p>
             </div>
         </section>
 
-        <section id="contact" class="full-section">
-            <div class="section-content">
-                <h2 class="reveal-fade">Get in Touch</h2>
+        <section id="contact" class="fullscreen" data-section-name="contact" aria-label="Contact">
+            <div class="content-wrapper">
+                <h2>Get In Touch</h2>
+                <p>Placeholder text for the 'Contact' section. This would typically contain a contact form or your professional email address.</p>
             </div>
         </section>
 
-    </main>
+        <footer class="main-footer">
+            <div class="social-links">
+                <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+                    <svg class="social-icon" aria-hidden="true"><use xlink:href="#icon-twitter"></use></svg>
+                </a>
+                <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <svg class="social-icon" aria-hidden="true"><use xlink:href="#icon-linkedin"></use></svg>
+                </a>
+                <a href="https://example.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <svg class="social-icon" aria-hidden="true"><use xlink:href="#icon-github"></use></svg>
+                </a>
+            </div>
+            <div class="footer-legal">
+                <p>&copy; 2025 ANDZ. All rights reserved.</p>
+                <nav class="footer-nav" aria-label="Legal links">
+                    <button type="button" class="link-button" data-modal-target="#modal-privacy">Privacy Policy</button>
+                    <span>&bull;</span>
+                    <button type="button" class="link-button" data-modal-target="#modal-tos">Terms of Service</button>
+                </nav>
+            </div>
+        </footer>
 
-    <div id="bottom-vignette"></div>
+    </main> <dialog id="modal-privacy" class="modal-dialog" role="dialog" aria-labelledby="privacy-title" aria-modal="true">
+        <header class="modal-header">
+            <h2 id="privacy-title">Privacy Policy</h2>
+            <button class="modal-close-btn" aria-label="Close dialog" data-modal-close>
+                <svg aria-hidden="true"><use xlink:href="#icon-close"></use></svg>
+            </button>
+        </header>
+        <div class="modal-content">
+            <p>This is placeholder text for your Privacy Policy. A real policy would detail the types of personal information you collect from users (e.g., via a contact form), how you use it, how you protect it, and their rights regarding their data.</p>
+            <p>For a static portfolio site with no contact form or analytics, you might state that you do not collect any personal information.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+    </dialog>
 
-    <footer class="main-footer">
-        <p>&copy; <span id="current-year">2025</span> Numele Tău. Toate drepturile rezervate.</p>
-        <nav>
-            <a href="#tos">Termeni și Condiții</a>
-            <a href="#privacy">Politica de Confidențialitate</a>
-        </nav>
-    </footer>
+    <dialog id="modal-tos" class="modal-dialog" role="dialog" aria-labelledby="tos-title" aria-modal="true">
+        <header class="modal-header">
+            <h2 id="tos-title">Terms of Service</h2>
+            <button class="modal-close-btn" aria-label="Close dialog" data-modal-close>
+                <svg aria-hidden="true"><use xlink:href="#icon-close"></use></svg>
+            </button>
+        </header>
+        <div class="modal-content">
+            <p>This is placeholder text for your Terms of Service. These terms would govern the use of your website. They might include sections on intellectual property (ownership of your portfolio content), limitations of liability, and acceptable use (prohibiting scraping, etc.).</p>
+            <p>For a simple portfolio, this might be very brief, stating that the content is for informational purposes only.</p>
+            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </dialog>
+    
+
+    <script src="js/main.js" type="module"></script>
 
 </body>
 </html>
