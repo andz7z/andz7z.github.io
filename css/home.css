@@ -73,18 +73,21 @@
 /* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
 .home-text {
     position: absolute;
-    left: 10%;
+    left: 4%;
     top: 50%;
     transform: translateY(-50%);
-    z-index: 10;
+    z-index: 60;
+    max-width: 52vw;
+    pointer-events: auto;
 }
 .home-text .word {
-    font-size: 8vw; /* Scalabil cu viewport-ul */
+    font-size: clamp(32px, 8vw, 96px);; /* Scalabil cu viewport-ul */
     font-weight: 900;
-    line-height: 1.1;
+    line-height: 1.05;
     text-transform: uppercase;
     display: block; /* Fiecare pe rândul lui */
     position: relative; /* Pentru efectul de fum */
+    z-index: 2;
     cursor: default;
     
     /* Efect 3D/Metal subtil */
@@ -95,31 +98,52 @@
         0px 3px 0px #777,
         0px 4px 0px #666,
         0px 5px 10px rgba(0,0,0,0.6);
+        word-break: break-word;
 }
 
 /* ===== Efect de Fum (Hover) ===== */
 .home-text .word::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 10%;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(150, 150, 150, 0.1) 0%, rgba(150, 150, 150, 0) 60%);
-    filter: blur(20px);
-    z-index: -1;
+    left: -6%;
+    top: 8%;
+    width: 112%;
+    height: 110%;
+    background: radial-gradient(circle, rgba(180,180,180,0.12) 0%, rgba(180,180,180,0) 60%);
+    filter: blur(18px);
+    z-index: 1;               /* sub text (z-index:2) dar peste fundalul paginii/video */
     opacity: 0;
     transform: scale(1);
-    transition: opacity 0.5s ease;
+    transition: opacity 0.45s ease, transform 0.8s ease;
+    pointer-events: none;     /* nu intrerupe hover-ul pe text */
     animation: smoke-drift 10s infinite alternate linear;
 }
+
+/* Când dai hover pe cuvânt, arată fumul */
 .home-text .word:hover::after {
     opacity: 1;
+    transform: translateX(6%) scale(1.12);
 }
 
+/* Daca vrei același efect la hover pe literă (char), adaugă asta: */
+.home-text .char {
+    display: inline-block;
+    transition: filter 0.45s ease, transform 0.35s ease;
+    position: relative;
+    z-index: 3; /* deasupra pseudo-elementului de cuvânt */
+    cursor: pointer;
+}
+
+/* blur local (fum) pe literă la hover */
+.home-text .char:hover {
+    filter: blur(4px) saturate(1.05) brightness(1.05);
+    transform: translateY(-3px) scale(1.05);
+}
+
+/* animație drift pentru pseudo-element (rămâne subtile) */
 @keyframes smoke-drift {
-    0% { transform: translateX(-10%) scale(1); }
-    100% { transform: translateX(10%) scale(1.2); }
+    0% { transform: translateX(-6%) scale(1); }
+    100% { transform: translateX(6%) scale(1.12); }
 }
 
 /* ===== Efect de Dispersie (Click pe literă) ===== */
