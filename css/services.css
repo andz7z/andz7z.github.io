@@ -1,66 +1,43 @@
 /* Services Section */
-#services {
-    background: linear-gradient(135deg, #111111, #222222);
+.services-section {
+    background-color: rgba(5, 5, 5, 0.9);
 }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.service-card {
-    text-align: center;
-    padding: 2.5rem 1.5rem;
+.services-content {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    height: 100%;
-}
-
-.card-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
-    display: flex;
-    align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
-    font-size: 2rem;
-    color: var(--secondary-color);
-    box-shadow: var(--shadow);
-    position: relative;
-    overflow: hidden;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
 }
 
-.card-icon::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-    transform: rotate(45deg);
-    transition: all 0.5s ease;
+.service-item {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    transition: all var(--transition-speed);
+    opacity: 0;
+    transform: translateY(20px);
 }
 
-.service-card:hover .card-icon::before {
-    transform: rotate(45deg) translate(50%, 50%);
+.service-item.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.service-card h3 {
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.service-item h3 {
     font-size: 1.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    margin-bottom: 15px;
+    color: var(--primary-color);
 }
 
-.service-card p {
-    color: var(--metal-light);
-    line-height: 1.6;
+.service-item p {
+    color: rgba(255, 255, 255, 0.7);
 }
