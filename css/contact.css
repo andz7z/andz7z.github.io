@@ -1,161 +1,63 @@
 /* ANDZ — Lehadus Andrei */
 
-.contact-section {
-    background: linear-gradient(135deg, var(--color-bg-secondary) 0%, #151515 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.contact-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 70% 30%, rgba(192, 192, 192, 0.04) 0%, transparent 50%),
-        radial-gradient(circle at 30% 70%, rgba(240, 240, 240, 0.03) 0%, transparent 50%);
-    pointer-events: none;
+#contact {
+    background-color: var(--color-dark-grey);
+    display: block; /* Suprascriem flex pentru a avea footer-ul jos */
+    padding: var(--header-height) 5% 0 5%; /* Fără padding jos */
 }
 
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    align-items: start;
-    margin-top: var(--space-xl);
-}
-
-.contact-info {
-    opacity: 0;
-    transform: translateX(-50px);
-    animation: fadeInLeft 1s ease-out 0.5s forwards;
-}
-
-@keyframes fadeInLeft {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.contact-item {
+    height: calc(100% - 100px); /* Lăsăm 100px pentru footer */
     display: flex;
-    align-items: center;
-    gap: var(--space-lg);
-    padding: var(--space-lg);
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-lg);
-    backdrop-filter: blur(10px);
-    margin-bottom: var(--space-lg);
-    transition: var(--transition-normal);
-    opacity: 0;
-    transform: translateY(30px);
-}
-
-.contact-item:nth-child(1) {
-    animation: fadeInUp 1s ease-out 0.8s forwards;
-}
-
-.contact-item:nth-child(2) {
-    animation: fadeInUp 1s ease-out 1.1s forwards;
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.contact-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 
-        var(--shadow-lg),
-        var(--shadow-glow);
-    border-color: var(--color-accent);
-}
-
-.contact-icon {
-    font-size: 2rem;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    background: var(--color-glass);
-    border-radius: 50%;
-    flex-shrink: 0;
-    transition: var(--transition-normal);
+    align-items: center;
+    text-align: center;
 }
 
-.contact-item:hover .contact-icon {
-    transform: scale(1.1);
-    background: var(--color-accent);
-    color: var(--color-bg);
-}
-
-.contact-details h3 {
-    font-size: 1.25rem;
-    margin-bottom: var(--space-xs);
-    color: var(--color-accent);
-}
-
-.contact-details p {
-    opacity: 0.8;
-    margin: 0;
+.contact-content .section-text {
+    margin-bottom: 40px;
 }
 
 .contact-form {
-    opacity: 0;
-    transform: translateX(50px);
-    animation: fadeInRight 1s ease-out 0.5s forwards;
+    width: 100%;
+    max-width: 600px;
 }
 
-@keyframes fadeInRight {
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
+/* Stil pentru câmpurile de formular "glassy" */
 .form-group {
     position: relative;
-    margin-bottom: var(--space-lg);
+    margin-bottom: 30px;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: var(--space-md);
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-md);
+    padding: 15px 20px;
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-metal-steel);
+    border-radius: 4px;
     color: var(--color-text);
-    font-family: inherit;
+    font-family: var(--font-body);
     font-size: 1rem;
-    transition: var(--transition-normal);
-    backdrop-filter: blur(10px);
+    transition: var(--transition-fast);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 2px rgba(192, 192, 192, 0.1);
+    border-color: var(--color-metal-silver);
+    box-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
 }
 
+/* Efect de label "plutitor" */
 .form-group label {
     position: absolute;
-    top: var(--space-md);
-    left: var(--space-md);
-    color: var(--color-text-secondary);
-    transition: var(--transition-normal);
+    top: 15px;
+    left: 20px;
+    color: var(--color-metal-steel);
     pointer-events: none;
-    background: var(--color-bg-secondary);
-    padding: 0 var(--space-xs);
+    transition: var(--transition-fast);
 }
 
 .form-group input:focus + label,
@@ -163,100 +65,92 @@
 .form-group input:not(:placeholder-shown) + label,
 .form-group textarea:not(:placeholder-shown) + label {
     top: -10px;
-    left: var(--space-sm);
-    font-size: 0.875rem;
-    color: var(--color-accent);
+    left: 15px;
+    font-size: 0.8rem;
+    color: var(--color-metal-silver);
+    background: var(--color-dark-grey);
+    padding: 0 5px;
 }
 
-.form-group textarea {
-    resize: vertical;
-    min-height: 120px;
+/* Ascundem placeholder-ul standard la focus */
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+    color: transparent;
 }
 
-.submit-btn {
-    width: 100%;
-    padding: var(--space-md) var(--space-lg);
-    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-metal));
-    color: var(--color-bg);
-    border: none;
-    border-radius: var(--radius-md);
-    font-weight: 600;
+.cta-button {
+    font-family: var(--font-title);
     font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-black);
+    background-color: var(--color-metal-silver);
+    border: 2px solid var(--color-metal-silver);
+    padding: 15px 40px;
+    border-radius: 4px;
     cursor: pointer;
-    transition: var(--transition-normal);
-    position: relative;
-    overflow: hidden;
+    transition: var(--transition-fast);
 }
 
-.submit-btn::before {
-    content: '';
+.cta-button:hover,
+.cta-button:focus {
+    background-color: transparent;
+    color: var(--color-metal-silver);
+    box-shadow: 0 0 15px var(--color-metal-silver);
+}
+
+/* Footer-ul din secțiunea Contact */
+.site-footer {
     position: absolute;
-    top: 0;
-    left: -100%;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: var(--transition-slow);
+    height: 100px; /* Înălțime fixă footer */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-black);
+    border-top: 1px solid var(--color-metal-steel);
+    z-index: 5;
 }
 
-.submit-btn:hover::before {
-    left: 100%;
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 
-        var(--shadow-md),
-        0 10px 20px rgba(192, 192, 192, 0.2);
+.footer-link {
+    font-size: 0.85rem;
+    color: var(--color-metal-steel);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+}
+.footer-link:hover {
+    color: var(--color-metal-silver);
+}
+.footer-link svg {
+    margin-bottom: -2px;
 }
 
-/* Form validation styles */
-.form-group input:invalid:not(:focus):not(:placeholder-shown),
-.form-group textarea:invalid:not(:focus):not(:placeholder-shown) {
-    border-color: #ff6b6b;
+.footer-separator {
+    color: var(--color-metal-steel);
+    font-size: 0.85rem;
 }
 
-.form-group input:valid:not(:focus):not(:placeholder-shown),
-.form-group textarea:valid:not(:focus):not(:placeholder-shown) {
-    border-color: #51cf66;
+.copyright {
+    font-size: 0.8rem;
+    color: var(--color-metal-steel);
 }
 
-/* Responsive */
-@media (max-width: 968px) {
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: var(--space-lg);
-    }
-    
-    .contact-info {
-        order: 2;
-    }
-    
-    .contact-form {
-        order: 1;
-    }
-}
-
-@media (max-width: 768px) {
-    .contact-item {
-        flex-direction: column;
-        text-align: center;
-        gap: var(--space-md);
-    }
-    
-    .contact-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.5rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .contact-item {
-        padding: var(--space-md);
-    }
-    
-    .form-group {
-        margin-bottom: var(--space-md);
-    }
+.copyright .subtext {
+    opacity: 0.7;
 }
