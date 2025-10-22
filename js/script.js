@@ -51,13 +51,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // ===== 3. "Currently On" Text Update =====
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const sectionId = entry.target.id;
-            if (sectionId) {
-                const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
-                if (navLink) {
-                    const iconClass = navLink.querySelector('i').className;
-                    currentSectionText.innerHTML = `Currently on: <i class="${iconClass}"></i>`;
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                if (sectionId) {
+                    const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
+                    if (navLink) {
+                        const iconClass = navLink.querySelector('i').className;
+                        currentSectionText.innerHTML = `Currently on: <i class="${iconClass}"></i>`;
+                    }
                 }
             }
         });
@@ -65,11 +66,11 @@ document.addEventListener("DOMContentLoaded", function() {
         root: scrollContainer,
         threshold: 0.7 // Se activează când 70% dintr-o secțiune e vizibilă
     });
-
+    
     allSections.forEach(section => {
         sectionObserver.observe(section);
     });
-    
+        
     // Notă: Butonul "Go Back" este un link <a> href="#home", 
     // deci nu are nevoie de JS separat pentru scroll.
 
