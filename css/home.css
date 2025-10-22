@@ -153,7 +153,7 @@
 /* ===== INDICATOR SCROLL (Jos Centru) ===== */
 .scroll-indicator {
     position: absolute;
-    bottom: 3rem; /* Ridicat deasupra footer-ului */
+    bottom: 1.5rem; /* Ridicat deasupra footer-ului */
     left: 50%;
     transform: translateX(-50%);
     font-size: 1.5rem;
@@ -171,7 +171,7 @@
         transform: translate(-50%, 0) scale(0.9);
     }
     50% {
-        opacity: 0.7;
+        opacity: 1.0;
         transform: translate(-50%, 5px) scale(1);
     }
     100% {
