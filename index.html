@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANDZ - Design. Develop. Deliver.</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -11,301 +14,120 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-bar" role="progressbar" aria-label="Progres navigare">
-        <div class="progress-fill"></div>
+
+    <div class="progress-bar-container">
+        <div class="progress-bar"></div>
     </div>
 
-    <!-- Navigation -->
-    <nav class="main-nav" aria-label="Navigație principală">
-        <div class="nav-logo">
-            <a href="#home" class="logo-link" aria-label="ANDZ - Pagina principală">ANDZ</a>
-        </div>
-        <div class="nav-icons">
-            <a href="#home" class="nav-icon" aria-label="Acasă">
-                <span class="icon-home"></span>
-            </a>
-            <a href="#about" class="nav-icon" aria-label="Despre">
-                <span class="icon-about"></span>
-            </a>
-            <a href="#services" class="nav-icon" aria-label="Servicii">
-                <span class="icon-services"></span>
-            </a>
-            <a href="#portfolio" class="nav-icon" aria-label="Portofoliu">
-                <span class="icon-portfolio"></span>
-            </a>
-            <a href="#reviews" class="nav-icon" aria-label="Recenzii">
-                <span class="icon-reviews"></span>
-            </a>
-            <a href="#contact" class="nav-icon" aria-label="Contact">
-                <span class="icon-contact"></span>
-            </a>
-        </div>
-    </nav>
+    <header class="home-header">
+        <div class="logo">ANDZ</div>
+        <nav class="main-nav">
+            <a href="#about" aria-label="Despre"><i class="fa-solid fa-user-astronaut"></i></a>
+            <a href="#services" aria-label="Servicii"><i class="fa-solid fa-layer-group"></i></a>
+            <a href="#portfolio" aria-label="Portofoliu"><i class="fa-solid fa-image"></i></a>
+            <a href="#contact" aria-label="Contact"><i class="fa-solid fa-paper-plane"></i></a>
+        </nav>
+    </header>
 
-    <!-- Back to Home Button -->
-    <button class="back-to-home" aria-label="Înapoi la pagina principală">
-        <span class="back-arrow"></span>
-        <span class="current-section">Currently on: Home</span>
-    </button>
+    <header class="page-header hidden">
+        <span class="current-section-text"></span>
+        <a href="#home" class="go-back-btn" aria-label="Mergi la Acasă">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </header>
 
-    <!-- Social Icons -->
-    <div class="social-icons" aria-label="Link-uri rețele sociale">
-        <div class="social-line-top"></div>
-        <a href="#" class="social-icon" aria-label="GitHub">
-            <span class="icon-github"></span>
-        </a>
-        <a href="#" class="social-icon" aria-label="LinkedIn">
-            <span class="icon-linkedin"></span>
-        </a>
-        <a href="#" class="social-icon" aria-label="Facebook">
-            <span class="icon-facebook"></span>
-        </a>
-        <a href="#" class="social-icon" aria-label="Instagram">
-            <span class="icon-instagram"></span>
-        </a>
-        <div class="social-line-bottom"></div>
+    <div class="socials">
+        <div class="socials-line-top"></div>
+        <a href="https://github.com/lehadusandrei" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com/in/lehadusandrei" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <div class="socials-line-bottom"></div>
     </div>
 
-    <!-- Sections -->
-    <main class="sections-container">
-        <!-- Home Section -->
-        <section id="home" class="section home-section" aria-label="Secțiunea principală">
-            <div class="home-content">
-                <h1 class="main-title">
-                    <span class="title-word" data-text="DESIGN.">DESIGN.</span>
-                    <span class="title-word" data-text="DEVELOP.">DEVELOP.</span>
-                    <span class="title-word" data-text="DELIVER.">DELIVER.</span>
-                </h1>
-                <p class="subtitle">we do it all</p>
+    <main class="scroll-container">
+
+        <section id="home">
+            <div class="home-text">
+                <h1 class="word">DESIGN.</h1>
+                <h1 class="word">DEVELOP.</h1>
+                <h1 class="word">DELIVER.</h1>
             </div>
             <div class="scroll-indicator">
-                <p class="scroll-text">Let's Start</p>
-                <div class="scroll-arrow"></div>
+                <i class="fa-solid fa-chevron-down"></i>
             </div>
-            <canvas id="smokeCanvas" aria-hidden="true"></canvas>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section about-section" aria-label="Despre noi">
-            <div class="container">
-                <h2 class="section-title">Despre Noi</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Suntem o echipă de designeri și developeri pasionați, dedicați creării de soluții digitale excepționale.</p>
-                        <p>Cu o experiență de peste 10 ani în industrie, am lucrat cu clienți din diverse domenii, de la startup-uri la corporații internaționale.</p>
-                    </div>
-                    <div class="about-stats">
-                        <div class="stat">
-                            <span class="stat-number">150+</span>
-                            <span class="stat-label">Proiecte Finalizate</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">50+</span>
-                            <span class="stat-label">Clienți Mulțumiți</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number">10+</span>
-                            <span class="stat-label">Ani Experiență</span>
-                        </div>
-                    </div>
+        <section id="about" data-section-name="About">
+            <div class="section-content">
+                <h2>ABOUT ME</h2>
+                <p>Lehadus Andrei - Web Developer, Designer & Creator.</p>
                 </div>
-            </div>
         </section>
 
-        <!-- Services Section -->
-        <section id="services" class="section services-section" aria-label="Serviciile noastre">
-            <div class="container">
-                <h2 class="section-title">Servicii</h2>
-                <div class="services-grid">
+        <section id="services" data-section-name="Services">
+            <div class="section-content">
+                <h2>SERVICES</h2>
+                <div class="card-container">
                     <div class="service-card">
-                        <div class="service-icon">
-                            <span class="icon-design"></span>
-                        </div>
-                        <h3 class="service-title">UI/UX Design</h3>
-                        <p class="service-description">Creăm interfețe intuitive și experiențe utilizator memorabile, axate pe nevoile și obiectivele tale.</p>
+                        <h3>Web Development</h3>
+                        <p>Soluții full-stack moderne.</p>
                     </div>
                     <div class="service-card">
-                        <div class="service-icon">
-                            <span class="icon-development"></span>
-                        </div>
-                        <h3 class="service-title">Dezvoltare Web</h3>
-                        <p class="service-description">Construim aplicații web moderne, rapide și scalabile folosind tehnologii de ultimă generație.</p>
+                        <h3>UI/UX Design</h3>
+                        <p>Interfețe intuitive și metalice.</p>
                     </div>
                     <div class="service-card">
-                        <div class="service-icon">
-                            <span class="icon-branding"></span>
-                        </div>
-                        <h3 class="service-title">Branding</h3>
-                        <p class="service-description">Dezvoltăm identități de brand puternice și memorabile care diferențiază afacerea ta.</p>
+                        <h3>Video/Photo Editing</h3>
+                        <p>Post-producție de înaltă calitate.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="section portfolio-section" aria-label="Portofoliul nostru">
-            <div class="container">
-                <h2 class="section-title">Portofoliu</h2>
-                <div class="portfolio-grid">
-                    <div class="portfolio-card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <div class="card-image"></div>
-                                <h3 class="card-title">Proiect E-commerce</h3>
-                            </div>
-                            <div class="card-back">
-                                <h3 class="card-title">Proiect E-commerce</h3>
-                                <p class="card-description">Platformă de vânzări online cu sistem de plată integrat și gestionare stoc.</p>
-                                <a href="#" class="card-link">Vezi detalii</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <div class="card-image"></div>
-                                <h3 class="card-title">Aplicație Financiară</h3>
-                            </div>
-                            <div class="card-back">
-                                <h3 class="card-title">Aplicație Financiară</h3>
-                                <p class="card-description">Soluție pentru gestionarea investițiilor și analiză piețe financiare.</p>
-                                <a href="#" class="card-link">Vezi detalii</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="portfolio-card">
-                        <div class="card-inner">
-                            <div class="card-front">
-                                <div class="card-image"></div>
-                                <h3 class="card-title">Platformă Educațională</h3>
-                            </div>
-                            <div class="card-back">
-                                <h3 class="card-title">Platformă Educațională</h3>
-                                <p class="card-description">Sistem de învățare online cu cursuri interactive și tracking progres.</p>
-                                <a href="#" class="card-link">Vezi detalii</a>
-                            </div>
-                        </div>
-                    </div>
+        <section id="portfolio" data-section-name="Portfolio">
+            <div class="section-content">
+                <h2>PORTFOLIO</h2>
                 </div>
-            </div>
         </section>
 
-        <!-- Reviews Section -->
-        <section id="reviews" class="section reviews-section" aria-label="Recenzii clienți">
-            <div class="container">
-                <h2 class="section-title">Ce Spun Clienții</h2>
-                <div class="reviews-slider">
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p class="review-text">"Echipa ANDZ a transformat complet prezența noastră online. Site-ul nou nu doar că arată fantastic, dar a crescut semnificativ conversiile."</p>
-                            <div class="review-author">
-                                <span class="author-name">Maria Popescu</span>
-                                <span class="author-role">CEO, TechSolutions</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p class="review-text">"Profesionalism de excepție! Au înțeles perfect nevoile noastre și au livrat un produs care a depășit așteptările."</p>
-                            <div class="review-author">
-                                <span class="author-name">Andrei Ionescu</span>
-                                <span class="author-role">Director Marketing, BrandVision</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p class="review-text">"Colaborarea cu ANDZ a fost una dintre cele mai bune decizii pentru afacerea noastră. Recomand cu încredere!"</p>
-                            <div class="review-author">
-                                <span class="author-name">Cristina Moldovan</span>
-                                <span class="author-role">Fondator, GreenLife</span>
-                            </div>
-                        </div>
-                    </div>
+        <section id="reviews" data-section-name="Reviews">
+            <div class="section-content">
+                <h2>REVIEWS</h2>
                 </div>
-            </div>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="section contact-section" aria-label="Contactează-ne">
-            <div class="container">
-                <h2 class="section-title">Hai să Vorbim</h2>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <span class="contact-icon icon-phone"></span>
-                            <span class="contact-text">+40 123 456 789</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon icon-email"></span>
-                            <span class="contact-text">contact@andz.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <span class="contact-icon icon-location"></span>
-                            <span class="contact-text">București, România</span>
-                        </div>
-                    </div>
-                    <form class="contact-form" aria-label="Formular de contact">
-                        <div class="form-group">
-                            <label for="name" class="form-label">Nume</label>
-                            <input type="text" id="name" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" class="form-input" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message" class="form-label">Mesaj</label>
-                            <textarea id="message" class="form-textarea" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Trimite Mesaj</button>
-                    </form>
+        <section id="contact" data-section-name="Contact">
+            <div class="section-content">
+                <h2>CONTACT</h2>
                 </div>
-            </div>
         </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="main-footer" aria-label="Informații footer">
+    <footer>
         <div class="footer-content">
             <div class="footer-contact">
-                <div class="contact-item">
-                    <span class="contact-icon icon-phone"></span>
-                    <span class="contact-text">+40 123 456 789</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon icon-email"></span>
-                    <span class="contact-text">contact@andz.com</span>
-                </div>
-                <button class="tos-btn" aria-label="Termeni și condiții">ToS</button>
+                <a href="tel:+40123456789"><i class="fa-solid fa-phone"></i> +40 123 456 789</a>
+                <a href="mailto:lehadus.andrei@email.com"><i class="fa-solid fa-envelope"></i> lehadus.andrei@email.com</a>
             </div>
-            <div class="footer-copyright">
-                <p>© 2023 ANDZ</p>
-                <p class="author">Lehadus Andrei</p>
+            <div class="footer-links">
+                <button id="tos-open-btn">Terms of Service</button>
+                <span class="copyright">Copyright &copy; <span id="copyright-year"></span> by ANDZ.</span>
             </div>
         </div>
     </footer>
 
-    <!-- ToS Modal -->
-    <div class="modal-overlay" id="tosModal" aria-hidden="true" aria-label="Modal termeni și condiții">
+    <div id="tos-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <button class="modal-close" aria-label="Închide modal">×</button>
-            <h2 class="modal-title">Termeni și Condiții</h2>
-            <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Sed euismod, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Sed euismod, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Nullam auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
+            <button id="tos-close-btn" aria-label="Închide"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Terms of Service</h3>
+            <p>1. Toate drepturile sunt rezervate de ANDZ (Lehadus Andrei).</p>
+            <p>2. Utilizarea conținutului de pe acest site fără permisiune este strict interzisă.</p>
+            <p>3. Acest site folosește cookie-uri pentru a îmbunătăți experiența utilizatorului.</p>
             </div>
-        </div>
     </div>
 
     <script src="js/script.js"></script>
