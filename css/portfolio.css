@@ -1,200 +1,76 @@
 /* ANDZ — Lehadus Andrei */
 
-.portfolio-section {
-    background: linear-gradient(135deg, var(--color-bg-secondary) 0%, #151515 100%);
-    position: relative;
-    overflow: hidden;
+#portfolio {
+    background-color: var(--color-dark-grey);
 }
 
-.portfolio-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 60% 40%, rgba(192, 192, 192, 0.04) 0%, transparent 50%),
-        radial-gradient(circle at 40% 60%, rgba(240, 240, 240, 0.02) 0%, transparent 50%);
-    pointer-events: none;
+.portfolio-content {
+    text-align: center;
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: var(--space-lg);
-    margin-top: var(--space-xl);
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+    perspective: 1500px; /* Activăm perspectiva 3D pentru container */
 }
 
-.portfolio-item {
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    transition: var(--transition-normal);
+.portfolio-card {
     position: relative;
-    opacity: 0;
-    transform: translateY(50px) rotateX(10deg);
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid var(--color-metal-steel);
+    transform-style: preserve-3d; /* Necesar pentru efectul 3D */
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
+                box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform; /* Optimizare performanță */
 }
 
-.portfolio-item.visible {
-    opacity: 1;
-    transform: translateY(0) rotateX(0);
+.portfolio-card:hover {
+    /* Efectul 3D Tilt este aplicat de JS */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+                0 0 30px var(--color-metal-silver);
 }
 
-.portfolio-item::before {
-    content: '';
+.portfolio-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--transition-medium);
+}
+
+.portfolio-card:hover img {
+    transform: scale(1.1);
+}
+
+.card-overlay {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(192, 192, 192, 0.1) 0%, transparent 50%);
+    padding: 30px 20px;
+    background: linear-gradient(0deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0) 100%);
+    
+    transform: translateY(50%); /* Ascuns parțial */
     opacity: 0;
-    transition: var(--transition-normal);
-    z-index: 1;
+    transition: var(--transition-medium);
 }
 
-.portfolio-item:hover::before {
+.portfolio-card:hover .card-overlay {
+    transform: translateY(0);
     opacity: 1;
 }
 
-.portfolio-item:hover {
-    transform: translateY(-10px) rotateX(5deg);
-    box-shadow: 
-        var(--shadow-lg),
-        0 20px 40px rgba(192, 192, 192, 0.1);
-    border-color: var(--color-accent);
+.card-overlay h3 {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    color: var(--color-accent-glow);
+    margin-bottom: 5px;
 }
 
-.portfolio-image {
-    position: relative;
-    height: 250px;
-    overflow: hidden;
-}
-
-.image-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--color-bg), var(--color-bg-secondary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-accent);
-    position: relative;
-}
-
-.image-placeholder::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        linear-gradient(45deg, transparent 40%, rgba(192, 192, 192, 0.1) 50%, transparent 60%);
-    background-size: 200% 200%;
-    animation: shimmer 3s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        background-position: -200% 0;
-    }
-    100% {
-        background-position: 200% 0;
-    }
-}
-
-.portfolio-info {
-    padding: var(--space-lg);
-    position: relative;
-    z-index: 2;
-}
-
-.portfolio-info h3 {
-    font-size: 1.25rem;
-    margin-bottom: var(--space-sm);
-    color: var(--color-accent);
-    transition: var(--transition-normal);
-}
-
-.portfolio-item:hover .portfolio-info h3 {
-    transform: translateX(10px);
-}
-
-.portfolio-info p {
-    opacity: 0.8;
+.card-overlay span {
     font-size: 0.9rem;
-    line-height: 1.5;
-    transition: var(--transition-normal);
-}
-
-.portfolio-item:hover .portfolio-info p {
-    transform: translateX(10px);
-}
-
-/* 3D Tilt Effect */
-.portfolio-item {
-    transform-style: preserve-3d;
-    perspective: 1000px;
-}
-
-.portfolio-item .portfolio-image,
-.portfolio-item .portfolio-info {
-    transform: translateZ(20px);
-}
-
-/* Metalic Shadow Effect */
-.portfolio-item::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 5%;
-    width: 90%;
-    height: 20px;
-    background: rgba(192, 192, 192, 0.1);
-    border-radius: 50%;
-    filter: blur(10px);
-    transition: var(--transition-normal);
-    opacity: 0;
-}
-
-.portfolio-item:hover::after {
-    opacity: 1;
-    transform: translateY(10px) scale(0.95);
-}
-
-/* Staggered animation */
-.portfolio-item:nth-child(1) { transition-delay: 0.1s; }
-.portfolio-item:nth-child(2) { transition-delay: 0.2s; }
-.portfolio-item:nth-child(3) { transition-delay: 0.3s; }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-    }
-    
-    .portfolio-image {
-        height: 200px;
-    }
-    
-    .portfolio-info {
-        padding: var(--space-md);
-    }
-}
-
-@media (max-width: 480px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .portfolio-item {
-        margin: 0 var(--space-sm);
-    }
+    color: var(--color-metal-silver);
+    letter-spacing: 0.5px;
 }
