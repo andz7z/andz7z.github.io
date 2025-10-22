@@ -1,4 +1,4 @@
-// About section specific functionality
+/* ANDZ — Lehadus Andrei */
 
 class AboutSection {
     constructor() {
@@ -6,41 +6,48 @@ class AboutSection {
     }
 
     init() {
-        this.setupSkillsAnimation();
+        this.setupScrollAnimation();
+        this.setupVisualEffects();
     }
 
-    setupSkillsAnimation() {
-        const skills = document.querySelectorAll('.skill-tag');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.animateSkills();
-                    observer.unobserve(entry.target);
-                }
+    setupScrollAnimation() {
+        // Use Intersection Observer to trigger animations
+        const aboutSection = document.querySelector('.about-section');
+        const aboutElements = document.querySelectorAll('.about-text, .about-visual, .detail-item');
+
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, {
+                threshold: 0.3
             });
-        }, { threshold: 0.5 });
-        
-        observer.observe(document.getElementById('about'));
+
+            aboutElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
     }
 
-    animateSkills() {
-        const skills = document.querySelectorAll('.skill-tag');
-        
-        skills.forEach((skill, index) => {
-            skill.style.opacity = '0';
-            skill.style.transform = 'translateY(20px)';
-            
-            setTimeout(() => {
-                skill.style.transition = 'all 0.5s ease';
-                skill.style.opacity = '1';
-                skill.style.transform = 'translateY(0)';
-            }, index * 100);
+    setupVisualEffects() {
+        const visualElement = document.querySelector('.visual-element');
+        if (!visualElement) return;
+
+        // Add interactive rotation on hover
+        visualElement.addEventListener('mouseenter', () => {
+            visualElement.style.animationDuration = '5s';
+        });
+
+        visualElement.addEventListener('mouseleave', () => {
+            visualElement.style.animationDuration = '20s';
         });
     }
 }
 
-// Initialize about section when DOM is loaded
+// Auto-initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new AboutSection();
 });
