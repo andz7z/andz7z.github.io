@@ -81,7 +81,7 @@
 /* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
 .home-text {
     position: absolute;
-    left: 4%;
+    left: 2.5%;
     top: 50%;
     transform: translateY(-50%);
     z-index: 60;
