@@ -171,107 +171,22 @@ section {
     width: 1px;
     height: 20px;
     background-color: var(--color-steel);
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 1.2s;
 }
 
-/* ===== FOOTER (Persistent, Glassy) ===== */
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 3rem;
-    z-index: 100;
-
-    /* Efectul Glassmorphism / Sticlă blurată */
-    background: rgba(10, 10, 10, 0.5);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    
-    transition: opacity 0.5s ease;
-}
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.footer-contact a {
-    font-size: 0.9rem;
-    color: var(--color-steel);
-    margin-right: 1.5rem;
-}
-.footer-contact a i {
-    margin-right: 0.5rem;
-}
-.footer-contact a:hover {
-    color: var(--color-white);
-}
-.footer-links {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-}
-.footer-links button {
-    background: none;
-    border: none;
-    color: var(--color-steel);
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-.footer-links button:hover {
-    color: var(--color-white);
-}
-.copyright {
-    font-size: 0.9rem;
-    color: var(--color-steel-dark);
+.socials-line-bottom {
+    animation-delay: 1.4s; /* Delay puțin mai mare pentru efect cascadă */
 }
 
-/* ===== MODAL (ToS) ===== */
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 1002;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    /* Fundalul blurat */
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    
-    transition: opacity 0.3s ease, visibility 0.3s;
-}
-.modal-content {
-    background: rgba(30, 30, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 2rem;
-    width: 90%;
-    max-width: 600px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    position: relative;
-    color: var(--color-chrome-light);
-}
-#tos-close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    color: var(--color-white);
-    font-size: 1.5rem;
-    cursor: pointer;
-}
-.modal-content h3 {
-    margin-bottom: 1rem;
-    font-size: 1.5rem;
-}
-.modal-content p {
-    line-height: 1.6;
-    margin-bottom: 0.5rem;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
