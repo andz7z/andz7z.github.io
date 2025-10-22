@@ -1,201 +1,3 @@
-/* ===== HOME SECTION LAYOUT ===== */
-/* #home este deja definit în style.css (100vh, etc.) */
-/* Nu avem nevoie de stiluri suplimentare aici
-   decât dacă vrem un fundal specific */
-
-/* ===== LOGO (Stânga Sus) ===== */
-.logo {
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    cursor: default;
-    /* Inițial transparent pentru efectul de gradient */
-    color: var(--color-white);
-    position: relative; /* Necesar pentru pseudo-element */
-    display: inline-block;
-    transition: color 0.3s ease;
-    opacity: 0.4;
-}
-
-.logo::before {
-    content: 'ANDZ';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-monochrome);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    animation: gradient-sweep 4s linear infinite;
-    /* Oprește animația când nu e hover */
-    animation-play-state: paused;
-}
-
-.logo:hover {
-    color: transparent; /* Ascunde textul alb */
-}
-.logo:hover::before {
-    opacity: 1;
-    animation-play-state: running; /* Pornește animația la hover */
-}
-
-/* Animația de "măturare" a gradientului */
-@keyframes gradient-sweep {
-    0% { background-position: 150% 50%; }
-    100% { background-position: -150% 50%; }
-}
-
-/* ===== NAVIGAȚIE PRINCIPALĂ (Dreapta Sus) ===== */
-.main-nav {
-    display: flex;
-    gap: 2rem;
-}
-.main-nav a {
-    font-size: 1.2rem;
-    color: var(--color-steel);
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-/* Efect Hover */
-.main-nav a {
-    transition: color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease;
-}
-
-.main-nav a:hover {
-    color: var(--color-white);
-    transform: scale(1.6) rotate(-15deg);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.9),
-                 0 0 25px rgba(255, 255, 255, 0.6),
-                 0 0 35px rgba(255, 255, 255, 0.3);
-}
-
-/* Efect Click */
-.main-nav a:active {
-    transform: scale(1.3);
-    color: var(--color-chrome-light);
-}
-
-/* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
-.home-text {
-    position: absolute;
-    left: 2.5%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 60;
-    max-width: 52vw;
-    pointer-events: auto;
-}
-.home-text .word {
-    font-size: clamp(32px, 8vw, 96px);; /* Scalabil cu viewport-ul */
-    font-weight: 900;
-    line-height: 1.05;
-    text-transform: uppercase;
-    display: block; /* Fiecare pe rândul lui */
-    position: relative; /* Pentru efectul de fum */
-    z-index: 2;
-    cursor: default;
-    
-    /* Efect 3D/Metal subtil */
-    color: var(--color-chrome-light);
-    text-shadow: 
-        0px 1px 0px #999,
-        0px 2px 0px #888,
-        0px 3px 0px #777,
-        0px 4px 0px #666,
-        0px 5px 10px rgba(0,0,0,0.6);
-        word-break: break-word;
-}
-
-/* ===== Efect de Fum (Hover) ===== */
-.home-text .word::after {
-    content: '';
-    position: absolute;
-    left: -6%;
-    top: 8%;
-    width: 112%;
-    height: 110%;
-    background: radial-gradient(circle, rgba(180,180,180,0.12) 0%, rgba(180,180,180,0) 60%);
-    filter: blur(18px);
-    z-index: 1;               /* sub text (z-index:2) dar peste fundalul paginii/video */
-    opacity: 0;
-    transform: scale(1);
-    transition: opacity 0.45s ease, transform 0.8s ease;
-    pointer-events: none;     /* nu intrerupe hover-ul pe text */
-    animation: smoke-drift 10s infinite alternate linear;
-}
-
-/* Când dai hover pe cuvânt, arată fumul */
-.home-text .word:hover::after {
-    opacity: 1;
-    transform: translateX(6%) scale(1.12);
-}
-
-/* Daca vrei același efect la hover pe literă (char), adaugă asta: */
-.home-text .char {
-    display: inline-block;
-    transition: filter 0.45s ease, transform 0.35s ease;
-    position: relative;
-    z-index: 3; /* deasupra pseudo-elementului de cuvânt */
-    cursor: pointer;
-}
-
-/* blur local (fum) pe literă la hover */
-.home-text .char:hover {
-    filter: blur(4px) brightness(1.05);
-    transform: translateY(-3px) scale(1.05);
-}
-
-/* animație drift pentru pseudo-element (rămâne subtile) */
-@keyframes smoke-drift {
-    0% { transform: translateX(-6%) scale(1); }
-    100% { transform: translateX(6%) scale(1.12); }
-}
-
-/* ===== Efect de Dispersie (Click pe literă) ===== */
-.home-text .char {
-    display: inline-block; /* Permite transformarea literelor */
-    cursor: pointer;
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05);
-}
-/* Starea "smoked" aplicată de JS */
-.home-text .char.smoked {
-    opacity: 0;
-    transform: translateY(-80px) rotateX(90deg) scale(0.5);
-}
-
-
-/* ===== INDICATOR SCROLL (Jos Centru) ===== */
-.scroll-indicator {
-    position: absolute;
-    bottom: 1.5rem; /* Ridicat deasupra footer-ului */
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.5);
-    z-index: 10;
-    transition: opacity 0.5s ease;
-    
-    /* Animația pulsantă */
-    animation: pulse 2s infinite ease-in-out;
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0.1;
-        transform: translate(-50%, 0) scale(0.9);
-    }
-    50% {
-        opacity: 1.0;
-        transform: translate(-50%, 5px) scale(1);
-    }
-    100% {
-        opacity: 0.1;
-        transform: translate(-50%, 0) scale(0.9);
-    }
-}
 /* ===== HOME SECTION ===== */
 #home {
   position: relative;
@@ -218,33 +20,17 @@
 .home-text {
   position: absolute;
   top: 50%;
-  left: 3%; /* îl apropiem de marginea stângă */
+  left: 5%;
   transform: translateY(-50%);
   z-index: 10; /* peste canvas */
   color: #fff;
   pointer-events: auto;
-}
-/* ===== SISTEM FADE-IN GENERAL ===== */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+  width: 90%;
+  max-width: 600px;
 }
 
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Delay-uri pentru elemente succesive */
-.fade-in.delay-1 { transition-delay: 0.2s; }
-.fade-in.delay-2 { transition-delay: 0.4s; }
-.fade-in.delay-3 { transition-delay: 0.6s; }
-.fade-in.delay-4 { transition-delay: 0.8s; }
-
-/* ===== ANIMAȚIE HOME TEXT (intrare pe rând) ===== */
 .home-text .word {
-    font-size: clamp(32px, 8vw, 96px);
+    font-size: clamp(2.5rem, 10vw, 6rem);
     font-weight: 900;
     line-height: 1.05;
     text-transform: uppercase;
@@ -398,6 +184,37 @@
     transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
+.home-text .subtext {
+    font-size: 1.2rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+    
+    /* Mai la dreapta și mai sus */
+    margin-top: -0.5rem; /* Mai sus - reduci valoarea */
+    margin-left: 0;  /* Reset pentru mobile */
+    
+    letter-spacing: 1px;
+    text-align: left;
+    transition: color 0.3s ease, transform 0.3s ease;
+    
+    /* Efect fade-in mai lent */
+    opacity: 0;
+    animation: slowFadeIn 3s ease-in-out forwards;
+    animation-delay: 2s;
+}
+
+@keyframes slowFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ===== LOGO FADE-IN ===== */
 .logo {
     opacity: 0;
@@ -436,33 +253,45 @@
 .scroll-indicator.visible {
     opacity: 1;
 }
-.home-text .subtext {
-    font-size: 1.2rem;
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.7);
+
+/* ===== MEDIA QUERIES PENTRU MOBILE ===== */
+@media (max-width: 768px) {
+    .home-text {
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 90%;
+    }
     
-    /* Mai la dreapta și mai sus */
-    margin-top: -0.5rem; /* Mai sus - reduci valoarea */
-    margin-left: 21.5rem;  /* Mai la dreapta - crești valoarea */
+    .home-text .word {
+        font-size: clamp(2rem, 12vw, 4rem);
+        text-align: center;
+    }
     
-    letter-spacing: 1px;
-    text-align: center;
-    transition: color 0.3s ease, transform 0.3s ease;
+    .home-text .subtext {
+        text-align: center;
+        margin-left: 0;
+        font-size: 1rem;
+    }
     
-    /* Efect fade-in mai lent */
-    opacity: 0;
-    animation: slowFadeIn 3s ease-in-out forwards;
-    animation-delay: 2s;
+    .home-text .char:hover {
+        transform: 
+            translateY(-4px) 
+            scale(1.1) 
+            rotateX(5deg);
+    }
+    
+    .scroll-indicator {
+        bottom: 2rem;
+    }
 }
 
-@keyframes slowFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
+@media (max-width: 480px) {
+    .home-text .word {
+        font-size: clamp(1.8rem, 10vw, 3.5rem);
     }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
+    
+    .home-text .subtext {
+        font-size: 0.9rem;
     }
 }
