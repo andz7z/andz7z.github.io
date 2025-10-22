@@ -130,7 +130,7 @@ section {
 }
 .current-section-text {
     position: absolute;
-    left: 95%;
+    left: 88%;
     transform: translateX(-50%);
     font-size: 1rem;
     color: var(--color-steel);
