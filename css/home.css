@@ -188,18 +188,31 @@
         transform: translate(-50%, 0) scale(0.9);
     }
 }
+/* ===== HOME SECTION ===== */
 #home {
   position: relative;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 
+/* Canvas-ul p5.js rămâne fix în fundal */
 #home canvas {
-  position: absolute;
+  position: absolute !important;
   top: 0;
   left: 0;
-  z-index: 0; /* sub text */
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0; /* fundal */
 }
+
+/* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
 .home-text {
-  position: relative;
-  z-index: 5; /* peste canvas */
+  position: absolute;
+  top: 50%;
+  left: 8%; /* îl apropiem de marginea stângă */
+  transform: translateY(-50%);
+  z-index: 10; /* peste canvas */
+  color: #fff;
+  pointer-events: auto;
 }
