@@ -1,208 +1,135 @@
+/* ANDZ — Lehadus Andrei */
+
+/* Home Section */
 .home-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.home-content {
+    text-align: center;
+    z-index: 2;
     position: relative;
 }
 
-.video-background {
+.main-title {
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.title-word {
+    display: block;
+    background: var(--gradient-metal);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.title-word:hover {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+}
+
+.title-word::before {
+    content: attr(data-text);
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.video-background video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(0.7);
-}
-
-.fallback-bg {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #000, #1a1a2e, #16213e);
-}
-
-.home-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 40px;
-    z-index: 10;
-}
-
-.home-left {
-    flex: 1;
-}
-
-.main-heading {
-    font-size: 72px;
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 20px;
-}
-
-.heading-line {
-    display: block;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
+    transition: opacity 0.3s ease;
 }
 
-.heading-line:nth-child(1) {
-    animation-delay: 0.2s;
+.title-word:hover::before {
+    opacity: 1;
 }
 
-.heading-line:nth-child(2) {
-    animation-delay: 0.4s;
+.subtitle {
+    font-size: 1.25rem;
+    opacity: 0.8;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
 }
 
-.heading-line:nth-child(3) {
-    animation-delay: 0.6s;
-}
-
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.subheading {
-    font-size: 20px;
-    color: var(--text-muted);
-    margin-top: 10px;
-    opacity: 0;
-    animation: fadeIn 0.8s 0.8s forwards;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
-}
-
-.home-right {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.social-line {
-    width: 1px;
-    height: 40px;
-    background: var(--text-muted);
-    margin: 10px 0;
-}
-
-.social-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.social-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    color: var(--text-white);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-    transform: translateY(-5px);
-    background: linear-gradient(135deg, var(--accent-purple), var(--accent-red));
-    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
-}
-
+/* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
-    bottom: 40px;
+    bottom: 3rem;
     left: 50%;
     transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 1;
+    text-align: center;
+    z-index: 2;
     transition: opacity 0.5s ease;
 }
 
-.scroll-indicator.hidden {
-    opacity: 0;
-}
-
-.pulsing-arrow {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    margin-bottom: 10px;
+.scroll-text {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
     animation: pulse 2s infinite;
 }
 
+.scroll-arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(45deg);
+    margin: 0 auto;
+    opacity: 0.7;
+    animation: bounce 2s infinite;
+}
+
 @keyframes pulse {
-    0% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
-    }
-    70% {
-        transform: scale(1.05);
-        box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
-    }
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
-    }
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
 }
 
-.scroll-text {
-    font-size: 14px;
-    color: var(--text-muted);
+@keyframes bounce {
+    0%, 100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(-10px); }
 }
 
-/* Responsive Home */
+/* Smoke Canvas */
+#smokeCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Efecte pentru literele din titlu */
+.letter-particle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .home-content {
-        flex-direction: column;
-        text-align: center;
-        padding: 0 20px;
+    .main-title {
+        font-size: clamp(2rem, 10vw, 4rem);
     }
     
-    .main-heading {
-        font-size: 48px;
+    .subtitle {
+        font-size: 1rem;
     }
     
-    .home-right {
-        margin-top: 40px;
-        flex-direction: row;
-    }
-    
-    .social-icons {
-        flex-direction: row;
-    }
-    
-    .social-line {
-        width: 40px;
-        height: 1px;
-        margin: 0 10px;
+    .scroll-indicator {
+        bottom: 2rem;
     }
 }
