@@ -144,7 +144,7 @@
 
 /* blur local (fum) pe literă la hover */
 .home-text .char:hover {
-    filter: blur(4px) saturate(1.05) brightness(1.05);
+    filter: blur(4px) brightness(1.05);
     transform: translateY(-3px) scale(1.05);
 }
 
