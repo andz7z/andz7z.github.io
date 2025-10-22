@@ -1,10 +1,8 @@
-/* Home Section */
-#home {
+.home-section {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    overflow: hidden;
 }
 
 .video-background {
@@ -13,175 +11,172 @@
     left: 0;
     width: 100%;
     height: 100%;
+    overflow: hidden;
     z-index: -1;
 }
 
-#bgVideo {
+.video-background video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     filter: brightness(0.7);
 }
 
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.fallback-bg {
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(0,0,0,0.4), rgba(0,0,0,0.2));
+    background: linear-gradient(135deg, #000, #1a1a2e, #16213e);
 }
 
 .home-content {
     display: flex;
-    width: 90%;
-    max-width: 1200px;
     justify-content: space-between;
     align-items: center;
-    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 40px;
+    z-index: 10;
 }
 
-.text-block {
+.home-left {
     flex: 1;
-    margin-left: 5%;
 }
 
-.animated-text {
-    font-size: 4.5rem;
+.main-heading {
+    font-size: 72px;
     font-weight: 700;
     line-height: 1.1;
-    text-transform: uppercase;
+    margin-bottom: 20px;
 }
 
-.line-1, .line-2, .line-3 {
+.heading-line {
     display: block;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
 }
 
-.line-1 {
-    animation: pulse 3s infinite;
-    margin-bottom: 0.5rem;
+.heading-line:nth-child(1) {
+    animation-delay: 0.2s;
 }
 
-.line-2 {
-    animation: glow 4s infinite;
-    margin-bottom: 1rem;
+.heading-line:nth-child(2) {
+    animation-delay: 0.4s;
 }
 
-.line-3 {
-    font-size: 1.5rem;
-    font-weight: 400;
-    text-transform: none;
-    font-family: monospace;
-    color: var(--chrome);
-    animation: fade 5s infinite;
-    letter-spacing: 2px;
+.heading-line:nth-child(3) {
+    animation-delay: 0.6s;
 }
 
-.animated-text span {
-    display: inline-block;
-    transition: all 0.3s ease;
-    cursor: default;
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.animated-text span:hover {
-    filter: blur(2px) brightness(1.5);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+.subheading {
+    font-size: 20px;
+    color: var(--text-muted);
+    margin-top: 10px;
+    opacity: 0;
+    animation: fadeIn 0.8s 0.8s forwards;
 }
 
-.social-block {
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+.home-right {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
 }
 
-.line {
-    width: 2px;
-    height: 50px;
-    background: linear-gradient(to bottom, transparent, var(--chrome), transparent);
+.social-line {
+    width: 1px;
+    height: 40px;
+    background: var(--text-muted);
+    margin: 10px 0;
 }
 
 .social-icons {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 20px;
 }
 
-.social-icons a {
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    transition: all 0.3s ease;
-    padding: 0.5rem;
-    border-radius: 50%;
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    width: 50px;
-    height: 50px;
+.social-icon {
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--shadow);
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-white);
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-.social-icons a:hover {
-    transform: translateY(-5px) scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), var(--button-glow);
+.social-icon:hover {
+    transform: translateY(-5px);
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-red));
+    box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
 }
 
 .scroll-indicator {
     position: absolute;
-    bottom: 2rem;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
-.arrow {
-    width: 30px;
-    height: 30px;
-    border-right: 2px solid var(--chrome);
-    border-bottom: 2px solid var(--chrome);
-    transform: rotate(45deg);
-    animation: bounce 2s infinite;
+.scroll-indicator.hidden {
+    opacity: 0;
 }
 
-/* Animations */
+.pulsing-arrow {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    margin-bottom: 10px;
+    animation: pulse 2s infinite;
+}
+
 @keyframes pulse {
-    0%, 100% {
-        opacity: 1;
+    0% {
         transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.7);
     }
-    50% {
-        opacity: 0.8;
-        transform: scale(1.02);
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(139, 92, 246, 0);
     }
-}
-
-@keyframes glow {
-    0%, 100% {
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-        text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(139, 92, 246, 0);
     }
 }
 
-@keyframes fade {
-    0%, 100% {
-        opacity: 0.7;
-    }
-    50% {
-        opacity: 1;
-    }
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0) rotate(45deg);
-    }
-    50% {
-        transform: translateY(-10px) rotate(45deg);
-    }
+.scroll-text {
+    font-size: 14px;
+    color: var(--text-muted);
 }
 
 /* Responsive Home */
@@ -189,23 +184,25 @@
     .home-content {
         flex-direction: column;
         text-align: center;
-        gap: 3rem;
+        padding: 0 20px;
     }
     
-    .text-block {
-        margin-left: 0;
+    .main-heading {
+        font-size: 48px;
     }
     
-    .animated-text {
-        font-size: 2.5rem;
+    .home-right {
+        margin-top: 40px;
+        flex-direction: row;
     }
     
     .social-icons {
         flex-direction: row;
     }
     
-    .line {
-        width: 50px;
-        height: 2px;
+    .social-line {
+        width: 40px;
+        height: 1px;
+        margin: 0 10px;
     }
 }
