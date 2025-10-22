@@ -1,24 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // 1. Sistem fade-in general cu Intersection Observer
-    const fadeElements = document.querySelectorAll('.fade-in');
-    
-    const fadeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
-    
-    fadeElements.forEach(element => {
-        fadeObserver.observe(element);
-    });
-    
-    // 2. Animație home text secvențială
+    // 1. Animație home text secvențială
     const homeWords = document.querySelectorAll('.home-text .word');
     
     const textObserver = new IntersectionObserver((entries) => {
@@ -37,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     textObserver.observe(document.querySelector('.home-text'));
     
-    // 3. Fragmentarea textului în litere
+    // 2. Fragmentarea textului în litere
     homeWords.forEach(word => {
         const text = word.textContent;
         word.innerHTML = text.split('').map(char => {
@@ -45,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }).join('');
     });
     
-    // 4. Efect de click pe litere
+    // 3. Efect de click pe litere
     const chars = document.querySelectorAll('.home-text .char');
     
     chars.forEach(char => {
@@ -60,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     
-    // 5. Animații pentru logo și navigație (se activează imediat)
+    // 4. Animații pentru logo și navigație (se activează imediat)
     setTimeout(() => {
         const logo = document.querySelector('.logo');
         const nav = document.querySelector('.main-nav');
