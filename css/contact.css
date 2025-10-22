@@ -1,156 +1,92 @@
-/* ANDZ — Lehadus Andrei */
-
+/* Contact Section */
 #contact {
-    background-color: var(--color-dark-grey);
-    display: block; /* Suprascriem flex pentru a avea footer-ul jos */
-    padding: var(--header-height) 5% 0 5%; /* Fără padding jos */
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
 }
 
-.contact-content {
-    height: calc(100% - 100px); /* Lăsăm 100px pentru footer */
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.contact-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    gap: 2rem;
 }
 
-.contact-content .section-text {
-    margin-bottom: 40px;
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    color: var(--chrome);
+    margin-top: 0.3rem;
+    width: 30px;
+}
+
+.contact-item h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.contact-item p {
+    color: var(--metal-light);
 }
 
 .contact-form {
-    width: 100%;
-    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
-/* Stil pentru câmpurile de formular "glassy" */
 .form-group {
     position: relative;
-    margin-bottom: 30px;
 }
 
 .form-group input,
 .form-group textarea {
     width: 100%;
-    padding: 15px 20px;
-    background: var(--color-glass-bg);
-    border: 1px solid var(--color-metal-steel);
-    border-radius: 4px;
-    color: var(--color-text);
-    font-family: var(--font-body);
+    padding: 1rem;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: var(--primary-color);
     font-size: 1rem;
-    transition: var(--transition-fast);
+    transition: all 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--color-metal-silver);
+    border-color: var(--chrome);
     box-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
 }
 
-/* Efect de label "plutitor" */
-.form-group label {
-    position: absolute;
-    top: 15px;
-    left: 20px;
-    color: var(--color-metal-steel);
-    pointer-events: none;
-    transition: var(--transition-fast);
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--metal-dark);
 }
 
-.form-group input:focus + label,
-.form-group textarea:focus + label,
-.form-group input:not(:placeholder-shown) + label,
-.form-group textarea:not(:placeholder-shown) + label {
-    top: -10px;
-    left: 15px;
-    font-size: 0.8rem;
-    color: var(--color-metal-silver);
-    background: var(--color-dark-grey);
-    padding: 0 5px;
-}
-
-/* Ascundem placeholder-ul standard la focus */
-.form-group input:focus::placeholder,
-.form-group textarea:focus::placeholder {
-    color: transparent;
-}
-
-.cta-button {
-    font-family: var(--font-title);
+.submit-btn {
+    align-self: flex-start;
+    padding: 1rem 2rem;
     font-size: 1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--color-black);
-    background-color: var(--color-metal-silver);
-    border: 2px solid var(--color-metal-silver);
-    padding: 15px 40px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: var(--transition-fast);
 }
 
-.cta-button:hover,
-.cta-button:focus {
-    background-color: transparent;
-    color: var(--color-metal-silver);
-    box-shadow: 0 0 15px var(--color-metal-silver);
-}
-
-/* Footer-ul din secțiunea Contact */
-.site-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100px; /* Înălțime fixă footer */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: var(--color-black);
-    border-top: 1px solid var(--color-metal-steel);
-    z-index: 5;
-}
-
-.footer-links {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.footer-link {
-    font-size: 0.85rem;
-    color: var(--color-metal-steel);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-family: var(--font-body);
-}
-.footer-link:hover {
-    color: var(--color-metal-silver);
-}
-.footer-link svg {
-    margin-bottom: -2px;
-}
-
-.footer-separator {
-    color: var(--color-metal-steel);
-    font-size: 0.85rem;
-}
-
-.copyright {
-    font-size: 0.8rem;
-    color: var(--color-metal-steel);
-}
-
-.copyright .subtext {
-    opacity: 0.7;
+/* Responsive Contact */
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 }
