@@ -1,34 +1,77 @@
 document.addEventListener("DOMContentLoaded", function() {
-
-    const words = document.querySelectorAll('.home-text .word');
-
-    // 1. Fragmentarea textului în litere (span-uri)
-    words.forEach(word => {
+    
+    // 1. Sistem fade-in general cu Intersection Observer
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+    
+    fadeElements.forEach(element => {
+        fadeObserver.observe(element);
+    });
+    
+    // 2. Animație home text secvențială
+    const homeWords = document.querySelectorAll('.home-text .word');
+    
+    const textObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    homeWords.forEach((word, index) => {
+                        setTimeout(() => {
+                            word.classList.add('visible');
+                        }, index * 300); // 300ms între cuvinte
+                    });
+                }, 500);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    textObserver.observe(document.querySelector('.home-text'));
+    
+    // 3. Fragmentarea textului în litere
+    homeWords.forEach(word => {
         const text = word.textContent;
         word.innerHTML = text.split('').map(char => {
-            // Verificăm dacă e spațiu sau literă
             return char === ' ' ? ' ' : `<span class="char">${char}</span>`;
         }).join('');
     });
-
-    // 2. Adăugarea event listener-ului pentru efectul de click
+    
+    // 4. Efect de click pe litere
     const chars = document.querySelectorAll('.home-text .char');
-
+    
     chars.forEach(char => {
-        char.addEventListener('click', () => {
-            // Previne dublu-click în timpul animației
-            if (char.classList.contains('smoked')) {
-                return;
-            }
-
-            // Adaugă clasa care declanșează animația de dispariție
+        char.addEventListener('click', (e) => {
+            if (char.classList.contains('smoked')) return;
+            
             char.classList.add('smoked');
-
-            // Setează revenirea după 3-4 secunde
+            
             setTimeout(() => {
                 char.classList.remove('smoked');
-            }, 3500); // 3.5 secunde
+            }, 3500);
         });
     });
-
+    
+    // 5. Animații pentru logo și navigație (se activează imediat)
+    setTimeout(() => {
+        const logo = document.querySelector('.logo');
+        const nav = document.querySelector('.main-nav');
+        
+        if (logo) logo.classList.add('visible');
+        if (nav) nav.classList.add('visible');
+        
+        // Scroll indicator după ce textul apare
+        setTimeout(() => {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator) scrollIndicator.classList.add('visible');
+        }, 2000);
+    }, 100);
 });
