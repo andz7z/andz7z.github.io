@@ -1,43 +1,34 @@
-// Home Section Script
-document.addEventListener('DOMContentLoaded', () => {
-    // Discover button scroll to about section
-    const discoverBtn = document.getElementById('discoverBtn');
-    
-    discoverBtn.addEventListener('click', () => {
-        const aboutSection = document.getElementById('about');
-        
-        window.scrollTo({
-            top: aboutSection.offsetTop,
-            behavior: 'smooth'
+document.addEventListener("DOMContentLoaded", function() {
+
+    const words = document.querySelectorAll('.home-text .word');
+
+    // 1. Fragmentarea textului în litere (span-uri)
+    words.forEach(word => {
+        const text = word.textContent;
+        word.innerHTML = text.split('').map(char => {
+            // Verificăm dacă e spațiu sau literă
+            return char === ' ' ? ' ' : `<span class="char">${char}</span>`;
+        }).join('');
+    });
+
+    // 2. Adăugarea event listener-ului pentru efectul de click
+    const chars = document.querySelectorAll('.home-text .char');
+
+    chars.forEach(char => {
+        char.addEventListener('click', () => {
+            // Previne dublu-click în timpul animației
+            if (char.classList.contains('smoked')) {
+                return;
+            }
+
+            // Adaugă clasa care declanșează animația de dispariție
+            char.classList.add('smoked');
+
+            // Setează revenirea după 3-4 secunde
+            setTimeout(() => {
+                char.classList.remove('smoked');
+            }, 3500); // 3.5 secunde
         });
     });
-    
-    // Letter hover effect
-    const sloganWords = document.querySelectorAll('.slogan-word');
-    
-    sloganWords.forEach(word => {
-        const letters = word.textContent.split('');
-        word.innerHTML = '';
-        
-        letters.forEach(letter => {
-            const span = document.createElement('span');
-            span.textContent = letter;
-            span.style.transition = 'all 0.3s ease';
-            span.style.display = 'inline-block';
-            
-            span.addEventListener('mouseover', () => {
-                span.style.textShadow = '0 0 15px var(--glow-color)';
-                span.style.filter = 'blur(2px)';
-                span.style.transform = 'scale(1.2)';
-            });
-            
-            span.addEventListener('mouseout', () => {
-                span.style.textShadow = 'none';
-                span.style.filter = 'blur(0)';
-                span.style.transform = 'scale(1)';
-            });
-            
-            word.appendChild(span);
-        });
-    });
+
 });
