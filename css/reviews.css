@@ -1,55 +1,58 @@
-/* ANDZ — Lehadus Andrei */
-
+/* Reviews Section */
 #reviews {
-    background-color: var(--color-black);
+    background: linear-gradient(135deg, #111111, #222222);
 }
 
-.reviews-content {
-    text-align: center;
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-.review-item {
-    max-width: 800px;
-    margin: 0 auto;
+.review-card {
+    padding: 2rem;
 }
 
-.review-text {
-    font-size: clamp(1.2rem, 2vw, 1.75rem);
-    font-weight: 300;
+.review-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.stars {
+    margin-bottom: 1.5rem;
+    color: gold;
+    font-size: 1.2rem;
+}
+
+.review-content p {
     font-style: italic;
-    line-height: 1.5;
-    color: var(--color-text);
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    color: var(--metal-light);
+    line-height: 1.6;
     position: relative;
-    padding: 0 20px;
 }
 
-/* Efect "ghilimele" metalice */
-.review-text::before,
-.review-text::after {
+.review-content p::before,
+.review-content p::after {
     content: '"';
-    font-family: var(--font-title);
-    font-size: 5rem;
-    color: var(--color-metal-steel);
-    opacity: 0.1;
-    position: absolute;
-    line-height: 1;
+    font-size: 2rem;
+    color: var(--chrome);
+    opacity: 0.5;
 }
 
-.review-text::before {
-    top: -10px;
-    left: -10px;
+.review-author h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.review-text::after {
-    bottom: -30px;
-    right: -10px;
-}
-
-.review-author {
-    font-family: var(--font-body);
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--color-metal-silver);
-    letter-spacing: 1px;
+.review-author span {
+    font-size: 0.9rem;
+    color: var(--metal-dark);
 }
