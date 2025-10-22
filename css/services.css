@@ -1,72 +1,30 @@
-/* services.css */
-#services {
+/* Stiluri pentru sectiunea #services */
+
+.card-container {
     display: flex;
-    align-items: center;
+    gap: 2rem;
     justify-content: center;
-    background: radial-gradient(circle at 80% 20%, #111111, #000000);
-}
-
-.services-container {
-    max-width: 1200px;
-    width: 90%;
-    padding: 50px;
-}
-
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+    flex-wrap: wrap;
 }
 
 .service-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    border-radius: 15px;
-    padding: 30px;
-    transition: all 0.5s ease;
-    position: relative;
-    overflow: hidden;
+    background: rgba(20, 20, 20, 0.5);
+    border: 1px solid var(--color-steel-dark);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 300px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    
+    /* Pregătire pentru 3D */
     transform-style: preserve-3d;
-    perspective: 1000px;
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    transition: left 0.7s ease;
-}
-
-.service-card:hover::before {
-    left: 100%;
 }
 
 .service-card:hover {
-    transform: translateY(-10px) rotateX(5deg);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-}
-
-.card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-    background: var(--accent-steel);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    transform: translateY(-10px) rotateX(5deg) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-steel);
 }
 
 .service-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: var(--text-primary);
-}
-
-.service-card p {
-    color: var(--text-secondary);
-    line-height: 1.6;
+    color: var(--color-chrome-light);
+    margin-bottom: 1rem;
 }
