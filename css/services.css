@@ -1,82 +1,68 @@
-/* services.css */
+/* Services Section Specific Styles */
 #services {
-    background: linear-gradient(135deg, #0c0c0c 0%, #1c1c1c 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.services-container {
-    max-width: 1200px;
-    width: 90%;
-    padding: 40px;
+    background: linear-gradient(135deg, rgba(255, 20, 147, 0.05), rgba(138, 43, 226, 0.05));
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+    max-width: 1200px;
+    padding: 0 20px;
 }
 
 .service-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
     padding: 40px 30px;
-    height: 100%;
+    text-align: center;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
 }
 
-.card-icon {
-    width: 80px;
-    height: 80px;
-    background: linear-gradient(135deg, var(--dark-steel), var(--light-steel));
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px;
-    font-size: 2rem;
-    color: var(--white);
-    position: relative;
-    overflow: hidden;
+.service-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(138, 43, 226, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-.card-icon::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-    border-radius: 50%;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.service-card:hover .card-icon::before {
-    opacity: 1;
-}
-
-.service-card h3 {
+.service-title {
     font-size: 1.5rem;
+    font-weight: 600;
     margin-bottom: 15px;
-    color: var(--silver);
 }
 
-.service-card p {
+.service-description {
+    font-size: 1rem;
+    opacity: 0.8;
+    font-family: var(--font-secondary);
     line-height: 1.6;
-    color: var(--steel);
 }
 
-/* Responsive */
+/* Responsive Services */
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .services-grid {
         grid-template-columns: 1fr;
     }
     
-    .services-container {
-        padding: 20px;
+    .service-card {
+        padding: 30px 20px;
     }
 }
