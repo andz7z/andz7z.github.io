@@ -130,7 +130,7 @@ section {
 }
 .current-section-text {
     position: absolute;
-    left: 85%;
+    left: 95%;
     transform: translateX(-50%);
     font-size: 1rem;
     color: var(--color-steel);
@@ -145,6 +145,7 @@ section {
 .go-back-btn:hover {
     transform: scale(1.2) rotate(-10deg);
     color: var(--color-chrome-light);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
 }
 
 /* ===== SOCIALS (Dreapta Centru) ===== */
