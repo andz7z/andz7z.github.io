@@ -1,51 +1,61 @@
-#portfolio .section-content {
-    max-width: 1200px;
+.portfolio-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
 }
 
-.project-card {
-    min-height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    position: relative;
+.portfolio-item {
+    border-radius: 16px;
     overflow: hidden;
-    cursor: pointer;
-    border: none; /* Removed base glass border for unique hover effect */
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    transition: all 0.4s ease;
 }
 
-.project-card::before {
-    content: attr(data-title);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    font-weight: 700;
-    opacity: 0.1;
-    transition: opacity var(--transition-fast), font-size var(--transition-fast);
+.portfolio-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
-.project-card:hover::before {
-    opacity: 0.4;
-    font-size: 4rem;
+.portfolio-image {
+    height: 200px;
+    overflow: hidden;
 }
 
-.project-card p {
-    background: var(--gradient-hover);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: 500;
+.portfolio-image .image-placeholder {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    font-size: 50px;
 }
 
-@media (max-width: 1024px) {
+.portfolio-info {
+    padding: 20px;
+}
+
+.portfolio-info h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.portfolio-info p {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* Responsive Portfolio */
+@media (max-width: 768px) {
     .portfolio-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 }
