@@ -1,261 +1,264 @@
 /* ANDZ — Lehadus Andrei */
 
-.home-section {
-    background: linear-gradient(135deg, var(--color-bg) 0%, #1a1a1a 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.home-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(192, 192, 192, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(240, 240, 240, 0.05) 0%, transparent 50%);
-    pointer-events: none;
+#home {
+    background-color: var(--color-black);
+    /* Poți adăuga un gradient subtil sau o imagine/video de fundal */
+    background-image: radial-gradient(circle at 50% 50%, var(--color-dark-grey) 0%, var(--color-black) 70%);
 }
 
 .home-content {
-    text-align: center;
-    z-index: 2;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Aliniere stânga-centru */
+    height: 100%;
 }
 
-.hero-text {
-    margin-bottom: var(--space-xl);
+/* Logo Stânga Sus */
+.logo-link {
+    position: fixed;
+    top: 30px;
+    left: 40px;
+    z-index: 90;
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--color-metal-silver);
+    letter-spacing: 1px;
+    transition: transform var(--transition-fast), text-shadow var(--transition-fast);
+    
+    /* Animație fade-in la încărcare */
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 1s var(--transition-slow) forwards 0.5s; /* Delay 0.5s */
 }
 
-.hero-line {
-    margin-bottom: var(--space-md);
-    overflow: hidden;
+.logo-link:hover {
+    transform: scale(1.1) translateY(-2px); /* Efect Zoom + Tactil */
+    text-shadow: 0 0 10px var(--color-accent-glow), 0 0 20px var(--color-metal-silver);
 }
 
-.word {
-    display: inline-block;
-    font-size: clamp(3rem, 8vw, 6rem);
+/* Navigație Principală Dreapta Sus */
+.main-nav {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    z-index: 90;
+    transition: opacity var(--transition-medium), transform var(--transition-medium), visibility var(--transition-medium);
+
+    /* Animație fade-in la încărcare */
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeInDown 1s var(--transition-slow) forwards 0.8s; /* Delay 0.8s */
+}
+
+.main-nav.fade-out {
+    opacity: 0;
+    transform: translateY(-100%);
+    visibility: hidden;
+}
+
+.main-nav ul {
+    display: flex;
+    gap: 30px;
+    list-style: none;
+}
+
+.nav-icon {
+    font-family: var(--font-body);
     font-weight: 700;
-    font-family: var(--font-heading);
-    letter-spacing: 2px;
-    position: relative;
-    cursor: pointer;
-    transition: var(--transition-normal);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-.word::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, var(--color-accent-metal), transparent);
-    opacity: 0;
-    transition: var(--transition-normal);
-    mix-blend-mode: overlay;
-}
-
-.word:hover::before {
-    opacity: 0.3;
-}
-
-.word:hover {
-    transform: translateY(-2px);
-    text-shadow: 
-        0 0 30px rgba(255, 255, 255, 0.2),
-        0 0 60px rgba(255, 255, 255, 0.1);
-}
-
-.subtext {
-    display: block;
-    font-size: 1rem;
-    font-weight: 300;
-    margin-top: var(--space-sm);
-    opacity: 0.7;
-    letter-spacing: 4px;
     text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    color: var(--color-metal-steel);
+    position: relative;
+    padding: 5px 0;
 }
 
-/* Smoke Effect */
-.word.smoke-active {
+/* Efect hover metalic */
+.nav-icon::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--color-metal-silver);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-fast);
+}
+
+.nav-icon:hover::after,
+.nav-icon:focus::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-icon:hover,
+.nav-icon:focus {
+    color: var(--color-metal-silver);
+}
+
+/* Efect click (simulare 3D press) */
+.nav-icon:active {
+    transform: translateY(1px);
+    color: var(--color-accent-glow);
+}
+
+/* Titlu Erou (Stânga-Centru) */
+.hero-title {
+    font-size: clamp(3rem, 10vw, 8rem); /* Mult mai mare */
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--color-metal-steel); /* Culoare de bază, efectul vine pe hover */
+    margin: 0;
+    
+    /* Animație fade-in la încărcare */
+    opacity: 0;
+    animation: fadeInUp 1s var(--transition-slow) forwards 1.2s; /* Delay 1.2s */
+}
+
+.hero-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.5rem);
+    color: var(--color-metal-steel);
+    margin-left: 5px; /* Aliniere subtilă */
+    text-transform: lowercase;
+    letter-spacing: 1px;
+    
+    /* Animație fade-in la încărcare */
+    opacity: 0;
+    animation: fadeInUp 1s var(--transition-slow) forwards 1.5s; /* Delay 1.5s */
+}
+
+/* Efecte pe litere (JS-controlled) */
+.hero-title .char {
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease-out, filter 0.5s ease-out, opacity 0.5s ease-out;
     position: relative;
 }
 
-.word.smoke-active::after {
-    content: '';
+/* a) Efect hover (fum/blur) */
+.hero-title .char:hover {
+    filter: blur(2px);
+    transform: scale(1.05);
+    color: var(--color-metal-silver);
+}
+
+/* b) Efect click (fum care dispare) */
+.hero-title .char.is-smoking {
+    animation: smokeUp 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+}
+
+/* c) Efect reapariție */
+.hero-title .char.is-reappearing {
+    animation: smokeReappear 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* CTA Scroll (Jos-Centru) */
+.cta-scroll {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
-    opacity: 0;
-    filter: blur(20px);
-    animation: smokeDrift 2s ease-out forwards;
-}
-
-@keyframes smokeDrift {
-    0% {
-        opacity: 0.5;
-        transform: translateY(0) scale(1);
-        filter: blur(5px);
-    }
-    50% {
-        opacity: 0.3;
-        transform: translateY(-20px) scale(1.2);
-        filter: blur(10px);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-40px) scale(1.5);
-        filter: blur(20px);
-    }
-}
-
-/* Letter Disappear/Reappear Effect */
-.letter {
-    display: inline-block;
-    transition: var(--transition-normal);
-}
-
-.letter.fade-up {
-    animation: letterFadeUp 0.5s ease-out forwards;
-}
-
-.letter.fade-in {
-    animation: letterFadeIn 0.5s ease-out forwards;
-}
-
-@keyframes letterFadeUp {
-    0% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-}
-
-@keyframes letterFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: var(--space-xl);
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--space-sm);
-    opacity: 1;
-    transition: opacity var(--transition-normal);
-}
+    gap: 10px;
+    cursor: default;
+    transition: opacity var(--transition-medium), transform var(--transition-medium);
 
-.scroll-indicator.fade-out {
+    /* Animație fade-in la încărcare */
     opacity: 0;
+    animation: fadeInUp 1s var(--transition-slow) forwards 1.8s; /* Delay 1.8s */
 }
 
-.scroll-text {
-    font-size: 0.875rem;
-    letter-spacing: 2px;
+.cta-scroll.fade-out {
+    opacity: 0;
+    transform: translate(-50%, 20px);
+    visibility: hidden;
+}
+
+.cta-text {
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    color: var(--color-metal-steel);
     text-transform: uppercase;
-    opacity: 0.8;
-    animation: pulse 2s ease-in-out infinite;
+    letter-spacing: 1px;
+    animation: pulse 2.5s infinite;
+}
+
+.cta-arrow {
+    color: var(--color-metal-steel);
+    opacity: 0.7;
+    animation: bounceFade 2.5s infinite;
+}
+
+/* Animații Keyframes Specifice Home */
+@keyframes fadeInDown {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes pulse {
     0%, 100% {
-        opacity: 0.6;
+        opacity: 0.7;
+        transform: scale(1);
     }
     50% {
         opacity: 1;
+        transform: scale(1.05);
+        color: var(--color-metal-silver);
     }
 }
 
-.scroll-arrow {
-    width: 20px;
-    height: 20px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg);
-    opacity: 0.6;
-    animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
+@keyframes bounceFade {
     0%, 20%, 50%, 80%, 100% {
-        transform: rotate(45deg) translateY(0);
+        transform: translateY(0);
+        opacity: 0.7;
     }
     40% {
-        transform: rotate(45deg) translateY(-10px);
+        transform: translateY(10px);
+        opacity: 1;
     }
     60% {
-        transform: rotate(45deg) translateY(-5px);
+        transform: translateY(5px);
     }
 }
 
-/* Logo Hover Effect */
-.logo-link {
-    position: relative;
-    overflow: hidden;
-}
-
-.logo-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--color-accent-metal), transparent);
-    transition: var(--transition-slow);
-}
-
-.logo-link:hover::before {
-    left: 100%;
-}
-
-.logo-link:hover {
-    transform: scale(1.1);
-}
-
-/* Navigation Fade Out */
-.main-nav.fade-out {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .hero-line {
-        margin-bottom: var(--space-sm);
+@keyframes smokeUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
-    
-    .word {
-        font-size: clamp(2.5rem, 10vw, 4rem);
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1.5);
+        filter: blur(20px);
     }
-    
-    .subtext {
-        font-size: 0.875rem;
-        letter-spacing: 2px;
+}
+
+@keyframes smokeReappear {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.5);
+        filter: blur(10px);
     }
-    
-    .scroll-indicator {
-        bottom: var(--space-lg);
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
