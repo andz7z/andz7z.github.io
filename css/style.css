@@ -1,70 +1,324 @@
 /* ANDZ — Lehadus Andrei */
 
-/* CSS Variables for Theme */
+/* 1. Reset și Variabile Globale */
 :root {
-    /* Colors */
-    --color-bg: #0a0a0a;
-    --color-bg-secondary: #111111;
-    --color-text: #ffffff;
-    --color-text-secondary: #a0a0a0;
-    --color-accent: #c0c0c0;
-    --color-accent-metal: #e8e8e8;
-    --color-accent-chrome: #f0f0f0;
-    --color-glass: rgba(255, 255, 255, 0.05);
-    --color-glass-border: rgba(255, 255, 255, 0.1);
-    --color-shadow: rgba(0, 0, 0, 0.5);
+    /* Paletă Culori (Black & Metal) */
+    --color-black: #050505;
+    --color-dark-grey: #1a1a1a;
+    --color-medium-grey: #2a2a2a;
+    --color-text: #e0e0e0;
+    --color-metal-silver: #c0c0c0;
+    --color-metal-steel: #888888;
+    --color-accent-glow: #ffffff;
+    --color-glass-bg: rgba(26, 26, 26, 0.5);
+
+    /* Tipografie */
+    --font-title: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
     
-    /* Typography */
-    --font-primary: 'Inter', sans-serif;
-    --font-heading: 'Orbitron', sans-serif;
-    
-    /* Spacing */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 2rem;
-    --space-xl: 4rem;
-    
-    /* Border Radius */
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 16px;
-    
-    /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.3s ease;
-    --transition-slow: 0.5s ease;
-    
-    /* Shadows */
-    --shadow-sm: 0 2px 4px var(--color-shadow);
-    --shadow-md: 0 4px 8px var(--color-shadow);
-    --shadow-lg: 0 8px 16px var(--color-shadow);
-    --shadow-glow: 0 0 20px rgba(192, 192, 192, 0.1);
+    /* Tranziții */
+    --transition-fast: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-medium: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-slow: 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* Dimensiuni UI */
+    --header-height: 80px;
+    --progress-bar-height: 3px;
 }
 
-/* Reset & Base Styles */
-* {
+/* Resetare de bază */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
-    font-size: 16px;
-}
-
-body {
-    font-family: var(--font-primary);
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    line-height: 1.6;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Reduced Motion Support */
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-black);
+    color: var(--color-text);
+    overflow: hidden; /* Previne scroll pe body, doar .main-container face scroll */
+    line-height: 1.6;
+}
+
+a {
+    color: var(--color-metal-silver);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover, a:focus {
+    color: var(--color-accent-glow);
+    outline: 2px solid var(--color-metal-silver);
+    outline-offset: 4px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* 2. Containerul Principal (Scroll Snap) */
+.main-container {
+    width: 100%;
+    height: 100vh; /* Ocupă tot viewport-ul */
+    overflow-y: scroll;
+    overflow-x: hidden;
+    /* Efectul de "magnet" */
+    scroll-snap-type: y mandatory;
+}
+
+.fullscreen-section {
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start; /* Aliniază fiecare secțiune la început */
+    position: relative; /* Pentru poziționarea conținutului intern */
+    overflow: hidden; /* Ascunde orice conținut care depășește */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--header-height) 5%;
+}
+
+/* Structura generală a conținutului secțiunii */
+.section-content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 2;
+    position: relative;
+}
+
+.section-title {
+    font-family: var(--font-title);
+    /* Tipografie responsivă */
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: var(--color-metal-silver);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(192, 192, 192, 0.2);
+}
+
+.section-text {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    max-width: 700px;
+    color: var(--color-text);
+}
+
+/* 3. UI Globală (Fixă) */
+
+/* Bara de Progres */
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--progress-bar-height);
+    background-color: var(--color-medium-grey);
+    z-index: 100;
+}
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-metal-steel), var(--color-metal-silver), var(--color-accent-glow));
+    box-shadow: 0 0 10px var(--color-metal-silver);
+    transition: width 0.1s linear; /* Fără easing, pentru a fi reactiv */
+}
+
+/* Navigație Secundară (Go Back + Status) */
+.secondary-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 90;
+    
+    /* Inițial ascunsă */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: opacity var(--transition-medium), transform var(--transition-medium), visibility var(--transition-medium);
+}
+
+.secondary-nav.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.go-back-btn {
+    color: var(--color-metal-silver);
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--color-metal-steel);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    transition: var(--transition-fast);
+}
+
+.go-back-btn:hover {
+    background: var(--color-metal-silver);
+    color: var(--color-black);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--color-metal-silver);
+}
+
+.current-section-indicator {
+    font-family: var(--font-title);
+    font-size: 0.9rem;
+    color: var(--color-metal-steel);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 4. Iconițe Sociale (Dreapta) */
+.social-links {
+    position: fixed;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    z-index: 50;
+    
+    /* Animație fade-in la încărcare */
+    opacity: 0;
+    transform: translate(100%, -50%);
+    animation: fadeInRight 1s var(--transition-slow) forwards 1s; /* Delay 1s */
+}
+
+.social-links a {
+    color: var(--color-metal-steel);
+    transition: var(--transition-fast);
+}
+.social-links a:hover {
+    color: var(--color-metal-silver);
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 5px var(--color-metal-silver));
+}
+
+.social-links .line {
+    width: 1px;
+    height: 30px;
+    background-color: var(--color-metal-steel);
+}
+
+/* 5. Modal (Termeni și Condiții) */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: grid;
+    place-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-medium), visibility var(--transition-medium);
+}
+
+.modal-overlay.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--color-dark-grey);
+    border: 1px solid var(--color-metal-steel);
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    height: 80vh;
+    padding: 30px 40px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+
+    /* Animație la apariție */
+    transform: scale(0.9);
+    transition: transform var(--transition-medium);
+}
+
+.modal-overlay.is-visible .modal-content {
+    transform: scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--color-metal-steel);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.modal-close:hover {
+    color: var(--color-accent-glow);
+    transform: rotate(90deg);
+}
+
+.modal-scrollable-content {
+    overflow-y: auto;
+    padding-right: 15px; /* Spațiu pentru scrollbar */
+}
+
+.modal-scrollable-content p {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--color-text);
+}
+
+/* 6. Clase Utilitare (Animații) */
+
+/* Clasa de bază pentru elementele care apar cu fade-in */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1s var(--transition-slow), transform 1s var(--transition-slow);
+}
+
+/* Clasa adăugată de IntersectionObserver */
+.is-visible .fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animații Keyframes globale */
+@keyframes fadeInRight {
+    to {
+        opacity: 1;
+        transform: translate(0, -50%);
+    }
+}
+
+/* 7. Accesibilitate (Reduced Motion) */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -73,389 +327,5 @@ body {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
-    }
-}
-
-/* Typography */
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: var(--space-md);
-}
-
-h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-}
-
-h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-}
-
-h3 {
-    font-size: clamp(1.5rem, 3vw, 2rem);
-}
-
-p {
-    margin-bottom: var(--space-md);
-}
-
-/* Links */
-a {
-    color: inherit;
-    text-decoration: none;
-    transition: var(--transition-fast);
-}
-
-/* Buttons */
-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-family: inherit;
-    color: inherit;
-    transition: var(--transition-normal);
-}
-
-/* Sections */
-.section {
-    min-height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    scroll-snap-align: start;
-}
-
-.container {
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 var(--space-lg);
-    margin: 0 auto;
-}
-
-/* Progress Bar */
-.progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--color-glass);
-    z-index: 1000;
-    opacity: 0;
-    transition: opacity var(--transition-normal);
-}
-
-.progress-bar.visible {
-    opacity: 1;
-}
-
-.progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-metal));
-    width: 0%;
-    transition: width 0.1s ease;
-    box-shadow: var(--shadow-glow);
-}
-
-/* Navigation */
-.main-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: var(--space-lg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    transition: var(--transition-normal);
-}
-
-.nav-logo .logo-link {
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    position: relative;
-    padding: var(--space-sm);
-}
-
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: var(--space-xl);
-}
-
-.nav-link {
-    font-weight: 500;
-    position: relative;
-    padding: var(--space-sm) 0;
-    opacity: 0.8;
-    transition: var(--transition-normal);
-}
-
-.nav-link:hover {
-    opacity: 1;
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--color-accent-metal);
-    transition: var(--transition-normal);
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* Back to Home Button */
-.back-home-btn {
-    position: fixed;
-    top: var(--space-lg);
-    right: var(--space-lg);
-    display: flex;
-    align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-md);
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-md);
-    backdrop-filter: blur(10px);
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition-normal);
-    z-index: 101;
-}
-
-.back-home-btn.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.back-arrow {
-    width: 12px;
-    height: 12px;
-    border-left: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg);
-}
-
-.current-section {
-    font-size: 0.875rem;
-    opacity: 0.8;
-}
-
-/* Social Links */
-.social-links {
-    position: fixed;
-    right: var(--space-lg);
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-md);
-    z-index: 99;
-}
-
-.social-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, 
-        transparent, 
-        var(--color-accent), 
-        transparent);
-}
-
-.social-icons {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-lg);
-}
-
-.social-link {
-    opacity: 0.7;
-    transition: var(--transition-normal);
-    padding: var(--space-sm);
-}
-
-.social-link:hover {
-    opacity: 1;
-    transform: translateY(-2px);
-}
-
-/* Footer */
-.main-footer {
-    background: var(--color-bg-secondary);
-    padding: var(--space-xl) 0;
-    text-align: center;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-lg);
-}
-
-.footer-links {
-    margin-bottom: var(--space-lg);
-}
-
-.tos-btn {
-    padding: var(--space-sm) var(--space-md);
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-md);
-    backdrop-filter: blur(10px);
-    transition: var(--transition-normal);
-}
-
-.tos-btn:hover {
-    background: var(--color-accent);
-    color: var(--color-bg);
-}
-
-.footer-info {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-}
-
-.copyright {
-    font-weight: 600;
-    font-size: 1.1rem;
-}
-
-.author {
-    opacity: 0.7;
-    font-size: 0.9rem;
-}
-
-/* Modal */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: var(--transition-normal);
-}
-
-.modal.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal-content {
-    background: var(--color-glass);
-    border: 1px solid var(--color-glass-border);
-    border-radius: var(--radius-lg);
-    backdrop-filter: blur(20px);
-    width: 90%;
-    max-width: 600px;
-    max-height: 80vh;
-    overflow: hidden;
-    transform: scale(0.9);
-    transition: transform var(--transition-normal);
-}
-
-.modal.active .modal-content {
-    transform: scale(1);
-}
-
-.modal-header {
-    padding: var(--space-lg);
-    border-bottom: 1px solid var(--color-glass-border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.close-modal {
-    font-size: 1.5rem;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: var(--transition-normal);
-}
-
-.close-modal:hover {
-    background: var(--color-glass);
-}
-
-.modal-body {
-    padding: var(--space-lg);
-    max-height: 60vh;
-    overflow-y: auto;
-}
-
-.tos-content h3 {
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-sm);
-    font-size: 1.1rem;
-}
-
-.tos-content h3:first-child {
-    margin-top: 0;
-}
-
-/* Utility Classes */
-.visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-    
-    .social-links {
-        right: var(--space-md);
-    }
-    
-    .back-home-btn {
-        right: var(--space-md);
-    }
-    
-    .container {
-        padding: 0 var(--space-md);
-    }
-}
-
-@media (max-width: 480px) {
-    .main-nav {
-        padding: var(--space-md);
-    }
-    
-    .social-links {
-        display: none;
     }
 }
