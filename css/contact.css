@@ -1,92 +1,57 @@
 /* Contact Section */
-#contact {
-    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
+.contact-section {
+    background-color: rgba(10, 10, 10, 0.9);
 }
 
-.contact-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    margin-top: 2rem;
+.contact-content {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
 }
 
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 1rem;
-}
-
-.contact-item i {
-    font-size: 1.5rem;
-    color: var(--chrome);
-    margin-top: 0.3rem;
-    width: 30px;
-}
-
-.contact-item h3 {
+.contact-content p {
+    margin-bottom: 30px;
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
-    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.contact-item p {
-    color: var(--metal-light);
 }
 
 .contact-form {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-}
-
-.form-group {
-    position: relative;
-}
-
-.form-group input,
-.form-group textarea {
+    gap: 20px;
     width: 100%;
-    padding: 1rem;
-    background: var(--glass);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 5px;
     color: var(--primary-color);
     font-size: 1rem;
-    transition: all 0.3s ease;
+    transition: all var(--transition-speed);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
     outline: none;
-    border-color: var(--chrome);
-    box-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px var(--glow-color);
 }
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: var(--metal-dark);
-}
-
-.submit-btn {
-    align-self: flex-start;
-    padding: 1rem 2rem;
+.contact-form button {
+    background: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 1rem;
+    transition: all var(--transition-speed);
 }
 
-/* Responsive Contact */
-@media (max-width: 768px) {
-    .contact-container {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
+.contact-form button:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
