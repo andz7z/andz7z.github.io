@@ -169,26 +169,28 @@ section {
     transform: scale(1.3);
     color: var(--color-chrome-light);
 }
+/* Liniile cerute */
 .socials-line-top,
 .socials-line-bottom {
     width: 1px;
     height: 20px;
     background-color: var(--color-steel);
     opacity: 0;
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    animation: fadeIn 1s ease-out forwards;
+    animation-delay: 1.2s;
 }
 
-/* Când socials devine vizibil */
-.socials.visible .socials-line-top,
-.socials.visible .socials-line-bottom {
-    opacity: 1;
-    transform: translateY(0);
+.socials-line-bottom {
+    animation-delay: 1.4s; /* Delay puțin mai mare pentru efect cascadă */
 }
 
-.socials.visible .socials-line-top {
-    transition-delay: 0.3s;
-}
-
-.socials.visible .socials-line-bottom {
-    transition-delay: 0.5s;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
