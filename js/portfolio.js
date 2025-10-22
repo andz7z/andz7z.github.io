@@ -1,97 +1,42 @@
 /* ANDZ — Lehadus Andrei */
+'use strict';
 
-class PortfolioSection {
-    constructor() {
-        this.init();
-    }
+function initPortfolioAnimations() {
+    
+    const portfolioCards = document.querySelectorAll('.portfolio-card');
+    if (!portfolioCards.length) return;
 
-    init() {
-        this.setupPortfolioAnimations();
-        this.setupTiltEffects();
-        this.setupHoverReveal();
-    }
+    // Constante pentru efect
+    const MAX_ROTATION = 10; // Grade maxime de rotație
 
-    setupPortfolioAnimations() {
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
+    portfolioCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            // Verificăm dacă utilizatorul preferă mișcare redusă
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (prefersReducedMotion) {
+                return;
+            }
 
-        if ('IntersectionObserver' in window) {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.2
-            });
-
-            portfolioItems.forEach(item => {
-                observer.observe(item);
-            });
-        } else {
-            // Fallback: show all items
-            portfolioItems.forEach(item => {
-                item.classList.add('visible');
-            });
-        }
-    }
-
-    setupTiltEffects() {
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-        portfolioItems.forEach(item => {
-            // Tilt effect on mousemove
-            item.addEventListener('mousemove', (e) => {
-                this.handlePortfolioTilt(e, item);
-            });
-
-            // Reset tilt on mouseleave
-            item.addEventListener('mouseleave', () => {
-                item.style.transform = 'translateY(-10px) rotateX(5deg)';
-                item.style.transition = 'transform 0.5s ease';
-            });
-        });
-    }
-
-    handlePortfolioTilt(e, item) {
-        const itemRect = item.getBoundingClientRect();
-        const itemCenterX = itemRect.left + itemRect.width / 2;
-        const itemCenterY = itemRect.top + itemRect.height / 2;
-        
-        const mouseX = e.clientX - itemCenterX;
-        const mouseY = e.clientY - itemCenterY;
-        
-        const rotateX = (mouseY / itemRect.height) * -15;
-        const rotateY = (mouseX / itemRect.width) * 15;
-        
-        item.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        item.style.transition = 'transform 0.1s ease';
-    }
-
-    setupHoverReveal() {
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-        portfolioItems.forEach(item => {
-            const info = item.querySelector('.portfolio-info');
+            const cardRect = card.getBoundingClientRect();
             
-            item.addEventListener('mouseenter', () => {
-                if (info) {
-                    info.style.opacity = '1';
-                    info.style.transform = 'translateY(0)';
-                }
-            });
+            // Calculăm poziția mouse-ului relativ la centrul cardului
+            const x = e.clientX - cardRect.left - cardRect.width / 2;
+            const y = e.clientY - cardRect.top - cardRect.height / 2;
 
-            item.addEventListener('mouseleave', () => {
-                if (info) {
-                    info.style.opacity = '0.8';
-                    info.style.transform = 'translateY(10px)';
-                }
-            });
+            // Calculăm rotația
+            // Inversăm 'y' pentru rotația X (mouse sus -> card înclinat în jos)
+            // 'x' rămâne normal pentru rotația Y (mouse dreapta -> card rotit dreapta)
+            const rotateY = (x / (cardRect.width / 2)) * MAX_ROTATION;
+            const rotateX = -(y / (cardRect.height / 2)) * MAX_ROTATION;
+
+            // Aplicăm transformarea direct pe element
+            // Adăugăm 'scale(1.05)' pentru a accentua efectul 3D
+            card.style.transform = `perspective(1500px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
         });
-    }
-}
 
-// Auto-initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new PortfolioSection();
-});
+        card.addEventListener('mouseleave', () => {
+            // Resetăm transformarea la starea inițială (cea din CSS)
+            card.style.transform = 'perspective(1500px) rotateX(0deg) rotateY(0deg) scale(1)';
+        });
+    });
+}
