@@ -1,76 +1,58 @@
-/* ANDZ — Lehadus Andrei */
-
+/* Portfolio Section */
 #portfolio {
-    background-color: var(--color-dark-grey);
-}
-
-.portfolio-content {
-    text-align: center;
+    background: linear-gradient(135deg, #0a0a0a, #1a1a1a);
 }
 
 .portfolio-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
-    perspective: 1500px; /* Activăm perspectiva 3D pentru container */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
-.portfolio-card {
-    position: relative;
+.portfolio-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.portfolio-image {
+    height: 200px;
+    border-radius: 10px 10px 0 0;
     overflow: hidden;
-    border-radius: 8px;
-    border: 1px solid var(--color-metal-steel);
-    transform-style: preserve-3d; /* Necesar pentru efectul 3D */
-    transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), 
-                box-shadow 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-    will-change: transform; /* Optimizare performanță */
+    position: relative;
 }
 
-.portfolio-card:hover {
-    /* Efectul 3D Tilt este aplicat de JS */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
-                0 0 30px var(--color-metal-silver);
-}
-
-.portfolio-card img {
+.portfolio-image .image-placeholder {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s var(--transition-medium);
+    border-radius: 10px 10px 0 0;
+    background: linear-gradient(45deg, #2a2a2a, #3a3a3a);
 }
 
-.portfolio-card:hover img {
-    transform: scale(1.1);
+.portfolio-info {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 30px 20px;
-    background: linear-gradient(0deg, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0) 100%);
-    
-    transform: translateY(50%); /* Ascuns parțial */
-    opacity: 0;
-    transition: var(--transition-medium);
+.portfolio-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.portfolio-card:hover .card-overlay {
-    transform: translateY(0);
-    opacity: 1;
+.portfolio-info p {
+    color: var(--metal-light);
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
 }
 
-.card-overlay h3 {
-    font-family: var(--font-title);
-    font-size: 1.4rem;
-    color: var(--color-accent-glow);
-    margin-bottom: 5px;
-}
-
-.card-overlay span {
-    font-size: 0.9rem;
-    color: var(--color-metal-silver);
-    letter-spacing: 0.5px;
+.portfolio-btn {
+    align-self: flex-start;
+    margin-top: auto;
 }
