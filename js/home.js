@@ -1,97 +1,34 @@
-// home.js
-function initHome() {
-    // Fragmentarea textului în litere individuale
-    fragmentText();
-    
-    // Efectul de fum la hover
-    initSmokeEffect();
-    
-    // Efectul de dispersie la click pe litere
-    initLetterDispersion();
-}
+document.addEventListener("DOMContentLoaded", function() {
 
-function fragmentText() {
-    const taglineTexts = document.querySelectorAll('.tagline-text');
-    
-    taglineTexts.forEach(textElement => {
-        const text = textElement.textContent;
-        const letters = text.split('');
-        
-        // Ștergem conținutul original
-        textElement.textContent = '';
-        
-        // Adăugăm fiecare literă ca element span separat
-        letters.forEach(letter => {
-            const span = document.createElement('span');
-            span.textContent = letter;
-            span.classList.add('letter');
-            textElement.appendChild(span);
-        });
+    const words = document.querySelectorAll('.home-text .word');
+
+    // 1. Fragmentarea textului în litere (span-uri)
+    words.forEach(word => {
+        const text = word.textContent;
+        word.innerHTML = text.split('').map(char => {
+            // Verificăm dacă e spațiu sau literă
+            return char === ' ' ? ' ' : `<span class="char">${char}</span>`;
+        }).join('');
     });
-}
 
-function initSmokeEffect() {
-    const taglineRows = document.querySelectorAll('.tagline-row');
-    const smokeEffect = document.createElement('div');
-    smokeEffect.classList.add('smoke-effect');
-    document.querySelector('.tagline').appendChild(smokeEffect);
-    
-    taglineRows.forEach(row => {
-        row.addEventListener('mouseenter', function() {
-            smokeEffect.classList.add('active');
-            createSmokeParticles();
-        });
-        
-        row.addEventListener('mouseleave', function() {
-            smokeEffect.classList.remove('active');
-        });
-    });
-}
+    // 2. Adăugarea event listener-ului pentru efectul de click
+    const chars = document.querySelectorAll('.home-text .char');
 
-function createSmokeParticles() {
-    const smokeEffect = document.querySelector('.smoke-effect');
-    const particlesCount = 15;
-    
-    // Ștergem particulele existente
-    smokeEffect.innerHTML = '';
-    
-    for (let i = 0; i < particlesCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('smoke-particle');
-        
-        // Poziție aleatorie
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        particle.style.left = `${posX}%`;
-        particle.style.top = `${posY}%`;
-        
-        // Dimensiune aleatorie
-        const size = 50 + Math.random() * 100;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        
-        // Animare cu întârziere aleatorie
-        const delay = Math.random() * 5;
-        particle.style.animationDelay = `${delay}s`;
-        
-        smokeEffect.appendChild(particle);
-    }
-}
+    chars.forEach(char => {
+        char.addEventListener('click', () => {
+            // Previne dublu-click în timpul animației
+            if (char.classList.contains('smoked')) {
+                return;
+            }
 
-function initLetterDispersion() {
-    const letters = document.querySelectorAll('.letter');
-    
-    letters.forEach(letter => {
-        letter.addEventListener('click', function() {
-            // Animăm litera pentru dispersie
-            this.style.opacity = '0';
-            this.style.transform = 'translateY(-50px) rotate(15deg)';
-            
-            // Resetăm după 3-4 secunde
+            // Adaugă clasa care declanșează animația de dispariție
+            char.classList.add('smoked');
+
+            // Setează revenirea după 3-4 secunde
             setTimeout(() => {
-                this.style.opacity = '1';
-                this.style.transform = 'none';
-            }, 3000 + Math.random() * 1000);
+                char.classList.remove('smoked');
+            }, 3500); // 3.5 secunde
         });
     });
-}
+
+});
