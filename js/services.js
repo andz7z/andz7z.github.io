@@ -1,2 +1,1 @@
-// Services Section Script
-// Additional functionality can be added here if needed
+// Logica JavaScript specifică pentru secțiunea #services
