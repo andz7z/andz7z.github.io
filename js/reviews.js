@@ -1,86 +1,82 @@
-// Reviews section specific functionality
+/* ANDZ — Lehadus Andrei */
 
 class ReviewsSection {
     constructor() {
-        this.currentReview = 0;
-        this.reviews = [
-            {
-                text: "ANDZ delivered beyond our expectations. The attention to detail and modern approach transformed our digital presence completely.",
-                author: "Sarah Johnson",
-                position: "CEO, TechInnovate"
-            },
-            {
-                text: "Working with ANDZ was a game-changer for our brand. Their innovative solutions and cutting-edge designs set new standards.",
-                author: "Michael Chen",
-                position: "Marketing Director, VisionCorp"
-            },
-            {
-                text: "The level of professionalism and creativity ANDZ brings to every project is exceptional. Highly recommended for premium results.",
-                author: "Emily Rodriguez",
-                position: "Product Manager, NextGen Labs"
-            }
-        ];
         this.init();
     }
 
     init() {
-        this.setupReviewsSlider();
-        this.createReviewDots();
-        this.showReview(0);
+        this.setupReviewAnimations();
+        this.setupReviewInteractions();
     }
 
-    setupReviewsSlider() {
-        // Auto-advance reviews every 5 seconds
-        setInterval(() => {
-            this.nextReview();
-        }, 5000);
-    }
+    setupReviewAnimations() {
+        const reviewCards = document.querySelectorAll('.review-card');
 
-    createReviewDots() {
-        const navContainer = document.querySelector('.reviews-nav');
-        
-        this.reviews.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.className = 'nav-dot';
-            if (index === 0) dot.classList.add('active');
-            
-            dot.addEventListener('click', () => {
-                this.showReview(index);
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2
             });
-            
-            navContainer.appendChild(dot);
+
+            reviewCards.forEach(card => {
+                observer.observe(card);
+            });
+        } else {
+            // Fallback: show all cards
+            reviewCards.forEach(card => {
+                card.classList.add('visible');
+            });
+        }
+    }
+
+    setupReviewInteractions() {
+        const reviewCards = document.querySelectorAll('.review-card');
+
+        reviewCards.forEach(card => {
+            // 3D rotation effect
+            card.addEventListener('mousemove', (e) => {
+                this.handleReviewTilt(e, card);
+            });
+
+            // Reset rotation
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-10px) rotateY(5deg)';
+                card.style.transition = 'transform 0.5s ease';
+            });
+
+            // Click effect
+            card.addEventListener('click', () => {
+                card.style.transform = 'translateY(-5px) scale(0.98) rotateY(0deg)';
+                setTimeout(() => {
+                    card.style.transform = 'translateY(-10px) rotateY(5deg)';
+                }, 150);
+            });
         });
     }
 
-    showReview(index) {
-        this.currentReview = index;
+    handleReviewTilt(e, card) {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenterX = cardRect.left + cardRect.width / 2;
+        const cardCenterY = cardRect.top + cardRect.height / 2;
         
-        const review = this.reviews[index];
-        const reviewCard = document.querySelector('.review-card');
+        const mouseX = e.clientX - cardCenterX;
+        const mouseY = e.clientY - cardCenterY;
         
-        // Update review content with fade effect
-        reviewCard.style.opacity = '0';
+        const rotateX = (mouseY / cardRect.height) * -10;
+        const rotateY = (mouseX / cardRect.width) * 10;
         
-        setTimeout(() => {
-            reviewCard.querySelector('.review-text').textContent = review.text;
-            reviewCard.querySelector('.author-info h4').textContent = review.author;
-            reviewCard.querySelector('.author-info p').textContent = review.position;
-            reviewCard.style.opacity = '1';
-        }, 300);
-        
-        // Update active dot
-        document.querySelectorAll('.nav-dot').forEach((dot, i) => {
-            dot.classList.toggle('active', i === index);
-        });
-    }
-
-    nextReview() {
-        const nextIndex = (this.currentReview + 1) % this.reviews.length;
-        this.showReview(nextIndex);
+        card.style.transform = `translateY(-10px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        card.style.transition = 'transform 0.1s ease';
     }
 }
 
-// Initialize reviews section when DOM is loaded
+// Auto-initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new ReviewsSection();
 });
