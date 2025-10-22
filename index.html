@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ | Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>ANDZ | Design. Develop. Deliver.</title>
+    <meta name="description" content="ANDZ - Professional Web Design & Development Services">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/script.js" as="script">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -13,162 +18,317 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">ANDZ</div>
-        <div class="nav-icons">
-            <div class="nav-icon" data-section="home"><i class="fas fa-home"></i></div>
-            <div class="nav-icon" data-section="about"><i class="fas fa-user"></i></div>
-            <div class="nav-icon" data-section="services"><i class="fas fa-cog"></i></div>
-            <div class="nav-icon" data-section="portfolio"><i class="fas fa-briefcase"></i></div>
-            <div class="nav-icon" data-section="reviews"><i class="fas fa-star"></i></div>
-            <div class="nav-icon" data-section="contact"><i class="fas fa-envelope"></i></div>
-        </div>
-    </nav>
-
-    <!-- Current Section Indicator -->
-    <div class="current-section">
-        <span>Currently on: <i class="fas fa-home"></i></span>
+    <!-- Progress Bar -->
+    <div class="progress-bar" role="progressbar" aria-label="Scroll progress">
+        <div class="progress-fill"></div>
     </div>
 
-    <!-- Go Back Button -->
-    <div class="go-back">
-        <i class="fas fa-arrow-left"></i>
+    <!-- Navigation -->
+    <nav class="main-nav" aria-label="Main navigation">
+        <div class="nav-logo">
+            <a href="#home" class="logo-link" aria-label="Home page">ANDZ</a>
+        </div>
+        
+        <ul class="nav-menu" role="menubar">
+            <li role="none"><a href="#about" role="menuitem" class="nav-link" data-section="about">About</a></li>
+            <li role="none"><a href="#services" role="menuitem" class="nav-link" data-section="services">Services</a></li>
+            <li role="none"><a href="#portfolio" role="menuitem" class="nav-link" data-section="portfolio">Portfolio</a></li>
+            <li role="none"><a href="#reviews" role="menuitem" class="nav-link" data-section="reviews">Reviews</a></li>
+            <li role="none"><a href="#contact" role="menuitem" class="nav-link" data-section="contact">Contact</a></li>
+        </ul>
+
+        <!-- Back to Home Button (appears when scrolled) -->
+        <button class="back-home-btn" aria-label="Back to home section">
+            <span class="back-arrow"></span>
+            <span class="current-section">Currently on: <span class="section-name">Home</span></span>
+        </button>
+    </nav>
+
+    <!-- Social Links -->
+    <div class="social-links" aria-label="Social media links">
+        <div class="social-line top-line"></div>
+        <div class="social-icons">
+            <a href="#" aria-label="GitHub" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+            </a>
+            <a href="#" aria-label="Instagram" class="social-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+            </a>
+        </div>
+        <div class="social-line bottom-line"></div>
     </div>
 
     <!-- Main Content Sections -->
-    <main>
+    <main class="main-content">
         <!-- Home Section -->
-        <section id="home" class="section active">
-            <video autoplay muted loop id="bg-video">
-                <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            
+        <section id="home" class="section home-section" data-section="home">
             <div class="home-content">
-                <div class="text-container">
-                    <div class="main-text">
-                        <div class="word" id="word1">
-                            <span class="letter">D</span>
-                            <span class="letter">E</span>
-                            <span class="letter">S</span>
-                            <span class="letter">I</span>
-                            <span class="letter">G</span>
-                            <span class="letter">N</span>
-                            <span class="letter">.</span>
-                        </div>
-                        <div class="word" id="word2">
-                            <span class="letter">D</span>
-                            <span class="letter">E</span>
-                            <span class="letter">V</span>
-                            <span class="letter">E</span>
-                            <span class="letter">L</span>
-                            <span class="letter">O</span>
-                            <span class="letter">P</span>
-                            <span class="letter">.</span>
-                        </div>
-                        <div class="word" id="word3">
-                            <span class="letter">D</span>
-                            <span class="letter">E</span>
-                            <span class="letter">L</span>
-                            <span class="letter">I</span>
-                            <span class="letter">V</span>
-                            <span class="letter">E</span>
-                            <span class="letter">R</span>
-                            <span class="letter">.</span>
-                        </div>
-                    </div>
-                    <p class="sub-text">we do it all</p>
-                    <button class="discover-btn">Discover Now</button>
+                <div class="hero-text">
+                    <h1 class="hero-line">
+                        <span class="word design-word">DESIGN.</span>
+                    </h1>
+                    <h1 class="hero-line">
+                        <span class="word develop-word">DEVELOP.</span>
+                    </h1>
+                    <h1 class="hero-line">
+                        <span class="word deliver-word">DELIVER.</span>
+                        <span class="subtext">we do it all</span>
+                    </h1>
                 </div>
-                
-                <div class="social-container">
-                    <div class="line"></div>
-                    <div class="social-icon"><i class="fab fa-linkedin-in"></i></div>
-                    <div class="social-icon"><i class="fab fa-github"></i></div>
-                    <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
-                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
-                    <div class="line"></div>
-                </div>
+            </div>
+            
+            <div class="scroll-indicator">
+                <span class="scroll-text">Let's Start</span>
+                <div class="scroll-arrow"></div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="section">
-            <div class="section-content">
-                <h2 class="section-title">About</h2>
-                <p class="section-text">Creative developer with passion for modern design and cutting-edge technology.</p>
+        <section id="about" class="section about-section" data-section="about">
+            <div class="container">
+                <h2 class="section-title">About Us</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p class="intro-text">We are a creative studio specializing in cutting-edge digital solutions.</p>
+                        <div class="about-details">
+                            <div class="detail-item">
+                                <h3>Our Mission</h3>
+                                <p>To deliver exceptional digital experiences that blend creativity with technology.</p>
+                            </div>
+                            <div class="detail-item">
+                                <h3>Our Vision</h3>
+                                <p>To be the leading innovator in web design and development solutions.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="visual-element"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Services</h2>
-                <p class="section-text">Full-stack development, UI/UX design, and digital solutions.</p>
+        <section id="services" class="section services-section" data-section="services">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="card-icon">💻</div>
+                        <h3>Web Development</h3>
+                        <p>Custom websites and web applications built with modern technologies.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="card-icon">🎨</div>
+                        <h3>UI/UX Design</h3>
+                        <p>User-centered design that enhances engagement and conversion.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="card-icon">📱</div>
+                        <h3>Mobile Apps</h3>
+                        <p>Native and cross-platform mobile applications for iOS and Android.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="card-icon">🚀</div>
+                        <h3>Digital Strategy</h3>
+                        <p>Comprehensive digital solutions to grow your online presence.</p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Portfolio Section -->
-        <section id="portfolio" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Portfolio</h2>
-                <p class="section-text">Selected works showcasing modern design and development.</p>
+        <section id="portfolio" class="section portfolio-section" data-section="portfolio">
+            <div class="container">
+                <h2 class="section-title">Our Work</h2>
+                <div class="portfolio-grid">
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder">Project 1</div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>E-commerce Platform</h3>
+                            <p>Modern online shopping experience</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder">Project 2</div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Corporate Website</h3>
+                            <p>Professional business presence</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder">Project 3</div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Mobile Application</h3>
+                            <p>Cross-platform mobile solution</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Reviews Section -->
-        <section id="reviews" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Reviews</h2>
-                <p class="section-text">What clients say about working with ANDZ.</p>
+        <section id="reviews" class="section reviews-section" data-section="reviews">
+            <div class="container">
+                <h2 class="section-title">Client Reviews</h2>
+                <div class="reviews-slider">
+                    <div class="review-card">
+                        <div class="review-content">
+                            <p>"Exceptional work and attention to detail. The team delivered beyond our expectations."</p>
+                        </div>
+                        <div class="review-author">
+                            <h4>Sarah Johnson</h4>
+                            <p>CEO, TechCorp</p>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-content">
+                            <p>"Professional, creative, and reliable. Our website has seen a 40% increase in conversions."</p>
+                        </div>
+                        <div class="review-author">
+                            <h4>Michael Chen</h4>
+                            <p>Marketing Director</p>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-content">
+                            <p>"The design process was smooth and collaborative. Highly recommend their services."</p>
+                        </div>
+                        <div class="review-author">
+                            <h4>Emma Rodriguez</h4>
+                            <p>Founder, StartupXYZ</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Contact</h2>
-                <p class="section-text">Let's create something amazing together.</p>
+        <section id="contact" class="section contact-section" data-section="contact">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📞</div>
+                            <div class="contact-details">
+                                <h3>Phone</h3>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-details">
+                                <h3>Email</h3>
+                                <p>hello@andz.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required>
+                            <label for="name">Your Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required>
+                            <label for="email">Your Email</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="main-footer">
         <div class="footer-content">
-            <span class="copyright">© 2025 ANDZ. All Rights Reserved.</span>
-            <span class="tos-link">Terms of Service</span>
+            <div class="footer-links">
+                <button class="tos-btn" id="tosBtn">ToS</button>
+            </div>
+            <div class="footer-info">
+                <p class="copyright">© <span id="currentYear"></span> ANDZ</p>
+                <p class="author">Lehadus Andrei</p>
+            </div>
         </div>
     </footer>
 
-    <!-- TOS Modal -->
-    <div class="modal-overlay">
+    <!-- Terms of Service Modal -->
+    <div class="modal" id="tosModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Contact & Terms</h3>
-                <span class="close-modal">&times;</span>
+                <h2>Terms of Service</h2>
+                <button class="close-modal" id="closeModal" aria-label="Close modal">×</button>
             </div>
             <div class="modal-body">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+1 (555) 123-4567</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>hello@andz.dev</span>
-                    </div>
-                </div>
-                <div class="disclaimer">
-                    <p>This website is for demonstration purposes. All content is fictional.</p>
+                <div class="tos-content">
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                    
+                    <h3>2. Use License</h3>
+                    <p>Permission is granted to temporarily download one copy of the materials on ANDZ's website for personal, non-commercial transitory viewing only.</p>
+                    
+                    <h3>3. Disclaimer</h3>
+                    <p>The materials on ANDZ's website are provided on an 'as is' basis. ANDZ makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                    
+                    <h3>4. Limitations</h3>
+                    <p>In no event shall ANDZ or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on ANDZ's website, even if ANDZ or an ANDZ authorized representative has been notified orally or in writing of the possibility of such damage.</p>
+                    
+                    <h3>5. Accuracy of Materials</h3>
+                    <p>The materials appearing on ANDZ's website could include technical, typographical, or photographic errors. ANDZ does not warrant that any of the materials on its website are accurate, complete or current.</p>
+                    
+                    <h3>6. Links</h3>
+                    <p>ANDZ has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by ANDZ of the site. Use of any such linked website is at the user's own risk.</p>
+                    
+                    <h3>7. Modifications</h3>
+                    <p>ANDZ may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
+                    
+                    <h3>8. Governing Law</h3>
+                    <p>These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- JavaScript -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
