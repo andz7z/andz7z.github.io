@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ | Design. Develop. Deliver.</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>ANDZ - Design. Develop. Deliver.</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -14,173 +16,118 @@
     <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-container">
+
+    <div class="progress-bar-container">
         <div class="progress-bar"></div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="nav-brand">
-            <span>ANDZ</span>
-        </div>
-        <div class="nav-icons">
-            <a href="#home" class="nav-icon active" data-section="home">
-                <i class="fas fa-home"></i>
-            </a>
-            <a href="#about" class="nav-icon" data-section="about">
-                <i class="fas fa-user"></i>
-            </a>
-            <a href="#services" class="nav-icon" data-section="services">
-                <i class="fas fa-cogs"></i>
-            </a>
-            <a href="#portfolio" class="nav-icon" data-section="portfolio">
-                <i class="fas fa-briefcase"></i>
-            </a>
-            <a href="#reviews" class="nav-icon" data-section="reviews">
-                <i class="fas fa-star"></i>
-            </a>
-            <a href="#contact" class="nav-icon" data-section="contact">
-                <i class="fas fa-envelope"></i>
-            </a>
-        </div>
-    </nav>
+    <header class="home-header">
+        <div class="logo">ANDZ</div>
+        <nav class="main-nav">
+            <a href="#about" aria-label="Despre"><i class="fa-solid fa-user-astronaut"></i></a>
+            <a href="#services" aria-label="Servicii"><i class="fa-solid fa-layer-group"></i></a>
+            <a href="#portfolio" aria-label="Portofoliu"><i class="fa-solid fa-image"></i></a>
+            <a href="#contact" aria-label="Contact"><i class="fa-solid fa-paper-plane"></i></a>
+        </nav>
+    </header>
 
-    <!-- Social Icons -->
-    <div class="social-icons">
-        <div class="vertical-line"></div>
-        <a href="#" class="social-icon">
-            <i class="fab fa-github"></i>
+    <header class="page-header hidden">
+        <span class="current-section-text"></span>
+        <a href="#home" class="go-back-btn" aria-label="Mergi la Acasă">
+            <i class="fa-solid fa-arrow-up"></i>
         </a>
-        <a href="#" class="social-icon">
-            <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="#" class="social-icon">
-            <i class="fab fa-facebook"></i>
-        </a>
-        <a href="#" class="social-icon">
-            <i class="fab fa-instagram"></i>
-        </a>
-        <div class="vertical-line"></div>
+    </header>
+
+    <div class="socials">
+        <div class="socials-line-top"></div>
+        <a href="https://github.com/lehadusandrei" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+        <a href="https://linkedin.com/in/lehadusandrei" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <div class="socials-line-bottom"></div>
     </div>
 
-    <!-- Sections -->
-    <section id="home" class="home-section">
-        <div class="home-content">
-            <div class="slogan">
-                <div class="slogan-line">
-                    <span class="slogan-word" data-word="DESIGN.">DESIGN.</span>
-                    <span class="slogan-word" data-word="DEVELOP.">DEVELOP.</span>
+    <main class="scroll-container">
+
+        <section id="home">
+            <div class="home-text">
+                <h1 class="word">DESIGN.</h1>
+                <h1 class="word">DEVELOP.</h1>
+                <h1 class="word">DELIVER.</h1>
+            </div>
+            <div class="scroll-indicator">
+                <i class="fa-solid fa-chevron-down"></i>
+            </div>
+        </section>
+
+        <section id="about" data-section-name="About">
+            <div class="section-content">
+                <h2>ABOUT ME</h2>
+                <p>Lehadus Andrei - Web Developer, Designer & Creator.</p>
                 </div>
-                <div class="slogan-line">
-                    <span class="slogan-word" data-word="DELIVER.">DELIVER.</span>
+        </section>
+
+        <section id="services" data-section-name="Services">
+            <div class="section-content">
+                <h2>SERVICES</h2>
+                <div class="card-container">
+                    <div class="service-card">
+                        <h3>Web Development</h3>
+                        <p>Soluții full-stack moderne.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>UI/UX Design</h3>
+                        <p>Interfețe intuitive și metalice.</p>
+                    </div>
+                    <div class="service-card">
+                        <h3>Video/Photo Editing</h3>
+                        <p>Post-producție de înaltă calitate.</p>
+                    </div>
                 </div>
-                <div class="slogan-subtitle">
-                    we do it all
+            </div>
+        </section>
+
+        <section id="portfolio" data-section-name="Portfolio">
+            <div class="section-content">
+                <h2>PORTFOLIO</h2>
                 </div>
-            </div>
-            <button class="discover-btn" id="discoverBtn">
-                Discover Now <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-    </section>
+        </section>
 
-    <section id="about" class="about-section">
-        <h2 class="section-title">About Us</h2>
-        <div class="about-content">
-            <p>We are a creative team passionate about design and development.</p>
-            <p>Our mission is to deliver exceptional digital experiences.</p>
-        </div>
-    </section>
+        <section id="reviews" data-section-name="Reviews">
+            <div class="section-content">
+                <h2>REVIEWS</h2>
+                </div>
+        </section>
 
-    <section id="services" class="services-section">
-        <h2 class="section-title">Our Services</h2>
-        <div class="services-content">
-            <div class="service-item">
-                <h3>Web Design</h3>
-                <p>Creating beautiful and functional websites.</p>
-            </div>
-            <div class="service-item">
-                <h3>Development</h3>
-                <p>Building robust and scalable applications.</p>
-            </div>
-            <div class="service-item">
-                <h3>Branding</h3>
-                <p>Developing strong and memorable brand identities.</p>
-            </div>
-        </div>
-    </section>
+        <section id="contact" data-section-name="Contact">
+            <div class="section-content">
+                <h2>CONTACT</h2>
+                </div>
+        </section>
 
-    <section id="portfolio" class="portfolio-section">
-        <h2 class="section-title">Portfolio</h2>
-        <div class="portfolio-content">
-            <p>Our recent work showcases our expertise and creativity.</p>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">Project 1</div>
-                <div class="portfolio-item">Project 2</div>
-                <div class="portfolio-item">Project 3</div>
-            </div>
-        </div>
-    </section>
+    </main>
 
-    <section id="reviews" class="reviews-section">
-        <h2 class="section-title">Client Reviews</h2>
-        <div class="reviews-content">
-            <div class="review-item">
-                <p>"Exceptional work and professional team!"</p>
-                <span>- Client A</span>
-            </div>
-            <div class="review-item">
-                <p>"They delivered beyond our expectations."</p>
-                <span>- Client B</span>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact-section">
-        <h2 class="section-title">Contact Us</h2>
-        <div class="contact-content">
-            <p>Get in touch to discuss your project.</p>
-            <form class="contact-form">
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea placeholder="Message" rows="5" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="footer-content">
-            <p>&copy; 2023 ANDZ. All rights reserved.</p>
-            <button id="tosBtn" class="tos-btn">Terms of Service</button>
+            <div class="footer-contact">
+                <a href="tel:+40123456789"><i class="fa-solid fa-phone"></i> +40 123 456 789</a>
+                <a href="mailto:lehadus.andrei@email.com"><i class="fa-solid fa-envelope"></i> lehadus.andrei@email.com</a>
+            </div>
+            <div class="footer-links">
+                <button id="tos-open-btn">Terms of Service</button>
+                <span class="copyright">Copyright &copy; <span id="copyright-year"></span> by ANDZ.</span>
+            </div>
         </div>
     </footer>
 
-    <!-- TOS Modal -->
-    <div id="tosModal" class="modal">
+    <div id="tos-modal" class="modal-overlay hidden">
         <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Terms of Service</h2>
-            <div class="tos-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Sed vitae nisl eget nisl ultricies tincidunt. Nullam auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Phasellus auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Vestibulum auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <p>Donec auctor, nisl eget ultricies tincidunt, nunc nisl aliquam nisl, eget ultricies nisl nisl eget nisl.</p>
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <span>+1 (555) 123-4567</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <span>contact@andz.com</span>
-                    </div>
-                </div>
+            <button id="tos-close-btn" aria-label="Închide"><i class="fa-solid fa-xmark"></i></button>
+            <h3>Terms of Service</h3>
+            <p>1. Toate drepturile sunt rezervate de ANDZ (Lehadus Andrei).</p>
+            <p>2. Utilizarea conținutului de pe acest site fără permisiune este strict interzisă.</p>
+            <p>3. Acest site folosește cookie-uri pentru a îmbunătăți experiența utilizatorului.</p>
             </div>
-        </div>
     </div>
 
     <script src="js/script.js"></script>
