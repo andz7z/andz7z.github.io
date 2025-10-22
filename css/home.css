@@ -5,8 +5,8 @@
 
 /* ===== LOGO (Stânga Sus) ===== */
 .logo {
-    width: 60px; /* Dimensiune mai mică */
-    height: 40px;
+    width: 20px; /* Dimensiune mai mică */
+    height: 10px;
     background-image: url('assets/logos/lotus.gif');
     background-size: contain;
     background-repeat: no-repeat;
