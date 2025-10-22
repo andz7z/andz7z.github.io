@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ | Design. Develop. Deliver.</title>
+    <title>ANDZ | Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -11,271 +13,125 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Bară de progres -->
-    <div class="progress-bar"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">ANDZ</div>
+        <div class="nav-icons">
+            <div class="nav-icon" data-section="home"><i class="fas fa-home"></i></div>
+            <div class="nav-icon" data-section="about"><i class="fas fa-user"></i></div>
+            <div class="nav-icon" data-section="services"><i class="fas fa-cog"></i></div>
+            <div class="nav-icon" data-section="portfolio"><i class="fas fa-briefcase"></i></div>
+            <div class="nav-icon" data-section="reviews"><i class="fas fa-star"></i></div>
+            <div class="nav-icon" data-section="contact"><i class="fas fa-envelope"></i></div>
+        </div>
+    </nav>
 
-    <!-- Container principal pentru scroll-snap -->
-    <main class="scroll-container">
-        <!-- Secțiunea Home -->
-        <section id="home" class="section">
-            <div class="home-container">
-                <div class="logo">
-                    <span class="logo-text">ANDZ</span>
+    <!-- Current Section Indicator -->
+    <div class="current-section">
+        <span>Currently on: <i class="fas fa-home"></i></span>
+    </div>
+
+    <!-- Go Back Button -->
+    <div class="go-back">
+        <i class="fas fa-arrow-left"></i>
+    </div>
+
+    <!-- Main Content Sections -->
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <video autoplay muted loop id="bg-video">
+                <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <div class="home-content">
+                <div class="text-container">
+                    <div class="main-text">
+                        <div class="word" id="word1">
+                            <span class="letter">D</span>
+                            <span class="letter">E</span>
+                            <span class="letter">S</span>
+                            <span class="letter">I</span>
+                            <span class="letter">G</span>
+                            <span class="letter">N</span>
+                            <span class="letter">.</span>
+                        </div>
+                        <div class="word" id="word2">
+                            <span class="letter">D</span>
+                            <span class="letter">E</span>
+                            <span class="letter">V</span>
+                            <span class="letter">E</span>
+                            <span class="letter">L</span>
+                            <span class="letter">O</span>
+                            <span class="letter">P</span>
+                            <span class="letter">.</span>
+                        </div>
+                        <div class="word" id="word3">
+                            <span class="letter">D</span>
+                            <span class="letter">E</span>
+                            <span class="letter">L</span>
+                            <span class="letter">I</span>
+                            <span class="letter">V</span>
+                            <span class="letter">E</span>
+                            <span class="letter">R</span>
+                            <span class="letter">.</span>
+                        </div>
+                    </div>
+                    <p class="sub-text">we do it all</p>
+                    <button class="discover-btn">Discover Now</button>
                 </div>
                 
-                <nav class="nav-menu">
-                    <a href="#about" class="nav-item">About</a>
-                    <a href="#services" class="nav-item">Services</a>
-                    <a href="#portfolio" class="nav-item">Portfolio</a>
-                    <a href="#reviews" class="nav-item">Reviews</a>
-                    <a href="#contact" class="nav-item">Contact</a>
-                </nav>
-                
-                <div class="socials">
-                    <div class="social-line top"></div>
-                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <div class="social-line bottom"></div>
-                </div>
-                
-                <div class="tagline">
-                    <h1 class="tagline-text" id="design">DESIGN.</h1>
-                    <h1 class="tagline-text" id="develop">DEVELOP.</h1>
-                    <h1 class="tagline-text" id="deliver">DELIVER.</h1>
-                </div>
-                
-                <div class="scroll-indicator">
-                    <i class="fas fa-chevron-down"></i>
+                <div class="social-container">
+                    <div class="line"></div>
+                    <div class="social-icon"><i class="fab fa-linkedin-in"></i></div>
+                    <div class="social-icon"><i class="fab fa-github"></i></div>
+                    <div class="social-icon"><i class="fab fa-facebook-f"></i></div>
+                    <div class="social-icon"><i class="fab fa-instagram"></i></div>
+                    <div class="line"></div>
                 </div>
             </div>
         </section>
 
-        <!-- Secțiunea About -->
+        <!-- About Section -->
         <section id="about" class="section">
-            <div class="about-container">
-                <h2 class="section-title">About Me</h2>
-                <div class="about-content">
-                    <div class="about-image">
-                        <div class="image-placeholder"></div>
-                    </div>
-                    <div class="about-text">
-                        <h3>Lehadus Andrei</h3>
-                        <p>Specialist în design web, dezvoltare și editare multimedia. Cu o experiență de peste 5 ani în crearea de soluții digitale inovatoare, combin tehnicile avansate de programare cu design-ul estetic pentru a livra produse excepționale.</p>
-                        <div class="skills">
-                            <div class="skill-item">
-                                <span class="skill-name">Web Design</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="90%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Web Development</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Programming</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="80%"></div>
-                                </div>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Multimedia Editing</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="75%"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="section-content">
+                <h2 class="section-title">About</h2>
+                <p class="section-text">Creative developer with passion for modern design and cutting-edge technology.</p>
             </div>
         </section>
 
-        <!-- Secțiunea Services -->
+        <!-- Services Section -->
         <section id="services" class="section">
-            <div class="services-container">
+            <div class="section-content">
                 <h2 class="section-title">Services</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
-                        <h3>Web Design</h3>
-                        <p>Design modern și responsiv care captează atenția și convertește vizitatorii în clienți.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3>Web Development</h3>
-                        <p>Dezvoltare de aplicații web rapide, securizate și scalabile folosind tehnologii moderne.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <h3>Programming</h3>
-                        <p>Soluții software personalizate pentru nevoile specifice ale afacerii dumneavoastră.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="card-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h3>Multimedia Editing</h3>
-                        <p>Editare video și foto de înaltă calitate pentru prezentări profesionale și marketing.</p>
-                    </div>
-                </div>
+                <p class="section-text">Full-stack development, UI/UX design, and digital solutions.</p>
             </div>
         </section>
 
-        <!-- Secțiunea Portfolio -->
+        <!-- Portfolio Section -->
         <section id="portfolio" class="section">
-            <div class="portfolio-container">
+            <div class="section-content">
                 <h2 class="section-title">Portfolio</h2>
-                <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-overlay">
-                            <h3>Project Alpha</h3>
-                            <p>Website corporativ</p>
-                            <button class="view-project">View Details</button>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-overlay">
-                            <h3>Project Beta</h3>
-                            <p>Aplicație web</p>
-                            <button class="view-project">View Details</button>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-overlay">
-                            <h3>Project Gamma</h3>
-                            <p>Platformă e-commerce</p>
-                            <button class="view-project">View Details</button>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder"></div>
-                        </div>
-                        <div class="portfolio-overlay">
-                            <h3>Project Delta</h3>
-                            <p>Editare video</p>
-                            <button class="view-project">View Details</button>
-                        </div>
-                    </div>
-                </div>
+                <p class="section-text">Selected works showcasing modern design and development.</p>
             </div>
         </section>
 
-        <!-- Secțiunea Reviews -->
+        <!-- Reviews Section -->
         <section id="reviews" class="section">
-            <div class="reviews-container">
+            <div class="section-content">
                 <h2 class="section-title">Reviews</h2>
-                <div class="reviews-slider">
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p>"ANDZ a creat un website excepțional pentru afacerea noastră. Design-ul este modern și funcțional, iar codul este bine structurat."</p>
-                        </div>
-                        <div class="review-author">
-                            <div class="author-avatar"></div>
-                            <div class="author-info">
-                                <h4>Maria Popescu</h4>
-                                <p>CEO, TechSolutions</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p>"Colaborarea cu Andrei a fost una plăcută și productivă. A înțeles perfect nevoile noastre și a livrat un produs de calitate peste așteptări."</p>
-                        </div>
-                        <div class="review-author">
-                            <div class="author-avatar"></div>
-                            <div class="author-info">
-                                <h4>Ion Ionescu</h4>
-                                <p>Director, Creative Agency</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p>"Serviciile de editare video oferite de ANDZ sunt de înaltă calitate. Am primit exact ce ne-am dorit, în timp record."</p>
-                        </div>
-                        <div class="review-author">
-                            <div class="author-avatar"></div>
-                            <div class="author-info">
-                                <h4>Elena Vasilescu</h4>
-                                <p>Marketing Manager</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p class="section-text">What clients say about working with ANDZ.</p>
             </div>
         </section>
 
-        <!-- Secțiunea Contact -->
+        <!-- Contact Section -->
         <section id="contact" class="section">
-            <div class="contact-container">
+            <div class="section-content">
                 <h2 class="section-title">Contact</h2>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div class="contact-text">
-                                <h3>Telefon</h3>
-                                <p>+40 123 456 789</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div class="contact-text">
-                                <h3>Email</h3>
-                                <p>contact@andz.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div class="contact-text">
-                                <h3>Locație</h3>
-                                <p>București, România</p>
-                            </div>
-                        </div>
-                    </div>
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" required>
-                            <label for="name">Nume</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" required>
-                            <label for="email">Email</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" id="subject" required>
-                            <label for="subject">Subiect</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" rows="5" required></textarea>
-                            <label for="message">Mesaj</label>
-                        </div>
-                        <button type="submit" class="submit-btn">Trimite Mesaj</button>
-                    </form>
-                </div>
+                <p class="section-text">Let's create something amazing together.</p>
             </div>
         </section>
     </main>
@@ -283,61 +139,36 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <div class="footer-item">
-                <i class="fas fa-phone"></i>
-                <span>+40 123 456 789</span>
-            </div>
-            <div class="footer-item">
-                <i class="fas fa-envelope"></i>
-                <span>contact@andz.com</span>
-            </div>
-            <div class="footer-item">
-                <button id="tos-btn">Terms of Service</button>
-            </div>
-            <div class="footer-item copyright">
-                <span>Copyright © <span id="current-year"></span> by ANDZ.</span>
-            </div>
+            <span class="copyright">© 2025 ANDZ. All Rights Reserved.</span>
+            <span class="tos-link">Terms of Service</span>
         </div>
     </footer>
 
-    <!-- Modal pentru Terms of Service -->
-    <div id="tos-modal" class="modal">
+    <!-- TOS Modal -->
+    <div class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Terms of Service</h2>
-                <button id="close-modal" class="close-btn">&times;</button>
+                <h3>Contact & Terms</h3>
+                <span class="close-modal">&times;</span>
             </div>
             <div class="modal-body">
-                <p>Acestea sunt condițiile generale de utilizare a serviciilor oferite de ANDZ. Vă rugăm să le citiți cu atenție înainte de a utiliza orice serviciu.</p>
-                <h3>1. Acceptarea termenilor</h3>
-                <p>Prin accesarea și utilizarea serviciilor noastre, sunteți de acord să respectați și să fiți obligat de prezentele condiții.</p>
-                <h3>2. Servicii oferite</h3>
-                <p>ANDZ oferă servicii de design web, dezvoltare, programare și editare multimedia. Detaliile specifice ale fiecărui proiect vor fi stabilite în contractul individual.</p>
-                <h3>3. Proprietatea intelectuală</h3>
-                <p>Toate drepturile de proprietate intelectuală asupra produselor finale create de ANDZ vor fi transferate clientului după plata integrală a serviciilor prestate.</p>
-                <h3>4. Confidențialitate</h3>
-                <p>ANDZ se angajează să păstreze confidențialitatea informațiilor primite de la clienți și să nu le divulgze terțelor părți fără acordul expres al clientului.</p>
-                <h3>5. Limitarea răspunderii</h3>
-                <p>ANDZ nu este răspunzător pentru pierderi sau daune rezultate din utilizarea serviciilor sau din imposibilitatea de a le utiliza.</p>
-                <h3>6. Modificări ale termenilor</h3>
-                <p>ANDZ își rezervă dreptul de a modifica acești termeni în orice moment. Modificările vor intra în vigoare imediat ce sunt publicate pe website.</p>
-                <h3>7. Contact</h3>
-                <p>Pentru orice întrebări legate de acești termeni, vă rugăm să ne contactați la adresa de email: contact@andz.com</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>+1 (555) 123-4567</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>hello@andz.dev</span>
+                    </div>
+                </div>
+                <div class="disclaimer">
+                    <p>This website is for demonstration purposes. All content is fictional.</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Navigație contextuală (apare după scroll din homepage) -->
-    <div class="contextual-nav">
-        <button id="go-back" class="back-btn">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <div class="context-text">
-            <span>Currently on: <span id="current-section">About</span></span>
-        </div>
-    </div>
-
-    <!-- Script-uri -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
