@@ -1,151 +1,95 @@
 /* ANDZ — Lehadus Andrei */
+'use strict';
 
-class HomeSection {
-    constructor() {
-        this.words = [];
-        this.letters = [];
-        this.init();
-    }
+// Funcția de inițializare va fi apelată din script.js
+function initHomeAnimations() {
+    
+    const heroTitle = document.getElementById('hero-title');
+    if (!heroTitle) return; // Verificare de siguranță
 
-    init() {
-        this.setupHeroText();
-        this.setupLogoEffect();
-        this.setupNavEffects();
-        this.setupSocialLinks();
-    }
+    const titleText = "DESIGN.DEVELOP.DELIVER.";
+    
+    // 1. Injectează literele în <span>-uri
+    heroTitle.innerHTML = titleText
+        .split('')
+        .map(char => {
+            // Înlocuim spațiul (dacă ar fi) cu un non-breaking space
+            if (char === ' ') return ' '; 
+            // Folosim <br> dacă vrem linii noi (aici . e separatorul vizual)
+            if (char === '.') return '<br>';
+            return `<span class="char" aria-hidden="true">${char}</span>`;
+        })
+        .join('');
 
-    setupHeroText() {
-        const heroWords = document.querySelectorAll('.word');
-        
-        heroWords.forEach((word, index) => {
-            this.words.push(word);
-            
-            // Split words into letters for smoke effect
-            const text = word.textContent;
-            word.textContent = '';
-            
-            for (let i = 0; i < text.length; i++) {
-                const letter = document.createElement('span');
-                letter.textContent = text[i];
-                letter.className = 'letter';
-                letter.style.animationDelay = `${index * 0.1 + i * 0.05}s`;
-                word.appendChild(letter);
-                this.letters.push(letter);
-            }
+    // 2. Adaugă event listeners pentru litere
+    const chars = heroTitle.querySelectorAll('.char');
+    const REAPPEAR_DELAY = 3500; // 3.5 secunde
 
-            // Add smoke effect on hover
-            word.addEventListener('mouseenter', this.handleWordHover.bind(this));
-            
-            // Add click effect for letters
-            word.addEventListener('click', this.handleWordClick.bind(this));
+    chars.forEach(char => {
+        char.addEventListener('click', () => {
+            handleCharClick(char);
         });
 
-        // Animate letters on load
-        this.animateLetters();
-    }
-
-    animateLetters() {
-        this.letters.forEach((letter, index) => {
-            setTimeout(() => {
-                letter.style.animation = 'letterFadeIn 0.5s ease-out forwards';
-            }, index * 50);
+        // Adăugăm și un mic delay la hover pentru a nu fi prea deranjant
+        let hoverTimeout;
+        char.addEventListener('mouseenter', () => {
+            hoverTimeout = setTimeout(() => {
+                 // Poți adăuga o clasă specifică de hover aici dacă dorești
+                 // De ex: char.classList.add('smoke-hover');
+            }, 100);
         });
-    }
+        char.addEventListener('mouseleave', () => {
+            clearTimeout(hoverTimeout);
+            // char.classList.remove('smoke-hover');
+        });
+    });
 
-    handleWordHover(e) {
-        const word = e.currentTarget;
-        
-        // Add subtle smoke effect
-        word.classList.add('smoke-active');
-        
-        setTimeout(() => {
-            word.classList.remove('smoke-active');
-        }, 2000);
-    }
-
-    handleWordClick(e) {
-        if (e.target.classList.contains('letter')) {
-            const letter = e.target;
-            this.animateLetter(letter);
-        }
-    }
-
-    animateLetter(letter) {
-        // Don't animate if already animating
-        if (letter.classList.contains('fade-up') || letter.classList.contains('fade-in')) {
+    function handleCharClick(char) {
+        // Previne re-click-ul cât timp animația rulează
+        if (char.classList.contains('is-smoking') || char.classList.contains('is-reappearing')) {
             return;
         }
 
-        // Fade out animation
-        letter.classList.add('fade-up');
-        
-        // Wait for fade out to complete, then fade in
+        // 1. Adaugă clasa pentru animația "smokeUp"
+        char.classList.add('is-smoking');
+
+        // 2. Setează reapariția
         setTimeout(() => {
-            letter.classList.remove('fade-up');
-            letter.classList.add('fade-in');
+            // Elimină clasa de dispariție
+            char.classList.remove('is-smoking');
             
-            setTimeout(() => {
-                letter.classList.remove('fade-in');
-            }, 500);
-        }, 3000); // 3 seconds before reappearing
+            // Adaugă clasa pentru animația "reappear"
+            char.classList.add('is-reappearing');
+
+            // 3. Curăță clasa de reapariție după ce animația s-a terminat
+            char.addEventListener('animationend', () => {
+                char.classList.remove('is-reappearing');
+            }, { once: true }); // Listener-ul se auto-elimină
+
+        }, REAPPEAR_DELAY);
     }
 
-    setupLogoEffect() {
-        const logo = document.querySelector('.logo-link');
-        if (!logo) return;
+    // 3. Animația "dramatică" de fade-in pentru elementele de pe Home
+    // Spre deosebire de observer, aceasta rulează la încărcarea paginii
+    
+    const homeElements = [
+        document.querySelector('.logo-link'),
+        document.getElementById('main-nav'),
+        document.getElementById('social-links'),
+        heroTitle,
+        document.getElementById('hero-subtitle'),
+        document.getElementById('cta-scroll')
+    ];
 
-        logo.addEventListener('mouseenter', () => {
-            logo.style.transform = 'scale(1.1)';
-        });
-
-        logo.addEventListener('mouseleave', () => {
-            logo.style.transform = 'scale(1)';
-        });
-    }
-
-    setupNavEffects() {
-        const navLinks = document.querySelectorAll('.nav-link');
+    // Adăugăm clasa 'is-visible' manual pentru secțiunea home
+    // (Observer-ul ar putea să nu se declanșeze corect la 0 scroll)
+    setTimeout(() => {
+        document.getElementById('home').classList.add('is-visible');
         
-        navLinks.forEach(link => {
-            link.addEventListener('mouseenter', (e) => {
-                const link = e.currentTarget;
-                link.style.transform = 'translateY(-2px)';
-            });
-
-            link.addEventListener('mouseleave', (e) => {
-                const link = e.currentTarget;
-                link.style.transform = 'translateY(0)';
-            });
-
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const link = e.currentTarget;
-                
-                // Add click feedback
-                link.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    link.style.transform = '';
-                }, 150);
-            });
-        });
-    }
-
-    setupSocialLinks() {
-        const socialLinks = document.querySelectorAll('.social-link');
+        // Aplicăm animațiile de intrare (definite în home.css)
+        // Nu mai este necesar dacă folosim animații keyframe cu delay în CSS
+        // Am lăsat animațiile în home.css (fadeInDown, fadeInUp, fadeInRight)
         
-        socialLinks.forEach(link => {
-            link.addEventListener('mouseenter', () => {
-                link.style.transform = 'translateY(-2px) scale(1.1)';
-            });
+    }, 100); // Mic delay pentru a asigura randarea
 
-            link.addEventListener('mouseleave', () => {
-                link.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    }
 }
-
-// Auto-initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new HomeSection();
-});
