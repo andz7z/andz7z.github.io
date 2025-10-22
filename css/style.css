@@ -1,12 +1,18 @@
-/* CSS Global Variables */
+/* ===== ROOT VARIABLES (CROMATICA) ===== */
 :root {
-    --primary-color: #ffffff;
-    --bg-color: #000000;
-    --glow-color: rgba(255, 255, 255, 0.7);
-    --transition-speed: 0.3s;
-    --blur-intensity: 5px;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-steel: #aab5c2;
+    --color-steel-dark: #333333;
+    --color-chrome-light: #e0e0e0;
+    --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    /* Gradient metalic/crom */
+    --gradient-steel: linear-gradient(145deg, var(--color-chrome-light), var(--color-steel), #888);
+    --gradient-monochrome: linear-gradient(90deg, #fafafa, #aaaaaa, #fafafa);
 }
 
+/* ===== GLOBAL RESETS & SETUP ===== */
 * {
     margin: 0;
     padding: 0;
@@ -14,254 +20,258 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    /* Esențial pentru a preveni scroll-ul nativ 
+       și a lăsa containerul să se ocupe de el */
+    overflow: hidden;
 }
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: var(--bg-color);
-    color: var(--primary-color);
-    overflow-x: hidden;
-    line-height: 1.6;
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-main);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Previne orice scroll exterior */
 }
 
+a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* ===== SCROLL CONTAINER (MAGNETIC) ===== */
+.scroll-container {
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    /* Efectul "magnetic" */
+    scroll-snap-type: y mandatory;
+    /* Ascunde scrollbar-ul (dar permite scroll-ul) */
+    scrollbar-width: none; /* Firefox */
+}
+.scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+}
+
+/* ===== SECȚIUNI (Full Screen) ===== */
 section {
-    min-height: 100vh;
-    padding: 100px 50px;
+    width: 100vw;
+    height: 100vh;
+    scroll-snap-align: start; /* Aliniere magnetică */
+    overflow: hidden; /* Important */
+    position: relative;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
+    border-bottom: 1px solid var(--color-steel-dark);
 }
 
-.section-title {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
+.section-content {
     text-align: center;
-    position: relative;
+    padding: 2rem;
+}
+.section-content h2 {
+    font-size: 4rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+    background: var(--gradient-steel);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
 }
 
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 50px;
-    height: 2px;
-    background-color: var(--primary-color);
-}
-
-/* Progress Bar */
-.progress-container {
+/* ===== PROGRESS BAR ===== */
+.progress-bar-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: transparent;
-    z-index: 1000;
+    height: 3px;
+    z-index: 1001;
+    background-color: transparent; /* Fără fundal */
 }
-
 .progress-bar {
     height: 100%;
-    background: var(--primary-color);
-    width: 0%;
-    box-shadow: 0 0 10px var(--glow-color);
-    transition: width 0.1s ease;
+    width: 0; /* Controlat de JS */
+    background: var(--gradient-steel);
+    box-shadow: 0 0 10px var(--color-white);
+    transition: width 0.1s linear;
 }
 
-/* Navbar */
-.navbar {
+/* ===== ANTETE FIXE (Home vs. Pagină) ===== */
+.home-header,
+.page-header {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem 3rem;
     display: flex;
+    justify-content: space-between;
     align-items: center;
     z-index: 100;
-    backdrop-filter: blur(var(--blur-intensity));
-    -webkit-backdrop-filter: blur(var(--blur-intensity));
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50px;
-    padding: 10px 20px;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s;
 }
 
-.nav-brand {
-    position: fixed;
-    top: 20px;
-    left: 20px;
+/* Clasa 'hidden' pentru fade-out */
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Antet Pagină (Go Back) */
+.page-header {
+    justify-content: flex-end; /* Aliniem totul la dreapta */
+}
+.current-section-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    color: var(--color-steel);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.go-back-btn {
     font-size: 1.5rem;
-    font-weight: bold;
-    z-index: 100;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+.go-back-btn:hover {
+    transform: scale(1.2) rotate(-10deg);
+    color: var(--color-chrome-light);
 }
 
-.nav-icons {
-    display: flex;
-    gap: 15px;
-}
-
-.nav-icon {
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    text-decoration: none;
-    transition: all var(--transition-speed);
-    padding: 8px;
-    border-radius: 50%;
-}
-
-.nav-icon:hover {
-    transform: scale(1.2);
-    text-shadow: 0 0 10px var(--glow-color);
-}
-
-.nav-icon.active {
-    color: var(--glow-color);
-    text-shadow: 0 0 10px var(--glow-color);
-}
-
-/* Social Icons */
-.social-icons {
+/* ===== SOCIALS (Dreapta Centru) ===== */
+.socials {
     position: fixed;
-    right: 20px;
     top: 50%;
+    right: 2rem;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1.5rem;
     z-index: 100;
+    transition: opacity 0.5s ease;
 }
-
-.social-icon {
-    color: var(--primary-color);
+.socials a {
     font-size: 1.2rem;
-    margin: 10px 0;
-    transition: all var(--transition-speed);
+    transition: transform 0.3s ease, color 0.3s ease;
 }
-
-.social-icon:hover {
-    transform: scale(1.2);
-    text-shadow: 0 0 10px var(--glow-color);
+.socials a:hover {
+    transform: scale(1.3);
+    color: var(--color-chrome-light);
 }
-
-.vertical-line {
+/* Liniile cerute */
+.socials-line-top,
+.socials-line-bottom {
     width: 1px;
-    height: 30px;
-    background-color: var(--primary-color);
-    margin: 5px 0;
+    height: 20px;
+    background-color: var(--color-steel);
 }
 
-/* Footer */
-.footer {
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    text-align: center;
-}
+/* ===== FOOTER (Persistent, Glassy) ===== */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 3rem;
+    z-index: 100;
 
+    /* Efectul Glassmorphism / Sticlă blurată */
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    
+    transition: opacity 0.5s ease;
+}
 .footer-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
 }
-
-.tos-btn {
-    background: transparent;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all var(--transition-speed);
+.footer-contact a {
+    font-size: 0.9rem;
+    color: var(--color-steel);
+    margin-right: 1.5rem;
 }
-
-.tos-btn:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-color);
-    box-shadow: 0 0 10px var(--glow-color);
+.footer-contact a i {
+    margin-right: 0.5rem;
 }
-
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+.footer-contact a:hover {
+    color: var(--color-white);
 }
-
-.modal-content {
-    background-color: var(--bg-color);
-    margin: 5% auto;
-    padding: 30px;
-    border: 1px solid var(--primary-color);
-    width: 80%;
-    max-width: 700px;
-    border-radius: 10px;
-    position: relative;
-    box-shadow: 0 0 20px var(--glow-color);
-}
-
-.close {
-    color: var(--primary-color);
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all var(--transition-speed);
-}
-
-.close:hover {
-    color: var(--glow-color);
-    text-shadow: 0 0 10px var(--glow-color);
-}
-
-.tos-content {
-    margin-top: 20px;
-    max-height: 60vh;
-    overflow-y: auto;
-}
-
-.contact-info {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.contact-item {
+.footer-links {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 1.5rem;
+}
+.footer-links button {
+    background: none;
+    border: none;
+    color: var(--color-steel);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.footer-links button:hover {
+    color: var(--color-white);
+}
+.copyright {
+    font-size: 0.9rem;
+    color: var(--color-steel-dark);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    section {
-        padding: 80px 20px;
-    }
+/* ===== MODAL (ToS) ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1002;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Fundalul blurat */
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     
-    .navbar {
-        top: 10px;
-        right: 10px;
-        padding: 8px 15px;
-    }
-    
-    .nav-brand {
-        top: 10px;
-        left: 10px;
-    }
-    
-    .social-icons {
-        right: 10px;
-    }
-    
-    .footer-content {
-        flex-direction: column;
-        gap: 10px;
-    }
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+.modal-content {
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: var(--color-chrome-light);
+}
+#tos-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.modal-content h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+.modal-content p {
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
 }
