@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-B">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ | Design. Develop. Deliver.</title>
-    <meta name="description" content="ANDZ - Professional Web Design & Development Services">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="css/style.css" as="style">
-    <link rel="preload" href="js/script.js" as="script">
-    
-    <!-- CSS -->
+    <title>ANDZ — Design. Develop. Deliver.</title>
+    <meta name="description" content="Portofoliu profesional ANDZ. Web Design, Web Development, Editare Foto/Video.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -18,323 +17,204 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script src="js/script.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/about.js" defer></script>
+    <script src="js/services.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/reviews.js" defer></script>
+    <script src="js/contact.js" defer></script>
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-bar" role="progressbar" aria-label="Scroll progress">
-        <div class="progress-fill"></div>
-    </div>
+    
+    <a href="#home" class="logo-link" aria-label="Mergi la Acasă">
+        <span class="logo-text">ANDZ</span>
+    </a>
 
-    <!-- Navigation -->
-    <nav class="main-nav" aria-label="Main navigation">
-        <div class="nav-logo">
-            <a href="#home" class="logo-link" aria-label="Home page">ANDZ</a>
-        </div>
-        
-        <ul class="nav-menu" role="menubar">
-            <li role="none"><a href="#about" role="menuitem" class="nav-link" data-section="about">About</a></li>
-            <li role="none"><a href="#services" role="menuitem" class="nav-link" data-section="services">Services</a></li>
-            <li role="none"><a href="#portfolio" role="menuitem" class="nav-link" data-section="portfolio">Portfolio</a></li>
-            <li role="none"><a href="#reviews" role="menuitem" class="nav-link" data-section="reviews">Reviews</a></li>
-            <li role="none"><a href="#contact" role="menuitem" class="nav-link" data-section="contact">Contact</a></li>
+    <nav class="main-nav" id="main-nav">
+        <ul>
+            <li><a href="#about" class="nav-icon" data-text="About">About</a></li>
+            <li><a href="#services" class="nav-icon" data-text="Services">Services</a></li>
+            <li><a href="#portfolio" class="nav-icon" data-text="Portfolio">Portfolio</a></li>
+            <li><a href="#reviews" class="nav-icon" data-text="Reviews">Reviews</a></li>
+            <li><a href="#contact" class="nav-icon" data-text="Contact">Contact</a></li>
         </ul>
-
-        <!-- Back to Home Button (appears when scrolled) -->
-        <button class="back-home-btn" aria-label="Back to home section">
-            <span class="back-arrow"></span>
-            <span class="current-section">Currently on: <span class="section-name">Home</span></span>
-        </button>
     </nav>
-
-    <!-- Social Links -->
-    <div class="social-links" aria-label="Social media links">
-        <div class="social-line top-line"></div>
-        <div class="social-icons">
-            <a href="#" aria-label="GitHub" class="social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                </svg>
-            </a>
-            <a href="#" aria-label="LinkedIn" class="social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                    <rect x="2" y="9" width="4" height="12"></rect>
-                    <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-            </a>
-            <a href="#" aria-label="Facebook" class="social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                </svg>
-            </a>
-            <a href="#" aria-label="Instagram" class="social-link">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-            </a>
-        </div>
-        <div class="social-line bottom-line"></div>
+    
+    <div class="secondary-nav" id="secondary-nav">
+        <a href="#home" class="go-back-btn" id="go-back-btn" aria-label="Mergi înapoi la Acasă">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+        </a>
+        <span class="current-section-indicator" id="current-section-indicator"></span>
     </div>
 
-    <!-- Main Content Sections -->
-    <main class="main-content">
-        <!-- Home Section -->
-        <section id="home" class="section home-section" data-section="home">
-            <div class="home-content">
-                <div class="hero-text">
-                    <h1 class="hero-line">
-                        <span class="word design-word">DESIGN.</span>
+    <div class="progress-bar-container">
+        <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <aside class="social-links" id="social-links">
+        <div class="line top"></div>
+        <a href="httpsa://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <a href="httpsa://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="httpsa://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+        </a>
+        <a href="httpsa://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+        </a>
+        <div class="line bottom"></div>
+    </aside>
+
+    <main class="main-container" id="main-container">
+
+        <section id="home" class="fullscreen-section" data-section-name="Home">
+            <div class="section-content home-content">
+                <h1 class="hero-title" id="hero-title" aria-label="Design. Develop. Deliver.">
                     </h1>
-                    <h1 class="hero-line">
-                        <span class="word develop-word">DEVELOP.</span>
-                    </h1>
-                    <h1 class="hero-line">
-                        <span class="word deliver-word">DELIVER.</span>
-                        <span class="subtext">we do it all</span>
-                    </h1>
+                <p class="hero-subtitle" id="hero-subtitle">we do it all</p>
+
+                <div class="cta-scroll" id="cta-scroll">
+                    <span class="cta-text">Let’s Start</span>
+                    <svg class="cta-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
                 </div>
             </div>
-            
-            <div class="scroll-indicator">
-                <span class="scroll-text">Let's Start</span>
-                <div class="scroll-arrow"></div>
-            </div>
+            <div class="section-background" id="home-background"></div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="section about-section" data-section="about">
-            <div class="container">
-                <h2 class="section-title">About Us</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p class="intro-text">We are a creative studio specializing in cutting-edge digital solutions.</p>
-                        <div class="about-details">
-                            <div class="detail-item">
-                                <h3>Our Mission</h3>
-                                <p>To deliver exceptional digital experiences that blend creativity with technology.</p>
-                            </div>
-                            <div class="detail-item">
-                                <h3>Our Vision</h3>
-                                <p>To be the leading innovator in web design and development solutions.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="about-visual">
-                        <div class="visual-element"></div>
-                    </div>
+        <section id="about" class="fullscreen-section" data-section-name="About">
+            <div class="section-content about-content">
+                <div class="content-wrapper">
+                    <h2 class="section-title fade-in">ABOUT US</h2>
+                    <p class="section-text fade-in" style="transition-delay: 0.2s;">Suntem o echipă de creativi pasionați de intersecția dintre artă și tehnologie. Transformăm idei în experiențe digitale memorabile, de la design grafic și producție video, la dezvoltare web complexă.</p>
+                    <p class="section-text fade-in" style="transition-delay: 0.4s;">Misiunea noastră este să livrăm excelență, cu un focus pe estetică metalică, modernă și funcționalitate impecabilă.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Services Section -->
-        <section id="services" class="section services-section" data-section="services">
-            <div class="container">
-                <h2 class="section-title">Our Services</h2>
+        <section id="services" class="fullscreen-section" data-section-name="Services">
+            <div class="section-content services-content">
+                <h2 class="section-title fade-in">SERVICES</h2>
                 <div class="services-grid">
-                    <div class="service-card">
-                        <div class="card-icon">💻</div>
-                        <h3>Web Development</h3>
-                        <p>Custom websites and web applications built with modern technologies.</p>
+                    <div class="service-card fade-in" style="transition-delay: 0.2s;">
+                        <h3 class="service-title">Web Development</h3>
+                        <p>Site-uri de prezentare, aplicații web complexe și magazine online, construite pe tehnologii moderne, rapide și sigure.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="card-icon">🎨</div>
-                        <h3>UI/UX Design</h3>
-                        <p>User-centered design that enhances engagement and conversion.</p>
+                    <div class="service-card fade-in" style="transition-delay: 0.4s;">
+                        <h3 class="service-title">UI/UX Design</h3>
+                        <p>Creăm interfețe intuitive și atractive, cu un design high-end, metalic și glassy, centrate pe experiența utilizatorului.</p>
                     </div>
-                    <div class="service-card">
-                        <div class="card-icon">📱</div>
-                        <h3>Mobile Apps</h3>
-                        <p>Native and cross-platform mobile applications for iOS and Android.</p>
-                    </div>
-                    <div class="service-card">
-                        <div class="card-icon">🚀</div>
-                        <h3>Digital Strategy</h3>
-                        <p>Comprehensive digital solutions to grow your online presence.</p>
+                    <div class="service-card fade-in" style="transition-delay: 0.6s;">
+                        <h3 class="service-title">Video & Photo</h3>
+                        <p>Producție și post-producție video/foto la nivel profesional. De la clipuri de brand la editare cinematică.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="section portfolio-section" data-section="portfolio">
-            <div class="container">
-                <h2 class="section-title">Our Work</h2>
+        <section id="portfolio" class="fullscreen-section" data-section-name="Portfolio">
+            <div class="section-content portfolio-content">
+                <h2 class="section-title fade-in">PORTFOLIO</h2>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder">Project 1</div>
+                    <a href="#" class="portfolio-card fade-in" style="transition-delay: 0.2s;">
+                        <img src="https://via.placeholder.com/600x400/111/444?text=Project+Alpha" alt="Descriere Proiect Alpha" loading="lazy">
+                        <div class="card-overlay">
+                            <h3>Project Alpha</h3>
+                            <span>Web Design / 3D Render</span>
                         </div>
-                        <div class="portfolio-info">
-                            <h3>E-commerce Platform</h3>
-                            <p>Modern online shopping experience</p>
+                    </a>
+                    <a href="#" class="portfolio-card fade-in" style="transition-delay: 0.4s;">
+                        <img src="https://via.placeholder.com/600x400/222/555?text=Project+Beta" alt="Descriere Proiect Beta" loading="lazy">
+                        <div class="card-overlay">
+                            <h3>Project Beta</h3>
+                            <span>Video Production</span>
                         </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder">Project 2</div>
+                    </a>
+                    <a href="#" class="portfolio-card fade-in" style="transition-delay: 0.6s;">
+                        <img src="https://via.placeholder.com/600x400/1a1a1a/4a4a4a?text=Project+Gamma" alt="Descriere Proiect Gamma" loading="lazy">
+                        <div class="card-overlay">
+                            <h3>Project Gamma</h3>
+                            <span>Branding / UI/UX</span>
                         </div>
-                        <div class="portfolio-info">
-                            <h3>Corporate Website</h3>
-                            <p>Professional business presence</p>
-                        </div>
-                    </div>
-                    <div class="portfolio-item">
-                        <div class="portfolio-image">
-                            <div class="image-placeholder">Project 3</div>
-                        </div>
-                        <div class="portfolio-info">
-                            <h3>Mobile Application</h3>
-                            <p>Cross-platform mobile solution</p>
-                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="fullscreen-section" data-section-name="Reviews">
+            <div class="section-content reviews-content">
+                <h2 class="section-title fade-in">REVIEWS</h2>
+                <div class="reviews-slider fade-in" style="transition-delay: 0.2s;">
+                    <div class="review-item is-active">
+                        <p class="review-text">"Colaborarea cu ANDZ a fost peste așteptări. Au livrat un design 'wow' și o funcționalitate impecabilă, exact la timp. Profesionalism la superlativ."</p>
+                        <span class="review-author">- Client Fericit, CEO TechCorp</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Reviews Section -->
-        <section id="reviews" class="section reviews-section" data-section="reviews">
-            <div class="container">
-                <h2 class="section-title">Client Reviews</h2>
-                <div class="reviews-slider">
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p>"Exceptional work and attention to detail. The team delivered beyond our expectations."</p>
-                        </div>
-                        <div class="review-author">
-                            <h4>Sarah Johnson</h4>
-                            <p>CEO, TechCorp</p>
-                        </div>
+        <section id="contact" class="fullscreen-section" data-section-name="Contact">
+            <div class="section-content contact-content">
+                <h2 class="section-title fade-in">GET IN TOUCH</h2>
+                <p class="section-text fade-in" style="transition-delay: 0.2s;">Sunteți gata să începem următorul proiect? Contactați-ne.</p>
+                <form id="contact-form" class="contact-form fade-in" style="transition-delay: 0.4s;">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required placeholder="Numele tău">
+                        <label for="name">Nume</label>
                     </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p>"Professional, creative, and reliable. Our website has seen a 40% increase in conversions."</p>
-                        </div>
-                        <div class="review-author">
-                            <h4>Michael Chen</h4>
-                            <p>Marketing Director</p>
-                        </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required placeholder="Emailul tău">
+                        <label for="email">Email</label>
                     </div>
-                    <div class="review-card">
-                        <div class="review-content">
-                            <p>"The design process was smooth and collaborative. Highly recommend their services."</p>
-                        </div>
-                        <div class="review-author">
-                            <h4>Emma Rodriguez</h4>
-                            <p>Founder, StartupXYZ</p>
-                        </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="4" required placeholder="Mesajul tău..."></textarea>
+                        <label for="message">Mesaj</label>
                     </div>
-                </div>
+                    <button type="submit" class="cta-button">Trimite Mesajul</button>
+                </form>
             </div>
+
+            <footer class="site-footer">
+                <div class="footer-links">
+                    <button class="footer-link" id="tos-button">Termeni & Condiții</button>
+                    <span class="footer-separator">|</span>
+                    <a href="tel:+40700000000" class="footer-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        +40 700 000 000
+                    </a>
+                    <span class="footer-separator">|</span>
+                    <a href="mailto:contact@andz.com" class="footer-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 2 6"></polyline></svg>
+                        contact@andz.com
+                    </a>
+                </div>
+                <div class="copyright">
+                    © <span id="current-year">2025</span> ANDZ <span class="subtext">| Lehadus Andrei</span>
+                </div>
+            </footer>
         </section>
 
-        <!-- Contact Section -->
-        <section id="contact" class="section contact-section" data-section="contact">
-            <div class="container">
-                <h2 class="section-title">Get In Touch</h2>
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div class="contact-icon">📞</div>
-                            <div class="contact-details">
-                                <h3>Phone</h3>
-                                <p>+1 (555) 123-4567</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">✉️</div>
-                            <div class="contact-details">
-                                <h3>Email</h3>
-                                <p>hello@andz.com</p>
-                            </div>
-                        </div>
-                    </div>
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <input type="text" id="name" name="name" required>
-                            <label for="name">Your Name</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" name="email" required>
-                            <label for="email">Your Email</label>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                            <label for="message">Your Message</label>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-content">
-            <div class="footer-links">
-                <button class="tos-btn" id="tosBtn">ToS</button>
-            </div>
-            <div class="footer-info">
-                <p class="copyright">© <span id="currentYear"></span> ANDZ</p>
-                <p class="author">Lehadus Andrei</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Terms of Service Modal -->
-    <div class="modal" id="tosModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Terms of Service</h2>
-                <button class="close-modal" id="closeModal" aria-label="Close modal">×</button>
-            </div>
-            <div class="modal-body">
-                <div class="tos-content">
-                    <h3>1. Acceptance of Terms</h3>
-                    <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
-                    
-                    <h3>2. Use License</h3>
-                    <p>Permission is granted to temporarily download one copy of the materials on ANDZ's website for personal, non-commercial transitory viewing only.</p>
-                    
-                    <h3>3. Disclaimer</h3>
-                    <p>The materials on ANDZ's website are provided on an 'as is' basis. ANDZ makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
-                    
-                    <h3>4. Limitations</h3>
-                    <p>In no event shall ANDZ or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on ANDZ's website, even if ANDZ or an ANDZ authorized representative has been notified orally or in writing of the possibility of such damage.</p>
-                    
-                    <h3>5. Accuracy of Materials</h3>
-                    <p>The materials appearing on ANDZ's website could include technical, typographical, or photographic errors. ANDZ does not warrant that any of the materials on its website are accurate, complete or current.</p>
-                    
-                    <h3>6. Links</h3>
-                    <p>ANDZ has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by ANDZ of the site. Use of any such linked website is at the user's own risk.</p>
-                    
-                    <h3>7. Modifications</h3>
-                    <p>ANDZ may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.</p>
-                    
-                    <h3>8. Governing Law</h3>
-                    <p>These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that location.</p>
-                </div>
+    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="visibility: hidden;">
+        <div class="modal-content" role="document">
+            <button class="modal-close" id="modal-close" aria-label="Închide modalul">&times;</button>
+            <h2 id="modal-title" class="section-title">Termeni și Condiții</h2>
+            <div class="modal-scrollable-content">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros nec sem sollicitudin placerat. Nulla facilisi. Integer quis purus ac Nunc scelerisque, nisl ac aliquam faucibus, magna nunc...</p>
+                <p>... (adaugă textul complet aici) ...</p>
+                <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
+                <p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</p>
+                <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
+                <p>... (adaugă textul complet aici) ...</p>
+                <p>... (adaugă textul complet aici) ...</p>
             </div>
         </div>
     </div>
 
-    <!-- JavaScript -->
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
 </body>
 </html>
