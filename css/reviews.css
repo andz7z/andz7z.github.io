@@ -1,88 +1,190 @@
-/* Reviews Section Specific Styles */
-#reviews {
-    background: linear-gradient(135deg, rgba(138, 43, 226, 0.05), rgba(30, 144, 255, 0.05));
+/* ANDZ — Lehadus Andrei */
+
+.reviews-section {
+    background: linear-gradient(135deg, var(--color-bg) 0%, #1a1a1a 100%);
+    position: relative;
+    overflow: hidden;
 }
 
-.reviews-container {
-    max-width: 1000px;
-    padding: 0 20px;
-    position: relative;
+.reviews-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(192, 192, 192, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(240, 240, 240, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.reviews-slider {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+    perspective: 1000px;
 }
 
 .review-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 40px;
-    margin: 0 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
     backdrop-filter: blur(10px);
-    transition: all 0.4s ease;
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(50px) rotateY(10deg);
+}
+
+.review-card.visible {
+    opacity: 1;
+    transform: translateY(0) rotateY(0);
+}
+
+.review-card::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 4rem;
+    color: var(--color-accent);
+    opacity: 0.3;
+    font-family: serif;
+    line-height: 1;
+}
+
+.review-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, transparent, rgba(192, 192, 192, 0.05), transparent);
+    opacity: 0;
+    transition: var(--transition-normal);
+}
+
+.review-card:hover::after {
+    opacity: 1;
 }
 
 .review-card:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(138, 43, 226, 0.3);
+    transform: translateY(-10px) rotateY(5deg);
+    box-shadow: 
+        var(--shadow-lg),
+        var(--shadow-glow);
+    border-color: var(--color-accent);
 }
 
-.review-text {
+.review-content {
+    position: relative;
+    z-index: 1;
+    margin-bottom: var(--space-lg);
+}
+
+.review-content p {
     font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 25px;
+    line-height: 1.7;
     font-style: italic;
-    font-family: var(--font-secondary);
+    opacity: 0.9;
+    position: relative;
+}
+
+.review-content p::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -20px;
+    width: 4px;
+    height: calc(100% + 20px);
+    background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
+    opacity: 0.5;
 }
 
 .review-author {
-    display: flex;
-    align-items: center;
-    gap: 15px;
+    position: relative;
+    z-index: 1;
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--color-glass-border);
 }
 
-.author-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--accent-gradient);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-}
-
-.author-info h4 {
+.review-author h4 {
     font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 5px;
+    margin-bottom: var(--space-xs);
+    color: var(--color-accent);
 }
 
-.author-info p {
+.review-author p {
     font-size: 0.9rem;
     opacity: 0.7;
-    font-family: var(--font-secondary);
+    margin: 0;
 }
 
-/* Reviews Slider Navigation */
-.reviews-nav {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 40px;
+/* Glassy effect enhancement */
+.review-card {
+    background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.05) 0%, 
+        rgba(255, 255, 255, 0.02) 100%);
 }
 
-.nav-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* Metallic border animation */
+.review-card {
+    position: relative;
 }
 
-.nav-dot.active {
-    background: var(--primary-color);
-    transform: scale(1.2);
+.review-card::before {
+    z-index: -1;
 }
 
-.nav-dot:hover {
-    background: rgba(255, 255, 255, 0.6);
+.review-card .border-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(45deg, transparent, var(--color-accent-metal), transparent);
+    opacity: 0;
+    transition: var(--transition-normal);
+}
+
+.review-card:hover .border-glow {
+    opacity: 0.1;
+}
+
+/* Staggered animation */
+.review-card:nth-child(1) { transition-delay: 0.1s; }
+.review-card:nth-child(2) { transition-delay: 0.2s; }
+.review-card:nth-child(3) { transition-delay: 0.3s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .reviews-slider {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+    
+    .review-card {
+        padding: var(--space-lg);
+    }
+    
+    .review-content p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .review-card {
+        padding: var(--space-md);
+        margin: 0 var(--space-sm);
+    }
+    
+    .review-content p::before {
+        left: -10px;
+    }
 }
