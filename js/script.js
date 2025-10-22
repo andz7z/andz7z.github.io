@@ -105,4 +105,39 @@ class PortfolioApp {
             goBack.classList.remove('show');
         } else {
             navbar.style.opacity = '0';
-            goBack.classList.add
+            goBack.classList.add('show');
+        }
+    }
+
+    updateCurrentSectionIndicator() {
+        const indicator = document.querySelector('.current-section');
+        const iconMap = {
+            home: 'fa-home',
+            about: 'fa-user',
+            services: 'fa-cog',
+            portfolio: 'fa-briefcase',
+            reviews: 'fa-star',
+            contact: 'fa-envelope'
+        };
+        
+        if (this.currentSection === 'home') {
+            indicator.classList.remove('show');
+        } else {
+            indicator.classList.add('show');
+            indicator.innerHTML = `Currently on: <i class="fas ${iconMap[this.currentSection]}"></i>`;
+        }
+    }
+
+    openModal() {
+        document.querySelector('.modal-overlay').classList.add('active');
+    }
+
+    closeModal() {
+        document.querySelector('.modal-overlay').classList.remove('active');
+    }
+}
+
+// Initialize the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new PortfolioApp();
+});
