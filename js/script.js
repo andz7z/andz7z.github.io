@@ -1,119 +1,99 @@
-// script.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Setăm anul curent în footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    
-    // Inițializăm componentele
-    initProgressBar();
-    initScrollBehavior();
-    initTOSModal();
-    initNavigation();
-    
-    // Inițializăm scripturile specifice fiecărei secțiuni
-    if (document.getElementById('home')) initHome();
-    if (document.getElementById('about')) initAbout();
-    if (document.getElementById('services')) initServices();
-    if (document.getElementById('portfolio')) initPortfolio();
-    if (document.getElementById('reviews')) initReviews();
-    if (document.getElementById('contact')) initContact();
-});
+document.addEventListener("DOMContentLoaded", function() {
 
-// Bară de progres
-function initProgressBar() {
+    const scrollContainer = document.querySelector('.scroll-container');
     const progressBar = document.querySelector('.progress-bar');
     
-    window.addEventListener('scroll', function() {
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = (window.pageYOffset / windowHeight) * 100;
-        progressBar.style.width = scrolled + '%';
-    });
-}
-
-// Comportament la scroll
-function initScrollBehavior() {
-    const sections = document.querySelectorAll('.section');
-    const contextualNav = document.querySelector('.contextual-nav');
-    const mainNav = document.querySelector('.main-nav');
+    const homeHeader = document.querySelector('.home-header');
+    const pageHeader = document.querySelector('.page-header');
+    const currentSectionText = document.querySelector('.current-section-text');
+    const homeSection = document.getElementById('home');
     const scrollIndicator = document.querySelector('.scroll-indicator');
-    const sectionName = document.querySelector('.section-name');
-    const goBackBtn = document.querySelector('.go-back-btn');
-    
-    // Observer pentru a detecta secțiunea activă
-    const observer = new IntersectionObserver((entries) => {
+    const allSections = document.querySelectorAll('section[data-section-name]');
+    const socials = document.querySelector('.socials');
+    const footer = document.querySelector('footer');
+
+    // ===== 1. Scroll Progress Bar =====
+    scrollContainer.addEventListener('scroll', () => {
+        const scrollTop = scrollContainer.scrollTop;
+        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
+        
+        progressBar.style.width = progress + '%';
+    });
+
+    // ===== 2. Header & UI Toggle (Intersection Observer) =====
+    const homeObserver = new IntersectionObserver((entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+            // Suntem pe Home
+            homeHeader.classList.remove('hidden');
+            pageHeader.classList.add('hidden');
+            scrollIndicator.classList.remove('hidden');
+            socials.classList.remove('hidden');
+            footer.classList.remove('hidden');
+        } else {
+            // Nu suntem pe Home
+            homeHeader.classList.add('hidden');
+            pageHeader.classList.remove('hidden');
+            scrollIndicator.classList.add('hidden');
+            
+            // Cerința P.S: "toate iconitele, etc dispar cand dai scroll"
+            socials.classList.add('hidden');
+            footer.classList.add('hidden');
+        }
+    }, {
+        root: scrollContainer,
+        threshold: 0.5 // Se activează când 50% din Home e vizibil
+    });
+
+    homeObserver.observe(homeSection);
+
+    // ===== 3. "Currently On" Text Update =====
+    const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const currentSection = entry.target.id;
-                
-                // Actualizăm numele secțiunii în navigația contextuală
-                sectionName.textContent = capitalizeFirstLetter(currentSection);
-                
-                // Controlăm afișarea navigației contextuale
-                if (currentSection === 'home') {
-                    contextualNav.classList.remove('active');
-                    mainNav.style.opacity = '1';
-                    scrollIndicator.style.opacity = '1';
-                } else {
-                    contextualNav.classList.add('active');
-                    mainNav.style.opacity = '0';
-                    scrollIndicator.style.opacity = '0';
+                const sectionName = entry.target.getAttribute('data-section-name');
+                if (sectionName) {
+                    currentSectionText.textContent = `Currently on: ${sectionName}`;
                 }
             }
         });
-    }, { threshold: 0.5 });
-    
-    sections.forEach(section => {
-        observer.observe(section);
+    }, {
+        root: scrollContainer,
+        threshold: 0.7 // Se activează când 70% dintr-o secțiune e vizibilă
     });
-    
-    // Butonul "Go Back" pentru a reveni la homepage
-    goBackBtn.addEventListener('click', function() {
-        document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-    });
-}
 
-// Modal Terms of Service
-function initTOSModal() {
-    const tosBtn = document.querySelector('.tos-btn');
-    const tosModal = document.querySelector('.tos-modal');
-    const closeTos = document.querySelector('.close-tos');
-    
-    tosBtn.addEventListener('click', function() {
-        tosModal.classList.add('active');
+    allSections.forEach(section => {
+        sectionObserver.observe(section);
     });
     
-    closeTos.addEventListener('click', function() {
-        tosModal.classList.remove('active');
+    // Notă: Butonul "Go Back" este un link <a> href="#home", 
+    // deci nu are nevoie de JS separat pentru scroll.
+
+    // ===== 4. ToS Modal Logic =====
+    const tosModal = document.getElementById('tos-modal');
+    const openBtn = document.getElementById('tos-open-btn');
+    const closeBtn = document.getElementById('tos-close-btn');
+
+    openBtn.addEventListener('click', () => {
+        tosModal.classList.remove('hidden');
     });
-    
-    tosModal.addEventListener('click', function(e) {
+
+    closeBtn.addEventListener('click', () => {
+        tosModal.classList.add('hidden');
+    });
+
+    // Închide modal-ul dacă se dă click în afara lui
+    tosModal.addEventListener('click', (e) => {
         if (e.target === tosModal) {
-            tosModal.classList.remove('active');
+            tosModal.classList.add('hidden');
         }
     });
-}
 
-// Navigație
-function initNavigation() {
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    navItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-}
+    // ===== 5. Copyright Year =====
+    const yearSpan = document.getElementById('copyright-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
 
-// Funcție utilitară pentru capitalizarea primei litere
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Inițializări pentru secțiuni (vor fi suprascrise de fișierele specifice)
-function initHome() {}
-function initAbout() {}
-function initServices() {}
-function initPortfolio() {}
-function initReviews() {}
-function initContact() {}
+});
