@@ -2,15 +2,15 @@
 :root {
     --color-black: #000000;
     --color-white: #FFFFFF;
-    --color-steel: #aab5c2;
+    --color-steel: #bababa;
     --color-steel-dark: #333333;
     --color-chrome-light: #e0e0e0;
     --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-    /* Gradient metalic/crom */
     --gradient-steel: linear-gradient(145deg, var(--color-chrome-light), var(--color-steel), #888);
-    --gradient-monochrome: linear-gradient(90deg, #fafafa, #aaaaaa, #fafafa);
+    --gradient-monochrome: linear-gradient(90deg, #fafafa, #aaaaaa, #7d7d7d);
 }
+
 
 /* ===== GLOBAL RESETS & SETUP ===== */
 * {
