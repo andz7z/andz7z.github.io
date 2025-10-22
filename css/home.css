@@ -1,135 +1,166 @@
-/* ANDZ — Lehadus Andrei */
+/* ===== HOME SECTION LAYOUT ===== */
+/* #home este deja definit în style.css (100vh, etc.) */
+/* Nu avem nevoie de stiluri suplimentare aici
+   decât dacă vrem un fundal specific */
 
-/* Home Section */
-.home-section {
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-    position: relative;
-    overflow: hidden;
+/* ===== LOGO (Stânga Sus) ===== */
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    cursor: default;
+    /* Inițial transparent pentru efectul de gradient */
+    color: var(--color-white);
+    position: relative; /* Necesar pentru pseudo-element */
+    display: inline-block;
+    transition: color 0.3s ease;
 }
 
-.home-content {
-    text-align: center;
-    z-index: 2;
-    position: relative;
-}
-
-.main-title {
-    font-size: clamp(3rem, 8vw, 8rem);
-    font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1rem;
-}
-
-.title-word {
-    display: block;
-    background: var(--gradient-metal);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    position: relative;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-}
-
-.title-word:hover {
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
-}
-
-.title-word::before {
-    content: attr(data-text);
+.logo::before {
+    content: 'ANDZ';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--gradient-primary);
+    background: var(--gradient-monochrome);
+    background-size: 300% 100%;
     -webkit-background-clip: text;
-    background-clip: text;
     -webkit-text-fill-color: transparent;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.5s ease;
+    animation: gradient-sweep 4s linear infinite;
+    /* Oprește animația când nu e hover */
+    animation-play-state: paused;
 }
 
-.title-word:hover::before {
+.logo:hover {
+    color: transparent; /* Ascunde textul alb */
+}
+.logo:hover::before {
+    opacity: 1;
+    animation-play-state: running; /* Pornește animația la hover */
+}
+
+/* Animația de "măturare" a gradientului */
+@keyframes gradient-sweep {
+    0% { background-position: 150% 50%; }
+    100% { background-position: -150% 50%; }
+}
+
+
+/* ===== NAVIGAȚIE PRINCIPALĂ (Dreapta Sus) ===== */
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+.main-nav a {
+    font-size: 1.2rem;
+    color: var(--color-steel);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Efect Hover */
+.main-nav a:hover {
+    color: var(--color-white);
+    transform: scale(1.2);
+}
+/* Efect Click */
+.main-nav a:active {
+    transform: scale(0.9);
+    color: var(--color-chrome-light);
+}
+
+/* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
+.home-text {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+.home-text .word {
+    font-size: 8vw; /* Scalabil cu viewport-ul */
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    display: block; /* Fiecare pe rândul lui */
+    position: relative; /* Pentru efectul de fum */
+    cursor: default;
+    
+    /* Efect 3D/Metal subtil */
+    color: var(--color-chrome-light);
+    text-shadow: 
+        0px 1px 0px #999,
+        0px 2px 0px #888,
+        0px 3px 0px #777,
+        0px 4px 0px #666,
+        0px 5px 10px rgba(0,0,0,0.6);
+}
+
+/* ===== Efect de Fum (Hover) ===== */
+.home-text .word::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(150, 150, 150, 0.1) 0%, rgba(150, 150, 150, 0) 60%);
+    filter: blur(20px);
+    z-index: -1;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 0.5s ease;
+    animation: smoke-drift 10s infinite alternate linear;
+}
+.home-text .word:hover::after {
     opacity: 1;
 }
 
-.subtitle {
-    font-size: 1.25rem;
-    opacity: 0.8;
-    font-weight: 300;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+@keyframes smoke-drift {
+    0% { transform: translateX(-10%) scale(1); }
+    100% { transform: translateX(10%) scale(1.2); }
 }
 
-/* Scroll Indicator */
+/* ===== Efect de Dispersie (Click pe literă) ===== */
+.home-text .char {
+    display: inline-block; /* Permite transformarea literelor */
+    cursor: pointer;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+}
+/* Starea "smoked" aplicată de JS */
+.home-text .char.smoked {
+    opacity: 0;
+    transform: translateY(-80px) rotateX(90deg) scale(0.5);
+}
+
+
+/* ===== INDICATOR SCROLL (Jos Centru) ===== */
 .scroll-indicator {
     position: absolute;
-    bottom: 3rem;
+    bottom: 3rem; /* Ridicat deasupra footer-ului */
     left: 50%;
     transform: translateX(-50%);
-    text-align: center;
-    z-index: 2;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 10;
     transition: opacity 0.5s ease;
-}
-
-.scroll-text {
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-    opacity: 0.8;
-    animation: pulse 2s infinite;
-}
-
-.scroll-arrow {
-    width: 20px;
-    height: 20px;
-    border-right: 2px solid currentColor;
-    border-bottom: 2px solid currentColor;
-    transform: rotate(45deg);
-    margin: 0 auto;
-    opacity: 0.7;
-    animation: bounce 2s infinite;
+    
+    /* Animația pulsantă */
+    animation: pulse 2s infinite ease-in-out;
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-}
-
-@keyframes bounce {
-    0%, 100% { transform: rotate(45deg) translateY(0); }
-    50% { transform: rotate(45deg) translateY(-10px); }
-}
-
-/* Smoke Canvas */
-#smokeCanvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* Efecte pentru literele din titlu */
-.letter-particle {
-    position: absolute;
-    pointer-events: none;
-    z-index: 3;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .main-title {
-        font-size: clamp(2rem, 10vw, 4rem);
+    0% {
+        opacity: 0.1;
+        transform: translate(-50%, 0) scale(0.9);
     }
-    
-    .subtitle {
-        font-size: 1rem;
+    50% {
+        opacity: 0.7;
+        transform: translate(-50%, 5px) scale(1);
     }
-    
-    .scroll-indicator {
-        bottom: 2rem;
+    100% {
+        opacity: 0.1;
+        transform: translate(-50%, 0) scale(0.9);
     }
 }
