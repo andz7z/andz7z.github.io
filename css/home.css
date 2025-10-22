@@ -188,3 +188,27 @@
         transform: translate(-50%, 0) scale(0.9);
     }
 }
+/* ===== GENERATIVE BACKGROUND ===== */
+#generative-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Sub conținut dar deasupra fundalului negru */
+    pointer-events: none; /* Permite interacțiunea cu elementele de deasupra */
+}
+
+/* Asigură-te că secțiunea home are positioning corect */
+#home {
+    position: relative;
+    z-index: 2; /* Peste background-ul generativ */
+}
+
+/* Ajustări pentru conținut să fie peste background */
+.header,
+.home-text,
+.scroll-indicator {
+    position: relative;
+    z-index: 10;
+}
