@@ -1,26 +1,46 @@
-// about.js
-function initAbout() {
-    animateSkillBars();
-}
+// About section specific functionality
 
-// Animație pentru barele de competențe
-function animateSkillBars() {
-    const skillProgresses = document.querySelectorAll('.skill-progress');
-    
-    // Observator pentru a declanșa animația când secțiunea devine vizibilă
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                skillProgresses.forEach(progress => {
-                    const width = progress.getAttribute('data-width');
-                    progress.style.width = width;
-                });
-            }
+class AboutSection {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupSkillsAnimation();
+    }
+
+    setupSkillsAnimation() {
+        const skills = document.querySelectorAll('.skill-tag');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animateSkills();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(document.getElementById('about'));
+    }
+
+    animateSkills() {
+        const skills = document.querySelectorAll('.skill-tag');
+        
+        skills.forEach((skill, index) => {
+            skill.style.opacity = '0';
+            skill.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                skill.style.transition = 'all 0.5s ease';
+                skill.style.opacity = '1';
+                skill.style.transform = 'translateY(0)';
+            }, index * 100);
         });
-    }, { threshold: 0.5 });
-    
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-        observer.observe(aboutSection);
     }
 }
+
+// Initialize about section when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new AboutSection();
+});
