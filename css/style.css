@@ -7,7 +7,6 @@
     --color-chrome-light: #e0e0e0;
     --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-    /* Gradient metalic/crom */
     --gradient-steel: linear-gradient(145deg, var(--color-chrome-light), var(--color-steel), #888);
     --gradient-monochrome: linear-gradient(90deg, #fafafa, #aaaaaa, #7d7d7d);
 }
@@ -20,8 +19,6 @@
 }
 
 html {
-    /* Esențial pentru a preveni scroll-ul nativ 
-       și a lăsa containerul să se ocupe de el */
     overflow: hidden;
 }
 
@@ -31,7 +28,7 @@ body {
     font-family: var(--font-main);
     width: 100vw;
     height: 100vh;
-    overflow: hidden; /* Previne orice scroll exterior */
+    overflow: hidden;
 }
 
 a {
@@ -40,26 +37,24 @@ a {
     transition: color 0.3s ease;
 }
 
-/* ===== SCROLL CONTAINER (MAGNETIC) ===== */
+/* ===== SCROLL MAGNETIC ===== */
 .scroll-container {
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
-    /* Efectul "magnetic" */
     scroll-snap-type: y mandatory;
-    /* Ascunde scrollbar-ul (dar permite scroll-ul) */
     scrollbar-width: none; /* Firefox */
 }
 .scroll-container::-webkit-scrollbar {
     display: none; /* Chrome, Safari */
 }
 
-/* ===== SECȚIUNI (Full Screen) ===== */
+/* ===== SECȚIUNI ===== */
 section {
     width: 100vw;
     height: 100vh;
-    scroll-snap-align: start; /* Aliniere magnetică */
-    overflow: hidden; /* Important */
+    scroll-snap-align: start; 
+    overflow: hidden; 
     position: relative;
     display: flex;
     justify-content: center;
@@ -89,7 +84,7 @@ section {
     width: 100%;
     height: 3px;
     z-index: 1001;
-    background-color: transparent; /* Fără fundal */
+    background-color: transparent; 
 }
 .progress-bar {
     height: 100%;
@@ -102,7 +97,7 @@ section {
     transition: width 0.1s linear;
 }
 
-/* ===== ANTETE FIXE (Home vs. Pagină) ===== */
+/* ===== ANTETE ===== */
 .home-header,
 .page-header {
     position: fixed;
@@ -124,13 +119,13 @@ section {
     pointer-events: none;
 }
 
-/* Antet Pagină (Go Back) */
+/* (Go Back) */
 .page-header {
-    justify-content: flex-end; /* Aliniem totul la dreapta */
-}
+    justify-content: flex-end; 
+    
 .current-section-text {
     position: absolute;
-    left: 90%;
+    left: 87%;
     transform: translateX(-50%);
     font-size: 1rem;
     color: var(--color-steel);
@@ -148,7 +143,7 @@ section {
     filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
 }
 
-/* ===== SOCIALS (Dreapta Centru) ===== */
+/* ===== SOCIALS ===== */
 .socials {
     position: fixed;
     top: 50%;
@@ -169,7 +164,7 @@ section {
     transform: scale(1.3);
     color: var(--color-chrome-light);
 }
-/* Liniile cerute */
+/* Linii Socials */
 .socials-line-top,
 .socials-line-bottom {
     width: 1px;
