@@ -1,31 +1,65 @@
-/* ANDZ — Lehadus Andrei */
-'use strict';
+// Contact section specific functionality
 
-// Aici se poate adăuga logica de validare a formularului de contact
-// și trimiterea datelor (ex: folosind Fetch API către un serviciu
-// ca Formspree, Netlify Forms sau un endpoint propriu).
+document.addEventListener('DOMContentLoaded', function() {
+    initContactForm();
+    initContactItems();
+});
 
-document.addEventListener('DOMContentLoaded', () => {
-    const contactForm = document.getElementById('contact-form');
-    if (!contactForm) return;
-
-    contactForm.addEventListener('submit', (e) => {
+function initContactForm() {
+    const contactForm = document.querySelector('.contact-form');
+    
+    contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // TODO: Adaugă logica de validare
+        // Get form data
+        const formData = new FormData(this);
+        const name = formData.get('name') || this.querySelector('input[type="text"]').value;
+        const email = formData.get('email') || this.querySelector('input[type="email"]').value;
+        const message = formData.get('message') || this.querySelector('textarea').value;
         
-        // Simulare trimitere
-        console.log('Formularul se trimite...');
+        // Simple validation
+        if (!name || !email || !message) {
+            alert('Please fill in all fields');
+            return;
+        }
         
-        // Exemplu de colectare date
-        const formData = new FormData(contactForm);
-        const data = Object.fromEntries(formData.entries());
-        console.log('Date:', data);
+        // In a real application, you would send this data to a server
+        console.log('Form submitted:', { name, email, message });
         
-        // TODO: Trimite 'data' către un endpoint
+        // Show success message
+        const submitBtn = this.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
         
-        // Feedback către utilizator
-        alert('Mesajul tău a fost trimis! (Simulare)');
-        contactForm.reset();
+        submitBtn.textContent = 'Message Sent!';
+        submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #45a049)';
+        
+        setTimeout(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.style.background = 'linear-gradient(45deg, var(--metal-light), var(--chrome))';
+            this.reset();
+        }, 3000);
     });
-});
+}
+
+function initContactItems() {
+    const contactItems = document.querySelectorAll('.contact-item');
+    
+    contactItems.forEach((item, index) => {
+        // Staggered animation
+        item.style.animationDelay = `${index * 0.15}s`;
+        item.classList.add('fade-in-left');
+        
+        // Hover effect
+        item.addEventListener('mouseenter', function() {
+            const icon = this.querySelector('i');
+            icon.style.transform = 'scale(1.2)';
+            icon.style.color = 'var(--metal-light)';
+        });
+        
+        item.addEventListener('mouseleave', function() {
+            const icon = this.querySelector('i');
+            icon.style.transform = 'scale(1)';
+            icon.style.color = 'var(--chrome)';
+        });
+    });
+}
