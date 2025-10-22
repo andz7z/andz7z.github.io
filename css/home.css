@@ -1,136 +1,166 @@
-/* Home Section */
-.home-section {
-    position: relative;
-    overflow: hidden;
-}
+/* ===== HOME SECTION LAYOUT ===== */
+/* #home este deja definit în style.css (100vh, etc.) */
+/* Nu avem nevoie de stiluri suplimentare aici
+   decât dacă vrem un fundal specific */
 
-.home-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-left: 50px;
-}
-
-.slogan {
-    margin-bottom: 40px;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 1s ease forwards;
-}
-
-.slogan-line {
-    display: flex;
-    margin-bottom: 10px;
-}
-
-.slogan-word {
-    font-size: 4rem;
-    font-weight: bold;
-    margin-right: 20px;
-    transition: all 0.3s ease;
+/* ===== LOGO (Stânga Sus) ===== */
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
     cursor: default;
-    position: relative;
+    /* Inițial transparent pentru efectul de gradient */
+    color: var(--color-white);
+    position: relative; /* Necesar pentru pseudo-element */
+    display: inline-block;
+    transition: color 0.3s ease;
 }
 
-.slogan-word:hover {
-    text-shadow: 0 0 20px var(--glow-color);
-    filter: blur(1px);
-    transform: scale(1.05);
-}
-
-.slogan-subtitle {
-    font-size: 1.2rem;
-    margin-top: 10px;
-    opacity: 0;
-    animation: fadeIn 1s ease 0.5s forwards;
-}
-
-.discover-btn {
-    background: transparent;
-    color: var(--primary-color);
-    border: 1px solid var(--primary-color);
-    padding: 12px 25px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: all var(--transition-speed);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    opacity: 0;
-    animation: fadeIn 1s ease 1s forwards;
-}
-
-.discover-btn:hover {
-    background-color: var(--primary-color);
-    color: var(--bg-color);
-    box-shadow: 0 0 15px var(--glow-color);
-    transform: translateY(-3px);
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-/* Blur effect for homepage */
-.home-section::before {
-    content: '';
+.logo::before {
+    content: 'ANDZ';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    background: var(--gradient-monochrome);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: gradient-sweep 4s linear infinite;
+    /* Oprește animația când nu e hover */
+    animation-play-state: paused;
+}
+
+.logo:hover {
+    color: transparent; /* Ascunde textul alb */
+}
+.logo:hover::before {
+    opacity: 1;
+    animation-play-state: running; /* Pornește animația la hover */
+}
+
+/* Animația de "măturare" a gradientului */
+@keyframes gradient-sweep {
+    0% { background-position: 150% 50%; }
+    100% { background-position: -150% 50%; }
+}
+
+
+/* ===== NAVIGAȚIE PRINCIPALĂ (Dreapta Sus) ===== */
+.main-nav {
+    display: flex;
+    gap: 2rem;
+}
+.main-nav a {
+    font-size: 1.2rem;
+    color: var(--color-steel);
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+/* Efect Hover */
+.main-nav a:hover {
+    color: var(--color-white);
+    transform: scale(1.2);
+}
+/* Efect Click */
+.main-nav a:active {
+    transform: scale(0.9);
+    color: var(--color-chrome-light);
+}
+
+/* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
+.home-text {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+}
+.home-text .word {
+    font-size: 8vw; /* Scalabil cu viewport-ul */
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+    display: block; /* Fiecare pe rândul lui */
+    position: relative; /* Pentru efectul de fum */
+    cursor: default;
+    
+    /* Efect 3D/Metal subtil */
+    color: var(--color-chrome-light);
+    text-shadow: 
+        0px 1px 0px #999,
+        0px 2px 0px #888,
+        0px 3px 0px #777,
+        0px 4px 0px #666,
+        0px 5px 10px rgba(0,0,0,0.6);
+}
+
+/* ===== Efect de Fum (Hover) ===== */
+.home-text .word::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(150, 150, 150, 0.1) 0%, rgba(150, 150, 150, 0) 60%);
+    filter: blur(20px);
     z-index: -1;
     opacity: 0;
-    animation: blurIn 1.5s ease 0.5s forwards;
+    transform: scale(1);
+    transition: opacity 0.5s ease;
+    animation: smoke-drift 10s infinite alternate linear;
+}
+.home-text .word:hover::after {
+    opacity: 1;
 }
 
-@keyframes blurIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+@keyframes smoke-drift {
+    0% { transform: translateX(-10%) scale(1); }
+    100% { transform: translateX(10%) scale(1.2); }
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .home-content {
-        padding-left: 20px;
-        align-items: center;
-        text-align: center;
-    }
+/* ===== Efect de Dispersie (Click pe literă) ===== */
+.home-text .char {
+    display: inline-block; /* Permite transformarea literelor */
+    cursor: pointer;
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05);
+}
+/* Starea "smoked" aplicată de JS */
+.home-text .char.smoked {
+    opacity: 0;
+    transform: translateY(-80px) rotateX(90deg) scale(0.5);
+}
+
+
+/* ===== INDICATOR SCROLL (Jos Centru) ===== */
+.scroll-indicator {
+    position: absolute;
+    bottom: 3rem; /* Ridicat deasupra footer-ului */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    z-index: 10;
+    transition: opacity 0.5s ease;
     
-    .slogan-word {
-        font-size: 2.5rem;
+    /* Animația pulsantă */
+    animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.1;
+        transform: translate(-50%, 0) scale(0.9);
     }
-    
-    .slogan-line {
-        flex-direction: column;
+    50% {
+        opacity: 0.7;
+        transform: translate(-50%, 5px) scale(1);
+    }
+    100% {
+        opacity: 0.1;
+        transform: translate(-50%, 0) scale(0.9);
     }
 }
