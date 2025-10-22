@@ -210,7 +210,7 @@
 .home-text {
   position: absolute;
   top: 50%;
-  left: 8%; /* îl apropiem de marginea stângă */
+  left: 4%; /* îl apropiem de marginea stângă */
   transform: translateY(-50%);
   z-index: 10; /* peste canvas */
   color: #fff;
