@@ -129,15 +129,41 @@
     
         function setup() {
             const homeSection = document.getElementById("home");
-            canvas = createCanvas(windowWidth, windowHeight);
+            
+            // Raport de aspect dorit (ex: 16:9)
+            const targetAspectRatio = 16 / 9;
+            let canvasWidth = windowWidth;
+            let canvasHeight = windowWidth / targetAspectRatio;
+            
+            // Dacă înălțimea calculată depășește ecranul, ajustează
+            if (canvasHeight > windowHeight) {
+                canvasHeight = windowHeight;
+                canvasWidth = windowHeight * targetAspectRatio;
+            }
+            
+            canvas = createCanvas(canvasWidth, canvasHeight);
             canvas.parent('home');
             canvas.style('position', 'absolute');
-            canvas.style('top', '0');
-            canvas.style('left', '0');
+            canvas.style('top', '50%');
+            canvas.style('left', '50%');
+            canvas.style('transform', 'translate(-50%, -50%)');
             canvas.style('z-index', '0');
             
             frameRate(30);
             background(0);
+        }
+        
+        function windowResized() {
+            const targetAspectRatio = 16 / 9;
+            let canvasWidth = windowWidth;
+            let canvasHeight = windowWidth / targetAspectRatio;
+            
+            if (canvasHeight > windowHeight) {
+                canvasHeight = windowHeight;
+                canvasWidth = windowHeight * targetAspectRatio;
+            }
+            
+            resizeCanvas(canvasWidth, canvasHeight);
         }
     
         function draw() {
