@@ -437,3 +437,29 @@
 .scroll-indicator.visible {
     opacity: 1;
 }
+.home-text .subtext {
+    font-size: 1.2rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 1.5rem;
+    letter-spacing: 1px;
+    text-align: center;
+    transition: color 0.3s ease, transform 0.3s ease;
+    
+    /* Efect fade-in mai lent */
+    opacity: 0;
+    animation: slowFadeIn 3s ease-in-out forwards;
+    animation-delay: 2s;
+}
+
+@keyframes slowFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
