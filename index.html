@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANDZ | Portfolio</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>A</text></svg>">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -13,108 +13,135 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-
     <!-- Navigation -->
     <nav class="main-nav">
-        <div class="nav-logo">ANDZ</div>
-        <div class="nav-icons">
-            <a href="#home" class="nav-icon active" data-section="home">
-                <i class="fas fa-home"></i>
-            </a>
-            <a href="#about" class="nav-icon" data-section="about">
-                <i class="fas fa-user"></i>
-            </a>
-            <a href="#services" class="nav-icon" data-section="services">
-                <i class="fas fa-cogs"></i>
-            </a>
-            <a href="#portfolio" class="nav-icon" data-section="portfolio">
-                <i class="fas fa-briefcase"></i>
-            </a>
-            <a href="#reviews" class="nav-icon" data-section="reviews">
-                <i class="fas fa-star"></i>
-            </a>
-            <a href="#contact" class="nav-icon" data-section="contact">
-                <i class="fas fa-envelope"></i>
-            </a>
+        <div class="nav-container">
+            <div class="logo">
+                <span>ANDZ</span>
+            </div>
+            <div class="nav-icons">
+                <a href="#home" class="nav-icon active" data-section="home">
+                    <i class="fas fa-home"></i>
+                    <span class="tooltip">Home</span>
+                </a>
+                <a href="#about" class="nav-icon" data-section="about">
+                    <i class="fas fa-user"></i>
+                    <span class="tooltip">About</span>
+                </a>
+                <a href="#services" class="nav-icon" data-section="services">
+                    <i class="fas fa-cogs"></i>
+                    <span class="tooltip">Services</span>
+                </a>
+                <a href="#portfolio" class="nav-icon" data-section="portfolio">
+                    <i class="fas fa-briefcase"></i>
+                    <span class="tooltip">Portfolio</span>
+                </a>
+                <a href="#reviews" class="nav-icon" data-section="reviews">
+                    <i class="fas fa-star"></i>
+                    <span class="tooltip">Reviews</span>
+                </a>
+                <a href="#contact" class="nav-icon" data-section="contact">
+                    <i class="fas fa-envelope"></i>
+                    <span class="tooltip">Contact</span>
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Back Button -->
-    <div class="back-nav">
-        <a href="#home" class="back-btn">
-            <i class="fas fa-arrow-up"></i>
-            <span class="current-section">Currently on: Home</span>
-        </a>
-    </div>
-
-    <!-- Sections -->
-    <main>
+    <!-- Main Content Sections -->
+    <main class="main-content">
+        <!-- Home Section -->
         <section id="home" class="section active">
-            <div class="video-background">
-                <video autoplay muted loop id="bgVideo">
-                    <source src="assets/wallpaper/loop.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                </video>
-                <div class="video-overlay"></div>
-            </div>
-            <div class="home-content">
-                <div class="text-block">
-                    <h1 class="animated-text">
-                        <span class="line-1">DESIGN. DEVELOP</span>
-                        <span class="line-2">DELIVER.</span>
-                        <span class="line-3">&lt;we do it all/&gt;</span>
-                    </h1>
-                </div>
-                <div class="social-block">
-                    <div class="line"></div>
-                    <div class="social-icons">
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook"></i></a>
+            <div class="home-container">
+                <div class="home-text">
+                    <div class="animated-text">
+                        <span class="line1">DESIGN. DEVELOP</span>
+                        <span class="line2">DELIVER.</span>
+                        <span class="line3"><we do it all/></span>
                     </div>
-                    <div class="line"></div>
+                </div>
+                <div class="home-social">
+                    <div class="social-line"></div>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+                    <div class="social-line"></div>
                 </div>
             </div>
             <div class="scroll-indicator">
-                <div class="arrow"></div>
+                <div class="pulsing-arrow">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
             </div>
         </section>
 
+        <!-- About Section -->
         <section id="about" class="section">
-            <div class="section-content">
+            <div class="section-container">
                 <h2 class="section-title">About Me</h2>
-                <div class="about-container">
-                    <div class="about-card">
-                        <div class="card-content">
-                            <div class="profile-image">
-                                <div class="image-placeholder"></div>
+                <div class="about-content">
+                    <div class="about-image">
+                        <div class="image-frame">
+                            <div class="image-placeholder"></div>
+                        </div>
+                    </div>
+                    <div class="about-text">
+                        <h3>Creative Developer & Digital Artist</h3>
+                        <p>With over 8 years of experience in web development and digital media, I specialize in creating immersive digital experiences that blend technical precision with artistic vision.</p>
+                        <div class="skills">
+                            <div class="skill-item">
+                                <span class="skill-name">Web Development</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="95%"></div>
+                                </div>
                             </div>
-                            <h3>ANDZ</h3>
-                            <p class="title">Full-Stack Developer & Creative Designer</p>
-                            <p>With over 5 years of experience in web development and digital design, I create stunning, functional digital experiences that blend aesthetics with performance.</p>
-                            <div class="skills">
-                                <span class="skill-tag">HTML/CSS</span>
-                                <span class="skill-tag">JavaScript</span>
-                                <span class="skill-tag">React</span>
-                                <span class="skill-tag">Node.js</span>
-                                <span class="skill-tag">UI/UX Design</span>
-                                <span class="skill-tag">Video Editing</span>
+                            <div class="skill-item">
+                                <span class="skill-name">UI/UX Design</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Video Editing</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <span class="skill-name">Photo Editing</span>
+                                <div class="skill-bar">
+                                    <div class="skill-progress" data-width="88%"></div>
+                                </div>
                             </div>
                         </div>
+                        <button class="btn metallic-btn">Download CV</button>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Services Section -->
         <section id="services" class="section">
-            <div class="section-content">
+            <div class="section-container">
                 <h2 class="section-title">Services</h2>
                 <div class="services-grid">
                     <div class="service-card">
@@ -122,185 +149,267 @@
                             <i class="fas fa-code"></i>
                         </div>
                         <h3>Web Development</h3>
-                        <p>Custom websites and web applications built with modern technologies and best practices.</p>
+                        <p>Custom websites and web applications built with modern technologies and optimized for performance.</p>
+                        <ul class="service-features">
+                            <li>Frontend & Backend</li>
+                            <li>Responsive Design</li>
+                            <li>E-commerce Solutions</li>
+                        </ul>
                     </div>
                     <div class="service-card">
                         <div class="card-icon">
                             <i class="fas fa-paint-brush"></i>
                         </div>
                         <h3>UI/UX Design</h3>
-                        <p>User-centered design that combines aesthetics with functionality for optimal user experience.</p>
+                        <p>User-centered design solutions that enhance usability and create engaging digital experiences.</p>
+                        <ul class="service-features">
+                            <li>Wireframing & Prototyping</li>
+                            <li>User Research</li>
+                            <li>Interactive Design</li>
+                        </ul>
                     </div>
                     <div class="service-card">
                         <div class="card-icon">
                             <i class="fas fa-video"></i>
                         </div>
                         <h3>Video Editing</h3>
-                        <p>Professional video editing services for commercials, social media, and corporate content.</p>
+                        <p>Professional video editing services for commercials, social media, and corporate presentations.</p>
+                        <ul class="service-features">
+                            <li>Color Grading</li>
+                            <li>Motion Graphics</li>
+                            <li>Sound Design</li>
+                        </ul>
                     </div>
                     <div class="service-card">
                         <div class="card-icon">
                             <i class="fas fa-camera"></i>
                         </div>
                         <h3>Photo Editing</h3>
-                        <p>High-quality photo retouching, color correction, and creative manipulation.</p>
+                        <p>High-quality photo retouching, manipulation, and enhancement for various media needs.</p>
+                        <ul class="service-features">
+                            <li>Retouching</li>
+                            <li>Color Correction</li>
+                            <li>Creative Manipulation</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Portfolio Section -->
         <section id="portfolio" class="section">
-            <div class="section-content">
+            <div class="section-container">
                 <h2 class="section-title">Portfolio</h2>
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Web Development</button>
+                    <button class="filter-btn" data-filter="design">UI/UX Design</button>
+                    <button class="filter-btn" data-filter="video">Video</button>
+                    <button class="filter-btn" data-filter="photo">Photo</button>
+                </div>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item">
+                    <div class="portfolio-item" data-category="web">
                         <div class="portfolio-image">
                             <div class="image-placeholder"></div>
                         </div>
-                        <div class="portfolio-info">
+                        <div class="portfolio-overlay">
                             <h3>E-commerce Platform</h3>
-                            <p>Full-stack development of a modern e-commerce solution with React and Node.js</p>
-                            <button class="portfolio-btn">View Project</button>
+                            <p>Full-stack development with React & Node.js</p>
+                            <button class="btn metallic-btn">View Project</button>
                         </div>
                     </div>
-                    <div class="portfolio-item">
+                    <div class="portfolio-item" data-category="design">
                         <div class="portfolio-image">
                             <div class="image-placeholder"></div>
                         </div>
-                        <div class="portfolio-info">
-                            <h3>Corporate Website</h3>
-                            <p>Complete redesign and development for a multinational corporation</p>
-                            <button class="portfolio-btn">View Project</button>
+                        <div class="portfolio-overlay">
+                            <h3>Finance App UI</h3>
+                            <p>Mobile banking interface design</p>
+                            <button class="btn metallic-btn">View Project</button>
                         </div>
                     </div>
-                    <div class="portfolio-item">
+                    <div class="portfolio-item" data-category="video">
                         <div class="portfolio-image">
                             <div class="image-placeholder"></div>
                         </div>
-                        <div class="portfolio-info">
-                            <h3>Mobile App UI</h3>
-                            <p>User interface design for a fitness tracking mobile application</p>
-                            <button class="portfolio-btn">View Project</button>
+                        <div class="portfolio-overlay">
+                            <h3>Product Launch Video</h3>
+                            <p>Corporate promotional video</p>
+                            <button class="btn metallic-btn">View Project</button>
                         </div>
                     </div>
-                    <div class="portfolio-item">
+                    <div class="portfolio-item" data-category="photo">
                         <div class="portfolio-image">
                             <div class="image-placeholder"></div>
                         </div>
-                        <div class="portfolio-info">
-                            <h3>Video Campaign</h3>
-                            <p>Complete video production for a product launch campaign</p>
-                            <button class="portfolio-btn">View Project</button>
+                        <div class="portfolio-overlay">
+                            <h3>Fashion Photography</h3>
+                            <p>Editorial photo retouching</p>
+                            <button class="btn metallic-btn">View Project</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="web">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder"></div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3>Travel Blog</h3>
+                            <p>Responsive website with CMS</p>
+                            <button class="btn metallic-btn">View Project</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="design">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder"></div>
+                        </div>
+                        <div class="portfolio-overlay">
+                            <h3>Dashboard Design</h3>
+                            <p>Analytics interface for SaaS</p>
+                            <button class="btn metallic-btn">View Project</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Reviews Section -->
         <section id="reviews" class="section">
-            <div class="section-content">
+            <div class="section-container">
                 <h2 class="section-title">Client Reviews</h2>
-                <div class="reviews-container">
+                <div class="reviews-slider">
                     <div class="review-card">
                         <div class="review-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>"ANDZ delivered beyond our expectations. The website is not only beautiful but also performs exceptionally well."</p>
-                            <div class="review-author">
-                                <h4>Sarah Johnson</h4>
-                                <span>CEO, TechSolutions Inc.</span>
+                            <div class="quote-icon">"</div>
+                            <p>Working with ANDZ was an exceptional experience. The attention to detail and creative approach resulted in a website that perfectly represents our brand.</p>
+                            <div class="reviewer">
+                                <div class="reviewer-avatar">
+                                    <div class="avatar-placeholder"></div>
+                                </div>
+                                <div class="reviewer-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <span>CEO, TechVision Inc.</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="review-card">
                         <div class="review-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <p>"The video editing work was professional and creative. ANDZ understood our vision perfectly."</p>
-                            <div class="review-author">
-                                <h4>Michael Brown</h4>
-                                <span>Marketing Director, BrandVision</span>
+                            <div class="quote-icon">"</div>
+                            <p>The video editing work was outstanding. ANDZ transformed our raw footage into a compelling story that resonated with our target audience.</p>
+                            <div class="reviewer">
+                                <div class="reviewer-avatar">
+                                    <div class="avatar-placeholder"></div>
+                                </div>
+                                <div class="reviewer-info">
+                                    <h4>Michael Torres</h4>
+                                    <span>Marketing Director, BrandWorks</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="review-card">
                         <div class="review-content">
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <p>"Working with ANDZ was a pleasure. The UI/UX design significantly improved our conversion rates."</p>
-                            <div class="review-author">
-                                <h4>Emily Chen</h4>
-                                <span>Product Manager, AppFlow</span>
+                            <div class="quote-icon">"</div>
+                            <p>Our new UI design has significantly improved user engagement. The intuitive interface and modern aesthetic exceeded our expectations.</p>
+                            <div class="reviewer">
+                                <div class="reviewer-avatar">
+                                    <div class="avatar-placeholder"></div>
+                                </div>
+                                <div class="reviewer-info">
+                                    <h4>Emma Wilson</h4>
+                                    <span>Product Manager, FinTech Solutions</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div class="slider-controls">
+                    <button class="slider-btn prev-btn"><i class="fas fa-chevron-left"></i></button>
+                    <div class="slider-dots">
+                        <span class="dot active"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                    <button class="slider-btn next-btn"><i class="fas fa-chevron-right"></i></button>
+                </div>
             </div>
         </section>
 
+        <!-- Contact Section -->
         <section id="contact" class="section">
-            <div class="section-content">
+            <div class="section-container">
                 <h2 class="section-title">Get In Touch</h2>
-                <div class="contact-container">
+                <div class="contact-content">
                     <div class="contact-info">
                         <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <div>
-                                <h3>Email</h3>
-                                <p>contact@andz.dev</p>
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Location</h3>
+                                <p>San Francisco, CA</p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Email</h3>
+                                <p>hello@andz.dev</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-text">
                                 <h3>Phone</h3>
                                 <p>+1 (555) 123-4567</p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <div>
-                                <h3>Location</h3>
-                                <p>San Francisco, CA</p>
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h3>Working Hours</h3>
+                                <p>Mon - Fri: 9AM - 6PM</p>
                             </div>
                         </div>
                     </div>
-                    <form class="contact-form">
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Send Message</button>
-                    </form>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Your Name</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Your Email</label>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="subject" name="subject" required>
+                                <label for="subject">Subject</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message">Your Message</label>
+                            </div>
+                            <button type="submit" class="btn metallic-btn">Send Message</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="main-footer">
         <div class="footer-content">
-            <p class="footer-text">© ANDZ 2025 — All rights reserved.</p>
+            <div class="footer-text">
+                <span class="footer-copyright">© ANDZ 2025 — All rights reserved.</span>
+            </div>
             <button class="tos-btn" id="tosBtn">TOS</button>
         </div>
     </footer>
@@ -310,26 +419,38 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>Terms of Service</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
+                <button class="close-btn" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div class="modal-body">
-                <p>These Terms of Service govern your use of the website located at andz.dev and any related services provided by ANDZ.</p>
-                <p>By accessing andz.dev, you agree to abide by these Terms of Service and to comply with all applicable laws and regulations.</p>
-                <h3>Intellectual Property</h3>
-                <p>The intellectual property in the materials contained in this website are owned by or licensed to ANDZ and are protected by applicable copyright and trademark law.</p>
-                <h3>User Responsibilities</h3>
-                <p>As a user of our services, you agree not to:</p>
-                <ul>
-                    <li>Systematically retrieve data or other content from the services to create a collection</li>
-                    <li>Trick, defraud, or mislead us and other users</li>
-                    <li>Circumvent, disable, or otherwise interfere with security-related features</li>
-                </ul>
-                <h3>Termination</h3>
-                <p>These Terms of Service are effective unless and until terminated by either you or ANDZ.</p>
+                <div class="tos-content">
+                    <h3>1. Acceptance of Terms</h3>
+                    <p>By accessing and using this website, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                    
+                    <h3>2. Use License</h3>
+                    <p>Permission is granted to temporarily view the materials on ANDZ's website for personal, non-commercial transitory viewing only.</p>
+                    
+                    <h3>3. Disclaimer</h3>
+                    <p>The materials on ANDZ's website are provided on an 'as is' basis. ANDZ makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                    
+                    <h3>4. Limitations</h3>
+                    <p>In no event shall ANDZ or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on ANDZ's website.</p>
+                    
+                    <h3>5. Revisions and Errata</h3>
+                    <p>The materials appearing on ANDZ's website could include technical, typographical, or photographic errors. ANDZ does not warrant that any of the materials on its website are accurate, complete or current.</p>
+                    
+                    <h3>6. Links</h3>
+                    <p>ANDZ has not reviewed all of the sites linked to its website and is not responsible for the contents of any such linked site.</p>
+                    
+                    <h3>7. Governing Law</h3>
+                    <p>Any claim relating to ANDZ's website shall be governed by the laws of the State of California without regard to its conflict of law provisions.</p>
+                </div>
             </div>
         </div>
     </div>
 
+    <!-- JavaScript Files -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
