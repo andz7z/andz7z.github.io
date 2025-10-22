@@ -5,18 +5,16 @@
 
 /* ===== LOGO (Stânga Sus) ===== */
 .logo {
-    width: 20px; /* Dimensiune mai mică */
-    height: 10px;
+    width: 30px; /* Dimensiuni puțin mai mari dar încă mici */
+    height: 20px;
     background-image: url('assets/logos/lotus.gif');
-    background-size: contain;
+    background-size: cover; /* În loc de contain - va decupa dacă e necesar */
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
     display: inline-block;
-    opacity: 0.7; /* Opacitate mai mică */
+    opacity: 0.7;
     transition: opacity 0.3s ease;
-    
-    /* Elimină toate proprietățile textului */
     font-size: 0;
     color: transparent;
 }
