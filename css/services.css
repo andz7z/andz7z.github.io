@@ -1,45 +1,66 @@
-/* ANDZ — Lehadus Andrei */
-
+/* Services Section */
 #services {
-    background-color: var(--color-black);
-}
-
-.services-content {
-    text-align: center;
+    background: linear-gradient(135deg, #111111, #222222);
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
 }
 
 .service-card {
-    background: var(--color-glass-bg);
-    border: 1px solid var(--color-metal-steel);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 40px 30px;
-    border-radius: 8px;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    text-align: left;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
 }
 
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 15px var(--color-metal-steel);
+.card-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: var(--secondary-color);
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
 }
 
-.service-title {
-    font-family: var(--font-title);
+.card-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.service-card:hover .card-icon::before {
+    transform: rotate(45deg) translate(50%, 50%);
+}
+
+.service-card h3 {
     font-size: 1.5rem;
-    color: var(--color-metal-silver);
-    margin-bottom: 15px;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--metal-light), var(--chrome));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .service-card p {
-    font-size: 0.95rem;
-    color: var(--color-text);
+    color: var(--metal-light);
     line-height: 1.6;
 }
