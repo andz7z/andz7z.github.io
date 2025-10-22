@@ -1,1 +1,92 @@
-/* Stiluri pentru sectiunea #reviews */
+/* reviews.css */
+#reviews {
+    background: linear-gradient(135deg, #101010 0%, #202020 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.reviews-container {
+    max-width: 1200px;
+    width: 90%;
+    padding: 40px;
+}
+
+.reviews-slider {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.review-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.review-content {
+    flex-grow: 1;
+    padding: 30px;
+    position: relative;
+}
+
+.review-content::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.1);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+.review-content p {
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--steel);
+    position: relative;
+    z-index: 1;
+}
+
+.review-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--dark-steel), var(--light-steel));
+}
+
+.author-info h4 {
+    margin-bottom: 5px;
+    color: var(--silver);
+}
+
+.author-info p {
+    font-size: 0.9rem;
+    color: var(--steel);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+    .reviews-slider {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .reviews-slider {
+        grid-template-columns: 1fr;
+    }
+    
+    .reviews-container {
+        padding: 20px;
+    }
+}
