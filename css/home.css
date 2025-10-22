@@ -241,4 +241,21 @@
 }
 
 /* Responsive */
-@media (max-width
+@media (max-width: 768px) {
+    .hero-line {
+        margin-bottom: var(--space-sm);
+    }
+    
+    .word {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+    
+    .subtext {
+        font-size: 0.875rem;
+        letter-spacing: 2px;
+    }
+    
+    .scroll-indicator {
+        bottom: var(--space-lg);
+    }
+}
