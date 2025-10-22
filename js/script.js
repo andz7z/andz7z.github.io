@@ -1,375 +1,143 @@
 /* ANDZ — Lehadus Andrei */
+'use strict';
 
-// Global initialization and utilities
-class ANDZApp {
-    constructor() {
-        this.currentSection = 'home';
-        this.isScrolling = false;
-        this.scrollTimeout = null;
-        this.init();
-    }
-
-    init() {
-        this.setupEventListeners();
-        this.initializeSections();
-        this.setCurrentYear();
-        this.setupSmoothScroll();
-        this.setupProgressBar();
-        this.setupModal();
-    }
-
-    setupEventListeners() {
-        // Scroll events
-        window.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
-        
-        // Navigation clicks
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', this.handleNavClick.bind(this));
-        });
-
-        // Back to home button
-        const backBtn = document.querySelector('.back-home-btn');
-        if (backBtn) {
-            backBtn.addEventListener('click', this.scrollToHome.bind(this));
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', this.handleKeydown.bind(this));
-
-        // Reduced motion preference
-        this.handleReducedMotion();
-    }
-
-    handleScroll() {
-        if (!this.isScrolling) {
-            this.isScrolling = true;
-            
-            // Update progress bar
-            this.updateProgressBar();
-            
-            // Handle section visibility
-            this.handleSectionVisibility();
-            
-            // Handle navigation fade
-            this.handleNavFade();
-            
-            // Clear timeout and reset scrolling flag
-            clearTimeout(this.scrollTimeout);
-            this.scrollTimeout = setTimeout(() => {
-                this.isScrolling = false;
-            }, 100);
-        }
-    }
-
-    updateProgressBar() {
-        const progressBar = document.querySelector('.progress-fill');
-        const progressContainer = document.querySelector('.progress-bar');
-        if (!progressBar) return;
-
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const progress = (scrollTop / documentHeight) * 100;
-
-        progressBar.style.width = `${progress}%`;
-        
-        // Show/hide progress bar
-        if (scrollTop > 100) {
-            progressContainer.classList.add('visible');
-        } else {
-            progressContainer.classList.remove('visible');
-        }
-    }
-
-    handleSectionVisibility() {
-        const sections = document.querySelectorAll('.section');
-        const backBtn = document.querySelector('.back-home-btn');
-        const sectionName = document.querySelector('.section-name');
-        
-        let currentSection = 'home';
-        
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            const sectionTop = rect.top;
-            const sectionBottom = rect.bottom;
-            const sectionId = section.id;
-            
-            // Check if section is in viewport
-            if (sectionTop <= window.innerHeight / 2 && sectionBottom >= window.innerHeight / 2) {
-                currentSection = sectionId;
-                
-                // Add active class to current section
-                sections.forEach(s => s.classList.remove('active'));
-                section.classList.add('active');
-            }
-        });
-        
-        // Update back button and current section
-        if (currentSection !== 'home' && backBtn && sectionName) {
-            backBtn.classList.add('visible');
-            sectionName.textContent = this.formatSectionName(currentSection);
-        } else if (backBtn) {
-            backBtn.classList.remove('visible');
-        }
-        
-        this.currentSection = currentSection;
-    }
-
-    handleNavFade() {
-        const homeSection = document.getElementById('home');
-        const nav = document.querySelector('.main-nav');
-        const scrollIndicator = document.querySelector('.scroll-indicator');
-        
-        if (!homeSection || !nav) return;
-        
-        const homeRect = homeSection.getBoundingClientRect();
-        const isHomeVisible = homeRect.top >= 0 && homeRect.bottom <= window.innerHeight;
-        
-        if (isHomeVisible) {
-            nav.classList.remove('fade-out');
-            if (scrollIndicator) {
-                scrollIndicator.classList.remove('fade-out');
-            }
-        } else {
-            nav.classList.add('fade-out');
-            if (scrollIndicator) {
-                scrollIndicator.classList.add('fade-out');
-            }
-        }
-    }
-
-    handleNavClick(e) {
-        e.preventDefault();
-        const target = e.currentTarget.getAttribute('href');
-        this.scrollToSection(target);
-    }
-
-    scrollToSection(sectionId) {
-        const targetSection = document.querySelector(sectionId);
-        if (!targetSection) return;
-
-        this.isScrolling = true;
-        
-        targetSection.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-        });
-
-        setTimeout(() => {
-            this.isScrolling = false;
-        }, 1000);
-    }
-
-    scrollToHome() {
-        this.scrollToSection('#home');
-    }
-
-    handleKeydown(e) {
-        // Escape key closes modal
-        if (e.key === 'Escape') {
-            this.closeModal();
-        }
-        
-        // Arrow keys for section navigation (when not in form)
-        if (!e.target.matches('input, textarea')) {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-                e.preventDefault();
-                this.scrollToNextSection();
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-                e.preventDefault();
-                this.scrollToPrevSection();
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                this.scrollToHome();
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                this.scrollToSection('#contact');
-            }
-        }
-    }
-
-    scrollToNextSection() {
-        const sections = Array.from(document.querySelectorAll('.section'));
-        const currentIndex = sections.findIndex(section => 
-            section.getBoundingClientRect().top >= 0 && 
-            section.getBoundingClientRect().top < window.innerHeight
-        );
-        
-        if (currentIndex < sections.length - 1) {
-            this.scrollToSection(`#${sections[currentIndex + 1].id}`);
-        }
-    }
-
-    scrollToPrevSection() {
-        const sections = Array.from(document.querySelectorAll('.section'));
-        const currentIndex = sections.findIndex(section => 
-            section.getBoundingClientRect().top >= 0 && 
-            section.getBoundingClientRect().top < window.innerHeight
-        );
-        
-        if (currentIndex > 0) {
-            this.scrollToSection(`#${sections[currentIndex - 1].id}`);
-        } else {
-            this.scrollToHome();
-        }
-    }
-
-    setupSmoothScroll() {
-        // Use native smooth scroll if available, otherwise fallback
-        if ('scrollBehavior' in document.documentElement.style) {
-            // Native smooth scroll is supported
-            return;
-        }
-        
-        // Fallback for older browsers
-        this.enableSmoothScrollFallback();
-    }
-
-    enableSmoothScrollFallback() {
-        // Simple smooth scroll fallback
-        const originalScrollTo = window.scrollTo;
-        window.scrollTo = function(options) {
-            if (typeof options === 'object' && options.behavior === 'smooth') {
-                const start = window.pageYOffset;
-                const end = options.top || 0;
-                const duration = 1000;
-                const startTime = performance.now();
-                
-                function scrollStep(timestamp) {
-                    const elapsed = timestamp - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const ease = progress < 0.5 ? 
-                        2 * progress * progress : 
-                        -1 + (4 - 2 * progress) * progress;
-                    
-                    window.scrollTo(0, start + (end - start) * ease);
-                    
-                    if (progress < 1) {
-                        window.requestAnimationFrame(scrollStep);
-                    }
-                }
-                
-                window.requestAnimationFrame(scrollStep);
-            } else {
-                originalScrollTo.call(window, options);
-            }
-        };
-    }
-
-    setupProgressBar() {
-        // Progress bar is handled in handleScroll
-    }
-
-    setupModal() {
-        const tosBtn = document.getElementById('tosBtn');
-        const closeModal = document.getElementById('closeModal');
-        const modal = document.getElementById('tosModal');
-
-        if (tosBtn && modal && closeModal) {
-            tosBtn.addEventListener('click', () => {
-                this.openModal();
-            });
-
-            closeModal.addEventListener('click', () => {
-                this.closeModal();
-            });
-
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    this.closeModal();
-                }
-            });
-        }
-    }
-
-    openModal() {
-        const modal = document.getElementById('tosModal');
-        if (modal) {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-    }
-
-    closeModal() {
-        const modal = document.getElementById('tosModal');
-        if (modal) {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-    }
-
-    initializeSections() {
-        // Initialize each section module
-        if (typeof HomeSection !== 'undefined') {
-            new HomeSection();
-        }
-        if (typeof AboutSection !== 'undefined') {
-            new AboutSection();
-        }
-        if (typeof ServicesSection !== 'undefined') {
-            new ServicesSection();
-        }
-        if (typeof PortfolioSection !== 'undefined') {
-            new PortfolioSection();
-        }
-        if (typeof ReviewsSection !== 'undefined') {
-            new ReviewsSection();
-        }
-        if (typeof ContactSection !== 'undefined') {
-            new ContactSection();
-        }
-    }
-
-    setCurrentYear() {
-        const yearElement = document.getElementById('currentYear');
-        if (yearElement) {
-            yearElement.textContent = new Date().getFullYear();
-        }
-    }
-
-    formatSectionName(sectionId) {
-        const names = {
-            'home': 'Home',
-            'about': 'About',
-            'services': 'Services',
-            'portfolio': 'Portfolio',
-            'reviews': 'Reviews',
-            'contact': 'Contact'
-        };
-        return names[sectionId] || sectionId;
-    }
-
-    handleReducedMotion() {
-        // Check if user prefers reduced motion
-        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        
-        if (mediaQuery.matches) {
-            document.documentElement.style.setProperty('--transition-fast', '0.01s');
-            document.documentElement.style.setProperty('--transition-normal', '0.01s');
-            document.documentElement.style.setProperty('--transition-slow', '0.01s');
-        }
-        
-        // Listen for changes
-        mediaQuery.addEventListener('change', (e) => {
-            if (e.matches) {
-                document.documentElement.style.setProperty('--transition-fast', '0.01s');
-                document.documentElement.style.setProperty('--transition-normal', '0.01s');
-                document.documentElement.style.setProperty('--transition-slow', '0.01s');
-            } else {
-                document.documentElement.style.setProperty('--transition-fast', '0.2s');
-                document.documentElement.style.setProperty('--transition-normal', '0.3s');
-                document.documentElement.style.setProperty('--transition-slow', '0.5s');
-            }
-        });
-    }
-}
-
-// Initialize the application when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    new ANDZApp();
-});
 
-// Export for module usage if needed
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ANDZApp;
-}
+    // --- 1. Selectoare Globale ---
+    const mainContainer = document.getElementById('main-container');
+    const progressBar = document.getElementById('progress-bar');
+    const mainNav = document.getElementById('main-nav');
+    const secondaryNav = document.getElementById('secondary-nav');
+    const goBackButton = document.getElementById('go-back-btn');
+    const currentSectionIndicator = document.getElementById('current-section-indicator');
+    const homeSection = document.getElementById('home');
+    const sections = document.querySelectorAll('.fullscreen-section');
+    const homeCTA = document.getElementById('cta-scroll');
+    
+    // Selectoare Modal
+    const tosButton = document.getElementById('tos-button');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalClose = document.getElementById('modal-close');
+
+    // --- 2. Logică Scroll & Progress Bar ---
+    
+    // Variabilă pentru a urmări dacă CTA-ul de pe Home a fost ascuns
+    let isHomeCtaHidden = false; 
+
+    mainContainer.addEventListener('scroll', () => {
+        const scrollTop = mainContainer.scrollTop;
+        const scrollHeight = mainContainer.scrollHeight - mainContainer.clientHeight;
+        const scrollPercentage = (scrollTop / scrollHeight) * 100;
+
+        // Actualizare Progress Bar
+        progressBar.style.width = `${scrollPercentage}%`;
+
+        // Logica pentru afișare/ascundere navigație
+        // Considerăm "scrolled past home" după 50% din înălțimea 'home'
+        const homeHeight = homeSection.clientHeight;
+        
+        if (scrollTop > homeHeight / 2) {
+            // Utilizatorul A PLECAT de pe Home
+            mainNav.classList.add('fade-out');
+            secondaryNav.classList.add('is-visible');
+        } else {
+            // Utilizatorul S-A ÎNTORS pe Home
+            mainNav.classList.remove('fade-out');
+            secondaryNav.classList.remove('is-visible');
+        }
+
+        // Ascunde CTA-ul (Let's Start) de pe Home la primul scroll
+        if (!isHomeCtaHidden && scrollTop > 50) {
+            homeCTA.classList.add('fade-out');
+            isHomeCtaHidden = true; // Setează flag-ul pentru a nu mai rula logica
+        }
+    });
+
+    // Butonul Go Back (din navigația secundară)
+    goBackButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        mainContainer.scrollTo({
+            top: 0,
+            behavior: 'smooth' // Folosim scroll-ul smooth al containerului
+        });
+    });
+
+    // --- 3. Intersection Observer (Fade-ins & "Currently on") ---
+    
+    const observerOptions = {
+        root: mainContainer, // Scroll-ul se întâmplă în mainContainer
+        rootMargin: '0px',
+        threshold: 0.6 // Secțiunea trebuie să fie 60% vizibilă
+    };
+
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Adaugă clasa 'is-visible' pentru animațiile fade-in din CSS
+                entry.target.classList.add('is-visible');
+                
+                // Actualizează textul "Currently on"
+                const sectionName = entry.target.dataset.sectionName;
+                if (sectionName && sectionName !== "Home") {
+                    currentSectionIndicator.textContent = `On: ${sectionName}`;
+                } else {
+                    currentSectionIndicator.textContent = ''; // Nu arătăm nimic pe Home
+                }
+            } else {
+                // Opțional: elimină clasa când secțiunea iese (dacă vrei animații la fiecare intrare)
+                // entry.target.classList.remove('is-visible');
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observă toate secțiunile
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // --- 4. Logică Modal (Termeni și Condiții) ---
+    const openModal = () => {
+        modalOverlay.style.visibility = 'visible';
+        modalOverlay.classList.add('is-visible');
+        modalOverlay.setAttribute('aria-hidden', 'false');
+    };
+
+    const closeModal = () => {
+        modalOverlay.style.visibility = 'hidden';
+        modalOverlay.classList.remove('is-visible');
+        modalOverlay.setAttribute('aria-hidden', 'true');
+    };
+
+    tosButton.addEventListener('click', openModal);
+    modalClose.addEventListener('click', closeModal);
+    
+    // Închide la click pe overlay
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+
+    // Închide la tasta 'Escape'
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('is-visible')) {
+            closeModal();
+        }
+    });
+
+    // --- 5. Inițializare An An ---
+    // Actualizează anul din copyright
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    // --- 6. Inițializare scripturi modulare ---
+    // Verificăm dacă funcțiile de inițializare există înainte de a le apela
+    if (typeof initHomeAnimations === 'function') {
+        initHomeAnimations();
+    }
+    if (typeof initPortfolioAnimations === 'function') {
+        initPortfolioAnimations();
+    }
+    // ... (aici pot fi adăugate și altele: initAbout(), initServices(), etc.)
+});
