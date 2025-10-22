@@ -1,68 +1,159 @@
-/* Services Section Specific Styles */
-#services {
-    background: linear-gradient(135deg, rgba(255, 20, 147, 0.05), rgba(138, 43, 226, 0.05));
+/* ANDZ — Lehadus Andrei */
+
+.services-section {
+    background: linear-gradient(135deg, var(--color-bg) 0%, #1a1a1a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.services-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 80% 20%, rgba(192, 192, 192, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(240, 240, 240, 0.03) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    max-width: 1200px;
-    padding: 0 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
 }
 
 .service-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 40px 30px;
+    background: var(--color-glass);
+    border: 1px solid var(--color-glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
     text-align: center;
-    transition: all 0.4s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
+    transition: var(--transition-normal);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.service-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: var(--transition-slow);
+}
+
+.service-card:hover::before {
+    left: 100%;
 }
 
 .service-card:hover {
     transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(138, 43, 226, 0.3);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow: 
+        var(--shadow-lg),
+        var(--shadow-glow);
+    border-color: var(--color-accent);
 }
 
-.service-icon {
+.card-icon {
     font-size: 3rem;
-    margin-bottom: 20px;
-    background: var(--accent-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    margin-bottom: var(--space-lg);
+    display: inline-block;
+    transition: var(--transition-normal);
 }
 
-.service-title {
+.service-card:hover .card-icon {
+    transform: scale(1.2);
+}
+
+.service-card h3 {
     font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-md);
+    color: var(--color-accent);
+    position: relative;
 }
 
-.service-description {
-    font-size: 1rem;
+.service-card h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 2px;
+    background: var(--color-accent-metal);
+    transition: var(--transition-normal);
+}
+
+.service-card:hover h3::after {
+    width: 80px;
+}
+
+.service-card p {
     opacity: 0.8;
-    font-family: var(--font-secondary);
     line-height: 1.6;
 }
 
-/* Responsive Services */
-@media (max-width: 1024px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+/* Staggered animation for cards */
+.service-card:nth-child(1) { transition-delay: 0.1s; }
+.service-card:nth-child(2) { transition-delay: 0.2s; }
+.service-card:nth-child(3) { transition-delay: 0.3s; }
+.service-card:nth-child(4) { transition-delay: 0.4s; }
+
+/* 3D Text Effect for Section Title */
+.section-title {
+    position: relative;
+    display: inline-block;
 }
 
+.section-title::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    color: transparent;
+    background: linear-gradient(45deg, transparent, var(--color-accent-metal), transparent);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: blur(1px);
+    z-index: -1;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
     .services-grid {
         grid-template-columns: 1fr;
+        gap: var(--space-md);
     }
     
     .service-card {
-        padding: 30px 20px;
+        padding: var(--space-lg);
+    }
+    
+    .card-icon {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-card {
+        padding: var(--space-md);
+    }
+    
+    .service-card h3 {
+        font-size: 1.25rem;
     }
 }
