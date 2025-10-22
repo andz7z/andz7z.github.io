@@ -51,10 +51,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // ===== 3. "Currently On" Text Update =====
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionName = entry.target.getAttribute('data-section-name');
-                if (sectionName) {
-                    currentSectionText.textContent = `Currently on: ${sectionName}`;
+        if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            if (sectionId) {
+                const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
+                if (navLink) {
+                    const iconClass = navLink.querySelector('i').className;
+                    currentSectionText.innerHTML = `Currently on: <i class="${iconClass}"></i>`;
                 }
             }
         });
