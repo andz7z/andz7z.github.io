@@ -2,13 +2,14 @@
 :root {
     --color-black: #000000;
     --color-white: #FFFFFF;
-    --color-steel: #bababa;
+    --color-steel: #aab5c2;
     --color-steel-dark: #333333;
     --color-chrome-light: #e0e0e0;
     --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
+    /* Gradient metalic/crom */
     --gradient-steel: linear-gradient(145deg, var(--color-chrome-light), var(--color-steel), #888);
-    --gradient-monochrome: linear-gradient(90deg, #fafafa, #aaaaaa, #7d7d7d);
+    --gradient-monochrome: linear-gradient(90deg, #fafafa, #aaaaaa, #fafafa);
 }
 
 /* ===== GLOBAL RESETS & SETUP ===== */
@@ -19,6 +20,8 @@
 }
 
 html {
+    /* Esențial pentru a preveni scroll-ul nativ 
+       și a lăsa containerul să se ocupe de el */
     overflow: hidden;
 }
 
@@ -28,7 +31,7 @@ body {
     font-family: var(--font-main);
     width: 100vw;
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Previne orice scroll exterior */
 }
 
 a {
@@ -37,24 +40,26 @@ a {
     transition: color 0.3s ease;
 }
 
-/* ===== SCROLL MAGNETIC ===== */
+/* ===== SCROLL CONTAINER (MAGNETIC) ===== */
 .scroll-container {
     width: 100%;
     height: 100vh;
     overflow-y: scroll;
+    /* Efectul "magnetic" */
     scroll-snap-type: y mandatory;
+    /* Ascunde scrollbar-ul (dar permite scroll-ul) */
     scrollbar-width: none; /* Firefox */
 }
 .scroll-container::-webkit-scrollbar {
     display: none; /* Chrome, Safari */
 }
 
-/* ===== SECȚIUNI ===== */
+/* ===== SECȚIUNI (Full Screen) ===== */
 section {
     width: 100vw;
     height: 100vh;
-    scroll-snap-align: start; 
-    overflow: hidden; 
+    scroll-snap-align: start; /* Aliniere magnetică */
+    overflow: hidden; /* Important */
     position: relative;
     display: flex;
     justify-content: center;
@@ -84,20 +89,17 @@ section {
     width: 100%;
     height: 3px;
     z-index: 1001;
-    background-color: transparent; 
+    background-color: transparent; /* Fără fundal */
 }
 .progress-bar {
     height: 100%;
-    width: 0;
+    width: 0; /* Controlat de JS */
     background: var(--gradient-steel);
-    box-shadow: 
-        0 0 5px rgba(255, 255, 255, 0.5),
-        0 0 15px rgba(255, 255, 255, 0.3),
-        0 0 25px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 10px var(--color-white);
     transition: width 0.1s linear;
 }
 
-/* ===== ANTETE ===== */
+/* ===== ANTETE FIXE (Home vs. Pagină) ===== */
 .home-header,
 .page-header {
     position: fixed;
@@ -119,13 +121,13 @@ section {
     pointer-events: none;
 }
 
-/* (Go Back) */
+/* Antet Pagină (Go Back) */
 .page-header {
-    justify-content: flex-end; 
-    
+    justify-content: flex-end; /* Aliniem totul la dreapta */
+}
 .current-section-text {
     position: absolute;
-    left: 87%;
+    left: 50%;
     transform: translateX(-50%);
     font-size: 1rem;
     color: var(--color-steel);
@@ -140,8 +142,8 @@ section {
 .go-back-btn:hover {
     transform: scale(1.2) rotate(-10deg);
     color: var(--color-chrome-light);
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.7));
 }
+
 /* ===== SOCIALS (Dreapta Centru) ===== */
 .socials {
     position: fixed;
@@ -169,4 +171,107 @@ section {
     width: 1px;
     height: 20px;
     background-color: var(--color-steel);
+}
+
+/* ===== FOOTER (Persistent, Glassy) ===== */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 3rem;
+    z-index: 100;
+
+    /* Efectul Glassmorphism / Sticlă blurată */
+    background: rgba(10, 10, 10, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    
+    transition: opacity 0.5s ease;
+}
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer-contact a {
+    font-size: 0.9rem;
+    color: var(--color-steel);
+    margin-right: 1.5rem;
+}
+.footer-contact a i {
+    margin-right: 0.5rem;
+}
+.footer-contact a:hover {
+    color: var(--color-white);
+}
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.footer-links button {
+    background: none;
+    border: none;
+    color: var(--color-steel);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+.footer-links button:hover {
+    color: var(--color-white);
+}
+.copyright {
+    font-size: 0.9rem;
+    color: var(--color-steel-dark);
+}
+
+/* ===== MODAL (ToS) ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1002;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Fundalul blurat */
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    transition: opacity 0.3s ease, visibility 0.3s;
+}
+.modal-content {
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    position: relative;
+    color: var(--color-chrome-light);
+}
+#tos-close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.modal-content h3 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+.modal-content p {
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
 }
