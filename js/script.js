@@ -1,99 +1,156 @@
-document.addEventListener("DOMContentLoaded", function() {
+// script.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Setăm anul curent în footer
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    
+    // Inițializăm toate modulele
+    initProgressBar();
+    initScrollNavigation();
+    initModal();
+    initContextualNav();
+    
+    // Inițializăm modulele specifice secțiunilor
+    if (document.getElementById('home')) {
+        initHome();
+    }
+    if (document.getElementById('about')) {
+        initAbout();
+    }
+    if (document.getElementById('services')) {
+        initServices();
+    }
+    if (document.getElementById('portfolio')) {
+        initPortfolio();
+    }
+    if (document.getElementById('reviews')) {
+        initReviews();
+    }
+    if (document.getElementById('contact')) {
+        initContact();
+    }
+});
 
-    const scrollContainer = document.querySelector('.scroll-container');
+// Bară de progres
+function initProgressBar() {
     const progressBar = document.querySelector('.progress-bar');
     
-    const homeHeader = document.querySelector('.home-header');
-    const pageHeader = document.querySelector('.page-header');
-    const currentSectionText = document.querySelector('.current-section-text');
-    const homeSection = document.getElementById('home');
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    const allSections = document.querySelectorAll('section[data-section-name]');
-    const socials = document.querySelector('.socials');
-    const footer = document.querySelector('footer');
-
-    // ===== 1. Scroll Progress Bar =====
-    scrollContainer.addEventListener('scroll', () => {
-        const scrollTop = scrollContainer.scrollTop;
-        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-        const progress = (scrollTop / scrollHeight) * 100;
+    window.addEventListener('scroll', function() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
         
         progressBar.style.width = progress + '%';
     });
+}
 
-    // ===== 2. Header & UI Toggle (Intersection Observer) =====
-    const homeObserver = new IntersectionObserver((entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting) {
-            // Suntem pe Home
-            homeHeader.classList.remove('hidden');
-            pageHeader.classList.add('hidden');
-            scrollIndicator.classList.remove('hidden');
-            socials.classList.remove('hidden');
-            footer.classList.remove('hidden');
-        } else {
-            // Nu suntem pe Home
-            homeHeader.classList.add('hidden');
-            pageHeader.classList.remove('hidden');
-            scrollIndicator.classList.add('hidden');
-            
-            // Cerința P.S: "toate iconitele, etc dispar cand dai scroll"
-            socials.classList.add('hidden');
-            footer.classList.add('hidden');
-        }
-    }, {
-        root: scrollContainer,
-        threshold: 0.5 // Se activează când 50% din Home e vizibil
-    });
-
-    homeObserver.observe(homeSection);
-
-    // ===== 3. "Currently On" Text Update =====
-    const sectionObserver = new IntersectionObserver((entries) => {
+// Navigație prin scroll
+function initScrollNavigation() {
+    const sections = document.querySelectorAll('.section');
+    const navItems = document.querySelectorAll('.nav-item');
+    
+    // Observator pentru secțiuni
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const sectionName = entry.target.getAttribute('data-section-name');
-                if (sectionName) {
-                    currentSectionText.textContent = `Currently on: ${sectionName}`;
-                }
+                const sectionId = entry.target.id;
+                
+                // Actualizăm navigația
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${sectionId}`) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // Actualizăm navigația contextuală
+                updateContextualNav(sectionId);
             }
         });
-    }, {
-        root: scrollContainer,
-        threshold: 0.7 // Se activează când 70% dintr-o secțiune e vizibilă
-    });
-
-    allSections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+    }, { threshold: 0.5 });
     
-    // Notă: Butonul "Go Back" este un link <a> href="#home", 
-    // deci nu are nevoie de JS separat pentru scroll.
-
-    // ===== 4. ToS Modal Logic =====
-    const tosModal = document.getElementById('tos-modal');
-    const openBtn = document.getElementById('tos-open-btn');
-    const closeBtn = document.getElementById('tos-close-btn');
-
-    openBtn.addEventListener('click', () => {
-        tosModal.classList.remove('hidden');
+    sections.forEach(section => {
+        observer.observe(section);
     });
+}
 
-    closeBtn.addEventListener('click', () => {
-        tosModal.classList.add('hidden');
-    });
-
-    // Închide modal-ul dacă se dă click în afara lui
-    tosModal.addEventListener('click', (e) => {
-        if (e.target === tosModal) {
-            tosModal.classList.add('hidden');
-        }
-    });
-
-    // ===== 5. Copyright Year =====
-    const yearSpan = document.getElementById('copyright-year');
-    if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
+// Modal pentru Terms of Service
+function initModal() {
+    const modal = document.getElementById('tos-modal');
+    const openBtn = document.getElementById('tos-btn');
+    const closeBtn = document.getElementById('close-modal');
+    
+    if (openBtn && modal && closeBtn) {
+        openBtn.addEventListener('click', function() {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeBtn.addEventListener('click', function() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+        
+        // Închidem modalul dacă se dă click în afara conținutului
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
     }
+}
 
-});
+// Navigație contextuală
+function initContextualNav() {
+    const contextualNav = document.querySelector('.contextual-nav');
+    const goBackBtn = document.getElementById('go-back');
+    const currentSectionEl = document.getElementById('current-section');
+    
+    if (goBackBtn) {
+        goBackBtn.addEventListener('click', function() {
+            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+        });
+    }
+}
+
+function updateContextualNav(sectionId) {
+    const contextualNav = document.querySelector('.contextual-nav');
+    const currentSectionEl = document.getElementById('current-section');
+    const navMenu = document.querySelector('.nav-menu');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    
+    if (sectionId === 'home') {
+        // Ascundem navigația contextuală
+        contextualNav.classList.remove('active');
+        
+        // Arătăm navigația normală și indicatorul de scroll
+        if (navMenu) navMenu.style.opacity = '1';
+        if (scrollIndicator) scrollIndicator.style.opacity = '1';
+    } else {
+        // Arătăm navigația contextuală
+        contextualNav.classList.add('active');
+        
+        // Actualizăm textul
+        if (currentSectionEl) {
+            const sectionName = getSectionName(sectionId);
+            currentSectionEl.textContent = sectionName;
+        }
+        
+        // Ascundem navigația normală și indicatorul de scroll
+        if (navMenu) navMenu.style.opacity = '0';
+        if (scrollIndicator) scrollIndicator.style.opacity = '0';
+    }
+}
+
+function getSectionName(sectionId) {
+    const names = {
+        'about': 'About',
+        'services': 'Services',
+        'portfolio': 'Portfolio',
+        'reviews': 'Reviews',
+        'contact': 'Contact'
+    };
+    
+    return names[sectionId] || sectionId;
+}
