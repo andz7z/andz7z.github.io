@@ -1,28 +1,63 @@
-#services .section-content {
-    max-width: 1200px;
+.services-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0f0f0f 0%, #1e1e1e 100%);
 }
 
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
 }
 
 .service-card {
-    border-top: 5px solid var(--color-accent-purple);
+    padding: 40px 30px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    text-align: center;
+    transition: all 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-purple), var(--accent-red));
+    font-size: 30px;
 }
 
 .service-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 24px;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
 .service-card p {
-    color: var(--color-text-faded);
+    color: var(--text-muted);
+    line-height: 1.6;
 }
 
-@media (max-width: 1024px) {
+/* Responsive Services */
+@media (max-width: 768px) {
     .services-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .service-card {
+        padding: 30px 20px;
     }
 }
