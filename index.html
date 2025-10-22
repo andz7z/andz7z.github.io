@@ -123,106 +123,85 @@
     <!-- 🎨 Fundal animat pentru secțiunea Home -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script>
-        let canvas;
-        const NUM_LINES = 40;
-        const NUM_POINTS = 120;
+    let canvas;
+    const NUM_LINES = 40;
+    const NUM_POINTS = 120;
     
-        function setup() {
-            const homeSection = document.getElementById("home");
-            
-            // Raport de aspect dorit (ex: 16:9)
-            const targetAspectRatio = 16 / 9;
-            let canvasWidth = windowWidth;
-            let canvasHeight = windowWidth / targetAspectRatio;
-            
-            // Dacă înălțimea calculată depășește ecranul, ajustează
-            if (canvasHeight > windowHeight) {
-                canvasHeight = windowHeight;
-                canvasWidth = windowHeight * targetAspectRatio;
-            }
-            
-            canvas = createCanvas(canvasWidth, canvasHeight);
-            canvas.parent('home');
-            canvas.style('position', 'absolute');
-            canvas.style('top', '50%');
-            canvas.style('left', '50%');
-            canvas.style('transform', 'translate(-50%, -50%)');
-            canvas.style('z-index', '0');
-            
-            frameRate(30);
-            background(0);
-        }
+    function setup() {
+        const homeSection = document.getElementById("home");
         
-        function windowResized() {
-            const targetAspectRatio = 16 / 9;
-            let canvasWidth = windowWidth;
-            let canvasHeight = windowWidth / targetAspectRatio;
-            
-            if (canvasHeight > windowHeight) {
-                canvasHeight = windowHeight;
-                canvasWidth = windowHeight * targetAspectRatio;
-            }
-            
-            resizeCanvas(canvasWidth, canvasHeight);
+        // Crează canvas-ul cu dimensiuni adaptative
+        let canvasWidth = windowWidth;
+        let canvasHeight = windowHeight;
+        
+        canvas = createCanvas(canvasWidth, canvasHeight);
+        canvas.parent('home');
+        canvas.style('position', 'absolute');
+        canvas.style('top', '0');
+        canvas.style('left', '0');
+        canvas.style('z-index', '0');
+        
+        frameRate(30);
+        background(0);
+    }
+    
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+    }
+    
+    function draw() {
+        background(0, 25);
+        translate(width / 2, height / 2);
+    
+        noFill();
+        stroke(255, 10);
+        strokeWeight(1);
+    
+        const time = frameCount * 0.008;
+        const heightQuarter = height / 2.5;
+        
+        // Pre-calculează valorile comune
+        const pointPhases = [];
+        const yValues = [];
+        const envelopes = [];
+        const centerComplexities = [];
+        
+        for (let j = 0; j <= NUM_POINTS; j++) {
+            const pointPhase = j / NUM_POINTS;
+            pointPhases[j] = pointPhase;
+            yValues[j] = map(pointPhase, 0, 1, -heightQuarter, heightQuarter);
+            envelopes[j] = sin(pointPhase * PI);
+            centerComplexities[j] = pow(cos(pointPhase * PI - HALF_PI), 2) * 100;
         }
     
-        function draw() {
-            background(0, 25);
-            translate(width / 2, height / 2);
-    
-            noFill();
-            stroke(255, 10);
-            strokeWeight(1);
-    
-            const time = frameCount * 0.008;
-            const heightQuarter = height / 2.5;
+        for (let i = 0; i < NUM_LINES; i++) {
+            const linePhase = (i / NUM_LINES) * TWO_PI;
             
-            // Pre-calculează valorile comune
-            const pointPhases = [];
-            const yValues = [];
-            const envelopes = [];
-            const centerComplexities = [];
+            // Pre-calculează valorile dependente de linie
+            const wave1 = sin(time + linePhase) * 60;
+            const wave3Base = cos(linePhase * 4 - time);
             
+            // Desenează partea stângă
+            beginShape();
             for (let j = 0; j <= NUM_POINTS; j++) {
-                const pointPhase = j / NUM_POINTS;
-                pointPhases[j] = pointPhase;
-                yValues[j] = map(pointPhase, 0, 1, -heightQuarter, heightQuarter);
-                envelopes[j] = sin(pointPhase * PI);
-                centerComplexities[j] = pow(cos(pointPhase * PI - HALF_PI), 2) * 100;
+                const wave2 = sin(pointPhases[j] * 8 + time * 2) * 40;
+                const wave3 = wave3Base * centerComplexities[j];
+                const x = envelopes[j] * (wave1 + wave2 + wave3 + 60);
+                vertex(-x, yValues[j]);
             }
+            endShape();
     
-            for (let i = 0; i < NUM_LINES; i++) {
-                const linePhase = (i / NUM_LINES) * TWO_PI;
-                
-                // Pre-calculează valorile dependente de linie
-                const wave1 = sin(time + linePhase) * 60;
-                const wave3Base = cos(linePhase * 4 - time);
-                
-                // Desenează partea stângă
-                beginShape();
-                for (let j = 0; j <= NUM_POINTS; j++) {
-                    const wave2 = sin(pointPhases[j] * 8 + time * 2) * 40;
-                    const wave3 = wave3Base * centerComplexities[j];
-                    const x = envelopes[j] * (wave1 + wave2 + wave3 + 60);
-                    vertex(-x, yValues[j]);
-                }
-                endShape();
-    
-                // Desenează partea dreaptă (simetrică)
-                beginShape();
-                for (let j = 0; j <= NUM_POINTS; j++) {
-                    const wave2 = sin(pointPhases[j] * 8 + time * 2) * 40;
-                    const wave3 = wave3Base * centerComplexities[j];
-                    const x = envelopes[j] * (wave1 + wave2 + wave3 + 60);
-                    vertex(x, yValues[j]);
-                }
-                endShape();
+            // Desenează partea dreaptă (simetrică)
+            beginShape();
+            for (let j = 0; j <= NUM_POINTS; j++) {
+                const wave2 = sin(pointPhases[j] * 8 + time * 2) * 40;
+                const wave3 = wave3Base * centerComplexities[j];
+                const x = envelopes[j] * (wave1 + wave2 + wave3 + 60);
+                vertex(x, yValues[j]);
             }
+            endShape();
         }
-    
-        function windowResized() {
-            resizeCanvas(windowWidth, windowHeight);
-        }
+    }
     </script>
 
     <!-- Scripturile tale locale -->
