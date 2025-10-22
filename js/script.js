@@ -1,129 +1,99 @@
-// Global Script - Progress Bar, Navbar, TOS Modal
+document.addEventListener("DOMContentLoaded", function() {
 
-// Progress Bar
-window.addEventListener('scroll', () => {
-    const winHeight = window.innerHeight;
-    const docHeight = document.documentElement.scrollHeight - winHeight;
-    const scrolled = (window.scrollY / docHeight) * 100;
-    document.querySelector('.progress-bar').style.width = scrolled + '%';
-});
+    const scrollContainer = document.querySelector('.scroll-container');
+    const progressBar = document.querySelector('.progress-bar');
+    
+    const homeHeader = document.querySelector('.home-header');
+    const pageHeader = document.querySelector('.page-header');
+    const currentSectionText = document.querySelector('.current-section-text');
+    const homeSection = document.getElementById('home');
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    const allSections = document.querySelectorAll('section[data-section-name]');
+    const socials = document.querySelector('.socials');
+    const footer = document.querySelector('footer');
 
-// Navbar Active State
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section');
-    const navIcons = document.querySelectorAll('.nav-icon');
-    
-    let current = '';
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
+    // ===== 1. Scroll Progress Bar =====
+    scrollContainer.addEventListener('scroll', () => {
+        const scrollTop = scrollContainer.scrollTop;
+        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
         
-        if (scrollY >= (sectionTop - sectionHeight / 3)) {
-            current = section.getAttribute('id');
-        }
+        progressBar.style.width = progress + '%';
     });
-    
-    navIcons.forEach(icon => {
-        icon.classList.remove('active');
-        if (icon.getAttribute('data-section') === current) {
-            icon.classList.add('active');
+
+    // ===== 2. Header & UI Toggle (Intersection Observer) =====
+    const homeObserver = new IntersectionObserver((entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+            // Suntem pe Home
+            homeHeader.classList.remove('hidden');
+            pageHeader.classList.add('hidden');
+            scrollIndicator.classList.remove('hidden');
+            socials.classList.remove('hidden');
+            footer.classList.remove('hidden');
+        } else {
+            // Nu suntem pe Home
+            homeHeader.classList.add('hidden');
+            pageHeader.classList.remove('hidden');
+            scrollIndicator.classList.add('hidden');
+            
+            // Cerința P.S: "toate iconitele, etc dispar cand dai scroll"
+            socials.classList.add('hidden');
+            footer.classList.add('hidden');
         }
+    }, {
+        root: scrollContainer,
+        threshold: 0.5 // Se activează când 50% din Home e vizibil
     });
-});
 
-// TOS Modal
-const tosBtn = document.getElementById('tosBtn');
-const tosModal = document.getElementById('tosModal');
-const closeBtn = document.querySelector('.close');
+    homeObserver.observe(homeSection);
 
-tosBtn.addEventListener('click', () => {
-    tosModal.style.display = 'block';
-});
-
-closeBtn.addEventListener('click', () => {
-    tosModal.style.display = 'none';
-});
-
-window.addEventListener('click', (e) => {
-    if (e.target === tosModal) {
-        tosModal.style.display = 'none';
-    }
-});
-
-// Scroll to section on nav icon click
-document.querySelectorAll('.nav-icon').forEach(icon => {
-    icon.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = icon.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        window.scrollTo({
-            top: targetSection.offsetTop,
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Magnet Scroll Effect
-let isScrolling = false;
-let scrollTimeout;
-
-window.addEventListener('scroll', () => {
-    isScrolling = true;
-    
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        isScrolling = false;
-        
-        // Snap to nearest section when scrolling stops
-        if (!isScrolling) {
-            const sections = document.querySelectorAll('section');
-            const scrollY = window.scrollY;
-            const windowHeight = window.innerHeight;
-            
-            let closestSection = null;
-            let closestDistance = Number.MAX_VALUE;
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const distance = Math.abs(scrollY - sectionTop);
-                
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestSection = section;
-                }
-            });
-            
-            if (closestSection) {
-                window.scrollTo({
-                    top: closestSection.offsetTop,
-                    behavior: 'smooth'
-                });
-            }
-        }
-    }, 100);
-});
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    // Add visible class to elements when they come into view
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
+    // ===== 3. "Currently On" Text Update =====
+    const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                const sectionName = entry.target.getAttribute('data-section-name');
+                if (sectionName) {
+                    currentSectionText.textContent = `Currently on: ${sectionName}`;
+                }
             }
         });
-    }, observerOptions);
-    
-    // Observe elements that should appear on scroll
-    document.querySelectorAll('.about-content p, .service-item, .portfolio-item, .review-item').forEach(el => {
-        observer.observe(el);
+    }, {
+        root: scrollContainer,
+        threshold: 0.7 // Se activează când 70% dintr-o secțiune e vizibilă
     });
+
+    allSections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+    
+    // Notă: Butonul "Go Back" este un link <a> href="#home", 
+    // deci nu are nevoie de JS separat pentru scroll.
+
+    // ===== 4. ToS Modal Logic =====
+    const tosModal = document.getElementById('tos-modal');
+    const openBtn = document.getElementById('tos-open-btn');
+    const closeBtn = document.getElementById('tos-close-btn');
+
+    openBtn.addEventListener('click', () => {
+        tosModal.classList.remove('hidden');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        tosModal.classList.add('hidden');
+    });
+
+    // Închide modal-ul dacă se dă click în afara lui
+    tosModal.addEventListener('click', (e) => {
+        if (e.target === tosModal) {
+            tosModal.classList.add('hidden');
+        }
+    });
+
+    // ===== 5. Copyright Year =====
+    const yearSpan = document.getElementById('copyright-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
 });
