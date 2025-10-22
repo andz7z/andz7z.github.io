@@ -1,30 +1,56 @@
-/* Stiluri pentru sectiunea #services */
-
+/* ===== SERVICES SECTION ===== */
 .card-container {
     display: flex;
-    gap: 2rem;
     justify-content: center;
+    gap: 2rem;
     flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
 .service-card {
-    background: rgba(20, 20, 20, 0.5);
-    border: 1px solid var(--color-steel-dark);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     padding: 2rem;
-    border-radius: 10px;
     width: 300px;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
-    
-    /* Pregătire pentru 3D */
-    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 .service-card:hover {
-    transform: translateY(-10px) rotateX(5deg) scale(1.05);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-steel);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .service-card h3 {
-    color: var(--color-chrome-light);
+    font-size: 1.5rem;
     margin-bottom: 1rem;
+    color: var(--color-chrome-light);
+    background: var(--gradient-steel);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.service-card p {
+    color: var(--color-steel);
+    line-height: 1.6;
+}
+
+/* ===== MEDIA QUERIES PENTRU MOBILE ===== */
+@media (max-width: 768px) {
+    .card-container {
+        gap: 1.5rem;
+        padding: 0 1rem;
+    }
+    
+    .service-card {
+        width: 100%;
+        max-width: 350px;
+        padding: 1.5rem;
+    }
+    
+    .service-card h3 {
+        font-size: 1.3rem;
+    }
 }
