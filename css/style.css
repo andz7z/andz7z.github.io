@@ -180,10 +180,6 @@ section {
     animation-delay: 1.2s;
 }
 
-.socials-line-bottom {
-    animation-delay: 1.4s; /* Delay puțin mai mare pentru efect cascadă */
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
