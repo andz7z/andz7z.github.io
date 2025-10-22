@@ -1,166 +1,303 @@
-/* ===== HOME SECTION LAYOUT ===== */
-/* #home este deja definit în style.css (100vh, etc.) */
-/* Nu avem nevoie de stiluri suplimentare aici
-   decât dacă vrem un fundal specific */
-
-/* ===== LOGO (Stânga Sus) ===== */
-.logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    cursor: default;
-    /* Inițial transparent pentru efectul de gradient */
-    color: var(--color-white);
-    position: relative; /* Necesar pentru pseudo-element */
-    display: inline-block;
-    transition: color 0.3s ease;
+/* home.css */
+#home {
+    background: linear-gradient(45deg, #000000, #1a1a1a, #000000);
+    position: relative;
+    overflow: hidden;
 }
 
-.logo::before {
-    content: 'ANDZ';
+#home::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--gradient-monochrome);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    animation: gradient-sweep 4s linear infinite;
-    /* Oprește animația când nu e hover */
-    animation-play-state: paused;
+    background: radial-gradient(circle at 20% 50%, rgba(120, 120, 120, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(200, 200, 200, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(150, 150, 150, 0.07) 0%, transparent 50%);
+    pointer-events: none;
 }
 
-.logo:hover {
-    color: transparent; /* Ascunde textul alb */
-}
-.logo:hover::before {
-    opacity: 1;
-    animation-play-state: running; /* Pornește animația la hover */
-}
-
-/* Animația de "măturare" a gradientului */
-@keyframes gradient-sweep {
-    0% { background-position: 150% 50%; }
-    100% { background-position: -150% 50%; }
-}
-
-
-/* ===== NAVIGAȚIE PRINCIPALĂ (Dreapta Sus) ===== */
-.main-nav {
-    display: flex;
-    gap: 2rem;
-}
-.main-nav a {
-    font-size: 1.2rem;
-    color: var(--color-steel);
-    transition: transform 0.3s ease, color 0.3s ease;
-}
-/* Efect Hover */
-.main-nav a:hover {
-    color: var(--color-white);
-    transform: scale(1.2);
-}
-/* Efect Click */
-.main-nav a:active {
-    transform: scale(0.9);
-    color: var(--color-chrome-light);
+.home-container {
+    height: 100%;
+    display: grid;
+    grid-template-areas: 
+        "logo nav"
+        "tagline socials"
+        "indicator indicator";
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr auto;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
 }
 
-/* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
-.home-text {
-    position: absolute;
-    left: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-}
-.home-text .word {
-    font-size: 8vw; /* Scalabil cu viewport-ul */
-    font-weight: 900;
-    line-height: 1.1;
-    text-transform: uppercase;
-    display: block; /* Fiecare pe rândul lui */
-    position: relative; /* Pentru efectul de fum */
-    cursor: default;
-    
-    /* Efect 3D/Metal subtil */
-    color: var(--color-chrome-light);
-    text-shadow: 
-        0px 1px 0px #999,
-        0px 2px 0px #888,
-        0px 3px 0px #777,
-        0px 4px 0px #666,
-        0px 5px 10px rgba(0,0,0,0.6);
+/* Logo */
+.logo {
+    grid-area: logo;
+    align-self: start;
 }
 
-/* ===== Efect de Fum (Hover) ===== */
-.home-text .word::after {
+.logo-text {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 5px;
+    color: var(--white);
+    position: relative;
+    display: inline-block;
+    padding: 5px 0;
+    overflow: hidden;
+}
+
+.logo-text::before {
     content: '';
     position: absolute;
-    left: 0;
-    top: 10%;
+    top: 0;
+    left: -100%;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(150, 150, 150, 0.1) 0%, rgba(150, 150, 150, 0) 60%);
-    filter: blur(20px);
-    z-index: -1;
-    opacity: 0;
-    transform: scale(1);
-    transition: opacity 0.5s ease;
-    animation: smoke-drift 10s infinite alternate linear;
-}
-.home-text .word:hover::after {
-    opacity: 1;
+    background: linear-gradient(90deg, transparent, var(--silver), transparent);
+    transition: left 0.7s ease;
 }
 
-@keyframes smoke-drift {
-    0% { transform: translateX(-10%) scale(1); }
-    100% { transform: translateX(10%) scale(1.2); }
+.logo-text:hover::before {
+    left: 100%;
 }
 
-/* ===== Efect de Dispersie (Click pe literă) ===== */
-.home-text .char {
-    display: inline-block; /* Permite transformarea literelor */
-    cursor: pointer;
-    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.6, -0.28, 0.74, 0.05);
-}
-/* Starea "smoked" aplicată de JS */
-.home-text .char.smoked {
-    opacity: 0;
-    transform: translateY(-80px) rotateX(90deg) scale(0.5);
+/* Navigație */
+.nav-menu {
+    grid-area: nav;
+    display: flex;
+    gap: 30px;
+    align-self: start;
 }
 
+.nav-item {
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    position: relative;
+    padding: 5px 0;
+    transition: all 0.3s ease;
+}
 
-/* ===== INDICATOR SCROLL (Jos Centru) ===== */
-.scroll-indicator {
+.nav-item::after {
+    content: '';
     position: absolute;
-    bottom: 3rem; /* Ridicat deasupra footer-ului */
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--silver), var(--chrome));
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after {
+    width: 100%;
+}
+
+.nav-item:hover {
+    color: var(--silver);
+}
+
+/* Socials */
+.socials {
+    grid-area: socials;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    align-self: center;
+    position: relative;
+}
+
+.social-icon {
+    color: var(--white);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    position: relative;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(0);
+    transition: transform 0.3s ease;
+}
+
+.social-icon:hover::before {
+    transform: scale(1);
+}
+
+.social-icon:hover {
+    color: var(--chrome);
+    transform: translateY(-3px);
+}
+
+.social-line {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(to bottom, transparent, var(--silver), transparent);
+}
+
+/* Tagline */
+.tagline {
+    grid-area: tagline;
+    align-self: center;
+}
+
+.tagline-text {
+    font-size: 5rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0;
+    position: relative;
+    background: linear-gradient(135deg, var(--white) 0%, var(--silver) 50%, var(--white) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tagline-text::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s ease;
+}
+
+.tagline-text:hover::before {
+    left: 100%;
+}
+
+/* Indicator de scroll */
+.scroll-indicator {
+    grid-area: indicator;
+    align-self: end;
+    justify-self: center;
+    margin-bottom: 30px;
+}
+
+.scroll-indicator i {
     font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.5);
-    z-index: 10;
-    transition: opacity 0.5s ease;
-    
-    /* Animația pulsantă */
-    animation: pulse 2s infinite ease-in-out;
+    color: var(--white);
+    animation: pulse 2s infinite;
 }
 
 @keyframes pulse {
     0% {
-        opacity: 0.1;
-        transform: translate(-50%, 0) scale(0.9);
+        opacity: 1;
+        transform: translateY(0);
     }
     50% {
-        opacity: 0.7;
-        transform: translate(-50%, 5px) scale(1);
+        opacity: 0.3;
+        transform: translateY(10px);
     }
     100% {
-        opacity: 0.1;
-        transform: translate(-50%, 0) scale(0.9);
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efect de fum pentru tagline */
+.tagline-text {
+    position: relative;
+}
+
+.tagline-text::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.tagline-text:hover::after {
+    opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .tagline-text {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        grid-template-areas: 
+            "logo"
+            "tagline"
+            "nav"
+            "socials"
+            "indicator";
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto 1fr auto;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .logo {
+        justify-self: center;
+    }
+    
+    .nav-menu {
+        justify-self: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .socials {
+        flex-direction: row;
+        justify-self: center;
+        gap: 30px;
+    }
+    
+    .social-line {
+        width: 30px;
+        height: 1px;
+    }
+    
+    .tagline-text {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tagline-text {
+        font-size: 2rem;
+    }
+    
+    .nav-menu {
+        gap: 10px;
+    }
+    
+    .nav-item {
+        font-size: 0.9rem;
     }
 }
