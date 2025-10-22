@@ -443,8 +443,8 @@
     color: rgba(255, 255, 255, 0.7);
     
     /* Mai la dreapta și mai sus */
-    margin-top: 0rem; /* Mai sus - reduci valoarea */
-    margin-left: 14rem;  /* Mai la dreapta - crești valoarea */
+    margin-top: -1rem; /* Mai sus - reduci valoarea */
+    margin-left: 20rem;  /* Mai la dreapta - crești valoarea */
     
     letter-spacing: 1px;
     text-align: center;
