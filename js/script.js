@@ -1,156 +1,108 @@
-// script.js
-document.addEventListener('DOMContentLoaded', function() {
-    // Setăm anul curent în footer
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-    
-    // Inițializăm toate modulele
-    initProgressBar();
-    initScrollNavigation();
-    initModal();
-    initContextualNav();
-    
-    // Inițializăm modulele specifice secțiunilor
-    if (document.getElementById('home')) {
-        initHome();
-    }
-    if (document.getElementById('about')) {
-        initAbout();
-    }
-    if (document.getElementById('services')) {
-        initServices();
-    }
-    if (document.getElementById('portfolio')) {
-        initPortfolio();
-    }
-    if (document.getElementById('reviews')) {
-        initReviews();
-    }
-    if (document.getElementById('contact')) {
-        initContact();
-    }
-});
+// Main JavaScript file - Controls overall functionality
 
-// Bară de progres
-function initProgressBar() {
-    const progressBar = document.querySelector('.progress-bar');
-    
-    window.addEventListener('scroll', function() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const progress = (scrollTop / documentHeight) * 100;
-        
-        progressBar.style.width = progress + '%';
-    });
-}
+class PortfolioApp {
+    constructor() {
+        this.currentSection = 'home';
+        this.sections = ['home', 'about', 'services', 'portfolio', 'reviews', 'contact'];
+        this.init();
+    }
 
-// Navigație prin scroll
-function initScrollNavigation() {
-    const sections = document.querySelectorAll('.section');
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    // Observator pentru secțiuni
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionId = entry.target.id;
-                
-                // Actualizăm navigația
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.getAttribute('href') === `#${sectionId}`) {
-                        item.classList.add('active');
-                    }
-                });
-                
-                // Actualizăm navigația contextuală
-                updateContextualNav(sectionId);
+    init() {
+        this.setupEventListeners();
+        this.setupScrollBehavior();
+        this.updateCurrentSectionIndicator();
+    }
+
+    setupEventListeners() {
+        // Navigation icons
+        document.querySelectorAll('.nav-icon').forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                const section = e.currentTarget.getAttribute('data-section');
+                this.navigateToSection(section);
+            });
+        });
+
+        // Go back button
+        document.querySelector('.go-back').addEventListener('click', () => {
+            this.navigateToSection('home');
+        });
+
+        // TOS link
+        document.querySelector('.tos-link').addEventListener('click', () => {
+            this.openModal();
+        });
+
+        // Close modal
+        document.querySelector('.close-modal').addEventListener('click', () => {
+            this.closeModal();
+        });
+
+        // Modal overlay click
+        document.querySelector('.modal-overlay').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                this.closeModal();
             }
         });
-    }, { threshold: 0.5 });
-    
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-}
 
-// Modal pentru Terms of Service
-function initModal() {
-    const modal = document.getElementById('tos-modal');
-    const openBtn = document.getElementById('tos-btn');
-    const closeBtn = document.getElementById('close-modal');
-    
-    if (openBtn && modal && closeBtn) {
-        openBtn.addEventListener('click', function() {
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+        // Discover button
+        document.querySelector('.discover-btn').addEventListener('click', () => {
+            this.navigateToSection('about');
         });
+    }
+
+    setupScrollBehavior() {
+        let isScrolling = false;
         
-        closeBtn.addEventListener('click', function() {
-            modal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-        
-        // Închidem modalul dacă se dă click în afara conținutului
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
+        window.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            
+            isScrolling = true;
+            
+            const currentIndex = this.sections.indexOf(this.currentSection);
+            let nextIndex;
+            
+            if (e.deltaY > 0 && currentIndex < this.sections.length - 1) {
+                // Scroll down
+                nextIndex = currentIndex + 1;
+            } else if (e.deltaY < 0 && currentIndex > 0) {
+                // Scroll up
+                nextIndex = currentIndex - 1;
+            } else {
+                isScrolling = false;
+                return;
             }
+            
+            this.navigateToSection(this.sections[nextIndex]);
+            
+            // Reset scrolling flag after animation
+            setTimeout(() => {
+                isScrolling = false;
+            }, 1000);
+        }, { passive: true });
+    }
+
+    navigateToSection(section) {
+        // Update current section
+        this.currentSection = section;
+        
+        // Update active section
+        document.querySelectorAll('.section').forEach(sec => {
+            sec.classList.remove('active');
         });
-    }
-}
-
-// Navigație contextuală
-function initContextualNav() {
-    const contextualNav = document.querySelector('.contextual-nav');
-    const goBackBtn = document.getElementById('go-back');
-    const currentSectionEl = document.getElementById('current-section');
-    
-    if (goBackBtn) {
-        goBackBtn.addEventListener('click', function() {
-            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-        });
-    }
-}
-
-function updateContextualNav(sectionId) {
-    const contextualNav = document.querySelector('.contextual-nav');
-    const currentSectionEl = document.getElementById('current-section');
-    const navMenu = document.querySelector('.nav-menu');
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    
-    if (sectionId === 'home') {
-        // Ascundem navigația contextuală
-        contextualNav.classList.remove('active');
+        document.getElementById(section).classList.add('active');
         
-        // Arătăm navigația normală și indicatorul de scroll
-        if (navMenu) navMenu.style.opacity = '1';
-        if (scrollIndicator) scrollIndicator.style.opacity = '1';
-    } else {
-        // Arătăm navigația contextuală
-        contextualNav.classList.add('active');
-        
-        // Actualizăm textul
-        if (currentSectionEl) {
-            const sectionName = getSectionName(sectionId);
-            currentSectionEl.textContent = sectionName;
-        }
-        
-        // Ascundem navigația normală și indicatorul de scroll
-        if (navMenu) navMenu.style.opacity = '0';
-        if (scrollIndicator) scrollIndicator.style.opacity = '0';
+        // Update navigation UI
+        this.updateNavigationUI();
+        this.updateCurrentSectionIndicator();
     }
-}
 
-function getSectionName(sectionId) {
-    const names = {
-        'about': 'About',
-        'services': 'Services',
-        'portfolio': 'Portfolio',
-        'reviews': 'Reviews',
-        'contact': 'Contact'
-    };
-    
-    return names[sectionId] || sectionId;
-}
+    updateNavigationUI() {
+        const navbar = document.querySelector('.navbar');
+        const goBack = document.querySelector('.go-back');
+        
+        if (this.currentSection === 'home') {
+            navbar.style.opacity = '1';
+            goBack.classList.remove('show');
+        } else {
+            navbar.style.opacity = '0';
+            goBack.classList.add
