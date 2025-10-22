@@ -441,8 +441,11 @@
     font-weight: 300;
     font-style: italic;
     color: rgba(255, 255, 255, 0.7);
-    margin-top: 1.1rem;
-    margin-left: 4rem;
+    
+    /* Mai la dreapta și mai sus */
+    margin-top: 0.5rem; /* Mai sus - reduci valoarea */
+    margin-left: 6rem;  /* Mai la dreapta - crești valoarea */
+    
     letter-spacing: 1px;
     text-align: center;
     transition: color 0.3s ease, transform 0.3s ease;
