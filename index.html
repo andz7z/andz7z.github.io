@@ -133,71 +133,72 @@
     </div>
 
     <!-- 🎨 Fundal animat pentru secțiunea Home -->
-<script>
-let lines = [];
-const NUM_LINES = 40;   // redus de la 80
-const NUM_POINTS = 100; // redus de la 200
-let t = 0;
-
-function setup() {
-  createCanvas(windowWidth, windowHeight);
-  noFill();
-  stroke(255, 255, 255, 60);
-  strokeWeight(1.2);
-  frameRate(60);
-
-  // Precalculăm valorile sin/cos pentru performanță
-  this.sinCache = new Array(720);
-  this.cosCache = new Array(720);
-  for (let i = 0; i < 720; i++) {
-    this.sinCache[i] = sin(radians(i));
-    this.cosCache[i] = cos(radians(i));
-  }
-
-  // Inițializează liniile
-  for (let i = 0; i < NUM_LINES; i++) {
-    lines.push(new Line(i));
-  }
-}
-
-function draw() {
-  background(10, 10, 15, 50); // fade subtil pentru efect de fum
-  translate(width / 2, height / 2);
-
-  for (let l of lines) {
-    l.display();
-  }
-
-  t += 0.008; // mai lent, mai cinematic
-}
-
-class Line {
-  constructor(index) {
-    this.index = index;
-    this.offset = random(1000);
-  }
-
-  display() {
-    beginShape();
-    for (let j = 0; j < NUM_POINTS; j++) {
-      // Un mic wave dinamic și unghi pre-calculat
-      const angle = (j * 3 + this.index * 10) % 720;
-      const sinVal = this.sinCache[angle];
-      const cosVal = this.cosCache[angle];
-
-      const y = map(j, 0, NUM_POINTS, -height / 3, height / 3);
-      const x = sinVal * 150 * sin(t + this.offset) * cosVal;
-
-      vertex(x, y);
-    }
-    endShape();
-  }
-}
-
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-}
-</script>
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+        <script>
+        let lines = [];
+        const NUM_LINES = 40;   // redus de la 80
+        const NUM_POINTS = 100; // redus de la 200
+        let t = 0;
+        
+        function setup() {
+          createCanvas(windowWidth, windowHeight);
+          noFill();
+          stroke(255, 255, 255, 60);
+          strokeWeight(1.2);
+          frameRate(60);
+        
+          // Precalculăm valorile sin/cos pentru performanță
+          this.sinCache = new Array(720);
+          this.cosCache = new Array(720);
+          for (let i = 0; i < 720; i++) {
+            this.sinCache[i] = sin(radians(i));
+            this.cosCache[i] = cos(radians(i));
+          }
+        
+          // Inițializează liniile
+          for (let i = 0; i < NUM_LINES; i++) {
+            lines.push(new Line(i));
+          }
+        }
+        
+        function draw() {
+          background(10, 10, 15, 50); // fade subtil pentru efect de fum
+          translate(width / 2, height / 2);
+        
+          for (let l of lines) {
+            l.display();
+          }
+        
+          t += 0.008; // mai lent, mai cinematic
+        }
+        
+        class Line {
+          constructor(index) {
+            this.index = index;
+            this.offset = random(1000);
+          }
+        
+          display() {
+            beginShape();
+            for (let j = 0; j < NUM_POINTS; j++) {
+              // Un mic wave dinamic și unghi pre-calculat
+              const angle = (j * 3 + this.index * 10) % 720;
+              const sinVal = this.sinCache[angle];
+              const cosVal = this.cosCache[angle];
+        
+              const y = map(j, 0, NUM_POINTS, -height / 3, height / 3);
+              const x = sinVal * 150 * sin(t + this.offset) * cosVal;
+        
+              vertex(x, y);
+            }
+            endShape();
+          }
+        }
+        
+        function windowResized() {
+          resizeCanvas(windowWidth, windowHeight);
+        }
+        </script>
 
     <!-- Scripturile tale locale -->
     <script src="js/script.js"></script>
