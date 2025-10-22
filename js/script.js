@@ -52,9 +52,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const sectionName = entry.target.getAttribute('data-section-name');
-                if (sectionName) {
-                    currentSectionText.textContent = `Currently on: ${sectionName}`;
+                const sectionId = entry.target.id;
+                if (sectionId) {
+                    const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
+                    if (navLink) {
+                        const iconClass = navLink.querySelector('i').className;
+                        currentSectionText.innerHTML = `Currently on: <i class="${iconClass}"></i>`;
+                    }
                 }
             }
         });
@@ -62,12 +66,38 @@ document.addEventListener("DOMContentLoaded", function() {
         root: scrollContainer,
         threshold: 0.7 // Se activează când 70% dintr-o secțiune e vizibilă
     });
-
+    
     allSections.forEach(section => {
         sectionObserver.observe(section);
     });
-    
+        
     // Notă: Butonul "Go Back" este un link <a> href="#home", 
     // deci nu are nevoie de JS separat pentru scroll.
+
+    // ===== 4. ToS Modal Logic =====
+    const tosModal = document.getElementById('tos-modal');
+    const openBtn = document.getElementById('tos-open-btn');
+    const closeBtn = document.getElementById('tos-close-btn');
+
+    openBtn.addEventListener('click', () => {
+        tosModal.classList.remove('hidden');
+    });
+
+    closeBtn.addEventListener('click', () => {
+        tosModal.classList.add('hidden');
+    });
+
+    // Închide modal-ul dacă se dă click în afara lui
+    tosModal.addEventListener('click', (e) => {
+        if (e.target === tosModal) {
+            tosModal.classList.add('hidden');
+        }
+    });
+
+    // ===== 5. Copyright Year =====
+    const yearSpan = document.getElementById('copyright-year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
 
 });
