@@ -1,97 +1,160 @@
+/* ANDZ — Lehadus Andrei */
+
+/* About Section */
 .about-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .about-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 60px;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
     align-items: center;
 }
 
 .about-text {
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 1.8;
 }
 
 .about-text p {
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
 }
 
-.highlight {
-    background: linear-gradient(90deg, var(--accent-purple), var(--accent-red));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    font-weight: 600;
+.about-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
 }
 
-.skills {
-    margin-top: 40px;
-}
-
-.skill-item {
-    margin-bottom: 25px;
-}
-
-.skill-name {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-}
-
-.skill-bar {
-    height: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-    overflow: hidden;
-}
-
-.skill-progress {
-    height: 100%;
-    border-radius: 3px;
-    background: linear-gradient(90deg, var(--accent-purple), var(--accent-red));
-    width: 0;
-    transition: width 1.5s ease;
-}
-
-.about-image {
-    display: flex;
-    justify-content: center;
-}
-
-.image-placeholder {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
+.stat {
+    text-align: center;
+    padding: 2rem 1rem;
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
     border: 1px solid var(--glass-border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 60px;
-    color: var(--text-muted);
+    border-radius: var(--border-radius);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Responsive About */
-@media (max-width: 768px) {
+.stat::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.stat:hover::before {
+    left: 100%;
+}
+
+.stat:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--glass-shadow);
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-metal);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Animations */
+.about-text p {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.about-text p:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.about-text p:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.stat {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.stat:nth-child(1) {
+    animation-delay: 0.3s;
+}
+
+.stat:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.stat:nth-child(3) {
+    animation-delay: 0.7s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 968px) {
     .about-content {
         grid-template-columns: 1fr;
-        gap: 40px;
-        text-align: center;
+        gap: 3rem;
     }
     
-    .about-text {
-        font-size: 16px;
+    .about-stats {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-content {
+        gap: 2rem;
     }
     
-    .image-placeholder {
-        width: 200px;
-        height: 200px;
-        font-size: 50px;
+    .stat {
+        padding: 1.5rem 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
     }
 }
