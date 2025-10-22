@@ -216,3 +216,215 @@
   color: #fff;
   pointer-events: auto;
 }
+/* ===== SISTEM FADE-IN GENERAL ===== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay-uri pentru elemente succesive */
+.fade-in.delay-1 { transition-delay: 0.2s; }
+.fade-in.delay-2 { transition-delay: 0.4s; }
+.fade-in.delay-3 { transition-delay: 0.6s; }
+.fade-in.delay-4 { transition-delay: 0.8s; }
+
+/* ===== ANIMAȚIE HOME TEXT (intrare pe rând) ===== */
+.home-text .word {
+    font-size: clamp(32px, 8vw, 96px);
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+    display: block;
+    position: relative;
+    z-index: 2;
+    cursor: default;
+    
+    /* Efect 3D/Metal subtil */
+    color: var(--color-chrome-light);
+    text-shadow: 
+        0px 1px 0px #999,
+        0px 2px 0px #888,
+        0px 3px 0px #777,
+        0px 4px 0px #666,
+        0px 5px 10px rgba(0,0,0,0.6);
+    word-break: break-word;
+    
+    /* Animație inițială */
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.home-text .word.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Delay-uri pentru cuvinte */
+.home-text .word:nth-child(1) { transition-delay: 0.3s; }
+.home-text .word:nth-child(2) { transition-delay: 0.6s; }
+.home-text .word:nth-child(3) { transition-delay: 0.9s; }
+
+/* ===== EFECT FUM ÎMBUNĂTĂȚIT (mai cursiv și fresh) ===== */
+.home-text .word::before {
+    content: '';
+    position: absolute;
+    left: -8%;
+    top: 0;
+    width: 116%;
+    height: 120%;
+    background: 
+        radial-gradient(ellipse at 20% 50%, 
+            rgba(120, 220, 255, 0.15) 0%, 
+            rgba(180, 180, 255, 0.1) 20%, 
+            rgba(255, 200, 255, 0.08) 40%,
+            transparent 70%);
+    filter: blur(25px);
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.8) rotate(-2deg);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+.home-text .word::after {
+    content: '';
+    position: absolute;
+    right: -8%;
+    top: 10%;
+    width: 116%;
+    height: 110%;
+    background: 
+        radial-gradient(ellipse at 80% 50%, 
+            rgba(255, 220, 120, 0.12) 0%, 
+            rgba(255, 180, 180, 0.08) 20%, 
+            rgba(220, 220, 255, 0.06) 40%,
+            transparent 70%);
+    filter: blur(20px);
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.8) rotate(2deg);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+    mix-blend-mode: screen;
+}
+
+/* Hover pe cuvânt - fum mai cursiv și dinamic */
+.home-text .word:hover::before {
+    opacity: 1;
+    transform: scale(1.1) rotate(-3deg) translateX(-10px);
+    animation: smoke-flow-left 3s ease-in-out infinite;
+}
+
+.home-text .word:hover::after {
+    opacity: 1;
+    transform: scale(1.05) rotate(3deg) translateX(10px);
+    animation: smoke-flow-right 3s ease-in-out infinite 0.5s;
+}
+
+/* Animații de curgere a fumului */
+@keyframes smoke-flow-left {
+    0%, 100% { 
+        transform: scale(1.1) rotate(-3deg) translateX(-10px);
+        opacity: 0.8;
+    }
+    50% { 
+        transform: scale(1.15) rotate(-4deg) translateX(-15px);
+        opacity: 1;
+    }
+}
+
+@keyframes smoke-flow-right {
+    0%, 100% { 
+        transform: scale(1.05) rotate(3deg) translateX(10px);
+        opacity: 0.7;
+    }
+    50% { 
+        transform: scale(1.1) rotate(4deg) translateX(15px);
+        opacity: 0.9;
+    }
+}
+
+/* ===== EFECT LITERE INDIVIDUALE (îmbunătățit) ===== */
+.home-text .char {
+    display: inline-block;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    z-index: 3;
+    cursor: pointer;
+    transform-origin: center bottom;
+}
+
+/* Hover pe literă - efect mai smooth și cursiv */
+.home-text .char:hover {
+    transform: 
+        translateY(-6px) 
+        scale(1.15) 
+        rotateX(10deg) 
+        skewX(-2deg);
+    filter: 
+        blur(1px) 
+        saturate(1.8) 
+        brightness(1.2)
+        drop-shadow(0 5px 15px rgba(100, 200, 255, 0.4));
+    color: rgba(255, 255, 255, 0.95);
+    z-index: 4;
+}
+
+/* Efect de dispersie la click */
+.home-text .char.smoked {
+    opacity: 0;
+    transform: 
+        translateY(-80px) 
+        rotateX(90deg) 
+        scale(2.5)
+        skewX(10deg);
+    filter: blur(8px) brightness(1.5);
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+/* ===== LOGO FADE-IN ===== */
+.logo {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.8s ease 0.1s;
+}
+
+.logo.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== NAVIGAȚIE FADE-IN ===== */
+.main-nav a {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.8s ease;
+}
+
+.main-nav.visible a:nth-child(1) { transition-delay: 0.2s; }
+.main-nav.visible a:nth-child(2) { transition-delay: 0.3s; }
+.main-nav.visible a:nth-child(3) { transition-delay: 0.4s; }
+.main-nav.visible a:nth-child(4) { transition-delay: 0.5s; }
+
+.main-nav.visible a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===== SCROLL INDICATOR FADE-IN ===== */
+.scroll-indicator {
+    opacity: 0;
+    transition: opacity 1s ease 1.5s;
+}
+
+.scroll-indicator.visible {
+    opacity: 1;
+}
