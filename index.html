@@ -1,15 +1,11 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-    <meta charset="UTF-B">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ — Design. Develop. Deliver.</title>
-    <meta name="description" content="Portofoliu profesional ANDZ. Web Design, Web Development, Editare Foto/Video.">
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
-
+    <title>ANDZ | Portfolio</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>A</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -17,204 +13,329 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-
-    <script src="js/script.js" defer></script>
-    <script src="js/home.js" defer></script>
-    <script src="js/about.js" defer></script>
-    <script src="js/services.js" defer></script>
-    <script src="js/portfolio.js" defer></script>
-    <script src="js/reviews.js" defer></script>
-    <script src="js/contact.js" defer></script>
 </head>
 <body>
-    
-    <a href="#home" class="logo-link" aria-label="Mergi la Acasă">
-        <span class="logo-text">ANDZ</span>
-    </a>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
 
-    <nav class="main-nav" id="main-nav">
-        <ul>
-            <li><a href="#about" class="nav-icon" data-text="About">About</a></li>
-            <li><a href="#services" class="nav-icon" data-text="Services">Services</a></li>
-            <li><a href="#portfolio" class="nav-icon" data-text="Portfolio">Portfolio</a></li>
-            <li><a href="#reviews" class="nav-icon" data-text="Reviews">Reviews</a></li>
-            <li><a href="#contact" class="nav-icon" data-text="Contact">Contact</a></li>
-        </ul>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-logo">ANDZ</div>
+        <div class="nav-icons">
+            <a href="#home" class="nav-icon active" data-section="home">
+                <i class="fas fa-home"></i>
+            </a>
+            <a href="#about" class="nav-icon" data-section="about">
+                <i class="fas fa-user"></i>
+            </a>
+            <a href="#services" class="nav-icon" data-section="services">
+                <i class="fas fa-cogs"></i>
+            </a>
+            <a href="#portfolio" class="nav-icon" data-section="portfolio">
+                <i class="fas fa-briefcase"></i>
+            </a>
+            <a href="#reviews" class="nav-icon" data-section="reviews">
+                <i class="fas fa-star"></i>
+            </a>
+            <a href="#contact" class="nav-icon" data-section="contact">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
     </nav>
-    
-    <div class="secondary-nav" id="secondary-nav">
-        <a href="#home" class="go-back-btn" id="go-back-btn" aria-label="Mergi înapoi la Acasă">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+
+    <!-- Back Button -->
+    <div class="back-nav">
+        <a href="#home" class="back-btn">
+            <i class="fas fa-arrow-up"></i>
+            <span class="current-section">Currently on: Home</span>
         </a>
-        <span class="current-section-indicator" id="current-section-indicator"></span>
     </div>
 
-    <div class="progress-bar-container">
-        <div class="progress-bar" id="progress-bar"></div>
-    </div>
-
-    <aside class="social-links" id="social-links">
-        <div class="line top"></div>
-        <a href="httpsa://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-        </a>
-        <a href="httpsa://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-        </a>
-        <a href="httpsa://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-        </a>
-        <a href="httpsa://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-        </a>
-        <div class="line bottom"></div>
-    </aside>
-
-    <main class="main-container" id="main-container">
-
-        <section id="home" class="fullscreen-section" data-section-name="Home">
-            <div class="section-content home-content">
-                <h1 class="hero-title" id="hero-title" aria-label="Design. Develop. Deliver.">
+    <!-- Sections -->
+    <main>
+        <section id="home" class="section active">
+            <div class="video-background">
+                <video autoplay muted loop id="bgVideo">
+                    <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+                <div class="video-overlay"></div>
+            </div>
+            <div class="home-content">
+                <div class="text-block">
+                    <h1 class="animated-text">
+                        <span class="line-1">DESIGN. DEVELOP</span>
+                        <span class="line-2">DELIVER.</span>
+                        <span class="line-3">&lt;we do it all/&gt;</span>
                     </h1>
-                <p class="hero-subtitle" id="hero-subtitle">we do it all</p>
-
-                <div class="cta-scroll" id="cta-scroll">
-                    <span class="cta-text">Let’s Start</span>
-                    <svg class="cta-arrow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                </div>
+                <div class="social-block">
+                    <div class="line"></div>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                    </div>
+                    <div class="line"></div>
                 </div>
             </div>
-            <div class="section-background" id="home-background"></div>
-        </section>
-
-        <section id="about" class="fullscreen-section" data-section-name="About">
-            <div class="section-content about-content">
-                <div class="content-wrapper">
-                    <h2 class="section-title fade-in">ABOUT US</h2>
-                    <p class="section-text fade-in" style="transition-delay: 0.2s;">Suntem o echipă de creativi pasionați de intersecția dintre artă și tehnologie. Transformăm idei în experiențe digitale memorabile, de la design grafic și producție video, la dezvoltare web complexă.</p>
-                    <p class="section-text fade-in" style="transition-delay: 0.4s;">Misiunea noastră este să livrăm excelență, cu un focus pe estetică metalică, modernă și funcționalitate impecabilă.</p>
-                </div>
+            <div class="scroll-indicator">
+                <div class="arrow"></div>
             </div>
         </section>
 
-        <section id="services" class="fullscreen-section" data-section-name="Services">
-            <div class="section-content services-content">
-                <h2 class="section-title fade-in">SERVICES</h2>
+        <section id="about" class="section">
+            <div class="section-content">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-container">
+                    <div class="about-card">
+                        <div class="card-content">
+                            <div class="profile-image">
+                                <div class="image-placeholder"></div>
+                            </div>
+                            <h3>ANDZ</h3>
+                            <p class="title">Full-Stack Developer & Creative Designer</p>
+                            <p>With over 5 years of experience in web development and digital design, I create stunning, functional digital experiences that blend aesthetics with performance.</p>
+                            <div class="skills">
+                                <span class="skill-tag">HTML/CSS</span>
+                                <span class="skill-tag">JavaScript</span>
+                                <span class="skill-tag">React</span>
+                                <span class="skill-tag">Node.js</span>
+                                <span class="skill-tag">UI/UX Design</span>
+                                <span class="skill-tag">Video Editing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Services</h2>
                 <div class="services-grid">
-                    <div class="service-card fade-in" style="transition-delay: 0.2s;">
-                        <h3 class="service-title">Web Development</h3>
-                        <p>Site-uri de prezentare, aplicații web complexe și magazine online, construite pe tehnologii moderne, rapide și sigure.</p>
+                    <div class="service-card">
+                        <div class="card-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Web Development</h3>
+                        <p>Custom websites and web applications built with modern technologies and best practices.</p>
                     </div>
-                    <div class="service-card fade-in" style="transition-delay: 0.4s;">
-                        <h3 class="service-title">UI/UX Design</h3>
-                        <p>Creăm interfețe intuitive și atractive, cu un design high-end, metalic și glassy, centrate pe experiența utilizatorului.</p>
+                    <div class="service-card">
+                        <div class="card-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>UI/UX Design</h3>
+                        <p>User-centered design that combines aesthetics with functionality for optimal user experience.</p>
                     </div>
-                    <div class="service-card fade-in" style="transition-delay: 0.6s;">
-                        <h3 class="service-title">Video & Photo</h3>
-                        <p>Producție și post-producție video/foto la nivel profesional. De la clipuri de brand la editare cinematică.</p>
+                    <div class="service-card">
+                        <div class="card-icon">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h3>Video Editing</h3>
+                        <p>Professional video editing services for commercials, social media, and corporate content.</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="card-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Photo Editing</h3>
+                        <p>High-quality photo retouching, color correction, and creative manipulation.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="fullscreen-section" data-section-name="Portfolio">
-            <div class="section-content portfolio-content">
-                <h2 class="section-title fade-in">PORTFOLIO</h2>
+        <section id="portfolio" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Portfolio</h2>
                 <div class="portfolio-grid">
-                    <a href="#" class="portfolio-card fade-in" style="transition-delay: 0.2s;">
-                        <img src="https://via.placeholder.com/600x400/111/444?text=Project+Alpha" alt="Descriere Proiect Alpha" loading="lazy">
-                        <div class="card-overlay">
-                            <h3>Project Alpha</h3>
-                            <span>Web Design / 3D Render</span>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder"></div>
                         </div>
-                    </a>
-                    <a href="#" class="portfolio-card fade-in" style="transition-delay: 0.4s;">
-                        <img src="https://via.placeholder.com/600x400/222/555?text=Project+Beta" alt="Descriere Proiect Beta" loading="lazy">
-                        <div class="card-overlay">
-                            <h3>Project Beta</h3>
-                            <span>Video Production</span>
+                        <div class="portfolio-info">
+                            <h3>E-commerce Platform</h3>
+                            <p>Full-stack development of a modern e-commerce solution with React and Node.js</p>
+                            <button class="portfolio-btn">View Project</button>
                         </div>
-                    </a>
-                    <a href="#" class="portfolio-card fade-in" style="transition-delay: 0.6s;">
-                        <img src="https://via.placeholder.com/600x400/1a1a1a/4a4a4a?text=Project+Gamma" alt="Descriere Proiect Gamma" loading="lazy">
-                        <div class="card-overlay">
-                            <h3>Project Gamma</h3>
-                            <span>Branding / UI/UX</span>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder"></div>
                         </div>
-                    </a>
+                        <div class="portfolio-info">
+                            <h3>Corporate Website</h3>
+                            <p>Complete redesign and development for a multinational corporation</p>
+                            <button class="portfolio-btn">View Project</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder"></div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Mobile App UI</h3>
+                            <p>User interface design for a fitness tracking mobile application</p>
+                            <button class="portfolio-btn">View Project</button>
+                        </div>
+                    </div>
+                    <div class="portfolio-item">
+                        <div class="portfolio-image">
+                            <div class="image-placeholder"></div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Video Campaign</h3>
+                            <p>Complete video production for a product launch campaign</p>
+                            <button class="portfolio-btn">View Project</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="reviews" class="fullscreen-section" data-section-name="Reviews">
-            <div class="section-content reviews-content">
-                <h2 class="section-title fade-in">REVIEWS</h2>
-                <div class="reviews-slider fade-in" style="transition-delay: 0.2s;">
-                    <div class="review-item is-active">
-                        <p class="review-text">"Colaborarea cu ANDZ a fost peste așteptări. Au livrat un design 'wow' și o funcționalitate impecabilă, exact la timp. Profesionalism la superlativ."</p>
-                        <span class="review-author">- Client Fericit, CEO TechCorp</span>
+        <section id="reviews" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Client Reviews</h2>
+                <div class="reviews-container">
+                    <div class="review-card">
+                        <div class="review-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"ANDZ delivered beyond our expectations. The website is not only beautiful but also performs exceptionally well."</p>
+                            <div class="review-author">
+                                <h4>Sarah Johnson</h4>
+                                <span>CEO, TechSolutions Inc.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <p>"The video editing work was professional and creative. ANDZ understood our vision perfectly."</p>
+                            <div class="review-author">
+                                <h4>Michael Brown</h4>
+                                <span>Marketing Director, BrandVision</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-content">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <p>"Working with ANDZ was a pleasure. The UI/UX design significantly improved our conversion rates."</p>
+                            <div class="review-author">
+                                <h4>Emily Chen</h4>
+                                <span>Product Manager, AppFlow</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="contact" class="fullscreen-section" data-section-name="Contact">
-            <div class="section-content contact-content">
-                <h2 class="section-title fade-in">GET IN TOUCH</h2>
-                <p class="section-text fade-in" style="transition-delay: 0.2s;">Sunteți gata să începem următorul proiect? Contactați-ne.</p>
-                <form id="contact-form" class="contact-form fade-in" style="transition-delay: 0.4s;">
-                    <div class="form-group">
-                        <input type="text" id="name" name="name" required placeholder="Numele tău">
-                        <label for="name">Nume</label>
+        <section id="contact" class="section">
+            <div class="section-content">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3>Email</h3>
+                                <p>contact@andz.dev</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h3>Phone</h3>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3>Location</h3>
+                                <p>San Francisco, CA</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" required placeholder="Emailul tău">
-                        <label for="email">Email</label>
-                    </div>
-                    <div class="form-group">
-                        <textarea id="message" name="message" rows="4" required placeholder="Mesajul tău..."></textarea>
-                        <label for="message">Mesaj</label>
-                    </div>
-                    <button type="submit" class="cta-button">Trimite Mesajul</button>
-                </form>
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
             </div>
-
-            <footer class="site-footer">
-                <div class="footer-links">
-                    <button class="footer-link" id="tos-button">Termeni & Condiții</button>
-                    <span class="footer-separator">|</span>
-                    <a href="tel:+40700000000" class="footer-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        +40 700 000 000
-                    </a>
-                    <span class="footer-separator">|</span>
-                    <a href="mailto:contact@andz.com" class="footer-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 2 6"></polyline></svg>
-                        contact@andz.com
-                    </a>
-                </div>
-                <div class="copyright">
-                    © <span id="current-year">2025</span> ANDZ <span class="subtext">| Lehadus Andrei</span>
-                </div>
-            </footer>
         </section>
-
     </main>
 
-    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="visibility: hidden;">
-        <div class="modal-content" role="document">
-            <button class="modal-close" id="modal-close" aria-label="Închide modalul">&times;</button>
-            <h2 id="modal-title" class="section-title">Termeni și Condiții</h2>
-            <div class="modal-scrollable-content">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae eros nec sem sollicitudin placerat. Nulla facilisi. Integer quis purus ac Nunc scelerisque, nisl ac aliquam faucibus, magna nunc...</p>
-                <p>... (adaugă textul complet aici) ...</p>
-                <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci. Aenean dignissim pellentesque felis.</p>
-                <p>Morbi in sem quis dui placerat ornare. Pellentesque odio nisi, euismod in, pharetra a, ultricies in, diam. Sed arcu. Cras consequat.</p>
-                <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas auguae, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus.</p>
-                <p>... (adaugă textul complet aici) ...</p>
-                <p>... (adaugă textul complet aici) ...</p>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">© ANDZ 2025 — All rights reserved.</p>
+            <button class="tos-btn" id="tosBtn">TOS</button>
+        </div>
+    </footer>
+
+    <!-- TOS Modal -->
+    <div class="modal-overlay" id="tosModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Terms of Service</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>These Terms of Service govern your use of the website located at andz.dev and any related services provided by ANDZ.</p>
+                <p>By accessing andz.dev, you agree to abide by these Terms of Service and to comply with all applicable laws and regulations.</p>
+                <h3>Intellectual Property</h3>
+                <p>The intellectual property in the materials contained in this website are owned by or licensed to ANDZ and are protected by applicable copyright and trademark law.</p>
+                <h3>User Responsibilities</h3>
+                <p>As a user of our services, you agree not to:</p>
+                <ul>
+                    <li>Systematically retrieve data or other content from the services to create a collection</li>
+                    <li>Trick, defraud, or mislead us and other users</li>
+                    <li>Circumvent, disable, or otherwise interfere with security-related features</li>
+                </ul>
+                <h3>Termination</h3>
+                <p>These Terms of Service are effective unless and until terminated by either you or ANDZ.</p>
             </div>
         </div>
     </div>
 
+    <script src="js/script.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/about.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>
