@@ -1,1 +1,1 @@
-// Logica JavaScript specifică pentru secțiunea #portfolio
+// Logica JavaScript specifică pentru secțiunea #portfolioo
