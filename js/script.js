@@ -1,143 +1,166 @@
-/* ANDZ — Lehadus Andrei */
-'use strict';
+// Main script file - handles global functionality
 
-document.addEventListener('DOMContentLoaded', () => {
-
-    // --- 1. Selectoare Globale ---
-    const mainContainer = document.getElementById('main-container');
-    const progressBar = document.getElementById('progress-bar');
-    const mainNav = document.getElementById('main-nav');
-    const secondaryNav = document.getElementById('secondary-nav');
-    const goBackButton = document.getElementById('go-back-btn');
-    const currentSectionIndicator = document.getElementById('current-section-indicator');
-    const homeSection = document.getElementById('home');
-    const sections = document.querySelectorAll('.fullscreen-section');
-    const homeCTA = document.getElementById('cta-scroll');
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all modules
+    initProgressBar();
+    initNavigation();
+    initBackButton();
+    initTOSModal();
+    initSmoothScrolling();
     
-    // Selectoare Modal
-    const tosButton = document.getElementById('tos-button');
-    const modalOverlay = document.getElementById('modal-overlay');
-    const modalClose = document.getElementById('modal-close');
+    // Set initial active section
+    setActiveSection('home');
+});
 
-    // --- 2. Logică Scroll & Progress Bar ---
+// Progress Bar
+function initProgressBar() {
+    const progressBar = document.getElementById('progressBar');
     
-    // Variabilă pentru a urmări dacă CTA-ul de pe Home a fost ascuns
-    let isHomeCtaHidden = false; 
-
-    mainContainer.addEventListener('scroll', () => {
-        const scrollTop = mainContainer.scrollTop;
-        const scrollHeight = mainContainer.scrollHeight - mainContainer.clientHeight;
-        const scrollPercentage = (scrollTop / scrollHeight) * 100;
-
-        // Actualizare Progress Bar
-        progressBar.style.width = `${scrollPercentage}%`;
-
-        // Logica pentru afișare/ascundere navigație
-        // Considerăm "scrolled past home" după 50% din înălțimea 'home'
-        const homeHeight = homeSection.clientHeight;
+    window.addEventListener('scroll', function() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
         
-        if (scrollTop > homeHeight / 2) {
-            // Utilizatorul A PLECAT de pe Home
-            mainNav.classList.add('fade-out');
-            secondaryNav.classList.add('is-visible');
+        progressBar.style.width = progress + '%';
+    });
+}
+
+// Navigation
+function initNavigation() {
+    const navIcons = document.querySelectorAll('.nav-icon');
+    const mainNav = document.querySelector('.main-nav');
+    
+    // Handle nav icon clicks
+    navIcons.forEach(icon => {
+        icon.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetSection = this.getAttribute('href').substring(1);
+            setActiveSection(targetSection);
+            
+            // Scroll to section
+            document.getElementById(targetSection).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+    
+    // Hide/show nav on scroll
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down
+            mainNav.style.transform = 'translateY(-100%)';
         } else {
-            // Utilizatorul S-A ÎNTORS pe Home
-            mainNav.classList.remove('fade-out');
-            secondaryNav.classList.remove('is-visible');
+            // Scrolling up
+            mainNav.style.transform = 'translateY(0)';
         }
-
-        // Ascunde CTA-ul (Let's Start) de pe Home la primul scroll
-        if (!isHomeCtaHidden && scrollTop > 50) {
-            homeCTA.classList.add('fade-out');
-            isHomeCtaHidden = true; // Setează flag-ul pentru a nu mai rula logica
-        }
+        
+        lastScrollTop = scrollTop;
     });
+}
 
-    // Butonul Go Back (din navigația secundară)
-    goBackButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        mainContainer.scrollTo({
-            top: 0,
-            behavior: 'smooth' // Folosim scroll-ul smooth al containerului
-        });
-    });
-
-    // --- 3. Intersection Observer (Fade-ins & "Currently on") ---
+// Back Button
+function initBackButton() {
+    const backNav = document.querySelector('.back-nav');
+    const currentSectionText = document.querySelector('.current-section');
     
-    const observerOptions = {
-        root: mainContainer, // Scroll-ul se întâmplă în mainContainer
-        rootMargin: '0px',
-        threshold: 0.6 // Secțiunea trebuie să fie 60% vizibilă
-    };
-
-    const observerCallback = (entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // Adaugă clasa 'is-visible' pentru animațiile fade-in din CSS
-                entry.target.classList.add('is-visible');
-                
-                // Actualizează textul "Currently on"
-                const sectionName = entry.target.dataset.sectionName;
-                if (sectionName && sectionName !== "Home") {
-                    currentSectionIndicator.textContent = `On: ${sectionName}`;
-                } else {
-                    currentSectionIndicator.textContent = ''; // Nu arătăm nimic pe Home
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > window.innerHeight * 0.5) {
+            backNav.classList.add('visible');
+            
+            // Update current section text
+            const sections = document.querySelectorAll('.section');
+            let currentSection = 'Home';
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                    currentSection = section.id.charAt(0).toUpperCase() + section.id.slice(1);
                 }
-            } else {
-                // Opțional: elimină clasa când secțiunea iese (dacă vrei animații la fiecare intrare)
-                // entry.target.classList.remove('is-visible');
-            }
-        });
-    };
-
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Observă toate secțiunile
-    sections.forEach(section => {
-        observer.observe(section);
+            });
+            
+            currentSectionText.textContent = `Currently on: ${currentSection}`;
+        } else {
+            backNav.classList.remove('visible');
+        }
     });
+}
 
-    // --- 4. Logică Modal (Termeni și Condiții) ---
-    const openModal = () => {
-        modalOverlay.style.visibility = 'visible';
-        modalOverlay.classList.add('is-visible');
-        modalOverlay.setAttribute('aria-hidden', 'false');
-    };
-
-    const closeModal = () => {
-        modalOverlay.style.visibility = 'hidden';
-        modalOverlay.classList.remove('is-visible');
-        modalOverlay.setAttribute('aria-hidden', 'true');
-    };
-
-    tosButton.addEventListener('click', openModal);
-    modalClose.addEventListener('click', closeModal);
+// TOS Modal
+function initTOSModal() {
+    const tosBtn = document.getElementById('tosBtn');
+    const tosModal = document.getElementById('tosModal');
+    const closeModal = document.getElementById('closeModal');
     
-    // Închide la click pe overlay
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) {
-            closeModal();
+    tosBtn.addEventListener('click', function() {
+        tosModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    closeModal.addEventListener('click', function() {
+        tosModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+    
+    // Close modal when clicking outside
+    tosModal.addEventListener('click', function(e) {
+        if (e.target === tosModal) {
+            tosModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
         }
     });
+}
 
-    // Închide la tasta 'Escape'
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modalOverlay.classList.contains('is-visible')) {
-            closeModal();
+// Smooth Scrolling
+function initSmoothScrolling() {
+    // This is handled by CSS with scroll-behavior: smooth
+    // Additional JS can be added here if needed for more control
+}
+
+// Set Active Section
+function setActiveSection(sectionId) {
+    // Update nav icons
+    const navIcons = document.querySelectorAll('.nav-icon');
+    navIcons.forEach(icon => {
+        icon.classList.remove('active');
+        if (icon.getAttribute('href') === `#${sectionId}`) {
+            icon.classList.add('active');
         }
     });
+    
+    // Update sections
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => {
+        section.classList.remove('active');
+    });
+    
+    document.getElementById(sectionId).classList.add('active');
+}
 
-    // --- 5. Inițializare An An ---
-    // Actualizează anul din copyright
-    document.getElementById('current-year').textContent = new Date().getFullYear();
-
-    // --- 6. Inițializare scripturi modulare ---
-    // Verificăm dacă funcțiile de inițializare există înainte de a le apela
-    if (typeof initHomeAnimations === 'function') {
-        initHomeAnimations();
-    }
-    if (typeof initPortfolioAnimations === 'function') {
-        initPortfolioAnimations();
-    }
-    // ... (aici pot fi adăugate și altele: initAbout(), initServices(), etc.)
+// Magnetic Scrolling Effect
+document.addEventListener('mousemove', function(e) {
+    const magneticElements = document.querySelectorAll('.nav-icon, .social-icons a, .portfolio-btn, .submit-btn');
+    
+    magneticElements.forEach(element => {
+        const rect = element.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        
+        const distance = Math.sqrt(x * x + y * y);
+        const maxDistance = 100;
+        
+        if (distance < maxDistance) {
+            const moveX = x * 0.2;
+            const moveY = y * 0.2;
+            
+            element.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        } else {
+            element.style.transform = 'translate(0, 0)';
+        }
+    });
 });
