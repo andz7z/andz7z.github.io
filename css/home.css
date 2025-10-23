@@ -1,155 +1,337 @@
-/* Home Section Specific Styles */
+/* --- HOMEPAGE VIDEO BACKGROUND --- */
 #home {
-    position: relative;
-    z-index: 1;
-}
-
-.home-content {
-    text-align: center;
-    z-index: 2;
-}
-
-#main-text {
-    font-family: 'Noverich', sans-serif;
-    font-size: 5rem;
-    line-height: 1.2;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-    transition: all 0.5s ease;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
 }
 
-.text-line {
-    display: block;
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    object-fit: cover;
 }
 
-#main-text:hover {
-    filter: blur(2px);
+/* Monochrome, dark overlay for the video */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: -1;
+    filter: grayscale(100%);
+}
+
+/* --- LOGO (Top Left) --- */
+.logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 100;
+}
+
+.logo img {
+    width: 90px;
+    height: auto;
     opacity: 0.8;
 }
 
-/* Scroll Down Arrow */
-#scroll-down {
+/* --- TOP RIGHT NAVIGATION --- */
+.main-nav {
     position: absolute;
-    bottom: 50px;
+    top: 30px;
+    right: 30px;
+    z-index: 100;
+    /* JS will fade this out */
+    transition: opacity 0.5s ease;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav li {
+    position: relative;
+}
+
+.main-nav li a {
+    font-size: 1.5rem; /* Icon size */
+    color: var(--color-primary-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    padding: 10px;
+}
+
+.main-nav li span {
+    position: absolute;
+    bottom: -15px;
     left: 50%;
     transform: translateX(-50%);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-white-glow);
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.main-nav li a:hover {
+    transform: scale(1.15);
+    color: var(--color-white-glow);
+    text-shadow: 0 0 10px var(--color-white-glow), 0 0 20px var(--color-white-glow);
+}
+
+.main-nav li a:hover + span {
+    opacity: 1;
+    bottom: -20px;
+}
+
+/* --- RIGHT CENTER SOCIALS --- */
+.social-nav {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    z-index: 100;
+    /* JS will fade this out */
+    transition: opacity 0.5s ease;
+}
+
+.social-nav ul {
+    list-style: none;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    z-index: 10;
+    gap: 25px;
 }
 
-#scroll-text {
-    font-family: 'Noverich', sans-serif;
-    font-size: 1rem;
-    opacity: 0;
-    transition: all 0.3s ease;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-}
-
-#scroll-arrow-down {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.social-nav li {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
-    animation: pulse 2s infinite;
-    transition: all 0.3s ease;
 }
 
-#scroll-down:hover #scroll-text {
+/* The monochrome | line (Only top of first and bottom of last) */
+.social-nav li:first-child::before {
+    content: '|';
+    font-family: var(--font-body);
+    color: #555;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 100;
+    top: -20px;
+}
+
+.social-nav li:last-child::after {
+    content: '|';
+    font-family: var(--font-body);
+    color: #555;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 100;
+    bottom: -20px;
+}
+
+
+.social-nav li a {
+    font-size: 1.3rem; /* Icon size */
+    color: var(--color-primary-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    padding: 5px;
+    position: relative;
+    z-index: 2;
+}
+
+.social-nav li span {
+    position: absolute;
+    right: 35px; /* To the left of the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-white-glow);
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.social-nav li a:hover {
+    transform: scale(1.2);
+    color: var(--color-white-glow);
+    text-shadow: 0 0 10px var(--color-white-glow);
+}
+
+.social-nav li a:hover + span {
+    opacity: 1;
+    right: 40px;
+}
+
+/* --- LEFT CENTER TEXT --- */
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 40px;
+    transform: translateY(-50%);
+    z-index: 90;
+}
+
+.hero-text h1 {
+    font-family: var(--font-title);
+    font-size: 4.5rem;
+    color: var(--color-white-glow);
+    line-height: 1.1;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    user-select: none;
+}
+
+.hero-text h1 span.letter {
+    display: inline-block; /* Permite transformari */
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, filter, opacity;
+    min-width: 0.5ch; /* Asigura spatiu pentru spatii goale */
+}
+
+/* Efectul de blur/fade la hover (per litera) */
+.hero-text h1:hover span.letter {
+    filter: blur(4px);
+    opacity: 0.7;
+}
+
+/* Animatie de evaporare (per litera) */
+.hero-text h1.animating span.letter.evaporate {
+    animation: evaporateLetter 0.8s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
+
+@keyframes evaporateLetter {
+    0% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    100% { opacity: 0; transform: translateY(-100px) scale(1.5); filter: blur(10px); }
+}
+
+/* Animatie de fade-in (per litera) */
+.hero-text h1.animating span.letter.fade-in {
+    opacity: 0; /* Incepe invizibil */
+    animation: fadeInLetter 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+@keyframes fadeInLetter {
+    0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+/* --- CENTER BOTTOM ARROW --- */
+.scroll-down-arrow {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    text-align: center;
+}
+
+.scroll-down-arrow span {
+    display: block;
+    color: var(--color-white-glow);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    animation: pulseText 2s infinite ease-in-out;
+}
+
+.scroll-down-arrow a {
+    font-size: 2rem;
+    color: var(--color-white-glow);
+    text-decoration: none;
+    display: inline-block;
+    animation: pulseArrow 2s infinite ease-in-out;
+    transition: transform 0.3s ease;
+}
+
+.scroll-down-arrow:hover span {
     opacity: 1;
 }
 
-#scroll-down:hover #scroll-arrow-down {
-    animation: pulse 1s infinite;
+.scroll-down-arrow:hover a {
     transform: scale(1.1);
+    animation-play-state: paused; /* Pause pulse on hover */
 }
 
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-    }
-    70% {
-        box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-    }
+/* Pulsating animations */
+@keyframes pulseArrow {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(5px) scale(1.05); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 0.7; }
 }
 
-/* Text Evaporation Animation */
-@keyframes evaporate {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
-    50% {
-        opacity: 0.5;
-        transform: translateY(-20px) scale(1.1);
-        filter: blur(2px);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-40px) scale(1.2);
-        filter: blur(5px);
-    }
+@keyframes pulseText {
+    0% { transform: scale(1); opacity: 0; }
+    50% { transform: scale(1.05); opacity: 0; }
+    51% { opacity: 0; } /* Text only appears on hover */
+    100% { transform: scale(1); opacity: 0; }
 }
 
-@keyframes reappear {
-    0% {
-        opacity: 0;
-        transform: translateY(40px) scale(0.8);
-        filter: blur(5px);
-    }
-    50% {
-        opacity: 0.5;
-        transform: translateY(20px) scale(0.9);
-        filter: blur(2px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        filter: blur(0);
-    }
+.scroll-down-arrow:hover span {
+    animation: pulseTextHover 2s infinite ease-in-out;
 }
 
-.evaporating {
-    animation: evaporate 1s forwards;
+@keyframes pulseTextHover {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
 }
 
-.reappearing {
-    animation: reappear 1s forwards;
-}
 
-/* Responsive Home Styles */
+/* --- MOBILE STYLES FOR HOME --- */
 @media (max-width: 768px) {
-    #main-text {
-        font-size: 3.5rem;
+    .logo {
+        top: 20px; /* Aliniat cu burger menu */
+        left: 20px;
     }
-}
-
-@media (max-width: 480px) {
-    #main-text {
-        font-size: 2.5rem;
+    .logo img {
+        width: 70px;
     }
     
-    #scroll-arrow-down {
-        width: 35px;
-        height: 35px;
-        font-size: 18px;
+    .hero-text {
+        left: 20px;
+        right: 20px;
+        width: auto;
+    }
+    
+    .hero-text h1 {
+        font-size: 2.5rem; /* Smaller font for mobile */
+    }
+    
+    .scroll-down-arrow {
+        bottom: 90px; /* Make space for scroll indicator */
+    }
+    
+    .scroll-down-arrow span {
+        font-size: 0.8rem;
+    }
+    
+    .scroll-down-arrow a {
+        font-size: 1.8rem;
     }
 }
