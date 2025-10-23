@@ -1,166 +1,51 @@
-/* --- Header și Navigație --- */
-.main-header {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%); /* Centrează header-ul */
-    
-    width: 95%;
-    max-width: 1200px;
-    
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-    
-    /* Aplicăm efectul de sticlă și pe header */
-    background: var(--glass-bg);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px var(--glass-shadow);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--glass-border);
-    
-    z-index: 900;
-    transition: opacity var(--transition-fast), visibility var(--transition-fast);
+#home {
+    background: linear-gradient(135deg, var(--background));
+    position: relative;
+    overflow: hidden;
 }
 
-/* Clasă adăugată de JS când se derulează */
-.main-header.hidden {
-    opacity: 0;
-    visibility: hidden;
+#home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 30%, rgba(0, 198, 255, 0.1), transparent 50%);
 }
 
-/* --- Logo --- */
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.logo {
-    height: 35px; /* Mărimea logo-ului */
-    width: auto;
-}
-
-.logo-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary-text);
-}
-
-/* --- Navigație (Iconițe) --- */
-.main-nav {
-    display: flex;
-    gap: 10px;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    color: var(--secondary-text); /* Culoare mai subtilă */
-    text-decoration: none;
-    padding: 10px;
-    border-radius: 10px;
-    position: relative; /* Necesar pentru textul ascuns */
-    transition: all var(--transition-fast);
-}
-
-.nav-item i {
-    font-size: 1.2rem;
-    transition: all var(--transition-fast);
-}
-
-.nav-item .nav-text {
-    /* Textul este ascuns inițial */
-    visibility: hidden;
-    opacity: 0;
-    width: 0;
-    
-    font-size: 0.9rem;
-    font-weight: 500;
-    white-space: nowrap; /* Împiedică textul să se rupă pe rând nou */
-    
-    /* Tranziție pentru efectul de intrare */
-    transition: all var(--transition-fast);
-    transform: translateX(-10px);
-}
-
-/* --- Efectul de Hover pe Navigație --- */
-.nav-item:hover {
-    color: var(--primary-text); /* Culoare activă */
-    background: rgba(255, 255, 255, 0.1);
-    
-    /* Glow-ul subtil cerut */
-    box-shadow: 0 0 10px var(--glow-color); 
-}
-
-.nav-item:hover i {
-    color: var(--glow-color); /* Iconița devine colorată */
-}
-
-/* Afișarea textului la hover */
-.nav-item:hover .nav-text {
-    visibility: visible;
-    opacity: 1;
-    width: auto; /* Permite textului să ocupe spațiu */
-    margin-left: 8px; /* Spațiu între iconiță și text */
-    transform: translateX(0);
-}
-
-
-/* --- Stiluri specifice secțiunii HOME --- */
-#home .home-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Împinge cardul de preview în jos */
-    align-items: center;
-    height: calc(100vh - 140px); /* Ajustează înălțimea (header + padding) */
+.home-content {
     text-align: center;
-    padding-top: 100px; /* Spațiu sub header */
+    z-index: 2;
+    position: relative;
 }
 
-#home h1 {
-    font-size: 3.5rem;
+.home-content h1 {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-#home p {
-    font-size: 1.2rem;
-    color: var(--secondary-text);
+.home-content .glass-card {
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-/* Cardul de preview "About" */
-.about-preview-card {
-    width: 80%;
-    max-width: 700px;
-    text-align: left;
-    margin-bottom: 2rem; /* Îl ridică puțin de la bază */
+/* About section preview at bottom */
+#about {
+    position: relative;
 }
 
-.about-preview-card h2 {
-    font-size: 1.5rem;
-    color: var(--primary-text);
-}
-
-.about-preview-card p {
-    font-size: 1rem;
-    color: var(--secondary-text);
-    margin-top: 0.5rem;
-}
-
-.cta-button {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 10px 20px;
-    border: 1px solid var(--glow-color);
-    color: var(--glow-color);
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all var(--transition-fast);
-}
-
-.cta-button:hover {
-    background-color: rgba(100, 255, 218, 0.1);
-    box-shadow: 0 0 10px var(--glow-color);
+#about::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: linear-gradient(to top, rgba(255,255,255,0.05), transparent);
+    pointer-events: none;
 }
