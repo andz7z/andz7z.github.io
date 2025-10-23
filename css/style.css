@@ -30,9 +30,11 @@
 }
 
 html {
-    height: 100%;
+    /* Implements the "scroll magnet" */
+    scroll-snap-type: y mandatory;
+    /* Implements "manual scroll navigation" */
+    scroll-behavior: smooth;
 }
-
 body {
     margin: 0;
     padding: 0;
@@ -40,12 +42,9 @@ body {
     background-color: var(--color-black);
     color: var(--color-light-gray);
     font-family: var(--font-text);
-    overflow-x: hidden;
-    
-    /* MUTĂ scroll-snap-type AICI */
-    scroll-snap-type: y mandatory;
-    -webkit-scroll-snap-type: y mandatory; /* Pentru Safari */
+
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .fullscreen-section {
@@ -210,5 +209,151 @@ body {
     .current-section-display {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
+    }
+}
+/* test */
+/* --- MOBILE NAVIGATION --- */
+.mobile-menu-toggle {
+    display: none; /* Hidden on desktop */
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background: var(--color-glass-bg);
+    border: 1px solid var(--color-chrome-border);
+    color: var(--color-white-glow);
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-toggle:hover {
+    background: var(--color-white-glow);
+    color: var(--color-bg-dark);
+    transform: scale(1.1);
+}
+
+.mobile-nav {
+    display: none; /* Hidden on desktop */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+
+.mobile-nav.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-menu-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--color-white-glow);
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.mobile-menu-close:hover {
+    transform: rotate(90deg);
+}
+
+.mobile-nav ul {
+    list-style: none;
+    text-align: center;
+}
+
+.mobile-nav ul li {
+    margin: 20px 0;
+}
+
+.mobile-nav ul li a {
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    color: var(--color-white-glow);
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav ul li a:hover {
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px var(--color-white-glow);
+}
+
+.mobile-socials {
+    margin-top: 40px;
+    display: flex;
+    gap: 30px;
+}
+
+.mobile-socials a {
+    font-size: 2rem;
+    color: var(--color-primary-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-socials a:hover {
+    color: var(--color-white-glow);
+    transform: scale(1.2);
+    text-shadow: 0 0 10px var(--color-white-glow);
+}
+
+/* --- RESPONSIVENESS (Mobile Optimization) --- */
+@media (max-width: 768px) {
+    /* Hide desktop navs */
+    .main-nav,
+    .social-nav {
+        display: none;
+    }
+    
+    /* Show mobile menu */
+    .mobile-menu-toggle,
+    .mobile-nav {
+        display: flex;
+    }
+    
+    /* Adjust section title size */
+    .section-title {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    /* Adjust scroll indicator position */
+    .scroll-indicator {
+        left: 50%;
+        bottom: 20px;
+        transform: translateX(-50%);
+        width: 90%;
+        justify-content: space-between;
+    }
+    
+    .scroll-indicator .current-section-status {
+        font-size: 0.8rem;
+        padding: 6px 12px;
     }
 }
