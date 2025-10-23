@@ -1,18 +1,3 @@
 /* Portfolio Section Styles */
 #portfolio {
-    background: linear-gradient(135deg, #0e0e0e 0%, #1e1e1e 100%);
-    position: relative;
-}
-
-#portfolio::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 40% 60%, rgba(130, 130, 130, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 60% 40%, rgba(130, 130, 130, 0.08) 0%, transparent 50%);
-    pointer-events: none;
 }
