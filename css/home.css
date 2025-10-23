@@ -183,38 +183,6 @@
     filter: blur(8px) brightness(1.5);
     transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
-
-.home-text .subtext {
-    font-size: 1.2rem;
-    font-weight: 300;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.7);
-    
-    /* Mai la dreapta și mai sus */
-    margin-top: -0.5rem; /* Mai sus - reduci valoarea */
-    margin-left: 21.5rem;  /* Mai la dreapta - crești valoarea */
-    
-    letter-spacing: 1px;
-    text-align: center;
-    transition: color 0.3s ease, transform 0.3s ease;
-    
-    /* Efect fade-in mai lent */
-    opacity: 0;
-    animation: slowFadeIn 3s ease-in-out forwards;
-    animation-delay: 2s;
-}
-
-@keyframes slowFadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
 /* ===== LOGO FADE-IN ===== */
 .logo {
     opacity: 0;
