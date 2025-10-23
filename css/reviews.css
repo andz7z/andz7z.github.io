@@ -1,4 +1,17 @@
-/* Styles for the Reviews section */
+/* Reviews Section Styles */
 #reviews {
-    /* Add specific styles for the reviews section here */
+    background: linear-gradient(135deg, #101010 0%, #202020 100%);
+    position: relative;
+}
+
+#reviews::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(140, 140, 140, 0.06) 0%, transparent 70%);
+    pointer-events: none;
 }
