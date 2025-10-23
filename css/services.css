@@ -558,14 +558,15 @@
 }
 /* === Animated Title (GSAP version) === */
 .animated-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* dacă vrei doar pentru secțiunea services, poți schimba în auto */
+  display: inline-block; /* doar cât e nevoie */
   width: 100%;
   text-align: center;
-  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: auto; /* elimină 100vh */
+  margin: 4rem 0; /* spațiere opțională sus/jos */
 }
+
 
 .animated-title h1 {
   font-size: clamp(2.5rem, 6vw, 6rem);
