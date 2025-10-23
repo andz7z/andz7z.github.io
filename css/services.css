@@ -460,3 +460,96 @@
   position: relative;
   z-index: 1;
 }
+.mzaCard-text {
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  bottom: 120px; /* Pozitionat mai sus de buton */
+  transform: translateX(-50%);
+  z-index: 2;
+  width: 80%; /* Latime controlata */
+  max-width: 600px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 12px;
+  text-wrap: balance;
+  cursor: text;
+  color: #e0e0e0;
+  font-size: clamp(14px, 1.6vw, 16px);
+  line-height: 1.5;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+.mzaCard-actions {
+  position: absolute;
+  left: 50%;
+  bottom: 40px; /* Mai aproape de marginea de jos */
+  transform: translateX(-50%);
+  z-index: 2;
+  text-align: center;
+}
+
+.mzaBtn {
+  appearance: none;
+  border: 1px solid #ffffff;
+  border-radius: 12px;
+  padding: 14px 32px;
+  font-weight: 600;
+  color: #000000;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #f0f0f0 25%,
+    #e8e8e8 50%,
+    #f0f0f0 75%,
+    #ffffff 100%
+  );
+  box-shadow: 0 4px 20px var(--mzaC-glow);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mzaCard-text {
+    width: 90%;
+    bottom: 100px;
+    padding: 15px;
+  }
+  
+  .mzaCard-actions {
+    bottom: 30px;
+  }
+  
+  .mzaBtn {
+    padding: 12px 24px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 560px) {
+  .mzaCard-text {
+    width: 95%;
+    bottom: 90px;
+    padding: 12px;
+  }
+  
+  .mzaCard-actions {
+    bottom: 25px;
+  }
+  
+  .mzaBtn {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+}
