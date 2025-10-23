@@ -42,10 +42,6 @@ body {
     color: var(--color-light-gray);
     font-family: var(--font-text);
     overflow-x: hidden; /* Prevent horizontal scroll */
-
-    /* Scroll Magnet Effect */
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
 }
 
 /* --- SECTION STYLING --- */
