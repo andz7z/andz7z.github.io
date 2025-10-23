@@ -1,129 +1,89 @@
-document.addEventListener('DOMContentLoaded', () => {
+// Așteaptă ca întregul document HTML să fie încărcat
+document.addEventListener("DOMContentLoaded", () => {
 
-    // --- SMOOTH SCROLL FOR ALL ANCHOR LINKS ---
-    const navLinks = document.querySelectorAll('.main-nav a, .scroll-to-top, .logo-link');
+    const mainHeader = document.getElementById("mainHeader");
+    const goTopBtn = document.getElementById("goTopBtn");
+    const progressBar = document.getElementById("progressBar");
+    const homeSection = document.getElementById("home");
+
+    // --- 1. Logica pentru Progress Bar și Ascunderea Navigației ---
+    window.addEventListener("scroll", () => {
+        
+        // --- Progress Bar ---
+        const scrollTop = window.scrollY; // Cât de mult s-a derulat de sus
+        const docHeight = document.documentElement.scrollHeight; // Înălțimea totală a documentului
+        const winHeight = window.innerHeight; // Înălțimea ferestrei vizibile
+        
+        // Calculează procentajul de scroll
+        const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+        
+        // Aplică procentajul la lățimea barei de progres
+        progressBar.style.width = scrollPercent + "%";
+
+        
+        // --- Ascundere Navigație și Afișare Buton "Go Top" ---
+        
+        // Obține înălțimea secțiunii "home"
+        const homeHeight = homeSection.offsetHeight;
+
+        // Verifică dacă am trecut de secțiunea "home"
+        if (scrollTop > homeHeight * 0.9) { 
+            // Am trecut de "home"
+            mainHeader.classList.add("hidden"); // Ascunde navigația principală
+            goTopBtn.classList.add("visible"); // Afișează butonul "Go Top"
+        } else {
+            // Suntem încă în "home"
+            mainHeader.classList.remove("hidden"); // Arată navigația principală
+            goTopBtn.classList.remove("visible"); // Ascunde butonul "Go Top"
+        }
+    });
+
+    // --- 2. Logica pentru Smooth Scroll la click pe link-urile de navigație ---
+    const navLinks = document.querySelectorAll('a[href^="#"]'); // Selectează toate link-urile care încep cu #
 
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default anchor jump
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
+        link.addEventListener("click", function(e) {
+            e.preventDefault(); // Oprește comportamentul default (saltul brusc)
+
+            const targetId = this.getAttribute("href"); // Ia ID-ul țintei (ex: "#about")
+            const targetElement = document.querySelector(targetId); // Găsește elementul
+
             if (targetElement) {
+                // Derulează automat și lin până la element
                 targetElement.scrollIntoView({
-                    behavior: 'smooth'
+                    behavior: "smooth"
                 });
             }
         });
     });
 
-    // --- INTERSECTION OBSERVER FOR NAVIGATION AND SECTION TRACKING ---
-    const homeNav = document.querySelector('.main-nav');
-    const socialLinks = document.querySelector('.social-links');
-    const scrollManager = document.querySelector('.scroll-manager');
-    const currentSectionName = document.getElementById('current-section-name');
-    const currentSectionIcon = document.getElementById('current-section-icon');
-    
-    const sections = document.querySelectorAll('.fullscreen-section');
+    // --- 3. Logica pentru Fade-In la Scroll (Intersection Observer) ---
+    const fadeElements = document.querySelectorAll(".fade-in");
 
-    // Map icons to section names
-    const sectionIcons = {};
-    document.querySelectorAll('.main-nav a').forEach(a => {
-        const sectionName = a.getAttribute('data-section-name');
-        const iconSVG = a.querySelector('svg').cloneNode(true);
-        iconSVG.setAttribute('width', '16');
-        iconSVG.setAttribute('height', '16');
-        sectionIcons[sectionName] = iconSVG.outerHTML;
-    });
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.35 // reduc pragul de la 0.6 → 0.35
-    };
-
-    const sectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionId = entry.target.id;
-                const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
-                let sectionName = 'Home';
-                let sectionIconHTML = sectionIcons['Home'] || '';
-
-                if (navLink) {
-                    sectionName = navLink.getAttribute('data-section-name');
-                    sectionIconHTML = sectionIcons[sectionName];
+    // Verifică dacă browser-ul suportă IntersectionObserver
+    if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                // Dacă elementul este în viewport (vizibil)
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-visible");
+                    // Oprește observarea elementului odată ce a apărut
+                    observer.unobserve(entry.target); 
                 }
-
-                currentSectionName.textContent = sectionName;
-                currentSectionIcon.innerHTML = sectionIconHTML;
-
-                // Control visibility for home vs. others
-                if (sectionId === 'home') {
-                    homeNav.classList.remove('hidden');
-                    socialLinks.classList.remove('hidden');
-                    scrollManager.classList.remove('visible');
-                } else {
-                    homeNav.classList.add('hidden');
-                    socialLinks.classList.add('hidden');
-                    scrollManager.classList.add('visible');
-                }
-            }
+            });
+        }, {
+            threshold: 0.1 // Elementul e considerat vizibil când 10% din el apare
         });
-    }, observerOptions);
 
-    sections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+        // Aplică observer-ul pe fiecare element cu clasa ".fade-in"
+        fadeElements.forEach(el => {
+            observer.observe(el);
+        });
+    } else {
+        // Fallback pentru browsere vechi (pur și simplu le arată pe toate)
+        fadeElements.forEach(el => {
+            el.classList.add("is-visible");
+        });
+    }
 
-    // 🔥 FIX: Detectăm și manual când suntem foarte sus (scrollY < 150)
-    window.addEventListener('scroll', () => {
-        if (window.scrollY < 150) {
-            homeNav.classList.remove('hidden');
-            socialLinks.classList.remove('hidden');
-            scrollManager.classList.remove('visible');
-            currentSectionName.textContent = 'Home';
-            currentSectionIcon.innerHTML = sectionIcons['Home'] || '';
-        }
-    });
-});
-// --- SCROLL PROGRESS BAR ---
-const scrollProgress = document.getElementById('scroll-progress');
-
-window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.body.scrollHeight - window.innerHeight;
-    const progress = (scrollTop / docHeight) * 100;
-    scrollProgress.style.width = progress + '%';
-});
-// intro
-window.addEventListener("load", () => {
-  const loader = document.getElementById("pre-load");
-  const main = document.getElementById("main-content");
-
-  setTimeout(() => {
-    loader.classList.add("hide");
-    main.style.filter = "blur(0)";
-    main.style.opacity = "1";
-  }, 3000);
-});
-window.addEventListener("load", () => {
-  const loader = document.getElementById("pre-load");
-  const main = document.getElementById("main-content");
-  const fadeElements = document.querySelectorAll(".fade-in-element");
-
-  setTimeout(() => {
-    // ascunde loader
-    loader.classList.add("hide");
-    main.style.filter = "blur(0)";
-    main.style.opacity = "1";
-
-    // activează fade-in la toate elementele
-    fadeElements.forEach((el, i) => {
-      setTimeout(() => {
-        el.classList.add("visible");
-      }, i * 200); // decalaj mic între apariții (200ms)
-    });
-
-  }, 3000);
 });
