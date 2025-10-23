@@ -1,451 +1,148 @@
-/* --- FONT DEFINITIONS --- */
-/* You must have 'noverich.otf' and 'roboto.ttf' in 'assets/fonts/' */
-@font-face {
-    font-family: 'Noverich';
-    src: url('../assets/fonts/noverich.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/roboto.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-/* --- GLOBAL STYLES --- */
+/* --- Variabile Globale (ușor de modificat) --- */
 :root {
-    --color-black: #000000;
-    --color-silver: #c0c0c0;
-    --color-gray: #808080;
-    --color-light-gray: #eeeeee;
-    --color-white: #ffffff;
-    --font-title: 'Noverich', sans-serif;
-    --font-text: 'Roboto', sans-serif;
-    --glow-effect: 0 0 8px var(--color-white), 0 0 12px var(--color-white);
-    --chrome-gradient: linear-gradient(145deg, #e0e0e0, #a0a0a0, #e0e0e0);
-    --glass-bg: rgba(20, 20, 20, 0.3);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.15);
+    --bg-color: #0a192f; /* Un turcoaz-închis / navy, cum ai sugerat */
+    --primary-text: #e6f1ff; /* Alb-deschis pentru text */
+    --secondary-text: #a8b2d1; /* Gri-albăstrui pentru text secundar */
+    
+    --glow-color: #64ffda; /* O culoare neon pentru glow (poate fi schimbată) */
+    
+    /* Culori pentru efectul de sticlă */
+    --glass-bg: rgba(255, 255, 255, 0.05); /* Fundal foarte transparent */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.2);
+
+    /* Timpi tranziție */
+    --transition-fast: 0.2s ease-in-out;
+    --transition-slow: 0.5s ease;
+}
+
+/* --- Resetare și Setări de Bază --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-    /* Implements the "scroll magnet" */
-    scroll-snap-type: y proximity;
-    /* Implements "manual scroll navigation" */
-    scroll-behavior: smooth;
+    /* Esențial pentru scroll-behavior: smooth din JS */
+    scroll-behavior: smooth; 
 }
+
 body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    background-color: var(--color-black);
-    color: var(--color-light-gray);
-    font-family: var(--font-text);
-    overscroll-behavior: contain;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--primary-text);
+    overflow-x: hidden; /* Previne scroll-ul orizontal */
 }
 
-.fullscreen-section {
-    height: 100vh;
+/* --- Structura Secțiunilor --- */
+.full-section {
     width: 100vw;
-    position: relative;
-    overflow: hidden;
-    
-    scroll-snap-align: start;
-    scroll-snap-stop: always;
-    background-color: var(--color-black);
-}
-
-/* --- SECTION TITLES --- */
-.section-title {
-    font-family: var(--font-title);
-    font-size: 4rem;
-    font-weight: normal;
-    text-align: center;
-    color: var(--color-white);
-    text-shadow: var(--glow-effect);
-    padding-top: 5rem;
-    margin: 0;
-    letter-spacing: 2px;
-    transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-}
-
-.section-title:hover {
-    letter-spacing: 6px;
-    transform: scale(1.05);
-    text-shadow: 0 0 10px var(--color-white), 0 0 18px var(--color-white), 0 0 30px var(--color-silver);
-}
-
-/* --- GLASS CARD PLACEHOLDER --- */
-.glass-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: var(--glass-border);
-    border-radius: 15px;
-    padding: 2rem;
-    margin: 3rem auto;
-    max-width: 600px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    font-size: 1.1rem;
-    text-align: center;
-}
-
-/* --- FLOATING SCROLL MANAGER --- */
-.scroll-manager {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    z-index: 998;
-    
-    /* Initially hidden, fades in with JS */
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    pointer-events: none; /* Disables click until visible */
-}
-
-.scroll-manager.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto; /* Re-enables click */
-}
-
-.scroll-to-top {
+    height: 100vh; /* Fiecare secțiune ocupă tot ecranul */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 45px;
-    height: 45px;
+    position: relative;
+    overflow: hidden; /* Ascunde conținutul care depășește */
+    padding: 20px;
+}
+
+.section-content {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+}
+
+.section-title {
+    font-size: 3rem;
+    color: var(--primary-text);
+    margin-bottom: 2rem;
+}
+
+/* --- Clasa Utilitară "Glass Effect" --- */
+.glass-effect {
     background: var(--glass-bg);
-    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px var(--glass-shadow);
+    backdrop-filter: blur(10px); /* Efectul de sticlă/blur */
     -webkit-backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: 50%;
-    color: var(--color-white);
-    text-decoration: none;
-    transition: all 0.3s ease;
+    border: 1px solid var(--glass-border);
+    padding: 2rem;
 }
 
-.scroll-to-top svg {
-    width: 22px;
-    height: 22px;
-}
-
-.scroll-to-top:hover {
-    transform: scale(1.1) translateY(-3px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 15px var(--color-silver);
-}
-
-.current-section-display {
-    padding: 0.5rem 1rem;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: 20px;
-    color: var(--color-light-gray);
-    font-family: var(--font-text);
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.current-section-display #current-section-name {
-    font-weight: bold;
-    color: var(--color-white);
-}
-
-.current-section-display #current-section-icon {
-    display: flex;
-    align-items: center;
-    margin-top: -2px; /* Visual alignment */
-}
-
-/* --- MOBILE OPTIMIZATION --- */
-@media (max-width: 768px) {
-    body {
-        /* On mobile, snapping can be jarring. 
-           'proximity' is often smoother. 
-           Change back to 'mandatory' if you prefer it. */
-        scroll-snap-type: y proximity;
-    }
-    
-    .section-title {
-        font-size: 2.5rem;
-        padding-top: 4rem;
-    }
-
-    .glass-card {
-        margin: 2rem 1rem;
-        padding: 1.5rem;
-    }
-
-    .scroll-manager {
-        bottom: 1rem;
-        right: 1rem;
-        gap: 0.5rem;
-    }
-
-    .scroll-to-top {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .scroll-to-top svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .current-section-display {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.8rem;
-    }
-}
-/* test */
-/* --- MOBILE NAVIGATION --- */
-.mobile-menu-toggle {
-    display: none; /* Hidden on desktop */
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1001;
-    background: var(--color-glass-bg);
-    border: 1px solid var(--color-chrome-border);
-    color: var(--color-white-glow);
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-    border-radius: 50%;
-    cursor: pointer;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-toggle:hover {
-    background: var(--color-white-glow);
-    color: var(--color-bg-dark);
-    transform: scale(1.1);
-}
-
-.mobile-nav {
-    display: none; /* Hidden on desktop */
+/* --- Stiluri pentru Progress Bar --- */
+.progress-bar-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 4px; /* Înălțimea barei */
+    background-color: transparent; /* Fără fundal */
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0; /* Începe de la 0 */
+    background: linear-gradient(90deg, transparent, var(--glow-color));
+    
+    /* Efectul de glow la capăt */
+    box-shadow: 0 0 10px var(--glow-color), 
+                0 0 5px var(--glow-color);
+    
+    transition: width 0.1s linear; /* Tranziție cursivă */
+}
+
+/* --- Stiluri pentru Butonul "Go Top" --- */
+.go-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 50%;
     
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     
+    font-size: 1.2rem;
+    color: var(--primary-text);
+    text-decoration: none;
+    
+    /* Stare inițială: ascuns și transparent */
     opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
+    visibility: hidden;
+    transform: translateY(20px);
+    
+    transition: all var(--transition-fast);
+    z-index: 500;
 }
 
-.mobile-nav.active {
+/* Stare vizibilă (controlată de JS) */
+.go-top-btn.visible {
     opacity: 1;
-    pointer-events: all;
+    visibility: visible;
+    transform: translateY(0);
 }
 
-.mobile-menu-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: none;
-    color: var(--color-white-glow);
-    font-size: 2.5rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
+.go-top-btn:hover {
+    color: var(--glow-color);
+    box-shadow: 0 0 15px var(--glow-color);
 }
 
-.mobile-menu-close:hover {
-    transform: rotate(90deg);
+/* --- Efect de Fade-In (pentru Intersection Observer) --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s var(--transition-slow), transform 0.6s var(--transition-slow);
 }
 
-.mobile-nav ul {
-    list-style: none;
-    text-align: center;
-}
-
-.mobile-nav ul li {
-    margin: 20px 0;
-}
-
-.mobile-nav ul li a {
-    font-family: var(--font-title);
-    font-size: 2.5rem;
-    color: var(--color-white-glow);
-    text-decoration: none;
-    padding: 5px 10px;
-    transition: all 0.3s ease;
-}
-
-.mobile-nav ul li a:hover {
-    letter-spacing: 2px;
-    text-shadow: 0 0 15px var(--color-white-glow);
-}
-
-.mobile-socials {
-    margin-top: 40px;
-    display: flex;
-    gap: 30px;
-}
-
-.mobile-socials a {
-    font-size: 2rem;
-    color: var(--color-primary-text);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.mobile-socials a:hover {
-    color: var(--color-white-glow);
-    transform: scale(1.2);
-    text-shadow: 0 0 10px var(--color-white-glow);
-}
-
-/* --- RESPONSIVENESS (Mobile Optimization) --- */
-@media (max-width: 768px) {
-    /* Hide desktop navs */
-    .main-nav,
-    .social-nav {
-        display: none;
-    }
-    
-    /* Show mobile menu */
-    .mobile-menu-toggle,
-    .mobile-nav {
-        display: flex;
-    }
-    
-    /* Adjust section title size */
-    .section-title {
-        font-size: 2.2rem;
-        text-align: center;
-    }
-
-    /* Adjust scroll indicator position */
-    .scroll-indicator {
-        left: 50%;
-        bottom: 20px;
-        transform: translateX(-50%);
-        width: 90%;
-        justify-content: space-between;
-    }
-    
-    .scroll-indicator .current-section-status {
-        font-size: 0.8rem;
-        padding: 6px 12px;
-    }
-}
-/* Scroll Progress Bar — sleek monochrome style */
-#scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 2px; /* mai subțire, mai elegant */
-  width: 0%;
-  background: linear-gradient(90deg, #4d4d4d, #bfbfbf, #ffffff);
-  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.35);
-  border-radius: 0 1px 1px 0;
-  transition: width 0.08s ease-out;
-  z-index: 9999;
-  pointer-events: none;
-}
-#pre-load {
-  background: #000;
-  position: fixed;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999999;
-  transition: all 1s ease;
-}
-
-#pre-load.hide {
-  opacity: 0;
-  filter: blur(15px);
-  pointer-events: none;
-}
-
-#pre-load .loader-inner {
-  --loader-background: linear-gradient(0deg, rgba(50,50,50,.2) 0%, rgba(100,100,100,.2) 100%);
-  position: relative;
-  height: 250px;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#pre-load .loader-inner .loader-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: color-change 2s infinite ease-in-out;
-  z-index: 999;
-}
-
-#pre-load .loader-inner .loader-logo img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.5));
-}
-
-#pre-load .loader-inner .box {
-  position: absolute;
-  background: var(--loader-background);
-  border-radius: 50%;
-  border-top: 1px solid rgb(100,100,100);
-  box-shadow: rgba(0,0,0,.3) 0 10px 10px 0;
-  backdrop-filter: blur(5px);
-  animation: ripple 2s infinite ease-in-out;
-}
-
-#pre-load .loader-inner .box:nth-child(1) {
-  width: 25%;
-  aspect-ratio: 1/1;
-  z-index: 99;
-}
-
-#pre-load .loader-inner .box:nth-child(2) { inset: 30%; z-index: 98; animation-delay: .2s; }
-#pre-load .loader-inner .box:nth-child(3) { inset: 20%; z-index: 97; animation-delay: .4s; }
-#pre-load .loader-inner .box:nth-child(4) { inset: 10%; z-index: 96; animation-delay: .6s; }
-#pre-load .loader-inner .box:nth-child(5) { inset: 0;   z-index: 95; animation-delay: .8s; }
-
-@keyframes ripple {
-  0% { transform: scale(1); box-shadow: rgba(0,0,0,.3) 0 10px 10px 0; }
-  50% { transform: scale(1.3); box-shadow: rgba(0,0,0,.3) 0 30px 20px 0; }
-  100% { transform: scale(1); box-shadow: rgba(0,0,0,.3) 0 10px 10px 0; }
-}
-
-@keyframes color-change {
-  0% { opacity: .7; }
-  50% { opacity: 1; }
-  100% { opacity: .7; }
+.fade-in.is-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
