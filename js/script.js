@@ -87,3 +87,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+// --- SCROLL PROGRESS BAR ---
+const scrollProgress = document.getElementById('scroll-progress');
+
+window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const progress = (scrollTop / docHeight) * 100;
+    scrollProgress.style.width = progress + '%';
+});
