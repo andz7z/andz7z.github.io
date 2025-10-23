@@ -107,3 +107,23 @@ window.addEventListener("load", () => {
     main.style.opacity = "1";
   }, 3000);
 });
+window.addEventListener("load", () => {
+  const loader = document.getElementById("pre-load");
+  const main = document.getElementById("main-content");
+  const fadeElements = document.querySelectorAll(".fade-in-element");
+
+  setTimeout(() => {
+    // ascunde loader
+    loader.classList.add("hide");
+    main.style.filter = "blur(0)";
+    main.style.opacity = "1";
+
+    // activează fade-in la toate elementele
+    fadeElements.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add("visible");
+      }, i * 200); // decalaj mic între apariții (200ms)
+    });
+
+  }, 3000);
+});
