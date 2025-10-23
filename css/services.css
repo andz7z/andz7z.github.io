@@ -1,3 +1,21 @@
+:root {
+    /* Variabile pentru carusel */
+    --mzaPagH: 60px;
+    --mzaC-slideW: min(80vw, 800px);
+    --mzaCardH: 500px;
+    --mzaC-glass: rgba(255, 255, 255, 0.1);
+    --mzaC-accent: #9ef7d2;
+    --mzaC-accent2: #81c9ab;
+    --mzaC-fg: #ffffff;
+    --mzaC-glow: 0 0 20px rgba(158, 247, 210, 0.5);
+    
+    /* Variabile pentru paralaxă */
+    --mzaParX: 0px;
+    --mzaParY: 0px;
+    --mzaParBgX: 0px;
+    --mzaParBgY: 0px;
+}
+
 #services {
   position: relative;
   overflow: hidden;
