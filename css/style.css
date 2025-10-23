@@ -31,7 +31,7 @@
 
 html {
     /* Implements the "scroll magnet" */
-    scroll-snap-type: y mandatory;
+    scroll-snap-type: y proximity;
     /* Implements "manual scroll navigation" */
     scroll-behavior: smooth;
 }
@@ -42,7 +42,7 @@ body {
     background-color: var(--color-black);
     color: var(--color-light-gray);
     font-family: var(--font-text);
-
+    overscroll-behavior: contain;
     overflow-y: scroll;
     overflow-x: hidden;
 }
