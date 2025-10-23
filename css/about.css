@@ -1,11 +1,13 @@
-/* --- ABOUT SECTION STYLES --- */
-
+/* Stiluri pentru secțiunea About */
 #about {
-    /* Example: Give this section a subtle gradient */
-    background: radial-gradient(circle at 10% 10%, #111, #000 50%);
+    /* Poți adăuga un fundal diferit dacă dorești */
+    /* background-image: url('...'); */
 }
 
-#about .glass-card {
-    /* Specific styles for the about card */
-    border-color: rgba(192, 192, 192, 0.2); /* Silver border */
+#about .card {
+    /* Stiluri specifice pentru cardul din "About" */
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
