@@ -1,72 +1,94 @@
 document.addEventListener("DOMContentLoaded", function() {
 
-    const scrollContainer = document.querySelector('.scroll-container');
-    const progressBar = document.querySelector('.progress-bar');
-    
-    const homeHeader = document.querySelector('.home-header');
-    const pageHeader = document.querySelector('.page-header');
-    const currentSectionText = document.querySelector('.current-section-text');
-    const homeSection = document.getElementById('home');
+    const mainNav = document.querySelector('.main-nav');
+    const socialNav = document.querySelector('.social-nav');
     const scrollIndicator = document.querySelector('.scroll-indicator');
-    const allSections = document.querySelectorAll('section[data-section-name]');
-    const socials = document.querySelector('.socials');
+    const homeSection = document.querySelector('#home');
+    const sections = document.querySelectorAll('.section');
+    const currentSectionIcon = document.getElementById('current-section-icon');
 
-    // ===== 1. Scroll Progress Bar =====
-    scrollContainer.addEventListener('scroll', () => {
-        const scrollTop = scrollContainer.scrollTop;
-        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-        const progress = (scrollTop / scrollHeight) * 100;
+    // --- Mobile Menu Logic ---
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const menuClose = document.querySelector('.mobile-menu-close');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav ul li a');
+
+    if (menuToggle && mobileNav && menuClose) {
+        menuToggle.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+        });
+
+        menuClose.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+        });
         
-        progressBar.style.width = progress + '%';
-    });
+        // Close menu when a link is clicked
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNav.classList.remove('active');
+            });
+        });
+    }
 
-    // ===== 2. Header & UI Toggle (Intersection Observer) =====
+    // --- Intersection Observer for Scroll Transitions ---
+
+    // Observer 1: Handles fading the homepage navs and showing the scroll indicator
+    const homeObserverOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 // Triggers when 10% of the home section is out of view
+    };
+
     const homeObserver = new IntersectionObserver((entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting) {
-            // Suntem pe Home
-            homeHeader.classList.remove('hidden');
-            pageHeader.classList.add('hidden');
-            scrollIndicator.classList.remove('hidden');
-            socials.classList.remove('hidden');
-            footer.classList.remove('hidden');
-        } else {
-            // Nu suntem pe Home
-            homeHeader.classList.add('hidden');
-            pageHeader.classList.remove('hidden');
-            scrollIndicator.classList.add('hidden');
-            
-            // Cerința P.S: "toate iconitele, etc dispar cand dai scroll"
-            socials.classList.add('hidden');
-            footer.classList.add('hidden');
-        }
-    }, {
-        root: scrollContainer,
-        threshold: 0.5 // Se activează când 50% din Home e vizibil
-    });
-
-    homeObserver.observe(homeSection);
-
-    // ===== 3. "Currently On" Text Update =====
-    const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionId = entry.target.id;
-                if (sectionId) {
-                    const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
-                    if (navLink) {
-                        const iconClass = navLink.querySelector('i').className;
-                        currentSectionText.innerHTML = `Currently on: <i class="${iconClass}"></i>`;
-                    }
+            if (!entry.isIntersecting) {
+                // Home is NOT visible
+                if(mainNav) mainNav.style.opacity = '0';
+                if(socialNav) socialNav.style.opacity = '0';
+                if(scrollIndicator) {
+                    scrollIndicator.style.opacity = '1';
+                    scrollIndicator.style.pointerEvents = 'all';
+                }
+            } else {
+                // Home IS visible
+                if(mainNav) mainNav.style.opacity = '1';
+                if(socialNav) socialNav.style.opacity = '1';
+                if(scrollIndicator) {
+                    scrollIndicator.style.opacity = '0';
+                    scrollIndicator.style.pointerEvents = 'none';
                 }
             }
         });
-    }, {
-        root: scrollContainer,
-        threshold: 0.7 // Se activează când 70% dintr-o secțiune e vizibilă
+    }, homeObserverOptions);
+
+    if (homeSection) {
+        homeObserver.observe(homeSection);
+    }
+
+    // Observer 2: Handles updating the "Currently on: [icon]" text
+    const sectionObserverOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5 // Triggers when 50% of a section is visible
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const iconClass = entry.target.dataset.sectionIcon;
+                if (currentSectionIcon && iconClass) {
+                    // Update the icon
+                    currentSectionIcon.className = iconClass;
+                }
+            }
+        });
+    }, sectionObserverOptions);
+
+    sections.forEach(section => {
+        // Don't observe the home section for this
+        if (section.id !== 'home') {
+            sectionObserver.observe(section);
+        }
     });
-    
-    allSections.forEach(section => {
-        sectionObserver.observe(section);
-    });
+
 });
