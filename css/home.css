@@ -1,51 +1,222 @@
+/* Home Section */
 #home {
-    background: linear-gradient(135deg, var(--background));
     position: relative;
     overflow: hidden;
 }
 
-#home::before {
-    content: '';
+.background-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 30% 30%, rgba(0, 198, 255, 0.1), transparent 50%);
+    z-index: -1;
 }
 
-.home-content {
-    text-align: center;
-    z-index: 2;
-    position: relative;
-}
-
-.home-content h1 {
-    font-size: 4rem;
-    margin-bottom: 2rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.home-content .glass-card {
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-/* About section preview at bottom */
-#about {
-    position: relative;
-}
-
-#about::before {
-    content: '';
+.background-image {
     position: absolute;
-    top: -20%;
+    top: 0;
     left: 0;
     width: 100%;
-    height: 20%;
-    background: linear-gradient(to top, rgba(255,255,255,0.05), transparent);
+    height: 100%;
+    background-image: url('https://andz7z.github.io/assets/wallpaper/andz.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Navigation Icons */
+.nav-icons {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 40px;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-icon {
+    width: 40px;
+    height: 40px;
+    fill: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.nav-label {
+    margin-top: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover .nav-icon {
+    fill: #fff;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+    transform: scale(1.1);
+}
+
+.nav-item:hover .nav-label {
+    opacity: 1;
+}
+
+/* Social Icons */
+.social-icons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    opacity: 0;
+    animation: fadeIn 1s ease 1s forwards;
+}
+
+.social-icons.left {
+    left: 40px;
+}
+
+.social-icons.right {
+    right: 40px;
+}
+
+.line {
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.social-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.social-icon {
+    width: 20px;
+    height: 20px;
+    fill: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.social-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.social-item:hover .social-icon {
+    fill: #fff;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    animation: fadeIn 1s ease 1.5s forwards;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 30px;
+    fill: rgba(255, 255, 255, 0.7);
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+/* Ripple Effect */
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
     pointer-events: none;
+}
+
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+/* Pulse Effect */
+.pulse {
+    animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-icons {
+        gap: 20px;
+    }
+    
+    .nav-icon {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .social-icons.left,
+    .social-icons.right {
+        display: none;
+    }
 }
