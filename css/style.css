@@ -355,23 +355,17 @@ body {
         padding: 6px 12px;
     }
 }
+/* Scroll Progress Bar — sleek monochrome style */
 #scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
-  height: 4px;
+  height: 2px; /* mai subțire, mai elegant */
   width: 0%;
-  background: linear-gradient(90deg, #444, #aaa, #fff);
-  background-size: 200% 100%;
-  box-shadow: 0 0 10px rgba(255,255,255,0.6);
-  border-radius: 0 2px 2px 0;
-  transition: width 0.1s ease-out;
-  animation: metallicFlow 4s infinite linear;
+  background: linear-gradient(90deg, #4d4d4d, #bfbfbf, #ffffff);
+  box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.35);
+  border-radius: 0 1px 1px 0;
+  transition: width 0.08s ease-out;
   z-index: 9999;
   pointer-events: none;
-}
-
-@keyframes metallicFlow {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
 }
