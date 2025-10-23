@@ -1,94 +1,88 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', () => {
 
-    const mainNav = document.querySelector('.main-nav');
-    const socialNav = document.querySelector('.social-nav');
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    const homeSection = document.querySelector('#home');
-    const sections = document.querySelectorAll('.section');
-    const currentSectionIcon = document.getElementById('current-section-icon');
+    // --- SMOOTH SCROLL FOR ALL ANCHOR LINKS ---
+    const navLinks = document.querySelectorAll('.main-nav a, .scroll-to-top, .logo-link');
 
-    // --- Mobile Menu Logic ---
-    const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const menuClose = document.querySelector('.mobile-menu-close');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav ul li a');
-
-    if (menuToggle && mobileNav && menuClose) {
-        menuToggle.addEventListener('click', () => {
-            mobileNav.classList.add('active');
-        });
-
-        menuClose.addEventListener('click', () => {
-            mobileNav.classList.remove('active');
-        });
-        
-        // Close menu when a link is clicked
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileNav.classList.remove('active');
-            });
-        });
-    }
-
-    // --- Intersection Observer for Scroll Transitions ---
-
-    // Observer 1: Handles fading the homepage navs and showing the scroll indicator
-    const homeObserverOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1 // Triggers when 10% of the home section is out of view
-    };
-
-    const homeObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                // Home is NOT visible
-                if(mainNav) mainNav.style.opacity = '0';
-                if(socialNav) socialNav.style.opacity = '0';
-                if(scrollIndicator) {
-                    scrollIndicator.style.opacity = '1';
-                    scrollIndicator.style.pointerEvents = 'all';
-                }
-            } else {
-                // Home IS visible
-                if(mainNav) mainNav.style.opacity = '1';
-                if(socialNav) socialNav.style.opacity = '1';
-                if(scrollIndicator) {
-                    scrollIndicator.style.opacity = '0';
-                    scrollIndicator.style.pointerEvents = 'none';
-                }
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default anchor jump
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                // Use smooth scrolling
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
             }
         });
-    }, homeObserverOptions);
+    });
 
-    if (homeSection) {
-        homeObserver.observe(homeSection);
-    }
+    // --- INTERSECTION OBSERVER FOR NAVIGATION AND SECTION TRACKING ---
+    const homeNav = document.querySelector('.main-nav');
+    const socialLinks = document.querySelector('.social-links');
+    const scrollManager = document.querySelector('.scroll-manager');
+    const currentSectionName = document.getElementById('current-section-name');
+    const currentSectionIcon = document.getElementById('current-section-icon');
+    
+    // Select all sections to observe
+    const sections = document.querySelectorAll('.fullscreen-section');
+    
+    // Icons mapping for the "Currently on" display
+    // We get this from the 'data-section-name' on the nav links
+    const sectionIcons = {};
+    document.querySelectorAll('.main-nav a').forEach(a => {
+        const sectionName = a.getAttribute('data-section-name');
+        const iconSVG = a.querySelector('svg').cloneNode(true);
+        iconSVG.setAttribute('width', '16');
+        iconSVG.setAttribute('height', '16');
+        sectionIcons[sectionName] = iconSVG.outerHTML;
+    });
 
-    // Observer 2: Handles updating the "Currently on: [icon]" text
-    const sectionObserverOptions = {
-        root: null,
+    const observerOptions = {
+        root: null, // Observes intersections with the viewport
         rootMargin: '0px',
-        threshold: 0.5 // Triggers when 50% of a section is visible
+        threshold: 0.6 // 60% of the section must be visible
     };
 
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const iconClass = entry.target.dataset.sectionIcon;
-                if (currentSectionIcon && iconClass) {
-                    // Update the icon
-                    currentSectionIcon.className = iconClass;
+                const sectionId = entry.target.id;
+                
+                // Find the corresponding nav link to get the name and icon
+                const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
+                let sectionName = 'Home'; // Default
+                let sectionIconHTML = sectionIcons['Home']; // Default
+
+                if (navLink) {
+                    sectionName = navLink.getAttribute('data-section-name');
+                    sectionIconHTML = sectionIcons[sectionName];
+                }
+
+                // Update the "Currently on" display
+                currentSectionName.textContent = sectionName;
+                currentSectionIcon.innerHTML = sectionIconHTML;
+
+                // Handle fading of homepage elements
+                if (sectionId === 'home') {
+                    // We are on the homepage
+                    homeNav.classList.remove('hidden');
+                    socialLinks.classList.remove('hidden');
+                    scrollManager.classList.remove('visible');
+                } else {
+                    // We are NOT on the homepage
+                    homeNav.classList.add('hidden');
+                    socialLinks.classList.add('hidden');
+                    scrollManager.classList.add('visible');
                 }
             }
         });
-    }, sectionObserverOptions);
+    }, observerOptions);
 
+    // Observe all sections
     sections.forEach(section => {
-        // Don't observe the home section for this
-        if (section.id !== 'home') {
-            sectionObserver.observe(section);
-        }
+        sectionObserver.observe(section);
     });
 
 });
