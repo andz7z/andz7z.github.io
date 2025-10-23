@@ -1,216 +1,145 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Portfolio</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <title>Modern Chrome Design</title>
+    
     <link rel="stylesheet" href="css/style.css">
+    
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
 </head>
 <body>
 
-    <div class="progress-bar-container">
-        <div class="progress-bar"></div>
-    </div>
+    <section id="home" class="section" data-section-name="Home" data-section-icon="fa-solid fa-house">
+        <video class="video-background" autoplay muted loop playsinline>
+            <source src="assets/wallpaper/loop.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
 
-    <header class="home-header">
-        <div class="logo">ANDZ</div>
+        <div class="logo">
+            <img src="assets/logos/lotus.gif" alt="Logo">
+        </div>
+
         <nav class="main-nav">
-            <a href="#about" aria-label="Despre"><i class="fa-solid fa-user-astronaut"></i></a>
-            <a href="#services" aria-label="Servicii"><i class="fa-solid fa-layer-group"></i></a>
-            <a href="#portfolio" aria-label="Portofoliu"><i class="fa-solid fa-image"></i></a>
-            <a href="#reviews" aria-label="Reviews"><i class="fa-solid fa-star"></i></a>
-            <a href="#contact" aria-label="Contact"><i class="fa-solid fa-paper-plane"></i></a>
-
+            <ul>
+                <li><a href="#home" aria-label="Home"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
+                <li><a href="#about" aria-label="About"><i class="fa-solid fa-user"></i><span>About</span></a></li>
+                <li><a href="#services" aria-label="Services"><i class="fa-solid fa-briefcase"></i><span>Services</span></a></li>
+                <li><a href="#portfolio" aria-label="Portfolio"><i class="fa-solid fa-images"></i><span>Portfolio</span></a></li>
+                <li><a href="#reviews" aria-label="Reviews"><i class="fa-solid fa-star"></i><span>Reviews</span></a></li>
+                <li><a href="#contact" aria-label="Contact"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
+            </ul>
         </nav>
-    </header>
 
-    <header class="page-header hidden">
-        <span class="current-section-text"></span>
-        <a href="#home" class="go-back-btn" aria-label="Mergi la Acasă">
+        <nav class="social-nav">
+            <ul>
+                <li>
+                    <a href="#" aria-label="Twitter">
+                        <i class="fa-brands fa-x-twitter"></i>
+                        <span>Twitter</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" aria-label="LinkedIn">
+                        <i class="fa-brands fa-linkedin-in"></i>
+                        <span>LinkedIn</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="hero-text">
+            <h1>
+                <span>DESIGN. DEVELOP.</span>
+                <span>DELIVER.</span>
+            </h1>
+        </div>
+
+        <div class="scroll-down-arrow">
+            <span>Let's Start</span>
+            <a href="#about" aria-label="Scroll to About section">
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <section id="about" class="section" data-section-name="About" data-section-icon="fa-solid fa-user">
+        <h2 class="section-title">About</h2>
+        </section>
+
+    <section id="services" class="section" data-section-name="Services" data-section-icon="fa-solid fa-briefcase">
+        <h2 class="section-title">Services</h2>
+        </section>
+
+    <section id="portfolio" class="section" data-section-name="Portfolio" data-section-icon="fa-solid fa-images">
+        <h2 class="section-title">Portfolio</h2>
+        </section>
+
+    <section id="reviews" class="section" data-section-name="Reviews" data-section-icon="fa-solid fa-star">
+        <h2 class="section-title">Reviews</h2>
+        </section>
+
+    <section id="contact" class="section" data-section-name="Contact" data-section-icon="fa-solid fa-envelope">
+        <h2 class="section-title">Contact</h2>
+        </section>
+    
+    <div class="scroll-indicator">
+        <a href="#home" class="back-to-top" aria-label="Back to Top">
             <i class="fa-solid fa-arrow-up"></i>
         </a>
-    </header>
-
-    <div class="socials">
-        <div class="socials-line-top"></div>
-        <a href="https://github.com/lehadusandrei" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-        <a href="https://linkedin.com/in/lehadusandrei" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-        <a href="#" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <div class="socials-line-bottom"></div>
+        <span class="current-section-status">
+            Currently on: <i id="current-section-icon" class="fa-solid fa-user"></i>
+        </span>
     </div>
-
-    <main class="scroll-container">
-
-        <header>
-            <div class="logo fade-in">ANDZ</div>
-            <nav class="main-nav fade-in">
-                <a href="#about" class="delay-1">About</a>
-                <a href="#projects" class="delay-2">Projects</a>
-                <a href="#skills" class="delay-3">Skills</a>
-                <a href="#contact" class="delay-4">Contact</a>
-            </nav>
-        </header>
-        
-        <section id="home">
-            <div class="home-text">
-                <h1 class="word">DESIGN</h1>
-                <h1 class="word">DEVELOP</h1>
-                <h1 class="word">DELIVER</h1>
-            </div>
-            <div class="scroll-indicator">
-                <i class="fa-solid fa-chevron-down"></i>
-            </div>
-        </section>
-        
-        <section id="about" data-section-name="About">
-            <div class="section-content">
-                <h2>ABOUT ME</h2>
-                <p>Lehadus Andrei - Web Developer, Designer & Creator.</p>
-                </div>
-        </section>
-
-        <section id="services" data-section-name="Services">
-            <div class="section-content">
-                <h2>SERVICES</h2>
-                <div class="card-container">
-                    <div class="service-card">
-                        <h3>Web Development</h3>
-                        <p>Soluții full-stack moderne.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>UI/UX Design</h3>
-                        <p>Interfețe intuitive și metalice.</p>
-                    </div>
-                    <div class="service-card">
-                        <h3>Video/Photo Editing</h3>
-                        <p>Post-producție de înaltă calitate.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="portfolio" data-section-name="Portfolio">
-            <div class="section-content">
-                <h2>PORTFOLIO</h2>
-                </div>
-        </section>
-
-        <section id="reviews" data-section-name="Reviews">
-            <div class="section-content">
-                <h2>REVIEWS</h2>
-                </div>
-        </section>
-
-        <section id="contact" data-section-name="Contact">
-            <div class="section-content">
-                <h2>CONTACT</h2>
-                </div>
-        </section>
-
-    </main>
-
-    <!-- 🎨 Fundal animat pentru secțiunea Home -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <script>
-    let canvas;
-    const NUM_LINES = 40;
-    const NUM_POINTS = 120;
     
-    function setup() {
-        const homeSection = document.getElementById("home");
-        
-        // Crează canvas-ul cu dimensiuni adaptative
-        let canvasWidth = windowWidth;
-        let canvasHeight = windowHeight;
-        
-        canvas = createCanvas(canvasWidth, canvasHeight);
-        canvas.parent('home');
-        canvas.style('position', 'absolute');
-        canvas.style('top', '0');
-        canvas.style('left', '0');
-        canvas.style('z-index', '0');
-        
-        frameRate(30);
-        background(0);
-    }
-    
-    function windowResized() {
-        resizeCanvas(windowWidth, windowHeight);
-    }
-    
-    function draw() {
-        background(0, 25);
-        translate(width / 2, height / 2);
-    
-        noFill();
-        stroke(255, 10);
-        strokeWeight(1);
-    
-        const time = frameCount * 0.008;
-        const heightQuarter = height / 2.5;
-        
-        // Pre-calculează valorile comune
-        const pointPhases = [];
-        const yValues = [];
-        const envelopes = [];
-        const centerComplexities = [];
-        
-        for (let j = 0; j <= NUM_POINTS; j++) {
-            const pointPhase = j / NUM_POINTS;
-            pointPhases[j] = pointPhase;
-            yValues[j] = map(pointPhase, 0, 1, -heightQuarter, heightQuarter);
-            envelopes[j] = sin(pointPhase * PI);
-            centerComplexities[j] = pow(cos(pointPhase * PI - HALF_PI), 2) * 100;
-        }
-    
-        for (let i = 0; i < NUM_LINES; i++) {
-            const linePhase = (i / NUM_LINES) * TWO_PI;
-            
-            // Pre-calculează valorile dependente de linie
-            const wave1 = sin(time + linePhase) * 60;
-            const wave3Base = cos(linePhase * 4 - time);
-            
-            // Desenează partea stângă
-            beginShape();
-            for (let j = 0; j <= NUM_POINTS; j++) {
-                const wave2 = sin(pointPhases[j] * 8 + time * 2) * 40;
-                const wave3 = wave3Base * centerComplexities[j];
-                const x = envelopes[j] * (wave1 + wave2 + wave3 + 60);
-                vertex(-x, yValues[j]);
-            }
-            endShape();
-    
-            // Desenează partea dreaptă (simetrică)
-            beginShape();
-            for (let j = 0; j <= NUM_POINTS; j++) {
-                const wave2 = sin(pointPhases[j] * 8 + time * 2) * 40;
-                const wave3 = wave3Base * centerComplexities[j];
-                const x = envelopes[j] * (wave1 + wave2 + wave3 + 60);
-                vertex(x, yValues[j]);
-            }
-            endShape();
-        }
-    }
-    </script>
+    <button class="mobile-menu-toggle" aria-label="Open navigation menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
 
-    <!-- Scripturile tale locale -->
+    <nav class="mobile-nav">
+        <button class="mobile-menu-close" aria-label="Close navigation menu">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="mobile-socials">
+            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+    </nav>
+
+
     <script src="js/script.js"></script>
+    
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
     <script src="js/services.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/contact.js"></script>
+
 </body>
 </html>
-
