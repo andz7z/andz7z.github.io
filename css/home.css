@@ -430,7 +430,7 @@
 .fade-in-element {
     opacity: 0;
     filter: blur(15px);
-    transform: translateY(20px);
+    transform: translateY(0); /* <- nu mai deplasăm nimic inițial */
     transition: opacity 1s ease, filter 1s ease, transform 1s ease;
 }
 
