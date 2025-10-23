@@ -1,447 +1,166 @@
-#home {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-/* --- VIDEO BACKGROUND --- */
-.video-background {
-    position: absolute; /* nu mai e fixed */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    overflow: hidden;
-}
-
-.video-background video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* --- OVERLAY --- */
-#home .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: -1;
-}
-
-/* --- LOGO (TOP LEFT) --- */
-#logo {
-    width: 70px;
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.logo-link {
-    position: absolute;
-    top: 2rem;
-    left: 2.5rem;
-    z-index: 10;
-}
-
-.logo-link:hover #logo {
-    transform: scale(1.1);
-}
-
-/* --- MAIN NAVIGATION (TOP RIGHT) --- */
-.main-nav {
-    position: absolute;
-    top: 2rem;
-    right: 2.5rem;
-    z-index: 10;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: 50px;
-    padding: 0.5rem;
+/* --- Header și Navigație --- */
+.main-header {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%); /* Centrează header-ul */
     
-    /* Fade out transition */
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.main-nav.hidden {
-    opacity: 0;
-    transform: translateY(-20px);
-    pointer-events: none;
-}
-
-.main-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    width: 95%;
+    max-width: 1200px;
+    
     display: flex;
-    gap: 1rem;
-}
-
-.main-nav a {
-    display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    color: var(--color-light-gray);
-    text-decoration: none;
-    position: relative;
-    padding: 0.5rem;
-    transition: transform 0.3s ease;
-}
-
-.main-nav a svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--color-white);
-    transition: all 0.3s ease;
-}
-
-.main-nav a span {
-    font-size: 0.75rem;
-    font-weight: bold;
-    opacity: 0;
-    position: absolute;
-    top: 100%;
-    margin-top: 5px; /* Space below icon */
-    color: var(--color-white);
-    text-shadow: var(--glow-effect);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    transform: translateY(-5px);
-    white-space: nowrap;
-}
-
-.main-nav a:hover {
-    transform: scale(1.15); /* Zoom-in effect */
-}
-
-.main-nav a:hover svg {
-    stroke: var(--color-white);
-    filter: drop-shadow(var(--glow-effect));
-}
-
-.main-nav a:hover span {
-    opacity: 1; /* Show name */
-    transform: translateY(0);
-}
-
-/* --- CENTER TEXT (LEFT CENTER) --- */
-.center-text {
-    position: absolute;
-    top: 50%;
-    left: 4rem;
-    transform: translateY(-50%);
-    z-index: 5;
-}
-
-.center-text h1 {
-    font-family: var(--font-title);
-    font-size: 5rem;
-    font-weight: normal;
-    margin: 0;
-    line-height: 1.1;
-    color: var(--color-white);
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-}
-
-.center-text .letter {
-    display: inline-block; /* Allows transforms */
-    cursor: pointer;
-    transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-.center-text .letter:hover {
-    filter: blur(3px); /* Blur effect on hover */
-    opacity: 0.7;
-}
-/* Evaporation Animations */
-.letter.evaporating {
-    animation: evaporate 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-
-.letter.reappearing {
-    animation: reappear 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-}
-
-@keyframes evaporate {
-    0% {
-        opacity: 1;
-        transform: translateY(0) scale(1) rotate(0);
-        filter: blur(0);
-    }
-    100% {
-        opacity: 0;
-        transform: translateY(-100px) scale(0.5) rotate(20deg);
-        filter: blur(10px);
-    }
-}
-
-@keyframes reappear {
-    0% {
-        opacity: 0;
-        transform: translateY(100px) scale(0.5) rotate(-20deg);
-        filter: blur(10px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1) rotate(0);
-        filter: blur(0);
-    }
-}
-
-
-/* --- SOCIAL LINKS (RIGHT CENTER) --- */
-.social-links {
-    position: absolute;
-    top: 50%;
-    right: 2.5rem;
-    transform: translateY(-50%);
-    z-index: 10;
+    padding: 1rem 1.5rem;
+    
+    /* Aplicăm efectul de sticlă și pe header */
     background: var(--glass-bg);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px var(--glass-shadow);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    border-radius: 50px;
-    padding: 1rem 0.75rem;
-
-    /* Fade out transition */
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    border: 1px solid var(--glass-border);
+    
+    z-index: 900;
+    transition: opacity var(--transition-fast), visibility var(--transition-fast);
 }
 
-.social-links.hidden {
+/* Clasă adăugată de JS când se derulează */
+.main-header.hidden {
     opacity: 0;
-    transform: translateY(-20px);
-    pointer-events: none;
+    visibility: hidden;
 }
 
-.social-links ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* --- Logo --- */
+.logo-container {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-    position: relative; /* For gradient lines */
-}
-
-/* Gradient Lines */
-.social-links ul::before,
-.social-links ul::after {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px; /* Vertical line */
-    height: 1.5rem; /* Line length */
-    background: linear-gradient(var(--color-white), var(--color-gray), transparent);
-}
-
-.social-links ul::before {
-    top: -2.5rem; /* Position above first icon */
-}
-
-.social-links ul::after {
-    bottom: -2.5rem; /* Position below last icon */
-    background: linear-gradient(transparent, var(--color-gray), var(--color-white));
-}
-
-
-.social-links a {
-    display: inline-block;
-    position: relative;
-    color: var(--color-light-gray);
-    transition: transform 0.3s ease;
-}
-
-.social-links a svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--color-white);
-    transition: all 0.3s ease;
-}
-
-.social-links a span {
-    position: absolute;
-    top: 50%;
-    right: 150%; /* Position to the left */
-    transform: translateY(-50%) translateX(10px);
-    opacity: 0;
-    font-size: 0.8rem;
-    font-weight: bold;
-    color: var(--color-white);
-    text-shadow: var(--glow-effect);
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    white-space: nowrap; /* Keep name on one line */
-    padding: 0.2rem 0.5rem;
-    background: rgba(0,0,0,0.5);
-    border-radius: 5px;
-}
-
-.social-links a:hover {
-    transform: scale(1.2); /* Zoom-in effect */
-}
-
-.social-links a:hover svg {
-    filter: drop-shadow(var(--glow-effect));
-}
-
-.social-links a:hover span {
-    opacity: 1; /* Show name */
-    transform: translateY(-50%) translateX(0);
-}
-
-/* --- SCROLL DOWN ARROW (BOTTOM CENTER) --- */
-.scroll-down {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 5;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
-.scroll-down svg {
-    width: 30px;
-    height: 30px;
-    color: var(--color-white);
-    animation: pulseArrow 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+.logo {
+    height: 35px; /* Mărimea logo-ului */
+    width: auto;
 }
 
-.scroll-down span {
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-text);
+}
+
+/* --- Navigație (Iconițe) --- */
+.main-nav {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    color: var(--secondary-text); /* Culoare mai subtilă */
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative; /* Necesar pentru textul ascuns */
+    transition: all var(--transition-fast);
+}
+
+.nav-item i {
+    font-size: 1.2rem;
+    transition: all var(--transition-fast);
+}
+
+.nav-item .nav-text {
+    /* Textul este ascuns inițial */
+    visibility: hidden;
+    opacity: 0;
+    width: 0;
+    
     font-size: 0.9rem;
-    font-weight: bold;
-    color: var(--color-white);
-    text-shadow: var(--glow-effect);
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.4s ease;
-    margin-bottom: 0.5rem;
+    font-weight: 500;
+    white-space: nowrap; /* Împiedică textul să se rupă pe rând nou */
+    
+    /* Tranziție pentru efectul de intrare */
+    transition: all var(--transition-fast);
+    transform: translateX(-10px);
 }
 
-.scroll-down:hover span {
-    opacity: 1; /* Show on hover */
-    animation: pulseText 2s infinite;
+/* --- Efectul de Hover pe Navigație --- */
+.nav-item:hover {
+    color: var(--primary-text); /* Culoare activă */
+    background: rgba(255, 255, 255, 0.1);
+    
+    /* Glow-ul subtil cerut */
+    box-shadow: 0 0 10px var(--glow-color); 
 }
 
-@keyframes pulseArrow {
-    0%, 100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    50% {
-        opacity: 0.7;
-        transform: translateY(8px);
-    }
+.nav-item:hover i {
+    color: var(--glow-color); /* Iconița devine colorată */
 }
 
-@keyframes pulseText {
-    0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-    50% {
-        opacity: 0.8;
-        transform: scale(1.05);
-    }
+/* Afișarea textului la hover */
+.nav-item:hover .nav-text {
+    visibility: visible;
+    opacity: 1;
+    width: auto; /* Permite textului să ocupe spațiu */
+    margin-left: 8px; /* Spațiu între iconiță și text */
+    transform: translateX(0);
 }
 
-/* --- MOBILE OPTIMIZATION (HOME) --- */
-@media (max-width: 768px) {
-    .logo-link {
-        top: 1rem;
-        left: 1rem;
-    }
-    #logo {
-        width: 50px;
-    }
 
-    .main-nav {
-        top: 1rem;
-        right: 1rem;
-        padding: 0.25rem;
-    }
-    .main-nav ul {
-        gap: 0.25rem;
-    }
-    .main-nav a {
-        padding: 0.4rem;
-    }
-    .main-nav a svg {
-        width: 20px;
-        height: 20px;
-    }
-    /* Hide text labels on mobile nav hover to save space */
-    .main-nav a:hover span {
-        opacity: 0;
-    }
-
-    .center-text {
-        left: 1.5rem;
-        right: 1.5rem; /* Ensure it doesn't overflow */
-    }
-    .center-text h1 {
-        font-size: 3rem; /* Smaller font */
-    }
-
-    .social-links {
-        right: 1rem;
-        padding: 0.75rem 0.5rem;
-    }
-    .social-links ul {
-        gap: 1rem;
-    }
-    .social-links a svg {
-        width: 20px;
-        height: 20px;
-    }
-    /* Hide text labels on mobile social hover */
-    .social-links a:hover span {
-        opacity: 0;
-    }
-    /* Hide gradient lines on mobile */
-    .social-links ul::before,
-    .social-links ul::after {
-        display: none;
-    }
-
-    .scroll-down {
-        bottom: 1.5rem;
-    }
-    .scroll-down svg {
-        width: 24px;
-        height: 24px;
-    }
-    .scroll-down span {
-        font-size: 0.8rem;
-    }
+/* --- Stiluri specifice secțiunii HOME --- */
+#home .home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Împinge cardul de preview în jos */
+    align-items: center;
+    height: calc(100vh - 140px); /* Ajustează înălțimea (header + padding) */
+    text-align: center;
+    padding-top: 100px; /* Spațiu sub header */
 }
 
-@media (max-width: 480px) {
-    .center-text h1 {
-        font-size: 2.2rem;
-    }
-}
-/* === Fade-in Effect (fără deplasare) === */
-.fade-in-element {
-  opacity: 0;
-  filter: blur(15px);
-  transform: translateY(0); /* nu deplasăm deloc */
-  transition: opacity 1s ease, filter 1s ease, transform 1s ease;
+#home h1 {
+    font-size: 3.5rem;
 }
 
-/* Când elementul devine vizibil */
-.fade-in-element.visible {
-  opacity: 1;
-  filter: blur(0);
-  transform: translateY(0);
+#home p {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
 }
-#home {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+/* Cardul de preview "About" */
+.about-preview-card {
+    width: 80%;
+    max-width: 700px;
+    text-align: left;
+    margin-bottom: 2rem; /* Îl ridică puțin de la bază */
+}
+
+.about-preview-card h2 {
+    font-size: 1.5rem;
+    color: var(--primary-text);
+}
+
+.about-preview-card p {
+    font-size: 1rem;
+    color: var(--secondary-text);
+    margin-top: 0.5rem;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 10px 20px;
+    border: 1px solid var(--glow-color);
+    color: var(--glow-color);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--transition-fast);
+}
+
+.cta-button:hover {
+    background-color: rgba(100, 255, 218, 0.1);
+    box-shadow: 0 0 10px var(--glow-color);
 }
