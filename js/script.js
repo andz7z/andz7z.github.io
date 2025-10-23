@@ -96,3 +96,8 @@ window.addEventListener('scroll', () => {
     const progress = (scrollTop / docHeight) * 100;
     scrollProgress.style.width = progress + '%';
 });
+document.querySelectorAll("[overlap-text]").forEach(el => {
+    el.innerHTML = [...el.innerText]
+        .map((c, i) => `<span style="--i:${i}">${c}</span>`)
+        .join("");
+});
