@@ -1,3 +1,6 @@
-/* Portfolio Section Styles */
+/* --- PORTFOLIO SECTION STYLES --- */
+
 #portfolio {
+    /* Example: Give this section a different subtle gradient */
+    background: radial-gradient(circle at 90% 90%, #1a1a1a, #000 50%);
 }
