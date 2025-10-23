@@ -157,31 +157,6 @@
     filter: blur(3px); /* Blur effect on hover */
     opacity: 0.7;
 }
-[overlap-text] {
-    text-transform: uppercase;
-    letter-spacing: -0.25ch;
-    text-shadow: 1px 1px 0.25ch black;
-    display: flex; 
-}
-
-[overlap-text] > span { 
-    z-index: calc(var(--m, 1) * var(--i, 1)); 
-    min-width: 0.25ch; 
-}
-
-[overlap-text][overlap-text="front"] { --m: 1; }
-[overlap-text][overlap-text="back"] { --m: -1; }
-[overlap-text][overlap-text="alter"] > span:nth-child(even) { --m: -1; }
-
-/* Ajustează pentru tema ta */
-[overlap-text] {
-    color: var(--color-white);
-    font-family: var(--font-title);
-    font-size: 5rem;
-    line-height: 1.1;
-    text-shadow: 0 0 12px rgba(255,255,255,0.6);
-}
-
 /* Evaporation Animations */
 .letter.evaporating {
     animation: evaporate 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
