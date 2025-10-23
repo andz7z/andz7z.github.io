@@ -1,4 +1,3 @@
-/* --- HOMEPAGE SECTION --- */
 #home {
     position: relative;
     width: 100%;
@@ -8,44 +7,30 @@
 
 /* --- VIDEO BACKGROUND --- */
 .video-background {
-    position: fixed; /* sau absolute dacă vrei doar în interiorul secțiunii */
+    position: absolute; /* nu mai e fixed */
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     z-index: -2;
-    background: url('https://andz7z.github.io/assets/wallpaper/loop.mp4') center center / cover no-repeat;
-    background-color: #000;
+    overflow: hidden;
 }
 
-/* Video fixat și animat cu <video> real */
-.video-background::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: #000;
-    opacity: 0.3; /* fallback dacă video-ul nu se încarcă */
-}
-
-/* --- Pentru versiunea VIDEO reală --- */
 .video-background video {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* --- OVERLAY (efect de umbră peste video) --- */
+/* --- OVERLAY --- */
 #home .overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    z-index: -1; /* video este dedesubt, overlay peste el */
+    z-index: -1;
 }
 
 /* --- LOGO (TOP LEFT) --- */
