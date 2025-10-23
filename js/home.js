@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- NAVIGATION + SOCIAL ICONS VISIBILITY ON SCROLL ---
     const nav = document.querySelector('.main-nav');
-    const socials = document.querySelector('.social-nav');
+    const socials = document.querySelector('.social-links');
 
     function updateVisibility() {
         const scrollPosition = window.scrollY;
