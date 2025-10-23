@@ -1,7 +1,13 @@
-// Fișier pentru script-uri specifice secțiunii "Home".
-// Poți adăuga aici logica pentru animații complexe, etc.
+// Placeholder for section-specific functionality
+// You can add specific interactions for each section here
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Codul tău specific pentru "Home" vine aici
-    // console.log("Pagina Home s-a încărcat.");
+class AboutSection {
+    constructor() {
+        console.log('About section loaded');
+        // Add specific about section functionality here
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new AboutSection();
 });
