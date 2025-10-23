@@ -1,6 +1,13 @@
-/* --- PORTFOLIO SECTION STYLES --- */
-
+/* Stiluri pentru secțiunea About */
 #portfolio {
-    /* Example: Give this section a different subtle gradient */
-    background: radial-gradient(circle at 90% 90%, #1a1a1a, #000 50%);
+    /* Poți adăuga un fundal diferit dacă dorești */
+    /* background-image: url('...'); */
+}
+
+#portfolio .card {
+    /* Stiluri specifice pentru cardul din "About" */
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
