@@ -427,15 +427,17 @@
     }
 }
 /* --- FADE-IN APPEAR ANIMATION (AFTER INTRO) --- */
+/* === Fade-in Effect (fără deplasare) === */
 .fade-in-element {
-    opacity: 0;
-    filter: blur(15px);
-    transform: translateY(0); /* <- nu mai deplasăm nimic inițial */
-    transition: opacity 1s ease, filter 1s ease, transform 1s ease;
+  opacity: 0;
+  filter: blur(15px);
+  transform: translateY(0); /* nu deplasăm deloc */
+  transition: opacity 1s ease, filter 1s ease, transform 1s ease;
 }
 
+/* Când elementul devine vizibil */
 .fade-in-element.visible {
-    opacity: 1;
-    filter: blur(0);
-    transform: translateY(0);
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
 }
