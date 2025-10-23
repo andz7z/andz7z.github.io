@@ -29,10 +29,15 @@
     --glass-border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-html {
-    /* Facem HTML-ul containerul principal de scroll */
+/* Adaugă un container wrapper */
+.scroll-container {
+    height: 100vh;
     scroll-snap-type: y mandatory;
-    overflow-y: scroll; 
+    overflow-y: scroll;
+}
+
+html {
+    overflow: hidden; /* Prevenește scroll-ul dublu */
 }
 
 body {
@@ -41,21 +46,17 @@ body {
     background-color: var(--color-black);
     color: var(--color-light-gray);
     font-family: var(--font-text);
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
-/* --- SECTION STYLING --- */
 .fullscreen-section {
     height: 100vh;
     width: 100vw;
     position: relative;
-    overflow: hidden; /* Hide content that overflows */
+    overflow: hidden;
     
-    /* Scroll Magnet Snap Point */
     scroll-snap-align: start;
-    scroll-snap-stop: always; /* Force snap */
-
-    /* Default black background for all sections except home */
+    scroll-snap-stop: always;
     background-color: var(--color-black);
 }
 
