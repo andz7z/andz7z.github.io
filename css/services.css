@@ -337,3 +337,12 @@
     display: none;
   }
 }
+.mzaCard::before {
+  z-index: 0;
+  opacity: 1;
+  visibility: visible;
+}
+.mzaCard * {
+  position: relative;
+  z-index: 1;
+}
