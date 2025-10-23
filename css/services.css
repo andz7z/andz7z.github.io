@@ -1,5 +1,5 @@
 #services {
-    height: 150vh; /* face secțiunea 1.5x înălțimea ecranului */
+    height: 200vh; /* face secțiunea 1.5x înălțimea ecranului */
 }
 :root {
     /* Variabile pentru carusel - tema alb/negru/gri/oțel */
@@ -555,4 +555,111 @@
     padding: 10px 20px;
     font-size: 12px;
   }
+}
+
+#mzParallax {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: white;
+  font-family: var(--font-text);
+}
+
+#mzParallax .sectionWrapper {
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mzParallax figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#mzParallax h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff, #bbb, #666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  line-height: 1.1;
+  margin: 0;
+  pointer-events: none;
+}
+
+#mzParallax figcaption {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+#mzParallax svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+#mzParallax {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: white;
+  font-family: var(--font-text);
+}
+
+#mzParallax .sectionWrapper {
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mzParallax figure {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+#mzParallax h1 {
+  font-family: var(--font-title);
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff, #bbb, #666);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+  line-height: 1.1;
+  margin: 0;
+  pointer-events: none;
+}
+
+#mzParallax figcaption {
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  opacity: 0.8;
+  line-height: 1.6;
+}
+
+#mzParallax svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
 }
