@@ -3,126 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Portofoliu Personal</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <title>ANDZ Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
-
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-bar"></div>
 
-    <div class="progress-bar-container">
-        <div class="progress-bar" id="progressBar"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-left">
+            <img src="https://andz7z.github.io/assets/logos/lotus.gif" alt="Logo" class="logo">
+            <span class="brand">ANDZ</span>
+        </div>
+        <div class="nav-right">
+            <div class="nav-item" data-section="about">
+                <i class='bx bx-user'></i>
+                <span class="nav-text">About Us</span>
+            </div>
+            <div class="nav-item" data-section="services">
+                <i class='bx bx-cog'></i>
+                <span class="nav-text">Services</span>
+            </div>
+            <div class="nav-item" data-section="portfolio">
+                <i class='bx bx-briefcase'></i>
+                <span class="nav-text">Portfolio</span>
+            </div>
+            <div class="nav-item" data-section="reviews">
+                <i class='bx bx-star'></i>
+                <span class="nav-text">Reviews</span>
+            </div>
+            <div class="nav-item" data-section="contact">
+                <i class='bx bx-envelope'></i>
+                <span class="nav-text">Contact</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top">
+        <i class='bx bx-chevron-up'></i>
     </div>
 
-    <header class="main-header" id="mainHeader">
-        <div class="logo-container">
-            <img src="https://andz7z.github.io/assets/logos/lotus.gif" alt="Logo" class="logo">
-            <span class="logo-text">ANDZ</span>
+    <!-- Sections -->
+    <section id="home" class="section active">
+        <div class="home-content">
+            <h1 class="fade-in">Welcome to My Portfolio</h1>
+            <div class="glass-card fade-in-delay">
+                <h2>Creative Developer</h2>
+                <p>Building amazing digital experiences</p>
+            </div>
         </div>
-        <nav class="main-nav" id="mainNav">
-            <a href="#home" class="nav-item" aria-label="Acasă">
-                <i class="fa-solid fa-house"></i>
-                <span class="nav-text">Home</span>
-            </a>
-            <a href="#about" class="nav-item" aria-label="Despre noi">
-                <i class="fa-solid fa-user"></i>
-                <span class="nav-text">About Us</span>
-            </a>
-            <a href="#services" class="nav-item" aria-label="Servicii">
-                <i class="fa-solid fa-briefcase"></i>
-                <span class="nav-text">Services</span>
-            </a>
-            <a href="#portfolio" class="nav-item" aria-label="Portofoliu">
-                <i class="fa-solid fa-layer-group"></i>
-                <span class="nav-text">Portfolio</span>
-            </a>
-            <a href="#reviews" class="nav-item" aria-label="Recenzii">
-                <i class="fa-solid fa-star"></i>
-                <span class="nav-text">Reviews</span>
-            </a>
-            <a href="#contact" class="nav-item" aria-label="Contact">
-                <i class="fa-solid fa-envelope"></i>
-                <span class="nav-text">Contact</span>
-            </a>
-        </nav>
-    </header>
+    </section>
 
-    <a href="#home" class="go-top-btn" id="goTopBtn" aria-label="Mergi sus">
-        <i class="fa-solid fa-arrow-up"></i>
-    </a>
-
-    <main>
-
-        <section id="home" class="full-section">
-            <div class="section-content home-content">
-                <h1 class="fade-in">Portofoliul Meu Personal</h1>
-                <p class="fade-in">Bun venit pe pagina mea. Aici poți vedea proiectele mele.</p>
-                
-                <div class="about-preview-card glass-effect fade-in">
-                    <h2>About our team</h2>
-                    <p>Click pentru a afla mai multe despre mine și abilitățile mele.</p>
-                    <a href="#about" class="cta-button">Vezi mai mult</a>
-                </div>
+    <section id="about" class="section">
+        <div class="section-content">
+            <h1 class="section-title fade-in">About Us</h1>
+            <div class="glass-card fade-in-delay">
+                <p>About section content will go here</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="about" class="full-section">
-            <div class="section-content">
-                <h2 class="section-title fade-in">About Us</h2>
-                <div class="card glass-effect fade-in">
-                    <p>Acesta este un card demonstrativ pentru secțiunea "About Us".</p>
-                </div>
+    <section id="services" class="section">
+        <div class="section-content">
+            <h1 class="section-title fade-in">Services</h1>
+            <div class="glass-card fade-in-delay">
+                <p>Services section content will go here</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="services" class="full-section">
-            <div class="section-content">
-                <h2 class="section-title fade-in">Services</h2>
-                <div class="card glass-effect fade-in">
-                    <p>Acesta este un card demonstrativ pentru secțiunea "Services".</p>
-                </div>
+    <section id="portfolio" class="section">
+        <div class="section-content">
+            <h1 class="section-title fade-in">Portfolio</h1>
+            <div class="glass-card fade-in-delay">
+                <p>Portfolio section content will go here</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="portfolio" class="full-section">
-            <div class="section-content">
-                <h2 class="section-title fade-in">Portfolio</h2>
-                <div class="card glass-effect fade-in">
-                    <p>Acesta este un card demonstrativ pentru secțiunea "Portfolio".</p>
-                </div>
+    <section id="reviews" class="section">
+        <div class="section-content">
+            <h1 class="section-title fade-in">Reviews</h1>
+            <div class="glass-card fade-in-delay">
+                <p>Reviews section content will go here</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="reviews" class="full-section">
-            <div class="section-content">
-                <h2 class="section-title fade-in">Reviews</h2>
-                <div class="card glass-effect fade-in">
-                    <p>Acesta este un card demonstrativ pentru secțiunea "Reviews".</p>
-                </div>
+    <section id="contact" class="section">
+        <div class="section-content">
+            <h1 class="section-title fade-in">Contact</h1>
+            <div class="glass-card fade-in-delay">
+                <p>Contact section content will go here</p>
             </div>
-        </section>
-
-        <section id="contact" class="full-section">
-            <div class="section-content">
-                <h2 class="section-title fade-in">Contact</h2>
-                <div class="card glass-effect fade-in">
-                    <p>Acesta este un card demonstrativ pentru secțiunea "Contact".</p>
-                </div>
-            </div>
-        </section>
-
-    </main>
+        </div>
+    </section>
 
     <script src="js/script.js"></script>
-
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
     <script src="js/services.js"></script>
