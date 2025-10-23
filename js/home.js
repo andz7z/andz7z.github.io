@@ -1,104 +1,64 @@
-// Home section specific functionality
+/*
+ * HOME.JS
+ * * Logică specifică secțiunii #home:
+ * - Efect de Parallax la mișcarea mouse-ului
+ * - Efecte de Click (Pulse/Ripple) pe iconițe
+ */
 
-function initHome() {
-    console.log('Home section initialized');
+document.addEventListener('DOMContentLoaded', () => {
     
-    initNavIcons();
-    initSocialIcons();
-    initMouseEffects();
-}
+    const homeSection = document.querySelector('#home');
+    const homeBackground = document.querySelector('.home-background');
+    const navIcons = document.querySelectorAll('.nav-icon');
+    const socialIcons = document.querySelectorAll('.socials-container a');
 
-// Navigation Icons
-function initNavIcons() {
-    const navItems = document.querySelectorAll('.nav-item');
-    
-    navItems.forEach(item => {
-        // Ripple effect
-        item.addEventListener('click', function(e) {
-            createRipple(e, this);
-            
-            // Pulse effect
-            this.classList.add('pulse');
-            setTimeout(() => {
-                this.classList.remove('pulse');
-            }, 500);
-            
-            // Navigate to section
-            const target = this.getAttribute('data-target');
-            const targetSection = document.getElementById(target);
-            
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth'
-                });
+    // 1. ======== MOUSE PARALLAX EFFECT ========
+    if (homeBackground) {
+        homeSection.addEventListener('mousemove', (e) => {
+            // Verificăm dacă nu suntem pe mobil (unde mousemove poate fi problematic)
+            if (window.innerWidth > 1024) {
+                const { clientX, clientY } = e;
+                const { offsetWidth, offsetHeight } = homeSection;
+                
+                // Calculăm poziția mouse-ului față de centrul ecranului (-1 to 1)
+                const x = (clientX / offsetWidth - 0.5) * 2; // -1 (stânga) la 1 (dreapta)
+                const y = (clientY / offsetHeight - 0.5) * 2; // -1 (sus) la 1 (jos)
+
+                // Definim intensitatea mișcării (foarte subtil)
+                const moveIntensity = 1.5; // în procente
+
+                // Aplicăm transformarea pe fundal
+                // (Fundalul e deja la -5% top/left și 110% width/height)
+                const newX = -5 - (x * moveIntensity);
+                const newY = -5 - (y * moveIntensity);
+                
+                homeBackground.style.transform = `translate(${newX}%, ${newY}%)`;
             }
         });
-    });
-}
+    }
 
-// Social Icons
-function initSocialIcons() {
-    const socialItems = document.querySelectorAll('.social-item');
-    
-    socialItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            createRipple(e, this);
+
+    // 2. ======== CLICK PULSE EFFECT (Nav Icons) ========
+    navIcons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            // Adăugăm clasa 'pulse'
+            icon.classList.add('pulse');
             
-            // Pulse effect
-            this.classList.add('pulse');
+            // Eliminăm clasa după terminarea animației
             setTimeout(() => {
-                this.classList.remove('pulse');
-            }, 500);
+                icon.classList.remove('pulse');
+            }, 600); // Durata animației 'pulse-white-icon'
         });
     });
-}
 
-// Ripple Effect Creator
-function createRipple(event, element) {
-    const circle = document.createElement('span');
-    const diameter = Math.max(element.clientWidth, element.clientHeight);
-    const radius = diameter / 2;
-    
-    const rect = element.getBoundingClientRect();
-    circle.style.width = circle.style.height = `${diameter}px`;
-    circle.style.left = `${event.clientX - rect.left - radius}px`;
-    circle.style.top = `${event.clientY - rect.top - radius}px`;
-    circle.classList.add('ripple');
-    
-    // Remove existing ripples
-    const ripple = element.getElementsByClassName('ripple')[0];
-    if (ripple) {
-        ripple.remove();
-    }
-    
-    element.appendChild(circle);
-    
-    // Remove ripple after animation
-    setTimeout(() => {
-        circle.remove();
-    }, 600);
-}
-
-// Mouse Effects
-function initMouseEffects() {
-    const homeSection = document.getElementById('home');
-    
-    homeSection.addEventListener('mousemove', function(e) {
-        const { clientX, clientY } = e;
-        const { width, height } = homeSection.getBoundingClientRect();
-        
-        const xPos = (clientX / width - 0.5) * 10;
-        const yPos = (clientY / height - 0.5) * 10;
-        
-        // Subtle parallax effect on background
-        const bgImage = document.querySelector('.background-image');
-        bgImage.style.transform = `translate(${xPos * 0.5}px, ${yPos * 0.5}px)`;
-        
-        // Subtle movement on navigation icons
-        const navIcons = document.querySelector('.nav-icons');
-        navIcons.style.transform = `translate(calc(-50% + ${xPos * 0.2}px), calc(-50% + ${yPos * 0.2}px))`;
+    // 3. ======== CLICK PULSE EFFECT (Social Icons) ========
+    socialIcons.forEach(icon => {
+        icon.addEventListener('click', (e) => {
+            icon.classList.add('pulse');
+            setTimeout(() => {
+                icon.classList.remove('pulse');
+            }, 500); // Durata animației 'pulse-white'
+        });
     });
-}
 
-// Export for global access
-window.initHome = initHome;
+});
