@@ -1,3 +1,6 @@
+#services {
+    height: 150vh; /* face secțiunea 1.5x înălțimea ecranului */
+}
 :root {
     /* Variabile pentru carusel - tema alb/negru/gri/oțel */
     --mzaPagH: 60px;
