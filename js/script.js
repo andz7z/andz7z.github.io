@@ -1,112 +1,115 @@
-// Main script file - Initializes all components and event listeners
+/*
+ * SCRIPT.JS
+ * * Logică Globală:
+ * - Preloader
+ * - Navigare Smooth Scroll
+ * - Logică Scroll (Fade navigație home, show/hide Scroll-to-top)
+ * - Animații Secțiuni (IntersectionObserver)
+ * - Meniu Mobil (Toggle)
+ */
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Portfolio website initialized');
-    
-    // Initialize all modules
-    initPreloader();
-    initScrollToTop();
-    initMobileMenu();
-    initSectionObserver();
-    
-    // Initialize section-specific scripts
-    if (typeof initHome !== 'undefined') initHome();
-    if (typeof initAbout !== 'undefined') initAbout();
-    if (typeof initServices !== 'undefined') initServices();
-    if (typeof initPortfolio !== 'undefined') initPortfolio();
-    if (typeof initReviews !== 'undefined') initReviews();
-    if (typeof initContact !== 'undefined') initContact();
-});
+document.addEventListener('DOMContentLoaded', () => {
 
-// Preloader
-function initPreloader() {
-    const preloader = document.getElementById('preloader');
-    
-    // Hide preloader when page is fully loaded
-    window.addEventListener('load', function() {
-        setTimeout(function() {
-            preloader.classList.add('fade-out');
-        }, 1000);
+    const preloader = document.querySelector('.preloader');
+    const homeNav = document.querySelector('.home-nav');
+    const scrollTopBtn = document.querySelector('#scrollTopBtn');
+    const sections = document.querySelectorAll('.section');
+    const burgerMenu = document.querySelector('.burger-menu');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    const closeMenuBtn = document.querySelector('.close-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+
+    // 1. ======== PRELOADER ========
+    // Folosim 'load' pentru a aștepta încărcarea tuturor resurselor (imagini)
+    window.addEventListener('load', () => {
+        preloader.classList.add('fade-out');
+        // Eliminăm preloader-ul din DOM după terminarea tranziției
+        preloader.addEventListener('transitionend', () => {
+            preloader.remove();
+        });
     });
-}
 
-// Scroll to Top Button
-function initScrollToTop() {
-    const scrollBtn = document.getElementById('scrollToTop');
-    
-    // Show/hide button based on scroll position
-    window.addEventListener('scroll', function() {
-        if (window.pageYOffset > 300) {
-            scrollBtn.classList.add('show');
+    // 2. ======== LOGICĂ SCROLL ========
+    let homeHeight = document.querySelector('#home').offsetHeight;
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.scrollY;
+
+        // A. Fade-out navigație Home
+        if (homeNav) { // Verificăm dacă navigația home există (pt. mobil)
+            if (scrollTop > homeHeight * 0.5) {
+                homeNav.classList.add('hidden');
+            } else {
+                homeNav.classList.remove('hidden');
+            }
+        }
+
+        // B. Show/Hide Scroll-to-Top Button
+        if (scrollTop > homeHeight * 0.8) {
+            scrollTopBtn.classList.add('visible');
         } else {
-            scrollBtn.classList.remove('show');
+            scrollTopBtn.classList.remove('visible');
         }
     });
-    
-    // Scroll to top when clicked
-    scrollBtn.addEventListener('click', function() {
+
+    // 3. ======== SCROLL-TO-TOP BUTTON CLICK ========
+    scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
-}
 
-// Mobile Menu
-function initMobileMenu() {
-    const burgerMenu = document.querySelector('.burger-menu');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const closeMenu = document.querySelector('.close-menu');
-    
-    // Open mobile menu
-    burgerMenu.addEventListener('click', function() {
-        mobileNav.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
-    
-    // Close mobile menu
-    closeMenu.addEventListener('click', function() {
-        mobileNav.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    });
-    
-    // Close menu when clicking outside
-    mobileNav.addEventListener('click', function(e) {
-        if (e.target === mobileNav) {
-            mobileNav.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
-    
-    // Close menu when clicking on a link
-    const navLinks = mobileNav.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileNav.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        });
-    });
-}
-
-// Section Observer for animations
-function initSectionObserver() {
-    const sections = document.querySelectorAll('.section');
-    
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.3
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
+    // 4. ======== ANIMAȚII SECȚIUNI (IntersectionObserver) ========
+    const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+                entry.target.classList.add('is-visible');
+                // Odată animat, nu mai observăm
+                sectionObserver.unobserve(entry.target);
             }
         });
-    }, observerOptions);
-    
-    sections.forEach(section => {
-        observer.observe(section);
+    }, {
+        root: null, // Viewport
+        threshold: 0.2 // 20% vizibil
     });
-}
+
+    // Observăm toate secțiunile, cu excepția #home
+    sections.forEach(section => {
+        if (section.id !== 'home') {
+            sectionObserver.observe(section);
+        }
+    });
+
+    // 5. ======== MENIU MOBIL (TOGGLE) ========
+    const toggleMenu = () => {
+        burgerMenu.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        // Prevenim scroll-ul pe body când meniul e deschis
+        document.body.style.overflow = mobileMenuOverlay.classList.contains('active') ? 'hidden' : 'auto';
+    };
+
+    burgerMenu.addEventListener('click', toggleMenu);
+    closeMenuBtn.addEventListener('click', toggleMenu);
+
+    // Închide meniul la click pe un link
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', toggleMenu);
+    });
+
+    // 6. ======== SMOOTH SCROLL PENTRU TOATE LINK-URILE ANCORĂ ========
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+});
