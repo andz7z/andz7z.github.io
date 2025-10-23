@@ -1,3 +1,6 @@
-/* Contact Section Styles */
+/* --- CONTACT SECTION STYLES --- */
+
 #contact {
+    /* Example: Give this section a different subtle gradient */
+    background: radial-gradient(circle at 90% 10%, #111, #000 50%);
 }
