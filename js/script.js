@@ -1,89 +1,114 @@
-// Așteaptă ca întregul document HTML să fie încărcat
-document.addEventListener("DOMContentLoaded", () => {
-
-    const mainHeader = document.getElementById("mainHeader");
-    const goTopBtn = document.getElementById("goTopBtn");
-    const progressBar = document.getElementById("progressBar");
-    const homeSection = document.getElementById("home");
-
-    // --- 1. Logica pentru Progress Bar și Ascunderea Navigației ---
-    window.addEventListener("scroll", () => {
+class PortfolioApp {
+    constructor() {
+        this.sections = document.querySelectorAll('.section');
+        this.navItems = document.querySelectorAll('.nav-item');
+        this.backToTop = document.querySelector('.back-to-top');
+        this.progressBar = document.querySelector('.progress-bar');
+        this.navbar = document.querySelector('.navbar');
         
-        // --- Progress Bar ---
-        const scrollTop = window.scrollY; // Cât de mult s-a derulat de sus
-        const docHeight = document.documentElement.scrollHeight; // Înălțimea totală a documentului
-        const winHeight = window.innerHeight; // Înălțimea ferestrei vizibile
-        
-        // Calculează procentajul de scroll
-        const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
-        
-        // Aplică procentajul la lățimea barei de progres
-        progressBar.style.width = scrollPercent + "%";
+        this.init();
+    }
 
-        
-        // --- Ascundere Navigație și Afișare Buton "Go Top" ---
-        
-        // Obține înălțimea secțiunii "home"
-        const homeHeight = homeSection.offsetHeight;
+    init() {
+        this.setupEventListeners();
+        this.setupScrollAnimations();
+        this.updateProgressBar();
+        this.checkSectionVisibility();
+    }
 
-        // Verifică dacă am trecut de secțiunea "home"
-        if (scrollTop > homeHeight * 0.9) { 
-            // Am trecut de "home"
-            mainHeader.classList.add("hidden"); // Ascunde navigația principală
-            goTopBtn.classList.add("visible"); // Afișează butonul "Go Top"
-        } else {
-            // Suntem încă în "home"
-            mainHeader.classList.remove("hidden"); // Arată navigația principală
-            goTopBtn.classList.remove("visible"); // Ascunde butonul "Go Top"
-        }
-    });
-
-    // --- 2. Logica pentru Smooth Scroll la click pe link-urile de navigație ---
-    const navLinks = document.querySelectorAll('a[href^="#"]'); // Selectează toate link-urile care încep cu #
-
-    navLinks.forEach(link => {
-        link.addEventListener("click", function(e) {
-            e.preventDefault(); // Oprește comportamentul default (saltul brusc)
-
-            const targetId = this.getAttribute("href"); // Ia ID-ul țintei (ex: "#about")
-            const targetElement = document.querySelector(targetId); // Găsește elementul
-
-            if (targetElement) {
-                // Derulează automat și lin până la element
-                targetElement.scrollIntoView({
-                    behavior: "smooth"
-                });
-            }
-        });
-    });
-
-    // --- 3. Logica pentru Fade-In la Scroll (Intersection Observer) ---
-    const fadeElements = document.querySelectorAll(".fade-in");
-
-    // Verifică dacă browser-ul suportă IntersectionObserver
-    if ("IntersectionObserver" in window) {
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                // Dacă elementul este în viewport (vizibil)
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
-                    // Oprește observarea elementului odată ce a apărut
-                    observer.unobserve(entry.target); 
-                }
+    setupEventListeners() {
+        // Navigation clicks
+        this.navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                this.scrollToSection(sectionId);
             });
-        }, {
-            threshold: 0.1 // Elementul e considerat vizibil când 10% din el apare
         });
 
-        // Aplică observer-ul pe fiecare element cu clasa ".fade-in"
-        fadeElements.forEach(el => {
-            observer.observe(el);
+        // Back to top
+        this.backToTop.addEventListener('click', () => {
+            this.scrollToSection('home');
         });
-    } else {
-        // Fallback pentru browsere vechi (pur și simplu le arată pe toate)
-        fadeElements.forEach(el => {
-            el.classList.add("is-visible");
+
+        // Scroll events
+        window.addEventListener('scroll', () => {
+            this.updateProgressBar();
+            this.checkSectionVisibility();
+            this.toggleBackToTop();
+            this.handleNavbarVisibility();
         });
     }
 
+    setupScrollAnimations() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fadeElements = entry.target.querySelectorAll('.fade-in, .fade-in-delay');
+                    fadeElements.forEach(el => el.classList.add('visible'));
+                }
+            });
+        }, observerOptions);
+
+        this.sections.forEach(section => {
+            observer.observe(section);
+        });
+    }
+
+    scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }
+
+    updateProgressBar() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
+        
+        this.progressBar.style.width = `${progress}%`;
+    }
+
+    checkSectionVisibility() {
+        const homeSection = document.getElementById('home');
+        const homeRect = homeSection.getBoundingClientRect();
+        
+        if (homeRect.bottom > window.innerHeight * 0.8) {
+            document.body.classList.add('on-home');
+        } else {
+            document.body.classList.remove('on-home');
+        }
+    }
+
+    toggleBackToTop() {
+        if (window.pageYOffset > window.innerHeight * 0.5) {
+            this.backToTop.classList.add('visible');
+        } else {
+            this.backToTop.classList.remove('visible');
+        }
+    }
+
+    handleNavbarVisibility() {
+        if (window.pageYOffset > 100) {
+            this.navbar.style.background = 'rgba(255, 255, 255, 0.1)';
+            this.navbar.style.backdropFilter = 'blur(10px)';
+        } else {
+            this.navbar.style.background = 'transparent';
+            this.navbar.style.backdropFilter = 'none';
+        }
+    }
+}
+
+// Initialize the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new PortfolioApp();
 });
