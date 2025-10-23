@@ -3,143 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Chrome Design</title>
-    
+    <title>Chrome & Glass | Monochrome Design</title>
     <link rel="stylesheet" href="css/style.css">
-    
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
 </head>
 <body>
-
-    <section id="home" class="section" data-section-name="Home" data-section-icon="fa-solid fa-house">
-        <video class="video-background" autoplay muted loop playsinline>
+    <!-- Background Video (Homepage Only) -->
+    <div id="bg-video-container">
+        <video autoplay muted loop id="bg-video">
             <source src="assets/wallpaper/loop.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
-        <div class="video-overlay"></div>
-
-        <div class="logo">
-            <img src="assets/logos/lotus.gif" alt="Logo">
-        </div>
-
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#home" aria-label="Home"><i class="fa-solid fa-house"></i><span>Home</span></a></li>
-                <li><a href="#about" aria-label="About"><i class="fa-solid fa-user"></i><span>About</span></a></li>
-                <li><a href="#services" aria-label="Services"><i class="fa-solid fa-briefcase"></i><span>Services</span></a></li>
-                <li><a href="#portfolio" aria-label="Portfolio"><i class="fa-solid fa-images"></i><span>Portfolio</span></a></li>
-                <li><a href="#reviews" aria-label="Reviews"><i class="fa-solid fa-star"></i><span>Reviews</span></a></li>
-                <li><a href="#contact" aria-label="Contact"><i class="fa-solid fa-envelope"></i><span>Contact</span></a></li>
-            </ul>
-        </nav>
-
-        <nav class="social-nav">
-            <ul>
-                <li>
-                    <a href="#" aria-label="Twitter">
-                        <i class="fa-brands fa-x-twitter"></i>
-                        <span>Twitter</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" aria-label="Instagram">
-                        <i class="fa-brands fa-instagram"></i>
-                        <span>Instagram</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" aria-label="LinkedIn">
-                        <i class="fa-brands fa-linkedin-in"></i>
-                        <span>LinkedIn</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="hero-text">
-            <h1>
-                <span>DESIGN. DEVELOP.</span>
-                <span>DELIVER.</span>
-            </h1>
-        </div>
-
-        <div class="scroll-down-arrow">
-            <span>Let's Start</span>
-            <a href="#about" aria-label="Scroll to About section">
-                <i class="fa-solid fa-arrow-down"></i>
-            </a>
-        </div>
-    </section>
-
-    <section id="about" class="section" data-section-name="About" data-section-icon="fa-solid fa-user">
-        <h2 class="section-title">About</h2>
-        </section>
-
-    <section id="services" class="section" data-section-name="Services" data-section-icon="fa-solid fa-briefcase">
-        <h2 class="section-title">Services</h2>
-        </section>
-
-    <section id="portfolio" class="section" data-section-name="Portfolio" data-section-icon="fa-solid fa-images">
-        <h2 class="section-title">Portfolio</h2>
-        </section>
-
-    <section id="reviews" class="section" data-section-name="Reviews" data-section-icon="fa-solid fa-star">
-        <h2 class="section-title">Reviews</h2>
-        </section>
-
-    <section id="contact" class="section" data-section-name="Contact" data-section-icon="fa-solid fa-envelope">
-        <h2 class="section-title">Contact</h2>
-        </section>
-    
-    <div class="scroll-indicator">
-        <a href="#home" class="back-to-top" aria-label="Back to Top">
-            <i class="fa-solid fa-arrow-up"></i>
-        </a>
-        <span class="current-section-status">
-            Currently on: <i id="current-section-icon" class="fa-solid fa-user"></i>
-        </span>
     </div>
-    
-    <button class="mobile-menu-toggle" aria-label="Open navigation menu">
-        <i class="fa-solid fa-bars"></i>
-    </button>
 
-    <nav class="mobile-nav">
-        <button class="mobile-menu-close" aria-label="Close navigation menu">
-            <i class="fa-solid fa-times"></i>
-        </button>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <div class="mobile-socials">
-            <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-            <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+    <!-- Scroll Navigation Indicator -->
+    <div id="scroll-nav">
+        <div id="scroll-arrow">↑</div>
+        <div id="current-section">HOME</div>
+    </div>
+
+    <!-- Logo -->
+    <div id="logo">
+        <img src="assets/logos/lotus.gif" alt="Logo">
+    </div>
+
+    <!-- Main Navigation -->
+    <nav id="main-nav">
+        <div class="nav-icon" data-section="home">
+            <span class="icon">⌂</span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-icon" data-section="about">
+            <span class="icon">👤</span>
+            <span class="nav-label">About</span>
+        </div>
+        <div class="nav-icon" data-section="services">
+            <span class="icon">⚙️</span>
+            <span class="nav-label">Services</span>
+        </div>
+        <div class="nav-icon" data-section="portfolio">
+            <span class="icon">📁</span>
+            <span class="nav-label">Portfolio</span>
+        </div>
+        <div class="nav-icon" data-section="reviews">
+            <span class="icon">⭐</span>
+            <span class="nav-label">Reviews</span>
+        </div>
+        <div class="nav-icon" data-section="contact">
+            <span class="icon">✉️</span>
+            <span class="nav-label">Contact</span>
         </div>
     </nav>
 
+    <!-- Social Media Icons -->
+    <div id="social-icons">
+        <div class="social-line"></div>
+        <div class="social-icon" data-platform="facebook">
+            <span class="social-label">Facebook</span>
+            <span class="social-symbol">f</span>
+        </div>
+        <div class="social-line"></div>
+        <div class="social-icon" data-platform="twitter">
+            <span class="social-label">Twitter</span>
+            <span class="social-symbol">t</span>
+        </div>
+        <div class="social-line"></div>
+        <div class="social-icon" data-platform="instagram">
+            <span class="social-label">Instagram</span>
+            <span class="social-symbol">ig</span>
+        </div>
+        <div class="social-line"></div>
+        <div class="social-icon" data-platform="linkedin">
+            <span class="social-label">LinkedIn</span>
+            <span class="social-symbol">in</span>
+        </div>
+        <div class="social-line"></div>
+    </div>
 
-    <script src="js/script.js"></script>
-    
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
+    <!-- Sections -->
+    <main id="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="home-content">
+                <div id="main-text">
+                    <span class="text-line">DESIGN. DEVELOP.</span>
+                    <span class="text-line">DELIVER.</span>
+                </div>
+            </div>
+            <div id="scroll-down">
+                <span id="scroll-text">Let's Start</span>
+                <div id="scroll-arrow-down">↓</div>
+            </div>
+        </section>
 
+        <!-- About Section -->
+        <section id="about" class="section">
+            <h2 class="section-title">About</h2>
+            <div class="section-content">
+                <!-- Content will be added later -->
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section">
+            <h2 class="section-title">Services</h2>
+            <div class="section-content">
+                <!-- Content will be added later -->
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section">
+            <h2 class="section-title">Portfolio</h2>
+            <div class="section-content">
+                <!-- Content will be added later -->
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section id="reviews" class="section">
+            <h2 class="section-title">Reviews</h2>
+            <div class="section-content">
+                <!-- Content will be added later -->
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <h2 class="section-title">Contact</h2>
+            <div class="section-content">
+                <!-- Content will be added later -->
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript Files -->
+    <script src="script.js"></script>
+    <script src="home.js"></script>
+    <script src="about.js"></script>
+    <script src="services.js"></script>
+    <script src="portfolio.js"></script>
+    <script src="reviews.js"></script>
+    <script src="contact.js"></script>
 </body>
 </html>
