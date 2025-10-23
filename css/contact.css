@@ -1,6 +1,13 @@
-/* --- CONTACT SECTION STYLES --- */
-
+/* Stiluri pentru secțiunea About */
 #contact {
-    /* Example: Give this section a different subtle gradient */
-    background: radial-gradient(circle at 90% 10%, #111, #000 50%);
+    /* Poți adăuga un fundal diferit dacă dorești */
+    /* background-image: url('...'); */
+}
+
+#contact .card {
+    /* Stiluri specifice pentru cardul din "About" */
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
