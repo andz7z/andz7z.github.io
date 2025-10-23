@@ -30,8 +30,9 @@
 }
 
 html {
-    /* Enables smooth scrolling for anchor links */
-    scroll-behavior: smooth;
+    /* Facem HTML-ul containerul principal de scroll */
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll; 
 }
 
 body {
