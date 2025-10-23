@@ -29,24 +29,23 @@
     --glass-border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
-/* Adaugă un container wrapper */
-.scroll-container {
-    height: 100vh;
-    scroll-snap-type: y mandatory;
-    overflow-y: scroll;
-}
-
 html {
-    overflow: hidden; /* Prevenește scroll-ul dublu */
+    height: 100%;
 }
 
 body {
     margin: 0;
     padding: 0;
+    height: 100%;
     background-color: var(--color-black);
     color: var(--color-light-gray);
     font-family: var(--font-text);
     overflow-x: hidden;
+    
+    /* MUTĂ scroll-snap-type AICI */
+    scroll-snap-type: y mandatory;
+    -webkit-scroll-snap-type: y mandatory; /* Pentru Safari */
+    overflow-y: scroll;
 }
 
 .fullscreen-section {
@@ -55,7 +54,9 @@ body {
     position: relative;
     overflow: hidden;
     
+    /* PĂSTREAZĂ snap properties pe secțiuni */
     scroll-snap-align: start;
+    -webkit-scroll-snap-align: start; /* Pentru Safari */
     scroll-snap-stop: always;
     background-color: var(--color-black);
 }
