@@ -1,13 +1,3 @@
-/* Stiluri pentru secțiunea About */
 #portfolio {
-    /* Poți adăuga un fundal diferit dacă dorești */
-    /* background-image: url('...'); */
-}
-
-#portfolio .card {
-    /* Stiluri specifice pentru cardul din "About" */
-    min-height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: linear-gradient(135deg, #1a2a3a, #2c5364);
 }
