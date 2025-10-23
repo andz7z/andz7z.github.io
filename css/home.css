@@ -1,265 +1,328 @@
-/* ===== HOME SECTION ===== */
+/* --- HOMEPAGE VIDEO BACKGROUND --- */
 #home {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Canvas-ul p5.js rămâne fix în fundal */
-#home canvas {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  width: 100% !important;
-  height: 100% !important;
-  z-index: 0; /* fundal */
+.video-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2;
+    object-fit: cover;
 }
 
-/* ===== TEXT PRINCIPAL (Stânga Centru) ===== */
-.home-text {
-  position: absolute;
-  top: 50%;
-  left: 5%;
-  transform: translateY(-50%);
-  z-index: 10; /* peste canvas */
-  color: #fff;
-  pointer-events: auto;
-  width: 90%;
-  max-width: 600px;
+/* Monochrome, dark overlay for the video */
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    z-index: -1;
+    filter: grayscale(100%);
 }
 
-.home-text .word {
-    font-size: clamp(2.5rem, 10vw, 6rem);
-    font-weight: 900;
-    line-height: 1.05;
-    text-transform: uppercase;
+/* --- LOGO (Top Left) --- */
+.logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    z-index: 100;
+}
+
+.logo img {
+    width: 90px;
+    height: auto;
+    opacity: 0.8;
+}
+
+/* --- TOP RIGHT NAVIGATION --- */
+.main-nav {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 100;
+    /* JS will fade this out */
+    transition: opacity 0.5s ease;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.main-nav li {
+    position: relative;
+}
+
+.main-nav li a {
+    font-size: 1.5rem; /* Icon size */
+    color: var(--color-primary-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
     display: block;
+    padding: 10px;
+}
+
+.main-nav li span {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-white-glow);
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.main-nav li a:hover {
+    transform: scale(1.15);
+    color: var(--color-white-glow);
+    text-shadow: 0 0 10px var(--color-white-glow), 0 0 20px var(--color-white-glow);
+}
+
+.main-nav li a:hover + span {
+    opacity: 1;
+    bottom: -20px;
+}
+
+/* --- RIGHT CENTER SOCIALS --- */
+.social-nav {
+    position: absolute;
+    top: 50%;
+    right: 40px;
+    transform: translateY(-50%);
+    z-index: 100;
+    /* JS will fade this out */
+    transition: opacity 0.5s ease;
+}
+
+.social-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.social-nav li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* The monochrome | line */
+.social-nav li::before,
+.social-nav li::after {
+    content: '|';
+    font-family: var(--font-body);
+    color: #555;
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 100;
+}
+
+.social-nav li::before {
+    top: -20px;
+}
+
+.social-nav li::after {
+    bottom: -20px;
+}
+
+.social-nav li a {
+    font-size: 1.3rem; /* Icon size */
+    color: var(--color-primary-text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: block;
+    padding: 5px;
     position: relative;
     z-index: 2;
-    cursor: default;
-    
-    /* Efect 3D/Metal subtil */
-    color: var(--color-chrome-light);
-    text-shadow: 
-        0px 1px 0px #999,
-        0px 2px 0px #888,
-        0px 3px 0px #777,
-        0px 4px 0px #666,
-        0px 5px 10px rgba(0,0,0,0.6);
-    word-break: break-word;
-    
-    /* Animație inițială */
-    opacity: 0;
-    transform: translateX(-50px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
-.home-text .word.visible {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Delay-uri pentru cuvinte */
-.home-text .word:nth-child(1) { transition-delay: 0.3s; }
-.home-text .word:nth-child(2) { transition-delay: 0.6s; }
-.home-text .word:nth-child(3) { transition-delay: 0.9s; }
-
-/* ===== EFECT FUM ÎMBUNĂTĂȚIT (mai cursiv și fresh) ===== */
-.home-text .word::before {
-    content: '';
+.social-nav li span {
     position: absolute;
-    left: -8%;
-    top: 0;
-    width: 116%;
-    height: 120%;
-    background: 
-        radial-gradient(ellipse at 20% 50%, 
-            rgba(120, 220, 255, 0.15) 0%, 
-            rgba(180, 180, 255, 0.1) 20%, 
-            rgba(255, 200, 255, 0.08) 40%,
-            transparent 70%);
-    filter: blur(25px);
-    z-index: 1;
+    right: 35px; /* To the left of the icon */
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    color: var(--color-white-glow);
+    white-space: nowrap;
     opacity: 0;
-    transform: scale(0.8) rotate(-2deg);
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.3s ease;
     pointer-events: none;
-    mix-blend-mode: screen;
+    z-index: 1;
 }
 
-.home-text .word::after {
-    content: '';
+.social-nav li a:hover {
+    transform: scale(1.2);
+    color: var(--color-white-glow);
+    text-shadow: 0 0 10px var(--color-white-glow);
+}
+
+.social-nav li a:hover + span {
+    opacity: 1;
+    right: 40px;
+}
+
+/* --- LEFT CENTER TEXT --- */
+.hero-text {
     position: absolute;
-    right: -8%;
-    top: 10%;
-    width: 116%;
-    height: 110%;
-    background: 
-        radial-gradient(ellipse at 80% 50%, 
-            rgba(255, 220, 120, 0.12) 0%, 
-            rgba(255, 180, 180, 0.08) 20%, 
-            rgba(220, 220, 255, 0.06) 40%,
-            transparent 70%);
-    filter: blur(20px);
-    z-index: 1;
-    opacity: 0;
-    transform: scale(0.8) rotate(2deg);
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    pointer-events: none;
-    mix-blend-mode: screen;
+    top: 50%;
+    left: 40px;
+    transform: translateY(-50%);
+    z-index: 90;
 }
 
-/* Hover pe cuvânt - fum mai cursiv și dinamic */
-.home-text .word:hover::before {
-    opacity: 1;
-    transform: scale(1.1) rotate(-3deg) translateX(-10px);
-    animation: smoke-flow-left 3s ease-in-out infinite;
+.hero-text h1 {
+    font-family: var(--font-title);
+    font-size: 4.5rem;
+    color: var(--color-white-glow);
+    line-height: 1.1;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    transition: all 0.5s ease;
 }
 
-.home-text .word:hover::after {
-    opacity: 1;
-    transform: scale(1.05) rotate(3deg) translateX(10px);
-    animation: smoke-flow-right 3s ease-in-out infinite 0.5s;
+.hero-text h1 span {
+    display: block;
 }
 
-/* Animații de curgere a fumului */
-@keyframes smoke-flow-left {
-    0%, 100% { 
-        transform: scale(1.1) rotate(-3deg) translateX(-10px);
-        opacity: 0.8;
-    }
-    50% { 
-        transform: scale(1.15) rotate(-4deg) translateX(-15px);
-        opacity: 1;
-    }
-}
-
-@keyframes smoke-flow-right {
-    0%, 100% { 
-        transform: scale(1.05) rotate(3deg) translateX(10px);
-        opacity: 0.7;
-    }
-    50% { 
-        transform: scale(1.1) rotate(4deg) translateX(15px);
-        opacity: 0.9;
-    }
-}
-
-/* ===== EFECT LITERE INDIVIDUALE (îmbunătățit) ===== */
-.home-text .char {
-    display: inline-block;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    position: relative;
-    z-index: 3;
+.hero-text h1:hover {
     cursor: pointer;
-    transform-origin: center bottom;
+    /* Blur/fade effect on hover */
+    filter: blur(4px);
+    opacity: 0.7;
 }
 
-/* Hover pe literă - efect mai smooth și cursiv */
-.home-text .char:hover {
-    transform: 
-        translateY(-6px) 
-        scale(1.15) 
-        rotateX(10deg) 
-        skewX(-2deg);
-    filter: 
-        blur(1px) 
-        saturate(1.1) 
-        brightness(1.2)
-        drop-shadow(0 5px 15px rgba(255, 255, 255, 0.4));
-    color: rgba(255, 255, 255, 0.95);
-    z-index: 4;
+/* Evaporation animation */
+.hero-text h1.evaporate {
+    animation: evaporate 1s ease-out forwards;
 }
 
-/* Efect de dispersie la click */
-.home-text .char.smoked {
+@keyframes evaporate {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-80px) scale(1.3);
+        filter: blur(10px);
+    }
+}
+
+/* --- CENTER BOTTOM ARROW --- */
+.scroll-down-arrow {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    text-align: center;
+}
+
+.scroll-down-arrow span {
+    display: block;
+    color: var(--color-white-glow);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
     opacity: 0;
-    transform: 
-        translateY(-80px) 
-        rotateX(90deg) 
-        scale(2.5)
-        skewX(10deg);
-    filter: blur(8px) brightness(1.5);
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-}
-/* ===== LOGO FADE-IN ===== */
-.logo {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.8s ease 0.1s;
+    transition: all 0.3s ease;
+    animation: pulseText 2s infinite ease-in-out;
 }
 
-.logo.visible {
-    opacity: 1;
-    transform: translateY(0);
+.scroll-down-arrow a {
+    font-size: 2rem;
+    color: var(--color-white-glow);
+    text-decoration: none;
+    display: inline-block;
+    animation: pulseArrow 2s infinite ease-in-out;
+    transition: transform 0.3s ease;
 }
 
-/* ===== NAVIGAȚIE FADE-IN ===== */
-.main-nav a {
-    opacity: 0;
-    transform: translateY(-20px);
-    transition: all 0.8s ease;
-}
-
-.main-nav.visible a:nth-child(1) { transition-delay: 0.2s; }
-.main-nav.visible a:nth-child(2) { transition-delay: 0.3s; }
-.main-nav.visible a:nth-child(3) { transition-delay: 0.4s; }
-.main-nav.visible a:nth-child(4) { transition-delay: 0.5s; }
-
-.main-nav.visible a {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ===== SCROLL INDICATOR FADE-IN ===== */
-.scroll-indicator {
-    opacity: 0;
-    transition: opacity 1s ease 1.5s;
-}
-
-.scroll-indicator.visible {
+.scroll-down-arrow:hover span {
     opacity: 1;
 }
 
-/* ===== MEDIA QUERIES PENTRU MOBILE ===== */
+.scroll-down-arrow:hover a {
+    transform: scale(1.1);
+    animation-play-state: paused; /* Pause pulse on hover */
+}
+
+/* Pulsating animations */
+@keyframes pulseArrow {
+    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+    50% { transform: translateY(5px) scale(1.05); opacity: 1; }
+    100% { transform: translateY(0) scale(1); opacity: 0.7; }
+}
+
+@keyframes pulseText {
+    0% { transform: scale(1); opacity: 0; }
+    50% { transform: scale(1.05); opacity: 0; }
+    51% { opacity: 0; } /* Text only appears on hover */
+    100% { transform: scale(1); opacity: 0; }
+}
+
+.scroll-down-arrow:hover span {
+    animation: pulseTextHover 2s infinite ease-in-out;
+}
+
+@keyframes pulseTextHover {
+    0% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.7; }
+}
+
+
+/* --- MOBILE STYLES FOR HOME --- */
 @media (max-width: 768px) {
-    .home-text {
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        width: 90%;
+    .logo {
+        top: 25px;
+        left: 20px;
+    }
+    .logo img {
+        width: 70px;
     }
     
-    .home-text .word {
-        font-size: clamp(2rem, 12vw, 4rem);
-        text-align: center;
+    .hero-text {
+        left: 20px;
+        right: 20px;
+        width: auto;
     }
     
-    .home-text .subtext {
-        text-align: center;
-        margin-left: 0;
-        font-size: 1rem;
+    .hero-text h1 {
+        font-size: 2.5rem; /* Smaller font for mobile */
     }
     
-    .home-text .char:hover {
-        transform: 
-            translateY(-4px) 
-            scale(1.1) 
-            rotateX(5deg);
+    .scroll-down-arrow {
+        bottom: 90px; /* Make space for scroll indicator */
     }
     
-    .scroll-indicator {
-        bottom: 2rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .home-text .word {
-        font-size: clamp(1.8rem, 10vw, 3.5rem);
+    .scroll-down-arrow span {
+        font-size: 0.8rem;
     }
     
-    .home-text .subtext {
-        font-size: 0.9rem;
+    .scroll-down-arrow a {
+        font-size: 1.8rem;
     }
 }
