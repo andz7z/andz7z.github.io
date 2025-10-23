@@ -1,3 +1,13 @@
-/* Reviews Section Styles */
+/* Stiluri pentru secțiunea About */
 #reviews {
+    /* Poți adăuga un fundal diferit dacă dorești */
+    /* background-image: url('...'); */
+}
+
+#reviews .card {
+    /* Stiluri specifice pentru cardul din "About" */
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
