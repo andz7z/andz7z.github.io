@@ -58,7 +58,7 @@
   content: "";
   position: absolute;
   inset: -2%;
-  background-image: var(--mzaCard-bg);
+  background: var(--mzaCard-bg) center/cover no-repeat;
   background-size: cover;
   background-position: center;
   filter: contrast(1.02) saturate(1.08) brightness(0.9);
