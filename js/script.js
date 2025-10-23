@@ -96,3 +96,14 @@ window.addEventListener('scroll', () => {
     const progress = (scrollTop / docHeight) * 100;
     scrollProgress.style.width = progress + '%';
 });
+// intro
+window.addEventListener("load", () => {
+  const loader = document.getElementById("pre-load");
+  const main = document.getElementById("main-content");
+
+  setTimeout(() => {
+    loader.classList.add("hide");
+    main.style.filter = "blur(0)";
+    main.style.opacity = "1";
+  }, 3000);
+});
