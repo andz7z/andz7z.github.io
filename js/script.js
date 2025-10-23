@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
             
             if (targetElement) {
-                // Use smooth scrolling
                 targetElement.scrollIntoView({
                     behavior: 'smooth'
                 });
@@ -25,11 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const currentSectionName = document.getElementById('current-section-name');
     const currentSectionIcon = document.getElementById('current-section-icon');
     
-    // Select all sections to observe
     const sections = document.querySelectorAll('.fullscreen-section');
-    
-    // Icons mapping for the "Currently on" display
-    // We get this from the 'data-section-name' on the nav links
+
+    // Map icons to section names
     const sectionIcons = {};
     document.querySelectorAll('.main-nav a').forEach(a => {
         const sectionName = a.getAttribute('data-section-name');
@@ -40,38 +37,33 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const observerOptions = {
-        root: null, // Observes intersections with the viewport
+        root: null,
         rootMargin: '0px',
-        threshold: 0.6 // 60% of the section must be visible
+        threshold: 0.35 // reduc pragul de la 0.6 → 0.35
     };
 
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
+    const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const sectionId = entry.target.id;
-                
-                // Find the corresponding nav link to get the name and icon
                 const navLink = document.querySelector(`.main-nav a[href="#${sectionId}"]`);
-                let sectionName = 'Home'; // Default
-                let sectionIconHTML = sectionIcons['Home']; // Default
+                let sectionName = 'Home';
+                let sectionIconHTML = sectionIcons['Home'] || '';
 
                 if (navLink) {
                     sectionName = navLink.getAttribute('data-section-name');
                     sectionIconHTML = sectionIcons[sectionName];
                 }
 
-                // Update the "Currently on" display
                 currentSectionName.textContent = sectionName;
                 currentSectionIcon.innerHTML = sectionIconHTML;
 
-                // Handle fading of homepage elements
+                // Control visibility for home vs. others
                 if (sectionId === 'home') {
-                    // We are on the homepage
                     homeNav.classList.remove('hidden');
                     socialLinks.classList.remove('hidden');
                     scrollManager.classList.remove('visible');
                 } else {
-                    // We are NOT on the homepage
                     homeNav.classList.add('hidden');
                     socialLinks.classList.add('hidden');
                     scrollManager.classList.add('visible');
@@ -80,9 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Observe all sections
     sections.forEach(section => {
         sectionObserver.observe(section);
     });
 
+    // 🔥 FIX: Detectăm și manual când suntem foarte sus (scrollY < 150)
+    window.addEventListener('scroll', () => {
+        if (window.scrollY < 150) {
+            homeNav.classList.remove('hidden');
+            socialLinks.classList.remove('hidden');
+            scrollManager.classList.remove('visible');
+            currentSectionName.textContent = 'Home';
+            currentSectionIcon.innerHTML = sectionIcons['Home'] || '';
+        }
+    });
 });
