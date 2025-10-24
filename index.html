@@ -177,53 +177,57 @@
     <!-- About Section -->
 <!-- About Section -->
 <section id="about" class="section about-section">
-    <!-- Background Elements -->
-    <div class="quantum-grid"></div>
-    <div class="micro-particles"></div>
-    
-    <!-- Scroll Progress -->
-    <div class="scroll-progress">
-        <div class="scroll-progress-bar"></div>
-    </div>
+    <!-- Animated Background Elements -->
+    <div class="about-grid-bg"></div>
+    <div class="particles-container"></div>
     
     <div class="about-container">
-        <!-- Minimalist Header -->
-        <div class="minimal-header">
-            <h2 class="minimal-title">About Me</h2>
-            <div class="minimal-subtitle">Crafting Digital Excellence</div>
+        <!-- Header -->
+        <div class="about-header">
+            <h2 class="about-title">ABOUT ME</h2>
+            <p class="about-description">
+                Crafting Digital Experiences That Captivate and Convert
+            </p>
         </div>
         
-        <!-- Hero Profile -->
-        <div class="hero-profile">
-            <!-- Portrait Card -->
-            <div class="portrait-card">
-                <div class="portrait-3d">
-                    <div class="portrait-face portrait-front">
-                        <div class="portrait-image"></div>
-                        <h3 class="portrait-name">Alexandru N.</h3>
-                        <p class="portrait-title">Senior Full-Stack Developer</p>
-                        <div class="availability-badge">
-                            <i class="fas fa-circle" style="color: #00ff00; margin-right: 0.5rem;"></i>
-                            Available for Hire
-                        </div>
-                    </div>
-                    <div class="portrait-face portrait-back">
-                        <div class="portrait-stats">
-                            <div class="portrait-stat">
-                                <span class="stat-number">5+</span>
-                                <span class="stat-label">Years Experience</span>
-                            </div>
-                            <div class="portrait-stat">
+        <!-- Hero Section -->
+        <div class="about-hero">
+            <!-- 3D Profile Card -->
+            <div class="profile-3d-container">
+                <div class="profile-card-3d">
+                    <div class="profile-face front">
+                        <div class="profile-image"></div>
+                        <h3 class="profile-name">Alexandru N.</h3>
+                        <p class="profile-title">Full-Stack Developer & Creative Designer</p>
+                        <div class="profile-stats">
+                            <div class="stat-item">
                                 <span class="stat-number">150+</span>
                                 <span class="stat-label">Projects</span>
                             </div>
-                            <div class="portrait-stat">
-                                <span class="stat-number">98%</span>
-                                <span class="stat-label">Success Rate</span>
+                            <div class="stat-item">
+                                <span class="stat-number">5+</span>
+                                <span class="stat-label">Years</span>
                             </div>
-                            <div class="portrait-stat">
-                                <span class="stat-number">24/7</span>
-                                <span class="stat-label">Support</span>
+                        </div>
+                    </div>
+                    <div class="profile-face back">
+                        <h3 class="profile-name">Skills Matrix</h3>
+                        <div class="profile-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">95%</span>
+                                <span class="stat-label">Web Dev</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">90%</span>
+                                <span class="stat-label">UI/UX</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">85%</span>
+                                <span class="stat-label">Video Edit</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">88%</span>
+                                <span class="stat-label">Mobile</span>
                             </div>
                         </div>
                     </div>
@@ -232,328 +236,175 @@
             
             <!-- Hero Content -->
             <div class="hero-content">
-                <p class="hero-intro">I transform complex challenges into elegant digital solutions that drive business growth and user engagement.</p>
-                <p class="hero-description">With over 5 years of experience in full-stack development, I specialize in creating scalable, high-performance applications that deliver exceptional user experiences. My passion lies in bridging the gap between design and technology.</p>
-                
-                <div class="action-buttons">
-                    <a href="#contact" class="btn-master btn-primary">
-                        <i class="fas fa-paper-plane" style="margin-right: 1rem;"></i>
-                        Hire Me
-                    </a>
-                    <a href="#portfolio" class="btn-master">
-                        <i class="fas fa-eye" style="margin-right: 1rem;"></i>
-                        View Work
-                    </a>
-                    <a href="#" class="btn-master" onclick="downloadCV()">
-                        <i class="fas fa-download" style="margin-right: 1rem;"></i>
-                        Download CV
-                    </a>
+                <div class="hero-badge">🚀 Available for Freelance</div>
+                <h1 class="hero-title">Turning Ideas Into<br>Digital Reality</h1>
+                <p class="hero-description">
+                    I'm a passionate full-stack developer and creative designer with over 5 years of experience 
+                    crafting digital solutions that blend cutting-edge technology with stunning visual design. 
+                    From responsive websites to engaging social media content, I bring ideas to life.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#portfolio" class="btn-3d btn-primary">View My Work</a>
+                    <a href="#contact" class="btn-3d">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tech Stack -->
+        <div class="tech-stack">
+            <h3 class="section-title">Tech Stack</h3>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <i class="fab fa-html5 tech-icon"></i>
+                    <span class="tech-name">HTML5</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-css3-alt tech-icon"></i>
+                    <span class="tech-name">CSS3</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-js tech-icon"></i>
+                    <span class="tech-name">JavaScript</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-react tech-icon"></i>
+                    <span class="tech-name">React</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-node-js tech-icon"></i>
+                    <span class="tech-name">Node.js</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-python tech-icon"></i>
+                    <span class="tech-name">Python</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-database tech-icon"></i>
+                    <span class="tech-name">MongoDB</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-figma tech-icon"></i>
+                    <span class="tech-name">Figma</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Timeline -->
+        <div class="timeline-section">
+            <h3 class="section-title">My Journey</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2019 - 2020</span>
+                        <h4 class="timeline-title">Frontend Developer</h4>
+                        <p class="timeline-description">
+                            Started my journey as a frontend developer, mastering HTML, CSS, and JavaScript 
+                            while working on various web projects and learning modern frameworks.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2020 - 2021</span>
+                        <h4 class="timeline-title">Full-Stack Transition</h4>
+                        <p class="timeline-description">
+                            Expanded my skills to backend development with Node.js and Python, 
+                            working on full-stack applications and RESTful APIs.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2021 - 2022</span>
+                        <h4 class="timeline-title">UI/UX Design</h4>
+                        <p class="timeline-description">
+                            Deepened my design skills, learning user experience principles and 
+                            creating intuitive interfaces that combine aesthetics with functionality.
+                        </p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2022 - Present</span>
+                        <h4 class="timeline-title">Creative Development</h4>
+                        <p class="timeline-description">
+                            Combining all skills to create comprehensive digital solutions, 
+                            from web development to video editing and social media content creation.
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- Skills Matrix -->
         <div class="skills-matrix">
-            <h3 class="section-title">Technical Expertise</h3>
-            <div class="skills-grid">
-                <!-- Frontend Skills -->
-                <div class="skill-category">
-                    <div class="category-header">
-                        <div class="category-icon">
+            <h3 class="section-title">Expertise Level</h3>
+            <div class="matrix-grid">
+                <div class="matrix-item">
+                    <div class="matrix-header">
+                        <div class="matrix-icon">
                             <i class="fas fa-code"></i>
                         </div>
-                        <h4 class="category-title">Frontend Development</h4>
+                        <h4 class="matrix-title">Web Development</h4>
                     </div>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-html5 skill-icon"></i>
-                                HTML5
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="95"></div>
-                            </div>
-                            <div class="skill-percentage">95%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-css3-alt skill-icon"></i>
-                                CSS3
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="92"></div>
-                            </div>
-                            <div class="skill-percentage">92%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-js skill-icon"></i>
-                                JavaScript
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="88"></div>
-                            </div>
-                            <div class="skill-percentage">88%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-react skill-icon"></i>
-                                React
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="85"></div>
-                            </div>
-                            <div class="skill-percentage">85%</div>
-                        </div>
+                    <div class="matrix-bar">
+                        <div class="matrix-progress" data-percentage="95"></div>
                     </div>
+                    <div class="matrix-percentage">95%</div>
                 </div>
-                
-                <!-- Backend Skills -->
-                <div class="skill-category">
-                    <div class="category-header">
-                        <div class="category-icon">
-                            <i class="fas fa-server"></i>
-                        </div>
-                        <h4 class="category-title">Backend Development</h4>
-                    </div>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-node-js skill-icon"></i>
-                                Node.js
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="90"></div>
-                            </div>
-                            <div class="skill-percentage">90%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-python skill-icon"></i>
-                                Python
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="82"></div>
-                            </div>
-                            <div class="skill-percentage">82%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fas fa-database skill-icon"></i>
-                                MongoDB
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="85"></div>
-                            </div>
-                            <div class="skill-percentage">85%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fas fa-database skill-icon"></i>
-                                PostgreSQL
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="80"></div>
-                            </div>
-                            <div class="skill-percentage">80%</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Design Skills -->
-                <div class="skill-category">
-                    <div class="category-header">
-                        <div class="category-icon">
+                <div class="matrix-item">
+                    <div class="matrix-header">
+                        <div class="matrix-icon">
                             <i class="fas fa-paint-brush"></i>
                         </div>
-                        <h4 class="category-title">Design & Tools</h4>
+                        <h4 class="matrix-title">UI/UX Design</h4>
                     </div>
-                    <div class="skill-items">
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-figma skill-icon"></i>
-                                Figma
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="88"></div>
-                            </div>
-                            <div class="skill-percentage">88%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fas fa-video skill-icon"></i>
-                                After Effects
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="75"></div>
-                            </div>
-                            <div class="skill-percentage">75%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fab fa-git-alt skill-icon"></i>
-                                Git
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="90"></div>
-                            </div>
-                            <div class="skill-percentage">90%</div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">
-                                <i class="fas fa-cloud skill-icon"></i>
-                                AWS
-                            </div>
-                            <div class="skill-bar-container">
-                                <div class="skill-bar" data-percentage="78"></div>
-                            </div>
-                            <div class="skill-percentage">78%</div>
-                        </div>
+                    <div class="matrix-bar">
+                        <div class="matrix-progress" data-percentage="90"></div>
                     </div>
+                    <div class="matrix-percentage">90%</div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Experience Timeline -->
-        <div class="experience-timeline">
-            <h3 class="section-title">Professional Journey</h3>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-period">2022 - Present</div>
-                        <h4 class="timeline-role">Senior Full-Stack Developer</h4>
-                        <div class="timeline-company">TechInnovate Solutions</div>
-                        <p class="timeline-description">Leading development of enterprise-level applications, mentoring junior developers, and implementing cutting-edge technologies to drive business growth.</p>
-                        <div class="timeline-tech">
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">Node.js</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">AWS</span>
+                <div class="matrix-item">
+                    <div class="matrix-header">
+                        <div class="matrix-icon">
+                            <i class="fas fa-video"></i>
                         </div>
+                        <h4 class="matrix-title">Video Editing</h4>
                     </div>
+                    <div class="matrix-bar">
+                        <div class="matrix-progress" data-percentage="85"></div>
+                    </div>
+                    <div class="matrix-percentage">85%</div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-period">2020 - 2022</div>
-                        <h4 class="timeline-role">Full-Stack Developer</h4>
-                        <div class="timeline-company">DigitalCraft Agency</div>
-                        <p class="timeline-description">Developed and maintained multiple client projects, focusing on responsive design, performance optimization, and seamless user experiences.</p>
-                        <div class="timeline-tech">
-                            <span class="tech-tag">Vue.js</span>
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Docker</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <div class="timeline-period">2019 - 2020</div>
-                        <h4 class="timeline-role">Frontend Developer</h4>
-                        <div class="timeline-company">WebStyle Studios</div>
-                        <p class="timeline-description">Created interactive user interfaces and implemented modern design patterns for various web applications and e-commerce platforms.</p>
-                        <div class="timeline-tech">
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">SASS</span>
-                            <span class="tech-tag">jQuery</span>
-                            <span class="tech-tag">Bootstrap</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Projects Showcase -->
-        <div class="projects-showcase">
-            <h3 class="section-title">Featured Projects</h3>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                        <div>
-                            <h4 class="project-title">E-Commerce Platform</h4>
-                            <div class="project-category">Full-Stack Development</div>
-                        </div>
-                    </div>
-                    <p class="project-description">A scalable e-commerce solution with real-time inventory management, payment processing, and advanced analytics dashboard.</p>
-                    <div class="project-stats">
-                        <div class="project-stat">
-                            <span class="project-metric">+45%</span>
-                            <span class="project-label">Sales Increase</span>
-                        </div>
-                        <div class="project-stat">
-                            <span class="project-metric">2.1s</span>
-                            <span class="project-label">Load Time</span>
-                        </div>
-                    </div>
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        View Case Study
-                    </a>
-                </div>
-                <div class="project-card">
-                    <div class="project-header">
-                        <div class="project-icon">
+                <div class="matrix-item">
+                    <div class="matrix-header">
+                        <div class="matrix-icon">
                             <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <div>
-                            <h4 class="project-title">Mobile Banking App</h4>
-                            <div class="project-category">React Native</div>
-                        </div>
+                        <h4 class="matrix-title">Mobile Development</h4>
                     </div>
-                    <p class="project-description">Secure mobile banking application with biometric authentication, real-time transactions, and personalized financial insights.</p>
-                    <div class="project-stats">
-                        <div class="project-stat">
-                            <span class="project-metric">50K+</span>
-                            <span class="project-label">Users</span>
-                        </div>
-                        <div class="project-stat">
-                            <span class="project-metric">99.9%</span>
-                            <span class="project-label">Uptime</span>
-                        </div>
+                    <div class="matrix-bar">
+                        <div class="matrix-progress" data-percentage="88"></div>
                     </div>
-                    <a href="#" class="project-link">
-                        <i class="fas fa-external-link-alt"></i>
-                        View Project
-                    </a>
+                    <div class="matrix-percentage">88%</div>
                 </div>
             </div>
         </div>
         
         <!-- Final CTA -->
         <div class="final-cta">
-            <div class="cta-masterpiece">
-                <h2 class="cta-title">Let's Build Something Amazing</h2>
-                <p class="cta-subtitle">Ready to bring your vision to life with cutting-edge technology and exceptional design</p>
-                <div class="cta-buttons">
-                    <a href="#contact" class="btn-cta btn-cta-primary">
-                        <i class="fas fa-rocket" style="margin-right: 1rem;"></i>
-                        Start Project
-                    </a>
-                    <a href="mailto:contact@example.com" class="btn-cta">
-                        <i class="fas fa-envelope" style="margin-right: 1rem;"></i>
-                        Get in Touch
-                    </a>
-                </div>
+            <div class="cta-content">
+                <h3 class="cta-title">Ready to Create Something Amazing?</h3>
+                <p class="cta-description">
+                    Let's collaborate to bring your vision to life. Whether you need a stunning website, 
+                    engaging content, or a complete digital solution, I'm here to make it happen.
+                </p>
+                <a href="#contact" class="cta-button-large">Start Your Project</a>
             </div>
         </div>
     </div>
 </section>
 
-<script>
-function downloadCV() {
-    // Simulate CV download
-    const link = document.createElement('a');
-    link.href = '/cv-alexandru-n.pdf';
-    link.download = 'Alexandru-N-CV.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-</script>
-    
     <!-- Services Section -->
     <section id="services" class="section services-section">
         <div class="container">
