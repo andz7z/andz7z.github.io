@@ -2,26 +2,32 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🌟 PERFECTIUNEA ABSOLUTĂ Initialized');
     
-    initQuantumParticles();
-    initOrbitalSystem();
-    initTimelineReveal();
-    initQuantumInteractions();
-    initScrollMagic();
+    initMicroParticles();
+    initPortrait3D();
+    initSkillBars();
+    initScrollProgress();
+    initScrollAnimations();
+    initHoverEffects();
+    initMagneticButtons();
+    initParallaxEffects();
+    initTypewriterEffect();
+    initPageTransitions();
 });
 
-function initQuantumParticles() {
-    const container = document.querySelector('.quantum-particles');
+// Micro Particles System
+function initMicroParticles() {
+    const container = document.querySelector('.micro-particles');
     if (!container) return;
     
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 200; i++) {
         const particle = document.createElement('div');
-        particle.className = 'particle';
+        particle.className = 'micro-particle';
         
         const tx = (Math.random() - 0.5) * 2;
         const ty = (Math.random() - 0.5) * 2;
-        const duration = 10 + Math.random() * 10;
-        const delay = Math.random() * 15;
-        const size = 2 + Math.random() * 4;
+        const duration = 12 + Math.random() * 8;
+        const delay = Math.random() * 20;
+        const size = 0.5 + Math.random() * 1.5;
         
         particle.style.setProperty('--tx', tx);
         particle.style.setProperty('--ty', ty);
@@ -36,21 +42,171 @@ function initQuantumParticles() {
     }
 }
 
-function initOrbitalSystem() {
-    const cards = document.querySelectorAll('.orbital-card');
+// 3D Portrait Card
+function initPortrait3D() {
+    const portraitCard = document.querySelector('.portrait-3d');
+    if (!portraitCard) return;
     
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            this.style.setProperty('--mouse-x', x + 'px');
-            this.style.setProperty('--mouse-y', y + 'px');
-        });
+    let isFlipped = false;
+    let autoFlipTimeout;
+    
+    // Auto flip every 8 seconds
+    function scheduleAutoFlip() {
+        autoFlipTimeout = setTimeout(() => {
+            isFlipped = !isFlipped;
+            portraitCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+            scheduleAutoFlip();
+        }, 8000);
+    }
+    
+    scheduleAutoFlip();
+    
+    // Click to flip
+    portraitCard.addEventListener('click', function(e) {
+        clearTimeout(autoFlipTimeout);
+        isFlipped = !isFlipped;
+        this.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+        scheduleAutoFlip();
+    });
+    
+    // Mouse move 3D effect
+    portraitCard.addEventListener('mousemove', function(e) {
+        if (isFlipped) return;
         
-        // Create ripple effect on click
-        card.addEventListener('click', function(e) {
+        const rect = this.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateY = (x - centerX) / 25;
+        const rotateX = (centerY - y) / 25;
+        
+        this.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+    });
+    
+    portraitCard.addEventListener('mouseleave', function() {
+        if (isFlipped) return;
+        this.style.transform = 'rotateY(0deg) rotateX(0deg)';
+    });
+}
+
+// Animated Skill Bars
+function initSkillBars() {
+    const skillBars = document.querySelectorAll('.skill-bar');
+    
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBar = entry.target;
+                const percentage = skillBar.getAttribute('data-percentage');
+                
+                setTimeout(() => {
+                    skillBar.style.width = percentage + '%';
+                }, 300);
+                
+                skillObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5, rootMargin: '-50px' });
+    
+    skillBars.forEach(bar => {
+        skillObserver.observe(bar);
+    });
+}
+
+// Scroll Progress Bar
+function initScrollProgress() {
+    const progressBar = document.querySelector('.scroll-progress-bar');
+    if (!progressBar) return;
+    
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
+    });
+}
+
+// Advanced Scroll Animations
+function initScrollAnimations() {
+    // Add custom scroll animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+        
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px) rotate(-5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotate(0deg);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px) rotate(5deg);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) rotate(0deg);
+            }
+        }
+        
+        .scroll-animate {
+            opacity: 0;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Observe all elements
+    const elements = document.querySelectorAll('.hero-profile, .skills-matrix, .experience-timeline, .projects-showcase, .final-cta');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                if (entry.target.classList.contains('hero-profile')) {
+                    entry.target.style.animation = 'fadeInUp 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+                } else if (entry.target.classList.contains('skills-matrix')) {
+                    entry.target.style.animation = 'fadeInLeft 1s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+                } else if (entry.target.classList.contains('experience-timeline')) {
+                    entry.target.style.animation = 'fadeInRight 1s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+                } else {
+                    entry.target.style.animation = 'fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+                }
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2, rootMargin: '-50px' });
+    
+    elements.forEach(el => {
+        el.classList.add('scroll-animate');
+        observer.observe(el);
+    });
+}
+
+// Advanced Hover Effects
+function initHoverEffects() {
+    // Ripple effect for all interactive elements
+    const interactiveElements = document.querySelectorAll('.btn-master, .btn-cta, .project-card, .skill-category, .timeline-content');
+    
+    interactiveElements.forEach(element => {
+        element.addEventListener('click', function(e) {
             const ripple = document.createElement('div');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
@@ -74,29 +230,30 @@ function initOrbitalSystem() {
             setTimeout(() => ripple.remove(), 800);
         });
     });
-}
-
-function initTimelineReveal() {
-    const nodes = document.querySelectorAll('.timeline-node');
     
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'nodeReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards';
-                observer.unobserve(entry.target);
+    // Add ripple animation
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+        @keyframes quantumRipple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
             }
-        });
-    }, { threshold: 0.3, rootMargin: '-50px' });
-    
-    nodes.forEach(node => observer.observe(node));
+            100% {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(rippleStyle);
 }
 
-function initQuantumInteractions() {
-    // Add magnetic effect to CTA button
-    const ctaButton = document.querySelector('.cta-button-quantum');
+// Magnetic Buttons
+function initMagneticButtons() {
+    const magneticButtons = document.querySelectorAll('.btn-master, .btn-cta');
     
-    if (ctaButton) {
-        ctaButton.addEventListener('mousemove', function(e) {
+    magneticButtons.forEach(button => {
+        button.addEventListener('mousemove', function(e) {
             const rect = this.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -104,49 +261,121 @@ function initQuantumInteractions() {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const angleX = (y - centerY) / 10;
-            const angleY = (centerX - x) / 10;
+            const angleX = (y - centerY) / 15;
+            const angleY = (centerX - x) / 15;
             
-            this.style.transform = `translateY(-8px) scale(1.05) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+            const translateX = (x - centerX) / 10;
+            const translateY = (y - centerY) / 10;
+            
+            this.style.transform = `translate(${translateX}px, ${translateY}px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
         });
         
-        ctaButton.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(-8px) scale(1.05) rotateX(0deg) rotateY(0deg)';
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(0, 0) rotateX(0deg) rotateY(0deg)';
         });
-    }
+    });
 }
 
-function initScrollMagic() {
-    // Add scroll-triggered animations
-    const elements = document.querySelectorAll('.orbital-card, .timeline-node, .cta-portal');
+// Parallax Effects
+function initParallaxEffects() {
+    const parallaxElements = document.querySelectorAll('.portrait-card, .skill-category, .project-card');
     
-    const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animationPlayState = 'running';
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        
+        parallaxElements.forEach((element, index) => {
+            const speed = 0.3 + (index * 0.1);
+            const yPos = -(scrolled * speed);
+            element.style.transform = `translateY(${yPos}px)`;
+        });
+    });
+}
+
+// Typewriter Effect for Intro
+function initTypewriterEffect() {
+    const introElement = document.querySelector('.hero-intro');
+    if (!introElement) return;
+    
+    const text = introElement.textContent;
+    introElement.textContent = '';
+    
+    let i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            introElement.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        }
+    }
+    
+    const introObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+            typeWriter();
+            introObserver.unobserve(introElement);
+        }
+    }, { threshold: 0.5 });
+    
+    introObserver.observe(introElement);
+}
+
+// Smooth Page Transitions
+function initPageTransitions() {
+    // Add smooth transition between sections
+    const style = document.createElement('style');
+    style.textContent = `
+        .about-section {
+            view-transition-name: about-section;
+        }
+        
+        @view-transition {
+            navigation: auto;
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Smooth scroll to elements
+    const links = document.querySelectorAll('a[href^="#"]');
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
-    }, { threshold: 0.1 });
-    
-    elements.forEach(el => scrollObserver.observe(el));
+    });
 }
 
-// Add custom animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes quantumRipple {
-        0% {
-            transform: scale(0);
-            opacity: 1;
+// Performance optimization
+function initPerformance() {
+    // Throttle scroll events
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                // Update scroll-based animations
+                ticking = false;
+            });
+            ticking = true;
         }
-        100% {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
+    });
     
-    .orbital-card, .timeline-node, .cta-portal {
-        animation-play-state: paused;
-    }
-`;
-document.head.appendChild(style);
+    // Preload critical images
+    const criticalImages = document.querySelectorAll('.portrait-image');
+    criticalImages.forEach(img => {
+        const src = img.getAttribute('src');
+        if (src) {
+            const preload = document.createElement('link');
+            preload.rel = 'preload';
+            preload.as = 'image';
+            preload.href = src;
+            document.head.appendChild(preload);
+        }
+    });
+}
+
+// Initialize performance optimizations
+initPerformance();
