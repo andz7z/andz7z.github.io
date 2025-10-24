@@ -48,3 +48,55 @@ document.addEventListener('DOMContentLoaded', function() {
             canvas.width = 32;
             canvas.height = 32;
             const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, 32, 32);
+            
+            // Letter A
+            ctx.fillStyle = '#fff';
+            ctx.font = 'bold 24px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('A', 16, 16);
+            
+            // Replace favicon
+            const link = document.createElement('link');
+            link.rel = 'icon';
+            link.href = canvas.toDataURL('image/png');
+            document.head.appendChild(link);
+        });
+    }
+});
+
+// Navbar visibility and back to home arrow
+function toggleNavbarVisibility() {
+    const navbar = document.getElementById('navbar');
+    const backToHome = document.getElementById('backToHome');
+    const homeSection = document.getElementById('home');
+    
+    if (navbar && backToHome && homeSection) {
+        const homeSectionBottom = homeSection.offsetTop + homeSection.offsetHeight;
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollPosition > homeSectionBottom - 100) {
+            navbar.classList.add('hidden');
+            backToHome.classList.add('visible');
+        } else {
+            navbar.classList.remove('hidden');
+            backToHome.classList.remove('visible');
+        }
+    }
+}
+
+// Back to home functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const backToHome = document.getElementById('backToHome');
+    if (backToHome) {
+        backToHome.addEventListener('click', function() {
+            document.getElementById('home').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        });
+    }
+});
