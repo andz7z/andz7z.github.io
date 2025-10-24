@@ -1,38 +1,38 @@
-/* ========================================
-   CONTACT SECTION - STYLES
-   ======================================== */
-
-/* ========================================
-   CONTACT SECTION BASE
-   ======================================== */
-
-.contact-section {
-    background: var(--color-bg-dark);
-    position: relative;
+/* ===== CONTACT SECTION ===== */
+#contact {
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* ========================================
-   CONTACT CONTAINER
-   ======================================== */
-
-.contact-container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
 }
 
-/* ========================================
-   CONTACT FORM STYLES
-   ======================================== */
-
-/* Add your custom styles here */
-
-/* ========================================
-   RESPONSIVE - MOBILE
-   ======================================== */
-
-@media (max-width: 768px) {
-    .contact-container {
-        padding: var(--spacing-md);
-    }
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.contact-item i {
+    font-size: 1.5rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-top: 5px;
+}
+
+.contact-item h3 {
+    font-family: 'Noverich', sans-serif;
+    font-size
