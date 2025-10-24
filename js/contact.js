@@ -1,51 +1,13 @@
-/* ========================================
-   CONTACT SECTION - INTERACTIVE EFFECTS
-   ======================================== */
-
-'use strict';
-
-/* ========================================
-   CONTACT DOM ELEMENTS
-   ======================================== */
-
-const ContactDOM = {
-    section: null,
-    container: null
-};
-
-/* ========================================
-   INITIALIZATION
-   ======================================== */
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('📧 Contact module initializing...');
-    
-    // Cache DOM elements
-    ContactDOM.section = document.getElementById('contact');
-    ContactDOM.container = document.querySelector('.contact-container');
-    
-    // Initialize features
-    initContactSection();
-    
-    console.log('✅ Contact module loaded');
+// contact.js
+document.addEventListener('DOMContentLoaded', function() {
+    // Funcționalități specifice pentru secțiunea Contact
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Aici poți adăuga logica pentru trimiterea formularului
+            alert('Mesajul a fost trimis! (Aceasta este o demonstrație)');
+            contactForm.reset();
+        });
+    }
 });
-
-/* ========================================
-   CONTACT SECTION INITIALIZATION
-   ======================================== */
-
-function initContactSection() {
-    if (!ContactDOM.section) return;
-    
-    // Add your custom initialization code here
-    
-    console.log('📧 Contact section initialized');
-}
-
-/* ========================================
-   EXPORT CONTACT MODULE
-   ======================================== */
-
-window.ContactModule = {
-    ContactDOM
-};
