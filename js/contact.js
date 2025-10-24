@@ -1,10 +1,10 @@
 /* ========================================
-   ANDZ WEBSITE - CONTACT SECTION JAVASCRIPT
+   ANDZ WEBSITE - SPECTACULAR CONTACT SECTION
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    // Contact section specific functionality can be added here
-    console.log('Contact section loaded');
+    // Spectacular Contact section specific functionality can be added here
+    console.log('Spectacular Contact section loaded');
 });

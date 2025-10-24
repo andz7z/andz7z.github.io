@@ -1,10 +1,10 @@
 /* ========================================
-   ANDZ WEBSITE - PORTFOLIO SECTION JAVASCRIPT
+   ANDZ WEBSITE - SPECTACULAR PORTFOLIO SECTION
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    // Portfolio section specific functionality can be added here
-    console.log('Portfolio section loaded');
+    // Spectacular Portfolio section specific functionality can be added here
+    console.log('Spectacular Portfolio section loaded');
 });

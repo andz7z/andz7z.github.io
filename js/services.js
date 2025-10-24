@@ -1,10 +1,10 @@
 /* ========================================
-   ANDZ WEBSITE - SERVICES SECTION JAVASCRIPT
+   ANDZ WEBSITE - SPECTACULAR SERVICES SECTION
    ======================================== */
 
 document.addEventListener('DOMContentLoaded', function() {
     'use strict';
 
-    // Services section specific functionality can be added here
-    console.log('Services section loaded');
+    // Spectacular Services section specific functionality can be added here
+    console.log('Spectacular Services section loaded');
 });
