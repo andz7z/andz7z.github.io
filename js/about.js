@@ -1,280 +1,104 @@
-// About Section - Next Level JavaScript
+// About Section - FINAL BOSS JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize About Section
-    initAboutSection();
+    console.log('🚀 FINAL BOSS About Section Initialized');
     
-    // Create Floating Particles
-    createParticles();
+    // Initialize Cyber Environment
+    initCyberEnvironment();
     
-    // Initialize 3D Profile Card
-    init3DProfileCard();
+    // Create Holographic Particles
+    createHoloParticles();
     
-    // Initialize Skill Bars
-    initSkillBars();
+    // Create Neural Network
+    createNeuralNetwork();
     
-    // Initialize Timeline Animation
-    initTimelineAnimation();
+    // Initialize Quantum Profile
+    initQuantumProfile();
     
-    // Initialize Tech Stack Animation
-    initTechStackAnimation();
+    // Initialize Tech Sphere
+    initTechSphere();
+    
+    // Initialize Timeline Portal
+    initTimelinePortal();
+    
+    // Initialize Cyber Interactions
+    initCyberInteractions();
     
     // Initialize Scroll Animations
-    initScrollAnimations();
-    
-    // Initialize Interactive Elements
-    initInteractiveElements();
+    initCyberScrollAnimations();
 });
 
-// Initialize About Section
-function initAboutSection() {
-    console.log('🚀 Next Level About Section Initialized');
-    
-    // Add parallax effect to grid background
-    const gridBg = document.querySelector('.about-grid-bg');
-    window.addEventListener('scroll', () => {
-        if (gridBg) {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.3;
-            gridBg.style.transform = `translateY(${rate}px)`;
+// Initialize Cyber Environment
+function initCyberEnvironment() {
+    // Add cyber noise effect
+    const style = document.createElement('style');
+    style.textContent = `
+        .cyber-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(90deg, 
+                    rgba(255, 255, 255, 0.03) 50%, 
+                    transparent 50%),
+                linear-gradient(
+                    rgba(255, 255, 255, 0.02) 50%, 
+                    transparent 50%);
+            background-size: 100px 100px;
+            animation: cyberNoise 0.2s infinite;
+            pointer-events: none;
+            z-index: -1;
         }
-    });
+        
+        @keyframes cyberNoise {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
-// Create Floating Particles
-function createParticles() {
-    const particlesContainer = document.querySelector('.particles-container');
-    if (!particlesContainer) return;
+// Create Holographic Particles
+function createHoloParticles() {
+    const container = document.querySelector('.holo-particles');
+    if (!container) return;
     
-    const particleCount = 50;
+    const particleCount = 30;
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
-        particle.className = 'particle';
+        particle.className = 'holo-particle';
         
-        // Random position
-        const left = Math.random() * 100;
-        const top = Math.random() * 100;
-        const delay = Math.random() * 6;
+        // Random position with bias towards center
+        const left = 25 + Math.random() * 50;
+        const top = 25 + Math.random() * 50;
+        const delay = Math.random() * 8;
+        const duration = 6 + Math.random() * 4;
         
         particle.style.left = `${left}%`;
         particle.style.top = `${top}%`;
         particle.style.animationDelay = `-${delay}s`;
+        particle.style.animationDuration = `${duration}s`;
         
-        particlesContainer.appendChild(particle);
+        container.appendChild(particle);
     }
 }
 
-// Initialize 3D Profile Card
-function init3DProfileCard() {
-    const profileCard = document.querySelector('.profile-card-3d');
-    if (!profileCard) return;
+// Create Neural Network
+function createNeuralNetwork() {
+    const container = document.querySelector('.neural-network');
+    if (!container) return;
     
-    let isFlipped = false;
+    const lineCount = 15;
     
-    // Auto-flip every 8 seconds
-    setInterval(() => {
-        isFlipped = !isFlipped;
-        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-    }, 8000);
-    
-    // Click to flip
-    profileCard.addEventListener('click', () => {
-        isFlipped = !isFlipped;
-        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-    });
-    
-    // Mouse move effect
-    document.addEventListener('mousemove', (e) => {
-        if (!isFlipped) return;
+    for (let i = 0; i < lineCount; i++) {
+        const line = document.createElement('div');
+        line.className = 'neural-line';
         
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        
-        profileCard.style.transform = `rotateY(180deg) rotateX(${yAxis}deg) rotateY(${xAxis}deg)`;
-    });
-}
-
-// Initialize Skill Bars
-function initSkillBars() {
-    const matrixItems = document.querySelectorAll('.matrix-item');
-    
-    const matrixObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const progressBar = entry.target.querySelector('.matrix-progress');
-                const percentage = progressBar.getAttribute('data-percentage');
-                
-                // Animate progress bar
-                setTimeout(() => {
-                    progressBar.style.width = percentage + '%';
-                }, 300);
-                
-                matrixObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    matrixItems.forEach(item => {
-        matrixObserver.observe(item);
-    });
-}
-
-// Initialize Timeline Animation
-function initTimelineAnimation() {
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    
-    const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-                timelineObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    
-    timelineItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateX(-50px)';
-        item.style.animationDelay = (index * 0.2) + 's';
-        timelineObserver.observe(item);
-    });
-}
-
-// Initialize Tech Stack Animation
-function initTechStackAnimation() {
-    const techItems = document.querySelectorAll('.tech-item');
-    
-    const techObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'bounceIn 0.6s ease forwards';
-                techObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2 });
-    
-    techItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'scale(0.8)';
-        item.style.animationDelay = (index * 0.1) + 's';
-        techObserver.observe(item);
-    });
-}
-
-// Initialize Scroll Animations
-function initScrollAnimations() {
-    // Add CSS for animations
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes bounceIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .about-title, .about-description, .hero-badge, .hero-title, .hero-description, .cta-buttons, .section-title {
-            opacity: 0;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Observe all animated elements
-    const animatedElements = document.querySelectorAll('.about-title, .about-description, .hero-badge, .hero-title, .hero-description, .cta-buttons, .section-title, .cta-title, .cta-description');
-    
-    const elementObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-                elementObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        elementObserver.observe(el);
-    });
-}
-
-// Initialize Interactive Elements
-function initInteractiveElements() {
-    // Add ripple effect to buttons
-    const buttons = document.querySelectorAll('.btn-3d, .cta-button-large');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.className = 'ripple';
-            
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
-    
-    // Add CSS for ripple effect
-    const rippleStyle = document.createElement('style');
-    rippleStyle.textContent = `
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.6);
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            pointer-events: none;
-        }
-        
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(rippleStyle);
-}
-
-// Export functions for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        initAboutSection,
-        createParticles,
-        init3DProfileCard,
-        initSkillBars,
-        initTimelineAnimation,
-        initTechStackAnimation,
-        initScrollAnimations,
-        initInteractiveElements
-    };
-}
+        // Random properties
+        const width = 100 + Math.random() * 300;
+        const height = 2 + Math.random() * 3;
+        const left = Math.random() * 100;
+        const
