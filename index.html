@@ -1,151 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Andrei Cristian — Portfolio</title>
-
-  <!-- Fonts -->
-  <style>
-    @font-face { font-family: 'Noverich'; src: url('assets/fonts/noverich.otf') format('opentype'); font-weight: 700; font-style: normal; font-display: swap; }
-    @font-face { font-family: 'RobotoCustom'; src: url('assets/fonts/roboto.ttf') format('truetype'); font-weight: 400; font-style: normal; font-display: swap; }
-  </style>
-
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/home.css" />
-  <script defer src="js/script.js"></script>
-  <script defer src="js/home.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANDZ - Personal Portfolio</title>
+    
+    <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/services.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-  <!-- Preloader -->
-  <div id="preloader" class="preloader">
-    <div class="preloader__logo">Andz</div>
-    <div class="preloader__bar"><span></span></div>
-  </div>
 
-  <!-- HOME SECTION (100vh) -->
-  <main id="site-root">
-    <section id="home" class="section home fullvh">
-      <div class="home__bg" id="home-bg" aria-hidden="true"></div>
-
-      <!-- top-left mobile burger -->
-      <button id="burger" class="burger" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-
-      <!-- NAV ICONS (center top) -->
-      <nav class="nav-icons" id="nav-icons" aria-label="Primary">
-        <a href="#about" class="nav-icon" data-target="about">
-          <!-- minimal SVG icon -->
-          <svg viewBox="0 0 24 24" class="icon"><circle cx="12" cy="8" r="3"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-          <span class="nav-label">About</span>
-        </a>
-        <a href="#services" class="nav-icon" data-target="services">
-          <svg viewBox="0 0 24 24" class="icon"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
-          <span class="nav-label">Services</span>
-        </a>
-        <a href="#portfolio" class="nav-icon" data-target="portfolio">
-          <svg viewBox="0 0 24 24" class="icon"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
-          <span class="nav-label">Portfolio</span>
-        </a>
-        <a href="#reviews" class="nav-icon" data-target="reviews">
-          <svg viewBox="0 0 24 24" class="icon"><path d="M12 2l3 6 6 .5-4.5 4 1 6L12 16l-5.5 3.5 1-6L3 8.5 9 8z"/></svg>
-          <span class="nav-label">Reviews</span>
-        </a>
-        <a href="#contact" class="nav-icon" data-target="contact">
-          <svg viewBox="0 0 24 24" class="icon"><path d="M21 8V7l-3 2-2-1-6 5-4-2v8h16V8z"/></svg>
-          <span class="nav-label">Contact</span>
-        </a>
-      </nav>
-
-      <!-- Social bars (hidden on mobile) -->
-      <aside class="social social--left" aria-hidden="true">
-        <div class="line"></div>
-        <a href="#" class="social__link">GitHub</a>
-        <a href="#" class="social__link">LinkedIn</a>
-        <div class="line"></div>
-      </aside>
-      <aside class="social social--right" aria-hidden="true">
-        <div class="line"></div>
-        <a href="#" class="social__link">Instagram</a>
-        <a href="#" class="social__link">Facebook</a>
-        <div class="line"></div>
-      </aside>
-
-      <!-- Center hero / name -->
-      <div class="home__center">
-        <h1 class="home__title">Andrei <span class="accent">Cristian</span></h1>
-        <p class="home__sub">Designer • Developer • Creator</p>
-      </div>
-
-      <!-- down arrow -->
-      <div class="chev-wrap">
-        <a href="#about" class="chev" aria-label="Scroll down">
-          <svg viewBox="0 0 24 24" class="chev-icon"><path d="M6 9l6 6 6-6"/></svg>
-        </a>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="section about fullvh">
-      <h2 class="section__title">About Me</h2>
-      <div class="section__content">
-        <p>Placeholder for About content. Replace with your bio, skills, and highlights.</p>
-      </div>
-    </section>
-
-    <!-- SERVICES -->
-    <section id="services" class="section services fullvh">
-      <h2 class="section__title">Services</h2>
-      <div class="section__content"> <!-- cards, etc. --> </div>
-    </section>
-
-    <!-- PORTFOLIO -->
-    <section id="portfolio" class="section portfolio fullvh">
-      <h2 class="section__title">Portfolio</h2>
-      <div class="section__content"> <!-- projects grid --> </div>
-    </section>
-
-    <!-- REVIEWS -->
-    <section id="reviews" class="section reviews fullvh">
-      <h2 class="section__title">Reviews</h2>
-      <div class="section__content"> <!-- testimonial slider --> </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="section contact fullvh">
-      <h2 class="section__title">Contact</h2>
-      <div class="section__content">
-        <form class="contact-form" action="#" onsubmit="return false;">
-          <input type="text" name="name" placeholder="Your name" required />
-          <input type="email" name="email" placeholder="Your email" required />
-          <textarea name="message" placeholder="Message" rows="5"></textarea>
-          <button type="submit" class="btn">Send</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- Scroll to top (appears when leaving home) -->
-    <button id="to-top" class="to-top" aria-label="Back to top" hidden>
-      <svg viewBox="0 0 24 24"><path d="M6 15l6-6 6 6"/></svg>
-    </button>
-
-    <!-- Mobile fullscreen menu -->
-    <div id="mobile-menu" class="mobile-menu" hidden>
-      <div class="mobile-menu__inner" role="dialog" aria-modal="true">
-        <button id="mobile-close" class="mobile-close" aria-label="Close menu">✕</button>
-        <ul class="mobile-list">
-          <li><a href="#about">About</a></li>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#reviews">Reviews</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
+    <div id="preloader">
+        <div class="loader-icon">
+            <img src="assets/photos/icon.gif" alt="Loading...">
+        </div>
     </div>
 
-  </main>
+    <div id="scroll-progress-bar"></div>
 
-  <!-- Scripts at end for progressive enhancement (already deferred above) -->
+    <video id="home-video-bg" autoplay loop muted playsinline>
+        <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <a href="#home" class="logo load-fade-in">
+        <img src="assets/photos/icon.gif" alt="ANDZ Logo">
+        <span class="logo-fallback">ANDZ</span>
+    </a>
+
+    <nav class="desktop-nav load-fade-in">
+        <a href="#about">
+            <i class="fas fa-user"></i>
+            <span>About</span>
+        </a>
+        <a href="#services">
+            <i class="fas fa-cog"></i>
+            <span>Services</span>
+        </a>
+        <a href="#portfolio">
+            <i class="fas fa-layer-group"></i>
+            <span>Portfolio</span>
+        </a>
+        <a href="#reviews">
+            <i class="fas fa-star"></i>
+            <span>Reviews</span>
+        </a>
+        <a href="#contact">
+            <i class="fas fa-paper-plane"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+
+    <div class="burger-menu load-fade-in">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <nav class="mobile-nav">
+        <div class="mobile-nav-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="social-links left load-fade-in">
+        <div class="line"></div>
+        <a href="https://github.com/andz7z" target="_blank">
+            <i class="fab fa-github"></i>
+            <span class="hover-text">andz7z</span>
+        </a>
+        <a href="https://linkedin.com/in/andrei-cristian" target="_blank">
+            <i class="fab fa-linkedin-in"></i>
+            <span class="hover-text">Andrei Cristian</span>
+        </a>
+        <div class="line"></div>
+    </div>
+
+    <div class="social-links right load-fade-in">
+        <div class="line"></div>
+        <a href="https://instagram.com/andz7z" target="_blank">
+            <i class="fab fa-instagram"></i>
+            <span class="hover-text">#andz7z</span>
+        </a>
+        <a href="https://facebook.com/andrei.cristian" target="_blank">
+            <i class="fab fa-facebook-f"></i>
+            <span class="hover-text">Andrei Cristian</span>
+        </a>
+        <div class="line"></div>
+    </div>
+
+
+    <main>
+
+        <section id="home">
+            <a href="#about" class="scroll-down-arrow load-fade-in">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </section>
+
+        <section id="about" class="content-section">
+            <h1 class="fade-in">About</h1>
+        </section>
+
+        <section id="services" class="content-section">
+            <h1 class="fade-in">Services</h1>
+        </section>
+
+        <section id="portfolio" class="content-section">
+            <h1 class="fade-in">Portfolio</h1>
+        </section>
+
+        <section id="reviews" class="content-section">
+            <h1 class="fade-in">Reviews</h1>
+        </section>
+
+        <section id="contact" class="content-section">
+            <h1 class="fade-in">Contact</h1>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/about.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>
