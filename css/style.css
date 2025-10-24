@@ -1,4 +1,4 @@
-/* Reset și stiluri de bază */
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -10,346 +10,161 @@ html {
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    color: white;
-    background-color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    background-color: #000;
     overflow-x: hidden;
 }
 
-/* Fonturi */
-@font-face {
-    font-family: 'Noverich';
-    src: url('assets/fonts/noverich.otf') format('opentype');
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('assets/fonts/roboto.ttf') format('truetype');
-}
-
-/* Sectiuni */
-section {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 /* Progress Bar */
-#progress-bar {
+.progress-container {
     position: fixed;
     top: 0;
     left: 0;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(to right, #000, #333, #666, #999, #ccc, #fff);
     width: 0%;
-    height: 3px;
-    background: linear-gradient(to right, #333, #fff, #333);
-    z-index: 1002;
     transition: width 0.1s ease;
 }
 
-/* Go Back Button */
-#go-back {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    cursor: pointer;
-    z-index: 1001;
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.5s ease;
-}
-
-#go-back.visible {
-    opacity: 1;
-    pointer-events: all;
-}
-
-/* Navbar */
-#navbar {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    border-radius: 40px;
-    padding: 8px 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-    transition: all 0.5s ease;
-    opacity: 1;
-}
-
-#navbar.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.nav-icons {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-}
-
-.nav-icon {
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.nav-icon:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-.nav-label {
-    position: absolute;
-    top: 100%;
-    margin-top: 8px;
-    font-size: 0.7rem;
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    white-space: nowrap;
-    font-family: 'Roboto', sans-serif;
-}
-
-.nav-item:hover .nav-label {
-    opacity: 1;
-}
-
-/* Social Icons */
-.social-icons {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 999;
-    transition: all 0.5s ease;
-}
-
-.social-icons.left {
-    left: 30px;
-}
-
-.social-icons.right {
-    right: 30px;
-}
-
-.social-icons.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-
-.social-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.social-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10px 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-}
-
-.social-label {
-    position: absolute;
-    font-size: 0.8rem;
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    white-space: nowrap;
-    font-family: 'Roboto', sans-serif;
-}
-
-.social-icons.left .social-label {
-    left: 100%;
-    margin-left: 15px;
-}
-
-.social-icons.right .social-label {
-    right: 100%;
-    margin-right: 15px;
-}
-
-.social-item:hover .social-label {
-    opacity: 1;
-}
-
-.line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, white, transparent);
-}
-
-.top-line {
-    width: 1px;
-    height: 20px;
-    background: #ffffff !important;
-    margin-bottom: 5px;
-}
-
-.bottom-line {
-    width: 1px;
-    height: 20px;
-    background: #ffffff !important;
-    margin-top: 5px;
-}
-
-/* Mobile Menu */
-.mobile-menu-btn {
-    display: none;
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-    z-index: 1003;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 4px;
-}
-
-.mobile-menu-btn span {
-    display: block;
-    width: 20px;
-    height: 2px;
-    background: white;
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-btn.active span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
-}
-
-.mobile-menu-btn.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.mobile-menu-btn.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-}
-
-.mobile-menu {
+/* Navigation Bar */
+.navbar {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 70%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(20px);
-    z-index: 1002;
-    transition: right 0.3s ease;
+    width: 100%;
+    padding: 1rem 2rem;
+    z-index: 999;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.nav-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 30px;
-}
-
-.mobile-menu.active {
-    right: 0;
-}
-
-.mobile-menu-item {
-    color: white;
     text-decoration: none;
-    font-size: 1.5rem;
-    font-family: 'Noverich', sans-serif;
-    transition: all 0.3s ease;
-    cursor: pointer;
+    color: #fff;
+    font-size: 0.8rem;
+    transition: color 0.3s ease;
 }
 
-.mobile-menu-item:hover {
-    transform: scale(1.1);
+.nav-link i {
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.nav-link:hover {
     color: #ccc;
 }
 
-/* Alte sectiuni */
-.section-title {
-    font-family: 'Noverich', sans-serif;
-    font-size: 3rem;
-    margin-bottom: 2rem;
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Sections */
+.section {
+    min-height: 100vh;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
     text-align: center;
 }
 
-#about, #services, #portfolio, #reviews, #contact {
-    background-color: #000;
+.section-title {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: #fff;
 }
 
-/* Media Queries pentru Mobile */
-@media (max-width: 768px) {
-    /* Ascunde navbar-ul normal și iconitele sociale */
-    #navbar {
-        display: none;
+.section-description {
+    font-size: 1.2rem;
+    color: #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+        gap: 0;
     }
 
-    .social-icons {
-        display: none;
+    .nav-menu.active {
+        left: 0;
     }
 
-    /* Arată butonul de meniu mobil */
-    .mobile-menu-btn {
+    .nav-item {
+        margin: 1.5rem 0;
+    }
+
+    .hamburger {
         display: flex;
     }
 
-    /* Ajustări pentru secțiuni */
-    .section-title {
-        font-size: 2rem;
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
     }
-}
 
-@media (max-width: 480px) {
-    .section-title {
-        font-size: 1.8rem;
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 }
