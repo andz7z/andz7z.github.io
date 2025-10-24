@@ -1,17 +1,4 @@
-/*
- * FILE: style.css
- * PROJECT: ANDZ Website
- * DESCRIPTION: Global styles, variables, fonts, and core layout.
-*/
-
-/* ======== FONT DEFINITIONS ======== */
-@font-face {
-    font-family: 'Noverich';
-    src: url('../assets/fonts/noverich.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
+/* ======== FONT IMPORTS ======== */
 @font-face {
     font-family: 'Roboto';
     src: url('../assets/fonts/roboto.ttf') format('truetype');
@@ -19,33 +6,26 @@
     font-style: normal;
 }
 
-/* ======== CSS VARIABLES (THEME) ======== */
-:root {
-    /* Colors */
-    --color-black: #000000;
-    --color-gray-dark: #1a1a1a;
-    --color-gray-medium: #888888;
-    --color-gray-light: #cccccc;
-    --color-white: #ffffff;
-    
-    /* Gradients */
-    --gradient-main: linear-gradient(90deg, var(--color-black), var(--color-gray-medium), var(--color-white));
-    --gradient-line: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0));
-
-    /* Fonts */
-    --font-title: 'Noverich', 'Times New Roman', serif;
-    --font-body: 'Roboto', 'Arial', sans-serif;
-    
-    /* Effects */
-    --blur-effect: backdrop-filter: blur(12px) saturate(150%);
-    -webkit-backdrop-filter: blur(12px) saturate(150%);
-    --glossy-bg: rgba(255, 255, 255, 0.05);
-    --glossy-border: 1px solid rgba(255, 255, 255, 0.1);
-    --hover-glow: 0 0 15px rgba(255, 255, 255, 0.3), 0 0 5px rgba(255, 255, 255, 0.5);
-    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+@font-face {
+    font-family: 'Noverich';
+    src: url('../assets/fonts/noverich.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
 }
 
-/* ======== GLOBAL RESET & BODY ======== */
+/* ======== CSS VARIABLES (Monochrome Palette) ======== */
+:root {
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-gray-dark: #222222;
+    --color-gray-light: #CCCCCC;
+    --color-gray-medium: #888888;
+    
+    --font-primary: 'Roboto', sans-serif;
+    --font-secondary: 'Noverich', serif;
+}
+
+/* ======== GLOBAL RESET & BASE STYLES ======== */
 * {
     margin: 0;
     padding: 0;
@@ -54,353 +34,62 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
     background-color: var(--color-black);
-    color: var(--color-gray-light);
-    font-family: var(--font-body);
-    overflow-x: hidden;
+    color: var(--color-white);
+    font-family: var(--font-primary);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: var(--color-black);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--color-gray-medium);
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-gray-light);
-}
-
-/* ======== PRELOADER ======== */
-#preloader {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--color-black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    transition: opacity 0.5s ease-out;
-}
-#preloader .loader-icon img {
-    width: 60px;
-    height: 60px;
-    opacity: 0.8;
-    animation: pulse-loader 1.5s infinite ease-in-out;
-}
-@keyframes pulse-loader {
-    0%, 100% { opacity: 0.5; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.1); }
-}
-
-/* ======== LOAD-IN ANIMATIONS ======== */
-/* This class on <body> triggers animations after preloader */
-.load-fade-in {
-    opacity: 0;
-    transform: translateY(15px);
-    transition: opacity 0.8s ease-out 0.5s, transform 0.8s ease-out 0.5s;
-}
-body.loaded .load-fade-in {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Fade-in on scroll */
-.fade-in {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-
-/* ======== SCROLL PROGRESS BAR ======== */
-#scroll-progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: var(--gradient-main);
-    width: 0%;
-    z-index: 1001;
-    transition: width 0.1s linear;
-}
-
-/* ======== LOGO ======== */
-.logo {
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    z-index: 1000;
-    text-decoration: none;
-}
-.logo img {
-    width: 40px;
-    height: 40px;
-    transition: var(--transition-smooth);
-}
-.logo .logo-fallback {
-    display: none; /* Hidden by default */
-    font-family: var(--font-title);
-    font-size: 2rem;
-    color: var(--color-white);
-    text-decoration: none;
-}
-.logo:hover img {
-    transform: scale(1.1);
-    filter: drop-shadow(var(--hover-glow));
-}
-
-/* ======== DESKTOP NAVIGATION (TOP-CENTER) ======== */
-.desktop-nav {
-    position: fixed;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    
-    display: flex;
-    gap: 25px;
-    padding: 12px 25px;
-    border-radius: 50px;
-    
-    background: var(--glossy-bg);
-    border: var(--glossy-border);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    var(--blur-effect);
-}
-.desktop-nav a {
-    color: var(--color-gray-light);
-    text-decoration: none;
-    position: relative;
-    padding: 5px;
-}
-.desktop-nav a i {
-    font-size: 1.2rem;
-    transition: var(--transition-smooth);
-}
-.desktop-nav a span {
-    position: absolute;
-    bottom: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.75rem;
-    font-weight: 300;
-    opacity: 0;
-    transition: var(--transition-smooth);
-    white-space: nowrap;
-    color: var(--color-white);
-    pointer-events: none;
-}
-.desktop-nav a:hover i {
-    color: var(--color-white);
-    transform: scale(1.15);
-    text-shadow: var(--hover-glow);
-}
-.desktop-nav a:hover span {
-    opacity: 1;
-    bottom: -18px;
-}
-
-/* ======== MOBILE NAVIGATION ======== */
-.burger-menu {
-    display: none; /* Hidden on desktop */
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    z-index: 1002;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: var(--color-white);
-    padding: 5px;
-}
-.mobile-nav {
-    display: none; /* Hidden by default */
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 80%;
-    max-width: 300px;
-    height: 100vh;
-    
-    background: rgba(0, 0, 0, 0.5);
-    var(--blur-effect);
-    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
-    border-right: var(--glossy-border);
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
-    transition: left 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-.mobile-nav.active {
-    left: 0;
-}
-.mobile-nav-close {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    font-size: 1.8rem;
-    color: var(--color-white);
-    cursor: pointer;
-}
-.mobile-nav ul {
-    list-style: none;
-    width: 100%;
-    text-align: center;
-}
-.mobile-nav ul li {
-    margin: 20px 0;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-}
-/* Staggered fade-in for mobile menu items */
-.mobile-nav.active ul li {
-    opacity: 1;
-    transform: translateX(0);
-}
-.mobile-nav.active ul li:nth-child(1) { transition-delay: 0.1s; }
-.mobile-nav.active ul li:nth-child(2) { transition-delay: 0.15s; }
-.mobile-nav.active ul li:nth-child(3) { transition-delay: 0.2s; }
-.mobile-nav.active ul li:nth-child(4) { transition-delay: 0.25s; }
-.mobile-nav.active ul li:nth-child(5) { transition-delay: 0.3s; }
-.mobile-nav.active ul li:nth-child(6) { transition-delay: 0.35s; }
-
-.mobile-nav ul li a {
-    font-family: var(--font-title);
-    font-size: 1.8rem;
-    color: var(--color-white);
-    text-decoration: none;
-    padding: 10px;
-    transition: var(--transition-smooth);
-}
-.mobile-nav ul li a:hover {
-    letter-spacing: 1px;
-    text-shadow: var(--hover-glow);
-}
-
-/* ======== SOCIAL ICONS (SIDES) ======== */
-.social-links {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 998;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.social-links.left { left: 35px; }
-.social-links.right { right: 35px; }
-
-.social-links .line {
-    width: 1px;
-    height: 50px;
-    background: var(--gradient-line);
-}
-.social-links a {
-    color: var(--color-gray-medium);
-    font-size: 1.3rem;
-    margin: 20px 0;
-    transition: var(--transition-smooth);
-    position: relative;
-}
-.social-links a:hover {
-    color: var(--color-white);
-    transform: scale(1.2);
-    text-shadow: var(--hover-glow);
-}
-.social-links a .hover-text {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    opacity: 0;
-    transition: var(--transition-smooth);
-    font-size: 0.8rem;
-    font-family: var(--font-body);
-    color: var(--color-white);
-    white-space: nowrap;
-    pointer-events: none;
-}
-.social-links.left a .hover-text {
-    left: 40px; /* Text appears to the right */
-}
-.social-links.right a .hover-text {
-    right: 40px; /* Text appears to the left */
-}
-.social-links a:hover .hover-text {
-    opacity: 1;
-}
-
-/* ======== GENERAL SECTION STYLING ======== */
 section {
     width: 100%;
-    min-height: 100vh;
-    padding: 120px 50px;
+    overflow: hidden;
+}
+
+a {
+    color: var(--color-white);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+/* ======== STILURI PENTRU SECTIUNILE DE CONTINUT ======== */
+.content-section {
+    min-height: 100vh; /* Fiecare secțiune ocupă ecranul */
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-}
-.content-section {
-    background: var(--color-black);
-}
-section h1 {
-    font-family: var(--font-title);
-    font-size: 6rem;
-    color: var(--color-white);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center;
+    padding: 100px 5%;
+    background-color: var(--color-black);
+    border-bottom: 1px solid var(--color-gray-dark); /* Separator subtil */
 }
 
+.content-section:last-child {
+    border-bottom: none;
+}
 
-/* ======== RESPONSIVE DESIGN (MOBILE) ======== */
+.content-section h2 {
+    font-family: var(--font-secondary);
+    font-size: 5rem; /* Mărime impunătoare */
+    color: transparent; /* Textul devine transparent */
+    
+    /* Efectul Metalic / Glossy */
+    background: linear-gradient(145deg, var(--color-gray-light), var(--color-white), var(--color-gray-medium));
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Efect 3D / Shadow */
+    text-shadow: 
+        0px 2px 2px rgba(0, 0, 0, 0.5), /* Umbra neagră */
+        0px 0px 10px rgba(255, 255, 255, 0.2); /* Strălucire subtilă */
+}
+
+/* Responsive pentru titluri */
 @media (max-width: 768px) {
-    /* Hide desktop nav, show mobile */
-    .desktop-nav {
-        display: none;
-    }
-    .burger-menu,
-    .mobile-nav {
-        display: flex;
-    }
-    
-    /* Hide desktop logo, as burger is top-left */
-    .logo {
-        display: none; 
-        /* Alternative: Move logo to top-right
-           left: auto;
-           right: 30px; 
-        */
-    }
-    
-    /* Hide side social links */
-    .social-links {
-        display: none;
-    }
-
-    /* Adjust section padding and font size */
-    section {
-        padding: 100px 20px;
-    }
-    section h1 {
+    .content-section h2 {
         font-size: 3rem;
     }
 }
