@@ -1,165 +1,163 @@
-// About Section JavaScript
+// About Section - Next Level JavaScript
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize About Section
     initAboutSection();
     
-    // Initialize Skill Bars Animation
+    // Create Floating Particles
+    createParticles();
+    
+    // Initialize 3D Profile Card
+    init3DProfileCard();
+    
+    // Initialize Skill Bars
     initSkillBars();
     
-    // Initialize Stats Counter
-    initStatsCounter();
+    // Initialize Timeline Animation
+    initTimelineAnimation();
     
-    // Initialize Team Cards Animation
-    initTeamCards();
-    
-    // Initialize Floating Cube
-    initFloatingCube();
+    // Initialize Tech Stack Animation
+    initTechStackAnimation();
     
     // Initialize Scroll Animations
     initScrollAnimations();
+    
+    // Initialize Interactive Elements
+    initInteractiveElements();
 });
 
 // Initialize About Section
 function initAboutSection() {
-    console.log('About Section Initialized');
+    console.log('🚀 Next Level About Section Initialized');
     
-    // Add intersection observer for about section
-    const aboutSection = document.querySelector('.about-section');
-    const aboutTitle = document.querySelector('.about-title');
-    const aboutDescription = document.querySelector('.about-description');
-    
-    const aboutObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                aboutTitle.style.animation = 'fadeInUp 1s ease forwards';
-                aboutDescription.style.animation = 'fadeInUp 1s ease 0.3s forwards';
-                
-                // Start cube animation
-                const cube = document.querySelector('.floating-cube');
-                if (cube) {
-                    cube.style.animationPlayState = 'running';
-                }
-            }
-        });
-    }, { threshold: 0.3 });
-    
-    aboutObserver.observe(aboutSection);
-}
-
-// Initialize Skill Bars Animation
-function initSkillBars() {
-    const skillCards = document.querySelectorAll('.skill-card');
-    
-    const skillObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const skillBar = entry.target.querySelector('.skill-bar');
-                const percentage = skillBar.getAttribute('data-percentage');
-                
-                // Animate skill bar after a short delay
-                setTimeout(() => {
-                    skillBar.style.width = percentage + '%';
-                }, 300);
-                
-                skillObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    skillCards.forEach(card => {
-        skillObserver.observe(card);
-    });
-}
-
-// Initialize Stats Counter
-function initStatsCounter() {
-    const statCards = document.querySelectorAll('.stat-card');
-    
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const statNumber = entry.target.querySelector('.stat-number');
-                const targetNumber = parseInt(statNumber.getAttribute('data-target'));
-                
-                animateCounter(statNumber, 0, targetNumber, 2000);
-                
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.5 });
-    
-    statCards.forEach(card => {
-        statsObserver.observe(card);
-    });
-}
-
-// Animate Counter
-function animateCounter(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-        if (!startTimestamp) startTimestamp = timestamp;
-        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        
-        // Easing function
-        const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-        
-        const value = Math.floor(easeOutQuart * (end - start) + start);
-        
-        // Format number with commas
-        element.textContent = value.toLocaleString();
-        
-        if (progress < 1) {
-            window.requestAnimationFrame(step);
+    // Add parallax effect to grid background
+    const gridBg = document.querySelector('.about-grid-bg');
+    window.addEventListener('scroll', () => {
+        if (gridBg) {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.3;
+            gridBg.style.transform = `translateY(${rate}px)`;
         }
-    };
-    window.requestAnimationFrame(step);
-}
-
-// Initialize Team Cards Animation
-function initTeamCards() {
-    const teamCards = document.querySelectorAll('.team-card');
-    
-    const teamObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-                teamObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2 });
-    
-    teamCards.forEach((card, index) => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.animationDelay = (index * 0.1) + 's';
-        teamObserver.observe(card);
     });
 }
 
-// Initialize Floating Cube
-function initFloatingCube() {
-    const cube = document.querySelector('.floating-cube');
+// Create Floating Particles
+function createParticles() {
+    const particlesContainer = document.querySelector('.particles-container');
+    if (!particlesContainer) return;
     
-    if (!cube) return;
+    const particleCount = 50;
     
-    // Pause animation initially
-    cube.style.animationPlayState = 'paused';
+    for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random position
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const delay = Math.random() * 6;
+        
+        particle.style.left = `${left}%`;
+        particle.style.top = `${top}%`;
+        particle.style.animationDelay = `-${delay}s`;
+        
+        particlesContainer.appendChild(particle);
+    }
+}
+
+// Initialize 3D Profile Card
+function init3DProfileCard() {
+    const profileCard = document.querySelector('.profile-card-3d');
+    if (!profileCard) return;
     
-    // Add mousemove effect
+    let isFlipped = false;
+    
+    // Auto-flip every 8 seconds
+    setInterval(() => {
+        isFlipped = !isFlipped;
+        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+    }, 8000);
+    
+    // Click to flip
+    profileCard.addEventListener('click', () => {
+        isFlipped = !isFlipped;
+        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+    });
+    
+    // Mouse move effect
     document.addEventListener('mousemove', (e) => {
-        if (!cube) return;
+        if (!isFlipped) return;
         
         const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
         const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
         
-        cube.style.transform = `rotateX(${-yAxis}deg) rotateY(${xAxis}deg)`;
+        profileCard.style.transform = `rotateY(180deg) rotateX(${yAxis}deg) rotateY(${xAxis}deg)`;
     });
+}
+
+// Initialize Skill Bars
+function initSkillBars() {
+    const matrixItems = document.querySelectorAll('.matrix-item');
     
-    // Add mouse leave effect
-    document.addEventListener('mouseleave', () => {
-        if (!cube) return;
-        
-        cube.style.transform = 'rotateX(-15deg) rotateY(15deg)';
+    const matrixObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const progressBar = entry.target.querySelector('.matrix-progress');
+                const percentage = progressBar.getAttribute('data-percentage');
+                
+                // Animate progress bar
+                setTimeout(() => {
+                    progressBar.style.width = percentage + '%';
+                }, 300);
+                
+                matrixObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    matrixItems.forEach(item => {
+        matrixObserver.observe(item);
+    });
+}
+
+// Initialize Timeline Animation
+function initTimelineAnimation() {
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    const timelineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                timelineObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    timelineItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(-50px)';
+        item.style.animationDelay = (index * 0.2) + 's';
+        timelineObserver.observe(item);
+    });
+}
+
+// Initialize Tech Stack Animation
+function initTechStackAnimation() {
+    const techItems = document.querySelectorAll('.tech-item');
+    
+    const techObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'bounceIn 0.6s ease forwards';
+                techObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
+    
+    techItems.forEach((item, index) => {
+        item.style.opacity = '0';
+        item.style.transform = 'scale(0.8)';
+        item.style.animationDelay = (index * 0.1) + 's';
+        techObserver.observe(item);
     });
 }
 
@@ -179,14 +177,29 @@ function initScrollAnimations() {
             }
         }
         
-        .about-title, .about-description {
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .about-title, .about-description, .hero-badge, .hero-title, .hero-description, .cta-buttons, .section-title {
             opacity: 0;
         }
     `;
     document.head.appendChild(style);
     
     // Observe all animated elements
-    const animatedElements = document.querySelectorAll('.about-subtitle, .about-paragraph, .skills-title, .team-title, .stats-title, .cta-title, .cta-description');
+    const animatedElements = document.querySelectorAll('.about-title, .about-description, .hero-badge, .hero-title, .hero-description, .cta-buttons, .section-title, .cta-title, .cta-description');
     
     const elementObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -204,53 +217,64 @@ function initScrollAnimations() {
     });
 }
 
-// Add parallax effect to about section background
-function initParallaxEffect() {
-    const aboutSection = document.querySelector('.about-section');
-    
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        
-        aboutSection.style.backgroundPosition = `0px ${rate}px`;
-    });
-}
-
-// Initialize interactive elements
+// Initialize Interactive Elements
 function initInteractiveElements() {
-    // Add click effect to skill cards
-    const skillCards = document.querySelectorAll('.skill-card');
+    // Add ripple effect to buttons
+    const buttons = document.querySelectorAll('.btn-3d, .cta-button-large');
     
-    skillCards.forEach(card => {
-        card.addEventListener('click', function() {
-            this.classList.toggle('active');
+    buttons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.className = 'ripple';
+            
+            this.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
         });
     });
     
-    // Add hover effect to team cards
-    const teamCards = document.querySelectorAll('.team-card');
-    
-    teamCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.zIndex = '10';
-        });
+    // Add CSS for ripple effect
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
         
-        card.addEventListener('mouseleave', function() {
-            this.style.zIndex = '1';
-        });
-    });
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(rippleStyle);
 }
 
 // Export functions for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         initAboutSection,
+        createParticles,
+        init3DProfileCard,
         initSkillBars,
-        initStatsCounter,
-        initTeamCards,
-        initFloatingCube,
+        initTimelineAnimation,
+        initTechStackAnimation,
         initScrollAnimations,
-        initParallaxEffect,
         initInteractiveElements
     };
 }
