@@ -1,38 +1,68 @@
-/* ========================================
-   REVIEWS SECTION - STYLES
-   ======================================== */
+/* ===== REVIEWS SECTION ===== */
+#reviews {
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/* ========================================
-   REVIEWS SECTION BASE
-   ======================================== */
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
 
-.reviews-section {
-    background: var(--color-bg-dark);
+.review-card {
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: var(--blur);
+    border-radius: 15px;
+    padding: 30px;
+    transition: all var(--transition-fast);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     position: relative;
 }
 
-/* ========================================
-   REVIEWS CONTAINER
-   ======================================== */
-
-.reviews-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
+.review-card::before {
+    content: '"';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 4rem;
+    font-family: 'Noverich', sans-serif;
+    color: rgba(255, 255, 255, 0.1);
+    line-height: 1;
 }
 
-/* ========================================
-   REVIEW CARDS
-   ======================================== */
+.review-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(255, 255, 255, 0.3);
+}
 
-/* Add your custom styles here */
+.review-content {
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
 
-/* ========================================
-   RESPONSIVE - MOBILE
-   ======================================== */
+.review-content p {
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.review-author h4 {
+    font-family: 'Noverich', sans-serif;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.review-author p {
+    color: var(--color-off-white);
+    font-size: 0.9rem;
+}
 
 @media (max-width: 768px) {
     .reviews-container {
-        padding: var(--spacing-md);
+        grid-template-columns: 1fr;
     }
 }
