@@ -1,51 +1,24 @@
-/* ========================================
-   ABOUT SECTION - INTERACTIVE EFFECTS
-   ======================================== */
-
-'use strict';
-
-/* ========================================
-   ABOUT DOM ELEMENTS
-   ======================================== */
-
-const AboutDOM = {
-    section: null,
-    container: null
-};
-
-/* ========================================
-   INITIALIZATION
-   ======================================== */
-
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('📖 About module initializing...');
-    
-    // Cache DOM elements
-    AboutDOM.section = document.getElementById('about');
-    AboutDOM.container = document.querySelector('.about-container');
-    
-    // Initialize features
-    initAboutSection();
-    
-    console.log('✅ About module loaded');
+// ===== ABOUT SCRIPT =====
+document.addEventListener('DOMContentLoaded', function() {
+    initAbout();
 });
 
-/* ========================================
-   ABOUT SECTION INITIALIZATION
-   ======================================== */
-
-function initAboutSection() {
-    if (!AboutDOM.section) return;
+function initAbout() {
+    // Animație pentru barele de skills
+    const skillBars = document.querySelectorAll('.skill-progress');
     
-    // Add your custom initialization code here
-    
-    console.log('📖 About section initialized');
+    skillBars.forEach(bar => {
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const width = bar.getAttribute('data-width');
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 300);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(bar);
+    });
 }
-
-/* ========================================
-   EXPORT ABOUT MODULE
-   ======================================== */
-
-window.AboutModule = {
-    AboutDOM
-};
