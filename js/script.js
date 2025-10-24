@@ -23,3 +23,16 @@ document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", 
     hamburger.classList.remove("active");
     navMenu.classList.remove("active");
 }));
+
+// Logo fallback
+document.addEventListener('DOMContentLoaded', function() {
+    const logoImg = document.querySelector('.logo-img');
+    if (logoImg) {
+        logoImg.addEventListener('error', function() {
+            this.style.display = 'none';
+            const parent = this.parentElement;
+            parent.textContent = 'LOGO';
+            parent.style.fontFamily = 'Noverich, sans-serif';
+        });
+    }
+});
