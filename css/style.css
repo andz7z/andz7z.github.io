@@ -121,83 +121,10 @@ body {
     filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.7));
 }
 
-/* Mobile Menu Overlay */
-.mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(15px);
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-overlay.active {
-    opacity: 1;
-    visibility: visible;
-}
-
-.mobile-menu {
-    list-style: none;
-    text-align: center;
-}
-
-.mobile-nav-item {
-    margin: 2rem 0;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-}
-
-.mobile-menu-overlay.active .mobile-nav-item {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.mobile-menu-overlay.active .mobile-nav-item:nth-child(1) { transition-delay: 0.1s; }
-.mobile-menu-overlay.active .mobile-nav-item:nth-child(2) { transition-delay: 0.2s; }
-.mobile-menu-overlay.active .mobile-nav-item:nth-child(3) { transition-delay: 0.3s; }
-.mobile-menu-overlay.active .mobile-nav-item:nth-child(4) { transition-delay: 0.4s; }
-.mobile-menu-overlay.active .mobile-nav-item:nth-child(5) { transition-delay: 0.5s; }
-.mobile-menu-overlay.active .mobile-nav-item:nth-child(6) { transition-delay: 0.6s; }
-
-.mobile-nav-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.5rem;
-    font-family: 'Noverich', sans-serif;
-    padding: 1rem 2rem;
-    transition: all 0.3s ease;
-    border-radius: 10px;
-}
-
-.mobile-nav-link i {
-    margin-right: 1rem;
-    font-size: 1.3rem;
-}
-
-.mobile-nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: scale(1.05);
-}
-
-/* Hamburger Menu */
 .hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    z-index: 1002;
-    padding: 5px;
 }
 
 .bar {
@@ -206,18 +133,6 @@ body {
     background-color: #fff;
     margin: 3px 0;
     transition: 0.3s;
-}
-
-.hamburger.active .bar:nth-child(1) {
-    transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.hamburger.active .bar:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active .bar:nth-child(3) {
-    transform: rotate(45deg) translate(-5px, -6px);
 }
 
 /* Back to Home Arrow */
@@ -283,11 +198,52 @@ body {
 /* Responsive */
 @media screen and (max-width: 768px) {
     .nav-menu {
-        display: none; /* Ascunde iconitele de navigare pe mobile */
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background-color: rgba(0, 0, 0, 0.9);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+        gap: 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        margin: 1.5rem 0;
+    }
+
+    .nav-link {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .nav-text {
+        position: static;
+        opacity: 1;
+        font-size: 1rem;
     }
 
     .hamburger {
         display: flex;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 
     .back-to-home {
@@ -295,34 +251,5 @@ body {
         height: 40px;
         top: 15px;
         right: 15px;
-    }
-
-    .section-title {
-        font-size: 2.5rem;
-    }
-
-    .section-description {
-        font-size: 1rem;
-        padding: 0 1rem;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .navbar {
-        padding: 1rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .mobile-nav-link {
-        font-size: 1.3rem;
-        padding: 0.8rem 1.5rem;
-    }
-
-    .mobile-nav-link i {
-        font-size: 1.1rem;
-        margin-right: 0.8rem;
     }
 }
