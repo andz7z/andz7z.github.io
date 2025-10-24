@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Minimalist</title>
+    <title>A N D Z</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -12,6 +12,23 @@
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonturi personalizate -->
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('assets/fonts/roboto.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Noverich';
+            src: url('assets/fonts/noverich.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
 </head>
 <body>
     <!-- Progress Bar -->
@@ -22,7 +39,9 @@
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="nav-logo">Portfolio</a>
+            <a href="#" class="nav-logo">
+                <img src="https://andz7z.github.io/assets/photos/icon.gif" alt="LOGO" class="logo-img">
+            </a>
             <ul class="nav-menu">
                 <li class="nav-item">
                     <a href="#home" class="nav-link">
@@ -78,68 +97,76 @@
             </video>
         </div>
         <div class="home-content">
-            <h1 class="slogan">
-                <span class="slogan-letter">D</span>
-                <span class="slogan-letter">E</span>
-                <span class="slogan-letter">S</span>
-                <span class="slogan-letter">I</span>
-                <span class="slogan-letter">G</span>
-                <span class="slogan-letter">N</span>
-                <span class="slogan-letter">.</span>
-                <span class="slogan-letter">&nbsp;</span>
-                <span class="slogan-letter">D</span>
-                <span class="slogan-letter">E</span>
-                <span class="slogan-letter">V</span>
-                <span class="slogan-letter">E</span>
-                <span class="slogan-letter">L</span>
-                <span class="slogan-letter">O</span>
-                <span class="slogan-letter">P</span>
-                <span class="slogan-letter">.</span>
-                <span class="slogan-letter">&nbsp;</span>
-                <span class="slogan-letter">D</span>
-                <span class="slogan-letter">E</span>
-                <span class="slogan-letter">L</span>
-                <span class="slogan-letter">I</span>
-                <span class="slogan-letter">V</span>
-                <span class="slogan-letter">E</span>
-                <span class="slogan-letter">R</span>
-            </h1>
-            
-            <div class="btn-wrapper">
-                <button class="btn" id="aboutBtn">
-                    <svg class="btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-                        ></path>
-                    </svg>
+            <div class="text-content">
+                <h1 class="slogan">
+                    <span class="slogan-letter">D</span>
+                    <span class="slogan-letter">E</span>
+                    <span class="slogan-letter">S</span>
+                    <span class="slogan-letter">I</span>
+                    <span class="slogan-letter">G</span>
+                    <span class="slogan-letter">N</span>
+                    <span class="slogan-letter">.</span>
+                    <span class="slogan-letter">&nbsp;</span>
+                    <span class="slogan-letter">D</span>
+                    <span class="slogan-letter">E</span>
+                    <span class="slogan-letter">V</span>
+                    <span class="slogan-letter">E</span>
+                    <span class="slogan-letter">L</span>
+                    <span class="slogan-letter">O</span>
+                    <span class="slogan-letter">P</span>
+                    <span class="slogan-letter">.</span>
+                    <span class="slogan-letter">&nbsp;</span>
+                    <span class="slogan-letter">D</span>
+                    <span class="slogan-letter">E</span>
+                    <span class="slogan-letter">L</span>
+                    <span class="slogan-letter">I</span>
+                    <span class="slogan-letter">V</span>
+                    <span class="slogan-letter">E</span>
+                    <span class="slogan-letter">R</span>
+                </h1>
+                
+                <div class="btn-wrapper">
+                    <button class="btn" id="aboutBtn">
+                        <svg class="btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
+                            ></path>
+                        </svg>
 
-                    <div class="txt-wrapper">
-                        <div class="txt-1">
-                            <span class="btn-letter">G</span>
-                            <span class="btn-letter">e</span>
-                            <span class="btn-letter">n</span>
-                            <span class="btn-letter">e</span>
-                            <span class="btn-letter">r</span>
-                            <span class="btn-letter">a</span>
-                            <span class="btn-letter">t</span>
-                            <span class="btn-letter">e</span>
+                        <div class="txt-wrapper">
+                            <div class="txt-1">
+                                <span class="btn-letter">D</span>
+                                <span class="btn-letter">i</span>
+                                <span class="btn-letter">s</span>
+                                <span class="btn-letter">c</span>
+                                <span class="btn-letter">o</span>
+                                <span class="btn-letter">v</span>
+                                <span class="btn-letter">e</span>
+                                <span class="btn-letter">r</span>
+                                <span class="btn-letter">&nbsp;</span>
+                                <span class="btn-letter">N</span>
+                                <span class="btn-letter">o</span>
+                                <span class="btn-letter">w</span>
+                            </div>
+                            <div class="txt-2">
+                                <span class="btn-letter">D</span>
+                                <span class="btn-letter">i</span>
+                                <span class="btn-letter">s</span>
+                                <span class="btn-letter">c</span>
+                                <span class="btn-letter">o</span>
+                                <span class="btn-letter">v</span>
+                                <span class="btn-letter">e</span>
+                                <span class="btn-letter">r</span>
+                                <span class="btn-letter">&nbsp;</span>
+                                <span class="btn-letter">N</span>
+                                <span class="btn-letter">o</span>
+                                <span class="btn-letter">w</span>
+                            </div>
                         </div>
-                        <div class="txt-2">
-                            <span class="btn-letter">G</span>
-                            <span class="btn-letter">e</span>
-                            <span class="btn-letter">n</span>
-                            <span class="btn-letter">e</span>
-                            <span class="btn-letter">r</span>
-                            <span class="btn-letter">a</span>
-                            <span class="btn-letter">t</span>
-                            <span class="btn-letter">i</span>
-                            <span class="btn-letter">n</span>
-                            <span class="btn-letter">g</span>
-                        </div>
-                    </div>
-                </button>
+                    </button>
+                </div>
             </div>
             
             <div class="scroll-indicator">
