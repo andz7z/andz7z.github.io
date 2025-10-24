@@ -1,92 +1,84 @@
-<!DOCTYPE html>
-<html lang="ro">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Personal Website</title>
-    
-    <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/contact.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ANDZ — Design · Develop · Deliver</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <script defer src="js/script.js"></script>
+  <script defer src="js/home.js"></script>
 </head>
 <body>
+  <div id="app">
+    <!-- Video background only on homepage -->
+    <section id="home" class="section home-section">
+      <video id="bgvideo" class="bgvideo" autoplay muted loop playsinline>
+        <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+      </video>
 
-    <a href="#home" class="go-back">
-        <i class="fa-solid fa-arrow-up"></i>
-    </a>
-
-    <section id="home">
-        <div class="video-background">
-            <video autoplay muted loop playsinline>
-                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
-                Browser-ul tău nu suportă tag-ul video.
-            </video>
-            <div class="video-overlay"></div>
-        </div>
-
-        <nav class="navbar">
-            <div class="nav-links">
-                <a href="#about" aria-label="About"><i class="fa-solid fa-user"></i></a>
-                <a href="#services" aria-label="Services"><i class="fa-solid fa-briefcase"></i></a>
-                <a href="#portfolio" aria-label="Portfolio"><i class="fa-solid fa-image"></i></a>
-                <a href="#reviews" aria-label="Reviews"><i class="fa-solid fa-star"></i></a>
-                <a href="#contact" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
-            </div>
+      <div class="topbar glass" id="topbar">
+        <nav class="nav">
+          <ul class="nav-list">
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+            <li><a href="#reviews" class="nav-link">Reviews</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
         </nav>
+      </div>
 
-        <div class="social-links social-left">
-            <div class="line line-top"></div>
-            <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
-            <div class="line line-bottom"></div>
-        </div>
+      <!-- Left social vertical -->
+      <div class="social-vertical left">
+        <div class="line"></div>
+        <a class="social" href="#" aria-label="LinkedIn">in</a>
+        <a class="social" href="#" aria-label="Github">gh</a>
+        <div class="line"></div>
+      </div>
 
-        <div class="social-links social-right">
-            <div class="line line-top"></div>
-            <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <div class="line line-bottom"></div>
-        </div>
+      <!-- Right social vertical -->
+      <div class="social-vertical right">
+        <div class="line"></div>
+        <a class="social" href="#" aria-label="Facebook">f</a>
+        <a class="social" href="#" aria-label="Instagram">ig</a>
+        <div class="line"></div>
+      </div>
 
-        <a href="#about" class="scroll-down">
-            <i class="fa-solid fa-chevron-down"></i>
-        </a>
+      <div class="home-content">
+        <h1 class="andz-title">DESIGN. <span>DEVELOP.</span> DELIVER.</h1>
+        <button class="btn btn-ghost" id="exploreBtn">Explore more</button>
+      </div>
+
+      <!-- Pulsing arrow -->
+      <a href="#about" class="scroll-arrow" id="scrollArrow" aria-label="Scroll down">
+        <span class="arrow"></span>
+      </a>
     </section>
 
-    <section id="about" class="content-section">
-        <h2>About</h2>
-        </section>
+    <!-- Other sections (only headings as requested) -->
+    <section id="about" class="section simple-section">
+      <h2>About</h2>
+    </section>
 
-    <section id="services" class="content-section">
-        <h2>Services</h2>
-        </section>
+    <section id="services" class="section simple-section">
+      <h2>Services</h2>
+    </section>
 
-    <section id="portfolio" class="content-section">
-        <h2>Portfolio</h2>
-        </section>
+    <section id="portfolio" class="section simple-section">
+      <h2>Portfolio</h2>
+    </section>
 
-    <section id="reviews" class="content-section">
-        <h2>Reviews</h2>
-        </section>
+    <section id="reviews" class="section simple-section">
+      <h2>Reviews</h2>
+    </section>
 
-    <section id="contact" class="content-section">
-        <h2>Contact</h2>
-        </section>
+    <section id="contact" class="section simple-section">
+      <h2>Contact</h2>
+    </section>
 
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
+    <!-- Back to top / go home arrow (appears after scroll) -->
+    <button id="backHome" class="back-home" aria-label="Go back to home">⤒</button>
+  </div>
 </body>
 </html>

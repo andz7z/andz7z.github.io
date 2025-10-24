@@ -1,258 +1,36 @@
-/* ======== HOME SECTION ======== */
-#home {
-    height: 100vh;
-    width: 100vw;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-white);
-}
+/* home.css — homepage specific styles */
+.home-section{overflow:hidden;padding:0;margin:0;position:relative;min-height:100vh;display:block}
+.bgvideo{position:fixed;top:50%;left:50%;width:140%;height:auto;min-height:100%;transform:translate(-50%,-50%);object-fit:cover;z-index:1;opacity:0.12;filter:grayscale(100%) contrast(110%) brightness(60%)}
+.home-content{position:relative;z-index:70;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding-top:40vh;text-align:center}
+.andz-title{font-size:36px;letter-spacing:6px;color:#fff;text-transform:uppercase;margin:0;padding:0;-webkit-text-stroke:0.6px rgba(0,0,0,0.6);background:var(--accent);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 6px 18px rgba(0,0,0,0.6));text-shadow:0 2px 10px rgba(255,255,255,0.02)}
+.andz-title span{display:inline-block;transform:translateZ(20px)}
 
-/* ======== VIDEO BACKGROUND ======== */
-.video-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    overflow: hidden;
-}
+/* ghost button */
+.btn{font-weight:700;padding:12px 22px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);cursor:pointer;background:transparent;backdrop-filter:blur(6px)}
+.btn-ghost{transition:transform .28s, box-shadow .28s}
+.btn-ghost:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 18px 40px rgba(255,255,255,0.03)}
 
-.video-background video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Acoperă tot ecranul fără distorsiuni */
-}
+/* social verticals */
+.social-vertical{position:fixed;z-index:70;display:flex;flex-direction:column;align-items:center;gap:10px}
+.social-vertical.left{left:28px;top:45%;transform:translateY(-50%)}
+.social-vertical.right{right:28px;top:45%;transform:translateY(-50%)}
+.social{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);font-weight:700;color:#fff;text-decoration:none;backdrop-filter:blur(6px);box-shadow:0 8px 30px rgba(255,255,255,0.02);transition:transform .18s, box-shadow .18s, opacity .2s}
+.social:hover{transform:scale(1.12);box-shadow:0 20px 40px rgba(255,255,255,0.03);opacity:0.98}
+.social .line{height:1px;background:#fff}
 
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Overlay negru subtil */
-    z-index: -1;
-}
+/* decorative lines above and below socials */
+.social-vertical .line{width:2px;height:36px;background:linear-gradient(#fff, rgba(255,255,255,0.1));opacity:0.6}
 
-/* ======== NAVBAR (GLOSSY / BLUR / DETASAT) - MODIFICAT ======== */
-.navbar {
-    position: fixed;
-    top: 30px; /* Distanța de sus */
-    left: 50%;
-    transform: translateX(-50%); /* Centrare perfectă */
-    width: auto; /* Lățime automată bazată pe conținut */
-    padding: 15px 30px; /* Padding intern */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    border-radius: 50px; /* Colțuri rotunjite pentru aspect "pill" */
+/* scroll arrow */
+.scroll-arrow{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;z-index:70;display:block}
+.scroll-arrow .arrow{display:block;width:36px;height:36px;border-radius:999px;border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(6px);animation: pulse 1.6s infinite;display:flex;align-items:center;justify-content:center;position:relative}
+.scroll-arrow .arrow::after{content:'';width:10px;height:10px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg);display:inline-block;margin-top:6px;opacity:0.9}
+@keyframes pulse{0%{transform:translateX(-50%) translateY(0) scale(1)}50%{transform:translateX(-50%) translateY(-6px) scale(1.04)}100%{transform:translateX(-50%) translateY(0) scale(1)}}
 
-    /* Efectul Glassy / Blur */
-    background: rgba(25, 25, 25, 0.25); /* Fundal semi-transparent gri */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordură subtilă */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Umbră pentru efectul de plutire */
-}
-
-.nav-links {
-    display: flex;
-    gap: 40px;
-}
-
-.nav-links a i {
-    font-size: 1.5rem;
-    color: var(--color-white);
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
-}
-
-/* Efect Hover Iconițe Nav */
-.nav-links a:hover i {
-    transform: scale(1.2);
-    text-shadow: 0 0 8px var(--color-white), 0 0 15px var(--color-white);
-}
-
-/* ======== SOCIAL ICONS (LEFT & RIGHT) ======== */
-.social-links {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    z-index: 100;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.social-left { left: 40px; }
-.social-right { right: 40px; }
-
-.social-links a i {
-    font-size: 1.3rem;
-    color: var(--color-white);
-    transition: transform 0.3s ease, text-shadow 0.3s ease;
-}
-
-/* Efect Hover Iconițe Sociale */
-.social-links a:hover i {
-    transform: scale(1.2);
-    text-shadow: 0 0 8px var(--color-white), 0 0 15px var(--color-white);
-}
-
-/* Liniile cu gradient - MODIFICAT */
-.social-links .line {
-    width: 1px;
-    height: 50px;
-}
-/* Gradient: Negru (margine) -> Alb (spre iconițe) */
-.social-links .line-top {
-    background: linear-gradient(to top, var(--color-white), var(--color-black));
-}
-/* Gradient: Alb (spre iconițe) -> Negru (margine) */
-.social-links .line-bottom {
-    background: linear-gradient(to bottom, var(--color-white), var(--color-black));
-}
-
-
-/* ======== SCROLL DOWN ARROW ======== */
-.scroll-down {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 99;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.scroll-down i {
-    font-size: 2rem;
-    color: var(--color-white);
-    animation: pulse 2s infinite;
-}
-
-/* Animație Pulsantă */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-        opacity: 0.7;
-        text-shadow: 0 0 5px rgba(255,255,255,0.5);
-    }
-    50% {
-        transform: scale(1.2);
-        opacity: 1;
-        text-shadow: 0 0 15px var(--color-white);
-    }
-    100% {
-        transform: scale(1);
-        opacity: 0.7;
-        text-shadow: 0 0 5px rgba(255,255,255,0.5);
-    }
-}
-
-/* ======== GO BACK BUTTON (Stil glassy/blur) - MODIFICAT ======== */
-.go-back {
-    position: fixed;
-    top: 30px;
-    left: 30px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 101;
-    
-    /* Efectul Glassy / Blur */
-    background: rgba(25, 25, 25, 0.25);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-
-    /* Inițial ascuns */
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-100px);
-    transition: all 0.5s ease; /* Tranziție pentru toate proprietățile */
-}
-
-.go-back i {
-    color: var(--color-white); /* Iconiță albă */
-    font-size: 1.2rem;
-}
-
-.go-back:hover {
-    background: rgba(255, 255, 255, 0.2); /* Fundal mai deschis la hover */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
-    transform: scale(1.05); /* Mărire ușoară */
-}
-
-
-/* ======== Responsive pentru Mobile ======== */
-@media (max-width: 768px) {
-    .navbar {
-        padding: 10px 20px; /* Padding mai mic pe mobil */
-        top: 20px; /* Mai aproape de margine */
-    }
-    .nav-links {
-        gap: 25px;
-    }
-    .nav-links a i {
-        font-size: 1.3rem;
-    }
-    
-    /* Ascundem iconițele sociale pe mobil pentru un look curat */
-    .social-links {
-        display: none;
-    }
-    
-    .go-back {
-        top: 20px;
-        left: 20px;
-        width: 40px;
-        height: 40px;
-    }
-    .go-back i {
-        font-size: 1rem;
-    }
-}
-
-/* ======== CLASE PENTRU JS (Ascundere/Afisare) ======== */
-
-/* Când NU suntem pe homepage */
-body:not(.is-homepage) .navbar,
-body:not(.is-homepage) .social-links,
-body:not(.is-homepage) .scroll-down {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-100%); /* Efect de ieșire */
-}
-
-/* Animație diferită pentru iconițele sociale */
-body:not(.is-homepage) .social-left {
-    transform: translateX(-100%);
-}
-body:not(.is-homepage) .social-right {
-    transform: translateX(100%);
-}
-body:not(.is-homepage) .scroll-down {
-    transform: translateY(100%);
-}
-
-/* Corecție pentru navbar-ul centrat */
-body:not(.is-homepage) .navbar {
-    transform: translateX(-50%) translateY(-100%);
-}
-
-
-/* Când NU suntem pe homepage, arătăm butonul Go Back */
-body:not(.is-homepage) .go-back {
-    opacity: 1;
-    pointer-events: auto;
-    transform: translateX(0);
+/* responsive tweaks */
+@media (max-width:800px){
+  .andz-title{font-size:24px}
+  .social-vertical.left,.social-vertical.right{display:none}
+  .topbar{top:12px;padding:8px}
+  .nav-list{gap:8px}
 }
