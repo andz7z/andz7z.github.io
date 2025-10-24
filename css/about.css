@@ -1,38 +1,72 @@
-/* ========================================
-   ABOUT SECTION - STYLES
-   ======================================== */
+/* ===== ABOUT SECTION ===== */
+#about {
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/* ========================================
-   ABOUT SECTION BASE
-   ======================================== */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
 
-.about-section {
-    background: var(--color-bg-dark);
+.about-text p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.about-skills {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.skill h3 {
+    font-family: 'Noverich', sans-serif;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.skill-bar {
+    height: 8px;
+    background: var(--color-light-gray);
+    border-radius: 10px;
+    overflow: hidden;
     position: relative;
 }
 
-/* ========================================
-   ABOUT CONTAINER
-   ======================================== */
-
-.about-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
+.skill-progress {
+    height: 100%;
+    background: var(--gradient-horizontal);
+    border-radius: 10px;
+    width: 0;
+    transition: width 1.5s ease;
+    position: relative;
 }
 
-/* ========================================
-   ABOUT CONTENT STYLES
-   ======================================== */
+.skill-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+}
 
-/* Add your custom styles here */
-
-/* ========================================
-   RESPONSIVE - MOBILE
-   ======================================== */
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
 
 @media (max-width: 768px) {
-    .about-container {
-        padding: var(--spacing-md);
+    .about-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 }
