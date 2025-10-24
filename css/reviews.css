@@ -1,3 +1,38 @@
-#reviews {
-    background: linear-gradient(135deg, #1a2a3a, #2c5364);
+/* ========================================
+   REVIEWS SECTION - STYLES
+   ======================================== */
+
+/* ========================================
+   REVIEWS SECTION BASE
+   ======================================== */
+
+.reviews-section {
+    background: var(--color-bg-dark);
+    position: relative;
+}
+
+/* ========================================
+   REVIEWS CONTAINER
+   ======================================== */
+
+.reviews-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* ========================================
+   REVIEW CARDS
+   ======================================== */
+
+/* Add your custom styles here */
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .reviews-container {
+        padding: var(--spacing-md);
+    }
 }

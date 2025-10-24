@@ -1,13 +1,51 @@
-// Placeholder for section-specific functionality
-// You can add specific interactions for each section here
+/* ========================================
+   ABOUT SECTION - INTERACTIVE EFFECTS
+   ======================================== */
 
-class AboutSection {
-    constructor() {
-        console.log('About section loaded');
-        // Add specific about section functionality here
-    }
-}
+'use strict';
+
+/* ========================================
+   ABOUT DOM ELEMENTS
+   ======================================== */
+
+const AboutDOM = {
+    section: null,
+    container: null
+};
+
+/* ========================================
+   INITIALIZATION
+   ======================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    new AboutSection();
+    console.log('📖 About module initializing...');
+    
+    // Cache DOM elements
+    AboutDOM.section = document.getElementById('about');
+    AboutDOM.container = document.querySelector('.about-container');
+    
+    // Initialize features
+    initAboutSection();
+    
+    console.log('✅ About module loaded');
 });
+
+/* ========================================
+   ABOUT SECTION INITIALIZATION
+   ======================================== */
+
+function initAboutSection() {
+    if (!AboutDOM.section) return;
+    
+    // Add your custom initialization code here
+    
+    console.log('📖 About section initialized');
+}
+
+/* ========================================
+   EXPORT ABOUT MODULE
+   ======================================== */
+
+window.AboutModule = {
+    AboutDOM
+};

@@ -1,3 +1,38 @@
-#portfolio {
-    background: linear-gradient(135deg, #1a2a3a, #2c5364);
+/* ========================================
+   PORTFOLIO SECTION - STYLES
+   ======================================== */
+
+/* ========================================
+   PORTFOLIO SECTION BASE
+   ======================================== */
+
+.portfolio-section {
+    background: var(--color-bg-dark);
+    position: relative;
+}
+
+/* ========================================
+   PORTFOLIO CONTAINER
+   ======================================== */
+
+.portfolio-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* ========================================
+   PORTFOLIO GRID
+   ======================================== */
+
+/* Add your custom styles here */
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .portfolio-container {
+        padding: var(--spacing-md);
+    }
 }
