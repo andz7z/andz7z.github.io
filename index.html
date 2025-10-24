@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Design. Develop. Deliver.</title>
-    <meta name="description" content="Professional portfolio of ANDZ - Modern design, development, and delivery solutions">
+    <title>ANDZ - Personal Portfolio</title>
     
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
+    
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/services.css">
@@ -15,212 +14,140 @@
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
     
-    <!-- Preload critical resources -->
-    <link rel="preload" href="assets/fonts/noverich.otf" as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="assets/fonts/roboto.ttf" as="font" type="font/ttf" crossorigin>
-</head>
-<body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress" id="scroll-progress"></div>
+    <script src="js/script.js" defer></script>
+    
+    <script src="js/home.js" defer></script>
+    </head>
+<body class="on-home">
 
-    <!-- Home Section with Video Background -->
-    <section id="home" class="fullscreen-section">
-        <!-- Background Video -->
-        <video autoplay muted loop playsinline class="background-video" id="background-video">
-            <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="video-overlay"></div>
+    <div class="scroll-progress-bar"></div>
 
-        <!-- Logo (Top Left) -->
-        <div class="logo-container fade-in">
-            <img src="assets/photos/icon.gif" alt="ANDZ Logo" class="logo" id="logo">
-            <div class="logo-fallback" id="logo-fallback">ANDZ</div>
-        </div>
+    <a href="#home" class="go-back-arrow" aria-label="Go back to top">
+        <span>&uarr;</span>
+    </a>
 
-        <!-- Floating Navbar (Top Center) -->
-        <nav class="floating-navbar fade-in" id="floating-navbar">
-            <div class="navbar-border" id="navbar-border"></div>
-            <ul class="navbar-list">
-                <li class="navbar-item">
-                    <a href="#about" class="navbar-link" data-section="about" title="About">
-                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        <span class="navbar-label">About</span>
-                    </a>
-                </li>
-                <li class="navbar-item">
-                    <a href="#services" class="navbar-link" data-section="services" title="Services">
-                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                        <span class="navbar-label">Services</span>
-                    </a>
-                </li>
-                <li class="navbar-item">
-                    <a href="#portfolio" class="navbar-link" data-section="portfolio" title="Portfolio">
-                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                            <polyline points="21 15 16 10 5 21"></polyline>
-                        </svg>
-                        <span class="navbar-label">Portfolio</span>
-                    </a>
-                </li>
-                <li class="navbar-item">
-                    <a href="#reviews" class="navbar-link" data-section="reviews" title="Reviews">
-                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                        </svg>
-                        <span class="navbar-label">Reviews</span>
-                    </a>
-                </li>
-                <li class="navbar-item">
-                    <a href="#contact" class="navbar-link" data-section="contact" title="Contact">
-                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
-                        <span class="navbar-label">Contact</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+    <a href="#home" class="logo" aria-label="ANDZ Home">
+        <img src="assets/photos/icon.gif" alt="LOGO">
+    </a>
 
-        <!-- Mobile Burger Menu -->
-        <div class="mobile-menu-toggle fade-in" id="mobile-menu-toggle">
-            <span class="burger-line"></span>
-            <span class="burger-line"></span>
-            <span class="burger-line"></span>
-        </div>
+    <aside class="social-links left">
+        <div class="line"></div>
+        <a href="https://github.com/andz7z" target="_blank" rel="noopener noreferrer">
+            Gh
+            <span class="tooltip">#andz7z</span>
+        </a>
+        <a href="https://linkedin.com/in/andrei-cristian" target="_blank" rel="noopener noreferrer">
+            Li
+            <span class="tooltip">Andrei Cristian</span>
+        </a>
+        <div class="line"></div>
+    </aside>
 
-        <!-- Mobile Side Menu -->
-        <div class="mobile-side-menu" id="mobile-side-menu">
-            <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
-            <div class="mobile-menu-content">
-                <ul class="mobile-menu-list">
-                    <li><a href="#about" class="mobile-menu-link" data-section="about">About</a></li>
-                    <li><a href="#services" class="mobile-menu-link" data-section="services">Services</a></li>
-                    <li><a href="#portfolio" class="mobile-menu-link" data-section="portfolio">Portfolio</a></li>
-                    <li><a href="#reviews" class="mobile-menu-link" data-section="reviews">Reviews</a></li>
-                    <li><a href="#contact" class="mobile-menu-link" data-section="contact">Contact</a></li>
-                </ul>
+    <aside class="social-links right">
+        <div class="line"></div>
+        <a href="https://instagram.com/andz7z" target="_blank" rel="noopener noreferrer">
+            In
+            <span class="tooltip">#andz7z</span>
+        </a>
+        <a href="https://facebook.com/andrei.cristian" target="_blank" rel="noopener noreferrer">
+            Fb
+            <span class="tooltip">Andrei Cristian</span>
+        </a>
+        <div class="line"></div>
+    </aside>
+
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li>
+                <a href="#about">
+                    <span class="icon">👤</span>
+                    <span class="tooltip">About</span>
+                </a>
+            </li>
+            <li>
+                <a href="#services">
+                    <span class="icon">💼</span>
+                    <span class="tooltip">Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="#portfolio">
+                    <span class="icon">🖼️</span>
+                    <span class="tooltip">Portfolio</span>
+                </a>
+            </li>
+            <li>
+                <a href="#reviews">
+                    <span class="icon">🌟</span>
+                    <span class="tooltip">Reviews</span>
+                </a>
+            </li>
+            <li>
+                <a href="#contact">
+                    <span class="icon">✉️</span>
+                    <span class="tooltip">Contact</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <button class="burger-menu" aria-label="Open navigation menu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </button>
+
+    <nav class="mobile-nav">
+        <a href="#about" class="mobile-link">About</a>
+        <a href="#services" class="mobile-link">Services</a>
+        <a href="#portfolio" class="mobile-link">Portfolio</a>
+        <a href="#reviews" class="mobile-link">Reviews</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+    </nav>
+
+    <main>
+
+        <section id="home" class="section full-screen">
+            <video class="home-video" autoplay muted loop playsinline>
+                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <a href="#about" class="scroll-arrow" aria-label="Scroll down">
+                <span>&darr;</span>
+            </a>
+        </section>
+
+        <section id="about" class="section">
+            <div class="section-content">
+                <h2>About</h2>
             </div>
-        </div>
+        </section>
 
-        <!-- Social Icons (Left Center) -->
-        <div class="social-links social-left fade-in">
-            <div class="social-gradient-line social-line-top"></div>
-            <ul class="social-list">
-                <li class="social-item">
-                    <a href="https://github.com/andz7z" target="_blank" class="social-link" title="GitHub">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                        </svg>
-                        <span class="social-label">andz7z</span>
-                    </a>
-                </li>
-                <li class="social-item">
-                    <a href="https://linkedin.com/in/andrei-cristian" target="_blank" class="social-link" title="LinkedIn">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                        <span class="social-label">Andrei Cristian</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="social-gradient-line social-line-bottom"></div>
-        </div>
-
-        <!-- Social Icons (Right Center) -->
-        <div class="social-links social-right fade-in">
-            <div class="social-gradient-line social-line-top"></div>
-            <ul class="social-list">
-                <li class="social-item">
-                    <a href="https://instagram.com/andz7z" target="_blank" class="social-link" title="Instagram">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                        </svg>
-                        <span class="social-label">#andz7z</span>
-                    </a>
-                </li>
-                <li class="social-item">
-                    <a href="https://facebook.com/andrei.cristian" target="_blank" class="social-link" title="Facebook">
-                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                        <span class="social-label">Andrei Cristian</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="social-gradient-line social-line-bottom"></div>
-        </div>
-
-        <!-- Pulsing Arrow (Bottom Center) -->
-        <div class="scroll-arrow fade-in" id="scroll-arrow">
-            <div class="arrow-container">
-                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="7 13 12 18 17 13"></polyline>
-                    <polyline points="7 6 12 11 17 6"></polyline>
-                </svg>
+        <section id="services" class="section">
+            <div class="section-content">
+                <h2>Services</h2>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="fullscreen-section">
-        <h2 class="section-title">ABOUT</h2>
-        <div class="glass-card">
-            <p>This is the About section. Content can be added here.</p>
-        </div>
-    </section>
+        <section id="portfolio" class="section">
+            <div class="section-content">
+                <h2>Portfolio</h2>
+            </div>
+        </section>
 
-    <!-- Services Section -->
-    <section id="services" class="fullscreen-section">
-        <h2 class="section-title">SERVICES</h2>
-        <div class="glass-card">
-            <p>This is the Services section. Content can be added here.</p>
-        </div>
-    </section>
+        <section id="reviews" class="section">
+            <div class="section-content">
+                <h2>Reviews</h2>
+            </div>
+        </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="fullscreen-section">
-        <h2 class="section-title">PORTFOLIO</h2>
-        <div class="glass-card">
-            <p>This is the Portfolio section. Content can be added here.</p>
-        </div>
-    </section>
+        <section id="contact" class="section">
+            <div class="section-content">
+                <h2>Contact</h2>
+            </div>
+        </section>
 
-    <!-- Reviews Section -->
-    <section id="reviews" class="fullscreen-section">
-        <h2 class="section-title">REVIEWS</h2>
-        <div class="glass-card">
-            <p>This is the Reviews section. Content can be added here.</p>
-        </div>
-    </section>
+    </main>
 
-    <!-- Contact Section -->
-    <section id="contact" class="fullscreen-section">
-        <h2 class="section-title">CONTACT</h2>
-        <div class="glass-card">
-            <p>This is the Contact section. Content can be added here.</p>
-        </div>
-    </section>
-
-    <!-- Scripts -->
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
 </body>
 </html>
