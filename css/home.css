@@ -36,24 +36,27 @@
     z-index: -1;
 }
 
-/* ======== NAVBAR (GLOSSY / BLUR) ======== */
+/* ======== NAVBAR (GLOSSY / BLUR / DETASAT) - MODIFICAT ======== */
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 50px;
+    top: 30px; /* Distanța de sus */
+    left: 50%;
+    transform: translateX(-50%); /* Centrare perfectă */
+    width: auto; /* Lățime automată bazată pe conținut */
+    padding: 15px 30px; /* Padding intern */
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 100;
     transition: opacity 0.5s ease, transform 0.5s ease;
+    border-radius: 50px; /* Colțuri rotunjite pentru aspect "pill" */
 
     /* Efectul Glassy / Blur */
-    background: rgba(34, 34, 34, 0.2); /* Fundal semi-transparent gri */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(25, 25, 25, 0.25); /* Fundal semi-transparent gri */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Bordură subtilă */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Umbră pentru efectul de plutire */
 }
 
 .nav-links {
@@ -101,14 +104,16 @@
     text-shadow: 0 0 8px var(--color-white), 0 0 15px var(--color-white);
 }
 
-/* Liniile cu gradient */
+/* Liniile cu gradient - MODIFICAT */
 .social-links .line {
     width: 1px;
     height: 50px;
 }
+/* Gradient: Negru (margine) -> Alb (spre iconițe) */
 .social-links .line-top {
     background: linear-gradient(to top, var(--color-white), var(--color-black));
 }
+/* Gradient: Alb (spre iconițe) -> Negru (margine) */
 .social-links .line-bottom {
     background: linear-gradient(to bottom, var(--color-white), var(--color-black));
 }
@@ -149,7 +154,7 @@
     }
 }
 
-/* ======== GO BACK BUTTON (Stil metallic) ======== */
+/* ======== GO BACK BUTTON (Stil glassy/blur) - MODIFICAT ======== */
 .go-back {
     position: fixed;
     top: 30px;
@@ -162,34 +167,37 @@
     align-items: center;
     z-index: 101;
     
-    /* Efect Metallic */
-    background: linear-gradient(145deg, var(--color-gray-dark), var(--color-gray-light));
-    border: 1px solid var(--color-gray-medium);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+    /* Efectul Glassy / Blur */
+    background: rgba(25, 25, 25, 0.25);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
     /* Inițial ascuns */
     opacity: 0;
     pointer-events: none;
     transform: translateX(-100px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: all 0.5s ease; /* Tranziție pentru toate proprietățile */
 }
 
 .go-back i {
-    color: var(--color-black); /* Iconiță neagră pentru contrast */
+    color: var(--color-white); /* Iconiță albă */
     font-size: 1.2rem;
 }
 
 .go-back:hover {
-    background: linear-gradient(145deg, var(--color-gray-light), var(--color-white));
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.5);
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2); /* Fundal mai deschis la hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+    transform: scale(1.05); /* Mărire ușoară */
 }
 
 
 /* ======== Responsive pentru Mobile ======== */
 @media (max-width: 768px) {
     .navbar {
-        padding: 15px 20px;
+        padding: 10px 20px; /* Padding mai mic pe mobil */
+        top: 20px; /* Mai aproape de margine */
     }
     .nav-links {
         gap: 25px;
@@ -234,6 +242,11 @@ body:not(.is-homepage) .social-right {
 }
 body:not(.is-homepage) .scroll-down {
     transform: translateY(100%);
+}
+
+/* Corecție pentru navbar-ul centrat */
+body:not(.is-homepage) .navbar {
+    transform: translateX(-50%) translateY(-100%);
 }
 
 
