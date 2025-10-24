@@ -1,18 +1,38 @@
-#about {
-    background: linear-gradient(135deg, #1a2a3a, #2c5364);
+/* ========================================
+   ABOUT SECTION - STYLES
+   ======================================== */
+
+/* ========================================
+   ABOUT SECTION BASE
+   ======================================== */
+
+.about-section {
+    background: var(--color-bg-dark);
+    position: relative;
 }
 
-.section-content {
-    text-align: center;
-    max-width: 800px;
-    padding: 0 2rem;
+/* ========================================
+   ABOUT CONTAINER
+   ======================================== */
+
+.about-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
 }
 
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 2rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+/* ========================================
+   ABOUT CONTENT STYLES
+   ======================================== */
+
+/* Add your custom styles here */
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .about-container {
+        padding: var(--spacing-md);
+    }
 }

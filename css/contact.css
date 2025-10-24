@@ -1,3 +1,38 @@
-#contact {
-    background: linear-gradient(135deg, #1a2a3a, #2c5364);
+/* ========================================
+   CONTACT SECTION - STYLES
+   ======================================== */
+
+/* ========================================
+   CONTACT SECTION BASE
+   ======================================== */
+
+.contact-section {
+    background: var(--color-bg-dark);
+    position: relative;
+}
+
+/* ========================================
+   CONTACT CONTAINER
+   ======================================== */
+
+.contact-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* ========================================
+   CONTACT FORM STYLES
+   ======================================== */
+
+/* Add your custom styles here */
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .contact-container {
+        padding: var(--spacing-md);
+    }
 }

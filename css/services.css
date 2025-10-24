@@ -1,3 +1,38 @@
-#services {
-    background: linear-gradient(135deg, #1a2a3a, #2c5364);
+/* ========================================
+   SERVICES SECTION - STYLES
+   ======================================== */
+
+/* ========================================
+   SERVICES SECTION BASE
+   ======================================== */
+
+.services-section {
+    background: var(--color-bg-dark);
+    position: relative;
+}
+
+/* ========================================
+   SERVICES CONTAINER
+   ======================================== */
+
+.services-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+/* ========================================
+   SERVICE CARDS
+   ======================================== */
+
+/* Add your custom styles here */
+
+/* ========================================
+   RESPONSIVE - MOBILE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .services-container {
+        padding: var(--spacing-md);
+    }
 }
