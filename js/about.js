@@ -1,280 +1,152 @@
-// About Section - VISUAL MASTERPIECE JavaScript
+// About Section - PERFECTIUNEA ABSOLUTĂ
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎨 VISUAL MASTERPIECE About Section Initialized');
+    console.log('🌟 PERFECTIUNEA ABSOLUTĂ Initialized');
     
-    // Initialize Visual Environment
-    initVisualEnvironment();
-    
-    // Create Particle Rain
-    createParticleRain();
-    
-    // Initialize 3D Gallery
-    init3DGallery();
-    
-    // Initialize Floating Cards
-    initFloatingCards();
-    
-    // Initialize Timeline Animation
-    initTimelineAnimation();
-    
-    // Initialize Scroll Animations
-    initMasterScrollAnimations();
-    
-    // Initialize Interactive Effects
-    initInteractiveEffects();
+    initQuantumParticles();
+    initOrbitalSystem();
+    initTimelineReveal();
+    initQuantumInteractions();
+    initScrollMagic();
 });
 
-// Initialize Visual Environment
-function initVisualEnvironment() {
-    // Add dynamic grid animation
-    const grid = document.querySelector('.quantum-grid');
-    if (grid) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
-            grid.style.transform = `translateY(${rate}px)`;
-        });
-    }
-}
-
-// Create Particle Rain
-function createParticleRain() {
-    const container = document.querySelector('.particle-rain');
+function initQuantumParticles() {
+    const container = document.querySelector('.quantum-particles');
     if (!container) return;
     
-    const particleCount = 100;
-    
-    for (let i = 0; i < particleCount; i++) {
+    for (let i = 0; i < 50; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         
-        // Random properties
-        const left = Math.random() * 100;
-        const size = 1 + Math.random() * 3;
-        const duration = 3 + Math.random() * 7;
-        const delay = Math.random() * 5;
+        const tx = (Math.random() - 0.5) * 2;
+        const ty = (Math.random() - 0.5) * 2;
+        const duration = 10 + Math.random() * 10;
+        const delay = Math.random() * 15;
+        const size = 2 + Math.random() * 4;
         
-        particle.style.left = `${left}%`;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.animationDuration = `${duration}s`;
-        particle.style.animationDelay = `-${delay}s`;
+        particle.style.setProperty('--tx', tx);
+        particle.style.setProperty('--ty', ty);
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.top = Math.random() * 100 + '%';
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.animationDuration = duration + 's';
+        particle.style.animationDelay = -delay + 's';
         
         container.appendChild(particle);
     }
 }
 
-// Initialize 3D Gallery
-function init3DGallery() {
-    const galleryTrack = document.querySelector('.gallery-track');
-    if (!galleryTrack) return;
+function initOrbitalSystem() {
+    const cards = document.querySelectorAll('.orbital-card');
     
-    let isPaused = false;
-    let mouseX = 0;
-    let mouseY = 0;
-    
-    // Pause on hover
-    galleryTrack.addEventListener('mouseenter', () => {
-        isPaused = true;
-        galleryTrack.style.animationPlayState = 'paused';
-    });
-    
-    galleryTrack.addEventListener('mouseleave', () => {
-        isPaused = false;
-        galleryTrack.style.animationPlayState = 'running';
-    });
-    
-    // Mouse drag rotation
-    let isDragging = false;
-    let startX, startY, startRotationY;
-    
-    galleryTrack.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
-        startRotationY = getCurrentRotation(galleryTrack);
-    });
-    
-    document.addEventListener('mousemove', (e) => {
-        if (!isDragging || !isPaused) return;
-        
-        const deltaX = e.clientX - startX;
-        const newRotation = startRotationY + (deltaX * 0.5);
-        
-        galleryTrack.style.transform = `translate(-50%, -50%) rotateY(${newRotation}deg)`;
-    });
-    
-    document.addEventListener('mouseup', () => {
-        isDragging = false;
-    });
-    
-    function getCurrentRotation(element) {
-        const transform = window.getComputedStyle(element).transform;
-        if (transform === 'none') return 0;
-        
-        const values = transform.split('(')[1].split(')')[0].split(',');
-        const a = values[0];
-        const b = values[1];
-        
-        return Math.round(Math.atan2(b, a) * (180 / Math.PI));
-    }
-}
-
-// Initialize Floating Cards
-function initFloatingCards() {
-    const cards = document.querySelectorAll('.floating-card');
-    
-    cards.forEach((card, index) => {
-        card.addEventListener('mouseenter', function() {
-            this.style.animationPlayState = 'paused';
-            this.style.transform = 'translateY(-20px) scale(1.05)';
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            this.style.setProperty('--mouse-x', x + 'px');
+            this.style.setProperty('--mouse-y', y + 'px');
         });
         
-        card.addEventListener('mouseleave', function() {
-            this.style.animationPlayState = 'running';
-        });
-    });
-}
-
-// Initialize Timeline Animation
-function initTimelineAnimation() {
-    const timelineItems = document.querySelectorAll('.timeline-item');
-    
-    const timelineObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'timelineFadeIn 1s ease forwards';
-                timelineObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    
-    timelineItems.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.2}s`;
-        timelineObserver.observe(item);
-    });
-}
-
-// Initialize Scroll Animations
-function initMasterScrollAnimations() {
-    // Add custom animations
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes masterFadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(80px) scale(0.9);
-                filter: blur(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
-            }
-        }
-        
-        @keyframes masterFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8) rotateX(10deg);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) rotateX(0deg);
-            }
-        }
-        
-        .master-title, .hero-subtitle, .gallery-3d, .floating-cards, .animated-timeline, .masterpiece-cta {
-            opacity: 0;
-        }
-    `;
-    document.head.appendChild(style);
-    
-    // Observe elements
-    const masterElements = document.querySelectorAll('.master-title, .hero-subtitle, .gallery-3d, .floating-cards, .animated-timeline, .masterpiece-cta');
-    
-    const masterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (entry.target.classList.contains('gallery-3d')) {
-                    entry.target.style.animation = 'masterFadeIn 2s ease forwards';
-                } else {
-                    entry.target.style.animation = 'masterFadeInUp 1.5s ease forwards';
-                }
-                masterObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.2 });
-    
-    masterElements.forEach(el => {
-        if (el.classList.contains('gallery-3d')) {
-            el.style.opacity = '0';
-            el.style.transform = 'scale(0.8) rotateX(10deg)';
-        } else {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(80px) scale(0.9)';
-            el.style.filter = 'blur(20px)';
-        }
-        masterObserver.observe(el);
-    });
-}
-
-// Initialize Interactive Effects
-function initInteractiveEffects() {
-    // Add ripple effect to buttons
-    const buttons = document.querySelectorAll('.cta-button-master');
-    
-    buttons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            const ripple = document.createElement('span');
+        // Create ripple effect on click
+        card.addEventListener('click', function(e) {
+            const ripple = document.createElement('div');
             const rect = this.getBoundingClientRect();
             const size = Math.max(rect.width, rect.height);
             const x = e.clientX - rect.left - size / 2;
             const y = e.clientY - rect.top - size / 2;
             
-            ripple.style.width = ripple.style.height = size + 'px';
-            ripple.style.left = x + 'px';
-            ripple.style.top = y + 'px';
-            ripple.style.background = 'radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%)';
-            ripple.style.borderRadius = '50%';
-            ripple.style.position = 'absolute';
-            ripple.style.animation = 'masterRipple 0.8s ease-out';
-            ripple.style.pointerEvents = 'none';
+            ripple.style.cssText = `
+                position: absolute;
+                width: ${size}px;
+                height: ${size}px;
+                left: ${x}px;
+                top: ${y}px;
+                background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+                border-radius: 50%;
+                animation: quantumRipple 0.8s ease-out;
+                pointer-events: none;
+                z-index: 10;
+            `;
             
             this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 800);
+            setTimeout(() => ripple.remove(), 800);
         });
     });
-    
-    // Add ripple animation
-    const rippleStyle = document.createElement('style');
-    rippleStyle.textContent = `
-        @keyframes masterRipple {
-            0% {
-                transform: scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(4);
-                opacity: 0;
-            }
-        }
-    `;
-    document.head.appendChild(rippleStyle);
 }
 
-// Export for module use
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        initVisualEnvironment,
-        createParticleRain,
-        init3DGallery,
-        initFloatingCards,
-        initTimelineAnimation,
-        initMasterScrollAnimations,
-        initInteractiveEffects
-    };
+function initTimelineReveal() {
+    const nodes = document.querySelectorAll('.timeline-node');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'nodeReveal 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3, rootMargin: '-50px' });
+    
+    nodes.forEach(node => observer.observe(node));
 }
+
+function initQuantumInteractions() {
+    // Add magnetic effect to CTA button
+    const ctaButton = document.querySelector('.cta-button-quantum');
+    
+    if (ctaButton) {
+        ctaButton.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const angleX = (y - centerY) / 10;
+            const angleY = (centerX - x) / 10;
+            
+            this.style.transform = `translateY(-8px) scale(1.05) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+        });
+        
+        ctaButton.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(-8px) scale(1.05) rotateX(0deg) rotateY(0deg)';
+        });
+    }
+}
+
+function initScrollMagic() {
+    // Add scroll-triggered animations
+    const elements = document.querySelectorAll('.orbital-card, .timeline-node, .cta-portal');
+    
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    elements.forEach(el => scrollObserver.observe(el));
+}
+
+// Add custom animations
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes quantumRipple {
+        0% {
+            transform: scale(0);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    
+    .orbital-card, .timeline-node, .cta-portal {
+        animation-play-state: paused;
+    }
+`;
+document.head.appendChild(style);
