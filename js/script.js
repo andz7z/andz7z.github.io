@@ -1,6 +1,7 @@
 // Progress Bar
 window.onscroll = function() {
     updateProgressBar();
+    toggleNavbarVisibility();
 };
 
 function updateProgressBar() {
@@ -36,3 +37,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Favicon fallback
+document.addEventListener('DOMContentLoaded', function() {
+    const favicon = document.getElementById('favicon');
+    if (favicon) {
+        favicon.addEventListener('error', function() {
+            // Create a canvas favicon with letter A
+            const canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 32;
+            const ctx = canvas.getContext('2d');
