@@ -31,12 +31,12 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding-bottom: 120px;
+    padding-bottom: 80px;
     position: relative;
 }
 
 .text-content {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 /* Slogan */
@@ -57,30 +57,31 @@
     animation: letterFadeIn 0.8s ease-out forwards;
 }
 
-/* Animație pentru fiecare literă */
-.slogan-letter:nth-child(1) { animation-delay: 1s; }
-.slogan-letter:nth-child(2) { animation-delay: 1.1s; }
-.slogan-letter:nth-child(3) { animation-delay: 1.2s; }
-.slogan-letter:nth-child(4) { animation-delay: 1.3s; }
-.slogan-letter:nth-child(5) { animation-delay: 1.4s; }
-.slogan-letter:nth-child(6) { animation-delay: 1.5s; }
-.slogan-letter:nth-child(7) { animation-delay: 1.6s; }
-.slogan-letter:nth-child(8) { animation-delay: 1.7s; }
-.slogan-letter:nth-child(9) { animation-delay: 1.8s; }
-.slogan-letter:nth-child(10) { animation-delay: 1.9s; }
-.slogan-letter:nth-child(11) { animation-delay: 2s; }
-.slogan-letter:nth-child(12) { animation-delay: 2.1s; }
-.slogan-letter:nth-child(13) { animation-delay: 2.2s; }
-.slogan-letter:nth-child(14) { animation-delay: 2.3s; }
-.slogan-letter:nth-child(15) { animation-delay: 2.4s; }
-.slogan-letter:nth-child(16) { animation-delay: 2.5s; }
-.slogan-letter:nth-child(17) { animation-delay: 2.6s; }
-.slogan-letter:nth-child(18) { animation-delay: 2.7s; }
-.slogan-letter:nth-child(19) { animation-delay: 2.8s; }
-.slogan-letter:nth-child(20) { animation-delay: 2.9s; }
-.slogan-letter:nth-child(21) { animation-delay: 3s; }
-.slogan-letter:nth-child(22) { animation-delay: 3.1s; }
-.slogan-letter:nth-child(23) { animation-delay: 3.2s; }
+/* Animație corectată pentru fiecare literă - ordinea corectă */
+.slogan-letter:nth-child(1) { animation-delay: 1s; }   /* D */
+.slogan-letter:nth-child(2) { animation-delay: 1.1s; } /* E */
+.slogan-letter:nth-child(3) { animation-delay: 1.2s; } /* S */
+.slogan-letter:nth-child(4) { animation-delay: 1.3s; } /* I */
+.slogan-letter:nth-child(5) { animation-delay: 1.4s; } /* G */
+.slogan-letter:nth-child(6) { animation-delay: 1.5s; } /* N */
+.slogan-letter:nth-child(7) { animation-delay: 1.6s; } /* . */
+.slogan-letter:nth-child(8) { animation-delay: 1.7s; } /* &nbsp; */
+.slogan-letter:nth-child(9) { animation-delay: 1.8s; } /* D */
+.slogan-letter:nth-child(10) { animation-delay: 1.9s; } /* E */
+.slogan-letter:nth-child(11) { animation-delay: 2s; }   /* V */
+.slogan-letter:nth-child(12) { animation-delay: 2.1s; } /* E */
+.slogan-letter:nth-child(13) { animation-delay: 2.2s; } /* L */
+.slogan-letter:nth-child(14) { animation-delay: 2.3s; } /* O */
+.slogan-letter:nth-child(15) { animation-delay: 2.4s; } /* P */
+.slogan-letter:nth-child(16) { animation-delay: 2.5s; } /* . */
+.slogan-letter:nth-child(17) { animation-delay: 2.6s; } /* &nbsp; */
+.slogan-letter:nth-child(18) { animation-delay: 2.7s; } /* D */
+.slogan-letter:nth-child(19) { animation-delay: 2.8s; } /* E */
+.slogan-letter:nth-child(20) { animation-delay: 2.9s; } /* L */
+.slogan-letter:nth-child(21) { animation-delay: 3s; }   /* I */
+.slogan-letter:nth-child(22) { animation-delay: 3.1s; } /* V */
+.slogan-letter:nth-child(23) { animation-delay: 3.2s; } /* E */
+.slogan-letter:nth-child(24) { animation-delay: 3.3s; } /* R */
 
 .slogan-letter:hover {
     filter: blur(5px);
@@ -146,7 +147,7 @@
     position: relative;
     display: inline-block;
     opacity: 0;
-    animation: fadeInUp 1s ease-out 3.5s forwards;
+    animation: fadeInUp 1s ease-out 3.8s forwards;
 }
 
 .btn {
@@ -383,26 +384,6 @@
 .btn-letter:nth-child(8),
 .btn:focus .btn-letter:nth-child(8) {
     animation-delay: 0.56s;
-}
-.btn-letter:nth-child(9),
-.btn:focus .btn-letter:nth-child(9) {
-    animation-delay: 0.64s;
-}
-.btn-letter:nth-child(10),
-.btn:focus .btn-letter:nth-child(10) {
-    animation-delay: 0.72s;
-}
-.btn-letter:nth-child(11),
-.btn:focus .btn-letter:nth-child(11) {
-    animation-delay: 0.8s;
-}
-.btn-letter:nth-child(12),
-.btn:focus .btn-letter:nth-child(12) {
-    animation-delay: 0.88s;
-}
-.btn-letter:nth-child(13),
-.btn:focus .btn-letter:nth-child(13) {
-    animation-delay: 0.96s;
 }
 
 /* Active state */
