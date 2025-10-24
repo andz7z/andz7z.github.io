@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Personal Portfolio</title>
+    <title>ANDZ - Personal Website</title>
     
     <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
     
@@ -19,121 +19,67 @@
 </head>
 <body>
 
-    <div id="preloader">
-        <div class="loader-icon">
-            <img src="assets/photos/icon.gif" alt="Loading...">
-        </div>
-    </div>
-
-    <div id="scroll-progress-bar"></div>
-
-    <video id="home-video-bg" autoplay loop muted playsinline>
-        <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-
-    <a href="#home" class="logo load-fade-in">
-        <img src="assets/photos/icon.gif" alt="ANDZ Logo">
-        <span class="logo-fallback">ANDZ</span>
+    <a href="#home" class="go-back">
+        <i class="fa-solid fa-arrow-up"></i>
     </a>
 
-    <nav class="desktop-nav load-fade-in">
-        <a href="#about">
-            <i class="fas fa-user"></i>
-            <span>About</span>
-        </a>
-        <a href="#services">
-            <i class="fas fa-cog"></i>
-            <span>Services</span>
-        </a>
-        <a href="#portfolio">
-            <i class="fas fa-layer-group"></i>
-            <span>Portfolio</span>
-        </a>
-        <a href="#reviews">
-            <i class="fas fa-star"></i>
-            <span>Reviews</span>
-        </a>
-        <a href="#contact">
-            <i class="fas fa-paper-plane"></i>
-            <span>Contact</span>
-        </a>
-    </nav>
-
-    <div class="burger-menu load-fade-in">
-        <i class="fas fa-bars"></i>
-    </div>
-    
-    <nav class="mobile-nav">
-        <div class="mobile-nav-close">
-            <i class="fas fa-times"></i>
+    <section id="home">
+        <div class="video-background">
+            <video autoplay muted loop playsinline>
+                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+                Browser-ul tău nu suportă tag-ul video.
+            </video>
+            <div class="video-overlay"></div>
         </div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
 
-    <div class="social-links left load-fade-in">
-        <div class="line"></div>
-        <a href="https://github.com/andz7z" target="_blank">
-            <i class="fab fa-github"></i>
-            <span class="hover-text">andz7z</span>
+        <nav class="navbar">
+            <div class="nav-links">
+                <a href="#about" aria-label="About"><i class="fa-solid fa-user"></i></a>
+                <a href="#services" aria-label="Services"><i class="fa-solid fa-briefcase"></i></a>
+                <a href="#portfolio" aria-label="Portfolio"><i class="fa-solid fa-image"></i></a>
+                <a href="#reviews" aria-label="Reviews"><i class="fa-solid fa-star"></i></a>
+                <a href="#contact" aria-label="Contact"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </nav>
+
+        <div class="social-links social-left">
+            <div class="line line-top"></div>
+            <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <div class="line line-bottom"></div>
+        </div>
+
+        <div class="social-links social-right">
+            <div class="line line-top"></div>
+            <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <div class="line line-bottom"></div>
+        </div>
+
+        <a href="#about" class="scroll-down">
+            <i class="fa-solid fa-chevron-down"></i>
         </a>
-        <a href="https://linkedin.com/in/andrei-cristian" target="_blank">
-            <i class="fab fa-linkedin-in"></i>
-            <span class="hover-text">Andrei Cristian</span>
-        </a>
-        <div class="line"></div>
-    </div>
+    </section>
 
-    <div class="social-links right load-fade-in">
-        <div class="line"></div>
-        <a href="https://instagram.com/andz7z" target="_blank">
-            <i class="fab fa-instagram"></i>
-            <span class="hover-text">#andz7z</span>
-        </a>
-        <a href="https://facebook.com/andrei.cristian" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-            <span class="hover-text">Andrei Cristian</span>
-        </a>
-        <div class="line"></div>
-    </div>
-
-
-    <main>
-
-        <section id="home">
-            <a href="#about" class="scroll-down-arrow load-fade-in">
-                <i class="fas fa-chevron-down"></i>
-            </a>
+    <section id="about" class="content-section">
+        <h2>About</h2>
         </section>
 
-        <section id="about" class="content-section">
-            <h1 class="fade-in">About</h1>
+    <section id="services" class="content-section">
+        <h2>Services</h2>
         </section>
 
-        <section id="services" class="content-section">
-            <h1 class="fade-in">Services</h1>
+    <section id="portfolio" class="content-section">
+        <h2>Portfolio</h2>
         </section>
 
-        <section id="portfolio" class="content-section">
-            <h1 class="fade-in">Portfolio</h1>
+    <section id="reviews" class="content-section">
+        <h2>Reviews</h2>
         </section>
 
-        <section id="reviews" class="content-section">
-            <h1 class="fade-in">Reviews</h1>
+    <section id="contact" class="content-section">
+        <h2>Contact</h2>
         </section>
-
-        <section id="contact" class="content-section">
-            <h1 class="fade-in">Contact</h1>
-        </section>
-
-    </main>
 
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
