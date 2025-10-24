@@ -1,1 +1,13 @@
-/* portfolio.css — placeholder */
+/* ========================================
+   ANDZ WEBSITE - PORTFOLIO SECTION STYLES
+   Minimalist Design
+   ======================================== */
+
+#portfolio {
+    background: var(--negru);
+}
+
+#portfolio .section-title {
+    color: var(--alb);
+    text-shadow: var(--glow-subtil);
+}

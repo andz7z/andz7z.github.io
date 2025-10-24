@@ -1,1 +1,13 @@
-/* services.css — placeholder */
+/* ========================================
+   ANDZ WEBSITE - SERVICES SECTION STYLES
+   Minimalist Design
+   ======================================== */
+
+#services {
+    background: var(--negru);
+}
+
+#services .section-title {
+    color: var(--alb);
+    text-shadow: var(--glow-subtil);
+}

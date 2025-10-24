@@ -1,1 +1,13 @@
-/* about.css — placeholder */
+/* ========================================
+   ANDZ WEBSITE - ABOUT SECTION STYLES
+   Minimalist Design
+   ======================================== */
+
+#about {
+    background: var(--negru);
+}
+
+#about .section-title {
+    color: var(--alb);
+    text-shadow: var(--glow-subtil);
+}
