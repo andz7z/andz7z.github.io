@@ -1,48 +1,60 @@
-/* home.css — styles specific to home section and hero */
+/*
+ * FILE: home.css
+ * PROJECT: ANDZ Website
+ * DESCRIPTION: Styles specific to the #home section.
+*/
 
-.home{position:relative;overflow:hidden}
-.home__bg{
-  position:absolute;inset:0;background-image:url('../assets/wallpaper/andz.png');background-size:cover;background-position:center center;
-  opacity:0;transform:scale(1.03);transition:opacity 1000ms ease, transform 1000ms ease;will-change:opacity,transform;z-index:1;
+/* ======== HOME SECTION (VIDEO) ======== */
+#home {
+    /* Transparent background to show the video */
+    background: transparent;
 }
-.home__bg.in-view{opacity:1;transform:scale(1);}
 
-/* subtle parallax layers (pseudo) */
-.home__bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.35));mix-blend-mode:multiply;pointer-events:none;}
+/* Video Background Element */
+#home-video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    /* Apply monochrome filter and darken for text visibility */
+    filter: grayscale(90%) brightness(50%);
+}
 
-/* center content */
-.home__center{position:relative;z-index:4;text-align:center;padding-top:60px}
-.home__title{font-family:Noverich;font-size:clamp(36px,8vw,96px);letter-spacing:0.02em;margin-bottom:6px;background:linear-gradient(180deg,rgba(255,255,255,0.95),rgba(255,255,255,0.88));-webkit-background-clip:text;background-clip:text;color:transparent}
-.home__sub{font-family:RobotoCustom;font-size:18px;color:var(--muted);margin-top:6px}
+/* ======== SCROLL DOWN ARROW ======== */
+.scroll-down-arrow {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    animation: pulse-glow 2s infinite ease-in-out;
+    transition: var(--transition-smooth);
+}
 
-/* nav icons (center top) */
-.nav-icons{position: absolute;top:36px;left:50%;transform:translateX(-50%);display:flex;gap:18px;z-index:500;align-items:center}
-.nav-icon{display:flex;flex-direction:column;align-items:center;text-decoration:none;color:var(--accent);opacity:0;transform:translateY(-8px);transition:opacity 600ms var(--transition), transform 600ms var(--transition)}
-.nav-icon .icon{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.5;opacity:0.9}
-.nav-label{font-family:RobotoCustom;font-size:12px;color:var(--muted);margin-top:6px;opacity:0.85}
+.scroll-down-arrow:hover {
+    color: var(--color-white);
+    transform: translateX(-50%) scale(1.1);
+    animation-play-state: paused;
+}
 
-/* hover/active effects */
-.nav-icon:hover{filter:drop-shadow(0 6px 18px rgba(255,255,255,0.06)); transform:translateY(-6px) scale(1.02)}
-.nav-icon:active{transform:scale(.98)}
-
-/* ripple (simple) */
-.ripple{position:relative;overflow:hidden}
-.ripple::after{content:'';position:absolute;border-radius:50%;transform:scale(0);opacity:0.6;pointer-events:none;transition:transform 550ms ease, opacity 550ms ease;background:rgba(255,255,255,0.12)}
-
-/* chevron down */
-.chev-wrap{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:500}
-.chev{display:inline-grid;place-items:center;width:54px;height:54px;border-radius:14px;background:var(--glass-bg);border:1px solid var(--glass-border);backdrop-filter:blur(8px);text-decoration:none;transition:transform 600ms var(--transition)}
-.chev-icon{width:22px;height:22px;stroke:currentColor;fill:none}
-.chev{animation: pulse 2000ms infinite ease-in-out}
-@keyframes pulse{0%{transform:translateY(0)}50%{transform:translateY(6px)}100%{transform:translateY(0)}}
-
-/* nav icons appear animation delay */
-.nav-icon.delay-0{transition-delay:200ms}
-.nav-icon.delay-1{transition-delay:320ms}
-.nav-icon.delay-2{transition-delay:440ms}
-.nav-icon.delay-3{transition-delay:560ms}
-.nav-icon.delay-4{transition-delay:680ms}
-
-/* hide socials on mobile */
-@media (max-width:900px){ .social{display:none} .home__title{font-size:40px} .preloader__logo{font-size:28px} }
-
+/* Pulsing/Glow Animation */
+@keyframes pulse-glow {
+    0% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateX(-50%) scale(1.1);
+        opacity: 1;
+        text-shadow: var(--hover-glow);
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+        opacity: 0.7;
+    }
+}
