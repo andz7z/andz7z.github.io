@@ -1,65 +1,90 @@
 /* Home Section */
-#home {
+.home-section {
     position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     overflow: hidden;
 }
 
-#home video {
+.video-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     z-index: -1;
-    opacity: 0;
-    transition: opacity 2s ease-in-out;
 }
 
-#home video.loaded {
-    opacity: 1;
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .home-content {
-    text-align: center;
     z-index: 1;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s ease, transform 1s ease;
-    margin-top: 50vh;
+    padding: 2rem;
 }
 
-.home-content.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* Slogan */
+.slogan {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2rem;
+    margin-bottom: 3rem;
+    text-transform: uppercase;
 }
 
-.home-title {
-    font-family: 'Noverich', sans-serif;
-    font-size: 4rem;
-    margin-bottom: 2rem;
-    letter-spacing: 2px;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.title-letter {
+.slogan-letter {
     display: inline-block;
     transition: all 0.3s ease;
-    cursor: default;
 }
 
-.title-letter:hover {
-    filter: blur(2px);
-    transform: scale(1.05);
+.slogan-letter:hover {
+    filter: blur(5px);
+    transform: scale(1.1);
 }
 
-/* Buton DISCOVER */
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.arrow-down {
+    width: 30px;
+    height: 30px;
+    border-right: 2px solid #fff;
+    border-bottom: 2px solid #fff;
+    transform: rotate(45deg);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+        transform: rotate(45deg) translate(-5px, -5px);
+    }
+    50% {
+        opacity: 1;
+        transform: rotate(45deg) translate(0, 0);
+    }
+    100% {
+        opacity: 0.5;
+        transform: rotate(45deg) translate(-5px, -5px);
+    }
+}
+
+/* Button Styles */
 .btn-wrapper {
     position: relative;
     display: inline-block;
-    margin-top: 1rem;
+    margin-bottom: 4rem;
 }
 
 .btn {
@@ -72,12 +97,11 @@
     user-select: none;
     display: flex;
     justify-content: center;
-    align-items: center;
     padding: 0.5em 0.5em 0.5em 1.1em;
-    font-family: "Roboto", "Inter", "Segoe UI", sans-serif;
+    font-family: "Poppins", "Inter", "Segoe UI", sans-serif;
     font-size: 1em;
     font-weight: 400;
-    color: white;
+
     background-color: var(--button-color);
 
     box-shadow:
@@ -95,6 +119,7 @@
     border: solid 1px #fff2;
     border-radius: var(--border-radius);
     cursor: pointer;
+
     transition:
         box-shadow var(--transition),
         border var(--transition),
@@ -110,6 +135,7 @@
     border-radius: calc(var(--border-radius) + var(--padding));
     pointer-events: none;
     background-image: linear-gradient(0deg, #0004, #000a);
+
     z-index: -1;
     transition:
         box-shadow var(--transition),
@@ -183,6 +209,7 @@
     }
 }
 
+/* Focus state */
 .txt-wrapper {
     position: relative;
     display: flex;
@@ -367,58 +394,14 @@
     animation: none;
 }
 
-.scroll-down {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: pulse 2s infinite;
-    cursor: pointer;
-    z-index: 2;
-}
-
-@keyframes pulse {
-    0% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.1); }
-    100% { transform: translateX(-50%) scale(1); }
-}
-
-/* Media Queries pentru Home pe Mobile */
-@media (max-width: 768px) {
-    /* Ajustări pentru video background */
-    #home video {
-        object-fit: contain;
-        transform: scale(0.7);
-    }
-
-    /* Ajustări pentru titlu */
-    .home-title {
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .slogan {
         font-size: 2rem;
-        flex-wrap: wrap;
-        justify-content: center;
     }
-
-    .home-content {
-        margin-top: 40vh;
-    }
-
-    /* Ajustări pentru buton */
+    
     .btn {
+        font-size: 0.9rem;
         padding: 0.4em 0.4em 0.4em 1em;
-        font-size: 0.9em;
-    }
-}
-
-@media (max-width: 480px) {
-    .home-title {
-        font-size: 1.8rem;
-    }
-
-    .home-content {
-        margin-top: 35vh;
-    }
-
-    #home video {
-        transform: scale(0.6);
     }
 }
