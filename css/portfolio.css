@@ -1,38 +1,62 @@
-/* ========================================
-   PORTFOLIO SECTION - STYLES
-   ======================================== */
+/* ===== PORTFOLIO SECTION ===== */
+#portfolio {
+    background: var(--color-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/* ========================================
-   PORTFOLIO SECTION BASE
-   ======================================== */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
 
-.portfolio-section {
-    background: var(--color-bg-dark);
+.portfolio-item {
+    background: rgba(26, 26, 26, 0.7);
+    backdrop-filter: var(--blur);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all var(--transition-fast);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.portfolio-image {
+    height: 250px;
+    background: var(--color-gray);
     position: relative;
+    overflow: hidden;
 }
 
-/* ========================================
-   PORTFOLIO CONTAINER
-   ======================================== */
-
-.portfolio-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: var(--spacing-lg);
+.image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0.3;
 }
 
-/* ========================================
-   PORTFOLIO GRID
-   ======================================== */
+.portfolio-info {
+    padding: 20px;
+}
 
-/* Add your custom styles here */
+.portfolio-info h3 {
+    font-family: 'Noverich', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
 
-/* ========================================
-   RESPONSIVE - MOBILE
-   ======================================== */
+.portfolio-info p {
+    color: var(--color-off-white);
+}
 
 @media (max-width: 768px) {
-    .portfolio-container {
-        padding: var(--spacing-md);
+    .portfolio-grid {
+        grid-template-columns: 1fr;
     }
 }
