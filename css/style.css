@@ -1,54 +1,15 @@
-/* css/style.css */
+/* ========================================
+   ANDZ WEBSITE - APPLE x CYBERPUNK MONOCHROME
+   Spectacular, Clean, Organized, Premium
+   ======================================== */
 
-/* ------------------------- */
-/* :: ROOT VARIABLES
-/* ------------------------- */
-:root {
-    --color-black: #000000;
-    --color-gray-dark: #222222;
-    --color-gray: #888888;
-    --color-gray-light: #cccccc;
-    --color-white: #ffffff;
-
-    /* Theme Colors */
-    --color-glass: rgba(20, 20, 20, 0.7); /* Glossy background */
-    --color-glow: rgba(255, 255, 255, 0.7);
-    --blur-strong: 15px;
-    --blur-light: 8px;
-
-    /* Gradients */
-    --gradient-main: linear-gradient(90deg, var(--color-black), var(--color-gray), var(--color-white));
-    --gradient-border-conic: conic-gradient(from 0deg at 50% 50%, 
-        var(--color-black) 0%, 
-        var(--color-gray) 25%, 
-        var(--color-white) 50%, 
-        var(--color-gray) 75%, 
-        var(--color-black) 100%
-    );
-    --gradient-vertical-line: linear-gradient(to bottom, 
-        transparent 0%, 
-        var(--color-white) 50%, 
-        transparent 100%
-    );
-
-    /* Fonts */
-    --font-title: 'Noverich', 'Times New Roman', serif;
-    --font-body: 'Roboto', 'Arial', sans-serif;
-
-    /* Transitions */
-    --transition-fast: all 0.2s ease-in-out;
-    --transition-medium: all 0.4s ease-out;
-    --transition-slow: all 1s ease-out;
-}
-
-/* ------------------------- */
-/* :: FONT DEFINITIONS
-/* ------------------------- */
+/* --- FONT DEFINITIONS --- */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -56,239 +17,401 @@
     src: url('../assets/fonts/roboto.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
-/* ------------------------- */
-/* :: GLOBAL STYLES
-/* ------------------------- */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* --- CSS VARIABLES - APPLE x CYBERPUNK MONOCHROME --- */
+:root {
+    /* Monochrome Color Palette */
+    --pure-black: #000000;
+    --deep-black: #0a0a0a;
+    --charcoal: #1a1a1a;
+    --dark-gray: #2a2a2a;
+    --medium-gray: #404040;
+    --light-gray: #666666;
+    --silver: #999999;
+    --platinum: #cccccc;
+    --pure-white: #ffffff;
+    
+    /* Cyberpunk Gradients */
+    --gradient-primary: linear-gradient(135deg, var(--pure-black) 0%, var(--medium-gray) 50%, var(--pure-white) 100%);
+    --gradient-reverse: linear-gradient(135deg, var(--pure-white) 0%, var(--medium-gray) 50%, var(--pure-black) 100%);
+    --gradient-horizontal: linear-gradient(90deg, var(--pure-black) 0%, var(--medium-gray) 50%, var(--pure-white) 100%);
+    --gradient-vertical: linear-gradient(180deg, var(--pure-black) 0%, var(--medium-gray) 50%, var(--pure-white) 100%);
+    --gradient-diagonal: linear-gradient(45deg, var(--pure-black) 0%, var(--light-gray) 25%, var(--medium-gray) 50%, var(--light-gray) 75%, var(--pure-white) 100%);
+    
+    /* Typography */
+    --font-primary: 'Noverich', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-secondary: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Cyberpunk Glow Effects */
+    --glow-subtle: 0 0 10px rgba(255, 255, 255, 0.1);
+    --glow-soft: 0 0 20px rgba(255, 255, 255, 0.2);
+    --glow-medium: 0 0 30px rgba(255, 255, 255, 0.3);
+    --glow-strong: 0 0 40px rgba(255, 255, 255, 0.5);
+    --glow-intense: 0 0 60px rgba(255, 255, 255, 0.7);
+    
+    /* Glass Morphism */
+    --glass-bg: rgba(0, 0, 0, 0.15);
+    --glass-bg-light: rgba(255, 255, 255, 0.05);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
+    --glass-border-strong: 1px solid rgba(255, 255, 255, 0.2);
+    --blur-light: 10px;
+    --blur-medium: 20px;
+    --blur-heavy: 30px;
+    
+    /* Shadows - Apple Style */
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --shadow-medium: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    --shadow-strong: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    --shadow-intense: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    
+    /* Transitions - Apple Smooth */
+    --transition-instant: 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-smooth: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-elegant: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-dramatic: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Spacing - Apple Grid */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+    --space-3xl: 64px;
+    
+    /* Border Radius - Apple Style */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+    --radius-xl: 24px;
+    --radius-2xl: 32px;
+    --radius-full: 50px;
+    
+    /* Z-Index Scale */
+    --z-background: -1;
+    --z-content: 1;
+    --z-elevated: 10;
+    --z-floating: 50;
+    --z-modal: 100;
+    --z-tooltip: 200;
+}
+
+/* --- RESET & BASE STYLES --- */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-    background-color: var(--color-black);
-    color: var(--color-white);
-    font-family: var(--font-body);
+    font-family: var(--font-secondary);
+    background: var(--pure-black);
+    color: var(--pure-white);
     line-height: 1.6;
     overflow-x: hidden;
-    /* Base transition for body class changes */
-    transition: var(--transition-medium);
+    font-weight: 400;
+    letter-spacing: -0.01em;
 }
 
-main {
-    position: relative;
-    z-index: 1;
-}
-
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-title);
-    font-weight: normal;
-    color: var(--color-white);
-    letter-spacing: 1.5px;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-}
-
-a {
-    color: var(--color-white);
-    text-decoration: none;
-    transition: var(--transition-fast);
-}
-
-ul {
-    list-style: none;
-}
-
-img {
-    max-width: 100%;
-    display: block;
-}
-
-/* ------------------------- */
-/* :: SCROLL PROGRESS BAR
-/* ------------------------- */
-.scroll-progress-bar {
+/* --- SCROLL PROGRESS BAR --- */
+.scroll-progress {
     position: fixed;
     top: 0;
     left: 0;
-    height: 3px;
-    background: var(--gradient-main);
-    width: 0%; /* Controlled by JS */
-    z-index: 1000;
-    transition: width 0.1s linear;
+    width: 0%;
+    height: 2px;
+    background: var(--gradient-horizontal);
+    z-index: var(--z-tooltip);
+    transition: width 0.1s ease;
+    box-shadow: var(--glow-soft);
 }
 
-/* ------------------------- */
-/* :: SECTION STYLING
-/* ------------------------- */
-.section {
-    min-height: 100vh;
-    width: 100%;
+/* --- SECTIONS --- */
+.fullscreen-section {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 100px 20px;
-    position: relative;
     overflow: hidden;
-    background-color: var(--color-black);
+    background: var(--pure-black);
 }
 
-.section.full-screen {
-    padding: 0;
-}
-
-.section-content {
+/* --- SECTION TITLES --- */
+.section-title {
+    font-family: var(--font-primary);
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 300;
     text-align: center;
-    max-width: 960px;
-    margin: 0 auto;
-    
-    /* Section content fade-in on scroll */
+    color: var(--pure-white);
+    text-shadow: var(--glow-soft);
+    letter-spacing: -0.02em;
     opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    transform: translateY(40px);
+    transition: all var(--transition-elegant);
+    line-height: 1.1;
 }
 
-.section.is-visible .section-content {
+.section-title.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.section-content h2 {
-    font-size: 5rem;
-    text-transform: uppercase;
+.section-title:hover {
+    text-shadow: var(--glow-medium);
+    transform: scale(1.02);
 }
 
-/* ------------------------- */
-/* :: "GO BACK" ARROW
-/* ------------------------- */
-.go-back-arrow {
+/* --- GLASS CARDS --- */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-medium));
+    -webkit-backdrop-filter: blur(var(--blur-medium));
+    border: var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    margin: var(--space-2xl) auto;
+    max-width: 800px;
+    box-shadow: var(--shadow-strong);
+    text-align: center;
+    font-size: 1.125rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all var(--transition-elegant);
+    font-weight: 300;
+}
+
+.glass-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- BACK TO HOME ARROW --- */
+.back-to-home {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 900;
-    width: 50px;
-    height: 50px;
+    top: var(--space-lg);
+    left: var(--space-lg);
+    z-index: var(--z-floating);
+    width: 48px;
+    height: 48px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-medium));
+    -webkit-backdrop-filter: blur(var(--blur-medium));
+    border: var(--glass-border);
+    border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid var(--color-gray);
-    border-radius: 50%;
-    font-size: 1.5rem;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(var(--blur-light));
-    
-    /* Hidden by default */
+    cursor: pointer;
+    transition: all var(--transition-smooth);
     opacity: 0;
-    transform: scale(0.8);
-    pointer-events: none;
-    transition: var(--transition-medium);
-    animation: fadeIn 1s ease-out forwards;
-}
-
-.go-back-arrow span {
-    transition: var(--transition-fast);
-}
-
-.go-back-arrow:hover {
-    border-color: var(--color-white);
-    box-shadow: 0 0 15px var(--color-glow);
-}
-
-.go-back-arrow:hover span {
-    transform: translateY(-3px);
-}
-
-/* ------------------------- */
-/* :: HOME VS. OFF-HOME VISIBILITY
-/* ------------------------- */
-/* Controls visibility of home-specific elements vs. the go-back arrow */
-
-/* Default state (on-home): 
-   Home elements are visible, go-back is hidden (already set) */
-
-/* Scrolled state (off-home):
-   Hide home elements, show go-back */
-
-body.off-home .logo,
-body.off-home .navbar,
-body.off-home .social-links,
-body.off-home .scroll-arrow,
-body.off-home .burger-menu {
-    opacity: 0;
-    pointer-events: none;
+    visibility: hidden;
     transform: translateY(-20px);
+    box-shadow: var(--shadow-medium);
 }
 
-body.off-home .go-back-arrow {
+.back-to-home.visible {
     opacity: 1;
-    pointer-events: auto;
-    transform: scale(1);
+    visibility: visible;
+    transform: translateY(0);
 }
 
-/* ------------------------- */
-/* :: ON-LOAD FADE-IN ANIMATION
-/* ------------------------- */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+.back-to-home:hover {
+    transform: scale(1.1) translateY(-2px);
+    background: var(--glass-bg-light);
+    box-shadow: var(--shadow-strong);
 }
 
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+.back-to-home svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--pure-white);
+    transition: all var(--transition-fast);
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.back-to-home:hover svg {
+    filter: drop-shadow(var(--glow-soft));
 }
 
-@keyframes fadeInLeft {
-    from { opacity: 0; transform: translateX(-20px); }
-    to { opacity: 1; transform: translateX(0); }
+/* --- FADE IN ANIMATIONS --- */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all var(--transition-elegant);
 }
 
-@keyframes fadeInRight {
-    from { opacity: 0; transform: translateX(20px); }
-    to { opacity: 1; transform: translateX(0); }
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-/* ------------------------- */
-/* :: CUSTOM SCROLLBAR (Optional)
-/* ------------------------- */
+/* --- UTILITY CLASSES --- */
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+.no-scroll {
+    overflow: hidden;
+}
+
+/* --- CUSTOM SCROLLBAR - APPLE STYLE --- */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
 }
+
 ::-webkit-scrollbar-track {
-    background: var(--color-black);
+    background: var(--pure-black);
 }
+
 ::-webkit-scrollbar-thumb {
-    background: var(--color-gray);
-    border-radius: 10px;
+    background: var(--gradient-vertical);
+    border-radius: var(--radius-full);
+    transition: background var(--transition-fast);
 }
+
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-gray-light);
+    background: var(--gradient-reverse);
 }
 
-/* ------------------------- */
-/* :: RESPONSIVE (MOBILE)
-/* ------------------------- */
-@media (max-width: 768px) {
-    .section-content h2 {
-        font-size: 2.5rem;
-    }
+/* --- SELECTION STYLES --- */
+::selection {
+    background: var(--platinum);
+    color: var(--pure-black);
+}
 
-    /* Hide desktop-only elements */
-    .navbar,
-    .social-links {
-        display: none !important;
+::-moz-selection {
+    background: var(--platinum);
+    color: var(--pure-black);
+}
+
+/* --- PERFORMANCE OPTIMIZATIONS --- */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img, video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* --- REDUCED MOTION SUPPORT --- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* --- HIGH CONTRAST MODE SUPPORT --- */
+@media (prefers-contrast: high) {
+    :root {
+        --glass-bg: rgba(0, 0, 0, 0.9);
+        --glass-border: 2px solid var(--pure-white);
+    }
+}
+
+/* --- APPLE x CYBERPUNK POLISH --- */
+/* Subtle animations for premium feel */
+@keyframes subtleGlow {
+    0%, 100% {
+        box-shadow: var(--shadow-subtle);
+    }
+    50% {
+        box-shadow: var(--shadow-medium);
+    }
+}
+
+/* Enhanced glass morphism */
+.glass-card:hover {
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-intense);
+}
+
+/* Smooth transitions for all interactive elements */
+a, button, .navbar-link, .social-link {
+    transition: all var(--transition-smooth);
+}
+
+/* Enhanced focus states for accessibility */
+a:focus, button:focus, .navbar-link:focus, .social-link:focus {
+    outline: 2px solid var(--platinum);
+    outline-offset: 2px;
+}
+
+/* Premium text rendering */
+h1, h2, h3, .section-title, .logo-fallback {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- MOBILE OPTIMIZATION --- */
+@media (max-width: 768px) {
+    :root {
+        --space-md: 12px;
+        --space-lg: 18px;
+        --space-xl: 24px;
+        --space-2xl: 32px;
+        --space-3xl: 48px;
+    }
+    
+    .section-title {
+        font-size: clamp(2rem, 6vw, 5rem);
+        padding: 0 var(--space-lg);
+    }
+    
+    .glass-card {
+        margin: var(--space-xl) var(--space-lg);
+        padding: var(--space-xl);
+        font-size: 1rem;
+    }
+    
+    .back-to-home {
+        width: 40px;
+        height: 40px;
+        top: var(--space-md);
+        left: var(--space-md);
+    }
+    
+    .back-to-home svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: clamp(1.5rem, 5vw, 3rem);
+    }
+    
+    .glass-card {
+        margin: var(--space-lg) var(--space-md);
+        padding: var(--space-lg);
     }
 }

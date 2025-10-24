@@ -1,19 +1,20 @@
 /* ========================================
    ANDZ WEBSITE - PORTFOLIO SECTION STYLES
+   Apple x Cyberpunk Monochrome
    ======================================== */
 
 #portfolio {
-    background: var(--color-black);
+    background: var(--pure-black);
 }
 
 #portfolio .section-title {
-    color: var(--color-white);
-    text-shadow: var(--glow-text);
+    color: var(--pure-white);
+    text-shadow: var(--glow-soft);
 }
 
 #portfolio .glass-card {
     background: var(--glass-bg);
-    backdrop-filter: blur(var(--blur-amount));
-    -webkit-backdrop-filter: blur(var(--blur-amount));
+    backdrop-filter: blur(var(--blur-medium));
+    -webkit-backdrop-filter: blur(var(--blur-medium));
     border: var(--glass-border);
 }

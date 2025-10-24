@@ -1,87 +1,347 @@
-/* js/script.js */
+/* ========================================
+   ANDZ WEBSITE - MAIN JAVASCRIPT
+   Apple x Cyberpunk Monochrome Functionality
+   ======================================== */
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener('DOMContentLoaded', function() {
+    'use strict';
 
-    /**
-     * Handles the scroll progress bar at the top of the page.
-     */
-    function handleScrollProgressBar() {
-        const progressBar = document.querySelector('.scroll-progress-bar');
-        if (!progressBar) return;
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercentage = (scrollTop / scrollHeight) * 100;
-            
-            progressBar.style.width = `${scrollPercentage}%`;
-        });
+    // --- GLOBAL VARIABLES ---
+    const scrollProgress = document.getElementById('scroll-progress');
+    const backToHome = document.getElementById('back-to-home');
+    const floatingNavbar = document.getElementById('floating-navbar');
+    const logoContainer = document.getElementById('logo-container');
+    const socialLeft = document.getElementById('social-left');
+    const socialRight = document.getElementById('social-right');
+    const scrollArrow = document.getElementById('scroll-arrow');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileSideMenu = document.getElementById('mobile-side-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const backgroundVideo = document.getElementById('background-video');
+    const logo = document.getElementById('logo');
+    const logoFallback = document.getElementById('logo-fallback');
+    
+    // --- SCROLL PROGRESS BAR ---
+    function updateScrollProgress() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollHeight > 0) ? (scrollTop / scrollHeight) * 100 : 0;
+        
+        if (scrollProgress) {
+            scrollProgress.style.width = Math.min(progress, 100) + '%';
+        }
     }
 
-    /**
-     * Handles the fade-in-on-scroll animation for all sections.
-     * Uses Intersection Observer to add/remove 'is-visible' class.
-     */
-    function handleSectionFadeIn() {
-        const sections = document.querySelectorAll('.section');
-        if (sections.length === 0) return;
+    // --- SMOOTH SCROLLING ---
+    function initSmoothScroll() {
+        const links = document.querySelectorAll('a[href^="#"]');
+        
+        links.forEach(link => {
+        link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                    const offsetTop = targetElement.offsetTop;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                    behavior: 'smooth'
+                });
+                    
+                    // Close mobile menu if open
+                    closeMobileMenu();
+            }
+        });
+    });
+    }
 
-        const options = {
-            root: null, // viewport
-            rootMargin: '0px',
-            threshold: 0.2 // 20% of the section must be visible
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
+    // --- INTERSECTION OBSERVER FOR SECTION VISIBILITY ---
+    function initSectionVisibility() {
+    const sections = document.querySelectorAll('.fullscreen-section');
+    
+        const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                } else {
-                    // Optional: remove class to re-animate on scroll up
-                    // entry.target.classList.remove('is-visible'); 
+                    const sectionId = entry.target.id;
+                    
+                    if (sectionId === 'home') {
+                        // Show home elements
+                        showHomeElements();
+                    } else {
+                        // Hide home elements, show back to home
+                        hideHomeElements();
+                    }
                 }
             });
-        }, options);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-    }
-
-    /**
-     * Handles the UI state change between the home section and other sections.
-     * Uses Intersection Observer on the #home section.
-     * Toggles 'on-home' and 'off-home' classes on the <body> element.
-     */
-    function handleHomeSectionUI() {
-        const homeSection = document.querySelector('#home');
-        if (!homeSection) return;
-
-        const options = {
+        }, {
             root: null,
             rootMargin: '0px',
-            threshold: 0.1 // 10% visibility triggers the change
-        };
+            threshold: 0.6
+        });
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // User is ON the home section
-                    document.body.classList.add('on-home');
-                    document.body.classList.remove('off-home');
-                } else {
-                    // User is OFF the home section
-                    document.body.classList.add('off-home');
-                    document.body.classList.remove('on-home');
-                }
-            });
-        }, options);
-
-        observer.observe(homeSection);
+        sections.forEach(section => sectionObserver.observe(section));
     }
 
-    // Initialize all global scripts
-    handleScrollProgressBar();
-    handleSectionFadeIn();
-    handleHomeSectionUI();
+    // --- SHOW/HIDE HOME ELEMENTS ---
+    function showHomeElements() {
+        // Show home-specific elements
+        if (floatingNavbar) {
+            floatingNavbar.classList.remove('hidden');
+            floatingNavbar.classList.add('visible');
+        }
+        
+        if (logoContainer) {
+            logoContainer.classList.remove('hidden');
+            logoContainer.classList.add('visible');
+        }
+        
+        if (socialLeft) {
+            socialLeft.classList.remove('hidden');
+            socialLeft.classList.add('visible');
+        }
+        
+        if (socialRight) {
+            socialRight.classList.remove('hidden');
+            socialRight.classList.add('visible');
+        }
+        
+        if (scrollArrow) {
+            scrollArrow.classList.remove('hidden');
+            scrollArrow.classList.add('visible');
+        }
+        
+        // Hide back to home button
+        if (backToHome) {
+            backToHome.classList.remove('visible');
+            backToHome.classList.add('hidden');
+        }
+    }
+
+    function hideHomeElements() {
+        // Hide home-specific elements
+        if (floatingNavbar) {
+            floatingNavbar.classList.remove('visible');
+            floatingNavbar.classList.add('hidden');
+        }
+        
+        if (logoContainer) {
+            logoContainer.classList.remove('visible');
+            logoContainer.classList.add('hidden');
+        }
+        
+        if (socialLeft) {
+            socialLeft.classList.remove('visible');
+            socialLeft.classList.add('hidden');
+        }
+        
+        if (socialRight) {
+            socialRight.classList.remove('visible');
+            socialRight.classList.add('hidden');
+        }
+        
+        if (scrollArrow) {
+            scrollArrow.classList.remove('visible');
+            scrollArrow.classList.add('hidden');
+        }
+        
+        // Show back to home button
+        if (backToHome) {
+            backToHome.classList.remove('hidden');
+            backToHome.classList.add('visible');
+        }
+    }
+
+    // --- BACK TO HOME FUNCTIONALITY ---
+    function initBackToHome() {
+        if (backToHome) {
+            backToHome.addEventListener('click', function() {
+                const homeSection = document.querySelector('#home');
+                if (homeSection) {
+                    homeSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+    }
+
+    // --- INTERSECTION OBSERVER FOR FADE IN EFFECTS ---
+    function initFadeInEffects() {
+    const observerOptions = {
+            root: null,
+        rootMargin: '0px',
+            threshold: 0.1
+    };
+
+        const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        const fadeElements = document.querySelectorAll('.fade-in, .section-title, .glass-card');
+        fadeElements.forEach(el => observer.observe(el));
+    }
+
+    // --- MOBILE MENU FUNCTIONALITY ---
+    function initMobileMenu() {
+        if (mobileMenuToggle && mobileSideMenu && mobileMenuOverlay) {
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileSideMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        }
+    }
+
+    function toggleMobileMenu() {
+        if (mobileSideMenu && mobileMenuToggle) {
+            mobileSideMenu.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        }
+    }
+
+    function closeMobileMenu() {
+        if (mobileSideMenu && mobileMenuToggle) {
+            mobileSideMenu.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+    }
+
+    // --- VIDEO LOADING ---
+    function initVideoLoading() {
+        if (backgroundVideo) {
+            backgroundVideo.addEventListener('loadeddata', function() {
+                this.classList.add('loaded');
+            });
+
+            backgroundVideo.addEventListener('error', function() {
+                console.warn('Video failed to load, using fallback');
+            });
+        }
+    }
+
+    // --- LOGO FALLBACK ---
+    function initLogoFallback() {
+        if (logo && logoFallback) {
+            logo.addEventListener('error', function() {
+                this.style.display = 'none';
+                logoFallback.style.display = 'block';
+            });
+        }
+    }
+
+    // --- SCROLL ARROW FUNCTIONALITY ---
+    function initScrollArrow() {
+        if (scrollArrow) {
+            scrollArrow.addEventListener('click', function() {
+                const aboutSection = document.querySelector('#about');
+                if (aboutSection) {
+                    aboutSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+    }
+
+    // --- PERFORMANCE OPTIMIZATION ---
+    function initPerformanceOptimizations() {
+        // Throttle scroll events
+        let ticking = false;
+        
+        function updateOnScroll() {
+            updateScrollProgress();
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick, { passive: true });
+        
+        // Preload critical resources
+        const criticalImages = [
+            'assets/photos/icon.gif'
+        ];
+        
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+    }
+
+    // --- KEYBOARD NAVIGATION ---
+    function initKeyboardNavigation() {
+        document.addEventListener('keydown', function(e) {
+            // Arrow keys for navigation
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                e.preventDefault();
+                const aboutSection = document.querySelector('#about');
+                if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                const homeSection = document.querySelector('#home');
+                if (homeSection) {
+                    homeSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+            
+            // Escape key to close mobile menu
+            if (e.key === 'Escape') {
+                closeMobileMenu();
+            }
+        });
+    }
+
+    // --- INITIALIZE ALL FUNCTIONALITY ---
+    function init() {
+        initSmoothScroll();
+        initSectionVisibility();
+        initBackToHome();
+        initFadeInEffects();
+        initMobileMenu();
+        initVideoLoading();
+        initLogoFallback();
+        initScrollArrow();
+        initPerformanceOptimizations();
+        initKeyboardNavigation();
+        
+        // Initial scroll progress update
+        updateScrollProgress();
+        
+        // Add loaded class to body for CSS animations
+        document.body.classList.add('loaded');
+    }
+
+    // Start the application
+    init();
+
+    // --- EXPORT FUNCTIONS FOR OTHER MODULES ---
+    window.ANDZ = {
+        closeMobileMenu,
+        updateScrollProgress,
+        showHomeElements,
+        hideHomeElements
+    };
 });
