@@ -49,6 +49,11 @@ body {
     backdrop-filter: blur(10px);
     background-color: rgba(0, 0, 0, 0.7);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.navbar.hidden {
+    transform: translateY(-100%);
 }
 
 .nav-container {
@@ -85,16 +90,35 @@ body {
     text-decoration: none;
     color: #fff;
     font-size: 0.8rem;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0.5rem;
 }
 
 .nav-link i {
     font-size: 1.2rem;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0;
+    transition: all 0.3s ease;
 }
 
-.nav-link:hover {
-    color: #ccc;
+.nav-text {
+    position: absolute;
+    bottom: -20px;
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.nav-link:hover .nav-text {
+    opacity: 1;
+    bottom: -15px;
+}
+
+.nav-link:hover i {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.7));
 }
 
 .hamburger {
@@ -109,6 +133,38 @@ body {
     background-color: #fff;
     margin: 3px 0;
     transition: 0.3s;
+}
+
+/* Back to Home Arrow */
+.back-to-home {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.back-to-home.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-home i {
+    font-size: 1.2rem;
+    color: #fff;
+    animation: pulse 2s infinite;
 }
 
 /* Sections */
@@ -163,6 +219,17 @@ body {
         margin: 1.5rem 0;
     }
 
+    .nav-link {
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    .nav-text {
+        position: static;
+        opacity: 1;
+        font-size: 1rem;
+    }
+
     .hamburger {
         display: flex;
     }
@@ -177,5 +244,12 @@ body {
 
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .back-to-home {
+        width: 40px;
+        height: 40px;
+        top: 15px;
+        right: 15px;
     }
 }
