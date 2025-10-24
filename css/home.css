@@ -1,171 +1,255 @@
-/*
- * HOME.CSS
- * * Stiluri specifice pentru secțiunea #home,
- * fundal, navigație desktop și 
- * animația de scroll-down.
- */
-
+/* css/home.css */
 #home {
-    background-color: transparent; /* Secțiunea home e transparentă pt a vedea fundalul */
+    position: relative;
+    overflow: hidden;
 }
 
-/* * Fundalul cu efect de Parallax și Fade-in
- * Folosim un pseudo-element pentru a-l putea anima separat
- */
-.home-background {
+.background-container {
     position: absolute;
-    top: -5%; /* Supradimensionare mică pentru parallax */
-    left: -5%;
-    width: 110%;
-    height: 110%;
-    
-    /* Imaginea de fundal */
-    background-image: url('https://andz7z.github.io/assets/wallpaper/andz.png');
-    background-size: cover;
-    background-position: center center;
-    
-    /* Efect de Fade-in la încărcare */
-    opacity: 0;
-    animation: fadeInBackground 1.5s 0.5s ease-out forwards;
-    
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
-    
-    /* Pregătire pentru parallax-ul de la mouse */
-    transition: transform 0.2s ease-out;
 }
 
-@keyframes fadeInBackground {
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/wallpaper/andz.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards 0.5s;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+@keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-
-/* ======== DESKTOP HOME NAVIGATION ======== */
-.home-nav {
+/* Navigation Icons */
+.nav-icons {
     position: absolute;
-    top: 40px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
+    transform: translate(-50%, -50%);
     display: flex;
-    gap: 15px;
-    
-    /* Fade-in la încărcare, sincronizat cu fundalul */
+    gap: 4rem;
     opacity: 0;
-    animation: fadeInNav 1.5s 1s ease-out forwards;
-    
-    /* Tranziție pentru fade-out la scroll */
-    transition: opacity 0.5s ease-out;
+    animation: fadeInUp 1s ease forwards 1s;
 }
 
-/* Clasa adăugată de JS la scroll */
-.home-nav.hidden {
-    opacity: 0;
-    pointer-events: none;
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
 }
 
-@keyframes fadeInNav {
-    from { opacity: 0; transform: translate(-50%, -10px); }
-    to { opacity: 1; transform: translate(-50%, 0); }
-}
-
-.nav-icon {
+.nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 10px 15px;
-    border-radius: 8px;
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: all 0.3s ease;
+}
+
+.nav-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
     position: relative;
-    text-decoration: none;
+    overflow: hidden;
 }
 
 .nav-icon svg {
-    width: 26px;
-    height: 26px;
-    stroke: var(--color-text);
-    opacity: 0.7;
-    transition: var(--transition-fast);
+    color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
 }
 
-.nav-tag {
-    font-family: var(--font-secondary);
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: var(--color-text);
-    
-    /* Ascuns inițial */
-    opacity: 0;
+.nav-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.nav-item:hover .nav-icon {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item:hover .nav-icon svg {
+    color: rgba(255, 255, 255, 1);
+}
+
+.nav-item:hover .nav-label {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Ripple Effect */
+.ripple {
     position: absolute;
-    top: 100%;
-    margin-top: 8px;
-    
-    /* Mic efect glassy pentru tag */
-    background: rgba(0, 0, 0, 0.3);
-    padding: 2px 6px;
-    border-radius: 4px;
-    backdrop-filter: blur(3px);
-    
-    transition: opacity 0.3s ease-out, margin-top 0.3s ease-out;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(0);
+    animation: ripple 0.6s linear;
 }
 
-/* Efect Hover Iconiță */
-.nav-icon:hover svg {
-    opacity: 1;
-    transform: translateY(-2px);
-    /* Glow subtil */
-    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+@keyframes ripple {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
 }
 
-.nav-icon:hover .nav-tag {
-    opacity: 1;
-    margin-top: 5px; /* Apare de jos */
+/* Social Icons */
+.social-icons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.2s;
 }
 
-/* Efect Click (Ripple/Pulse) */
-.nav-icon.pulse {
-    animation: pulse-white-icon 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+.social-icons.left {
+    left: 50px;
 }
 
-@keyframes pulse-white-icon {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7)); }
-    100% { transform: scale(1); }
+.social-icons.right {
+    right: 50px;
 }
 
+.social-line {
+    width: 1px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.3);
+}
 
-/* ======== SCROLL DOWN ARROW ======== */
-.scroll-down {
+.social-item {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.social-item svg {
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+}
+
+.social-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.social-item:hover svg {
+    color: rgba(255, 255, 255, 1);
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
     position: absolute;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10;
-    opacity: 0.8;
-    
-    /* Animație de pulsare lentă */
-    animation: pulseArrow 2.5s infinite ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards 1.5s;
 }
 
-.scroll-down svg {
-    width: 30px;
-    height: 30px;
-    stroke: var(--color-text);
+.chevron {
+    width: 20px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.7);
+    margin: 3px 0;
+    border-radius: 2px;
+    animation: pulse 2s infinite;
 }
 
-@keyframes pulseArrow {
-    0% {
-        transform: translate(-50%, 0);
-        opacity: 0.8;
+.chevron:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.chevron:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
     }
     50% {
-        transform: translate(-50%, 8px);
         opacity: 1;
+        transform: scale(1.1);
     }
-    100% {
-        transform: translate(-50%, 0);
-        opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .nav-icons {
+        gap: 2.5rem;
+    }
+    
+    .nav-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .social-icons.left {
+        left: 30px;
+    }
+    
+    .social-icons.right {
+        right: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-icons {
+        display: none;
+    }
+    
+    .social-icons {
+        display: none;
     }
 }
