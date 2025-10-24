@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Website Personal Premium</title>
+    <title>ANDZ - Design. Develop. Deliver.</title>
+    <meta name="description" content="Professional portfolio of ANDZ - Modern design, development, and delivery solutions">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -11,310 +14,207 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/fonts/noverich.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="assets/fonts/roboto.ttf" as="font" type="font/ttf" crossorigin>
 </head>
 <body>
     <!-- Scroll Progress Bar -->
-    <div class="progress-bar"></div>
+    <div class="scroll-progress" id="scroll-progress"></div>
 
-    <!-- Homepage -->
-    <section id="home" class="section active">
+    <!-- Home Section with Video Background -->
+    <section id="home" class="fullscreen-section">
         <!-- Background Video -->
-        <div class="video-container">
-            <video autoplay muted loop id="bg-video">
-                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
-                Browser-ul tău nu suportă elementul video.
-            </video>
-            <div class="video-overlay"></div>
+        <video autoplay muted loop playsinline class="background-video" id="background-video">
+            <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="video-overlay"></div>
+
+        <!-- Logo (Top Left) -->
+        <div class="logo-container fade-in">
+            <img src="assets/photos/icon.gif" alt="ANDZ Logo" class="logo" id="logo">
+            <div class="logo-fallback" id="logo-fallback">ANDZ</div>
         </div>
 
-        <!-- Logo -->
-        <div class="logo">
-            <img src="assets/photos/icon.gif" alt="ANDZ Logo" class="logo-img">
-            <span class="logo-text">ANDZ</span>
-        </div>
-
-        <!-- Navbar -->
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-icons">
-                    <a href="#about" class="nav-icon" data-section="about">
-                        <i class='bx bx-user'></i>
-                        <span class="nav-label">Despre</span>
+        <!-- Floating Navbar (Top Center) -->
+        <nav class="floating-navbar fade-in" id="floating-navbar">
+            <div class="navbar-border" id="navbar-border"></div>
+            <ul class="navbar-list">
+                <li class="navbar-item">
+                    <a href="#about" class="navbar-link" data-section="about" title="About">
+                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span class="navbar-label">About</span>
                     </a>
-                    <a href="#services" class="nav-icon" data-section="services">
-                        <i class='bx bx-cog'></i>
-                        <span class="nav-label">Servicii</span>
+                </li>
+                <li class="navbar-item">
+                    <a href="#services" class="navbar-link" data-section="services" title="Services">
+                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                        </svg>
+                        <span class="navbar-label">Services</span>
                     </a>
-                    <a href="#portfolio" class="nav-icon" data-section="portfolio">
-                        <i class='bx bx-briefcase'></i>
-                        <span class="nav-label">Portofoliu</span>
+                </li>
+                <li class="navbar-item">
+                    <a href="#portfolio" class="navbar-link" data-section="portfolio" title="Portfolio">
+                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                        <span class="navbar-label">Portfolio</span>
                     </a>
-                    <a href="#reviews" class="nav-icon" data-section="reviews">
-                        <i class='bx bx-star'></i>
-                        <span class="nav-label">Recenzii</span>
+                </li>
+                <li class="navbar-item">
+                    <a href="#reviews" class="navbar-link" data-section="reviews" title="Reviews">
+                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                        <span class="navbar-label">Reviews</span>
                     </a>
-                    <a href="#contact" class="nav-icon" data-section="contact">
-                        <i class='bx bx-envelope'></i>
-                        <span class="nav-label">Contact</span>
+                </li>
+                <li class="navbar-item">
+                    <a href="#contact" class="navbar-link" data-section="contact" title="Contact">
+                        <svg class="navbar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                        <span class="navbar-label">Contact</span>
                     </a>
-                </div>
-            </div>
+                </li>
+            </ul>
         </nav>
 
-        <!-- Social Icons -->
-        <div class="social-icons left">
-            <div class="social-line top"></div>
-            <a href="https://github.com/andz7z" class="social-icon" data-platform="github">
-                <i class='bx bxl-github'></i>
-                <span class="social-tooltip">#andz7z</span>
-            </a>
-            <a href="#" class="social-icon" data-platform="linkedin">
-                <i class='bx bxl-linkedin'></i>
-                <span class="social-tooltip">Andrei Cristian</span>
-            </a>
-            <div class="social-line bottom"></div>
+        <!-- Mobile Burger Menu -->
+        <div class="mobile-menu-toggle fade-in" id="mobile-menu-toggle">
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
+            <span class="burger-line"></span>
         </div>
 
-        <div class="social-icons right">
-            <div class="social-line top"></div>
-            <a href="#" class="social-icon" data-platform="instagram">
-                <i class='bx bxl-instagram'></i>
-                <span class="social-tooltip">#andz7z</span>
-            </a>
-            <a href="#" class="social-icon" data-platform="facebook">
-                <i class='bx bxl-facebook'></i>
-                <span class="social-tooltip">Andrei Cristian</span>
-            </a>
-            <div class="social-line bottom"></div>
+        <!-- Mobile Side Menu -->
+        <div class="mobile-side-menu" id="mobile-side-menu">
+            <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+            <div class="mobile-menu-content">
+                <ul class="mobile-menu-list">
+                    <li><a href="#about" class="mobile-menu-link" data-section="about">About</a></li>
+                    <li><a href="#services" class="mobile-menu-link" data-section="services">Services</a></li>
+                    <li><a href="#portfolio" class="mobile-menu-link" data-section="portfolio">Portfolio</a></li>
+                    <li><a href="#reviews" class="mobile-menu-link" data-section="reviews">Reviews</a></li>
+                    <li><a href="#contact" class="mobile-menu-link" data-section="contact">Contact</a></li>
+                </ul>
+            </div>
         </div>
 
-        <!-- Scroll Arrow -->
-        <div class="scroll-arrow">
-            <i class='bx bx-chevron-down'></i>
+        <!-- Social Icons (Left Center) -->
+        <div class="social-links social-left fade-in">
+            <div class="social-gradient-line social-line-top"></div>
+            <ul class="social-list">
+                <li class="social-item">
+                    <a href="https://github.com/andz7z" target="_blank" class="social-link" title="GitHub">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                        <span class="social-label">andz7z</span>
+                    </a>
+                </li>
+                <li class="social-item">
+                    <a href="https://linkedin.com/in/andrei-cristian" target="_blank" class="social-link" title="LinkedIn">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                        <span class="social-label">Andrei Cristian</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="social-gradient-line social-line-bottom"></div>
         </div>
 
-        <!-- Mobile Menu Button -->
-        <div class="mobile-menu-btn">
-            <span></span>
-            <span></span>
-            <span></span>
+        <!-- Social Icons (Right Center) -->
+        <div class="social-links social-right fade-in">
+            <div class="social-gradient-line social-line-top"></div>
+            <ul class="social-list">
+                <li class="social-item">
+                    <a href="https://instagram.com/andz7z" target="_blank" class="social-link" title="Instagram">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                        <span class="social-label">#andz7z</span>
+                    </a>
+                </li>
+                <li class="social-item">
+                    <a href="https://facebook.com/andrei.cristian" target="_blank" class="social-link" title="Facebook">
+                        <svg class="social-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                        </svg>
+                        <span class="social-label">Andrei Cristian</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="social-gradient-line social-line-bottom"></div>
+        </div>
+
+        <!-- Pulsing Arrow (Bottom Center) -->
+        <div class="scroll-arrow fade-in" id="scroll-arrow">
+            <div class="arrow-container">
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="7 13 12 18 17 13"></polyline>
+                    <polyline points="7 6 12 11 17 6"></polyline>
+                </svg>
+            </div>
         </div>
     </section>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu">
-        <div class="mobile-menu-overlay"></div>
-        <div class="mobile-menu-content">
-            <a href="#about" class="mobile-menu-item">Despre</a>
-            <a href="#services" class="mobile-menu-item">Servicii</a>
-            <a href="#portfolio" class="mobile-menu-item">Portofoliu</a>
-            <a href="#reviews" class="mobile-menu-item">Recenzii</a>
-            <a href="#contact" class="mobile-menu-item">Contact</a>
-        </div>
-    </div>
-
     <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <h1 class="section-title">Despre</h1>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Bine ați venit în lumea mea profesională. Sunt un specialist în crearea de experiențe digitale excepționale, cu o pasiune pentru design minimalist și tehnologii moderne.</p>
-                    <p>Cu o experiență de peste 5 ani în industrie, am dezvoltat soluții inovatoare pentru clienți din diverse domenii, concentrându-mă mereu pe calitate, performanță și estetică rafinată.</p>
-                </div>
-                <div class="about-skills">
-                    <div class="skill">
-                        <h3>Design UI/UX</h3>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="90%"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h3>Dezvoltare Web</h3>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h3>Branding</h3>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="80%"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h3>Consultanță Digitală</h3>
-                        <div class="skill-bar">
-                            <div class="skill-progress" data-width="75%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <section id="about" class="fullscreen-section">
+        <h2 class="section-title">ABOUT</h2>
+        <div class="glass-card">
+            <p>This is the About section. Content can be added here.</p>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section id="services" class="section">
-        <div class="container">
-            <h1 class="section-title">Servicii</h1>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class='bx bx-palette'></i>
-                    </div>
-                    <h3>Design UI/UX</h3>
-                    <p>Interfețe de utilizator intuitive și estetice, create pentru a oferi experiențe digitale memorabile.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class='bx bx-code-alt'></i>
-                    </div>
-                    <h3>Dezvoltare Web</h3>
-                    <p>Soluții web personalizate, performante și scalabile, adaptate nevoilor tale specifice.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class='bx bx-brush'></i>
-                    </div>
-                    <h3>Brand Identity</h3>
-                    <p>Construim identități de marcă puternice și coerente care se remarcă în mediul digital.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class='bx bx-bar-chart-alt'></i>
-                    </div>
-                    <h3>Consultanță Digitală</h3>
-                    <p>Strategii digitale personalizate pentru a-ți maximiza prezența și impactul online.</p>
-                </div>
-            </div>
+    <section id="services" class="fullscreen-section">
+        <h2 class="section-title">SERVICES</h2>
+        <div class="glass-card">
+            <p>This is the Services section. Content can be added here.</p>
         </div>
     </section>
 
     <!-- Portfolio Section -->
-    <section id="portfolio" class="section">
-        <div class="container">
-            <h1 class="section-title">Portofoliu</h1>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <div class="image-placeholder"></div>
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>Proiect Luxe</h3>
-                        <p>Website premium pentru o marcă de lux</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <div class="image-placeholder"></div>
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>Tech Solutions</h3>
-                        <p>Platformă digitală pentru o companie tech</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <div class="image-placeholder"></div>
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>Brand Identity</h3>
-                        <p>Identitate vizuală completă pentru startup</p>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image">
-                        <div class="image-placeholder"></div>
-                    </div>
-                    <div class="portfolio-info">
-                        <h3>E-commerce Elite</h3>
-                        <p>Magazin online premium cu funcționalități avansate</p>
-                    </div>
-                </div>
-            </div>
+    <section id="portfolio" class="fullscreen-section">
+        <h2 class="section-title">PORTFOLIO</h2>
+        <div class="glass-card">
+            <p>This is the Portfolio section. Content can be added here.</p>
         </div>
     </section>
 
     <!-- Reviews Section -->
-    <section id="reviews" class="section">
-        <div class="container">
-            <h1 class="section-title">Recenzii</h1>
-            <div class="reviews-container">
-                <div class="review-card">
-                    <div class="review-content">
-                        <p>"ANDZ a transformat complet prezența noastră online. Website-ul creat nu doar că arată spectaculos, dar și convertește mult mai bine."</p>
-                    </div>
-                    <div class="review-author">
-                        <h4>Maria Popescu</h4>
-                        <p>CEO, Luxe Brands</p>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div class="review-content">
-                        <p>"Colaborarea cu Andrei a fost excepțională. A înțeles perfect viziunea noastră și a adus-o la viață într-un mod care a depășit așteptările."</p>
-                    </div>
-                    <div class="review-author">
-                        <h4>Alexandru Ionescu</h4>
-                        <p>Founder, TechVision</p>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div class="review-content">
-                        <p>"Profesionalism de top și atenție la detalii. ANDZ nu doar că creează produse digitale, ci experiențe memorabile pentru utilizatori."</p>
-                    </div>
-                    <div class="review-author">
-                        <h4>Elena Vasilescu</h4>
-                        <p>Marketing Director, Elite Commerce</p>
-                    </div>
-                </div>
-            </div>
+    <section id="reviews" class="fullscreen-section">
+        <h2 class="section-title">REVIEWS</h2>
+        <div class="glass-card">
+            <p>This is the Reviews section. Content can be added here.</p>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="container">
-            <h1 class="section-title">Contact</h1>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class='bx bx-envelope'></i>
-                        <div>
-                            <h3>Email</h3>
-                            <p>contact@andz.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class='bx bx-phone'></i>
-                        <div>
-                            <h3>Telefon</h3>
-                            <p>+40 123 456 789</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <i class='bx bx-map'></i>
-                        <div>
-                            <h3>Locație</h3>
-                            <p>București, România</p>
-                        </div>
-                    </div>
-                </div>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <input type="text" placeholder="Nume" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <textarea placeholder="Mesaj" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-submit">Trimite Mesaj</button>
-                </form>
-            </div>
+    <section id="contact" class="fullscreen-section">
+        <h2 class="section-title">CONTACT</h2>
+        <div class="glass-card">
+            <p>This is the Contact section. Content can be added here.</p>
         </div>
     </section>
 
+    <!-- Scripts -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>

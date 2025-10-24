@@ -1,68 +1,19 @@
-/* ===== REVIEWS SECTION ===== */
+/* ========================================
+   ANDZ WEBSITE - REVIEWS SECTION STYLES
+   ======================================== */
+
 #reviews {
     background: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.reviews-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+#reviews .section-title {
+    color: var(--color-white);
+    text-shadow: var(--glow-text);
 }
 
-.review-card {
-    background: rgba(26, 26, 26, 0.7);
-    backdrop-filter: var(--blur);
-    border-radius: 15px;
-    padding: 30px;
-    transition: all var(--transition-fast);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-}
-
-.review-card::before {
-    content: '"';
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 4rem;
-    font-family: 'Noverich', sans-serif;
-    color: rgba(255, 255, 255, 0.1);
-    line-height: 1;
-}
-
-.review-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-glow);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.review-content {
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.review-content p {
-    font-style: italic;
-    line-height: 1.6;
-}
-
-.review-author h4 {
-    font-family: 'Noverich', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
-
-.review-author p {
-    color: var(--color-off-white);
-    font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-    .reviews-container {
-        grid-template-columns: 1fr;
-    }
+#reviews .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: var(--glass-border);
 }

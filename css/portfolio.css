@@ -1,62 +1,19 @@
-/* ===== PORTFOLIO SECTION ===== */
+/* ========================================
+   ANDZ WEBSITE - PORTFOLIO SECTION STYLES
+   ======================================== */
+
 #portfolio {
     background: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+#portfolio .section-title {
+    color: var(--color-white);
+    text-shadow: var(--glow-text);
 }
 
-.portfolio-item {
-    background: rgba(26, 26, 26, 0.7);
-    backdrop-filter: var(--blur);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all var(--transition-fast);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.portfolio-item:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-glow);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.portfolio-image {
-    height: 250px;
-    background: var(--color-gray);
-    position: relative;
-    overflow: hidden;
-}
-
-.image-placeholder {
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-primary);
-    opacity: 0.3;
-}
-
-.portfolio-info {
-    padding: 20px;
-}
-
-.portfolio-info h3 {
-    font-family: 'Noverich', sans-serif;
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-}
-
-.portfolio-info p {
-    color: var(--color-off-white);
-}
-
-@media (max-width: 768px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-    }
+#portfolio .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: var(--glass-border);
 }

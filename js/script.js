@@ -1,176 +1,234 @@
-// ===== MAIN SCRIPT =====
+/* ========================================
+   ANDZ WEBSITE - MAIN JAVASCRIPT
+   Core functionality for smooth scrolling, progress bar, and interactions
+   ======================================== */
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Inițializare aplicație
-    initApp();
-});
+    'use strict';
 
-function initApp() {
-    // Inițializare progres scroll
-    initScrollProgress();
+    // --- GLOBAL VARIABLES ---
+    const scrollProgress = document.getElementById('scroll-progress');
+    const floatingNavbar = document.getElementById('floating-navbar');
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileSideMenu = document.getElementById('mobile-side-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const backgroundVideo = document.getElementById('background-video');
+    const logo = document.getElementById('logo');
+    const logoFallback = document.getElementById('logo-fallback');
+    const scrollArrow = document.getElementById('scroll-arrow');
     
-    // Inițializare navigare între secțiuni
-    initNavigation();
-    
-    // Inițializare meniu mobil
-    initMobileMenu();
-    
-    // Inițializare animații la scroll
-    initScrollAnimations();
-    
-    // Inițializare hover effects
-    initHoverEffects();
-}
-
-// ===== PROGRESS BAR =====
-function initScrollProgress() {
-    const progressBar = document.querySelector('.progress-bar');
-    
-    window.addEventListener('scroll', function() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+    // --- SCROLL PROGRESS BAR ---
+    function updateScrollProgress() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const progress = (scrollTop / documentHeight) * 100;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = (scrollTop / scrollHeight) * 100;
         
-        progressBar.style.width = progress + '%';
-    });
-}
-
-// ===== NAVIGATION =====
-function initNavigation() {
-    const navIcons = document.querySelectorAll('.nav-icon');
-    const sections = document.querySelectorAll('.section');
-    
-    // Navigare la click pe iconițe
-    navIcons.forEach(icon => {
-        icon.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetSection = this.getAttribute('href');
-            navigateToSection(targetSection);
-        });
-    });
-    
-    // Navigare la click pe săgeată
-    const scrollArrow = document.querySelector('.scroll-arrow');
-    if (scrollArrow) {
-        scrollArrow.addEventListener('click', function() {
-            const aboutSection = document.querySelector('#about');
-            if (aboutSection) {
-                aboutSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
+        if (scrollProgress) {
+            scrollProgress.style.width = progress + '%';
+        }
     }
-}
 
-function navigateToSection(sectionId) {
-    const targetSection = document.querySelector(sectionId);
-    if (!targetSection) return;
-    
-    // Ascunde toate secțiunile
-    document.querySelectorAll('.section').forEach(section => {
-        section.classList.remove('active');
-    });
-    
-    // Afișează secțiunea țintă
-    targetSection.classList.add('active');
-    
-    // Scroll la secțiune
-    targetSection.scrollIntoView({ behavior: 'smooth' });
-}
-
-// ===== MOBILE MENU =====
-function initMobileMenu() {
-    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
-    
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', function() {
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-            
-            // Animație pentru item-uri
-            mobileMenuItems.forEach((item, index) => {
-                item.style.animationDelay = (index * 0.1) + 's';
-                item.classList.add('fade-in');
-            });
-        });
+    // --- SMOOTH SCROLLING ---
+    function initSmoothScroll() {
+        const links = document.querySelectorAll('a[href^="#"]');
         
-        // Închide meniul la click pe item
-        mobileMenuItems.forEach(item => {
-            item.addEventListener('click', function() {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                const targetSection = this.getAttribute('href');
-                navigateToSection(targetSection);
-            });
-        });
-        
-        // Închide meniul la click în afara lui
-        mobileMenu.addEventListener('click', function(e) {
-            if (e.target === mobileMenu) {
-                mobileMenu.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
-    }
-}
-
-// ===== SCROLL ANIMATIONS =====
-function initScrollAnimations() {
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
                 
-                // Animație specială pentru bara de skills
-                if (entry.target.classList.contains('skill-progress')) {
-                    const width = entry.target.getAttribute('data-width');
-                    setTimeout(() => {
-                        entry.target.style.width = width;
-                    }, 200);
+                if (targetElement) {
+                    const offsetTop = targetElement.offsetTop;
+                    
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    closeMobileMenu();
                 }
-            }
+            });
         });
-    }, observerOptions);
-    
-    // Observă elementele care trebuie animate
-    const animatedElements = document.querySelectorAll('.service-card, .portfolio-item, .review-card, .skill-progress');
-    animatedElements.forEach(el => {
-        observer.observe(el);
-    });
-}
+    }
 
-// ===== HOVER EFFECTS =====
-function initHoverEffects() {
-    // Efecte hover pentru carduri
-    const interactiveElements = document.querySelectorAll('.service-card, .portfolio-item, .review-card');
-    
-    interactiveElements.forEach(element => {
-        element.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px)';
-        });
+    // --- INTERSECTION OBSERVER FOR FADE IN EFFECTS ---
+    function initIntersectionObserver() {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        const fadeElements = document.querySelectorAll('.fade-in, .section-title, .glass-card');
+        fadeElements.forEach(el => observer.observe(el));
+    }
+
+    // --- NAVBAR VISIBILITY CONTROL ---
+    function initNavbarVisibility() {
+        const sections = document.querySelectorAll('.fullscreen-section');
         
-        element.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sectionId = entry.target.id;
+                    
+                    if (sectionId === 'home') {
+                        // Show navbar on home page
+                        if (floatingNavbar) {
+                            floatingNavbar.classList.remove('hidden');
+                        }
+                    } else {
+                        // Hide navbar on other pages
+                        if (floatingNavbar) {
+                            floatingNavbar.classList.add('hidden');
+                        }
+                    }
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
         });
-    });
-    
-    // Efecte hover pentru iconițe sociale
-    const socialIcons = document.querySelectorAll('.social-icon');
-    
-    socialIcons.forEach(icon => {
-        icon.addEventListener('mouseenter', function() {
-            this.style.transform = 'scale(1.2)';
-        });
+
+        sections.forEach(section => sectionObserver.observe(section));
+    }
+
+    // --- MOBILE MENU FUNCTIONALITY ---
+    function initMobileMenu() {
+        if (mobileMenuToggle && mobileSideMenu && mobileMenuOverlay) {
+            mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+            mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileSideMenu.classList.contains('active')) {
+                    closeMobileMenu();
+                }
+            });
+        }
+    }
+
+    function toggleMobileMenu() {
+        if (mobileSideMenu && mobileMenuToggle) {
+            mobileSideMenu.classList.toggle('active');
+            mobileMenuToggle.classList.toggle('active');
+            document.body.classList.toggle('no-scroll');
+        }
+    }
+
+    function closeMobileMenu() {
+        if (mobileSideMenu && mobileMenuToggle) {
+            mobileSideMenu.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+    }
+
+    // --- VIDEO LOADING ---
+    function initVideoLoading() {
+        if (backgroundVideo) {
+            backgroundVideo.addEventListener('loadeddata', function() {
+                this.classList.add('loaded');
+            });
+
+            backgroundVideo.addEventListener('error', function() {
+                console.warn('Video failed to load, using fallback');
+                // Video will not be visible, but page will still work
+            });
+        }
+    }
+
+    // --- LOGO FALLBACK ---
+    function initLogoFallback() {
+        if (logo && logoFallback) {
+            logo.addEventListener('error', function() {
+                this.style.display = 'none';
+                logoFallback.style.display = 'block';
+            });
+        }
+    }
+
+    // --- SCROLL ARROW FUNCTIONALITY ---
+    function initScrollArrow() {
+        if (scrollArrow) {
+            scrollArrow.addEventListener('click', function() {
+                const aboutSection = document.querySelector('#about');
+                if (aboutSection) {
+                    aboutSection.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+    }
+
+    // --- PERFORMANCE OPTIMIZATION ---
+    function initPerformanceOptimizations() {
+        // Throttle scroll events
+        let ticking = false;
         
-        icon.addEventListener('mouseleave', function() {
-            this.style.transform = 'scale(1)';
+        function updateOnScroll() {
+            updateScrollProgress();
+            ticking = false;
+        }
+        
+        function requestTick() {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        }
+        
+        window.addEventListener('scroll', requestTick, { passive: true });
+        
+        // Preload critical resources
+        const criticalImages = [
+            'assets/photos/icon.gif'
+        ];
+        
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
         });
-    });
-}
+    }
+
+    // --- INITIALIZE ALL FUNCTIONALITY ---
+    function init() {
+        initSmoothScroll();
+        initIntersectionObserver();
+        initNavbarVisibility();
+        initMobileMenu();
+        initVideoLoading();
+        initLogoFallback();
+        initScrollArrow();
+        initPerformanceOptimizations();
+        
+        // Initial scroll progress update
+        updateScrollProgress();
+        
+        // Add loaded class to body for CSS animations
+        document.body.classList.add('loaded');
+    }
+
+    // Start the application
+    init();
+
+    // --- EXPORT FUNCTIONS FOR OTHER MODULES ---
+    window.ANDZ = {
+        closeMobileMenu,
+        updateScrollProgress
+    };
+});

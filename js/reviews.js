@@ -1,4 +1,10 @@
-// reviews.js
+/* ========================================
+   ANDZ WEBSITE - REVIEWS SECTION JAVASCRIPT
+   ======================================== */
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Funcționalități specifice pentru secțiunea Reviews
+    'use strict';
+
+    // Reviews section specific functionality can be added here
+    console.log('Reviews section loaded');
 });

@@ -1,74 +1,19 @@
-/* ===== SERVICES SECTION ===== */
+/* ========================================
+   ANDZ WEBSITE - SERVICES SECTION STYLES
+   ======================================== */
+
 #services {
     background: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+#services .section-title {
+    color: var(--color-white);
+    text-shadow: var(--glow-text);
 }
 
-.service-card {
-    background: rgba(26, 26, 26, 0.7);
-    backdrop-filter: var(--blur);
-    border-radius: 15px;
-    padding: 30px;
-    text-align: center;
-    transition: all var(--transition-fast);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-}
-
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--gradient-primary);
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-    z-index: -1;
-}
-
-.service-card:hover::before {
-    opacity: 0.1;
-}
-
-.service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: var(--shadow-glow);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-
-.service-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.service-card h3 {
-    font-family: 'Noverich', sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-}
-
-.service-card p {
-    color: var(--color-off-white);
-    line-height: 1.6;
-}
-
-@media (max-width: 768px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
+#services .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: var(--glass-border);
 }

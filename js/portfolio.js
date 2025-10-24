@@ -1,5 +1,10 @@
+/* ========================================
+   ANDZ WEBSITE - PORTFOLIO SECTION JAVASCRIPT
+   ======================================== */
 
-// portfolio.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Funcționalități specifice pentru secțiunea Portfolio
+    'use strict';
+
+    // Portfolio section specific functionality can be added here
+    console.log('Portfolio section loaded');
 });

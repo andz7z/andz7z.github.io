@@ -1,5 +1,10 @@
+/* ========================================
+   ANDZ WEBSITE - SERVICES SECTION JAVASCRIPT
+   ======================================== */
 
-// services.js
 document.addEventListener('DOMContentLoaded', function() {
-    // Funcționalități specifice pentru secțiunea Services
+    'use strict';
+
+    // Services section specific functionality can be added here
+    console.log('Services section loaded');
 });

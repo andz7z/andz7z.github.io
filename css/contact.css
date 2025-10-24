@@ -1,87 +1,19 @@
-/* ===== CONTACT SECTION ===== */
+/* ========================================
+   ANDZ WEBSITE - CONTACT SECTION STYLES
+   ======================================== */
+
 #contact {
     background: var(--color-black);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.contact-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 15px;
-}
-
-.contact-item i {
-    font-size: 1.5rem;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    margin-top: 5px;
-}
-
-.contact-item h3 {
-    font-family: 'Noverich', sans-serif;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-}
-
-.contact-item p {
-    color: var(--color-off-white);
-}
-
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-group {
-    position: relative;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 15px;
-    background: rgba(26, 26, 26, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+#contact .section-title {
     color: var(--color-white);
-    font-family: 'Roboto', sans-serif;
-    font-size: 1rem;
-    transition: all var(--transition-fast);
-    backdrop-filter: var(--blur);
+    text-shadow: var(--glow-text);
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: var(--shadow-glow);
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-@media (max-width: 768px) {
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
+#contact .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-amount));
+    -webkit-backdrop-filter: blur(var(--blur-amount));
+    border: var(--glass-border);
 }
