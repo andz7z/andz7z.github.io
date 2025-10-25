@@ -17,6 +17,7 @@ class ServicesSection {
         this.setupScrollAnimations();
         this.setupCardTilt();
         this.setupHoverEffects();
+        this.addRippleEffect();
     }
     
     createParticles() {
@@ -24,15 +25,15 @@ class ServicesSection {
         particlesContainer.className = 'particles';
         document.querySelector('.services-section').appendChild(particlesContainer);
         
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 20; i++) {
             const particle = document.createElement('div');
             particle.className = 'particle';
             
-            const size = Math.random() * 4 + 1;
+            const size = Math.random() * 6 + 2;
             const posX = Math.random() * 100;
             const posY = Math.random() * 100;
-            const delay = Math.random() * 5;
-            const duration = Math.random() * 3 + 3;
+            const delay = Math.random() * 8;
+            const duration = Math.random() * 4 + 4;
             
             particle.style.width = `${size}px`;
             particle.style.height = `${size}px`;
@@ -74,8 +75,12 @@ class ServicesSection {
         // Card click for mobile (since hover doesn't work well)
         if (window.innerWidth <= 768) {
             this.cards.forEach(card => {
+                let isFlipped = false;
                 card.addEventListener('click', () => {
-                    card.classList.toggle('flipped');
+                    isFlipped = !isFlipped;
+                    card.querySelector('.card-inner').style.transform = isFlipped 
+                        ? 'rotateY(180deg)' 
+                        : 'rotateY(0deg)';
                 });
             });
         }
@@ -83,19 +88,18 @@ class ServicesSection {
     
     setupScrollAnimations() {
         const observerOptions = {
-            threshold: 0.3,
-            rootMargin: '0px 0px -50px 0px'
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // Add sequential animation delay for children
                     const cards = entry.target.querySelectorAll('.service-card');
                     cards.forEach((card, index) => {
-                        card.style.transitionDelay = `${index * 0.2}s`;
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 200);
                     });
                 }
             });
@@ -127,13 +131,13 @@ class ServicesSection {
         const mouseX = e.clientX - cardCenterX;
         const mouseY = e.clientY - cardCenterY;
         
-        const rotateX = (mouseY / (cardRect.height / 2)) * -5;
-        const rotateY = (mouseX / (cardRect.width / 2)) * 5;
+        const rotateX = (mouseY / (cardRect.height / 2)) * -4;
+        const rotateY = (mouseX / (cardRect.width / 2)) * 4;
         
-        const glowX = (mouseX / cardRect.width) * 50;
-        const glowY = (mouseY / cardRect.height) * 50;
+        const glowX = (mouseX / cardRect.width) * 60;
+        const glowY = (mouseY / cardRect.height) * 60;
         
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
         
         // Dynamic glow effect
         const front = card.querySelector('.card-front');
@@ -143,18 +147,18 @@ class ServicesSection {
             if (side) {
                 side.style.background = `
                     linear-gradient(135deg, 
-                        rgba(255, 255, 255, 0.15) 0%, 
+                        rgba(255, 255, 255, 0.12) 0%, 
                         rgba(255, 255, 255, 0.08) 100%),
                     radial-gradient(circle at ${50 + glowX}% ${50 + glowY}%, 
-                        rgba(255, 255, 255, 0.3) 0%, 
-                        transparent 50%)
+                        rgba(255, 255, 255, 0.25) 0%, 
+                        transparent 60%)
                 `;
             }
         });
     }
     
     resetCardTilt(card) {
-        card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+        card.style.transform = 'perspective(1200px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
         
         const front = card.querySelector('.card-front');
         const back = card.querySelector('.card-back');
@@ -169,11 +173,14 @@ class ServicesSection {
     setupHoverEffects() {
         this.cards.forEach(card => {
             const inner = card.querySelector('.card-inner');
+            const hint = card.querySelector('.card-hint');
             
             card.addEventListener('mouseenter', () => {
                 if (window.innerWidth > 768) {
-                    inner.style.transform = 'rotateY(180deg) translateZ(20px)';
+                    inner.style.transform = 'rotateY(180deg) translateZ(30px)';
                     card.style.zIndex = '10';
+                    hint.style.background = 'rgba(255, 255, 255, 0.15)';
+                    hint.style.color = '#ffffff';
                 }
             });
             
@@ -181,6 +188,8 @@ class ServicesSection {
                 if (window.innerWidth > 768) {
                     inner.style.transform = 'rotateY(0deg) translateZ(0px)';
                     card.style.zIndex = '1';
+                    hint.style.background = '';
+                    hint.style.color = '';
                 }
             });
         });
@@ -207,22 +216,22 @@ class ServicesSection {
         setTimeout(() => {
             this.modal.classList.remove('active');
             document.body.style.overflow = '';
-        }, 300);
+        }, 400);
     }
     
     getServiceData(serviceType) {
         const services = {
             'web-dev': {
                 title: 'Web Development',
-                description: 'We create stunning, responsive websites that provide exceptional user experiences. Our web development services include modern frontend frameworks, robust backend solutions, and seamless integrations. From single-page applications to complex web platforms, we deliver scalable and maintainable code that drives business growth.'
+                description: 'We create stunning, responsive websites that provide exceptional user experiences. Our web development services include modern frontend frameworks, robust backend solutions, and seamless integrations. From single-page applications to complex web platforms, we deliver scalable and maintainable code that drives business growth and ensures optimal performance across all devices.'
             },
             'programming': {
                 title: 'Programming',
-                description: 'Our programming expertise covers a wide range of technologies and platforms. We develop custom software solutions, optimize existing systems, and provide technical consulting. Whether you need desktop applications, mobile apps, or complex system architecture, we deliver clean, efficient code that meets your specific requirements.'
+                description: 'Our programming expertise covers a wide range of technologies and platforms. We develop custom software solutions, optimize existing systems, and provide technical consulting. Whether you need desktop applications, mobile apps, or complex system architecture, we deliver clean, efficient code that meets your specific requirements and scales with your business needs.'
             },
             'video-editing': {
                 title: 'Video Editing',
-                description: 'Transform your raw footage into compelling visual stories. Our video editing services include professional color grading, motion graphics, visual effects, and audio enhancement. We work with various formats and deliver polished videos that captivate your audience and communicate your message effectively.'
+                description: 'Transform your raw footage into compelling visual stories. Our video editing services include professional color grading, motion graphics, visual effects, and audio enhancement. We work with various formats and deliver polished videos that captivate your audience and communicate your message effectively across all platforms and devices.'
             }
         };
         
@@ -232,111 +241,15 @@ class ServicesSection {
         };
     }
     
-    // Additional effects for enhanced interactivity
     addRippleEffect() {
         document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('service-cta')) {
-                const button = e.target;
+            if (e.target.classList.contains('service-cta') || 
+                e.target.closest('.service-cta')) {
+                const button = e.target.classList.contains('service-cta') 
+                    ? e.target 
+                    : e.target.closest('.service-cta');
                 const ripple = document.createElement('span');
                 const rect = button.getBoundingClientRect();
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = `${size}px`;
-                ripple.style.left = `${x}px`;
-                ripple.style.top = `${y}px`;
-                ripple.classList.add('ripple');
-                
-                button.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            }
-        });
-    }
-}
-
-// Initialize the services section when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new ServicesSection();
-});
-
-// Add CSS for ripple effect
-const rippleStyles = `
-    .service-cta {
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.6);
-        transform: scale(0);
-        animation: ripple-animation 0.6s linear;
-        pointer-events: none;
-    }
-    
-    @keyframes ripple-animation {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-
-// Inject ripple styles
-const styleSheet = document.createElement('style');
-styleSheet.textContent = rippleStyles;
-document.head.appendChild(styleSheet);
-
-// Parallax effect for background
-window.addEventListener('scroll', () => {
-    const servicesSection = document.querySelector('.services-section');
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
-    
-    servicesSection.style.backgroundPosition = `center ${rate}px`;
-});
-
-// Resize handler to adjust effects for mobile
-window.addEventListener('resize', () => {
-    const cards = document.querySelectorAll('.service-card');
-    
-    if (window.innerWidth <= 768) {
-        cards.forEach(card => {
-            card.style.transform = 'none';
-        });
-    }
-});
-
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-});
-
-// Enhanced cursor effects (optional)
-document.addEventListener('mousemove', (e) => {
-    const cards = document.querySelectorAll('.service-card');
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
-    
-    cards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const cardX = rect.left + rect.width / 2;
-        const cardY = rect.top + rect.height / 2;
-        
-        const distance = Math.sqrt(
-            Math.pow(mouseX - cardX, 2) + Math.pow(mouseY - cardY, 2)
-        );
-        
-        if (distance < 200) {
-            const intensity = 1 - (distance / 200);
-            card.style.setProperty('--hover-intensity', intensity);
-        } else {
-            card.style.setProperty('--hover-intensity', 0);
-        }
-    });
-});
+                const y = e.clientY - rect.top
