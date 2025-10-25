@@ -124,10 +124,12 @@ window.addEventListener("load", () => {
   });
 
   // Fallback (dacă se încarcă înainte să se termine video-ul)
+window.addEventListener("load", () => {
+  const loader = document.getElementById("video-loader");
+  loader.classList.add("fade-out");
+
+  // După 2.5s (cât durează animația), îl ascundem complet
   setTimeout(() => {
-    if (loader) {
-      loader.classList.add("fade-out");
-      setTimeout(() => loader.style.display = "none", 2500);
-    }
-  }, 9000);
+    loader.classList.add("hidden");
+  }, 2500);
 });
