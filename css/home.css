@@ -155,7 +155,7 @@
     --padding: 4px;
     --transition: 0.4s;
     --button-color: #101010;
-    --highlight-color-hue: 210deg;
+    --highlight-color-hue: 0deg;
 
     user-select: none;
     display: flex;
