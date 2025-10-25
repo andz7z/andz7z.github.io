@@ -1,344 +1,448 @@
-// Services Section JavaScript
+// Services Section JavaScript - Mobile Optimized
 class ServicesSection {
     constructor() {
         this.cards = document.querySelectorAll('.service-card');
+        this.navButtons = document.querySelectorAll('.nav-btn');
         this.modal = document.getElementById('serviceModal');
-        this.modalTitle = document.getElementById('modalTitle');
-        this.modalDescription = document.getElementById('modalDescription');
-        this.closeModal = document.querySelector('.modal-close');
-        this.ctaButtons = document.querySelectorAll('.service-cta');
+        this.quickView = document.getElementById('quickView');
+        this.slides = document.querySelectorAll('.testimonial-slide');
+        this.sliderBtns = document.querySelectorAll('.slider-btn');
+        this.dots = document.querySelectorAll('.dot');
+        
+        this.currentSlide = 0;
+        this.touchStartX = 0;
+        this.touchEndX = 0;
         
         this.init();
     }
     
     init() {
-        this.createParticles();
         this.setupEventListeners();
         this.setupScrollAnimations();
-        this.setupCardTilt();
-        this.setupHoverEffects();
-        this.addRippleEffect();
+        this.setupTouchEvents();
+        this.startStatsCounter();
+        this.startSliderAutoPlay();
+        
+        // Add mobile-specific classes
+        this.detectMobile();
     }
     
-    createParticles() {
-        const particlesContainer = document.createElement('div');
-        particlesContainer.className = 'particles';
-        document.querySelector('.services-section').appendChild(particlesContainer);
-        
-        for (let i = 0; i < 20; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            
-            const size = Math.random() * 6 + 2;
-            const posX = Math.random() * 100;
-            const posY = Math.random() * 100;
-            const delay = Math.random() * 8;
-            const duration = Math.random() * 4 + 4;
-            
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${posX}%`;
-            particle.style.top = `${posY}%`;
-            particle.style.animationDelay = `${delay}s`;
-            particle.style.animationDuration = `${duration}s`;
-            
-            particlesContainer.appendChild(particle);
+    detectMobile() {
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile) {
+            document.body.classList.add('is-mobile');
         }
     }
     
     setupEventListeners() {
-        // Modal functionality
-        this.ctaButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                this.openModal(button.dataset.service);
+        // Card click events for mobile
+        this.cards.forEach(card => {
+            // Click to flip on mobile
+            card.addEventListener('click', (e) => {
+                // Don't flip if clicking a button
+                if (e.target.closest('.action-btn') || e.target.closest('.quick-view')) {
+                    return;
+                }
+                
+                if (window.innerWidth <= 1024) {
+                    card.classList.toggle('flipped');
+                }
             });
-        });
-        
-        this.closeModal.addEventListener('click', () => {
-            this.closeModalHandler();
-        });
-        
-        this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
-                this.closeModalHandler();
-            }
-        });
-        
-        // Close modal with Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.classList.contains('active')) {
-                this.closeModalHandler();
-            }
-        });
-        
-        // Card click for mobile (since hover doesn't work well)
-        if (window.innerWidth <= 768) {
-            this.cards.forEach(card => {
-                let isFlipped = false;
-                card.addEventListener('click', () => {
-                    isFlipped = !isFlipped;
-                    card.querySelector('.card-inner').style.transform = isFlipped 
-                        ? 'rotateY(180deg)' 
-                        : 'rotateY(0deg)';
+            
+            // Button events
+            const buttons = card.querySelectorAll('.action-btn, .quick-view');
+            buttons.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const service = btn.dataset.service;
+                    this.handleButtonClick(service, btn.classList.contains('quick-view'));
                 });
             });
+        });
+        
+        // Navigation filtering
+        this.navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.filterServices(btn.dataset.category);
+                this.navButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+        
+        // Modal close
+        const closeButtons = document.querySelectorAll('.modal-close, .quick-view-close');
+        closeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.closeModals();
+            });
+        });
+        
+        // Modal backdrop click
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.closeModals();
+            }
+        });
+        
+        this.quickView.addEventListener('click', (e) => {
+            if (e.target === this.quickView) {
+                this.closeModals();
+            }
+        });
+        
+        // Slider controls
+        this.sliderBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (btn.classList.contains('next')) {
+                    this.nextSlide();
+                } else {
+                    this.prevSlide();
+                }
+            });
+        });
+        
+        // Dot controls
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                this.goToSlide(index);
+            });
+        });
+        
+        // CTA buttons
+        const ctaButtons = document.querySelectorAll('.cta-btn');
+        ctaButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.handleCTAClick(btn);
+            });
+        });
+        
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeModals();
+            }
+        });
+    }
+    
+    setupTouchEvents() {
+        // Touch events for slider
+        const slider = document.querySelector('.slider-container');
+        if (slider) {
+            slider.addEventListener('touchstart', (e) => {
+                this.touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            slider.addEventListener('touchend', (e) => {
+                this.touchEndX = e.changedTouches[0].screenX;
+                this.handleSwipe();
+            }, { passive: true });
+        }
+        
+        // Prevent zoom on double tap for cards
+        this.cards.forEach(card => {
+            let lastTouchEnd = 0;
+            card.addEventListener('touchend', (e) => {
+                const now = Date.now();
+                if (now - lastTouchEnd <= 300) {
+                    e.preventDefault();
+                }
+                lastTouchEnd = now;
+            }, { passive: false });
+        });
+    }
+    
+    handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = this.touchStartX - this.touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                this.nextSlide();
+            } else {
+                this.prevSlide();
+            }
         }
     }
     
     setupScrollAnimations() {
         const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
         
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const cards = entry.target.querySelectorAll('.service-card');
-                    cards.forEach((card, index) => {
-                        setTimeout(() => {
-                            card.classList.add('visible');
-                        }, index * 200);
-                    });
+                    if (entry.target.classList.contains('service-card')) {
+                        entry.target.style.animationDelay = `${entry.target.dataset.index * 0.1}s`;
+                        entry.target.classList.add('visible');
+                    } else if (entry.target.classList.contains('stat-item')) {
+                        this.animateStat(entry.target);
+                    }
                 }
             });
         }, observerOptions);
         
-        const servicesSection = document.querySelector('.services-section');
-        observer.observe(servicesSection);
-    }
-    
-    setupCardTilt() {
-        this.cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                if (window.innerWidth > 768) {
-                    this.tiltCard(e, card);
-                }
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                this.resetCardTilt(card);
-            });
+        // Observe cards
+        this.cards.forEach((card, index) => {
+            card.dataset.index = index;
+            observer.observe(card);
+        });
+        
+        // Observe stats
+        const statItems = document.querySelectorAll('.stat-item');
+        statItems.forEach(item => {
+            observer.observe(item);
+        });
+        
+        // Observe other elements
+        const elementsToObserve = document.querySelectorAll('.testimonials-section, .cta-section');
+        elementsToObserve.forEach(el => {
+            observer.observe(el);
         });
     }
     
-    tiltCard(e, card) {
-        const cardRect = card.getBoundingClientRect();
-        const cardCenterX = cardRect.left + cardRect.width / 2;
-        const cardCenterY = cardRect.top + cardRect.height / 2;
-        
-        const mouseX = e.clientX - cardCenterX;
-        const mouseY = e.clientY - cardCenterY;
-        
-        const rotateX = (mouseY / (cardRect.height / 2)) * -4;
-        const rotateY = (mouseX / (cardRect.width / 2)) * 4;
-        
-        const glowX = (mouseX / cardRect.width) * 60;
-        const glowY = (mouseY / cardRect.height) * 60;
-        
-        card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.03, 1.03, 1.03)`;
-        
-        // Dynamic glow effect
-        const front = card.querySelector('.card-front');
-        const back = card.querySelector('.card-back');
-        
-        [front, back].forEach(side => {
-            if (side) {
-                side.style.background = `
-                    linear-gradient(135deg, 
-                        rgba(255, 255, 255, 0.12) 0%, 
-                        rgba(255, 255, 255, 0.08) 100%),
-                    radial-gradient(circle at ${50 + glowX}% ${50 + glowY}%, 
-                        rgba(255, 255, 255, 0.25) 0%, 
-                        transparent 60%)
-                `;
+    startStatsCounter() {
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const target = parseInt(stat.dataset.count);
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            
+            const counter = setInterval(() => {
+                current += step;
+                if (current >= target) {
+                    stat.textContent = target + (stat.dataset.count === '98' ? '%' : '+');
+                    clearInterval(counter);
+                } else {
+                    stat.textContent = Math.floor(current) + (stat.dataset.count === '98' ? '%' : '+');
+                }
+            }, 16);
+        });
+    }
+    
+    animateStat(statItem) {
+        statItem.style.transform = 'translateY(0)';
+        statItem.style.opacity = '1';
+    }
+    
+    filterServices(category) {
+        this.cards.forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'block';
+                // Reset animation
+                card.classList.remove('visible');
+                setTimeout(() => card.classList.add('visible'), 100);
+            } else {
+                card.style.display = 'none';
             }
         });
     }
     
-    resetCardTilt(card) {
-        card.style.transform = 'perspective(1200px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        
-        const front = card.querySelector('.card-front');
-        const back = card.querySelector('.card-back');
-        
-        [front, back].forEach(side => {
-            if (side) {
-                side.style.background = '';
-            }
-        });
+    handleButtonClick(service, isQuickView = false) {
+        if (isQuickView) {
+            this.openQuickView(service);
+        } else {
+            this.openModal(service);
+        }
     }
     
-    setupHoverEffects() {
-        this.cards.forEach(card => {
-            const inner = card.querySelector('.card-inner');
-            const hint = card.querySelector('.card-hint');
-            
-            card.addEventListener('mouseenter', () => {
-                if (window.innerWidth > 768) {
-                    inner.style.transform = 'rotateY(180deg) translateZ(30px)';
-                    card.style.zIndex = '10';
-                    hint.style.background = 'rgba(255, 255, 255, 0.15)';
-                    hint.style.color = '#ffffff';
-                }
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                if (window.innerWidth > 768) {
-                    inner.style.transform = 'rotateY(0deg) translateZ(0px)';
-                    card.style.zIndex = '1';
-                    hint.style.background = '';
-                    hint.style.color = '';
-                }
-            });
-        });
-    }
-    
-    openModal(serviceType) {
-        const serviceData = this.getServiceData(serviceType);
-        
-        this.modalTitle.textContent = serviceData.title;
-        this.modalDescription.textContent = serviceData.description;
-        
+    openModal(service) {
+        const serviceData = this.getServiceData(service);
+        this.populateModal(serviceData);
         this.modal.classList.add('active');
         document.body.style.overflow = 'hidden';
         
-        // Add entrance animation
-        setTimeout(() => {
-            this.modal.style.opacity = '1';
-        }, 10);
+        // Add vibration feedback on mobile
+        if (navigator.vibrate) {
+            navigator.vibrate(50);
+        }
     }
     
-    closeModalHandler() {
-        this.modal.style.opacity = '0';
+    openQuickView(service) {
+        const serviceData = this.getServiceData(service);
+        this.populateQuickView(serviceData);
+        this.quickView.classList.add('active');
+        document.body.style.overflow = 'hidden';
         
-        setTimeout(() => {
-            this.modal.classList.remove('active');
-            document.body.style.overflow = '';
-        }, 400);
+        // Add vibration feedback on mobile
+        if (navigator.vibrate) {
+            navigator.vibrate(30);
+        }
     }
     
-    getServiceData(serviceType) {
+    closeModals() {
+        this.modal.classList.remove('active');
+        this.quickView.classList.remove('active');
+        document.body.style.overflow = '';
+        
+        // Reset card flips when modal closes
+        if (window.innerWidth <= 1024) {
+            this.cards.forEach(card => {
+                card.classList.remove('flipped');
+            });
+        }
+    }
+    
+    populateModal(data) {
+        // Implementation for modal content
+        document.getElementById('modalTitle').textContent = data.title;
+        document.getElementById('modalSubtitle').textContent = data.subtitle;
+        document.getElementById('modalDescription').textContent = data.description;
+        
+        // Add more modal population logic here
+    }
+    
+    populateQuickView(data) {
+        // Implementation for quick view content
+        const content = document.getElementById('quickViewContent');
+        content.innerHTML = `
+            <h3>${data.title}</h3>
+            <p>${data.quickDescription}</p>
+            <div class="quick-features">
+                ${data.quickFeatures.map(feature => `<span>${feature}</span>`).join('')}
+            </div>
+        `;
+    }
+    
+    getServiceData(service) {
+        // Mock data - replace with actual data
         const services = {
             'web-dev': {
                 title: 'Web Development',
-                description: 'We create stunning, responsive websites that provide exceptional user experiences. Our web development services include modern frontend frameworks, robust backend solutions, and seamless integrations. From single-page applications to complex web platforms, we deliver scalable and maintainable code that drives business growth and ensures optimal performance across all devices.'
+                subtitle: 'Complete Web Solutions',
+                description: 'Full-stack web development services...',
+                quickDescription: 'Modern, responsive websites built with cutting-edge technology.',
+                quickFeatures: ['Responsive Design', 'Fast Performance', 'SEO Optimized']
             },
-            'programming': {
-                title: 'Programming',
-                description: 'Our programming expertise covers a wide range of technologies and platforms. We develop custom software solutions, optimize existing systems, and provide technical consulting. Whether you need desktop applications, mobile apps, or complex system architecture, we deliver clean, efficient code that meets your specific requirements and scales with your business needs.'
-            },
-            'video-editing': {
-                title: 'Video Editing',
-                description: 'Transform your raw footage into compelling visual stories. Our video editing services include professional color grading, motion graphics, visual effects, and audio enhancement. We work with various formats and deliver polished videos that captivate your audience and communicate your message effectively across all platforms and devices.'
-            }
+            // Add other services...
         };
         
-        return services[serviceType] || {
-            title: 'Service Details',
-            description: 'Detailed information about this service will be provided soon.'
+        return services[service] || {
+            title: 'Service',
+            subtitle: 'Details',
+            description: 'Service information...',
+            quickDescription: 'Quick overview...',
+            quickFeatures: ['Feature 1', 'Feature 2', 'Feature 3']
         };
     }
     
-    addRippleEffect() {
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('service-cta') || 
-                e.target.closest('.service-cta')) {
-                const button = e.target.classList.contains('service-cta') 
-                    ? e.target 
-                    : e.target.closest('.service-cta');
-                const ripple = document.createElement('span');
-                const rect = button.getBoundingClientRect();
-                const size = Math.max(rect.width, rect.height);
-                const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top - size / 2;
-                
-                ripple.style.width = ripple.style.height = `${size}px`;
-                ripple.style.left = `${x}px`;
-                ripple.style.top = `${y}px`;
-                ripple.classList.add('ripple');
-                
-                button.appendChild(ripple);
-                
-                setTimeout(() => {
-                    ripple.remove();
-                }, 600);
-            }
+    // Slider functionality
+    nextSlide() {
+        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+        this.updateSlider();
+    }
+    
+    prevSlide() {
+        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
+        this.updateSlider();
+    }
+    
+    goToSlide(index) {
+        this.currentSlide = index;
+        this.updateSlider();
+    }
+    
+    updateSlider() {
+        this.slides.forEach((slide, index) => {
+            slide.classList.toggle('active', index === this.currentSlide);
         });
+        
+        this.dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === this.currentSlide);
+        });
+    }
+    
+    startSliderAutoPlay() {
+        // Only auto-play on desktop
+        if (window.innerWidth > 768) {
+            setInterval(() => {
+                this.nextSlide();
+            }, 5000);
+        }
+    }
+    
+    handleCTAClick(button) {
+        const action = button.textContent.trim();
+        
+        // Add vibration feedback
+        if (navigator.vibrate) {
+            navigator.vibrate(100);
+        }
+        
+        // Handle different CTA actions
+        switch(action) {
+            case 'Get Free Quote':
+                this.openModal('quote');
+                break;
+            case 'Schedule Call':
+                // Open calendar or scheduling
+                window.open('tel:+1234567890', '_self');
+                break;
+            default:
+                this.openModal('contact');
+        }
     }
 }
 
-// Initialize the services section when DOM is loaded
+// Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     new ServicesSection();
 });
 
-// Parallax effect for background
-window.addEventListener('scroll', () => {
-    const servicesSection = document.querySelector('.services-section');
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.3;
-    
-    servicesSection.style.backgroundPosition = `center ${rate}px`;
-});
-
-// Resize handler to adjust effects for mobile
+// Handle resize events
 window.addEventListener('resize', () => {
-    const cards = document.querySelectorAll('.service-card');
-    
-    if (window.innerWidth <= 768) {
-        cards.forEach(card => {
-            card.style.transform = 'none';
+    // Reset card flips on orientation change
+    if (window.innerWidth > 1024) {
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.classList.remove('flipped');
         });
     }
 });
 
-// Add loading animation
+// Load fonts and optimize performance
 window.addEventListener('load', () => {
+    // Mark as loaded for any loading animations
     document.body.classList.add('loaded');
-    // Trigger scroll animations on load
-    setTimeout(() => {
-        const event = new Event('scroll');
-        window.dispatchEvent(event);
-    }, 500);
-});
-
-// Enhanced cursor effects
-document.addEventListener('mousemove', (e) => {
-    const cards = document.querySelectorAll('.service-card');
-    const mouseX = e.clientX;
-    const mouseY = e.clientY;
     
-    cards.forEach(card => {
-        const rect = card.getBoundingClientRect();
-        const cardX = rect.left + rect.width / 2;
-        const cardY = rect.top + rect.height / 2;
-        
-        const distance = Math.sqrt(
-            Math.pow(mouseX - cardX, 2) + Math.pow(mouseY - cardY, 2)
-        );
-        
-        if (distance < 300) {
-            const intensity = 1 - (distance / 300);
-            card.style.setProperty('--hover-intensity', intensity);
-        } else {
-            card.style.setProperty('--hover-intensity', 0);
-        }
+    // Preload critical images
+    const criticalImages = [
+        // Add critical image paths here
+    ];
+    
+    criticalImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
     });
 });
 
-// Add CSS variables for dynamic effects
-const dynamicStyles = `
-    .service-card {
-        --hover-intensity: 0;
-    }
-    
-    .service-card:hover .card-icon::before {
-        animation-duration: calc(3s / (1 + var(--hover-intensity)));
-    }
-`;
+// Service Worker for offline support (optional)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(console.error);
+    });
+}
 
-const styleSheet = document.createElement('style');
-styleSheet.textContent = dynamicStyles;
-document.head.appendChild(styleSheet);
+// Performance monitoring
+const observer = new PerformanceObserver((list) => {
+    list.getEntries().forEach((entry) => {
+        console.log(`${entry.name}: ${entry.duration}ms`);
+    });
+});
+
+observer.observe({ entryTypes: ['measure', 'navigation', 'paint'] });
+
+// Error handling
+window.addEventListener('error', (e) => {
+    console.error('Error occurred:', e.error);
+});
+
+// Online/offline detection
+window.addEventListener('online', () => {
+    document.body.classList.remove('offline');
+});
+
+window.addEventListener('offline', () => {
+    document.body.classList.add('offline');
+});
