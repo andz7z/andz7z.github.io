@@ -29,3 +29,40 @@ window.addEventListener("load", () => {
     }
   }, 9000);
 });
+// =======================
+// NAV BAR & BURGER MENU SCRIPT
+// =======================
+
+// Așteaptă ca documentul HTML să fie încărcat
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Selectează elementele de care avem nevoie
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // Verifică dacă elementele există înainte de a adăuga event listener-ul
+    if (hamburger && navMenu) {
+        // Adaugă un event listener pentru 'click' pe burger
+        hamburger.addEventListener('click', () => {
+            // Comută (adaugă/elimină) clasa 'active' pe burger
+            hamburger.classList.toggle('active');
+            
+            // Comută (adaugă/elimină) clasa 'active' pe meniu
+            navMenu.classList.toggle('active');
+        });
+    }
+
+    // (Opțional, dar recomandat) Închide meniul când se dă click pe un link
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            // Elimină clasa 'active' ca să se închidă meniul
+            if (hamburger.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+    });
+
+});
