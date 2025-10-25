@@ -618,12 +618,6 @@
         transform: scale(1.05);
     }
 
-    .slogan {
-        font-size: 1.5rem;
-        letter-spacing: 0.1rem;
-        margin-bottom: 1rem;
-    }
-
     .home-content {
         padding-bottom: 60px;
     }
@@ -645,13 +639,6 @@
 
 /* EXTRA SMALL DEVICES */
 @media screen and (max-width: 480px) {
-    .slogan {
-        font-size: 1.2rem;
-        padding: 0 0.5rem;
-        text-align: center;
-        line-height: 1.3;
-    }
-
     .btn {
         font-size: 0.8rem;
         border-radius: 18px;
@@ -659,5 +646,26 @@
 
     .btn-svg {
         height: 18px;
+    }
+}
+/* 📱 Ajustare finală pentru slogan pe telefon */
+@media screen and (max-width: 768px) {
+    .slogan {
+        font-size: clamp(1rem, 6vw, 1.8rem); /* mai mic și adaptiv */
+        letter-spacing: 0.08rem;
+        margin-bottom: 1rem;
+        white-space: nowrap; /* împiedică spargerea pe rânduri */
+        text-align: center;
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .slogan {
+        font-size: clamp(0.9rem, 5.5vw, 1.4rem);
+        letter-spacing: 0.05rem;
+        white-space: nowrap;
+        text-align: center;
+        padding: 0;
     }
 }
