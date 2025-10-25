@@ -252,4 +252,93 @@ class ServicesSection {
                 const rect = button.getBoundingClientRect();
                 const size = Math.max(rect.width, rect.height);
                 const x = e.clientX - rect.left - size / 2;
-                const y = e.clientY - rect.top
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                ripple.classList.add('ripple');
+                
+                button.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            }
+        });
+    }
+}
+
+// Initialize the services section when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new ServicesSection();
+});
+
+// Parallax effect for background
+window.addEventListener('scroll', () => {
+    const servicesSection = document.querySelector('.services-section');
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * -0.3;
+    
+    servicesSection.style.backgroundPosition = `center ${rate}px`;
+});
+
+// Resize handler to adjust effects for mobile
+window.addEventListener('resize', () => {
+    const cards = document.querySelectorAll('.service-card');
+    
+    if (window.innerWidth <= 768) {
+        cards.forEach(card => {
+            card.style.transform = 'none';
+        });
+    }
+});
+
+// Add loading animation
+window.addEventListener('load', () => {
+    document.body.classList.add('loaded');
+    // Trigger scroll animations on load
+    setTimeout(() => {
+        const event = new Event('scroll');
+        window.dispatchEvent(event);
+    }, 500);
+});
+
+// Enhanced cursor effects
+document.addEventListener('mousemove', (e) => {
+    const cards = document.querySelectorAll('.service-card');
+    const mouseX = e.clientX;
+    const mouseY = e.clientY;
+    
+    cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const cardX = rect.left + rect.width / 2;
+        const cardY = rect.top + rect.height / 2;
+        
+        const distance = Math.sqrt(
+            Math.pow(mouseX - cardX, 2) + Math.pow(mouseY - cardY, 2)
+        );
+        
+        if (distance < 300) {
+            const intensity = 1 - (distance / 300);
+            card.style.setProperty('--hover-intensity', intensity);
+        } else {
+            card.style.setProperty('--hover-intensity', 0);
+        }
+    });
+});
+
+// Add CSS variables for dynamic effects
+const dynamicStyles = `
+    .service-card {
+        --hover-intensity: 0;
+    }
+    
+    .service-card:hover .card-icon::before {
+        animation-duration: calc(3s / (1 + var(--hover-intensity)));
+    }
+`;
+
+const styleSheet = document.createElement('style');
+styleSheet.textContent = dynamicStyles;
+document.head.appendChild(styleSheet);
