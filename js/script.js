@@ -107,17 +107,24 @@ window.addEventListener("load", () => {
   const loader = document.getElementById("video-loader");
   const video = document.getElementById("loader-video");
 
-  // Așteaptă să se termine videoclipul
+  // Elimină blurul de pe video la început (pentru efectul cinematic)
+  setTimeout(() => {
+    video.style.filter = "blur(0px)";
+    video.style.opacity = "1";
+    video.style.transform = "scale(1)";
+  }, 500);
+
+  // Când se termină videoclipul -> fade out complet
   video.addEventListener("ended", () => {
     loader.classList.add("fade-out");
-    setTimeout(() => loader.style.display = "none", 800);
+    setTimeout(() => loader.style.display = "none", 2800);
   });
 
-  // Dacă pagina se încarcă mai repede decât video-ul, îl închidem oricum
+  // Fallback: închide loaderul dacă pagina se încarcă înainte de terminarea clipului
   setTimeout(() => {
     if (loader) {
       loader.classList.add("fade-out");
-      setTimeout(() => loader.style.display = "none", 800);
+      setTimeout(() => loader.style.display = "none", 2800);
     }
-  }, 7000); // 7 secunde fallback
+  }, 9000);
 });
