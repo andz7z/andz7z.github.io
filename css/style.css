@@ -331,3 +331,26 @@ body {
   80%  { opacity: 0.6; transform: scale(1.02); }
   100% { opacity: 0; transform: scale(1.05); }
 }
+/* ==========================
+   MOBILE VIDEO FIX (zoom-out)
+========================== */
+@media (max-width: 768px) {
+  #video-loader video {
+    object-fit: contain;       /* Păstrează proporția video-ului */
+    background-color: black;   /* Creează bare negre pe lateral */
+    width: 100%;
+    height: 100%;
+    filter: blur(25px);        /* menținem blurul de început */
+  }
+
+  /* Ajustăm overlay-ul pentru mobil */
+  .loader-overlay {
+    backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.6);
+  }
+
+  .loader-logo {
+    font-size: 2rem;
+    letter-spacing: 3px;
+  }
+}
