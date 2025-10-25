@@ -1,293 +1,405 @@
-// About Section JavaScript
-class AboutSection {
-    constructor() {
-        this.init();
-    }
+// About Section - ULTIMATE LEVEL
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('⚡ ULTIMATE LEVEL Initialized');
+    
+    initQuantumDots();
+    initPortrait3D();
+    initScrollSections();
+    initSkillProgress();
+    initInteractiveElements();
+    initScrollIndicator();
+    initMicroInteractions();
+    initMagneticEffects();
+    initPageTransitions();
+    initPerformance();
+});
 
-    init() {
-        this.initParticles();
-        this.initScrollAnimations();
-        this.initCounters();
-        this.initSkillBars();
-        this.initCardEffects();
-        this.initScrollProgress();
-        this.initMouseEffects();
-    }
-
-    // Particles.js Initialization
-    initParticles() {
-        if (typeof particlesJS !== 'undefined') {
-            particlesJS('particles-js', {
-                particles: {
-                    number: { value: 80, density: { enable: true, value_area: 800 } },
-                    color: { value: "#ffffff" },
-                    shape: { type: "circle" },
-                    opacity: { value: 0.1, random: true },
-                    size: { value: 3, random: true },
-                    line_linked: {
-                        enable: true,
-                        distance: 150,
-                        color: "#ffffff",
-                        opacity: 0.1,
-                        width: 1
-                    },
-                    move: {
-                        enable: true,
-                        speed: 2,
-                        direction: "none",
-                        random: true,
-                        straight: false,
-                        out_mode: "out",
-                        bounce: false
-                    }
-                },
-                interactivity: {
-                    detect_on: "canvas",
-                    events: {
-                        onhover: { enable: true, mode: "repulse" },
-                        onclick: { enable: true, mode: "push" },
-                        resize: true
-                    }
-                },
-                retina_detect: true
-            });
-        }
-    }
-
-    // Scroll Animations
-    initScrollAnimations() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    
-                    // Staggered animations for child elements
-                    if (entry.target.classList.contains('specialties-grid')) {
-                        this.animateStaggered(entry.target.children, 0.2);
-                    }
-                    
-                    if (entry.target.classList.contains('stats-container')) {
-                        this.animateStaggered(entry.target.children, 0.3);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements
-        const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .scale-in');
-        animatedElements.forEach(el => observer.observe(el));
-
-        // Add animation classes dynamically
-        this.addAnimationClasses();
-    }
-
-    addAnimationClasses() {
-        // Header animations
-        document.querySelector('.header-section').classList.add('fade-in');
+// Quantum Dots System
+function initQuantumDots() {
+    const container = document.querySelector('.quantum-dots');
+    if (!container) return;
+    
+    for (let i = 0; i < 80; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'quantum-dot';
         
-        // Profile section animations
-        document.querySelector('.profile-card').classList.add('scale-in');
-        document.querySelector('.stats-container').classList.add('slide-in-right');
+        const left = Math.random() * 100;
+        const top = Math.random() * 100;
+        const delay = Math.random() * 4;
+        const duration = 3 + Math.random() * 2;
         
-        // Description section animations
-        document.querySelector('.bio-card').classList.add('slide-in-left');
-        document.querySelector('.tech-stack').classList.add('fade-in');
-        document.querySelector('.specialties-grid').classList.add('fade-in');
+        dot.style.left = left + '%';
+        dot.style.top = top + '%';
+        dot.style.animationDelay = -delay + 's';
+        dot.style.animationDuration = duration + 's';
         
-        // CTA animations
-        document.querySelector('.cta-section').classList.add('fade-in');
+        container.appendChild(dot);
     }
+}
 
-    animateStaggered(elements, delay) {
-        Array.from(elements).forEach((el, index) => {
-            setTimeout(() => {
-                el.classList.add('visible');
-            }, index * delay * 1000);
-        });
-    }
-
-    // Counter Animation
-    initCounters() {
-        const counters = document.querySelectorAll('.stat-number');
-        const speed = 200;
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const finalValue = parseInt(target.parentElement.getAttribute('data-count'));
-                    this.animateCounter(target, 0, finalValue, speed);
-                    observer.unobserve(target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        counters.forEach(counter => observer.observe(counter));
-    }
-
-    animateCounter(element, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const value = Math.floor(progress * (end - start) + start);
-            element.textContent = value;
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
-
-    // Skill Bars Animation
-    initSkillBars() {
-        const skillBars = document.querySelectorAll('.skill-progress');
+// Advanced 3D Portrait
+function initPortrait3D() {
+    const portrait = document.querySelector('.portrait-ultimate');
+    if (!portrait) return;
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let portraitX = 0;
+    let portraitY = 0;
+    
+    // Mouse move effect
+    document.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+    
+    // Smooth portrait rotation
+    function animatePortrait() {
+        portraitX += (mouseX - portraitX) * 0.05;
+        portraitY += (mouseY - portraitY) * 0.05;
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const skillBar = entry.target;
-                    const width = skillBar.getAttribute('data-width') + '%';
-                    setTimeout(() => {
-                        skillBar.style.width = width;
-                    }, 300);
-                    observer.unobserve(skillBar);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        skillBars.forEach(bar => observer.observe(bar));
-    }
-
-    // Card Effects
-    initCardEffects() {
-        const cards = document.querySelectorAll('.stat-card, .specialty-item');
+        const rotateY = portraitX * 10;
+        const rotateX = -portraitY * 10;
+        const translateZ = Math.abs(portraitX) * 20 + Math.abs(portraitY) * 20;
         
-        cards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                this.handleCardTilt(e, card);
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-            });
-        });
-    }
-
-    handleCardTilt(e, card) {
-        const cardRect = card.getBoundingClientRect();
-        const centerX = cardRect.left + cardRect.width / 2;
-        const centerY = cardRect.top + cardRect.height / 2;
-        const mouseX = e.clientX - centerX;
-        const mouseY = e.clientY - centerY;
-        
-        const rotateX = (mouseY / cardRect.height) * -10;
-        const rotateY = (mouseX / cardRect.width) * 10;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-    }
-
-    // Scroll Progress
-    initScrollProgress() {
-        const scrollProgress = document.querySelector('.scroll-progress');
-        
-        window.addEventListener('scroll', () => {
-            const windowHeight = window.innerHeight;
-            const documentHeight = document.documentElement.scrollHeight;
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-            
-            scrollProgress.style.width = scrollPercent + '%';
-        });
-    }
-
-    // Mouse Effects
-    initMouseEffects() {
-        const section = document.querySelector('.about-section');
-        const cursor = document.createElement('div');
-        cursor.className = 'custom-cursor';
-        document.body.appendChild(cursor);
-
-        section.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-
-        // Add cursor styles
-        const style = document.createElement('style');
-        style.textContent = `
-            .custom-cursor {
-                position: fixed;
-                width: 20px;
-                height: 20px;
-                border: 2px solid rgba(255, 255, 255, 0.5);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transition: transform 0.1s ease;
-                mix-blend-mode: difference;
-            }
+        portrait.style.transform = `
+            rotateY(${rotateY}deg)
+            rotateX(${rotateX}deg)
+            translateZ(${translateZ}px)
         `;
-        document.head.appendChild(style);
-    }
-
-    // Parallax Effect
-    initParallax() {
-        const shapes = document.querySelectorAll('.floating-shape');
         
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const rate = scrolled * -0.5;
+        // Animate layers
+        const layers = portrait.querySelectorAll('.portrait-layer');
+        layers.forEach((layer, index) => {
+            const depth = (index + 1) * 20;
+            const layerX = portraitX * depth * 0.5;
+            const layerY = portraitY * depth * 0.5;
             
-            shapes.forEach((shape, index) => {
-                const speed = 0.3 + (index * 0.1);
-                shape.style.transform = `translateY(${rate * speed}px)`;
-            });
+            layer.style.transform = `translateZ(${depth}px) translateX(${layerX}px) translateY(${layerY}px)`;
+        });
+        
+        requestAnimationFrame(animatePortrait);
+    }
+    
+    animatePortrait();
+    
+    // Click to reset
+    portrait.addEventListener('click', () => {
+        mouseX = 0;
+        mouseY = 0;
+    });
+}
+
+// Scroll Section Reveal
+function initScrollSections() {
+    const sections = document.querySelectorAll('.content-section');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                
+                // Stagger children animations
+                const children = entry.target.querySelectorAll('.skill-ultimate, .experience-item, .project-ultimate');
+                children.forEach((child, index) => {
+                    setTimeout(() => {
+                        child.style.opacity = '1';
+                        child.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }
+        });
+    }, { 
+        threshold: 0.1,
+        rootMargin: '-50px'
+    });
+    
+    sections.forEach(section => {
+        // Hide children initially
+        const children = section.querySelectorAll('.skill-ultimate, .experience-item, .project-ultimate');
+        children.forEach(child => {
+            child.style.opacity = '0';
+            child.style.transform = 'translateY(20px)';
+            child.style.transition = 'all 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        });
+        
+        observer.observe(section);
+    });
+}
+
+// Animated Skill Progress
+function initSkillProgress() {
+    const skillBars = document.querySelectorAll('.skill-progress');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBar = entry.target;
+                const percentage = skillBar.parentElement.nextElementSibling.textContent;
+                const numericValue = parseInt(percentage);
+                
+                setTimeout(() => {
+                    skillBar.style.width = numericValue + '%';
+                }, 200);
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    skillBars.forEach(bar => {
+        observer.observe(bar);
+    });
+}
+
+// Interactive Elements
+function initInteractiveElements() {
+    // Ripple effect
+    const interactiveElements = document.querySelectorAll('.skill-ultimate, .experience-item, .project-ultimate, .btn-ultimate');
+    
+    interactiveElements.forEach(element => {
+        element.addEventListener('click', function(e) {
+            createRipple(this, e);
+        });
+    });
+    
+    // Hover sound simulation
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.2s ease';
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            this.style.transition = 'all 0.4s ease';
+        });
+    });
+}
+
+function createRipple(element, e) {
+    const ripple = document.createElement('div');
+    const rect = element.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        left: ${x}px;
+        top: ${y}px;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        border-radius: 50%;
+        animation: ripple 0.6s ease-out;
+        pointer-events: none;
+        z-index: 10;
+    `;
+    
+    element.style.position = 'relative';
+    element.style.overflow = 'hidden';
+    element.appendChild(ripple);
+    
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
+
+// Scroll Indicator
+function initScrollIndicator() {
+    const dots = document.querySelectorAll('.indicator-dot');
+    const sections = document.querySelectorAll('.content-section');
+    
+    // Click to scroll
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            if (sections[index]) {
+                sections[index].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // Update active dot on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const index = Array.from(sections).indexOf(entry.target);
+                dots.forEach(dot => dot.classList.remove('active'));
+                if (dots[index]) dots[index].classList.add('active');
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    sections.forEach(section => observer.observe(section));
+}
+
+// Micro Interactions
+function initMicroInteractions() {
+    // Typing effect for title
+    const title = document.querySelector('.ultimate-title');
+    if (title) {
+        const text = title.textContent;
+        title.textContent = '';
+        
+        let i = 0;
+        function typeWriter() {
+            if (i < text.length) {
+                title.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        }
+        
+        const titleObserver = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                typeWriter();
+                titleObserver.unobserve(title);
+            }
+        });
+        
+        titleObserver.observe(title);
+    }
+    
+    // Availability status animation
+    const status = document.querySelector('.availability-status');
+    if (status) {
+        status.addEventListener('click', function() {
+            this.style.animation = 'pulse 0.3s ease';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 300);
         });
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new AboutSection();
-});
+// Magnetic Effects
+function initMagneticEffects() {
+    const magneticElements = document.querySelectorAll('.btn-ultimate, .skill-ultimate, .project-ultimate');
+    
+    magneticElements.forEach(element => {
+        element.addEventListener('mousemove', function(e) {
+            const rect = this.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const moveX = (x - centerX) / 10;
+            const moveY = (y - centerY) / 10;
+            
+            this.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+        
+        element.addEventListener('mouseleave', function() {
+            this.style.transform = 'translate(0, 0)';
+        });
+    });
+}
 
-// Additional utility functions
-const utils = {
-    // Debounce function for performance
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-
-    // Throttle function for scroll events
-    throttle(func, limit) {
-        let inThrottle;
-        return function() {
-            const args = arguments;
-            const context = this;
-            if (!inThrottle) {
-                func.apply(context, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
+// Smooth Page Transitions
+function initPageTransitions() {
+    // Add CSS for animations
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes ripple {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(4);
+                opacity: 0;
             }
         }
-    }
-};
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+    `;
+    document.head.appendChild(style);
+    
+    // Smooth scroll for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
 
-// Export for module usage
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = AboutSection;
+// Performance Optimizations
+function initPerformance() {
+    // Throttle scroll events
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                // Update any scroll-based animations
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+    
+    // Lazy load images
+    const images = document.querySelectorAll('img[data-src]');
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Utility Functions
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
 }
