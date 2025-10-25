@@ -651,7 +651,7 @@
 /* 📱 Ajustare finală pentru slogan pe telefon */
 @media screen and (max-width: 768px) {
     .slogan {
-        font-size: clamp(1rem, 6vw, 1.8rem); /* mai mic și adaptiv */
+        font-size: clamp(0.9rem, 5.5vw, 1.4rem); /* mai mic și adaptiv */
         letter-spacing: 0.08rem;
         margin-bottom: 1rem;
         white-space: nowrap; /* împiedică spargerea pe rânduri */
