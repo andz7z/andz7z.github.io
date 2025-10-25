@@ -140,26 +140,75 @@ function initTimelineAnimation() {
     });
 }
 
-// Initialize Tech Stack Animation
-function initTechStackAnimation() {
-    const techItems = document.querySelectorAll('.tech-item');
+// Initialize Stats Counter
+function initStatsCounter() {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const progressCircles = document.querySelectorAll('.progress-ring-circle');
     
-    const techObserver = new IntersectionObserver((entries) => {
+    const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.animation = 'bounceIn 0.6s ease forwards';
-                techObserver.unobserve(entry.target);
+                // Animate numbers
+                statNumbers.forEach(stat => {
+                    const target = parseInt(stat.getAttribute('data-target'));
+                    animateNumber(stat, 0, target, 2000);
+                });
+                
+                // Animate progress circles
+                progressCircles.forEach(circle => {
+                    const progressContainer = circle.closest('.circle-progress');
+                    const percentage = parseInt(progressContainer.getAttribute('data-percentage'));
+                    animateProgressCircle(circle, percentage);
+                });
+                
+                statsObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.5 });
     
-    techItems.forEach((item, index) => {
-        item.style.opacity = '0';
-        item.style.transform = 'scale(0.8)';
-        item.style.animationDelay = (index * 0.1) + 's';
-        techObserver.observe(item);
-    });
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
 }
+
+// Animate number counter
+function animateNumber(element, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const value = Math.floor(progress * (end - start) + start);
+        element.textContent = value;
+        if (progress < 1) {
+            window.requestAnimationFrame(step);
+        }
+    };
+    window.requestAnimationFrame(step);
+}
+
+// Animate progress circle
+function animateProgressCircle(circle, percentage) {
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - (percentage / 100) * circumference;
+    
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    circle.style.strokeDashoffset = circumference;
+    
+    setTimeout(() => {
+        circle.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+        circle.style.strokeDashoffset = offset;
+    }, 300);
+}
+
+// Add to your existing JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    // Your existing initialization code...
+    
+    // Initialize Stats Counter
+    initStatsCounter();
+});
 
 // Initialize Scroll Animations
 function initScrollAnimations() {
