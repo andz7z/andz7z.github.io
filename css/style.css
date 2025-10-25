@@ -362,7 +362,3 @@ body {
   #video-loader::before { top: 0; }
   #video-loader::after  { bottom: 0; }
 }
-/* După ce animația s-a terminat, ascunde complet loaderul */
-#video-loader.hidden {
-  display: none !important;
-}
