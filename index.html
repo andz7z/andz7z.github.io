@@ -431,87 +431,80 @@
         
         <!-- Services Navigation -->
         <div class="services-nav">
-            <button class="nav-btn prev-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <button class="nav-btn prev-btn" aria-label="Previous service">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2"/>
                 </svg>
             </button>
             
             <div class="services-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
+                <span class="dot active" data-slide="0" aria-label="Web Development"></span>
+                <span class="dot" data-slide="1" aria-label="Programming"></span>
+                <span class="dot" data-slide="2" aria-label="Video Editing"></span>
             </div>
             
-            <button class="nav-btn next-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <button class="nav-btn next-btn" aria-label="Next service">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2"/>
                 </svg>
             </button>
         </div>
 
-        <!-- Services Slides Container -->
-        <div class="services-slider">
-            <!-- Slide 1: Web Development -->
-            <div class="service-slide active" data-category="web-dev">
-                <div class="slide-content">
-                    <!-- 3D Icon Container -->
-                    <div class="icon-3d-container">
+        <!-- Services Container -->
+        <div class="services-container">
+            <!-- Web Development -->
+            <div class="service-category active" data-category="web-dev">
+                <div class="service-content">
+                    <div class="service-icon">
                         <div class="icon-3d">
-                            <div class="icon-front">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-                                    <path d="M12 21L3 7H21L12 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12 3V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M7 12H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="icon-back"></div>
-                            <div class="icon-left"></div>
-                            <div class="icon-right"></div>
-                            <div class="icon-top"></div>
-                            <div class="icon-bottom"></div>
+                            <div class="icon-face"></div>
                         </div>
                     </div>
-
-                    <!-- Service Info -->
-                    <div class="service-info">
+                    
+                    <div class="service-details">
                         <h3 class="service-title">Web Development</h3>
-                        <div class="service-features">
-                            <div class="feature-card">
+                        
+                        <div class="features-grid">
+                            <div class="feature">
                                 <span class="feature-icon">⚡</span>
-                                <h4>Lightning Fast</h4>
-                                <p>Optimized performance with 99.9% uptime guarantee</p>
+                                <div class="feature-text">
+                                    <h4>Lightning Fast</h4>
+                                    <p>Optimized performance with 99.9% uptime</p>
+                                </div>
                             </div>
-                            <div class="feature-card">
+                            <div class="feature">
                                 <span class="feature-icon">🔒</span>
-                                <h4>Secure & Protected</h4>
-                                <p>Enterprise-grade security with daily backups</p>
+                                <div class="feature-text">
+                                    <h4>Secure & Protected</h4>
+                                    <p>Enterprise-grade security protocols</p>
+                                </div>
                             </div>
-                            <div class="feature-card">
+                            <div class="feature">
                                 <span class="feature-icon">📱</span>
-                                <h4>Responsive Design</h4>
-                                <p>Flawless experience across all devices</p>
+                                <div class="feature-text">
+                                    <h4>Responsive Design</h4>
+                                    <p>Flawless experience on all devices</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Why Me Section -->
-                        <div class="why-me">
+                        <div class="why-me-card">
                             <h4>Why Choose Me?</h4>
                             <div class="advantages">
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">🚀</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>50% Faster Loading</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">🎨</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Unique Design Patterns</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">⚙️</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Custom Solutions</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">📊</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>SEO Optimized</span>
                                 </div>
                             </div>
@@ -520,71 +513,59 @@
                 </div>
             </div>
 
-            <!-- Slide 2: Programming -->
-            <div class="service-slide" data-category="programming">
-                <div class="slide-content">
-                    <!-- 3D Icon Container -->
-                    <div class="icon-3d-container">
+            <!-- Programming -->
+            <div class="service-category" data-category="programming">
+                <div class="service-content">
+                    <div class="service-icon">
                         <div class="icon-3d">
-                            <div class="icon-front">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-                                    <path d="M8 14L6 12L8 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M16 10L18 12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12 21V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M18 21V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M6 21V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M3 6L5 4L7 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M21 6L19 4L17 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M12 3V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                </svg>
-                            </div>
-                            <div class="icon-back"></div>
-                            <div class="icon-left"></div>
-                            <div class="icon-right"></div>
-                            <div class="icon-top"></div>
-                            <div class="icon-bottom"></div>
+                            <div class="icon-face"></div>
                         </div>
                     </div>
-
-                    <!-- Service Info -->
-                    <div class="service-info">
+                    
+                    <div class="service-details">
                         <h3 class="service-title">Programming</h3>
-                        <div class="service-features">
-                            <div class="feature-card">
+                        
+                        <div class="features-grid">
+                            <div class="feature">
                                 <span class="feature-icon">💻</span>
-                                <h4>Clean Code</h4>
-                                <p>Maintainable, scalable, and well-documented solutions</p>
+                                <div class="feature-text">
+                                    <h4>Clean Code</h4>
+                                    <p>Maintainable and scalable solutions</p>
+                                </div>
                             </div>
-                            <div class="feature-card">
+                            <div class="feature">
                                 <span class="feature-icon">🚀</span>
-                                <h4>High Performance</h4>
-                                <p>Optimized algorithms for maximum efficiency</p>
+                                <div class="feature-text">
+                                    <h4>High Performance</h4>
+                                    <p>Optimized algorithms for efficiency</p>
+                                </div>
                             </div>
-                            <div class="feature-card">
+                            <div class="feature">
                                 <span class="feature-icon">🛠️</span>
-                                <h4>Multiple Languages</h4>
-                                <p>Expertise in various programming paradigms</p>
+                                <div class="feature-text">
+                                    <h4>Multiple Languages</h4>
+                                    <p>Expert in various programming paradigms</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Why Me Section -->
-                        <div class="why-me">
+                        <div class="why-me-card">
                             <h4>Why Choose Me?</h4>
                             <div class="advantages">
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">⚡</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Zero Technical Debt</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">🔧</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Custom Architecture</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">📈</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Scalable Solutions</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">🛡️</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Bug-Free Guarantee</span>
                                 </div>
                             </div>
@@ -593,65 +574,59 @@
                 </div>
             </div>
 
-            <!-- Slide 3: Video Editing -->
-            <div class="service-slide" data-category="video-editing">
-                <div class="slide-content">
-                    <!-- 3D Icon Container -->
-                    <div class="icon-3d-container">
+            <!-- Video Editing -->
+            <div class="service-category" data-category="video-editing">
+                <div class="service-content">
+                    <div class="service-icon">
                         <div class="icon-3d">
-                            <div class="icon-front">
-                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none">
-                                    <path d="M23 7L16 12L23 17V7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <rect x="1" y="5" width="15" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
-                                </svg>
-                            </div>
-                            <div class="icon-back"></div>
-                            <div class="icon-left"></div>
-                            <div class="icon-right"></div>
-                            <div class="icon-top"></div>
-                            <div class="icon-bottom"></div>
+                            <div class="icon-face"></div>
                         </div>
                     </div>
-
-                    <!-- Service Info -->
-                    <div class="service-info">
+                    
+                    <div class="service-details">
                         <h3 class="service-title">Video Editing</h3>
-                        <div class="service-features">
-                            <div class="feature-card">
+                        
+                        <div class="features-grid">
+                            <div class="feature">
                                 <span class="feature-icon">🎬</span>
-                                <h4>4K Quality</h4>
-                                <p>Crystal clear footage with professional grading</p>
+                                <div class="feature-text">
+                                    <h4>4K Quality</h4>
+                                    <p>Crystal clear professional footage</p>
+                                </div>
                             </div>
-                            <div class="feature-card">
+                            <div class="feature">
                                 <span class="feature-icon">⚡</span>
-                                <h4>Fast Rendering</h4>
-                                <p>No lag, real-time preview with powerful workstations</p>
+                                <div class="feature-text">
+                                    <h4>Fast Rendering</h4>
+                                    <p>No lag, real-time preview</p>
+                                </div>
                             </div>
-                            <div class="feature-card">
+                            <div class="feature">
                                 <span class="feature-icon">🎨</span>
-                                <h4>Creative Effects</h4>
-                                <p>Unique transitions and cinematic experiences</p>
+                                <div class="feature-text">
+                                    <h4>Creative Effects</h4>
+                                    <p>Unique transitions and cinematic experiences</p>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Why Me Section -->
-                        <div class="why-me">
+                        <div class="why-me-card">
                             <h4>Why Choose Me?</h4>
                             <div class="advantages">
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">🚀</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Zero Render Lag</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">🎯</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Frame Perfect Sync</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">💎</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>Premium Assets</span>
                                 </div>
-                                <div class="advantage-item">
-                                    <span class="advantage-badge">⚡</span>
+                                <div class="advantage">
+                                    <span class="check">✓</span>
                                     <span>24h Delivery</span>
                                 </div>
                             </div>
