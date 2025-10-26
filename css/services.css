@@ -712,3 +712,157 @@
         -webkit-overflow-scrolling: touch;
     }
 }
+/* === LAYOUT MAI AERISIT ȘI MĂRIT === */
+.services-section {
+  padding: 140px 0; /* mai mult spațiu sus/jos */
+}
+
+.section-title {
+  font-size: 4rem; /* titlu mai mare */
+  margin-bottom: 2rem;
+}
+
+.section-description {
+  font-size: 1.4rem;
+  margin-bottom: 5rem;
+}
+
+/* Măresc și separ mai mult navigația */
+.services-nav {
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.nav-btn {
+  width: 65px;
+  height: 65px;
+  font-size: 1.4rem;
+}
+
+/* Indicatori mai mari */
+.indicator {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* CARD SLIDER MAI ÎNALT */
+.services-slider {
+  height: 650px;
+  border-radius: 30px;
+  padding: 2rem;
+}
+
+/* Conținutul intern mai aerisit */
+.service-content {
+  grid-template-columns: 1fr 2fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Iconiță 3D mai mare și mai proeminentă */
+.icon-3d {
+  width: 260px;
+  height: 260px;
+  animation: rotate3d 25s infinite linear;
+}
+
+.icon-front,
+.icon-back,
+.icon-side {
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Textul și barele mai vizibile */
+.service-title {
+  font-size: 3rem;
+  margin-bottom: 2.5rem;
+}
+
+.feature-name {
+  font-size: 1.1rem;
+}
+
+.feature-bar {
+  height: 8px;
+  border-radius: 4px;
+}
+
+.why-me {
+  margin-top: 2.5rem;
+}
+
+.why-me h4 {
+  font-size: 1.8rem;
+  margin-bottom: 1.2rem;
+}
+
+.why-me li {
+  font-size: 1.1rem;
+  padding: 0.6rem 0;
+}
+
+/* Elemente de fundal – mărime și glow mai mare */
+.bg-element {
+  filter: blur(60px);
+  opacity: 0.4;
+}
+
+.el-1 { width: 400px; height: 400px; }
+.el-2 { width: 300px; height: 300px; }
+.el-3 { width: 220px; height: 220px; }
+.el-4 { width: 350px; height: 350px; }
+
+/* === RESPONSIVE MAI FLUID === */
+@media (max-width: 1024px) {
+  .services-slider {
+    min-height: 700px;
+  }
+  .icon-3d {
+    width: 200px;
+    height: 200px;
+  }
+  .service-title {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-slider {
+    min-height: 800px;
+  }
+  .section-title {
+    font-size: 2.8rem;
+  }
+  .service-title {
+    font-size: 2rem;
+  }
+  .icon-3d {
+    width: 180px;
+    height: 180px;
+  }
+  .feature-name {
+    font-size: 1rem;
+  }
+  .why-me h4 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-slider {
+    min-height: 700px;
+    margin: 0 1rem;
+  }
+  .icon-3d {
+    width: 150px;
+    height: 150px;
+  }
+  .service-title {
+    font-size: 1.6rem;
+  }
+  .feature-name,
+  .why-me li {
+    font-size: 0.9rem;
+  }
+}
