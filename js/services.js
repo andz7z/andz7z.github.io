@@ -1,4 +1,4 @@
-// services.js
+// services.js - VARIANTA CORECTATA
 
 document.addEventListener('DOMContentLoaded', function() {
     initSuperServices();
@@ -27,11 +27,11 @@ function initSuperServices() {
     
     [sectionTitle, sectionDescription, ...serviceCards].forEach(el => observer.observe(el));
     
-    // SUPER INTERACTIVE CARD SYSTEM
+    // SUPER INTERACTIVE CARD SYSTEM - CORECTAT
     let activeCard = null;
     
     serviceCards.forEach((card, index) => {
-        // Mouse 3D effects
+        // Mouse 3D effects - DOAR pentru carduri neactive
         card.addEventListener('mousemove', (e) => {
             if (activeCard === card) return;
             
@@ -54,7 +54,7 @@ function initSuperServices() {
             }
         });
         
-        // Click to activate
+        // Click to activate - CORECTAT
         card.addEventListener('click', (e) => {
             e.stopPropagation();
             
@@ -87,14 +87,15 @@ function initSuperServices() {
             e.stopPropagation();
             deactivateCard(card);
             if (activeCard === card) activeCard = null;
+            updateSelectionIndicator(-1);
         });
         
         card.querySelector('.card-back').appendChild(closeBtn);
     });
     
-    // Close card when clicking outside
+    // Close card when clicking outside - CORECTAT
     document.addEventListener('click', (e) => {
-        if (activeCard && !activeCard.contains(e.target)) {
+        if (activeCard && !activeCard.contains(e.target) && !e.target.classList.contains('indicator-dot')) {
             deactivateCard(activeCard);
             activeCard = null;
             updateSelectionIndicator(-1);
@@ -185,37 +186,12 @@ function updateSelectionIndicator(activeIndex) {
 function activateCard(card) {
     card.classList.add('active');
     card.style.transform = 'perspective(1000px) rotateY(180deg) translateZ(100px)';
-    card.style.zIndex = '100';
+    card.style.zIndex = '1000';
     
-    // Add backdrop dimming
+    // Add backdrop dimming - CORECTAT
     const overlay = document.createElement('div');
     overlay.className = 'card-overlay';
-    overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.7);
-        backdrop-filter: blur(5px);
-        z-index: 99;
-        animation: fadeIn 0.5s ease;
-    `;
-    
     document.body.appendChild(overlay);
-    
-    // Add keyframe for fadeIn
-    if (!document.querySelector('#overlay-animations')) {
-        const style = document.createElement('style');
-        style.id = 'overlay-animations';
-        style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
 }
 
 function deactivateCard(card) {
@@ -246,7 +222,7 @@ function createActivationEffect(card) {
         left: ${centerX - 50}px;
         top: ${centerY - 50}px;
         pointer-events: none;
-        z-index: 101;
+        z-index: 1001;
         animation: activateRipple 0.8s ease-out forwards;
     `;
     
@@ -271,7 +247,11 @@ function createActivationEffect(card) {
         document.head.appendChild(style);
     }
     
-    setTimeout(() => ripple.remove(), 800);
+    setTimeout(() => {
+        if (ripple.parentNode) {
+            ripple.parentNode.removeChild(ripple);
+        }
+    }, 800);
 }
 
 function createRippleEffect(button) {
@@ -296,13 +276,17 @@ function createRippleEffect(button) {
     button.style.overflow = 'hidden';
     button.appendChild(ripple);
     
-    setTimeout(() => ripple.remove(), 600);
+    setTimeout(() => {
+        if (ripple.parentNode) {
+            ripple.parentNode.removeChild(ripple);
+        }
+    }, 600);
 }
 
 function simulateServiceSelection(service) {
     // Create selection confirmation effect
     const message = document.createElement('div');
-    message.textContent = `Starting ${service} service...`;
+    message.textContent = `Starting ${service.replace('-', ' ')} service...`;
     message.style.cssText = `
         position: fixed;
         top: 50%;
@@ -314,7 +298,7 @@ function simulateServiceSelection(service) {
         border-radius: 10px;
         border: 1px solid rgba(255,255,255,0.3);
         backdrop-filter: blur(10px);
-        z-index: 1000;
+        z-index: 1002;
         font-family: 'Roboto', sans-serif;
         animation: messageAppear 0.5s ease, messageDisappear 0.5s ease 1.5s forwards;
     `;
@@ -350,7 +334,11 @@ function simulateServiceSelection(service) {
         document.head.appendChild(style);
     }
     
-    setTimeout(() => message.remove(), 2000);
+    setTimeout(() => {
+        if (message.parentNode) {
+            message.parentNode.removeChild(message);
+        }
+    }, 2000);
 }
 
 // Add the button ripple animation
