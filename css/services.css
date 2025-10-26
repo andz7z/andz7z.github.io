@@ -187,7 +187,7 @@
   animation: rotate3d 20s infinite linear;
 }
 
-.icon-front, .icon-back, .icon-side {
+.icon-front, .icon-back, .icon-side-left, .icon-side-right, .icon-side-top, .icon-side-bottom {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -213,17 +213,56 @@
   transform: translateZ(-30px) rotateY(180deg);
 }
 
-.icon-side {
-  background: linear-gradient(135deg, rgba(150, 150, 150, 0.1) 0%, rgba(100, 100, 100, 0.05) 100%);
+/* Laturi pentru toate părțile */
+.icon-side-left {
+  background: linear-gradient(135deg, rgba(120, 120, 120, 0.15) 0%, rgba(80, 80, 80, 0.1) 100%);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  transform: rotateY(90deg) translateZ(30px);
+  border-radius: 10px;
+  transform: rotateY(-90deg) translateZ(30px);
   width: 60px;
+  height: 160px;
+}
+
+.icon-side-right {
+  background: linear-gradient(135deg, rgba(120, 120, 120, 0.15) 0%, rgba(80, 80, 80, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  transform: rotateY(90deg) translateZ(170px);
+  width: 60px;
+  height: 160px;
+}
+
+.icon-side-top {
+  background: linear-gradient(135deg, rgba(140, 140, 140, 0.15) 0%, rgba(100, 100, 100, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  transform: rotateX(90deg) translateZ(30px);
+  width: 160px;
+  height: 60px;
+}
+
+.icon-side-bottom {
+  background: linear-gradient(135deg, rgba(140, 140, 140, 0.15) 0%, rgba(100, 100, 100, 0.1) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  transform: rotateX(-90deg) translateZ(170px);
+  width: 160px;
+  height: 60px;
 }
 
 .icon-3d svg {
   color: #fff;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+/* Animatie pentru rotire 3D */
+@keyframes rotate3d {
+  0% {
+    transform: rotateY(0deg) rotateX(10deg);
+  }
+  100% {
+    transform: rotateY(360deg) rotateX(10deg);
+  }
 }
 
 /* Service Info */
