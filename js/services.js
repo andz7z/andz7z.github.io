@@ -1,322 +1,448 @@
-// Services Section JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Elemente principale
-    const servicesSection = document.querySelector('.services-section');
-    const categories = document.querySelectorAll('.category');
-    const slides = document.querySelectorAll('.service-slide');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    
-    // Starea curentă
-    let currentSlide = 0;
-    let autoSlideInterval;
-    const slideDuration = 6000; // 6 secunde între slide-uri
-    
-    // Inițializare
-    function initServices() {
-        // Activează primul slide
-        activateSlide(currentSlide);
+// Services Section Premium JavaScript
+class PremiumServices {
+    constructor() {
+        this.currentSlide = 0;
+        this.slides = [];
+        this.categories = [];
+        this.autoSlideInterval = null;
+        this.slideDuration = 8000; // 8 secunde pentru conținutul mai detaliat
+        this.isAnimating = false;
+        this.animationDelay = 100; // Delay pentru animații succesive
         
-        // Pornește auto-slide
-        startAutoSlide();
-        
-        // Inițializează observer pentru animații la scroll
-        initScrollAnimations();
-        
-        // Adaugă event listeners
-        setupEventListeners();
-        
-        // Inițializează progress bars
-        initProgressBars();
+        this.init();
     }
-    
-    // Setează event listeners
-    function setupEventListeners() {
+
+    init() {
+        this.cacheElements();
+        this.setupEventListeners();
+        this.startAutoSlide();
+        this.initScrollAnimations();
+        this.animateOnLoad();
+        
+        console.log('Premium Services initialized 🚀');
+    }
+
+    cacheElements() {
+        // Elemente principale
+        this.servicesSection = document.querySelector('.services-section');
+        this.slides = Array.from(document.querySelectorAll('.service-slide'));
+        this.categories = Array.from(document.querySelectorAll('.category'));
+        this.prevBtn = document.querySelector('.prev-btn');
+        this.nextBtn = document.querySelector('.next-btn');
+        this.serviceCards = Array.from(document.querySelectorAll('.service-card'));
+        this.featureCards = Array.from(document.querySelectorAll('.feature-card'));
+        this.statItems = Array.from(document.querySelectorAll('.stat-item'));
+    }
+
+    setupEventListeners() {
         // Navigare prin categorii
-        categories.forEach((category, index) => {
+        this.categories.forEach((category, index) => {
             category.addEventListener('click', () => {
-                navigateToSlide(index);
-            });
-        });
-        
-        // Butoane prev/next
-        prevBtn.addEventListener('click', showPrevSlide);
-        nextBtn.addEventListener('click', showNextSlide);
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', handleKeyboardNavigation);
-        
-        // Pause auto-slide on hover
-        servicesSection.addEventListener('mouseenter', pauseAutoSlide);
-        servicesSection.addEventListener('mouseleave', startAutoSlide);
-        
-        // Touch events pentru mobile
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        servicesSection.addEventListener('touchstart', e => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
-        
-        servicesSection.addEventListener('touchend', e => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-    }
-    
-    // Navigare la slide-ul specificat
-    function navigateToSlide(slideIndex) {
-        // Actualizează slide-ul curent
-        currentSlide = slideIndex;
-        
-        // Activează noul slide
-        activateSlide(currentSlide);
-        
-        // Resetează auto-slide
-        resetAutoSlide();
-    }
-    
-    // Activează un slide specific
-    function activateSlide(slideIndex) {
-        // Dezactivează toate slide-urile și categoriile
-        slides.forEach(slide => slide.classList.remove('active'));
-        categories.forEach(category => category.classList.remove('active'));
-        
-        // Activează slide-ul și categoria corespunzătoare
-        slides[slideIndex].classList.add('active');
-        categories[slideIndex].classList.add('active');
-        
-        // Animează progress bars
-        animateProgressBars();
-        
-        // Trigger custom event
-        const event = new CustomEvent('serviceChange', {
-            detail: { 
-                service: categories[slideIndex].dataset.category,
-                index: slideIndex
-            }
-        });
-        servicesSection.dispatchEvent(event);
-    }
-    
-    // Arată slide-ul anterior
-    function showPrevSlide() {
-        currentSlide = currentSlide > 0 ? currentSlide - 1 : slides.length - 1;
-        activateSlide(currentSlide);
-        resetAutoSlide();
-    }
-    
-    // Arată slide-ul următor
-    function showNextSlide() {
-        currentSlide = currentSlide < slides.length - 1 ? currentSlide + 1 : 0;
-        activateSlide(currentSlide);
-        resetAutoSlide();
-    }
-    
-    // Navigare prin tastatură
-    function handleKeyboardNavigation(e) {
-        if (e.key === 'ArrowLeft') {
-            showPrevSlide();
-        } else if (e.key === 'ArrowRight') {
-            showNextSlide();
-        }
-    }
-    
-    // Gesturi touch pentru mobile
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
-        
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Swipe left - next slide
-                showNextSlide();
-            } else {
-                // Swipe right - prev slide
-                showPrevSlide();
-            }
-        }
-    }
-    
-    // Auto-slide functionality
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(() => {
-            showNextSlide();
-        }, slideDuration);
-    }
-    
-    function pauseAutoSlide() {
-        if (autoSlideInterval) {
-            clearInterval(autoSlideInterval);
-        }
-    }
-    
-    function resetAutoSlide() {
-        pauseAutoSlide();
-        startAutoSlide();
-    }
-    
-    // Animații pentru progress bars
-    function initProgressBars() {
-        // Setează width-ul inițial la 0
-        const progressBars = document.querySelectorAll('.feature-progress');
-        progressBars.forEach(bar => {
-            bar.style.width = '0%';
-        });
-    }
-    
-    function animateProgressBars() {
-        const activeSlide = document.querySelector('.service-slide.active');
-        const progressBars = activeSlide.querySelectorAll('.feature-progress');
-        
-        progressBars.forEach((bar, index) => {
-            // Reset la 0%
-            bar.style.width = '0%';
-            
-            // Animează la width-ul final după o scurtă întârziere
-            setTimeout(() => {
-                const value = bar.getAttribute('data-value');
-                bar.style.width = value + '%';
-            }, 300 + (index * 150));
-        });
-    }
-    
-    // Animații la scroll
-    function initScrollAnimations() {
-        const observerOptions = {
-            threshold: 0.3,
-            rootMargin: '0px 0px -50px 0px'
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
-                    
-                    // Animează progress bars când secțiunea devine vizibilă
-                    if (entry.target.classList.contains('services-section')) {
-                        setTimeout(animateProgressBars, 500);
-                    }
+                if (!this.isAnimating) {
+                    this.navigateToSlide(index);
                 }
             });
-        }, observerOptions);
-        
-        // Observează secțiunea services și card-urile
-        observer.observe(servicesSection);
-        document.querySelectorAll('.service-card').forEach(card => {
-            observer.observe(card);
+            
+            // Efecte de hover avansate
+            category.addEventListener('mouseenter', () => this.handleCategoryHover(category));
+            category.addEventListener('mouseleave', () => this.handleCategoryLeave(category));
+        });
+
+        // Butoane prev/next
+        this.prevBtn.addEventListener('click', () => {
+            if (!this.isAnimating) this.showPrevSlide();
+        });
+        this.nextBtn.addEventListener('click', () => {
+            if (!this.isAnimating) this.showNextSlide();
+        });
+
+        // Navigare prin tastatură
+        document.addEventListener('keydown', (e) => this.handleKeyboardNavigation(e));
+
+        // Control auto-slide la hover
+        this.servicesSection.addEventListener('mouseenter', () => this.pauseAutoSlide());
+        this.servicesSection.addEventListener('mouseleave', () => this.startAutoSlide());
+
+        // Touch events pentru mobile
+        this.setupTouchEvents();
+
+        // Scroll animations
+        this.setupScrollAnimations();
+
+        // Resize optimization
+        this.setupResizeHandler();
+    }
+
+    setupTouchEvents() {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        this.servicesSection.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        this.servicesSection.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            touchEndY = e.changedTouches[0].screenY;
+            this.handleSwipe(touchStartX, touchEndX, touchStartY, touchEndY);
         });
     }
-    
-    // Efecte speciale și particule
-    function createParticles() {
-        const particlesContainer = document.createElement('div');
-        particlesContainer.className = 'particles-container';
-        particlesContainer.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        `;
-        servicesSection.appendChild(particlesContainer);
-        
-        // Creează particule
-        for (let i = 0; i < 15; i++) {
-            createParticle(particlesContainer);
-        }
-    }
-    
-    function createParticle(container) {
-        const particle = document.createElement('div');
-        particle.style.cssText = `
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float 6s infinite linear;
-        `;
-        
-        // Poziție random
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.top = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 5 + 's';
-        
-        container.appendChild(particle);
-    }
-    
-    // Adaugă CSS pentru animația de particule
-    const particleStyles = `
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100px) translateX(20px);
-                opacity: 0;
+
+    handleSwipe(startX, endX, startY, endY) {
+        const swipeThreshold = 50;
+        const verticalThreshold = 30;
+        const diffX = startX - endX;
+        const diffY = startY - endY;
+
+        // Ignoră swipe-urile verticale
+        if (Math.abs(diffY) > verticalThreshold) return;
+
+        if (Math.abs(diffX) > swipeThreshold) {
+            if (diffX > 0 && !this.isAnimating) {
+                this.showNextSlide();
+            } else if (diffX < 0 && !this.isAnimating) {
+                this.showPrevSlide();
             }
         }
-    `;
-    
-    const styleSheet = document.createElement('style');
-    styleSheet.textContent = particleStyles;
-    document.head.appendChild(styleSheet);
-    
-    // Efect de focus pentru slide-ul activ
-    function addFocusEffect() {
-        servicesSection.addEventListener('serviceChange', (e) => {
-            const serviceType = e.detail.service;
+    }
+
+    handleKeyboardNavigation(e) {
+        if (e.key === 'ArrowLeft' && !this.isAnimating) {
+            this.showPrevSlide();
+        } else if (e.key === 'ArrowRight' && !this.isAnimating) {
+            this.showNextSlide();
+        } else if (e.key === 'Escape') {
+            this.pauseAutoSlide();
+        }
+    }
+
+    navigateToSlide(slideIndex) {
+        if (slideIndex === this.currentSlide || this.isAnimating) return;
+        
+        this.isAnimating = true;
+        this.currentSlide = slideIndex;
+        
+        this.animateSlideTransition();
+        this.resetAutoSlide();
+        
+        // Trigger custom event pentru analytics sau alte funcționalități
+        this.dispatchServiceChangeEvent();
+    }
+
+    showPrevSlide() {
+        const newIndex = this.currentSlide > 0 ? this.currentSlide - 1 : this.slides.length - 1;
+        this.navigateToSlide(newIndex);
+    }
+
+    showNextSlide() {
+        const newIndex = this.currentSlide < this.slides.length - 1 ? this.currentSlide + 1 : 0;
+        this.navigateToSlide(newIndex);
+    }
+
+    animateSlideTransition() {
+        // Dezactivează slide-ul curent
+        this.slides.forEach(slide => slide.classList.remove('active'));
+        this.categories.forEach(category => category.classList.remove('active'));
+        
+        // Adaugă clase pentru animația de ieșire
+        const currentActiveSlide = this.slides[this.currentSlide];
+        currentActiveSlide.style.opacity = '0';
+        currentActiveSlide.style.transform = 'translateX(100px)';
+        
+        // Activează noul slide cu delay
+        setTimeout(() => {
+            this.slides[this.currentSlide].classList.add('active');
+            this.categories[this.currentSlide].classList.add('active');
             
-            // Adaugă o clasă în funcție de serviciul activ
-            servicesSection.className = 'services-section';
-            servicesSection.classList.add(`service-${serviceType}`);
+            // Animație de intrare
+            this.slides[this.currentSlide].style.opacity = '1';
+            this.slides[this.currentSlide].style.transform = 'translateX(0)';
             
-            // Efect de lumină
-            const activeCard = document.querySelector('.service-card');
-            activeCard.style.transform = 'scale(1.02)';
+            // Animează elementele interne
+            this.animateSlideContent();
+            
+            this.isAnimating = false;
+        }, 300);
+    }
+
+    animateSlideContent() {
+        const currentSlide = this.slides[this.currentSlide];
+        const featureCards = currentSlide.querySelectorAll('.feature-card');
+        const tableRows = currentSlide.querySelectorAll('.table-row');
+        
+        // Reset animații
+        featureCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+        });
+        
+        tableRows.forEach(row => {
+            row.style.opacity = '0';
+            row.style.transform = 'translateX(-30px)';
+        });
+        
+        // Animație feature cards
+        featureCards.forEach((card, index) => {
             setTimeout(() => {
-                activeCard.style.transform = 'scale(1)';
-            }, 300);
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }, index * 150);
+        });
+        
+        // Animație table rows
+        tableRows.forEach((row, index) => {
+            setTimeout(() => {
+                row.style.opacity = '1';
+                row.style.transform = 'translateX(0)';
+                row.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }, (featureCards.length * 150) + (index * 100));
         });
     }
-    
-    // Performance optimization - debounce pentru resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            // Reinițializează progres bars la resize
-            animateProgressBars();
-        }, 250);
-    });
-    
-    // Inițializează tot
-    initServices();
-    createParticles();
-    addFocusEffect();
-    
-    // Debug info (poate fi eliminat în producție)
-    console.log('Services section initialized with:', {
-        totalSlides: slides.length,
-        autoSlideDuration: slideDuration,
-        currentSlide: currentSlide
-    });
+
+    handleCategoryHover(category) {
+        if (!category.classList.contains('active')) {
+            category.style.transform = 'translateY(-2px) scale(1.02)';
+            category.style.background = 'rgba(255, 255, 255, 0.08)';
+        }
+    }
+
+    handleCategoryLeave(category) {
+        if (!category.classList.contains('active')) {
+            category.style.transform = 'translateY(0) scale(1)';
+            category.style.background = 'transparent';
+        }
+    }
+
+    // Auto-slide functionality
+    startAutoSlide() {
+        this.autoSlideInterval = setInterval(() => {
+            if (!this.isAnimating) {
+                this.showNextSlide();
+            }
+        }, this.slideDuration);
+    }
+
+    pauseAutoSlide() {
+        if (this.autoSlideInterval) {
+            clearInterval(this.autoSlideInterval);
+            this.autoSlideInterval = null;
+        }
+    }
+
+    resetAutoSlide() {
+        this.pauseAutoSlide();
+        this.startAutoSlide();
+    }
+
+    // Scroll animations
+    initScrollAnimations() {
+        this.observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        this.scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.handleScrollAnimation(entry.target);
+                }
+            });
+        }, this.observerOptions);
+
+        // Observează elementele importante
+        this.serviceCards.forEach(card => this.scrollObserver.observe(card));
+        this.statItems.forEach(stat => this.scrollObserver.observe(stat));
+    }
+
+    setupScrollAnimations() {
+        // Adaugă event listener pentru scroll smooth
+        window.addEventListener('scroll', () => {
+            this.handleParallaxEffect();
+        }, { passive: true });
+    }
+
+    handleScrollAnimation(element) {
+        if (element.classList.contains('service-card')) {
+            element.classList.add('in-view');
+            this.animateCardElements(element);
+        } else if (element.classList.contains('stat-item')) {
+            this.animateStatItem(element);
+        }
+    }
+
+    animateCardElements(card) {
+        const features = card.querySelectorAll('.feature-card');
+        const tableRows = card.querySelectorAll('.table-row');
+        
+        features.forEach((feature, index) => {
+            setTimeout(() => {
+                feature.style.opacity = '1';
+                feature.style.transform = 'translateY(0)';
+            }, index * 200);
+        });
+        
+        tableRows.forEach((row, index) => {
+            setTimeout(() => {
+                row.style.opacity = '1';
+                row.style.transform = 'translateX(0)';
+            }, (features.length * 200) + (index * 150));
+        });
+    }
+
+    animateStatItem(stat) {
+        const number = stat.querySelector('.stat-number');
+        const originalNumber = number.textContent;
+        
+        // Animație de counting
+        if (originalNumber.includes('+') || originalNumber.includes('%') || originalNumber.includes('★')) {
+            this.animateValue(number, 0, parseInt(originalNumber), 2000);
+        }
+        
+        stat.style.opacity = '1';
+        stat.style.transform = 'translateY(0)';
+    }
+
+    animateValue(element, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            
+            const value = Math.floor(progress * (end - start) + start);
+            element.textContent = value + (element.textContent.includes('%') ? '%' : 
+                                          element.textContent.includes('★') ? '★' : '+');
+            
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
+    handleParallaxEffect() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        const backgroundElements = this.servicesSection.querySelectorAll('.service-card, .stat-item');
+        
+        backgroundElements.forEach(element => {
+            element.style.transform = `translateY(${rate * 0.3}px)`;
+        });
+    }
+
+    // Animații la încărcare
+    animateOnLoad() {
+        // Animează elementele stat cu delay
+        this.statItems.forEach((stat, index) => {
+            setTimeout(() => {
+                stat.style.opacity = '1';
+                stat.style.transform = 'translateY(0)';
+            }, 1000 + (index * 200));
+        });
+    }
+
+    setupResizeHandler() {
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                this.handleResize();
+            }, 250);
+        });
+    }
+
+    handleResize() {
+        // Recalculează layout-ul dacă este necesar
+        const isMobile = window.innerWidth < 768;
+        this.servicesSection.classList.toggle('mobile-view', isMobile);
+    }
+
+    dispatchServiceChangeEvent() {
+        const event = new CustomEvent('premiumServiceChange', {
+            detail: {
+                service: this.categories[this.currentSlide].dataset.category,
+                index: this.currentSlide,
+                slideElement: this.slides[this.currentSlide]
+            }
+        });
+        this.servicesSection.dispatchEvent(event);
+    }
+
+    // Public methods pentru control extern
+    goToSlide(index) {
+        if (index >= 0 && index < this.slides.length && !this.isAnimating) {
+            this.navigateToSlide(index);
+        }
+    }
+
+    getCurrentSlide() {
+        return {
+            index: this.currentSlide,
+            service: this.categories[this.currentSlide].dataset.category,
+            element: this.slides[this.currentSlide]
+        };
+    }
+
+    // Cleanup method
+    destroy() {
+        this.pauseAutoSlide();
+        this.scrollObserver.disconnect();
+        
+        // Remove event listeners
+        this.categories.forEach(category => {
+            category.removeEventListener('click', this.navigateToSlide);
+            category.removeEventListener('mouseenter', this.handleCategoryHover);
+            category.removeEventListener('mouseleave', this.handleCategoryLeave);
+        });
+        
+        this.prevBtn.removeEventListener('click', this.showPrevSlide);
+        this.nextBtn.removeEventListener('click', this.showNextSlide);
+        document.removeEventListener('keydown', this.handleKeyboardNavigation);
+        
+        console.log('Premium Services destroyed');
+    }
+}
+
+// Initializare când DOM-ul este gata
+document.addEventListener('DOMContentLoaded', function() {
+    // Verifică dacă Intersection Observer este suportat
+    if (!('IntersectionObserver' in window)) {
+        console.warn('IntersectionObserver not supported - providing fallback');
+        provideFallbackAnimations();
+        return;
+    }
+
+    // Inițializează serviciile premium
+    window.premiumServices = new PremiumServices();
+
+    // Performance monitoring
+    if ('PerformanceObserver' in window) {
+        const perfObserver = new PerformanceObserver((list) => {
+            list.getEntries().forEach((entry) => {
+                if (entry.entryType === 'measure') {
+                    console.log(`Performance: ${entry.name} - ${entry.duration}ms`);
+                }
+            });
+        });
+        perfObserver.observe({ entryTypes: ['measure'] });
+    }
 });
 
 // Fallback pentru browsere vechi
-if (!window.IntersectionObserver) {
-    console.warn('IntersectionObserver not supported, scroll animations disabled');
-    document.querySelectorAll('.service-card').forEach(card => {
-        card.classList.add('in-view');
-    });
+function provideFallbackAnimations() {
+    const serviceCards = document.querySelectorAll('.service-card');
+    const statItems = document.querySelectorAll('.stat-item');
+    
+    serviceCards.forEach(card => card.classList.add('in-view'));
+    statItems.forEach(stat => stat.style.opacity = '1');
+    
+    console.log('Fallback animations applied');
+}
+
+// Export pentru utilizare în module (dacă este necesar)
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PremiumServices;
 }
