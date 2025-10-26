@@ -70,27 +70,31 @@ function init3DProfileCard() {
 
   let isFlipped = false;
 
-  // Flip automat la 8 secunde
+  // Auto-flip every 8 seconds
   setInterval(() => {
     isFlipped = !isFlipped;
     profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
   }, 8000);
 
-  // Click pentru flip manual
+  // Click to flip
   profileCard.addEventListener('click', () => {
     isFlipped = !isFlipped;
     profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
   });
-    
-    // Mouse move effect
-    document.addEventListener('mousemove', (e) => {
-        if (!isFlipped) return;
-        
-        const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-        const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
-        
-        profileCard.style.transform = `rotateY(180deg) rotateX(${yAxis}deg) rotateY(${xAxis}deg)`;
-    });
+
+  // Mouse move effect (only active when flipped)
+  document.addEventListener('mousemove', (e) => {
+    if (!isFlipped) return;
+
+    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+
+    profileCard.style.transform = `
+      rotateY(180deg)
+      rotateX(${yAxis}deg)
+      rotateY(${xAxis}deg)
+    `;
+  });
 }
 
 // Initialize Skill Bars
