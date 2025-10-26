@@ -732,4 +732,64 @@
     transform: scale(1.2);
 }
 
-.control
+.control-dot:hover:not(.active) {
+    background: rgba(255,255,255,0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .content-hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        text-align: center;
+    }
+    
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .services-container {
+        padding: 0 20px;
+    }
+    
+    .main-title {
+        font-size: 4rem;
+    }
+    
+    .services-nav-cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .nav-card {
+        height: 150px;
+    }
+    
+    .service-title {
+        font-size: 2.5rem;
+    }
+    
+    .why-section {
+        padding: 30px;
+    }
+    
+    .services-controls {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Performance Optimizations */
+@media (prefers-reduced-motion: reduce) {
+    .cube-3d,
+    .film-reel,
+    .code-line::after,
+    .effect-ring,
+    .float-element,
+    .bg-layer-2,
+    .title-line {
+        animation: none;
+    }
+}
