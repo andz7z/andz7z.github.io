@@ -508,3 +508,59 @@
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
     background-size: 1000px 100%;
 }
+/* Add these to your existing services.css */
+
+/* Loading spinner */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Magnetic effect base */
+.nav-btn {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Particle effects */
+.services-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Floating animation for 3D icons */
+@keyframes float {
+    0%, 100% { 
+        transform: rotateY(0deg) rotateX(10deg) translateY(0px); 
+    }
+    50% { 
+        transform: rotateY(180deg) rotateX(10deg) translateY(-20px); 
+    }
+}
+
+/* Smooth transitions for all interactive elements */
+.feature-card, .advantage-item, .nav-btn, .dot {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* Enhanced focus states for accessibility */
+.nav-btn:focus, .dot:focus {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .icon-3d {
+        animation: none !important;
+    }
+    
+    .feature-card, .advantage-item {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+    
+    .service-slide {
+        transition: none !important;
+    }
+}
