@@ -64,24 +64,23 @@ function createParticles() {
     }
 }
 
-// Initialize 3D Profile Card
 function init3DProfileCard() {
-    const profileCard = document.querySelector('.profile-card-3d');
-    if (!profileCard) return;
-    
-    let isFlipped = false;
-    
-    // Auto-flip every 8 seconds
-    setInterval(() => {
-        isFlipped = !isFlipped;
-        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-    }, 8000);
-    
-    // Click to flip
-    profileCard.addEventListener('click', () => {
-        isFlipped = !isFlipped;
-        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-    });
+  const profileCard = document.querySelector('.profile-card-3d');
+  if (!profileCard) return;
+
+  let isFlipped = false;
+
+  // Flip automat la 8 secunde
+  setInterval(() => {
+    isFlipped = !isFlipped;
+    profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+  }, 8000);
+
+  // Click pentru flip manual
+  profileCard.addEventListener('click', () => {
+    isFlipped = !isFlipped;
+    profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+  });
     
     // Mouse move effect
     document.addEventListener('mousemove', (e) => {
