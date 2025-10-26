@@ -158,6 +158,7 @@
 }
 
 /* 3D Profile Container */
+/* 3D Profile Container */
 .profile-3d-container {
     position: relative;
     perspective: 1000px;
@@ -171,7 +172,7 @@
     height: 500px;
     position: relative;
     transform-style: preserve-3d;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s ease;
 }
 
 .profile-face {
@@ -179,100 +180,128 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(10px);
+    background: linear-gradient(145deg, rgba(20,20,20,0.95), rgba(50,50,50,0.7));
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow:
+        0 0 50px rgba(255,255,255,0.05),
+        inset 0 0 20px rgba(255,255,255,0.05);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 40px;
-    box-shadow: 
-        0 0 50px rgba(255, 255, 255, 0.1),
-        inset 0 0 50px rgba(255, 255, 255, 0.05);
 }
 
+/* === FRONT FACE === */
 .profile-face.front {
     transform: rotateY(0deg);
 }
 
-.profile-face.back {
-    transform: rotateY(180deg);
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.9), rgba(20, 20, 20, 0.9));
-}
-
 .profile-image {
-    width: 180px;
-    height: 180px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    border: 3px solid #ffffff;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 
-        0 0 30px rgba(255, 255, 255, 0.3),
-        inset 0 0 30px rgba(255, 255, 255, 0.1);
-}
-
-.profile-image::before {
-    content: '';
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    background: linear-gradient(45deg, #ffffff, transparent, #ffffff);
-    animation: rotate 3s linear infinite;
-    z-index: -1;
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    border: 2px solid #fff;
+    margin-bottom: 25px;
+    box-shadow: 0 0 25px rgba(255,255,255,0.2);
 }
 
 .profile-name {
     font-family: 'Noverich', sans-serif;
-    font-size: 2.5rem;
-    color: #ffffff;
-    margin-bottom: 10px;
+    font-size: 2.3rem;
+    color: #fff;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
     text-align: center;
 }
 
 .profile-title {
     font-family: 'Roboto', sans-serif;
-    font-size: 1.3rem;
-    color: #cccccc;
-    margin-bottom: 20px;
+    font-size: 1.1rem;
+    color: #ccc;
+    margin-bottom: 25px;
     text-align: center;
 }
 
-.profile-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.stat-item {
+/* === New Front Stats (Conceptual Info) === */
+.profile-focus {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
     text-align: center;
+    width: 100%;
 }
 
-.stat-number {
+.focus-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.focus-item:hover {
+    background: rgba(255,255,255,0.07);
+    box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    transform: translateY(-3px);
+}
+
+.focus-title {
     font-family: 'Noverich', sans-serif;
-    font-size: 2rem;
-    color: #ffffff;
-    display: block;
-    font-weight: 700;
+    font-size: 1.1rem;
+    color: #fff;
+    margin-bottom: 6px;
 }
 
-.stat-label {
+.focus-desc {
     font-family: 'Roboto', sans-serif;
     font-size: 0.9rem;
-    color: #cccccc;
+    color: #aaa;
+}
+
+/* === BACK FACE === */
+.profile-face.back {
+    transform: rotateY(180deg);
+    background: linear-gradient(145deg, rgba(15,15,15,0.95), rgba(40,40,40,0.8));
+}
+
+.profile-qualities {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.quality-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s ease;
+    letter-spacing: 0.5px;
+    box-shadow: inset 0 0 15px rgba(255,255,255,0.05);
+}
+
+.quality-item:hover {
+    transform: scale(1.05);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 20px rgba(255,255,255,0.15);
+}
+
+.quality-title {
+    font-family: 'Noverich', sans-serif;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.quality-desc {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 5px;
 }
 
 /* Hero Content */
