@@ -430,222 +430,191 @@
 </section>
 <!-- Services Section -->
 <section id="services" class="section services-section">
-    <div class="services-container">
-        <!-- Background Elements -->
-        <div class="bg-elements">
-            <div class="floating-shapes">
-                <div class="shape shape-1"></div>
-                <div class="shape shape-2"></div>
-                <div class="shape shape-3"></div>
-                <div class="shape shape-4"></div>
+    <div class="container">
+        <h2 class="section-title">Services</h2>
+        <p class="section-description">Discover the services we offer.</p>
+        
+        <!-- Services Navigation -->
+        <div class="services-nav">
+            <button class="nav-btn prev-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            
+            <div class="service-categories">
+                <span class="category active" data-category="web-dev">Web Development</span>
+                <span class="category" data-category="programming">Programming</span>
+                <span class="category" data-category="video-editing">Video Editing</span>
             </div>
-            <div class="animated-grid"></div>
-            <div class="magnetic-field"></div>
+            
+            <button class="nav-btn next-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </div>
-
-        <!-- Section Header -->
-        <div class="section-header">
-            <div class="title-wrapper">
-                <h2 class="section-title">
-                    <span class="title-line">Our</span>
-                    <span class="title-line accent">Premium</span>
-                    <span class="title-line">Services</span>
-                </h2>
-                <div class="title-underline">
-                    <div class="underline-progress"></div>
-                </div>
-            </div>
-            <p class="section-subtitle">Where Innovation Meets Excellence</p>
-        </div>
-
-        <!-- Services Slider -->
-        <div class="services-slider">
-            <!-- Slider Navigation -->
-            <div class="slider-nav">
-                <button class="nav-btn prev-btn">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-                    </svg>
-                </button>
-                <div class="slider-dots"></div>
-                <button class="nav-btn next-btn">
-                    <svg viewBox="0 0 24 24">
-                        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Slider Track -->
-            <div class="slider-track">
-                <!-- Web Development Service -->
-                <div class="service-slide active" data-slide="0">
-                    <div class="slide-content">
-                        <div class="service-preview">
-                            <div class="preview-visual">
-                                <div class="code-window">
-                                    <div class="window-header">
-                                        <div class="window-dots">
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </div>
-                                    </div>
-                                    <div class="code-content">
-                                        <div class="code-line"></div>
-                                        <div class="code-line"></div>
-                                        <div class="code-line animated"></div>
-                                        <div class="code-line"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-details">
-                            <div class="service-badge">
-                                <span>01</span>
-                            </div>
-                            <h3 class="service-name">Web Development</h3>
-                            <p class="service-description">
-                                Crafting digital experiences that blend stunning aesthetics with flawless functionality. 
-                                From responsive designs to complex web applications.
-                            </p>
-                            <div class="service-features">
-                                <div class="feature">
-                                    <span class="feature-icon">⚡</span>
-                                    <span>High Performance</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-icon">📱</span>
-                                    <span>Mobile First</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-icon">🔒</span>
-                                    <span>Secure & Scalable</span>
-                                </div>
-                            </div>
-                            <div class="service-actions">
-                                <button class="action-btn primary">
-                                    <span>Start Project</span>
-                                    <div class="btn-hover-effect"></div>
-                                </button>
-                                <button class="action-btn secondary">
-                                    <span>View Portfolio</span>
-                                </button>
+        
+        <!-- Services Content -->
+        <div class="services-content">
+            <!-- Web Development Service -->
+            <div class="service-slide active" data-category="web-dev">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-3d">
+                            <div class="cube">
+                                <div class="face front"></div>
+                                <div class="face back"></div>
+                                <div class="face right"></div>
+                                <div class="face left"></div>
+                                <div class="face top"></div>
+                                <div class="face bottom"></div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Programming Service -->
-                <div class="service-slide" data-slide="1">
-                    <div class="slide-content">
-                        <div class="service-preview">
-                            <div class="preview-visual">
-                                <div class="algorithm-visual">
-                                    <div class="algo-node node-1"></div>
-                                    <div class="algo-node node-2"></div>
-                                    <div class="algo-node node-3"></div>
-                                    <div class="algo-connection"></div>
+                    
+                    <div class="service-info">
+                        <h3 class="service-title">Web Development</h3>
+                        <div class="service-features">
+                            <div class="feature">
+                                <span class="feature-name">Responsive Design</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="95"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Performance Optimization</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="90"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">SEO Integration</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="85"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">E-commerce Solutions</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="88"></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="service-details">
-                            <div class="service-badge">
-                                <span>02</span>
-                            </div>
-                            <h3 class="service-name">Programming</h3>
-                            <p class="service-description">
-                                Building robust software solutions with cutting-edge technologies. 
-                                Clean code, optimized performance, and scalable architecture.
-                            </p>
-                            <div class="service-features">
-                                <div class="feature">
-                                    <span class="feature-icon">🚀</span>
-                                    <span>Fast Development</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-icon">📊</span>
-                                    <span>Data Driven</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-icon">🔄</span>
-                                    <span>Continuous Updates</span>
-                                </div>
-                            </div>
-                            <div class="service-actions">
-                                <button class="action-btn primary">
-                                    <span>Start Project</span>
-                                    <div class="btn-hover-effect"></div>
-                                </button>
-                                <button class="action-btn secondary">
-                                    <span>View Portfolio</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Video Editing Service -->
-                <div class="service-slide" data-slide="2">
-                    <div class="slide-content">
-                        <div class="service-preview">
-                            <div class="preview-visual">
-                                <div class="timeline-visual">
-                                    <div class="timeline-track">
-                                        <div class="timeline-clip clip-1"></div>
-                                        <div class="timeline-clip clip-2"></div>
-                                        <div class="timeline-clip clip-3"></div>
-                                        <div class="playhead"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="service-details">
-                            <div class="service-badge">
-                                <span>03</span>
-                            </div>
-                            <h3 class="service-name">Video Editing</h3>
-                            <p class="service-description">
-                                Transforming raw footage into compelling visual stories. 
-                                Professional editing, color grading, and motion graphics.
-                            </p>
-                            <div class="service-features">
-                                <div class="feature">
-                                    <span class="feature-icon">🎬</span>
-                                    <span>Cinematic Quality</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-icon">🎨</span>
-                                    <span>Creative Vision</span>
-                                </div>
-                                <div class="feature">
-                                    <span class="feature-icon">⏱️</span>
-                                    <span>Quick Turnaround</span>
-                                </div>
-                            </div>
-                            <div class="service-actions">
-                                <button class="action-btn primary">
-                                    <span>Start Project</span>
-                                    <div class="btn-hover-effect"></div>
-                                </button>
-                                <button class="action-btn secondary">
-                                    <span>View Portfolio</span>
-                                </button>
-                            </div>
+                        
+                        <div class="why-me">
+                            <h4>Why Choose Me?</h4>
+                            <p>I deliver pixel-perfect, lightning-fast websites with cutting-edge technologies. My focus on clean code and user experience ensures your site stands out from competitors.</p>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Progress Indicator -->
-            <div class="slider-progress">
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
+            
+            <!-- Programming Service -->
+            <div class="service-slide" data-category="programming">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-3d">
+                            <div class="code-cube">
+                                <div class="face front">{ }</div>
+                                <div class="face back">( )</div>
+                                <div class="face right">[ ]</div>
+                                <div class="face left">&lt; &gt;</div>
+                                <div class="face top">/ *</div>
+                                <div class="face bottom"># !</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-info">
+                        <h3 class="service-title">Programming</h3>
+                        <div class="service-features">
+                            <div class="feature">
+                                <span class="feature-name">Custom Applications</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="92"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">API Development</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="88"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Database Design</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="85"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">System Architecture</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="90"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="why-me">
+                            <h4>Why Choose Me?</h4>
+                            <p>I create robust, scalable solutions with clean architecture and efficient algorithms. My code is not just functional but maintainable and future-proof.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video Editing Service -->
+            <div class="service-slide" data-category="video-editing">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <div class="icon-3d">
+                            <div class="film-reel">
+                                <div class="reel-center"></div>
+                                <div class="reel-hole"></div>
+                                <div class="reel-hole"></div>
+                                <div class="reel-hole"></div>
+                                <div class="reel-hole"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-info">
+                        <h3 class="service-title">Video Editing</h3>
+                        <div class="service-features">
+                            <div class="feature">
+                                <span class="feature-name">Color Grading</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="95"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Motion Graphics</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="90"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Audio Enhancement</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="85"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Visual Effects</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="88"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="why-me">
+                            <h4>Why Choose Me?</h4>
+                            <p>I transform raw footage into cinematic experiences with attention to pacing, storytelling, and visual impact. My edits don't just show content - they evoke emotions.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Floating Particles Container -->
-        <div class="particles-container"></div>
     </div>
 </section>
     
