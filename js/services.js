@@ -1,197 +1,279 @@
 // services.js
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize services section
-    initServicesSection();
+    initSuperServices();
 });
 
-function initServicesSection() {
-    // Elements
+function initSuperServices() {
     const servicesSection = document.querySelector('.services-section');
     const serviceCards = document.querySelectorAll('.service-card');
     const sectionTitle = document.querySelector('.section-title');
     const sectionDescription = document.querySelector('.section-description');
-    const servicesFooter = document.querySelector('.services-footer');
-
-    // Reset any problematic styles
-    servicesSection.style.overflow = 'visible';
-    servicesSection.style.zIndex = '2';
-    document.body.style.overflowX = 'hidden';
-
-    // Intersection Observer for scroll animations
-    const observerOptions = {
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver(function(entries) {
+    
+    // Create floating particles
+    createFloatingParticles(servicesSection);
+    
+    // Create selection indicator
+    createSelectionIndicator(serviceCards);
+    
+    // Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                
-                // Add staggered animation for cards
-                if (entry.target.classList.contains('service-card')) {
-                    const index = Array.from(serviceCards).indexOf(entry.target);
-                    entry.target.style.transitionDelay = `${0.1 + (index * 0.1)}s`;
-                }
             }
         });
-    }, observerOptions);
-
-    // Observe elements
-    [sectionTitle, sectionDescription, servicesFooter, ...serviceCards].forEach(el => {
-        if (el) observer.observe(el);
-    });
-
-    // 3D Card Flip and Hover Effects
-    serviceCards.forEach(card => {
-        let isFlipped = false;
-
-        // Click to flip
-        card.addEventListener('click', function(e) {
-            e.stopPropagation();
-            isFlipped = !isFlipped;
-            this.classList.toggle('flipped', isFlipped);
-            playCardFlipSound();
-        });
-
-        // Mouse move 3D effect - only for front side
-        card.addEventListener('mousemove', function(e) {
-            if (isFlipped) return;
-            
-            const cardRect = this.getBoundingClientRect();
-            const cardCenterX = cardRect.left + cardRect.width / 2;
-            const cardCenterY = cardRect.top + cardRect.height / 2;
-            
-            const mouseX = e.clientX - cardCenterX;
-            const mouseY = e.clientY - cardCenterY;
-            
-            const rotateX = (mouseY / cardRect.height) * 8;
-            const rotateY = (mouseX / cardRect.width) * -8;
-            
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-
-        // Mouse leave - reset transform
-        card.addEventListener('mouseleave', function() {
-            if (isFlipped) return;
-            
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
-
-        // Close card when clicking outside
-        document.addEventListener('click', function(e) {
-            if (isFlipped && !card.contains(e.target)) {
-                isFlipped = false;
-                card.classList.remove('flipped');
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-            }
-        });
-    });
-
-    // Button effects
-    const serviceButtons = document.querySelectorAll('.service-btn');
-    const ctaButton = document.querySelector('.cta-button');
-
-    serviceButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.stopPropagation();
-            createRippleEffect(this);
-            playButtonClickSound();
-            
-            // Here you would typically navigate to service details
-            console.log('Service button clicked:', this.closest('.service-card').dataset.service);
-        });
-    });
-
-    if (ctaButton) {
-        ctaButton.addEventListener('click', function() {
-            createSparkleEffect(this);
-            playCTAClickSound();
-            
-            // Smooth scroll to contact section or open modal
-            const contactSection = document.getElementById('contact');
-            if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth' });
-            } else {
-                // Fallback: show alert
-                setTimeout(() => {
-                    alert('Let\'s work together! This would typically scroll to the contact section.');
-                }, 500);
-            }
-        });
-    }
-
-    // Create particle background
-    createParticleBackground(servicesSection);
-
-    // Initialize magnetic buttons
-    initMagneticButtons();
-}
-
-// Particle Background Effect
-function createParticleBackground(container) {
-    const particleCount = 20;
+    }, { threshold: 0.2 });
     
-    for (let i = 0; i < particleCount; i++) {
-        setTimeout(() => createParticle(container), i * 300);
-    }
-}
-
-function createParticle(container) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
+    [sectionTitle, sectionDescription, ...serviceCards].forEach(el => observer.observe(el));
     
-    const size = Math.random() * 2 + 1;
-    const left = Math.random() * 100;
-    const duration = Math.random() * 15 + 15;
-    const delay = Math.random() * 5;
+    // SUPER INTERACTIVE CARD SYSTEM
+    let activeCard = null;
     
-    particle.style.cssText = `
-        width: ${size}px;
-        height: ${size}px;
-        left: ${left}%;
-        top: 100%;
-        animation-delay: ${delay}s;
-        animation-duration: ${duration}s;
-    `;
-    
-    container.appendChild(particle);
-    
-    // Clean up particles after animation
-    setTimeout(() => {
-        if (particle.parentNode) {
-            particle.parentNode.removeChild(particle);
-        }
-    }, (duration + delay) * 1000);
-}
-
-// Magnetic Button Effect
-function initMagneticButtons() {
-    const buttons = document.querySelectorAll('.service-btn, .cta-button');
-    
-    buttons.forEach(button => {
-        button.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
+    serviceCards.forEach((card, index) => {
+        // Mouse 3D effects
+        card.addEventListener('mousemove', (e) => {
+            if (activeCard === card) return;
+            
+            const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const deltaX = (x - centerX) / centerX * 5;
-            const deltaY = (y - centerY) / centerY * 5;
+            const rotateY = (x - centerX) / 25;
+            const rotateX = (centerY - y) / 25;
             
-            this.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
         });
         
-        button.addEventListener('mouseleave', function() {
-            this.style.transform = 'translate(0, 0)';
+        card.addEventListener('mouseleave', () => {
+            if (activeCard !== card) {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+            }
+        });
+        
+        // Click to activate
+        card.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            if (activeCard === card) {
+                // Deactivate current card
+                deactivateCard(card);
+                activeCard = null;
+            } else {
+                // Deactivate previous active card
+                if (activeCard) {
+                    deactivateCard(activeCard);
+                }
+                
+                // Activate new card
+                activateCard(card);
+                activeCard = card;
+                
+                // Update selection indicator
+                updateSelectionIndicator(index);
+                
+                // Create activation effect
+                createActivationEffect(card);
+            }
+        });
+        
+        // Add close button to back side
+        const closeBtn = document.createElement('div');
+        closeBtn.className = 'close-card';
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            deactivateCard(card);
+            if (activeCard === card) activeCard = null;
+        });
+        
+        card.querySelector('.card-back').appendChild(closeBtn);
+    });
+    
+    // Close card when clicking outside
+    document.addEventListener('click', (e) => {
+        if (activeCard && !activeCard.contains(e.target)) {
+            deactivateCard(activeCard);
+            activeCard = null;
+            updateSelectionIndicator(-1);
+        }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!activeCard) return;
+        
+        if (e.key === 'Escape') {
+            deactivateCard(activeCard);
+            activeCard = null;
+            updateSelectionIndicator(-1);
+        }
+    });
+    
+    // Button interactions
+    const serviceButtons = document.querySelectorAll('.service-btn');
+    serviceButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            createRippleEffect(e.target);
+            
+            const card = e.target.closest('.service-card');
+            const service = card.dataset.service;
+            
+            // Simulate service selection
+            simulateServiceSelection(service);
         });
     });
 }
 
-// Visual Effects
+function createFloatingParticles(container) {
+    const particleCount = 15;
+    
+    for (let i = 0; i < particleCount; i++) {
+        setTimeout(() => {
+            const particle = document.createElement('div');
+            particle.className = 'floating-particle';
+            
+            const size = Math.random() * 4 + 2;
+            const left = Math.random() * 100;
+            const delay = Math.random() * 5;
+            const duration = Math.random() * 4 + 4;
+            
+            particle.style.cssText = `
+                width: ${size}px;
+                height: ${size}px;
+                left: ${left}%;
+                top: ${Math.random() * 100}%;
+                animation-delay: ${delay}s;
+                animation-duration: ${duration}s;
+                opacity: ${Math.random() * 0.3 + 0.1};
+            `;
+            
+            container.appendChild(particle);
+        }, i * 500);
+    }
+}
+
+function createSelectionIndicator(cards) {
+    const indicator = document.createElement('div');
+    indicator.className = 'selection-indicator';
+    
+    cards.forEach((card, index) => {
+        const dot = document.createElement('div');
+        dot.className = 'indicator-dot';
+        dot.dataset.service = card.dataset.service;
+        
+        dot.addEventListener('click', () => {
+            card.click();
+        });
+        
+        indicator.appendChild(dot);
+    });
+    
+    document.body.appendChild(indicator);
+}
+
+function updateSelectionIndicator(activeIndex) {
+    const dots = document.querySelectorAll('.indicator-dot');
+    dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeIndex);
+    });
+}
+
+function activateCard(card) {
+    card.classList.add('active');
+    card.style.transform = 'perspective(1000px) rotateY(180deg) translateZ(100px)';
+    card.style.zIndex = '100';
+    
+    // Add backdrop dimming
+    const overlay = document.createElement('div');
+    overlay.className = 'card-overlay';
+    overlay.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        backdrop-filter: blur(5px);
+        z-index: 99;
+        animation: fadeIn 0.5s ease;
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Add keyframe for fadeIn
+    if (!document.querySelector('#overlay-animations')) {
+        const style = document.createElement('style');
+        style.id = 'overlay-animations';
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; }
+                to { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+function deactivateCard(card) {
+    card.classList.remove('active');
+    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+    card.style.zIndex = '';
+    
+    // Remove overlay
+    const overlay = document.querySelector('.card-overlay');
+    if (overlay) {
+        overlay.remove();
+    }
+}
+
+function createActivationEffect(card) {
+    // Create ripple effect from card center
+    const rect = card.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+        position: fixed;
+        width: 100px;
+        height: 100px;
+        border: 2px solid rgba(255,255,255,0.5);
+        border-radius: 50%;
+        left: ${centerX - 50}px;
+        top: ${centerY - 50}px;
+        pointer-events: none;
+        z-index: 101;
+        animation: activateRipple 0.8s ease-out forwards;
+    `;
+    
+    document.body.appendChild(ripple);
+    
+    // Add keyframe if not exists
+    if (!document.querySelector('#ripple-animations')) {
+        const style = document.createElement('style');
+        style.id = 'ripple-animations';
+        style.textContent = `
+            @keyframes activateRipple {
+                0% {
+                    transform: scale(0.5);
+                    opacity: 1;
+                }
+                100% {
+                    transform: scale(3);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+    
+    setTimeout(() => ripple.remove(), 800);
+}
+
 function createRippleEffect(button) {
     const ripple = document.createElement('span');
     const rect = button.getBoundingClientRect();
@@ -200,9 +282,9 @@ function createRippleEffect(button) {
     ripple.style.cssText = `
         position: absolute;
         border-radius: 50%;
-        background: rgba(255, 255, 255, 0.4);
+        background: rgba(255, 255, 255, 0.6);
         transform: scale(0);
-        animation: ripple 0.6s linear;
+        animation: buttonRipple 0.6s linear;
         width: ${size}px;
         height: ${size}px;
         left: 50%;
@@ -214,143 +296,71 @@ function createRippleEffect(button) {
     button.style.overflow = 'hidden';
     button.appendChild(ripple);
     
-    setTimeout(() => {
-        if (ripple.parentNode) {
-            ripple.parentNode.removeChild(ripple);
-        }
-    }, 600);
+    setTimeout(() => ripple.remove(), 600);
 }
 
-function createSparkleEffect(button) {
-    const sparkleCount = 6;
-    
-    for (let i = 0; i < sparkleCount; i++) {
-        createSparkle(button);
-    }
-}
-
-function createSparkle(button) {
-    const sparkle = document.createElement('div');
-    const angle = (Math.random() * 360) * Math.PI / 180;
-    const distance = 30 + Math.random() * 40;
-    
-    sparkle.style.cssText = `
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: white;
-        border-radius: 50%;
-        left: 50%;
+function simulateServiceSelection(service) {
+    // Create selection confirmation effect
+    const message = document.createElement('div');
+    message.textContent = `Starting ${service} service...`;
+    message.style.cssText = `
+        position: fixed;
         top: 50%;
-        animation: sparkleMove 0.8s ease-out forwards;
-        box-shadow: 0 0 4px white;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.9);
+        color: white;
+        padding: 20px 40px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,255,255,0.3);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        font-family: 'Roboto', sans-serif;
+        animation: messageAppear 0.5s ease, messageDisappear 0.5s ease 1.5s forwards;
     `;
     
-    button.appendChild(sparkle);
+    document.body.appendChild(message);
     
-    setTimeout(() => {
-        const endX = 50 + Math.cos(angle) * distance;
-        const endY = 50 + Math.sin(angle) * distance;
-        sparkle.style.left = `${endX}%`;
-        sparkle.style.top = `${endY}%`;
-        sparkle.style.opacity = '0';
-    }, 10);
+    // Add message animations
+    if (!document.querySelector('#message-animations')) {
+        const style = document.createElement('style');
+        style.id = 'message-animations';
+        style.textContent = `
+            @keyframes messageAppear {
+                from {
+                    opacity: 0;
+                    transform: translate(-50%, -60%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translate(-50%, -50%);
+                }
+            }
+            @keyframes messageDisappear {
+                from {
+                    opacity: 1;
+                    transform: translate(-50%, -50%);
+                }
+                to {
+                    opacity: 0;
+                    transform: translate(-50%, -40%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
     
-    setTimeout(() => {
-        if (sparkle.parentNode) {
-            sparkle.parentNode.removeChild(sparkle);
-        }
-    }, 800);
+    setTimeout(() => message.remove(), 2000);
 }
 
-// Add animation keyframes
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes ripple {
+// Add the button ripple animation
+const buttonRippleStyle = document.createElement('style');
+buttonRippleStyle.textContent = `
+    @keyframes buttonRipple {
         to {
             transform: translate(-50%, -50%) scale(2);
             opacity: 0;
         }
     }
-    
-    @keyframes sparkleMove {
-        0% {
-            transform: scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(0);
-            opacity: 0;
-        }
-    }
 `;
-document.head.appendChild(style);
-
-// Sound Effects (subtle)
-function playCardFlipSound() {
-    // Simple beep sound using Web Audio API
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
-        
-        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (e) {
-        // Silent fail if audio context is not supported
-    }
-}
-
-function playButtonClickSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        gainNode.gain.setValueAtTime(0.03, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.start(audioContext.currentTime);
-        oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (e) {
-        // Silent fail
-    }
-}
-
-function playCTAClickSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        
-        // Create a more satisfying sound for CTA
-        for (let i = 0; i < 2; i++) {
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            const freq = 400 + (i * 200);
-            oscillator.frequency.setValueAtTime(freq, audioContext.currentTime + (i * 0.05));
-            gainNode.gain.setValueAtTime(0.04, audioContext.currentTime + (i * 0.05));
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + (i * 0.05) + 0.15);
-            
-            oscillator.start(audioContext.currentTime + (i * 0.05));
-            oscillator.stop(audioContext.currentTime + (i * 0.05) + 0.15);
-        }
-    } catch (e) {
-        // Silent fail
-    }
-}
+document.head.appendChild(buttonRippleStyle);
