@@ -66,3 +66,39 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 });
+const mainContent = document.querySelector("main"); // sau .home-section
+
+window.addEventListener("load", () => {
+  const loader = document.getElementById("video-loader");
+  const video = document.getElementById("loader-video");
+  const overlay = document.querySelector(".loader-overlay");
+
+  // Ascunde main page la început
+  mainContent.style.opacity = "0";
+
+  setTimeout(() => {
+    video.style.filter = "blur(0px)";
+    overlay.style.opacity = "0.2";
+  }, 600);
+
+  video.addEventListener("ended", () => {
+    loader.classList.add("fade-out");
+    setTimeout(() => {
+      loader.style.display = "none";
+      // Afișează acum pagina principală
+      mainContent.style.transition = "opacity 1s ease";
+      mainContent.style.opacity = "1";
+    }, 2500);
+  });
+
+  setTimeout(() => {
+    if (loader) {
+      loader.classList.add("fade-out");
+      setTimeout(() => {
+        loader.style.display = "none";
+        mainContent.style.transition = "opacity 1s ease";
+        mainContent.style.opacity = "1";
+      }, 2500);
+    }
+  }, 9000);
+});
