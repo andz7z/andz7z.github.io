@@ -251,132 +251,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-
-    // Efect de cursor personalizat (doar pentru desktop)
-    function initCursorEffect() {
-        // Verifică dacă este dispozitiv cu mouse
-        if (window.matchMedia("(hover: hover)").matches) {
-            const cursor = document.createElement('div');
-            cursor.className = 'custom-cursor';
-            document.body.appendChild(cursor);
-            
-            // Stiluri pentru cursor
-            cursor.style.cssText = `
-                position: fixed;
-                width: 20px;
-                height: 20px;
-                background: rgba(255, 255, 255, 0.3);
-                border: 2px solid rgba(255, 255, 255, 0.5);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 9999;
-                transform: translate(-50%, -50%);
-                transition: width 0.2s, height 0.2s, background 0.2s;
-                mix-blend-mode: difference;
-            `;
-            
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-            });
-            
-            // Efect de hover pe butoane
-            const interactiveElements = document.querySelectorAll('button, .indicator');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.width = '40px';
-                    cursor.style.height = '40px';
-                    cursor.style.background = 'rgba(255, 255, 255, 0.5)';
-                });
-                
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.width = '20px';
-                    cursor.style.height = '20px';
-                    cursor.style.background = 'rgba(255, 255, 255, 0.3)';
-                });
-            });
-        }
-    }
-
-    // Navigare cu taste
-    function initKeyboardNavigation() {
-        document.addEventListener('keydown', (e) => {
-            if (!servicesSection.classList.contains('in-view')) return;
-            
-            switch(e.key) {
-                case 'ArrowLeft':
-                    e.preventDefault();
-                    prevSlide();
-                    break;
-                case 'ArrowRight':
-                    e.preventDefault();
-                    nextSlide();
-                    break;
-                case '1':
-                    e.preventDefault();
-                    goToSlide(0);
-                    break;
-                case '2':
-                    e.preventDefault();
-                    goToSlide(1);
-                    break;
-                case '3':
-                    e.preventDefault();
-                    goToSlide(2);
-                    break;
-                case ' ': // Space bar
-                    e.preventDefault();
-                    // Pause/play auto-slide
-                    if (autoSlideInterval) {
-                        stopAutoSlide();
-                    } else {
-                        startAutoSlide();
-                    }
-                    break;
-            }
-        });
-    }
-
-    // Swipe pentru dispozitive mobile (îmbunătățit)
-    function initTouchSwipe() {
-        let startX = 0;
-        let startY = 0;
-        let endX = 0;
-        let endY = 0;
-        
-        servicesSection.addEventListener('touchstart', (e) => {
-            startX = e.changedTouches[0].screenX;
-            startY = e.changedTouches[0].screenY;
-        });
-        
-        servicesSection.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // Previne scroll-ul default
-        });
-        
-        servicesSection.addEventListener('touchend', (e) => {
-            endX = e.changedTouches[0].screenX;
-            endY = e.changedTouches[0].screenY;
-            handleSwipe();
-        });
-        
-        function handleSwipe() {
-            const swipeThreshold = 50;
-            const diffX = startX - endX;
-            const diffY = startY - endY;
-            
-            // Verifică dacă este un swipe orizontal (nu vertical)
-            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
-                if (diffX > 0) {
-                    // Swipe left - next slide
-                    nextSlide();
-                } else {
-                    // Swipe right - previous slide
-                    prevSlide();
-                }
-            }
-        }
-    }
-
     // Adaugă toate event listener-ele
     function addEventListeners() {
         // Butoane de navigare
@@ -406,12 +280,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Efecte de hover
         addButtonHoverEffects();
-        
-        // Navigare cu taste
-        initKeyboardNavigation();
-        
-        // Swipe pentru mobile
-        initTouchSwipe();
     }
 
     // Efect de tranziție între slide-uri
@@ -487,7 +355,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Inițializează toate funcționalitățile
     detectDeviceAndAdjust();
     initServices();
-    initCursorEffect();
     enhanceSlideTransitions();
     addActiveSlideGlow();
 
