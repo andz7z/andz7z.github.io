@@ -1,4 +1,4 @@
-// Services Section JavaScript
+// Services Section JavaScript - Improved Version
 document.addEventListener('DOMContentLoaded', function() {
     // Elemente principale
     const servicesSection = document.querySelector('.services-section');
@@ -11,9 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSlide = 0;
     let autoSlideInterval;
     let isAnimating = false;
+    let slideDuration = 8000; // 8 secunde între slide-uri (mai lent)
+    let timerInterval;
 
     // Inițializare
     function initServices() {
+        // Creează timer-ul vizual
+        createTimer();
+        
         // Setează progresul pentru barele de features
         setFeatureProgress();
         
@@ -30,6 +35,42 @@ document.addEventListener('DOMContentLoaded', function() {
         activateSlide(currentSlide);
     }
 
+    // Creează timer-ul vizual
+    function createTimer() {
+        const timerHTML = `
+            <div class="slider-timer">
+                <div class="timer-progress"></div>
+            </div>
+        `;
+        document.querySelector('.services-slider').insertAdjacentHTML('afterbegin', timerHTML);
+    }
+
+    // Start timer animation
+    function startTimer() {
+        const timerProgress = document.querySelector('.timer-progress');
+        if (!timerProgress) return;
+        
+        // Resetează timer-ul
+        timerProgress.style.transition = 'none';
+        timerProgress.style.width = '0%';
+        
+        // Force reflow
+        timerProgress.offsetHeight;
+        
+        // Start animația
+        timerProgress.style.transition = `width ${slideDuration}ms linear`;
+        timerProgress.style.width = '100%';
+    }
+
+    // Stop timer animation
+    function stopTimer() {
+        const timerProgress = document.querySelector('.timer-progress');
+        if (timerProgress) {
+            timerProgress.style.transition = 'none';
+            timerProgress.style.width = '0%';
+        }
+    }
+
     // Setează progresul pentru barele de features
     function setFeatureProgress() {
         featureBars.forEach(bar => {
@@ -43,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isAnimating || slideIndex === currentSlide) return;
         
         isAnimating = true;
+        stopTimer(); // Oprește timer-ul curent
         
         // Dezactivează slide-ul curent
         slides[currentSlide].classList.remove('active');
@@ -64,6 +106,9 @@ document.addEventListener('DOMContentLoaded', function() {
             resetAndAnimateProgressBars();
             
             isAnimating = false;
+            
+            // Restartează timer-ul pentru noul slide
+            startTimer();
         }, 400);
         
         // Reîncepe auto-slide
@@ -90,6 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
         slides[index].classList.add('active');
         indicators[index].classList.add('active');
         currentSlide = index;
+        
+        // Pornește timer-ul
+        startTimer();
         
         // Animează barele de progres
         setTimeout(() => {
@@ -141,11 +189,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!isAnimating) {
                 nextSlide();
             }
-        }, 5000); // Schimbă la 5 secunde
+        }, slideDuration);
     }
 
     function stopAutoSlide() {
         clearInterval(autoSlideInterval);
+        stopTimer();
     }
 
     function restartAutoSlide() {
@@ -165,10 +214,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
                     
+                    // Restartează auto-slide când secțiunea devine vizibilă
+                    restartAutoSlide();
+                    
                     // Activează animațiile pentru slide-ul curent
                     setTimeout(() => {
                         animateProgressBars();
                     }, 800);
+                } else {
+                    // Oprește auto-slide când secțiunea nu este vizibilă
+                    stopAutoSlide();
                 }
             });
         }, observerOptions);
@@ -182,84 +237,65 @@ document.addEventListener('DOMContentLoaded', function() {
         
         buttons.forEach(button => {
             button.addEventListener('mouseenter', function() {
-                this.style.transform = 'scale(1.1)';
-                this.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.4)';
+                if (window.matchMedia("(hover: hover)").matches) {
+                    this.style.transform = 'scale(1.1)';
+                    this.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.4)';
+                }
             });
             
             button.addEventListener('mouseleave', function() {
-                this.style.transform = 'scale(1)';
-                this.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.2)';
+                if (window.matchMedia("(hover: hover)").matches) {
+                    this.style.transform = 'scale(1)';
+                    this.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.2)';
+                }
             });
         });
     }
 
-    // Efect de particule pentru fundal
-    function createParticleEffect() {
-        const bgElements = document.querySelector('.service-bg-elements');
-        
-        // Adaugă mai multe elemente de fundal pentru un efect mai bogat
-        for (let i = 5; i <= 8; i++) {
-            const particle = document.createElement('div');
-            particle.className = `bg-element el-${i}`;
-            
-            // Poziție și dimensiuni aleatorii
-            const size = Math.random() * 100 + 50;
-            const posX = Math.random() * 80 + 10;
-            const posY = Math.random() * 80 + 10;
-            const animationDelay = Math.random() * 20;
-            
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            particle.style.left = `${posX}%`;
-            particle.style.top = `${posY}%`;
-            particle.style.animationDelay = `${animationDelay}s`;
-            particle.style.opacity = Math.random() * 0.2 + 0.1;
-            
-            bgElements.appendChild(particle);
-        }
-    }
-
-    // Efect de cursor personalizat
+    // Efect de cursor personalizat (doar pentru desktop)
     function initCursorEffect() {
-        const cursor = document.createElement('div');
-        cursor.className = 'custom-cursor';
-        document.body.appendChild(cursor);
-        
-        // Stiluri pentru cursor
-        cursor.style.cssText = `
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background 0.2s;
-            mix-blend-mode: difference;
-        `;
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        
-        // Efect de hover pe butoane
-        const interactiveElements = document.querySelectorAll('button, .indicator');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.style.width = '40px';
-                cursor.style.height = '40px';
-                cursor.style.background = 'rgba(255, 255, 255, 0.5)';
+        // Verifică dacă este dispozitiv cu mouse
+        if (window.matchMedia("(hover: hover)").matches) {
+            const cursor = document.createElement('div');
+            cursor.className = 'custom-cursor';
+            document.body.appendChild(cursor);
+            
+            // Stiluri pentru cursor
+            cursor.style.cssText = `
+                position: fixed;
+                width: 20px;
+                height: 20px;
+                background: rgba(255, 255, 255, 0.3);
+                border: 2px solid rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s, background 0.2s;
+                mix-blend-mode: difference;
+            `;
+            
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
             });
             
-            el.addEventListener('mouseleave', () => {
-                cursor.style.width = '20px';
-                cursor.style.height = '20px';
-                cursor.style.background = 'rgba(255, 255, 255, 0.3)';
+            // Efect de hover pe butoane
+            const interactiveElements = document.querySelectorAll('button, .indicator');
+            interactiveElements.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.style.width = '40px';
+                    cursor.style.height = '40px';
+                    cursor.style.background = 'rgba(255, 255, 255, 0.5)';
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    cursor.style.width = '20px';
+                    cursor.style.height = '20px';
+                    cursor.style.background = 'rgba(255, 255, 255, 0.3)';
+                });
             });
-        });
+        }
     }
 
     // Navigare cu taste
@@ -288,30 +324,49 @@ document.addEventListener('DOMContentLoaded', function() {
                     e.preventDefault();
                     goToSlide(2);
                     break;
+                case ' ': // Space bar
+                    e.preventDefault();
+                    // Pause/play auto-slide
+                    if (autoSlideInterval) {
+                        stopAutoSlide();
+                    } else {
+                        startAutoSlide();
+                    }
+                    break;
             }
         });
     }
 
-    // Swipe pentru dispozitive mobile
+    // Swipe pentru dispozitive mobile (îmbunătățit)
     function initTouchSwipe() {
         let startX = 0;
+        let startY = 0;
         let endX = 0;
+        let endY = 0;
         
         servicesSection.addEventListener('touchstart', (e) => {
             startX = e.changedTouches[0].screenX;
+            startY = e.changedTouches[0].screenY;
+        });
+        
+        servicesSection.addEventListener('touchmove', (e) => {
+            e.preventDefault(); // Previne scroll-ul default
         });
         
         servicesSection.addEventListener('touchend', (e) => {
             endX = e.changedTouches[0].screenX;
+            endY = e.changedTouches[0].screenY;
             handleSwipe();
         });
         
         function handleSwipe() {
             const swipeThreshold = 50;
-            const diff = startX - endX;
+            const diffX = startX - endX;
+            const diffY = startY - endY;
             
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
+            // Verifică dacă este un swipe orizontal (nu vertical)
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > swipeThreshold) {
+                if (diffX > 0) {
                     // Swipe left - next slide
                     nextSlide();
                 } else {
@@ -333,9 +388,21 @@ document.addEventListener('DOMContentLoaded', function() {
             indicator.addEventListener('click', () => goToSlide(index));
         });
         
-        // Pause auto-slide on hover
+        // Pause auto-slide on hover/interaction
         servicesSection.addEventListener('mouseenter', stopAutoSlide);
-        servicesSection.addEventListener('mouseleave', startAutoSlide);
+        servicesSection.addEventListener('mouseleave', () => {
+            if (servicesSection.classList.contains('in-view')) {
+                startAutoSlide();
+            }
+        });
+        
+        // Pause on touch
+        servicesSection.addEventListener('touchstart', stopAutoSlide);
+        servicesSection.addEventListener('touchend', () => {
+            if (servicesSection.classList.contains('in-view')) {
+                setTimeout(() => startAutoSlide(), 3000); // Restartează după 3 secunde
+            }
+        });
         
         // Efecte de hover
         addButtonHoverEffects();
@@ -349,7 +416,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Efect de tranziție între slide-uri
     function enhanceSlideTransitions() {
-        // Adaugă un overlay pentru efecte de tranziție
         const transitionOverlay = document.createElement('div');
         transitionOverlay.className = 'slide-transition-overlay';
         transitionOverlay.style.cssText = `
@@ -366,7 +432,6 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
         servicesSection.querySelector('.services-slider').appendChild(transitionOverlay);
         
-        // Modifică funcția goToSlide pentru a include efectul
         const originalGoToSlide = goToSlide;
         goToSlide = function(slideIndex) {
             if (isAnimating || slideIndex === currentSlide) return;
@@ -399,7 +464,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         };
         
-        // Actualizează la fiecare schimbare de slide
         const originalGoToSlide = goToSlide;
         goToSlide = function(slideIndex) {
             originalGoToSlide(slideIndex);
@@ -409,9 +473,20 @@ document.addEventListener('DOMContentLoaded', function() {
         updateSlideGlow();
     }
 
+    // Detectează dispozitivul și ajustează setările
+    function detectDeviceAndAdjust() {
+        if ('ontouchstart' in window || navigator.maxTouchPoints) {
+            // Dispozitiv touch
+            slideDuration = 10000; // 10 secunde pentru dispozitive mobile
+        } else {
+            // Desktop
+            slideDuration = 8000; // 8 secunde pentru desktop
+        }
+    }
+
     // Inițializează toate funcționalitățile
+    detectDeviceAndAdjust();
     initServices();
-    createParticleEffect();
     initCursorEffect();
     enhanceSlideTransitions();
     addActiveSlideGlow();
@@ -421,30 +496,10 @@ document.addEventListener('DOMContentLoaded', function() {
         nextSlide,
         prevSlide,
         goToSlide,
-        currentSlide: () => currentSlide
+        currentSlide: () => currentSlide,
+        stopAutoSlide,
+        startAutoSlide
     };
 
     console.log('✅ Services section initialized successfully!');
-});
-
-// Fallback pentru fonturi
-document.addEventListener('DOMContentLoaded', function() {
-    // Adaugă fonturile fallback
-    const style = document.createElement('style');
-    style.textContent = `
-        @font-face {
-            font-family: 'Noverich';
-            src: local('Arial Black'), local('Impact');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
-        @font-face {
-            font-family: 'Roboto';
-            src: local('Arial'), local('Helvetica');
-            font-weight: normal;
-            font-style: normal;
-        }
-    `;
-    document.head.appendChild(style);
 });
