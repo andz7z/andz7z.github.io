@@ -363,3 +363,15 @@ body {
   #video-loader::before { top: 0; }
   #video-loader::after  { bottom: 0; }
 }
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.navbar.nav-hidden {
+  transform: translateY(-100%);
+  opacity: 0;
+}
