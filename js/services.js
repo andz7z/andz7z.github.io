@@ -344,4 +344,175 @@ class ServicesSection {
     }
 
     createMouseTrail() {
-        const trail = document.createElement
+        const trail = document.createElement('div');
+        trail.className = 'mouse-trail';
+        document.body.appendChild(trail);
+
+        const trailElements = [];
+        const trailLength = 3; // Reduced for performance
+
+        for (let i = 0; i < trailLength; i++) {
+            const element = document.createElement('div');
+            element.className = 'trail-dot';
+            element.style.opacity = (0.3 - i * 0.1).toString();
+            trail.appendChild(element);
+            trailElements.push({ element, x: 0, y: 0 });
+        }
+
+        let mouseX = 0, mouseY = 0;
+        
+        const updateTrail = () => {
+            // Update trail positions
+            for (let i = trailElements.length - 1; i > 0; i--) {
+                trailElements[i].x = trailElements[i-1].x;
+                trailElements[i].y = trailElements[i-1].y;
+            }
+            trailElements[0].x = mouseX;
+            trailElements[0].y = mouseY;
+            
+            // Apply positions
+            trailElements.forEach((trail, index) => {
+                trail.element.style.transform = `translate(${trail.x - 3}px, ${trail.y - 3}px)`;
+            });
+            
+            requestAnimationFrame(updateTrail);
+        };
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        updateTrail();
+    }
+
+    initMagneticButtons() {
+        const buttons = document.querySelectorAll('.action-btn.primary');
+        
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                this.createRippleEffect(button);
+            });
+            
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.createClickWave(e, button);
+            });
+        });
+    }
+
+    createRippleEffect(button) {
+        const ripple = document.createElement('div');
+        ripple.className = 'button-ripple';
+        button.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+    }
+
+    createClickWave(event, element) {
+        const wave = document.createElement('div');
+        const rect = element.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+        
+        wave.style.cssText = `
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            top: ${y - 50}px;
+            left: ${x - 50}px;
+            animation: waveExpand 0.8s ease-out;
+            pointer-events: none;
+        `;
+        
+        element.appendChild(wave);
+        setTimeout(() => wave.remove(), 800);
+    }
+
+    initServiceAnimations() {
+        this.startServiceAnimations(0);
+    }
+
+    startServiceAnimations(slideIndex) {
+        // Service-specific animations will start when slide becomes active
+    }
+
+    optimizePerformance() {
+        // Use will-change strategically
+        const animatedElements = document.querySelectorAll('.service-slide, .shape');
+        animatedElements.forEach(el => {
+            el.style.willChange = 'transform, opacity';
+        });
+
+        // Throttle scroll events
+        this.throttleScroll();
+    }
+
+    throttleScroll() {
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    this.updateScrollEffects();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    }
+
+    updateScrollEffects() {
+        // Additional scroll-based effects can be added here
+    }
+
+    // Cleanup method
+    destroy() {
+        if (this.autoAdvanceInterval) {
+            clearInterval(this.autoAdvanceInterval);
+        }
+        if (this.observer) {
+            this.observer.disconnect();
+        }
+        // Remove event listeners
+        document.removeEventListener('keydown', this.boundKeyHandler);
+    }
+}
+
+// Initialize with error handling
+document.addEventListener('DOMContentLoaded', () => {
+    try {
+        new ServicesSection();
+    } catch (error) {
+        console.error('Error initializing Services Section:', error);
+    }
+});
+
+// Add missing CSS animations
+if (!document.querySelector('#services-animations')) {
+    const style = document.createElement('style');
+    style.id = 'services-animations';
+    style.textContent = `
+        @keyframes floatParticle {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(100px, -50px) rotate(180deg) scale(0.8);
+            }
+            90% {
+                opacity: 0.1;
+            }
+        }
+        
+        .button-ripple {
+            animation: rippleExpand 0.6s ease-out;
+        }
+    `;
+    document.head.appendChild(style);
+}
