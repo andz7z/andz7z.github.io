@@ -1,9 +1,10 @@
+
 /* Services Section Styles */
 .services-section {
   position: relative;
   background: #000000;
   color: #fff;
-  padding: 120px 0; /* Mărit padding */
+  padding: 100px 0;
   overflow: hidden;
 }
 
@@ -14,9 +15,9 @@
 
 .section-title {
   font-family: 'Noverich', sans-serif;
-  font-size: 4rem; /* Mărit de la 3.5rem */
+  font-size: 3.5rem;
   text-align: center;
-  margin-bottom: 1.5rem; /* Mărit */
+  margin-bottom: 1rem;
   background: linear-gradient(135deg, #fff 0%, #aaa 50%, #666 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -29,8 +30,8 @@
 .section-description {
   font-family: 'Roboto', sans-serif;
   text-align: center;
-  font-size: 1.4rem; /* Mărit de la 1.2rem */
-  margin-bottom: 5rem; /* Mărit de la 4rem */
+  font-size: 1.2rem;
+  margin-bottom: 4rem;
   color: #ccc;
   opacity: 0;
   transform: translateY(30px);
@@ -42,8 +43,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2.5rem; /* Mărit de la 2rem */
-  margin-bottom: 4rem; /* Mărit de la 3rem */
+  gap: 2rem;
+  margin-bottom: 3rem;
   opacity: 0;
   transform: translateY(30px);
   animation: fadeInUp 1s ease 0.7s forwards;
@@ -53,8 +54,8 @@
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-  width: 60px; /* Mărit de la 50px */
-  height: 60px; /* Mărit de la 50px */
+  width: 50px;
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,12 +90,12 @@
 
 .services-indicators {
   display: flex;
-  gap: 2.5rem; /* Mărit de la 2rem */
+  gap: 2rem;
 }
 
 .indicator {
   font-family: 'Roboto', sans-serif;
-  padding: 1rem 2rem; /* Mărit de la 0.8rem 1.5rem */
+  padding: 0.8rem 1.5rem;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -103,7 +104,6 @@
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(10px);
-  font-size: 1.1rem; /* Adăugat */
 }
 
 .indicator::before {
@@ -127,20 +127,18 @@
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Services Slider - CARDUL PRINCIPAL EXTINS */
+/* Services Slider */
 .services-slider {
   position: relative;
-  height: 600px; /* Mărit de la 500px */
+  height: 500px;
   overflow: hidden;
-  border-radius: 25px; /* Mărit de la 20px */
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(15px);
   opacity: 0;
   transform: translateY(50px);
   animation: fadeInUp 1s ease 0.9s forwards;
-  transform: scale(1.05); /* Adăugat pentru a fi mai mare */
-  margin: 0 2rem; /* Adăugat pentru spațiu */
 }
 
 .service-slide {
@@ -149,7 +147,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  padding: 4rem; /* Mărit de la 3rem */
+  padding: 3rem;
   opacity: 0;
   transform: translateX(100%);
   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -169,12 +167,12 @@
 .service-content {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 4rem; /* Mărit de la 3rem */
+  gap: 3rem;
   width: 100%;
   align-items: center;
 }
 
-/* 3D Icon Styles - MĂRITE */
+/* 3D Icon Styles */
 .service-icon {
   display: flex;
   justify-content: center;
@@ -184,8 +182,8 @@
 
 .icon-3d {
   position: relative;
-  width: 240px; /* Mărit de la 200px */
-  height: 240px; /* Mărit de la 200px */
+  width: 200px;
+  height: 200px;
   transform-style: preserve-3d;
   animation: rotate3d 20s infinite linear;
 }
@@ -203,8 +201,8 @@
 .icon-front {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(200, 200, 200, 0.05) 100%);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px; /* Mărit de la 20px */
-  transform: translateZ(40px); /* Mărit de la 30px */
+  border-radius: 20px;
+  transform: translateZ(30px);
   backdrop-filter: blur(10px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
@@ -212,25 +210,24 @@
 .icon-back {
   background: linear-gradient(135deg, rgba(100, 100, 100, 0.1) 0%, rgba(50, 50, 50, 0.05) 100%);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 25px; /* Mărit de la 20px */
-  transform: translateZ(-40px) rotateY(180deg); /* Mărit de la 30px */
+  border-radius: 20px;
+  transform: translateZ(-30px) rotateY(180deg);
 }
 
 .icon-side {
   background: linear-gradient(135deg, rgba(150, 150, 150, 0.1) 0%, rgba(100, 100, 100, 0.05) 100%);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 25px; /* Mărit de la 20px */
-  transform: rotateY(90deg) translateZ(40px); /* Mărit de la 30px */
-  width: 80px; /* Mărit de la 60px */
+  border-radius: 20px;
+  transform: rotateY(90deg) translateZ(30px);
+  width: 60px;
 }
 
 .icon-3d svg {
   color: #fff;
   filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
-  transform: scale(1.2); /* Adăugat pentru iconițe mai mari */
 }
 
-/* Service Info - ELEMENTE MĂRITE */
+/* Service Info */
 .service-info {
   opacity: 0;
   transform: translateX(50px);
@@ -244,8 +241,8 @@
 
 .service-title {
   font-family: 'Noverich', sans-serif;
-  font-size: 3rem; /* Mărit de la 2.5rem */
-  margin-bottom: 2.5rem; /* Mărit de la 2rem */
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
   background: linear-gradient(135deg, #fff 0%, #ccc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -253,11 +250,11 @@
 }
 
 .service-features {
-  margin-bottom: 2.5rem; /* Mărit de la 2rem */
+  margin-bottom: 2rem;
 }
 
 .feature {
-  margin-bottom: 2rem; /* Mărit de la 1.5rem */
+  margin-bottom: 1.5rem;
   opacity: 0;
   transform: translateX(30px);
   transition: all 0.5s ease;
@@ -276,15 +273,14 @@
 .feature-name {
   font-family: 'Roboto', sans-serif;
   display: block;
-  margin-bottom: 0.8rem; /* Mărit de la 0.5rem */
+  margin-bottom: 0.5rem;
   color: #ddd;
-  font-size: 1.2rem; /* Adăugat */
 }
 
 .feature-bar {
-  height: 8px; /* Mărit de la 6px */
+  height: 6px;
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px; /* Mărit de la 3px */
+  border-radius: 3px;
   overflow: hidden;
   position: relative;
 }
@@ -292,7 +288,7 @@
 .feature-progress {
   height: 100%;
   background: linear-gradient(90deg, #fff, #aaa);
-  border-radius: 4px; /* Mărit de la 3px */
+  border-radius: 3px;
   width: 0;
   transition: width 1.5s ease 1s;
   position: relative;
@@ -314,7 +310,7 @@
   width: var(--progress-width);
 }
 
-/* Why Me Section - MĂRITĂ */
+/* Why Me Section */
 .why-me {
   opacity: 0;
   transform: translateY(30px);
@@ -328,8 +324,8 @@
 
 .why-me h4 {
   font-family: 'Noverich', sans-serif;
-  font-size: 1.8rem; /* Mărit de la 1.5rem */
-  margin-bottom: 1.5rem; /* Mărit de la 1rem */
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
   color: #fff;
 }
 
@@ -340,11 +336,10 @@
 
 .why-me li {
   font-family: 'Roboto', sans-serif;
-  padding: 0.7rem 0; /* Mărit de la 0.5rem */
+  padding: 0.5rem 0;
   position: relative;
-  padding-left: 2rem; /* Mărit de la 1.5rem */
+  padding-left: 1.5rem;
   color: #ccc;
-  font-size: 1.1rem; /* Adăugat */
 }
 
 .why-me li::before {
@@ -352,7 +347,7 @@
   position: absolute;
   left: 0;
   color: #fff;
-  font-size: 1rem; /* Mărit de la 0.8rem */
+  font-size: 0.8rem;
 }
 
 /* Background Elements */
@@ -375,32 +370,32 @@
 }
 
 .el-1 {
-  width: 350px; /* Mărit */
-  height: 350px; /* Mărit */
+  width: 300px;
+  height: 300px;
   top: 10%;
   left: 5%;
   animation: float 15s ease-in-out infinite;
 }
 
 .el-2 {
-  width: 250px; /* Mărit */
-  height: 250px; /* Mărit */
+  width: 200px;
+  height: 200px;
   top: 60%;
   right: 10%;
   animation: float 12s ease-in-out infinite reverse;
 }
 
 .el-3 {
-  width: 180px; /* Mărit */
-  height: 180px; /* Mărit */
+  width: 150px;
+  height: 150px;
   bottom: 20%;
   left: 15%;
   animation: float 18s ease-in-out infinite;
 }
 
 .el-4 {
-  width: 300px; /* Mărit */
-  height: 300px; /* Mărit */
+  width: 250px;
+  height: 250px;
   top: 30%;
   right: 5%;
   animation: float 14s ease-in-out infinite reverse;
@@ -468,33 +463,33 @@
   }
 }
 
-/* Responsive Design - ACTUALIZAT PENTRU DIMENSIUNI MĂRITE */
+/* Responsive Design */
 @media (max-width: 1024px) {
   .service-content {
     grid-template-columns: 1fr;
-    gap: 3rem; /* Mărit de la 2rem */
+    gap: 2rem;
     text-align: center;
   }
   
   .services-slider {
     height: auto;
-    min-height: 700px; /* Mărit de la 600px */
+    min-height: 600px;
   }
   
   .service-icon {
-    margin-bottom: 3rem; /* Mărit de la 2rem */
+    margin-bottom: 2rem;
   }
   
   .icon-3d {
-    width: 200px; /* Mărit de la 150px */
-    height: 200px; /* Mărit de la 150px */
+    width: 150px;
+    height: 150px;
   }
 }
 
 @media (max-width: 768px) {
   .services-nav {
     flex-direction: column;
-    gap: 1.5rem; /* Mărit de la 1rem */
+    gap: 1rem;
   }
   
   .services-indicators {
@@ -504,44 +499,44 @@
   }
   
   .section-title {
-    font-size: 3rem; /* Mărit de la 2.5rem */
+    font-size: 2.5rem;
   }
   
   .service-title {
-    font-size: 2.5rem; /* Mărit de la 2rem */
+    font-size: 2rem;
   }
   
   .service-slide {
-    padding: 3rem 2rem; /* Mărit de la 2rem 1.5rem */
+    padding: 2rem 1.5rem;
   }
 }
 
 /* Custom Scrollbar */
 .services-slider::-webkit-scrollbar {
-  width: 10px; /* Mărit de la 8px */
+  width: 8px;
 }
 
 .services-slider::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px; /* Mărit de la 4px */
+  border-radius: 4px;
 }
 
 .services-slider::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, #fff, #aaa);
-  border-radius: 5px; /* Mărit de la 4px */
+  border-radius: 4px;
 }
 
 .services-slider::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #fff, #888);
 }
 
-/* Timer Line - MĂRIT */
+/* Timer Line */
 .slider-timer {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px; /* Mărit de la 3px */
+    height: 3px;
     background: rgba(255, 255, 255, 0.1);
     z-index: 10;
     overflow: hidden;
@@ -560,97 +555,96 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 25px; /* Mărit de la 20px */
+    width: 20px;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8));
     filter: blur(3px);
 }
 
-/* Mobile Optimizations - ACTUALIZAT */
+/* Mobile Optimizations */
 @media (max-width: 768px) {
     .services-section {
-        padding: 80px 0; /* Mărit de la 60px */
+        padding: 60px 0;
     }
     
     .section-title {
-        font-size: 2.8rem; /* Mărit de la 2.2rem */
-        margin-bottom: 1rem; /* Mărit de la 0.5rem */
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
     }
     
     .section-description {
-        font-size: 1.2rem; /* Mărit de la 1rem */
-        margin-bottom: 3.5rem; /* Mărit de la 2.5rem */
+        font-size: 1rem;
+        margin-bottom: 2.5rem;
     }
     
     .services-nav {
         flex-direction: column;
-        gap: 1.5rem; /* Mărit de la 1rem */
-        margin-bottom: 3rem; /* Mărit de la 2rem */
+        gap: 1rem;
+        margin-bottom: 2rem;
     }
     
     .services-indicators {
         flex-wrap: wrap;
         justify-content: center;
-        gap: 1rem; /* Mărit de la 0.8rem */
+        gap: 0.8rem;
     }
     
     .indicator {
-        padding: 0.8rem 1.5rem; /* Mărit de la 0.6rem 1.2rem */
-        font-size: 1rem; /* Mărit de la 0.9rem */
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
     }
     
     .services-slider {
         height: auto;
-        min-height: 650px; /* Mărit de la 550px */
-        margin: 0 1.5rem; /* Mărit de la 1rem */
-        transform: scale(1.02); /* Adăugat pentru mobile */
+        min-height: 550px;
+        margin: 0 1rem;
     }
     
     .service-slide {
-        padding: 2.5rem 2rem; /* Mărit de la 2rem 1.5rem */
+        padding: 2rem 1.5rem;
     }
     
     .service-content {
         grid-template-columns: 1fr;
-        gap: 2.5rem; /* Mărit de la 2rem */
+        gap: 2rem;
         text-align: center;
     }
     
     .service-icon {
-        margin-bottom: 1.5rem; /* Mărit de la 1rem */
+        margin-bottom: 1rem;
     }
     
     .icon-3d {
-        width: 150px; /* Mărit de la 120px */
-        height: 150px; /* Mărit de la 120px */
+        width: 120px;
+        height: 120px;
     }
     
     .service-title {
-        font-size: 2.2rem; /* Mărit de la 1.8rem */
-        margin-bottom: 2rem; /* Mărit de la 1.5rem */
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
     }
     
     .feature {
-        margin-bottom: 1.5rem; /* Mărit de la 1.2rem */
+        margin-bottom: 1.2rem;
     }
     
     .feature-name {
-        font-size: 1.1rem; /* Mărit de la 0.9rem */
+        font-size: 0.9rem;
     }
     
     .why-me h4 {
-        font-size: 1.5rem; /* Mărit de la 1.3rem */
+        font-size: 1.3rem;
     }
     
     .why-me li {
-        font-size: 1rem; /* Mărit de la 0.9rem */
-        padding: 0.6rem 0; /* Mărit de la 0.4rem */
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
     }
     
     /* Butoane mai mari pentru touch */
     .nav-btn {
-        width: 52px; /* Mărit de la 44px */
-        height: 52px; /* Mărit de la 44px */
+        width: 44px;
+        height: 44px;
     }
     
     /* Ascunde cursorul personalizat pe mobile */
@@ -661,35 +655,60 @@
 
 @media (max-width: 480px) {
     .services-slider {
-        min-height: 600px; /* Mărit de la 500px */
-        margin: 0 1rem; /* Mărit de la 0.5rem */
+        min-height: 500px;
+        margin: 0 0.5rem;
     }
     
     .service-slide {
-        padding: 2rem 1.5rem; /* Mărit de la 1.5rem 1rem */
+        padding: 1.5rem 1rem;
     }
     
     .section-title {
-        font-size: 2.2rem; /* Mărit de la 1.8rem */
+        font-size: 1.8rem;
     }
     
     .service-title {
-        font-size: 1.8rem; /* Mărit de la 1.5rem */
+        font-size: 1.5rem;
     }
     
     .services-indicators {
-        gap: 0.8rem; /* Mărit de la 0.5rem */
+        gap: 0.5rem;
     }
     
     .indicator {
-        padding: 0.7rem 1.2rem; /* Mărit de la 0.5rem 1rem */
-        font-size: 0.9rem; /* Mărit de la 0.8rem */
-    }
-    
-    .icon-3d {
-        width: 130px; /* Mărit de la 110px */
-        height: 130px; /* Mărit de la 110px */
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
 }
 
-/* Restul codului rămâne la fel... */
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .nav-btn:active,
+    .indicator:active {
+        transform: scale(0.95);
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Elimină efectele de hover care nu funcționează bine pe touch */
+    .nav-btn::before,
+    .indicator::before {
+        display: none;
+    }
+}
+
+/* Performance optimizations */
+.services-slider {
+    will-change: transform;
+    contain: layout style paint;
+}
+
+.service-slide {
+    will-change: transform, opacity;
+}
+
+/* Improve scrolling performance on mobile */
+@media (max-width: 768px) {
+    .services-section {
+        -webkit-overflow-scrolling: touch;
+    }
+}
