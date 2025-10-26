@@ -150,7 +150,6 @@
 
 /* Pentru un efect natural — imaginea se integrează complet în fundal */
 .about-section {
-  background-color: #000; /* dacă e alt fundal, menținem uniformitatea */
   text-align: center;
   padding: 120px 0;
   overflow: hidden;
