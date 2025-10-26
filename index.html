@@ -424,322 +424,339 @@
     </div>
 </section>
 <!-- Services Section -->
-<section id="services" class="section services-section">
-    <div class="services-background">
-        <div class="bg-grid"></div>
-        <div class="bg-particles"></div>
-        <div class="bg-glow"></div>
+<section id="services" class="services-section">
+    <!-- Animated Background -->
+    <div class="services-bg">
+        <div class="bg-layers">
+            <div class="bg-layer-1"></div>
+            <div class="bg-layer-2"></div>
+            <div class="bg-layer-3"></div>
+        </div>
+        <div class="floating-elements">
+            <div class="float-element el-1"></div>
+            <div class="float-element el-2"></div>
+            <div class="float-element el-3"></div>
+            <div class="float-element el-4"></div>
+            <div class="float-element el-5"></div>
+        </div>
     </div>
-    
-    <div class="container">
+
+    <div class="services-container">
+        <!-- Header -->
         <div class="services-header">
-            <h2 class="section-title" data-splitting>Services</h2>
-            <p class="section-description">Discover the excellence we deliver</p>
+            <div class="title-wrapper">
+                <h2 class="main-title">
+                    <span class="title-text">SERVICES</span>
+                    <span class="title-shadow">SERVICES</span>
+                </h2>
+                <div class="title-line"></div>
+            </div>
+            <p class="section-subtitle">Where Innovation Meets Excellence</p>
         </div>
 
-        <!-- Services Navigation -->
-        <nav class="services-categories">
-            <button class="category-btn active" data-category="web-dev">
-                <span class="btn-icon">🌐</span>
-                <span class="btn-text">Web Development</span>
-                <span class="btn-underline"></span>
-            </button>
-            <button class="category-btn" data-category="programming">
-                <span class="btn-icon">💻</span>
-                <span class="btn-text">Programming</span>
-                <span class="btn-underline"></span>
-            </button>
-            <button class="category-btn" data-category="video-editing">
-                <span class="btn-icon">🎬</span>
-                <span class="btn-text">Video Editing</span>
-                <span class="btn-underline"></span>
-            </button>
-        </nav>
-
-        <!-- Services Content -->
-        <div class="services-content">
-            <!-- Web Development -->
-            <div class="service-panel active" data-category="web-dev">
-                <div class="panel-background">
-                    <div class="floating-shapes">
-                        <div class="shape shape-1"></div>
-                        <div class="shape shape-2"></div>
-                        <div class="shape shape-3"></div>
+        <!-- Main Content -->
+        <div class="services-main">
+            <!-- Navigation Cards -->
+            <div class="services-nav-cards">
+                <div class="nav-card active" data-service="web">
+                    <div class="nav-card-inner">
+                        <div class="nav-icon">🌐</div>
+                        <h3>Web Development</h3>
+                        <div class="nav-glow"></div>
                     </div>
                 </div>
                 
-                <div class="panel-content">
-                    <div class="service-hero">
-                        <div class="hero-icon">
-                            <div class="icon-3d">
-                                <div class="icon-core"></div>
-                                <div class="icon-orbits">
-                                    <div class="orbit orbit-1"></div>
-                                    <div class="orbit orbit-2"></div>
-                                    <div class="orbit orbit-3"></div>
+                <div class="nav-card" data-service="code">
+                    <div class="nav-card-inner">
+                        <div class="nav-icon">💻</div>
+                        <h3>Programming</h3>
+                        <div class="nav-glow"></div>
+                    </div>
+                </div>
+                
+                <div class="nav-card" data-service="video">
+                    <div class="nav-card-inner">
+                        <div class="nav-icon">🎬</div>
+                        <h3>Video Editing</h3>
+                        <div class="nav-glow"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Display -->
+            <div class="services-display">
+                <!-- Web Development -->
+                <div class="service-content active" data-service="web">
+                    <div class="content-hero">
+                        <div class="hero-visual">
+                            <div class="visual-container">
+                                <div class="main-visual">
+                                    <div class="cube-3d">
+                                        <div class="cube-face front"></div>
+                                        <div class="cube-face back"></div>
+                                        <div class="cube-face left"></div>
+                                        <div class="cube-face right"></div>
+                                        <div class="cube-face top"></div>
+                                        <div class="cube-face bottom"></div>
+                                    </div>
+                                </div>
+                                <div class="visual-effects">
+                                    <div class="effect-ring ring-1"></div>
+                                    <div class="effect-ring ring-2"></div>
+                                    <div class="effect-ring ring-3"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="hero-text">
-                            <h3 class="service-title">Web Development</h3>
-                            <p class="service-tagline">Crafting digital experiences that convert visitors into customers</p>
+                            <h2 class="service-title">Web Development</h2>
+                            <p class="service-description">Crafting digital experiences that push boundaries and drive results</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">React</span>
+                                <span class="tech-item">Vue</span>
+                                <span class="tech-item">Node.js</span>
+                                <span class="tech-item">Three.js</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="service-features">
-                        <div class="features-main">
-                            <div class="feature-card" data-delay="0">
-                                <div class="card-inner">
-                                    <div class="card-icon">⚡</div>
+                    <div class="content-features">
+                        <div class="feature-showcase">
+                            <div class="feature" data-feature="1">
+                                <div class="feature-icon">⚡</div>
+                                <div class="feature-content">
                                     <h4>Lightning Performance</h4>
-                                    <p>Optimized code ensuring sub-second load times and 99.9% uptime</p>
-                                    <div class="card-glow"></div>
+                                    <p>Optimized architectures delivering sub-second load times and 99.9% uptime</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
-                            <div class="feature-card" data-delay="100">
-                                <div class="card-inner">
-                                    <div class="card-icon">🔒</div>
+                            <div class="feature" data-feature="2">
+                                <div class="feature-icon">🔒</div>
+                                <div class="feature-content">
                                     <h4>Ironclad Security</h4>
-                                    <p>Enterprise-grade protection with real-time threat monitoring</p>
-                                    <div class="card-glow"></div>
+                                    <p>Enterprise-grade protection with real-time monitoring and threat detection</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
-                            <div class="feature-card" data-delay="200">
-                                <div class="card-inner">
-                                    <div class="card-icon">📱</div>
+                            <div class="feature" data-feature="3">
+                                <div class="feature-icon">📱</div>
+                                <div class="feature-content">
                                     <h4>Seamless Responsive</h4>
-                                    <p>Flawless experience across all devices and screen sizes</p>
-                                    <div class="card-glow"></div>
+                                    <p>Flawless experiences across all devices with progressive enhancement</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="why-me-section">
-                        <div class="why-me-header">
-                            <h4>Why My Approach Stands Out</h4>
-                            <div class="header-line"></div>
+                    <div class="why-section">
+                        <div class="why-header">
+                            <h3>Why Choose Excellence</h3>
+                            <div class="why-line"></div>
                         </div>
                         <div class="advantages-grid">
-                            <div class="advantage" data-delay="0">
-                                <div class="advantage-icon">🚀</div>
-                                <div class="advantage-content">
-                                    <h5>50% Faster Loading</h5>
-                                    <p>Advanced optimization techniques competitors overlook</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">01</div>
+                                <h5>50% Faster Loading</h5>
+                                <p>Advanced optimization techniques that outperform competitors</p>
                             </div>
-                            <div class="advantage" data-delay="100">
-                                <div class="advantage-icon">🎯</div>
-                                <div class="advantage-content">
-                                    <h5>Conversion Focused</h5>
-                                    <p>Every element designed to drive your business goals</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">02</div>
+                                <h5>Conversion Focused</h5>
+                                <p>Every element strategically designed to drive business objectives</p>
                             </div>
-                            <div class="advantage" data-delay="200">
-                                <div class="advantage-icon">🔄</div>
-                                <div class="advantage-content">
-                                    <h5>Future-Proof Code</h5>
-                                    <p>Scalable architecture that grows with your business</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">03</div>
+                                <h5>Future-Proof Code</h5>
+                                <p>Scalable architecture that evolves with your growing needs</p>
                             </div>
-                            <div class="advantage" data-delay="300">
-                                <div class="advantage-icon">⚙️</div>
-                                <div class="advantage-content">
-                                    <h5>Custom Solutions</h5>
-                                    <p>Tailored approaches rather than template-based work</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">04</div>
+                                <h5>Custom Solutions</h5>
+                                <p>Bespoke approaches rather than template-based limitations</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Programming -->
-            <div class="service-panel" data-category="programming">
-                <div class="panel-background">
-                    <div class="floating-shapes">
-                        <div class="shape shape-1"></div>
-                        <div class="shape shape-2"></div>
-                        <div class="shape shape-3"></div>
-                    </div>
-                </div>
-                
-                <div class="panel-content">
-                    <div class="service-hero">
-                        <div class="hero-icon">
-                            <div class="icon-3d">
-                                <div class="icon-core"></div>
-                                <div class="icon-orbits">
-                                    <div class="orbit orbit-1"></div>
-                                    <div class="orbit orbit-2"></div>
-                                    <div class="orbit orbit-3"></div>
+                <!-- Programming -->
+                <div class="service-content" data-service="code">
+                    <div class="content-hero">
+                        <div class="hero-visual">
+                            <div class="visual-container">
+                                <div class="main-visual">
+                                    <div class="code-matrix">
+                                        <div class="code-line"></div>
+                                        <div class="code-line"></div>
+                                        <div class="code-line"></div>
+                                        <div class="code-line"></div>
+                                        <div class="code-line"></div>
+                                    </div>
+                                </div>
+                                <div class="visual-effects">
+                                    <div class="effect-ring ring-1"></div>
+                                    <div class="effect-ring ring-2"></div>
+                                    <div class="effect-ring ring-3"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="hero-text">
-                            <h3 class="service-title">Programming</h3>
-                            <p class="service-tagline">Transforming complex problems into elegant solutions</p>
+                            <h2 class="service-title">Programming</h2>
+                            <p class="service-description">Transforming complex challenges into elegant, efficient solutions</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">Python</span>
+                                <span class="tech-item">JavaScript</span>
+                                <span class="tech-item">Java</span>
+                                <span class="tech-item">C++</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="service-features">
-                        <div class="features-main">
-                            <div class="feature-card" data-delay="0">
-                                <div class="card-inner">
-                                    <div class="card-icon">💎</div>
+                    <div class="content-features">
+                        <div class="feature-showcase">
+                            <div class="feature" data-feature="1">
+                                <div class="feature-icon">💎</div>
+                                <div class="feature-content">
                                     <h4>Clean Architecture</h4>
-                                    <p>Maintainable, scalable code following best practices</p>
-                                    <div class="card-glow"></div>
+                                    <p>Maintainable, scalable code following industry best practices and patterns</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
-                            <div class="feature-card" data-delay="100">
-                                <div class="card-inner">
-                                    <div class="card-icon">🚀</div>
+                            <div class="feature" data-feature="2">
+                                <div class="feature-icon">🚀</div>
+                                <div class="feature-content">
                                     <h4>Peak Performance</h4>
-                                    <p>Optimized algorithms that outperform standard solutions</p>
-                                    <div class="card-glow"></div>
+                                    <p>Optimized algorithms that significantly outperform standard solutions</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
-                            <div class="feature-card" data-delay="200">
-                                <div class="card-inner">
-                                    <div class="card-icon">🛠️</div>
+                            <div class="feature" data-feature="3">
+                                <div class="feature-icon">🛠️</div>
+                                <div class="feature-content">
                                     <h4>Multi-Language Mastery</h4>
-                                    <p>Expertise across multiple programming paradigms</p>
-                                    <div class="card-glow"></div>
+                                    <p>Expertise across diverse programming paradigms and technologies</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="why-me-section">
-                        <div class="why-me-header">
-                            <h4>Why My Code Excels</h4>
-                            <div class="header-line"></div>
+                    <div class="why-section">
+                        <div class="why-header">
+                            <h3>Why Technical Excellence</h3>
+                            <div class="why-line"></div>
                         </div>
                         <div class="advantages-grid">
-                            <div class="advantage" data-delay="0">
-                                <div class="advantage-icon">⚡</div>
-                                <div class="advantage-content">
-                                    <h5>Zero Technical Debt</h5>
-                                    <p>Clean, documented code that's easy to maintain</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">01</div>
+                                <h5>Zero Technical Debt</h5>
+                                <p>Clean, documented code that's easy to maintain and extend</p>
                             </div>
-                            <div class="advantage" data-delay="100">
-                                <div class="advantage-icon">🔧</div>
-                                <div class="advantage-content">
-                                    <h5>Custom Architecture</h5>
-                                    <p>Solutions designed specifically for your needs</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">02</div>
+                                <h5>Custom Architecture</h5>
+                                <p>Solutions specifically engineered for your unique requirements</p>
                             </div>
-                            <div class="advantage" data-delay="200">
-                                <div class="advantage-icon">📈</div>
-                                <div class="advantage-content">
-                                    <h5>Scalable Foundations</h5>
-                                    <p>Built to handle growth without rewrites</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">03</div>
+                                <h5>Scalable Foundations</h5>
+                                <p>Built to handle exponential growth without costly rewrites</p>
                             </div>
-                            <div class="advantage" data-delay="300">
-                                <div class="advantage-icon">🛡️</div>
-                                <div class="advantage-content">
-                                    <h5>Bug-Free Guarantee</h5>
-                                    <p>Rigorous testing ensures reliable performance</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">04</div>
+                                <h5>Bug-Free Guarantee</h5>
+                                <p>Rigorous testing protocols ensuring reliable, stable performance</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Video Editing -->
-            <div class="service-panel" data-category="video-editing">
-                <div class="panel-background">
-                    <div class="floating-shapes">
-                        <div class="shape shape-1"></div>
-                        <div class="shape shape-2"></div>
-                        <div class="shape shape-3"></div>
-                    </div>
-                </div>
-                
-                <div class="panel-content">
-                    <div class="service-hero">
-                        <div class="hero-icon">
-                            <div class="icon-3d">
-                                <div class="icon-core"></div>
-                                <div class="icon-orbits">
-                                    <div class="orbit orbit-1"></div>
-                                    <div class="orbit orbit-2"></div>
-                                    <div class="orbit orbit-3"></div>
+                <!-- Video Editing -->
+                <div class="service-content" data-service="video">
+                    <div class="content-hero">
+                        <div class="hero-visual">
+                            <div class="visual-container">
+                                <div class="main-visual">
+                                    <div class="film-reel">
+                                        <div class="reel-core"></div>
+                                        <div class="reel-frame frame-1"></div>
+                                        <div class="reel-frame frame-2"></div>
+                                        <div class="reel-frame frame-3"></div>
+                                        <div class="reel-frame frame-4"></div>
+                                    </div>
+                                </div>
+                                <div class="visual-effects">
+                                    <div class="effect-ring ring-1"></div>
+                                    <div class="effect-ring ring-2"></div>
+                                    <div class="effect-ring ring-3"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="hero-text">
-                            <h3 class="service-title">Video Editing</h3>
-                            <p class="service-tagline">Creating visual stories that captivate and convert</p>
+                            <h2 class="service-title">Video Editing</h2>
+                            <p class="service-description">Creating visual narratives that captivate audiences and drive engagement</p>
+                            <div class="tech-stack">
+                                <span class="tech-item">Premiere Pro</span>
+                                <span class="tech-item">After Effects</span>
+                                <span class="tech-item">DaVinci</span>
+                                <span class="tech-item">Cinema 4D</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="service-features">
-                        <div class="features-main">
-                            <div class="feature-card" data-delay="0">
-                                <div class="card-inner">
-                                    <div class="card-icon">🎬</div>
+                    <div class="content-features">
+                        <div class="feature-showcase">
+                            <div class="feature" data-feature="1">
+                                <div class="feature-icon">🎬</div>
+                                <div class="feature-content">
                                     <h4>4K Cinematic Quality</h4>
-                                    <p>Professional grading and crystal clear footage</p>
-                                    <div class="card-glow"></div>
+                                    <p>Professional color grading and crystal-clear footage delivery</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
-                            <div class="feature-card" data-delay="100">
-                                <div class="card-inner">
-                                    <div class="card-icon">⚡</div>
+                            <div class="feature" data-feature="2">
+                                <div class="feature-icon">⚡</div>
+                                <div class="feature-content">
                                     <h4>Real-Time Performance</h4>
-                                    <p>No lag editing with instant preview rendering</p>
-                                    <div class="card-glow"></div>
+                                    <p>No lag editing workflow with instant preview rendering</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
-                            <div class="feature-card" data-delay="200">
-                                <div class="card-inner">
-                                    <div class="card-icon">🎨</div>
+                            <div class="feature" data-feature="3">
+                                <div class="feature-icon">🎨</div>
+                                <div class="feature-content">
                                     <h4>Creative Excellence</h4>
-                                    <p>Unique transitions and cinematic storytelling</p>
-                                    <div class="card-glow"></div>
+                                    <p>Unique transitions and cinematic storytelling techniques</p>
                                 </div>
+                                <div class="feature-glow"></div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="why-me-section">
-                        <div class="why-me-header">
-                            <h4>Why My Editing Stands Out</h4>
-                            <div class="header-line"></div>
+                    <div class="why-section">
+                        <div class="why-header">
+                            <h3>Why Creative Mastery</h3>
+                            <div class="why-line"></div>
                         </div>
                         <div class="advantages-grid">
-                            <div class="advantage" data-delay="0">
-                                <div class="advantage-icon">🚀</div>
-                                <div class="advantage-content">
-                                    <h5>Zero Render Lag</h5>
-                                    <p>Optimized workflow eliminates waiting times</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">01</div>
+                                <h5>Zero Render Lag</h5>
+                                <p>Optimized workflow that eliminates frustrating waiting times</p>
                             </div>
-                            <div class="advantage" data-delay="100">
-                                <div class="advantage-icon">🎯</div>
-                                <div class="advantage-content">
-                                    <h5>Frame Perfect Sync</h5>
-                                    <p>Precision editing down to individual frames</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">02</div>
+                                <h5>Frame Perfect Sync</h5>
+                                <p>Precision editing accuracy down to individual frames</p>
                             </div>
-                            <div class="advantage" data-delay="200">
-                                <div class="advantage-icon">💎</div>
-                                <div class="advantage-content">
-                                    <h5>Premium Assets</h5>
-                                    <p>Access to exclusive resources and effects</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">03</div>
+                                <h5>Premium Assets</h5>
+                                <p>Access to exclusive resources, effects, and sound libraries</p>
                             </div>
-                            <div class="advantage" data-delay="300">
-                                <div class="advantage-icon">⚡</div>
-                                <div class="advantage-content">
-                                    <h5>24h Delivery</h5>
-                                    <p>Fast turnaround without compromising quality</p>
-                                </div>
+                            <div class="advantage-card">
+                                <div class="advantage-number">04</div>
+                                <h5>24h Delivery</h5>
+                                <p>Rapid turnaround without ever compromising on quality</p>
                             </div>
                         </div>
                     </div>
@@ -747,15 +764,20 @@
             </div>
         </div>
 
-        <!-- Navigation Arrows -->
-        <div class="services-navigation">
-            <button class="nav-arrow prev-arrow">
-                <span class="arrow-icon">←</span>
-                <span class="arrow-hover"></span>
+        <!-- Navigation Controls -->
+        <div class="services-controls">
+            <button class="control-btn prev-btn">
+                <span class="control-arrow">←</span>
+                <span class="control-text">Previous</span>
             </button>
-            <button class="nav-arrow next-arrow">
-                <span class="arrow-icon">→</span>
-                <span class="arrow-hover"></span>
+            <div class="controls-dots">
+                <span class="control-dot active" data-service="web"></span>
+                <span class="control-dot" data-service="code"></span>
+                <span class="control-dot" data-service="video"></span>
+            </div>
+            <button class="control-btn next-btn">
+                <span class="control-text">Next</span>
+                <span class="control-arrow">→</span>
             </button>
         </div>
     </div>
