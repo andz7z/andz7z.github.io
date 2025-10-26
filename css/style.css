@@ -313,21 +313,22 @@ body {
   filter: blur(10px);
   opacity: 0;
   transform: scale(1.1);
-  transition: filter 1.5s ease, opacity 2s ease, transform 2.5s ease-in-out;
+  transition: filter 1.5s ease 0.5s, opacity 2s ease 0.5s, transform 2.5s ease-in-out 0.5s;
 }
 
 #video-loader.fade-out .loader-overlay {
   opacity: 0;
   backdrop-filter: blur(0);
-  transition: opacity 2s ease, backdrop-filter 2s ease;
+  transition: opacity 2s ease 0.5s, backdrop-filter 2s ease 0.5s;
 }
 
 #video-loader.fade-out {
-  animation: dramaticFadeOut 2.5s ease forwards;
+  animation: dramaticFadeOut 2.5s ease 0.5s forwards;
 }
 
 @keyframes dramaticFadeOut {
   0%   { opacity: 1; transform: scale(1); }
+  20%  { opacity: 1; transform: scale(1); } /* Menține full brightness */
   80%  { opacity: 0.6; transform: scale(1.02); }
   100% { opacity: 0; transform: scale(1.05); }
 }
