@@ -103,34 +103,30 @@ window.addEventListener("load", () => {
   }, 9000);
 });
 // =======================
-// NAVBAR SCROLL HIDE/SHOW
+// NAVBAR SCROLL HIDE/SHOW PE HOMEPAGE
 // =======================
 
 let lastScrollTop = 0;
-const navbar = document.querySelector(".navbar"); // adaptează selectorul dacă ai altă clasă
+const navbar = document.querySelector(".navbar");
+const homeSection = document.querySelector(".home-section"); // doar homepage
 
-if (navbar) {
+if (navbar && homeSection) {
   window.addEventListener("scroll", () => {
     const scrollTop = window.scrollY;
+    const homeHeight = homeSection.offsetHeight;
 
-    // Dacă ești pe homepage (de exemplu prima secțiune)
-    const homeSection = document.querySelector(".home-section");
-    const homeHeight = homeSection ? homeSection.offsetHeight : 0;
-
-    // Apare/dispare DOAR în prima secțiune
     if (scrollTop < homeHeight) {
+      // Suntem încă în homepage → hide/show
       if (scrollTop > lastScrollTop) {
-        // Scroll în jos → ascunde navbar
-        navbar.classList.add("nav-hidden");
+        navbar.classList.add("nav-hidden"); // scroll down → ascunde
       } else {
-        // Scroll în sus → arată navbar
-        navbar.classList.remove("nav-hidden");
+        navbar.classList.remove("nav-hidden"); // scroll up → arată
       }
     } else {
-      // După ce ai trecut de homepage, navbar-ul rămâne vizibil
+      // După homepage → navbar vizibil permanent
       navbar.classList.remove("nav-hidden");
     }
 
-    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // pentru evitarea valorilor negative
+    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
   });
 }
