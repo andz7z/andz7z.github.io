@@ -423,109 +423,223 @@
         </div>
     </div>
 </section>
+<!-- Services Section -->
 <section id="services" class="section services-section">
     <div class="container">
-        <h2 class="section-title animate-on-scroll" data-delay="0">Services</h2>
-        <p class="section-description animate-on-scroll" data-delay="1">Unlocking Digital Excellence. Discover My Services.</p>
-
-        <div class="services-slider-wrapper animate-on-scroll" data-delay="2">
+        <h2 class="section-title">Services</h2>
+        <p class="section-description">Discover the services we offer.</p>
+        
+        <!-- Services Navigation -->
+        <div class="services-nav">
+            <button class="nav-btn prev-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
             
-            <div class="services-slider">
-
-                <div class="service-slide" data-slide="0">
-                    <div class="service-grid">
-                        <div class="service-icon-container">
-                            <div class="service-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">Web Development</h3>
-                            <p class="service-info">Transforming visions into digital realities. I build ultra-fast, responsive, and SEO-optimized websites and web applications, from stunning portfolios to complex E-commerce platforms.</p>
-                            <ul class="service-advantages">
-                                <li>Responsive & Mobile-First Design</li>
-                                <li>Technical SEO Optimization</li>
-                                <li>E-commerce Platforms & Custom CMS</li>
-                                <li>API Integration & Third-Party Services</li>
-                            </ul>
-                            <div class="why-me-container">
-                                <h4>Why Me?</h4>
-                                <ul class="why-me-list">
-                                    <li><strong>Pixel-Perfect Precision:</strong> Your design is implemented flawlessly, exactly as envisioned.</li>
-                                    <li><strong>Obsessive Performance:</strong> I code for speed. Sub-second load times aren't a goal; they're a requirement.</li>
-                                    <li><strong>Future-Proof Code:</strong> Built on a modern stack (React, Next.js) for scalability and easy maintenance.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-slide" data-slide="1">
-                    <div class="service-grid">
-                        <div class="service-icon-container">
-                            <div class="service-icon">
-                                <i class="fas fa-terminal"></i>
-                            </div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">Programming</h3>
-                            <p class="service-info">Custom software development, from automation scripts to complex desktop applications and robust APIs. I write clean, scalable, and efficient code built for the future.</p>
-                            <ul class="service-advantages">
-                                <li>Custom Software (Desktop/Web)</li>
-                                <li>Backend & API Development (REST/GraphQL)</li>
-                                <li>Automation Scripts & Web Scraping</li>
-                                <li>Software Architecture Consulting</li>
-                            </ul>
-                            <div class="why-me-container">
-                                <h4>Why Me?</h4>
-                                <ul class="why-me-list">
-                                    <li><strong>Clean & Maintainable Code:</strong> Intuitive logic that your future developers will thank you for.</li>
-                                    <li><strong>Scalable Architecture:</strong> Solutions designed to grow seamlessly with your business needs.</li>
-                                    <li><strong>Algorithmic Efficiency:</strong> I don't just solve problems; I solve them optimally.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-slide" data-slide="2">
-                    <div class="service-grid">
-                        <div class="service-icon-container">
-                            <div class="service-icon">
-                                <i class="fas fa-video"></i>
-                            </div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">Video & Photo Editing</h3>
-                            <p class="service-info">Professional video editing that captures attention. From viral social media clips to documentaries and music videos, I focus on storytelling, rhythm, and visual quality (4K+).</p>
-                            <ul class="service-advantages">
-                                <li>Editing & Assembly (Adobe Premiere Pro)</li>
-                                <li>Color Grading & Correction (DaVinci Resolve)</li>
-                                <li>Motion Graphics & VFX (After Effects)</li>
-                                <li>Professional Photo Editing (Photoshop/Lightroom)</li>
-                            </ul>
-                            <div class="why-me-container">
-                                <h4>Why Me?</h4>
-                                <ul class="why-me-list">
-                                    <li><strong>Dynamic Storytelling:</strong> Every cut has a purpose. I edit for emotion and impact, not just to fill time.</li>
-                                    <li><strong>No Quality Compromise:</strong> Flawless 4K/8K delivery. No lag, no dropped frames, just pristine quality.</li>
-                                    <li><strong>Ultra-Fast Turnaround:</strong> I respect your deadlines. You get exceptional quality, delivered on time. Every time.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div> <button class="slider-nav prev-slide" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-nav next-slide" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
-
-            <div class="slider-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
+            <div class="services-indicators">
+                <span class="indicator active" data-index="0">Web Development</span>
+                <span class="indicator" data-index="1">Programming</span>
+                <span class="indicator" data-index="2">Video Editing</span>
             </div>
-
-        </div> </div>
+            
+            <button class="nav-btn next-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- Services Slider -->
+        <div class="services-slider">
+            <!-- Web Development Service -->
+            <div class="service-slide active" data-service="web-dev">
+                <div class="service-content">
+                    <div class="service-icon">
+                        <div class="icon-3d">
+                            <div class="icon-front">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M3 12H21" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M12 3V21" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="icon-back"></div>
+                            <div class="icon-side"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-info">
+                        <h3 class="service-title">Web Development</h3>
+                        <div class="service-features">
+                            <div class="feature">
+                                <span class="feature-name">Responsive Design</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="95"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Performance</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="90"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">SEO Optimization</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="85"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">E-commerce</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="80"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="why-me">
+                            <h4>Why Choose Me?</h4>
+                            <ul>
+                                <li>Pixel-perfect implementation</li>
+                                <li>Cross-browser compatibility</li>
+                                <li>Fast loading times</li>
+                                <li>Mobile-first approach</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Programming Service -->
+            <div class="service-slide" data-service="programming">
+                <div class="service-content">
+                    <div class="service-icon">
+                        <div class="icon-3d">
+                            <div class="icon-front">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M8 14C8 14 9.5 16 9.5 17.5C9.5 19 8.5 20.5 7 20.5C5.5 20.5 4.5 19 4.5 17.5C4.5 16.5 5 15.5 5.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M16 14C16 14 14.5 16 14.5 17.5C14.5 19 15.5 20.5 17 20.5C18.5 20.5 19.5 19 19.5 17.5C19.5 16.5 19 15.5 18.5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M8 9L16 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                    <path d="M16 9L16 11C16 12 15.5 13 14.5 13C13.5 13 13 12 13 11L13 7C13 6 13.5 5 14.5 5C15.5 5 16 6 16 7L16 9Z" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M8 9L8 11C8 12 8.5 13 9.5 13C10.5 13 11 12 11 11L11 7C11 6 10.5 5 9.5 5C8.5 5 8 6 8 7L8 9Z" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="icon-back"></div>
+                            <div class="icon-side"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-info">
+                        <h3 class="service-title">Programming</h3>
+                        <div class="service-features">
+                            <div class="feature">
+                                <span class="feature-name">Algorithm Design</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="92"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Code Optimization</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="88"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Debugging</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="95"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">System Architecture</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="85"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="why-me">
+                            <h4>Why Choose Me?</h4>
+                            <ul>
+                                <li>Clean, maintainable code</li>
+                                <li>Efficient problem-solving</li>
+                                <li>Scalable solutions</li>
+                                <li>Thorough documentation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video Editing Service -->
+            <div class="service-slide" data-service="video-editing">
+                <div class="service-content">
+                    <div class="service-icon">
+                        <div class="icon-3d">
+                            <div class="icon-front">
+                                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M22 8.93137C22 8.32555 22 8.02265 21.8802 7.88238C21.7763 7.76068 21.6203 7.69609 21.4608 7.70865C21.2769 7.72312 21.0627 7.93731 20.6343 8.36569L17 12L20.6343 15.6343C21.0627 16.0627 21.2769 16.2769 21.4608 16.2914C21.6203 16.3039 21.7763 16.2393 21.8802 16.1176C22 15.9774 22 15.6744 22 15.0686V8.93137Z" stroke="currentColor" stroke-width="1.5"/>
+                                    <path d="M2 9.8C2 8.11984 2 7.27976 2.32698 6.63803C2.6146 6.07354 3.07354 5.6146 3.63803 5.32698C4.27976 5 5.11984 5 6.8 5H12.2C13.8802 5 14.7202 5 15.362 5.32698C15.9265 5.6146 16.3854 6.07354 16.673 6.63803C17 7.27976 17 8.11984 17 9.8V14.2C17 15.8802 17 16.7202 16.673 17.362C16.3854 17.9265 15.9265 18.3854 15.362 18.673C14.7202 19 13.8802 19 12.2 19H6.8C5.11984 19 4.27976 19 3.63803 18.673C3.07354 18.3854 2.6146 17.9265 2.32698 17.362C2 16.7202 2 15.8802 2 14.2V9.8Z" stroke="currentColor" stroke-width="1.5"/>
+                                </svg>
+                            </div>
+                            <div class="icon-back"></div>
+                            <div class="icon-side"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-info">
+                        <h3 class="service-title">Video Editing</h3>
+                        <div class="service-features">
+                            <div class="feature">
+                                <span class="feature-name">Color Grading</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="90"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Motion Graphics</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="85"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Audio Enhancement</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="88"></div>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-name">Visual Effects</span>
+                                <div class="feature-bar">
+                                    <div class="feature-progress" data-value="82"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="why-me">
+                            <h4>Why Choose Me?</h4>
+                            <ul>
+                                <li>Creative storytelling</li>
+                                <li>High-quality output</li>
+                                <li>Quick turnaround</li>
+                                <li>Attention to detail</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Service Background Elements -->
+        <div class="service-bg-elements">
+            <div class="bg-element el-1"></div>
+            <div class="bg-element el-2"></div>
+            <div class="bg-element el-3"></div>
+            <div class="bg-element el-4"></div>
+        </div>
+    </div>
 </section>
     <!-- Portfolio Section -->
     <section id="portfolio" class="section portfolio-section">
