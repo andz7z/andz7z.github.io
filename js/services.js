@@ -1,51 +1,60 @@
-class ServicesSection {
+class UltimateServices {
     constructor() {
-        this.currentCategory = 'web-dev';
-        this.categories = ['web-dev', 'programming', 'video-editing'];
-        this.panels = document.querySelectorAll('.service-panel');
-        this.buttons = document.querySelectorAll('.category-btn');
-        this.prevArrow = document.querySelector('.prev-arrow');
-        this.nextArrow = document.querySelector('.next-arrow');
-        this.autoSlideInterval = null;
+        this.currentService = 'web';
+        this.services = ['web', 'code', 'video'];
+        this.navCards = document.querySelectorAll('.nav-card');
+        this.serviceContents = document.querySelectorAll('.service-content');
+        this.controlDots = document.querySelectorAll('.control-dot');
+        this.prevBtn = document.querySelector('.prev-btn');
+        this.nextBtn = document.querySelector('.next-btn');
+        this.autoRotateInterval = null;
         
         this.init();
     }
 
     init() {
         this.bindEvents();
-        this.startAutoSlide();
+        this.startAutoRotate();
         this.initScrollAnimations();
-        this.initTextSplitting();
-        this.createParticles();
+        this.initParallax();
+        this.createFloatingParticles();
     }
 
     bindEvents() {
-        // Category buttons
-        this.buttons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                const category = e.currentTarget.dataset.category;
-                this.switchCategory(category);
+        // Navigation cards
+        this.navCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const service = card.dataset.service;
+                this.switchService(service);
             });
         });
 
-        // Navigation arrows
-        this.prevArrow.addEventListener('click', () => this.previousCategory());
-        this.nextArrow.addEventListener('click', () => this.nextCategory());
+        // Control dots
+        this.controlDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const service = dot.dataset.service;
+                this.switchService(service);
+            });
+        });
+
+        // Navigation buttons
+        this.prevBtn.addEventListener('click', () => this.previousService());
+        this.nextBtn.addEventListener('click', () => this.nextService());
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') this.previousCategory();
-            if (e.key === 'ArrowRight') this.nextCategory();
+            if (e.key === 'ArrowLeft') this.previousService();
+            if (e.key === 'ArrowRight') this.nextService();
         });
 
         // Touch swipe
         this.initTouchEvents();
 
-        // Pause auto-slide on interaction
-        const interactiveElements = document.querySelectorAll('.category-btn, .nav-arrow');
+        // Pause auto-rotate on interaction
+        const interactiveElements = document.querySelectorAll('.nav-card, .control-btn, .control-dot');
         interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => this.pauseAutoSlide());
-            el.addEventListener('mouseleave', () => this.resumeAutoSlide());
+            el.addEventListener('mouseenter', () => this.pauseAutoRotate());
+            el.addEventListener('mouseleave', () => this.resumeAutoRotate());
         });
     }
 
@@ -53,12 +62,12 @@ class ServicesSection {
         let startX = 0;
         let startY = 0;
 
-        document.querySelector('.services-content').addEventListener('touchstart', (e) => {
+        document.querySelector('.services-display').addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
             startY = e.touches[0].clientY;
         }, { passive: true });
 
-        document.querySelector('.services-content').addEventListener('touchend', (e) => {
+        document.querySelector('.services-display').addEventListener('touchend', (e) => {
             if (!startX || !startY) return;
 
             const endX = e.changedTouches[0].clientX;
@@ -66,12 +75,11 @@ class ServicesSection {
             const diffX = startX - endX;
             const diffY = startY - endY;
 
-            // Only consider horizontal swipes with minimal vertical movement
             if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
                 if (diffX > 0) {
-                    this.nextCategory();
+                    this.nextService();
                 } else {
-                    this.previousCategory();
+                    this.previousService();
                 }
             }
 
@@ -80,202 +88,198 @@ class ServicesSection {
         }, { passive: true });
     }
 
-    switchCategory(category) {
-        if (this.currentCategory === category) return;
+    switchService(service) {
+        if (this.currentService === service) return;
 
-        // Update buttons
-        this.buttons.forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.category === category);
+        // Update navigation cards
+        this.navCards.forEach(card => {
+            card.classList.toggle('active', card.dataset.service === service);
         });
 
-        // Update panels with transition
-        this.panels.forEach(panel => {
-            if (panel.dataset.category === category) {
-                panel.classList.add('active');
-                this.animatePanelIn(panel);
-            } else if (panel.classList.contains('active')) {
-                this.animatePanelOut(panel).then(() => {
-                    panel.classList.remove('active');
+        // Update control dots
+        this.controlDots.forEach(dot => {
+            dot.classList.toggle('active', dot.dataset.service === service);
+        });
+
+        // Update service content with animation
+        this.serviceContents.forEach(content => {
+            if (content.dataset.service === service) {
+                this.animateContentIn(content);
+                content.classList.add('active');
+            } else if (content.classList.contains('active')) {
+                this.animateContentOut(content).then(() => {
+                    content.classList.remove('active');
                 });
             }
         });
 
-        this.currentCategory = category;
-        this.resetAutoSlide();
+        this.currentService = service;
+        this.resetAutoRotate();
     }
 
-    animatePanelIn(panel) {
+    animateContentIn(content) {
         return new Promise(resolve => {
-            panel.style.transform = 'translateY(50px) scale(0.95)';
-            panel.style.opacity = '0';
+            content.style.transform = 'translateY(50px)';
+            content.style.opacity = '0';
             
             requestAnimationFrame(() => {
-                panel.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                panel.style.transform = 'translateY(0) scale(1)';
-                panel.style.opacity = '1';
+                content.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                content.style.transform = 'translateY(0)';
+                content.style.opacity = '1';
+                
+                // Animate features with delay
+                const features = content.querySelectorAll('.feature');
+                features.forEach((feature, index) => {
+                    setTimeout(() => {
+                        feature.style.opacity = '1';
+                        feature.style.transform = 'translateX(0)';
+                    }, index * 200 + 300);
+                });
                 
                 setTimeout(resolve, 800);
             });
         });
     }
 
-    animatePanelOut(panel) {
+    animateContentOut(content) {
         return new Promise(resolve => {
-            panel.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            panel.style.transform = 'translateY(-50px) scale(0.95)';
-            panel.style.opacity = '0';
+            content.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            content.style.transform = 'translateY(-50px)';
+            content.style.opacity = '0';
+            
+            // Reset features
+            const features = content.querySelectorAll('.feature');
+            features.forEach(feature => {
+                feature.style.opacity = '0';
+                feature.style.transform = 'translateX(-20px)';
+            });
             
             setTimeout(resolve, 600);
         });
     }
 
-    nextCategory() {
-        const currentIndex = this.categories.indexOf(this.currentCategory);
-        const nextIndex = (currentIndex + 1) % this.categories.length;
-        this.switchCategory(this.categories[nextIndex]);
+    nextService() {
+        const currentIndex = this.services.indexOf(this.currentService);
+        const nextIndex = (currentIndex + 1) % this.services.length;
+        this.switchService(this.services[nextIndex]);
     }
 
-    previousCategory() {
-        const currentIndex = this.categories.indexOf(this.currentCategory);
-        const prevIndex = (currentIndex - 1 + this.categories.length) % this.categories.length;
-        this.switchCategory(this.categories[prevIndex]);
+    previousService() {
+        const currentIndex = this.services.indexOf(this.currentService);
+        const prevIndex = (currentIndex - 1 + this.services.length) % this.services.length;
+        this.switchService(this.services[prevIndex]);
     }
 
-    startAutoSlide() {
-        this.autoSlideInterval = setInterval(() => {
-            this.nextCategory();
-        }, 8000);
+    startAutoRotate() {
+        this.autoRotateInterval = setInterval(() => {
+            this.nextService();
+        }, 7000);
     }
 
-    pauseAutoSlide() {
-        if (this.autoSlideInterval) {
-            clearInterval(this.autoSlideInterval);
-            this.autoSlideInterval = null;
+    pauseAutoRotate() {
+        if (this.autoRotateInterval) {
+            clearInterval(this.autoRotateInterval);
+            this.autoRotateInterval = null;
         }
     }
 
-    resumeAutoSlide() {
-        if (!this.autoSlideInterval) {
-            this.startAutoSlide();
+    resumeAutoRotate() {
+        if (!this.autoRotateInterval) {
+            this.startAutoRotate();
         }
     }
 
-    resetAutoSlide() {
-        this.pauseAutoSlide();
-        this.resumeAutoSlide();
+    resetAutoRotate() {
+        this.pauseAutoRotate();
+        this.resumeAutoRotate();
     }
 
     initScrollAnimations() {
-        const observerOptions = {
-            threshold: 0.3,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
+                    entry.target.classList.add('animated');
                     
-                    // Animate feature cards with delays
-                    const cards = entry.target.querySelectorAll('.feature-card');
+                    // Animate navigation cards
+                    const cards = document.querySelectorAll('.nav-card');
                     cards.forEach((card, index) => {
                         setTimeout(() => {
-                            card.classList.add('animated');
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
                         }, index * 200);
                     });
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.3 });
 
         observer.observe(document.querySelector('.services-section'));
     }
 
-    initTextSplitting() {
-        const title = document.querySelector('.section-title');
-        if (title) {
-            const text = title.textContent;
-            title.innerHTML = '';
+    initParallax() {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.float-element');
             
-            text.split('').forEach((char, index) => {
-                const span = document.createElement('span');
-                span.className = 'char';
-                span.textContent = char === ' ' ? '\u00A0' : char;
-                span.style.animationDelay = `${index * 0.1}s`;
-                title.appendChild(span);
+            parallaxElements.forEach((el, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                el.style.transform = `translateY(${yPos}px)`;
             });
-        }
+        });
     }
 
-    createParticles() {
-        const particlesContainer = document.querySelector('.bg-particles');
-        const particleCount = 20;
+    createFloatingParticles() {
+        const container = document.querySelector('.floating-elements');
+        const particleCount = 8;
 
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
-            particle.className = 'particle';
+            particle.className = 'float-element particle';
             
-            // Random properties
-            const size = Math.random() * 3 + 1;
+            const size = Math.random() * 8 + 2;
             const posX = Math.random() * 100;
             const posY = Math.random() * 100;
             const duration = Math.random() * 20 + 10;
             const delay = Math.random() * 5;
             
             particle.style.cssText = `
-                position: absolute;
                 width: ${size}px;
                 height: ${size}px;
                 background: rgba(255,255,255,${Math.random() * 0.3 + 0.1});
-                border-radius: 50%;
                 top: ${posY}%;
                 left: ${posX}%;
-                animation: particleFloat ${duration}s infinite ${delay}s;
+                animation-duration: ${duration}s;
+                animation-delay: ${delay}s;
             `;
             
-            particlesContainer.appendChild(particle);
-        }
-
-        // Add particle float animation
-        if (!document.querySelector('#particle-animations')) {
-            const style = document.createElement('style');
-            style.id = 'particle-animations';
-            style.textContent = `
-                @keyframes particleFloat {
-                    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
-                    25% { transform: translate(100px, -50px) scale(1.2); opacity: 0.8; }
-                    50% { transform: translate(50px, -100px) scale(0.8); opacity: 0.3; }
-                    75% { transform: translate(-50px, -50px) scale(1.1); opacity: 0.7; }
-                }
-            `;
-            document.head.appendChild(style);
+            container.appendChild(particle);
         }
     }
 
     destroy() {
-        this.pauseAutoSlide();
-        // Clean up event listeners
-        this.buttons.forEach(btn => {
-            btn.replaceWith(btn.cloneNode(true));
-        });
+        this.pauseAutoRotate();
     }
 }
 
-// Initialize with performance check
+// Initialize with enhanced performance
 document.addEventListener('DOMContentLoaded', () => {
-    // Wait for fonts to load
-    if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(() => {
-            new ServicesSection();
-        });
-    } else {
-        // Fallback
-        setTimeout(() => {
-            new ServicesSection();
-        }, 500);
-    }
+    // Preload critical animations
+    const style = document.createElement('style');
+    style.textContent = `
+        .services-section * {
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize services
+    setTimeout(() => {
+        new UltimateServices();
+    }, 100);
 });
 
 // Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = ServicesSection;
+    module.exports = UltimateServices;
 }
