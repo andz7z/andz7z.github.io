@@ -831,3 +831,157 @@
         font-size: 2.5rem;
     }
 }
+/* Profile Stats Grid Updated */
+.profile-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.stat-item {
+    text-align: center;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.stat-number {
+    font-family: 'Noverich', sans-serif;
+    font-size: 2.2rem;
+    color: #ffffff;
+    display: block;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.stat-label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    color: #cccccc;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Qualities Grid on Back */
+.qualities-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.quality-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.quality-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.quality-icon {
+    font-size: 1.3rem;
+    margin-right: 12px;
+    filter: grayscale(1) brightness(2);
+    transition: all 0.3s ease;
+}
+
+.quality-item:hover .quality-icon {
+    filter: grayscale(0) brightness(1);
+    transform: scale(1.2);
+}
+
+.quality-text {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.85rem;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+/* Back Face Specific Styles */
+.profile-face.back .profile-name {
+    margin-bottom: 10px;
+    font-size: 2rem;
+}
+
+.profile-face.back {
+    justify-content: flex-start;
+    padding-top: 50px;
+}
+
+/* Responsive Design for Profile Card */
+@media (max-width: 768px) {
+    .profile-card-3d {
+        width: 350px;
+        height: 450px;
+    }
+    
+    .profile-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
+    .qualities-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .stat-number {
+        font-size: 1.8rem;
+    }
+    
+    .quality-text {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card-3d {
+        width: 300px;
+        height: 420px;
+    }
+    
+    .profile-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 12px 8px;
+    }
+    
+    .stat-number {
+        font-size: 1.6rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .quality-item {
+        padding: 10px 12px;
+    }
+    
+    .quality-text {
+        font-size: 0.75rem;
+    }
+}
