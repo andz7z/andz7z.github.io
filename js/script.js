@@ -65,32 +65,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // NAVBAR HIDE/SHOW LOGIC - CORECTATĂ
+    // NAVBAR HIDE/SHOW LOGIC - VERSIUNEA FINALĂ
     const navbar = document.querySelector(".navbar");
     if (!navbar) return;
 
     let lastScrollTop = 0;
-    const scrollThreshold = 100; // Până unde să nu ascundă navbar-ul
+    const homeSectionHeight = window.innerHeight; // Înălțimea ferestrei ≈ home section
 
     window.addEventListener("scroll", () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const windowHeight = window.innerHeight;
         
-        // Nu ascunde navbar-ul în primele 100px sau dacă suntem aproape de partea de sus
-        if (scrollTop < scrollThreshold) {
+        // Regula 1: În home section (primele 100px) - mereu vizibil
+        if (scrollTop < 100) {
             navbar.classList.remove("nav-hidden");
+            lastScrollTop = scrollTop;
             return;
         }
 
-        // Ascunde doar când scroll-ul este în jos și suntem în home section
-        if (scrollTop > lastScrollTop && scrollTop < windowHeight) {
-            // Scroll în jos în home section → ascunde navbar
-            navbar.classList.add("nav-hidden");
-        } else {
-            // Scroll în sus sau am ieșit din home section → arată navbar
+        // Regula 2: Scroll în sus - arată navbar
+        if (scrollTop < lastScrollTop) {
             navbar.classList.remove("nav-hidden");
+        } 
+        // Regula 3: Scroll în jos - ascunde navbar (oricunde în pagină)
+        else if (scrollTop > lastScrollTop) {
+            navbar.classList.add("nav-hidden");
         }
 
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        lastScrollTop = scrollTop;
     });
 });
