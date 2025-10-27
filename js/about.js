@@ -90,78 +90,62 @@ function init3DProfileCard() {
         }, 10000);
     }
 
-    // Funcție pentru flip
-        function flipCard() {
-            isFlipped = !isFlipped;
-        
-            // Adaugă un efect subtil de easing + mic zoom la flip
-            profileCard.style.transition = 'transform 1s cubic-bezier(0.25, 1, 0.5, 1), scale 0.3s ease-in-out';
-            profileCard.style.transform = `
-                perspective(${perspective}px)
-                rotateY(${isFlipped ? 180 : 0}deg)
-                scale3d(1.05, 1.05, 1.05)
-            `;
-        
-            // Mică revenire pentru efect de inerție
-            setTimeout(() => {
-                profileCard.style.transform = `
-                    perspective(${perspective}px)
-                    rotateY(${isFlipped ? 180 : 0}deg)
-                    scale3d(1, 1, 1)
-                `;
-            }, 600);
-        }
-        
-        // Aplică transformarea curentă (3D + flip)
-        function applyCurrentTransform() {
-            if (!isHovering) {
-                // Flip smooth + easing cinematic
-                profileCard.style.transition = 'transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
-                profileCard.style.transform = `
-                    perspective(${perspective}px)
-                    rotateY(${isFlipped ? 180 : 0}deg)
-                    scale3d(1, 1, 1)
-                `;
-            } else {
-                // În modul hover — efect instant pentru mișcare fluidă
-                apply3DEffect();
-            }
-        }
+// Funcție pentru flip (smooth + cinematic)
+function flipCard() {
+    isFlipped = !isFlipped;
 
-    // Aplică efect 3D smooth
-    function apply3DEffect() {
-        const cardRect = profileCard.getBoundingClientRect();
-        const cardCenterX = cardRect.left + cardRect.width / 2;
-        const cardCenterY = cardRect.top + cardRect.height / 2;
-        
-        const rotateY = ((mouseX - cardCenterX) / cardRect.width) * maxRotation * sensitivity;
-        const rotateX = ((cardCenterY - mouseY) / cardRect.height) * maxRotation * sensitivity;
-        
-        const translateX = ((mouseX - cardCenterX) / cardRect.width) * 10;
-        const translateY = ((mouseY - cardCenterY) / cardRect.height) * 10;
-        
-        // Aplică flip + efect 3D
+    profileCard.style.transition = `
+        transform 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+        box-shadow 0.6s ease-in-out
+    `;
+    profileCard.style.transform = `
+        perspective(${perspective}px)
+        rotateY(${isFlipped ? 180 : 0}deg)
+        scale3d(1.08, 1.08, 1.08)
+    `;
+    profileCard.style.boxShadow = '0 0 60px rgba(255, 255, 255, 0.15)';
+
+    // Fade între față și spate
+    const front = profileCard.querySelector('.card-front');
+    const back = profileCard.querySelector('.card-back');
+    if (front && back) {
+        if (isFlipped) {
+            front.style.opacity = '0';
+            back.style.opacity = '1';
+        } else {
+            front.style.opacity = '1';
+            back.style.opacity = '0';
+        }
+    }
+
+    // Mică revenire cinematică
+    setTimeout(() => {
         profileCard.style.transform = `
             perspective(${perspective}px)
-            rotateY(${isFlipped ? 180 + rotateY : rotateY}deg)
-            rotateX(${rotateX}deg)
-            translateX(${translateX}px)
-            translateY(${translateY}px)
-            scale3d(1.02, 1.02, 1.02)
+            rotateY(${isFlipped ? 180 : 0}deg)
+            scale3d(1, 1, 1)
         `;
-    }
+        profileCard.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.05)';
+    }, 800);
+}
 
-    // Resetare efect 3D
-    function reset3DEffect() {
-        profileCard.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
-        profileCard.style.transform = `perspective(${perspective}px) rotateY(${isFlipped ? 180 : 0}deg)`;
+// Aplică transformarea curentă (3D + flip + fade)
+function applyCurrentTransform() {
+    if (!isHovering) {
+        profileCard.style.transition = `
+            transform 1.1s cubic-bezier(0.19, 1, 0.22, 1),
+            box-shadow 0.6s ease-in-out
+        `;
+        profileCard.style.transform = `
+            perspective(${perspective}px)
+            rotateY(${isFlipped ? 180 : 0}deg)
+            scale3d(1, 1, 1)
+        `;
+        profileCard.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.05)';
+    } else {
+        apply3DEffect();
     }
-
-    // Event listeners
-    profileCard.addEventListener('click', (e) => {
-        e.stopPropagation();
-        flipCard();
-    });
+}
 
     // Hover events
     profileCard.addEventListener('mouseenter', () => {
