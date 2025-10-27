@@ -58,30 +58,30 @@
 }
 
 /* Animație corectată pentru fiecare literă - ordinea corectă */
-.slogan-letter:nth-child(1) { animation-delay: 1s; }   /* D */
-.slogan-letter:nth-child(2) { animation-delay: 1.1s; } /* E */
-.slogan-letter:nth-child(3) { animation-delay: 1.2s; } /* S */
-.slogan-letter:nth-child(4) { animation-delay: 1.3s; } /* I */
-.slogan-letter:nth-child(5) { animation-delay: 1.4s; } /* G */
-.slogan-letter:nth-child(6) { animation-delay: 1.5s; } /* N */
-.slogan-letter:nth-child(7) { animation-delay: 1.6s; } /* . */
-.slogan-letter:nth-child(8) { animation-delay: 1.7s; } /* &nbsp; */
-.slogan-letter:nth-child(9) { animation-delay: 1.8s; } /* D */
-.slogan-letter:nth-child(10) { animation-delay: 1.9s; } /* E */
-.slogan-letter:nth-child(11) { animation-delay: 2s; }   /* V */
-.slogan-letter:nth-child(12) { animation-delay: 2.1s; } /* E */
-.slogan-letter:nth-child(13) { animation-delay: 2.2s; } /* L */
-.slogan-letter:nth-child(14) { animation-delay: 2.3s; } /* O */
-.slogan-letter:nth-child(15) { animation-delay: 2.4s; } /* P */
-.slogan-letter:nth-child(16) { animation-delay: 2.5s; } /* . */
-.slogan-letter:nth-child(17) { animation-delay: 2.6s; } /* &nbsp; */
-.slogan-letter:nth-child(18) { animation-delay: 2.7s; } /* D */
-.slogan-letter:nth-child(19) { animation-delay: 2.8s; } /* E */
-.slogan-letter:nth-child(20) { animation-delay: 2.9s; } /* L */
-.slogan-letter:nth-child(21) { animation-delay: 3s; }   /* I */
-.slogan-letter:nth-child(22) { animation-delay: 3.1s; } /* V */
-.slogan-letter:nth-child(23) { animation-delay: 3.2s; } /* E */
-.slogan-letter:nth-child(24) { animation-delay: 3.3s; } /* R */
+.slogan-letter:nth-child(1) { animation-delay: 1s; }
+.slogan-letter:nth-child(2) { animation-delay: 1.1s; }
+.slogan-letter:nth-child(3) { animation-delay: 1.2s; }
+.slogan-letter:nth-child(4) { animation-delay: 1.3s; }
+.slogan-letter:nth-child(5) { animation-delay: 1.4s; }
+.slogan-letter:nth-child(6) { animation-delay: 1.5s; }
+.slogan-letter:nth-child(7) { animation-delay: 1.6s; }
+.slogan-letter:nth-child(8) { animation-delay: 1.7s; }
+.slogan-letter:nth-child(9) { animation-delay: 1.8s; }
+.slogan-letter:nth-child(10) { animation-delay: 1.9s; }
+.slogan-letter:nth-child(11) { animation-delay: 2s; }
+.slogan-letter:nth-child(12) { animation-delay: 2.1s; }
+.slogan-letter:nth-child(13) { animation-delay: 2.2s; }
+.slogan-letter:nth-child(14) { animation-delay: 2.3s; }
+.slogan-letter:nth-child(15) { animation-delay: 2.4s; }
+.slogan-letter:nth-child(16) { animation-delay: 2.5s; }
+.slogan-letter:nth-child(17) { animation-delay: 2.6s; }
+.slogan-letter:nth-child(18) { animation-delay: 2.7s; }
+.slogan-letter:nth-child(19) { animation-delay: 2.8s; }
+.slogan-letter:nth-child(20) { animation-delay: 2.9s; }
+.slogan-letter:nth-child(21) { animation-delay: 3s; }
+.slogan-letter:nth-child(22) { animation-delay: 3.1s; }
+.slogan-letter:nth-child(23) { animation-delay: 3.2s; }
+.slogan-letter:nth-child(24) { animation-delay: 3.3s; }
 
 .slogan-letter:hover {
     filter: blur(5px);
@@ -152,7 +152,7 @@
   --border-radius: 24px;
   --padding: 4px;
   --transition: 0.4s;
-  --button-color: #000000; /* Same as background */
+  --button-color: #000000;
   --highlight-color-hue: 210deg;
 
   user-select: none;
@@ -166,13 +166,12 @@
   background-color: var(--button-color);
 
   box-shadow:
-    /* inset */
     inset 0px 1px 1px rgba(255, 255, 255, 0.2),
     inset 0px 2px 2px rgba(255, 255, 255, 0.15),
     inset 0px 4px 4px rgba(255, 255, 255, 0.1),
     inset 0px 8px 8px rgba(255, 255, 255, 0.05),
     inset 0px 16px 16px rgba(255, 255, 255, 0.05),
-    /* drop */ 0px -1px 1px rgba(0, 0, 0, 0.02),
+    0px -1px 1px rgba(0, 0, 0, 0.02),
     0px -2px 2px rgba(0, 0, 0, 0.03),
     0px -4px 4px rgba(0, 0, 0, 0.05),
     0px -8px 8px rgba(0, 0, 0, 0.06),
@@ -456,32 +455,12 @@
   animation: none;
 }
 
-/* HOME SECTION */
-.home-section {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    overflow: hidden;
-}
-
 /* VIDEO BACKGROUND */
-.video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
 .video-container video {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* << face video-ul complet vizibil pe ecrane mici */
-    background-color: #000; /* umple marginile negre laterale */
+    object-fit: contain;
+    background-color: #000;
 }
 
 /* CONTENT */
@@ -497,13 +476,9 @@
     position: relative;
 }
 
-.text-content {
-    margin-bottom: 20px;
-}
-
-/* SLOGAN */
+/* SLOGAN - Mobile Optimization */
 .slogan {
-    font-size: clamp(1.5rem, 4vw, 3.5rem); /* se ajustează automat la lățimea ecranului */
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
     font-weight: 700;
     letter-spacing: 0.15rem;
     margin-bottom: 1.5rem;
@@ -515,49 +490,28 @@
     padding: 0 1rem;
 }
 
-/* Slogan letters */
-.slogan-letter {
-    display: inline-block;
-    transition: all 0.3s ease;
-    opacity: 0;
-    animation: letterFadeIn 0.8s ease-out forwards;
-}
-.slogan-letter:hover {
-    filter: blur(4px);
-    transform: scale(1.05);
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.arrow-down {
-    width: 14px;
-    height: 14px;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    transform: rotate(45deg);
-    animation: pulse 2s infinite;
-}
-/* =========================== */
 /* 📱 MOBILE OPTIMIZATION */
-/* =========================== */
 @media screen and (max-width: 768px) {
     .home-section {
         height: 100dvh;
     }
 
     .video-container video {
-        object-fit: contain; /* menține proporția completă */
+        object-fit: contain;
         transform: scale(1.05);
     }
 
     .home-content {
         padding-bottom: 60px;
+    }
+
+    .slogan {
+        font-size: clamp(0.9rem, 5.5vw, 1.4rem);
+        letter-spacing: 0.08rem;
+        margin-bottom: 1rem;
+        white-space: nowrap;
+        text-align: center;
+        padding: 0;
     }
 
     .btn {
@@ -577,6 +531,14 @@
 
 /* EXTRA SMALL DEVICES */
 @media screen and (max-width: 480px) {
+    .slogan {
+        font-size: clamp(0.9rem, 5.5vw, 1.4rem);
+        letter-spacing: 0.05rem;
+        white-space: nowrap;
+        text-align: center;
+        padding: 0;
+    }
+
     .btn {
         font-size: 0.8rem;
         border-radius: 18px;
@@ -584,26 +546,5 @@
 
     .btn-svg {
         height: 18px;
-    }
-}
-/* 📱 Ajustare finală pentru slogan pe telefon */
-@media screen and (max-width: 768px) {
-    .slogan {
-        font-size: clamp(0.9rem, 5.5vw, 1.4rem); /* mai mic și adaptiv */
-        letter-spacing: 0.08rem;
-        margin-bottom: 1rem;
-        white-space: nowrap; /* împiedică spargerea pe rânduri */
-        text-align: center;
-        padding: 0;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .slogan {
-        font-size: clamp(0.9rem, 5.5vw, 1.4rem);
-        letter-spacing: 0.05rem;
-        white-space: nowrap;
-        text-align: center;
-        padding: 0;
     }
 }
