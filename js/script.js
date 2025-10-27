@@ -7,38 +7,49 @@ window.addEventListener("load", () => {
   const overlay = document.querySelector(".loader-overlay");
   const mainContent = document.querySelector("main");
 
-  // Ascunde instant conținutul principal
+  // Pregătește conținutul principal
   if (mainContent) {
     mainContent.style.opacity = "0";
     mainContent.style.visibility = "hidden";
   }
 
+  // Start animația de intrare a loader-ului
   setTimeout(() => {
-    if (video) video.style.filter = "blur(0px)";
-    if (video) video.style.opacity = "1";
-    if (overlay) overlay.style.opacity = "0";
+    if (video) {
+      video.style.filter = "blur(0px)";
+      video.style.opacity = "1";
+    }
+    if (overlay) {
+      overlay.style.opacity = "0.2";
+    }
   }, 500);
 
   const closeLoader = () => {
-    if (loader) loader.classList.add("fade-out");
+    if (!loader || loader.classList.contains("fade-out")) return;
     
+    // Start fade-out loader
+    loader.classList.add("fade-out");
+    
+    // Așteaptă 1.2s după începerea fade-out-ului, apoi afișează conținutul
     setTimeout(() => {
-      if (loader) loader.style.display = "none";
-      
-      // Afișare smooth a conținutului principal
-      if (mainContent) {
-        mainContent.style.transition = "opacity 1.5s ease-in-out";
-        mainContent.style.visibility = "visible";
-        mainContent.style.opacity = "1";
+      // Ascunde loader-ul complet
+      if (loader) {
+        loader.style.display = "none";
       }
-    }, 2000);
+      
+      // Afișează smooth conținutul principal
+      if (mainContent) {
+        mainContent.classList.add("content-visible");
+      }
+    }, 1200); // Corelat cu durata fade-out-ului
   };
 
   if (video) {
     video.addEventListener("ended", closeLoader);
   }
 
-  setTimeout(closeLoader, 9000); // fallback
+  // Fallback timeout
+  setTimeout(closeLoader, 9000);
 });
 
 // =======================
@@ -65,32 +76,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // NAVBAR HIDE/SHOW LOGIC - VERSIUNEA FINALĂ
+    // NAVBAR HIDE/SHOW LOGIC
     const navbar = document.querySelector(".navbar");
     if (!navbar) return;
 
     let lastScrollTop = 0;
-    const homeSectionHeight = window.innerHeight; // Înălțimea ferestrei ≈ home section
+    const homeThreshold = 100;
 
     window.addEventListener("scroll", () => {
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
         
-        // Regula 1: În home section (primele 100px) - mereu vizibil
-        if (scrollTop < 100) {
+        // În home section - mereu vizibil
+        if (scrollTop < homeThreshold) {
             navbar.classList.remove("nav-hidden");
             lastScrollTop = scrollTop;
             return;
         }
 
-        // Regula 2: Scroll în sus - arată navbar
+        // Scroll în sus - arată navbar
         if (scrollTop < lastScrollTop) {
             navbar.classList.remove("nav-hidden");
         } 
-        // Regula 3: Scroll în jos - ascunde navbar (oricunde în pagină)
-        else if (scrollTop > lastScrollTop) {
+        // Scroll în jos - ascunde navbar
+        else if (scrollTop > lastScrollTop + 5) {
             navbar.classList.add("nav-hidden");
         }
 
-        lastScrollTop = scrollTop;
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     });
 });
