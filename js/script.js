@@ -25,23 +25,24 @@ window.addEventListener("load", () => {
   }, 500);
 
   const closeLoader = () => {
-    if (!loader || loader.classList.contains("fade-out")) return;
-    
-    // Start fade-out loader
-    loader.classList.add("fade-out");
-    
-    // Așteaptă 1.2s după începerea fade-out-ului, apoi afișează conținutul
-    setTimeout(() => {
-      // Ascunde loader-ul complet
-      if (loader) {
-        loader.style.display = "none";
-      }
+      if (!loader || loader.classList.contains("fade-out")) return;
       
-      // Afișează smooth conținutul principal
-      if (mainContent) {
-        mainContent.classList.add("content-visible");
-      }
-    }, 1200); // Corelat cu durata fade-out-ului
+      // Start fade-out loader
+      loader.classList.add("fade-out");
+      
+      // Așteaptă 1.2s după începerea fade-out-ului, apoi afișează conținutul
+      setTimeout(() => {
+          // Ascunde loader-ul complet
+          if (loader) {
+              loader.style.display = "none";
+          }
+          
+          // Afișează smooth conținutul principal
+          if (mainContent) {
+              mainContent.style.opacity = "1";
+              mainContent.style.visibility = "visible";
+          }
+      }, 1200); // Corelat cu durata fade-out-ului
   };
 
   if (video) {
