@@ -7,6 +7,7 @@
     justify-content: center;
     text-align: center;
     overflow: hidden;
+    background-color: #000; /* Fundal negru pentru black bars */
 }
 
 .video-container {
@@ -16,12 +17,19 @@
     width: 100%;
     height: 100%;
     z-index: -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000; /* Fundal negru pentru black bars */
 }
 
 .video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    /* Păstrăm raportul de aspect original al video-ului */
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* Asigură că întregul video este vizibil */
 }
 
 .home-content {
@@ -468,14 +476,6 @@
   animation: none;
 }
 
-/* VIDEO BACKGROUND */
-.video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: #000;
-}
-
 /* CONTENT */
 .home-content {
     z-index: 1;
@@ -497,7 +497,11 @@
     }
 
     .video-container video {
-        object-fit: cover;
+        /* Păstrăm setările pentru mobile - se va adapta automat */
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 100%;
     }
 
     .home-content {
@@ -624,4 +628,19 @@
         font-size: 0.7rem;
         padding: 0.25em 0.4em;
     }
+
+    /* Pentru landscape, putem folosi cover pentru a umple ecranul */
+    .video-container video {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* VARIANTĂ ALTERNATIVĂ - Dacă vrei să controlezi mai precis dimensiunea video-ului */
+.video-container.alternative-size video {
+    /* Poți ajusta aceste valori pentru a controla mărimea video-ului */
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
 }
