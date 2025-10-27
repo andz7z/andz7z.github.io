@@ -67,106 +67,156 @@ function init3DProfileCard() {
     const profileCard = document.querySelector('.profile-card-3d');
     if (!profileCard) return;
 
-    let isFlipped = false;
     let isHovering = false;
     let autoFlipInterval;
+    let mouseX = 0;
+    let mouseY = 0;
 
     // Configurații pentru sensibilitate
-    const sensitivity = 0.5; // Lower = less sensitive (0.1 - 1.0)
-    const maxRotation = 15; // Grade maxime de rotatie
+    const sensitivity = 0.8; // Lower = less sensitive (0.1 - 1.0)
+    const maxRotation = 20; // Grade maxime de rotatie
+    const perspective = 1000; // Perspectiva pentru efect 3D
 
-    // Funcție pentru auto-flip
+    // Setăm perspectiva inițială
+    profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg)`;
+
+    // Funcție pentru auto-flip (opțional)
     function startAutoFlip() {
         autoFlipInterval = setInterval(() => {
             if (!isHovering) { // Auto-flip doar dacă nu hover
-                isFlipped = !isFlipped;
-                profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-                reset3DEffect(); // Resetăm efectul 3D la flip
+                profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(180deg)`;
+                
+                // După flip, revenim la față
+                setTimeout(() => {
+                    if (!isHovering) {
+                        profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+                        profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg)`;
+                    }
+                }, 3000);
             }
-        }, 8000);
+        }, 10000); // Flip la fiecare 10 secunde
     }
 
-    // Resetare efect 3D
-    function reset3DEffect() {
-        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-    }
-
-    // Aplică efect 3D smooth
-    function apply3DEffect(x, y) {
-        if (!isFlipped) return; // Efect doar pe spate
+    // Aplică efect 3D smooth bazat pe poziția mouse-ului
+    function apply3DEffect() {
+        if (!isHovering) return;
 
         const cardRect = profileCard.getBoundingClientRect();
         const cardCenterX = cardRect.left + cardRect.width / 2;
         const cardCenterY = cardRect.top + cardRect.height / 2;
         
         // Calcul rotatie bazat pe pozitia mouse-ului
-        const rotateY = ((e.clientX - cardCenterX) / cardRect.width) * maxRotation * sensitivity;
-        const rotateX = ((cardCenterY - e.clientY) / cardRect.height) * maxRotation * sensitivity;
+        const rotateY = ((mouseX - cardCenterX) / cardRect.width) * maxRotation * sensitivity;
+        const rotateX = ((cardCenterY - mouseY) / cardRect.height) * maxRotation * sensitivity;
         
-        // Aplică transformări cu tranziție smooth
+        // Adăugăm și o ușoară translație pentru efect mai dinamic
+        const translateX = ((mouseX - cardCenterX) / cardRect.width) * 10;
+        const translateY = ((mouseY - cardCenterY) / cardRect.height) * 10;
+        
+        // Aplică transformări cu efect 3D complet
         profileCard.style.transform = `
-            rotateY(${isFlipped ? 180 + rotateY : rotateY}deg)
+            perspective(${perspective}px)
             rotateX(${rotateX}deg)
+            rotateY(${rotateY}deg)
+            translateX(${translateX}px)
+            translateY(${translateY}px)
             scale3d(1.02, 1.02, 1.02)
         `;
+    }
+
+    // Resetare efect 3D
+    function reset3DEffect() {
+        profileCard.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+        profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg)`;
     }
 
     // Event listeners
     profileCard.addEventListener('click', (e) => {
         e.stopPropagation();
-        isFlipped = !isFlipped;
-        reset3DEffect();
+        // Flip manual la click
+        const currentRotation = profileCard.style.transform.includes('180deg') ? 0 : 180;
+        profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+        profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(${currentRotation}deg)`;
     });
 
     // Hover events
     profileCard.addEventListener('mouseenter', () => {
         isHovering = true;
         clearInterval(autoFlipInterval); // Oprim auto-flip când hover
-        profileCard.style.transition = 'transform 0.3s ease';
+        profileCard.style.transition = 'transform 0.1s ease-out'; // Tranziție rapidă pentru tracking
     });
 
     profileCard.addEventListener('mouseleave', () => {
         isHovering = false;
+        profileCard.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
         reset3DEffect();
-        profileCard.style.transition = 'transform 0.5s ease';
         startAutoFlip(); // Repornim auto-flip
     });
 
-    // Mouse move cu throttling pentru performanță
+    // Mouse move tracking
     let mouseMoveTimeout;
     document.addEventListener('mousemove', (e) => {
-        if (!isHovering || !isFlipped) return;
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        if (!isHovering) return;
 
         // Throttling pentru performanță
         clearTimeout(mouseMoveTimeout);
         mouseMoveTimeout = setTimeout(() => {
-            apply3DEffect(e.clientX, e.clientY);
+            apply3DEffect();
         }, 16); // ~60fps
     });
 
     // Touch events pentru dispozitive mobile
+    let isTouching = false;
+    
     profileCard.addEventListener('touchstart', (e) => {
         isHovering = true;
+        isTouching = true;
         clearInterval(autoFlipInterval);
+        profileCard.style.transition = 'transform 0.1s ease-out';
     });
 
     profileCard.addEventListener('touchend', () => {
         isHovering = false;
+        isTouching = false;
+        profileCard.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+        reset3DEffect();
         setTimeout(() => startAutoFlip(), 1000);
     });
 
     profileCard.addEventListener('touchmove', (e) => {
-        if (!isFlipped) return;
+        if (!isTouching) return;
         e.preventDefault();
         const touch = e.touches[0];
-        apply3DEffect(touch.clientX, touch.clientY);
+        mouseX = touch.clientX;
+        mouseY = touch.clientY;
+        apply3DEffect();
     });
 
     // Pornim auto-flip-ul inițial
     startAutoFlip();
     reset3DEffect();
-}
 
+    // Adăugăm și un mic efect de "breathing" când nu e hover
+    function addBreathingEffect() {
+        if (!isHovering) {
+            const time = Date.now() * 0.001;
+            const subtleMove = Math.sin(time) * 0.5;
+            profileCard.style.transform = `
+                perspective(${perspective}px)
+                rotateX(${subtleMove}deg)
+                rotateY(${subtleMove}deg)
+            `;
+        }
+        requestAnimationFrame(addBreathingEffect);
+    }
+
+    // Pornim efectul de breathing
+    addBreathingEffect();
+}
 // Initialize Skill Bars
 function initSkillBars() {
     const matrixItems = document.querySelectorAll('.matrix-item');
