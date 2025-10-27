@@ -63,38 +63,108 @@ function createParticles() {
         particlesContainer.appendChild(particle);
     }
 }
-
 function init3DProfileCard() {
-  const profileCard = document.querySelector('.profile-card-3d');
-  if (!profileCard) return;
+    const profileCard = document.querySelector('.profile-card-3d');
+    if (!profileCard) return;
 
-  let isFlipped = false;
+    let isFlipped = false;
+    let isHovering = false;
+    let autoFlipInterval;
 
-  // Auto-flip every 8 seconds
-  setInterval(() => {
-    isFlipped = !isFlipped;
-    profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-  }, 8000);
+    // Configurații pentru sensibilitate
+    const sensitivity = 0.5; // Lower = less sensitive (0.1 - 1.0)
+    const maxRotation = 15; // Grade maxime de rotatie
 
-  // Click to flip
-  profileCard.addEventListener('click', () => {
-    isFlipped = !isFlipped;
-    profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
-  });
+    // Funcție pentru auto-flip
+    function startAutoFlip() {
+        autoFlipInterval = setInterval(() => {
+            if (!isHovering) { // Auto-flip doar dacă nu hover
+                isFlipped = !isFlipped;
+                profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+                reset3DEffect(); // Resetăm efectul 3D la flip
+            }
+        }, 8000);
+    }
 
-  // Mouse move effect (only active when flipped)
-  document.addEventListener('mousemove', (e) => {
-    if (!isFlipped) return;
+    // Resetare efect 3D
+    function reset3DEffect() {
+        profileCard.style.transform = `rotateY(${isFlipped ? 180 : 0}deg)`;
+    }
 
-    const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-    const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+    // Aplică efect 3D smooth
+    function apply3DEffect(x, y) {
+        if (!isFlipped) return; // Efect doar pe spate
 
-    profileCard.style.transform = `
-      rotateY(180deg)
-      rotateX(${yAxis}deg)
-      rotateY(${xAxis}deg)
-    `;
-  });
+        const cardRect = profileCard.getBoundingClientRect();
+        const cardCenterX = cardRect.left + cardRect.width / 2;
+        const cardCenterY = cardRect.top + cardRect.height / 2;
+        
+        // Calcul rotatie bazat pe pozitia mouse-ului
+        const rotateY = ((e.clientX - cardCenterX) / cardRect.width) * maxRotation * sensitivity;
+        const rotateX = ((cardCenterY - e.clientY) / cardRect.height) * maxRotation * sensitivity;
+        
+        // Aplică transformări cu tranziție smooth
+        profileCard.style.transform = `
+            rotateY(${isFlipped ? 180 + rotateY : rotateY}deg)
+            rotateX(${rotateX}deg)
+            scale3d(1.02, 1.02, 1.02)
+        `;
+    }
+
+    // Event listeners
+    profileCard.addEventListener('click', (e) => {
+        e.stopPropagation();
+        isFlipped = !isFlipped;
+        reset3DEffect();
+    });
+
+    // Hover events
+    profileCard.addEventListener('mouseenter', () => {
+        isHovering = true;
+        clearInterval(autoFlipInterval); // Oprim auto-flip când hover
+        profileCard.style.transition = 'transform 0.3s ease';
+    });
+
+    profileCard.addEventListener('mouseleave', () => {
+        isHovering = false;
+        reset3DEffect();
+        profileCard.style.transition = 'transform 0.5s ease';
+        startAutoFlip(); // Repornim auto-flip
+    });
+
+    // Mouse move cu throttling pentru performanță
+    let mouseMoveTimeout;
+    document.addEventListener('mousemove', (e) => {
+        if (!isHovering || !isFlipped) return;
+
+        // Throttling pentru performanță
+        clearTimeout(mouseMoveTimeout);
+        mouseMoveTimeout = setTimeout(() => {
+            apply3DEffect(e.clientX, e.clientY);
+        }, 16); // ~60fps
+    });
+
+    // Touch events pentru dispozitive mobile
+    profileCard.addEventListener('touchstart', (e) => {
+        isHovering = true;
+        clearInterval(autoFlipInterval);
+    });
+
+    profileCard.addEventListener('touchend', () => {
+        isHovering = false;
+        setTimeout(() => startAutoFlip(), 1000);
+    });
+
+    profileCard.addEventListener('touchmove', (e) => {
+        if (!isFlipped) return;
+        e.preventDefault();
+        const touch = e.touches[0];
+        apply3DEffect(touch.clientX, touch.clientY);
+    });
+
+    // Pornim auto-flip-ul inițial
+    startAutoFlip();
+    reset3DEffect();
 }
 
 // Initialize Skill Bars
