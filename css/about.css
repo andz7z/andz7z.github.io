@@ -1046,36 +1046,3 @@
   padding: 120px 0;
   overflow: hidden;
 }
-.profile-card-3d {
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.card-front,
-.card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  transition: opacity 0.6s ease, filter 0.6s ease;
-}
-
-.card-front {
-  opacity: 1;
-  z-index: 2;
-}
-
-.card-back {
-  transform: rotateY(180deg);
-  opacity: 0;
-  z-index: 1;
-}
-
-/* Glow subtil când se întoarce */
-.profile-card-3d.flipping {
-  box-shadow: 0 0 80px rgba(255, 255, 255, 0.2);
-}
