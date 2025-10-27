@@ -35,7 +35,7 @@
 /* --- Stilul General al Secțiunii --- */
 .services-section {
     background: var(--color-black);
-    padding: 60px 0;
+    padding: 40px 0;
     position: relative;
     overflow: hidden;
     color: var(--color-grey-light);
@@ -45,7 +45,7 @@
 .services-section .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 10px;
     position: relative;
     z-index: 2;
 }
@@ -53,9 +53,9 @@
 /* --- Titluri (Efect Metalic) --- */
 .services-section .section-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     line-height: 1.2;
     
     /* Efect de gradient metalic */
@@ -76,10 +76,10 @@
 
 .services-section .section-description {
     font-family: var(--font-body);
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
     text-align: center;
     color: var(--color-grey-mid);
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
@@ -106,7 +106,7 @@
 /* --- Structura Slider-ului --- */
 .services-slider-wrapper {
     position: relative;
-    width: 100%;
+    width: 95%;
     margin: 0 auto;
     overflow: hidden;
     
@@ -115,7 +115,7 @@
     border: 1px solid var(--glass-border);
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
-    border-radius: 16px;
+    border-radius: 12px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -128,14 +128,18 @@
 .service-slide {
     width: calc(100% / 3);
     box-sizing: border-box;
-    padding: 30px 20px;
+    padding: 20px 15px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
 }
 
 .service-grid {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
+    width: 100%;
 }
 
 /* --- Linia Gradient Timer --- */
@@ -144,23 +148,33 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: 4px;
     background: rgba(255, 255, 255, 0.1);
     z-index: 5;
     overflow: hidden;
+    border-radius: 2px;
 }
 
 .timer-progress {
     width: 0%;
     height: 100%;
     background: linear-gradient(90deg, 
-        #ffffff, 
-        #cccccc, 
-        #aaaaaa, 
-        #888888, 
-        #666666
+        #ff0000,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #ff00ff,
+        #ff0000
     );
+    background-size: 200% 100%;
+    animation: gradientShift 3s linear infinite;
     transition: width var(--slider-duration) linear;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .services-slider-wrapper.autoplay-active .timer-progress {
@@ -176,7 +190,7 @@
 }
 
 .service-icon {
-    font-size: clamp(5rem, 12vw, 10rem);
+    font-size: clamp(3rem, 10vw, 6rem);
     color: var(--color-white);
     transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
@@ -210,33 +224,33 @@
 /* --- Partea Dreaptă: Conținut --- */
 .service-content .service-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
     color: var(--color-white);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     line-height: 1.3;
 }
 
 .service-content .service-info {
     font-family: var(--font-body);
-    font-size: clamp(1rem, 2.5vw, 1.1rem);
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
     color: var(--color-grey-light);
-    line-height: 1.6;
-    margin-bottom: 20px;
+    line-height: 1.5;
+    margin-bottom: 15px;
 }
 
 .service-advantages {
     list-style: none;
     padding-left: 0;
     font-family: var(--font-body);
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .service-advantages li {
     position: relative;
-    padding-left: 30px;
-    margin-bottom: 12px;
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    line-height: 1.5;
+    padding-left: 25px;
+    margin-bottom: 8px;
+    font-size: clamp(0.85rem, 2vw, 0.9rem);
+    line-height: 1.4;
 }
 
 .service-advantages li::before {
@@ -251,22 +265,22 @@
 
 /* --- Secțiunea "Why Me?" --- */
 .why-me-container {
-    margin-top: 25px;
-    padding: 20px 15px;
+    margin-top: 15px;
+    padding: 15px 12px;
     
     background: rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    border-radius: 8px;
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
 
 .why-me-container h4 {
     font-family: var(--font-heading);
-    font-size: clamp(1.3rem, 3vw, 1.5rem);
+    font-size: clamp(1.1rem, 2.8vw, 1.3rem);
     color: var(--color-white);
-    margin: 0 0 15px 0;
-    padding-bottom: 10px;
+    margin: 0 0 10px 0;
+    padding-bottom: 8px;
     border-bottom: 1px solid var(--glass-border);
 }
 
@@ -279,10 +293,10 @@
 
 .why-me-list li {
     position: relative;
-    padding-left: 25px;
-    margin-bottom: 10px;
-    font-size: clamp(0.85rem, 2vw, 0.95rem);
-    line-height: 1.5;
+    padding-left: 20px;
+    margin-bottom: 6px;
+    font-size: clamp(0.8rem, 1.8vw, 0.85rem);
+    line-height: 1.4;
 }
 
 .why-me-list li::before {
@@ -311,10 +325,10 @@
     -webkit-backdrop-filter: var(--glass-blur);
     
     color: var(--color-white);
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
@@ -335,27 +349,27 @@
 }
 
 .prev-slide {
-    left: 15px;
+    left: 10px;
 }
 
 .next-slide {
-    right: 15px;
+    right: 10px;
 }
 
 /* Puncte */
 .slider-dots {
     position: absolute;
-    bottom: 15px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 10px;
+    gap: 8px;
     z-index: 10;
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     cursor: pointer;
     
@@ -374,8 +388,8 @@
 
 .dot.active {
     background: var(--color-white);
-    transform: scale(1.2);
-    box-shadow: 0 0 10px var(--color-white);
+    transform: scale(1.3);
+    box-shadow: 0 0 8px var(--color-white);
 }
 
 /* --- Responsive Design --- */
@@ -383,18 +397,22 @@
 /* Tablet */
 @media (max-width: 900px) {
     .services-section {
-        padding: 50px 0;
+        padding: 30px 0;
+    }
+    
+    .services-slider-wrapper {
+        width: 92%;
     }
     
     .service-grid {
         grid-template-columns: 1fr;
-        gap: 25px;
+        gap: 15px;
         text-align: center;
     }
     
     .service-icon {
-        font-size: clamp(4rem, 15vw, 7rem);
-        margin-bottom: 15px;
+        font-size: clamp(2.5rem, 12vw, 4.5rem);
+        margin-bottom: 10px;
     }
 
     .service-content {
@@ -402,68 +420,14 @@
     }
 
     .service-slide {
-        padding: 25px 20px;
-    }
-
-    .slider-nav {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-    }
-    
-    .prev-slide { 
-        left: 10px; 
-    }
-    
-    .next-slide { 
-        right: 10px; 
-    }
-    
-    .slider-dots {
-        bottom: 10px;
-    }
-}
-
-/* Telefon */
-@media (max-width: 600px) {
-    .services-section {
-        padding: 40px 0;
-    }
-    
-    .services-section .container {
-        padding: 0 10px;
-    }
-    
-    .services-slider-wrapper {
-        border-radius: 12px;
-    }
-    
-    .service-slide {
-        padding: 20px 15px;
-    }
-    
-    .service-grid {
-        gap: 20px;
-    }
-    
-    .service-icon {
-        font-size: clamp(3.5rem, 20vw, 5rem);
-    }
-    
-    .service-advantages li,
-    .why-me-list li {
-        padding-left: 25px;
-    }
-    
-    .why-me-container {
-        margin-top: 20px;
         padding: 15px 12px;
+        min-height: 350px;
     }
-    
+
     .slider-nav {
         width: 35px;
         height: 35px;
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
     
     .prev-slide { 
@@ -474,36 +438,105 @@
         right: 8px; 
     }
     
-    .dot {
-        width: 8px;
-        height: 8px;
+    .slider-dots {
+        bottom: 8px;
     }
     
     .slider-timer {
-        height: 2px;
+        height: 3px;
+    }
+}
+
+/* Telefon */
+@media (max-width: 600px) {
+    .services-section {
+        padding: 20px 0;
+    }
+    
+    .services-section .container {
+        padding: 0 8px;
+    }
+    
+    .services-slider-wrapper {
+        width: 90%;
+        border-radius: 10px;
+    }
+    
+    .service-slide {
+        padding: 12px 10px;
+        min-height: 300px;
+    }
+    
+    .service-grid {
+        gap: 12px;
+    }
+    
+    .service-icon {
+        font-size: clamp(2rem, 15vw, 3.5rem);
+    }
+    
+    .service-advantages li,
+    .why-me-list li {
+        padding-left: 20px;
+        margin-bottom: 6px;
+    }
+    
+    .why-me-container {
+        margin-top: 12px;
+        padding: 12px 10px;
+    }
+    
+    .slider-nav {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+    
+    .prev-slide { 
+        left: 6px; 
+    }
+    
+    .next-slide { 
+        right: 6px; 
+    }
+    
+    .dot {
+        width: 7px;
+        height: 7px;
+    }
+    
+    .slider-timer {
+        height: 3px;
     }
 }
 
 /* Telefon foarte mic */
 @media (max-width: 380px) {
     .service-slide {
-        padding: 15px 10px;
+        padding: 10px 8px;
+        min-height: 280px;
     }
     
     .service-advantages li {
-        padding-left: 22px;
-        margin-bottom: 8px;
+        padding-left: 18px;
+        margin-bottom: 5px;
+        font-size: 0.8rem;
     }
     
     .why-me-list li {
-        padding-left: 22px;
-        margin-bottom: 8px;
+        padding-left: 18px;
+        margin-bottom: 5px;
+        font-size: 0.8rem;
     }
     
     .slider-nav {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
         font-size: 0.8rem;
+    }
+    
+    .services-slider-wrapper {
+        width: 88%;
     }
 }
 
@@ -518,7 +551,8 @@
         transition: none;
     }
     
-    .slider-timer {
+    .slider-timer,
+    .timer-progress {
         display: none;
     }
     
@@ -530,18 +564,23 @@
 /* Orientare landscape pe telefoane */
 @media (max-height: 500px) and (orientation: landscape) {
     .services-section {
-        padding: 30px 0;
+        padding: 15px 0;
     }
     
     .service-slide {
-        padding: 20px 15px;
+        padding: 15px 10px;
+        min-height: 250px;
     }
     
     .service-icon {
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
     
     .service-grid {
-        gap: 20px;
+        gap: 15px;
+    }
+    
+    .services-slider-wrapper {
+        width: 85%;
     }
 }
