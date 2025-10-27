@@ -7,29 +7,26 @@ window.addEventListener("load", () => {
   const overlay = document.querySelector(".loader-overlay");
   const mainContent = document.querySelector("main");
 
-  // Dacă elementele nu există → arată direct conținutul
-  if (!loader || !mainContent) {
-    console.warn("Loader elements missing → skipping loader.");
-    mainContent.style.opacity = "1";
-    return;
-  }
-
+  // Ascunde instant conținutul în spate
   mainContent.style.opacity = "0";
+
+  setTimeout(() => {
+    video.style.filter = "blur(0px)";
+    video.style.opacity = "1";
+    overlay.style.opacity = "0";
+  }, 500);
 
   const closeLoader = () => {
     loader.classList.add("fade-out");
     setTimeout(() => {
       loader.style.display = "none";
-      mainContent.style.opacity = "1";
-    }, 700);
+      mainContent.style.opacity = "1"; // Afișare instant
+    }, 2000);
   };
 
-  if (video) {
-    video.addEventListener("ended", closeLoader);
-    setTimeout(closeLoader, 9000);
-  } else {
-    closeLoader(); // fallback dacă lipsește video
-  }
+  video.addEventListener("ended", closeLoader);
+
+  setTimeout(closeLoader, 9000); // fallback
 });
 // =======================
 // NAV BAR & BURGER MENU SCRIPT
