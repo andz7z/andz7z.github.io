@@ -68,57 +68,63 @@ function init3DProfileCard() {
     if (!profileCard) return;
 
     let isHovering = false;
+    let isFlipped = false;
     let autoFlipInterval;
     let mouseX = 0;
     let mouseY = 0;
 
     // Configurații pentru sensibilitate
-    const sensitivity = 0.8; // Lower = less sensitive (0.1 - 1.0)
-    const maxRotation = 20; // Grade maxime de rotatie
-    const perspective = 1000; // Perspectiva pentru efect 3D
+    const sensitivity = 0.8;
+    const maxRotation = 20;
+    const perspective = 1000;
 
     // Setăm perspectiva inițială
-    profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg)`;
+    reset3DEffect();
 
-    // Funcție pentru auto-flip (opțional)
+    // Funcție pentru auto-flip
     function startAutoFlip() {
         autoFlipInterval = setInterval(() => {
-            if (!isHovering) { // Auto-flip doar dacă nu hover
-                profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-                profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(180deg)`;
-                
-                // După flip, revenim la față
-                setTimeout(() => {
-                    if (!isHovering) {
-                        profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-                        profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg)`;
-                    }
-                }, 3000);
+            if (!isHovering) {
+                flipCard();
             }
-        }, 10000); // Flip la fiecare 10 secunde
+        }, 10000);
     }
 
-    // Aplică efect 3D smooth bazat pe poziția mouse-ului
-    function apply3DEffect() {
-        if (!isHovering) return;
+    // Funcție pentru flip
+    function flipCard() {
+        isFlipped = !isFlipped;
+        applyCurrentTransform();
+    }
 
+    // Aplică transformarea curentă (3D + flip)
+    function applyCurrentTransform() {
+        if (!isHovering) {
+            // Mod normal - doar flip fără efect 3D
+            profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            profileCard.style.transform = `perspective(${perspective}px) rotateY(${isFlipped ? 180 : 0}deg)`;
+        } else {
+            // Mod hover - flip + efect 3D
+            apply3DEffect();
+        }
+    }
+
+    // Aplică efect 3D smooth
+    function apply3DEffect() {
         const cardRect = profileCard.getBoundingClientRect();
         const cardCenterX = cardRect.left + cardRect.width / 2;
         const cardCenterY = cardRect.top + cardRect.height / 2;
         
-        // Calcul rotatie bazat pe pozitia mouse-ului
         const rotateY = ((mouseX - cardCenterX) / cardRect.width) * maxRotation * sensitivity;
         const rotateX = ((cardCenterY - mouseY) / cardRect.height) * maxRotation * sensitivity;
         
-        // Adăugăm și o ușoară translație pentru efect mai dinamic
         const translateX = ((mouseX - cardCenterX) / cardRect.width) * 10;
         const translateY = ((mouseY - cardCenterY) / cardRect.height) * 10;
         
-        // Aplică transformări cu efect 3D complet
+        // Aplică flip + efect 3D
         profileCard.style.transform = `
             perspective(${perspective}px)
+            rotateY(${isFlipped ? 180 + rotateY : rotateY}deg)
             rotateX(${rotateX}deg)
-            rotateY(${rotateY}deg)
             translateX(${translateX}px)
             translateY(${translateY}px)
             scale3d(1.02, 1.02, 1.02)
@@ -128,30 +134,27 @@ function init3DProfileCard() {
     // Resetare efect 3D
     function reset3DEffect() {
         profileCard.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
-        profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(0deg)`;
+        profileCard.style.transform = `perspective(${perspective}px) rotateY(${isFlipped ? 180 : 0}deg)`;
     }
 
     // Event listeners
     profileCard.addEventListener('click', (e) => {
         e.stopPropagation();
-        // Flip manual la click
-        const currentRotation = profileCard.style.transform.includes('180deg') ? 0 : 180;
-        profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-        profileCard.style.transform = `perspective(${perspective}px) rotateX(0deg) rotateY(${currentRotation}deg)`;
+        flipCard();
     });
 
     // Hover events
     profileCard.addEventListener('mouseenter', () => {
         isHovering = true;
-        clearInterval(autoFlipInterval); // Oprim auto-flip când hover
-        profileCard.style.transition = 'transform 0.1s ease-out'; // Tranziție rapidă pentru tracking
+        clearInterval(autoFlipInterval);
+        profileCard.style.transition = 'transform 0.1s ease-out';
     });
 
     profileCard.addEventListener('mouseleave', () => {
         isHovering = false;
         profileCard.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
         reset3DEffect();
-        startAutoFlip(); // Repornim auto-flip
+        startAutoFlip();
     });
 
     // Mouse move tracking
@@ -162,14 +165,13 @@ function init3DProfileCard() {
 
         if (!isHovering) return;
 
-        // Throttling pentru performanță
         clearTimeout(mouseMoveTimeout);
         mouseMoveTimeout = setTimeout(() => {
             apply3DEffect();
-        }, 16); // ~60fps
+        }, 16);
     });
 
-    // Touch events pentru dispozitive mobile
+    // Touch events
     let isTouching = false;
     
     profileCard.addEventListener('touchstart', (e) => {
@@ -200,21 +202,20 @@ function init3DProfileCard() {
     startAutoFlip();
     reset3DEffect();
 
-    // Adăugăm și un mic efect de "breathing" când nu e hover
+    // Efect de breathing doar când nu e flipped și nu e hover
     function addBreathingEffect() {
-        if (!isHovering) {
+        if (!isHovering && !isFlipped) {
             const time = Date.now() * 0.001;
             const subtleMove = Math.sin(time) * 0.5;
             profileCard.style.transform = `
                 perspective(${perspective}px)
+                rotateY(${isFlipped ? 180 : subtleMove}deg)
                 rotateX(${subtleMove}deg)
-                rotateY(${subtleMove}deg)
             `;
         }
         requestAnimationFrame(addBreathingEffect);
     }
 
-    // Pornim efectul de breathing
     addBreathingEffect();
 }
 // Initialize Skill Bars
