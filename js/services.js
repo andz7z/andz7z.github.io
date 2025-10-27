@@ -65,8 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Forțăm un reflow
             void timerProgress.offsetWidth;
             
-            // Pornim animația cu tranziție
-            timerProgress.style.transition = `width var(--slider-duration) linear`;
+            // Pornim animația cu tranziție - CORECTAT AICI
+            timerProgress.style.transition = 'width var(--slider-duration) linear';
             timerProgress.style.width = '100%';
             
             // Adăugăm clasa pentru autoplay activ
