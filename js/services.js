@@ -1,372 +1,130 @@
-// Services Section JavaScript - Improved Version
-document.addEventListener('DOMContentLoaded', function() {
-    // Elemente principale
-    const servicesSection = document.querySelector('.services-section');
-    const slides = document.querySelectorAll('.service-slide');
-    const indicators = document.querySelectorAll('.indicator');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const featureBars = document.querySelectorAll('.feature-progress');
+// Așteptăm ca tot conținutul paginii să fie încărcat
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Selectăm elementele DOAR din interiorul secțiunii #services
+    const servicesSection = document.getElementById('services');
     
-    let currentSlide = 0;
-    let autoSlideInterval;
-    let isAnimating = false;
-    let slideDuration = 8000; // 8 secunde între slide-uri (mai lent)
-    let timerInterval;
+    // Verificăm dacă secțiunea există, ca să nu ruleze scriptul degeaba
+    if (servicesSection) {
 
-    // Inițializare
-    function initServices() {
-        // Creează timer-ul vizual
-        createTimer();
+        // --- 1. Logica Slider-ului ---
+        const sliderWrapper = servicesSection.querySelector('.services-slider-wrapper');
+        const slider = servicesSection.querySelector('.services-slider');
+        const slides = servicesSection.querySelectorAll('.service-slide');
+        const prevBtn = servicesSection.querySelector('.prev-slide');
+        const nextBtn = servicesSection.querySelector('.next-slide');
+        const dots = servicesSection.querySelectorAll('.dot');
         
-        // Setează progresul pentru barele de features
-        setFeatureProgress();
-        
-        // Pornește slide-ul automat
-        startAutoSlide();
-        
-        // Activează animațiile la scroll
-        initScrollAnimations();
-        
-        // Adaugă event listeners
-        addEventListeners();
-        
-        // Activează primul slide
-        activateSlide(currentSlide);
-    }
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        let autoSlideInterval;
 
-    // Creează timer-ul vizual
-    function createTimer() {
-        const timerHTML = `
-            <div class="slider-timer">
-                <div class="timer-progress"></div>
-            </div>
-        `;
-        document.querySelector('.services-slider').insertAdjacentHTML('afterbegin', timerHTML);
-    }
-
-    // Start timer animation
-    function startTimer() {
-        const timerProgress = document.querySelector('.timer-progress');
-        if (!timerProgress) return;
-        
-        // Resetează timer-ul
-        timerProgress.style.transition = 'none';
-        timerProgress.style.width = '0%';
-        
-        // Force reflow
-        timerProgress.offsetHeight;
-        
-        // Start animația
-        timerProgress.style.transition = `width ${slideDuration}ms linear`;
-        timerProgress.style.width = '100%';
-    }
-
-    // Stop timer animation
-    function stopTimer() {
-        const timerProgress = document.querySelector('.timer-progress');
-        if (timerProgress) {
-            timerProgress.style.transition = 'none';
-            timerProgress.style.width = '0%';
-        }
-    }
-
-    // Setează progresul pentru barele de features
-    function setFeatureProgress() {
-        featureBars.forEach(bar => {
-            const progressValue = bar.getAttribute('data-value');
-            bar.style.setProperty('--progress-width', `${progressValue}%`);
-        });
-    }
-
-    // Navigare la slide-ul specificat
-    function goToSlide(slideIndex) {
-        if (isAnimating || slideIndex === currentSlide) return;
-        
-        isAnimating = true;
-        stopTimer(); // Oprește timer-ul curent
-        
-        // Dezactivează slide-ul curent
-        slides[currentSlide].classList.remove('active');
-        slides[currentSlide].classList.add('prev');
-        
-        // Actualizează indicatorii
-        indicators[currentSlide].classList.remove('active');
-        
-        // Actualizează indexul curent
-        currentSlide = slideIndex;
-        
-        // Activează noul slide
-        setTimeout(() => {
-            slides.forEach(slide => slide.classList.remove('prev'));
-            slides[currentSlide].classList.add('active');
-            indicators[currentSlide].classList.add('active');
-            
-            // Resetează și reanimează barele de progres
-            resetAndAnimateProgressBars();
-            
-            isAnimating = false;
-            
-            // Restartează timer-ul pentru noul slide
-            startTimer();
-        }, 400);
-        
-        // Reîncepe auto-slide
-        restartAutoSlide();
-    }
-
-    // Slide următor
-    function nextSlide() {
-        const nextIndex = (currentSlide + 1) % slides.length;
-        goToSlide(nextIndex);
-    }
-
-    // Slide anterior
-    function prevSlide() {
-        const prevIndex = (currentSlide - 1 + slides.length) % slides.length;
-        goToSlide(prevIndex);
-    }
-
-    // Activează un slide specific
-    function activateSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active', 'prev'));
-        indicators.forEach(indicator => indicator.classList.remove('active'));
-        
-        slides[index].classList.add('active');
-        indicators[index].classList.add('active');
-        currentSlide = index;
-        
-        // Pornește timer-ul
-        startTimer();
-        
-        // Animează barele de progres
-        setTimeout(() => {
-            animateProgressBars();
-        }, 500);
-    }
-
-    // Resetează și reanimează barele de progres
-    function resetAndAnimateProgressBars() {
-        const activeSlide = slides[currentSlide];
-        const progressBars = activeSlide.querySelectorAll('.feature-progress');
-        
-        // Resetează lățimea
-        progressBars.forEach(bar => {
-            bar.style.width = '0';
-        });
-        
-        // Animează după o scurtă întârziere
-        setTimeout(() => {
-            animateProgressBars();
-        }, 300);
-    }
-
-    // Animează barele de progres
-    function animateProgressBars() {
-        const activeSlide = slides[currentSlide];
-        const progressBars = activeSlide.querySelectorAll('.feature-progress');
-        
-        progressBars.forEach((bar, index) => {
-            const progressValue = bar.getAttribute('data-value');
-            setTimeout(() => {
-                bar.style.width = `${progressValue}%`;
-                bar.style.transition = 'width 1.2s cubic-bezier(0.4, 0, 0.2, 1)';
-                
-                // Adaugă efect de "bounce" la final
-                setTimeout(() => {
-                    bar.style.transform = 'scaleX(1.02)';
-                    setTimeout(() => {
-                        bar.style.transform = 'scaleX(1)';
-                    }, 150);
-                }, 1200);
-            }, index * 200);
-        });
-    }
-
-    // Slide automat
-    function startAutoSlide() {
-        autoSlideInterval = setInterval(() => {
-            if (!isAnimating) {
-                nextSlide();
+        // Funcția principală care mișcă slider-ul
+        function goToSlide(slideIndex) {
+            // Validare index
+            if (slideIndex < 0) {
+                slideIndex = totalSlides - 1;
+            } else if (slideIndex >= totalSlides) {
+                slideIndex = 0;
             }
-        }, slideDuration);
-    }
 
-    function stopAutoSlide() {
-        clearInterval(autoSlideInterval);
-        stopTimer();
-    }
+            // Mișcarea slider-ului
+            slider.style.transform = `translateX(-${slideIndex * (100 / totalSlides)}%)`;
+            currentSlide = slideIndex;
 
-    function restartAutoSlide() {
-        stopAutoSlide();
+            // Actualizarea punctelor (dots)
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+        }
+
+        // Funcții pentru butoane
+        function slideNext() {
+            goToSlide(currentSlide + 1);
+        }
+
+        function slidePrev() {
+            goToSlide(currentSlide - 1);
+        }
+
+        // Evenimente pentru butoane
+        nextBtn.addEventListener('click', () => {
+            slideNext();
+            resetAutoSlide(); // Resetăm timer-ul la click manual
+        });
+
+        prevBtn.addEventListener('click', () => {
+            slidePrev();
+            resetAutoSlide();
+        });
+
+        // Evenimente pentru puncte
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                goToSlide(index);
+                resetAutoSlide();
+            });
+        });
+
+        // Funcție pentru auto-play
+        function startAutoSlide() {
+            autoSlideInterval = setInterval(slideNext, 7000); // Schimbă slide-ul la fiecare 7 secunde
+        }
+
+        function resetAutoSlide() {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        }
+
+        // Oprim auto-play-ul la hover pe slider
+        sliderWrapper.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+
+        // Repornim auto-play-ul la ieșirea mouse-ului
+        sliderWrapper.addEventListener('mouseleave', () => {
+            startAutoSlide();
+        });
+
+        // Pornim auto-play-ul inițial
         startAutoSlide();
-    }
+        goToSlide(0); // Setăm starea inițială
 
-    // Animații la scroll
-    function initScrollAnimations() {
+        // --- 2. Logica Animației la Scroll (Intersection Observer) ---
+        const elementsToAnimate = servicesSection.querySelectorAll('.animate-on-scroll');
+
         const observerOptions = {
-            threshold: 0.3,
-            rootMargin: '0px 0px -50px 0px'
+            root: null, // Folosește viewport-ul
+            rootMargin: '0px',
+            threshold: 0.1 // Activează când 10% din element e vizibil
         };
 
-        const sectionObserver = new IntersectionObserver((entries) => {
+        const observerCallback = (entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('in-view');
+                    // Adăugăm clasa 'visible'
+                    entry.target.classList.add('visible');
                     
-                    // Restartează auto-slide când secțiunea devine vizibilă
-                    restartAutoSlide();
+                    // Aplicăm delay-ul dacă există
+                    const delay = entry.target.getAttribute('data-delay');
+                    if (delay) {
+                        entry.target.style.transitionDelay = `${delay * 0.15}s`;
+                    }
                     
-                    // Activează animațiile pentru slide-ul curent
-                    setTimeout(() => {
-                        animateProgressBars();
-                    }, 800);
-                } else {
-                    // Oprește auto-slide când secțiunea nu este vizibilă
-                    stopAutoSlide();
-                }
-            });
-        }, observerOptions);
-
-        sectionObserver.observe(servicesSection);
-    }
-
-    // Efecte de hover pentru butoane
-    function addButtonHoverEffects() {
-        const buttons = document.querySelectorAll('.nav-btn, .indicator');
-        
-        buttons.forEach(button => {
-            button.addEventListener('mouseenter', function() {
-                if (window.matchMedia("(hover: hover)").matches) {
-                    this.style.transform = 'scale(1.1)';
-                    this.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.4)';
-                }
-            });
-            
-            button.addEventListener('mouseleave', function() {
-                if (window.matchMedia("(hover: hover)").matches) {
-                    this.style.transform = 'scale(1)';
-                    this.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.2)';
-                }
-            });
-        });
-    }
-    // Adaugă toate event listener-ele
-    function addEventListeners() {
-        // Butoane de navigare
-        prevBtn.addEventListener('click', prevSlide);
-        nextBtn.addEventListener('click', nextSlide);
-        
-        // Indicatori
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', () => goToSlide(index));
-        });
-        
-        // Pause auto-slide on hover/interaction
-        servicesSection.addEventListener('mouseenter', stopAutoSlide);
-        servicesSection.addEventListener('mouseleave', () => {
-            if (servicesSection.classList.contains('in-view')) {
-                startAutoSlide();
-            }
-        });
-        
-        // Pause on touch
-        servicesSection.addEventListener('touchstart', stopAutoSlide);
-        servicesSection.addEventListener('touchend', () => {
-            if (servicesSection.classList.contains('in-view')) {
-                setTimeout(() => startAutoSlide(), 3000); // Restartează după 3 secunde
-            }
-        });
-        
-        // Efecte de hover
-        addButtonHoverEffects();
-    }
-
-    // Efect de tranziție între slide-uri
-    function enhanceSlideTransitions() {
-        const transitionOverlay = document.createElement('div');
-        transitionOverlay.className = 'slide-transition-overlay';
-        transitionOverlay.style.cssText = `
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(0,0,0,0.8) 0%, transparent 50%, rgba(0,0,0,0.8) 100%);
-            opacity: 0;
-            pointer-events: none;
-            z-index: 10;
-            transition: opacity 0.3s ease;
-        `;
-        servicesSection.querySelector('.services-slider').appendChild(transitionOverlay);
-        
-        const originalGoToSlide = goToSlide;
-        goToSlide = function(slideIndex) {
-            if (isAnimating || slideIndex === currentSlide) return;
-            
-            // Show transition overlay
-            transitionOverlay.style.opacity = '1';
-            
-            setTimeout(() => {
-                originalGoToSlide(slideIndex);
-                
-                // Hide transition overlay
-                setTimeout(() => {
-                    transitionOverlay.style.opacity = '0';
-                }, 400);
-            }, 150);
-        };
-    }
-
-    // Efect de lumină pentru slide-ul activ
-    function addActiveSlideGlow() {
-        const updateSlideGlow = () => {
-            slides.forEach((slide, index) => {
-                if (index === currentSlide) {
-                    slide.style.boxShadow = '0 0 40px rgba(255, 255, 255, 0.15)';
-                    slide.style.borderColor = 'rgba(255, 255, 255, 0.3)';
-                } else {
-                    slide.style.boxShadow = 'none';
-                    slide.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+                    // Oprim observarea elementului după ce a fost animat
+                    observer.unobserve(entry.target);
                 }
             });
         };
-        
-        const originalGoToSlide = goToSlide;
-        goToSlide = function(slideIndex) {
-            originalGoToSlide(slideIndex);
-            setTimeout(updateSlideGlow, 500);
-        };
-        
-        updateSlideGlow();
+
+        // Creăm și pornim observer-ul
+        const scrollObserver = new IntersectionObserver(observerCallback, observerOptions);
+        elementsToAnimate.forEach(el => {
+            scrollObserver.observe(el);
+        });
     }
-
-    // Detectează dispozitivul și ajustează setările
-    function detectDeviceAndAdjust() {
-        if ('ontouchstart' in window || navigator.maxTouchPoints) {
-            // Dispozitiv touch
-            slideDuration = 10000; // 10 secunde pentru dispozitive mobile
-        } else {
-            // Desktop
-            slideDuration = 8000; // 8 secunde pentru desktop
-        }
-    }
-
-    // Inițializează toate funcționalitățile
-    detectDeviceAndAdjust();
-    initServices();
-    enhanceSlideTransitions();
-    addActiveSlideGlow();
-
-    // Expune funcțiile globale pentru debugging (opțional)
-    window.services = {
-        nextSlide,
-        prevSlide,
-        goToSlide,
-        currentSlide: () => currentSlide,
-        stopAutoSlide,
-        startAutoSlide
-    };
-
-    console.log('✅ Services section initialized successfully!');
 });
