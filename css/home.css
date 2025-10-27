@@ -7,7 +7,6 @@
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    background-color: #000; /* Fundal negru pentru black bars */
 }
 
 .video-container {
@@ -17,19 +16,12 @@
     width: 100%;
     height: 100%;
     z-index: -1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #000; /* Fundal negru pentru black bars */
 }
 
 .video-container video {
-    /* Păstrăm raportul de aspect original al video-ului */
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* Asigură că întregul video este vizibil */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .home-content {
@@ -45,28 +37,17 @@
 
 .text-content {
     margin-bottom: 20px;
-    width: 100%;
 }
 
-/* SLOGAN - Optimizat pentru Mobile */
+/* Slogan */
 .slogan {
-    font-size: clamp(1.2rem, 3.5vw, 2.5rem);
+    font-size: 3.5rem;
     font-weight: 700;
-    letter-spacing: 0.1rem;
-    margin-bottom: 1.5rem;
+    letter-spacing: 0.2rem;
+    margin-bottom: 2rem;
     text-transform: uppercase;
-    line-height: 1.3;
     opacity: 0;
     animation: fadeInUp 2s ease-out 0.5s forwards;
-    padding: 0 0.8rem;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    text-align: center;
-    /* Asigură că textul nu depășește containerul */
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    hyphens: auto;
 }
 
 .slogan-letter {
@@ -74,11 +55,9 @@
     transition: all 0.3s ease;
     opacity: 0;
     animation: letterFadeIn 0.8s ease-out forwards;
-    /* Spațiere mai mică pentru mobile */
-    letter-spacing: 0.08rem;
 }
 
-/* Animație corectată pentru fiecare literă */
+/* Animație corectată pentru fiecare literă - ordinea corectă */
 .slogan-letter:nth-child(1) { animation-delay: 1s; }
 .slogan-letter:nth-child(2) { animation-delay: 1.1s; }
 .slogan-letter:nth-child(3) { animation-delay: 1.2s; }
@@ -476,6 +455,14 @@
   animation: none;
 }
 
+/* VIDEO BACKGROUND */
+.video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #000;
+}
+
 /* CONTENT */
 .home-content {
     z-index: 1;
@@ -488,100 +475,98 @@
     padding-bottom: 80px;
     position: relative;
 }
+/* SLOGAN - Mobile Optimization */
+.slogan {
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.15rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    line-height: 1.2;
+    word-wrap: break-word;
+    opacity: 0;
+    animation: fadeInUp 2s ease-out 0.5s forwards;
+    padding: 0 1rem;
+    /* Adăugăm proprietăți pentru a asigura afișarea corectă */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
-/* 📱 MOBILE OPTIMIZATION - IMPROVED */
+/* 📱 MOBILE OPTIMIZATION */
 @media screen and (max-width: 768px) {
     .home-section {
         height: 100dvh;
-        min-height: -webkit-fill-available; /* Pentru Safari iOS */
     }
 
     .video-container video {
-        /* Păstrăm setările pentru mobile - se va adapta automat */
-        width: auto;
-        height: auto;
-        max-width: 100%;
-        max-height: 100%;
+        object-fit: contain;
+        transform: scale(1.05);
     }
 
     .home-content {
-        padding-bottom: 50px;
+        padding-bottom: 60px;
         justify-content: flex-end;
     }
 
-    .text-content {
-        margin-bottom: 15px;
-        width: 95%;
-        max-width: 95%;
-    }
-
     .slogan {
-        font-size: clamp(1rem, 3.2vw, 1.6rem);
-        letter-spacing: 0.05rem;
+        font-size: clamp(1rem, 4.5vw, 1.8rem);
+        letter-spacing: 0.08rem;
         margin-bottom: 1rem;
+        white-space: nowrap;
+        text-align: center;
         padding: 0 0.5rem;
-        line-height: 1.4;
-        /* Asigură că textul rămâne pe o singură linie și se scalează corect */
-        white-space: normal;
-        overflow: visible;
-        text-overflow: unset;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* Forțăm afișarea pe o singură linie */
         display: block;
-        width: 100%;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    /* Ajustare fină pentru litere */
+    /* Reducem spațiile dintre litere pentru ecrane mici */
     .slogan-letter {
-        letter-spacing: 0.03rem;
-        /* Permite scalarea mai bună */
-        transform-origin: center;
+        letter-spacing: 0.05rem;
     }
 
     .btn {
-        font-size: 0.8rem;
-        padding: 0.4em 0.7em;
-        border-radius: 20px;
-    }
-
-    .btn-svg {
-        height: 18px;
-        margin-right: 0.4rem;
+        font-size: 0.85rem;
+        padding: 0.45em 0.8em;
     }
 
     .scroll-indicator {
-        bottom: 20px;
+        bottom: 15px;
     }
 
     .arrow-down {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
     }
 }
 
-/* TELEFOANE FOARTE MICI - Soluție garantată */
+/* EXTRA SMALL DEVICES - Soluție pentru ecrane foarte mici */
 @media screen and (max-width: 480px) {
     .slogan {
-        font-size: clamp(0.85rem, 2.8vw, 1.3rem);
-        letter-spacing: 0.02rem;
-        margin-bottom: 0.8rem;
+        font-size: clamp(0.8rem, 4vw, 1.4rem);
+        letter-spacing: 0.03rem;
+        white-space: nowrap;
+        text-align: center;
         padding: 0 0.3rem;
-        /* Forțează afișarea completă */
+        /* Ajustare fină pentru ecrane foarte mici */
         transform: scale(0.95);
         transform-origin: center;
     }
 
+    /* Dacă tot nu încape, reducem și mai mult spațiile */
     .slogan-letter {
-        letter-spacing: 0.01rem;
-        /* Reducem spațiul dintre litere la minim */
-        margin-right: -0.01rem;
-    }
-
-    .home-content {
-        padding-bottom: 40px;
+        letter-spacing: 0.02rem;
     }
 
     .btn {
         font-size: 0.75rem;
-        padding: 0.35em 0.6em;
+        border-radius: 18px;
+        padding: 0.4em 0.7em;
     }
 
     .btn-svg {
@@ -589,58 +574,15 @@
     }
 }
 
-/* SOLUȚIE EXTREMĂ pentru ecrane sub 360px */
+/* Soluție de urgență pentru ecrane extrem de mici */
 @media screen and (max-width: 360px) {
     .slogan {
-        font-size: clamp(0.75rem, 2.5vw, 1.1rem);
-        letter-spacing: 0.005rem;
+        font-size: clamp(0.7rem, 3.5vw, 1.2rem);
+        letter-spacing: 0.01rem;
         transform: scale(0.9);
-        margin-bottom: 0.6rem;
-    }
-    
-    .slogan-letter {
-        letter-spacing: 0.005rem;
-        margin-right: -0.02rem;
     }
     
     .home-content {
-        padding-bottom: 30px;
+        padding-bottom: 40px;
     }
-
-    .btn {
-        font-size: 0.7rem;
-        padding: 0.3em 0.5em;
-    }
-}
-
-/* ORIENTARE LANDSCAPE pe telefoane */
-@media screen and (max-height: 500px) and (orientation: landscape) {
-    .home-content {
-        padding-bottom: 30px;
-    }
-    
-    .slogan {
-        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-        margin-bottom: 0.5rem;
-    }
-    
-    .btn {
-        font-size: 0.7rem;
-        padding: 0.25em 0.4em;
-    }
-
-    /* Pentru landscape, putem folosi cover pentru a umple ecranul */
-    .video-container video {
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-    }
-}
-
-/* VARIANTĂ ALTERNATIVĂ - Dacă vrei să controlezi mai precis dimensiunea video-ului */
-.video-container.alternative-size video {
-    /* Poți ajusta aceste valori pentru a controla mărimea video-ului */
-    width: 90%;
-    height: 90%;
-    object-fit: contain;
 }
