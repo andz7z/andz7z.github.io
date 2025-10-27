@@ -14,10 +14,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const prevBtn = servicesSection.querySelector('.prev-slide');
         const nextBtn = servicesSection.querySelector('.next-slide');
         const dots = servicesSection.querySelectorAll('.dot');
+        const timerProgress = servicesSection.querySelector('.timer-progress');
         
         let currentSlide = 0;
         const totalSlides = slides.length;
         let autoSlideInterval;
+        let timerAnimation;
 
         // Funcția principală care mișcă slider-ul
         function goToSlide(slideIndex) {
@@ -40,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     dot.classList.remove('active');
                 }
             });
+
+            // Resetăm și repornim timer-ul
+            resetTimer();
         }
 
         // Funcții pentru butoane
@@ -49,6 +54,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function slidePrev() {
             goToSlide(currentSlide - 1);
+        }
+
+        // Funcție pentru controlul timer-ului
+        function startTimer() {
+            // Resetăm progresul anterior
+            timerProgress.style.width = '0%';
+            timerProgress.style.transition = 'none';
+            
+            // Forțăm un reflow
+            void timerProgress.offsetWidth;
+            
+            // Pornim animația cu tranziție
+            timerProgress.style.transition = `width ${var(--slider-duration)} linear`;
+            timerProgress.style.width = '100%';
+            
+            // Adăugăm clasa pentru autoplay activ
+            sliderWrapper.classList.add('autoplay-active');
+        }
+
+        function resetTimer() {
+            // Oprim orice animație în curs
+            if (timerAnimation) {
+                clearTimeout(timerAnimation);
+            }
+            
+            // Resetăm timer-ul vizual
+            timerProgress.style.transition = 'none';
+            timerProgress.style.width = '0%';
+            
+            // Forțăm un reflow
+            void timerProgress.offsetWidth;
+            
+            // Repornim timer-ul după un delay scurt
+            timerAnimation = setTimeout(() => {
+                startTimer();
+            }, 100);
+        }
+
+        function stopTimer() {
+            if (timerAnimation) {
+                clearTimeout(timerAnimation);
+            }
+            timerProgress.style.transition = 'none';
+            timerProgress.style.width = '0%';
+            sliderWrapper.classList.remove('autoplay-active');
         }
 
         // Evenimente pentru butoane
@@ -72,17 +122,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Funcție pentru auto-play
         function startAutoSlide() {
-            autoSlideInterval = setInterval(slideNext, 7000); // Schimbă slide-ul la fiecare 7 secunde
+            autoSlideInterval = setInterval(slideNext, 8000); // Schimbă slide-ul la fiecare 8 secunde
+            startTimer(); // Pornim timer-ul vizual
         }
 
         function resetAutoSlide() {
             clearInterval(autoSlideInterval);
+            resetTimer();
             startAutoSlide();
         }
 
         // Oprim auto-play-ul la hover pe slider
         sliderWrapper.addEventListener('mouseenter', () => {
             clearInterval(autoSlideInterval);
+            stopTimer();
         });
 
         // Repornim auto-play-ul la ieșirea mouse-ului
