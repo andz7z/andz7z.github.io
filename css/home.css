@@ -475,7 +475,6 @@
     padding-bottom: 80px;
     position: relative;
 }
-
 /* SLOGAN - Mobile Optimization */
 .slogan {
     font-size: clamp(1.5rem, 4vw, 3.5rem);
@@ -488,6 +487,10 @@
     opacity: 0;
     animation: fadeInUp 2s ease-out 0.5s forwards;
     padding: 0 1rem;
+    /* Adăugăm proprietăți pentru a asigura afișarea corectă */
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* 📱 MOBILE OPTIMIZATION */
@@ -503,15 +506,28 @@
 
     .home-content {
         padding-bottom: 60px;
+        justify-content: flex-end;
     }
 
     .slogan {
-        font-size: clamp(0.9rem, 5.5vw, 1.4rem);
+        font-size: clamp(1rem, 4.5vw, 1.8rem);
         letter-spacing: 0.08rem;
         margin-bottom: 1rem;
         white-space: nowrap;
         text-align: center;
-        padding: 0;
+        padding: 0 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* Forțăm afișarea pe o singură linie */
+        display: block;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Reducem spațiile dintre litere pentru ecrane mici */
+    .slogan-letter {
+        letter-spacing: 0.05rem;
     }
 
     .btn {
@@ -529,22 +545,44 @@
     }
 }
 
-/* EXTRA SMALL DEVICES */
+/* EXTRA SMALL DEVICES - Soluție pentru ecrane foarte mici */
 @media screen and (max-width: 480px) {
     .slogan {
-        font-size: clamp(0.9rem, 5.5vw, 1.4rem);
-        letter-spacing: 0.05rem;
+        font-size: clamp(0.8rem, 4vw, 1.4rem);
+        letter-spacing: 0.03rem;
         white-space: nowrap;
         text-align: center;
-        padding: 0;
+        padding: 0 0.3rem;
+        /* Ajustare fină pentru ecrane foarte mici */
+        transform: scale(0.95);
+        transform-origin: center;
+    }
+
+    /* Dacă tot nu încape, reducem și mai mult spațiile */
+    .slogan-letter {
+        letter-spacing: 0.02rem;
     }
 
     .btn {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         border-radius: 18px;
+        padding: 0.4em 0.7em;
     }
 
     .btn-svg {
-        height: 18px;
+        height: 16px;
+    }
+}
+
+/* Soluție de urgență pentru ecrane extrem de mici */
+@media screen and (max-width: 360px) {
+    .slogan {
+        font-size: clamp(0.7rem, 3.5vw, 1.2rem);
+        letter-spacing: 0.01rem;
+        transform: scale(0.9);
+    }
+    
+    .home-content {
+        padding-bottom: 40px;
     }
 }
