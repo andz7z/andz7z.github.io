@@ -1174,3 +1174,101 @@
         font-size: 0.75rem;
     }
 }
+.profile-card-3d {
+    width: 400px;
+    height: 500px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    /* Outline gradient animat */
+    border-radius: 20px;
+    padding: 3px;
+    background: linear-gradient(
+        45deg,
+        #000000,
+        #333333,
+        #666666,
+        #999999,
+        #cccccc,
+        #ffffff,
+        #cccccc,
+        #999999,
+        #666666,
+        #333333,
+        #000000
+    );
+    background-size: 300% 300%;
+    animation: gradientOutline 3s ease infinite;
+}
+
+.profile-face {
+    position: absolute;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    top: 3px;
+    left: 3px;
+    backface-visibility: hidden;
+    border: none; /* Eliminăm border-ul anterior */
+    border-radius: 18px; /* Puțin mai mic decât card-ul principal */
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-shadow: 
+        inset 0 0 50px rgba(255, 255, 255, 0.05);
+}
+
+@keyframes gradientOutline {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Animație pentru hover */
+.profile-card-3d:hover {
+    animation: gradientOutline 1.5s ease infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .profile-card-3d {
+        width: 350px;
+        height: 450px;
+        padding: 2px;
+    }
+    
+    .profile-face {
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        top: 2px;
+        left: 2px;
+        border-radius: 16px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card-3d {
+        width: 300px;
+        height: 420px;
+        padding: 2px;
+    }
+    
+    .profile-face {
+        width: calc(100% - 4px);
+        height: calc(100% - 4px);
+        top: 2px;
+        left: 2px;
+        border-radius: 16px;
+        padding: 25px;
+    }
+}
