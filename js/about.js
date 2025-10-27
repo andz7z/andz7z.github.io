@@ -91,22 +91,42 @@ function init3DProfileCard() {
     }
 
     // Funcție pentru flip
-    function flipCard() {
-        isFlipped = !isFlipped;
-        applyCurrentTransform();
-    }
-
-    // Aplică transformarea curentă (3D + flip)
-    function applyCurrentTransform() {
-        if (!isHovering) {
-            // Mod normal - doar flip fără efect 3D
-            profileCard.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
-            profileCard.style.transform = `perspective(${perspective}px) rotateY(${isFlipped ? 180 : 0}deg)`;
-        } else {
-            // Mod hover - flip + efect 3D
-            apply3DEffect();
+        function flipCard() {
+            isFlipped = !isFlipped;
+        
+            // Adaugă un efect subtil de easing + mic zoom la flip
+            profileCard.style.transition = 'transform 1s cubic-bezier(0.25, 1, 0.5, 1), scale 0.3s ease-in-out';
+            profileCard.style.transform = `
+                perspective(${perspective}px)
+                rotateY(${isFlipped ? 180 : 0}deg)
+                scale3d(1.05, 1.05, 1.05)
+            `;
+        
+            // Mică revenire pentru efect de inerție
+            setTimeout(() => {
+                profileCard.style.transform = `
+                    perspective(${perspective}px)
+                    rotateY(${isFlipped ? 180 : 0}deg)
+                    scale3d(1, 1, 1)
+                `;
+            }, 600);
         }
-    }
+        
+        // Aplică transformarea curentă (3D + flip)
+        function applyCurrentTransform() {
+            if (!isHovering) {
+                // Flip smooth + easing cinematic
+                profileCard.style.transition = 'transform 1s cubic-bezier(0.25, 1, 0.5, 1)';
+                profileCard.style.transform = `
+                    perspective(${perspective}px)
+                    rotateY(${isFlipped ? 180 : 0}deg)
+                    scale3d(1, 1, 1)
+                `;
+            } else {
+                // În modul hover — efect instant pentru mișcare fluidă
+                apply3DEffect();
+            }
+        }
 
     // Aplică efect 3D smooth
     function apply3DEffect() {
