@@ -106,29 +106,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const navbar = document.querySelector(".navbar");
   const homeSection = document.querySelector(".home-section");
 
-  if (!navbar || !homeSection) return; // dacă nu există, ieșim
+  if (!navbar || !homeSection) return;
 
   let lastScrollTop = 0;
 
   window.addEventListener("scroll", () => {
     const scrollTop = window.scrollY;
 
-    // verificăm doar dacă suntem în homepage
-    const homeBottom = homeSection.offsetTop + homeSection.offsetHeight;
-    if (scrollTop < homeBottom) {
-      if (scrollTop > lastScrollTop) {
-        // scroll în jos → ascunde navbar
-        navbar.classList.add("nav-hidden");
-      } else {
-        // scroll în sus → arată navbar
-        navbar.classList.remove("nav-hidden");
-      }
+    if (scrollTop > lastScrollTop) {
+      // Scroll în jos → ascunde navbar
+      navbar.classList.add("nav-hidden");
     } else {
-      // după homepage → navbar vizibil permanent
+      // Scroll în sus → arată navbar
       navbar.classList.remove("nav-hidden");
     }
 
     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
   });
 });
-
