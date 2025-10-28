@@ -1,85 +1,151 @@
-// Main JavaScript File
+// script.js - Main JavaScript file
 document.addEventListener('DOMContentLoaded', function() {
-    // Burger menu functionality
-    const burgerMenu = document.querySelector('.burger-menu');
-    const navMenu = document.querySelector('.nav-menu');
-    const burgerLines = document.querySelectorAll('.burger-line');
-    const sections = document.querySelectorAll('.section');
+    // Initialize all modules
+    initScrollProgress();
+    initBurgerMenu();
+    initSectionObserver();
+    initDynamicMenuColor();
+});
+
+// Scroll Progress Bar
+function initScrollProgress() {
+    const progressBar = document.querySelector('.progress-bar');
     
-    // Toggle menu
-    burgerMenu.addEventListener('click', function() {
-        navMenu.classList.toggle('active');
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollPercent = (scrollTop / documentHeight) * 100;
         
-        // Animate burger to X
-        burgerLines[0].classList.toggle('rotate-down');
-        burgerLines[1].classList.toggle('fade-out');
-        burgerLines[2].classList.toggle('rotate-up');
+        progressBar.style.width = `${scrollPercent}%`;
+    });
+}
+
+// Burger Menu
+function initBurgerMenu() {
+    const burgerMenu = document.querySelector('.burger-menu');
+    const burgerIcon = document.querySelector('.burger-icon');
+    const menuLinks = document.querySelectorAll('.menu-link');
+    
+    // Toggle menu on burger click
+    burgerIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        burgerMenu.classList.toggle('active');
+        document.body.style.overflow = burgerMenu.classList.contains('active') ? 'hidden' : '';
     });
     
     // Close menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
+    menuLinks.forEach(link => {
         link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
-            burgerLines[0].classList.remove('rotate-down');
-            burgerLines[1].classList.remove('fade-out');
-            burgerLines[2].classList.remove('rotate-up');
+            burgerMenu.classList.remove('active');
+            document.body.style.overflow = '';
         });
     });
     
-    // Update burger color based on section background
-    function updateBurgerColor() {
-        const currentSection = getCurrentSection();
-        const sectionBg = getSectionBackgroundColor(currentSection);
-        
-        // Determine if background is dark or light
-        const isDark = isDarkBackground(sectionBg);
-        
-        // Update burger color
-        burgerLines.forEach(line => {
-            line.style.backgroundColor = isDark ? 'white' : 'black';
-        });
-    }
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!burgerMenu.contains(e.target) && burgerMenu.classList.contains('active')) {
+            burgerMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    });
+}
+
+// Section Observer for animations
+function initSectionObserver() {
+    const sections = document.querySelectorAll('.section');
+    const sectionTitles = document.querySelectorAll('.section-title');
     
-    function getCurrentSection() {
-        let currentSection = sections[0];
-        const scrollPosition = window.scrollY + window.innerHeight / 2;
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-            
-            if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
-                currentSection = section;
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelector('.section-title')?.classList.add('visible');
+                
+                // Add shimmer effect to title
+                if (entry.target.querySelector('.section-title')) {
+                    setTimeout(() => {
+                        addShimmerEffect(entry.target.querySelector('.section-title'));
+                    }, 500);
+                }
             }
         });
-        
-        return currentSection;
-    }
+    }, observerOptions);
     
-    function getSectionBackgroundColor(section) {
-        const styles = window.getComputedStyle(section);
-        return styles.backgroundColor;
-    }
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+}
+
+// Add shimmer effect to section titles
+function addShimmerEffect(element) {
+    element.style.background = 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)';
+    element.style.backgroundSize = '200% 100%';
+    element.style.backgroundClip = 'text';
+    element.style.webkitBackgroundClip = 'text';
+    element.style.webkitTextFillColor = 'transparent';
     
-    function isDarkBackground(rgb) {
-        // Convert rgb to values
-        const rgbValues = rgb.match(/\d+/g);
-        if (!rgbValues) return true;
+    // Animate the shimmer
+    let position = -100;
+    const animateShimmer = () => {
+        position += 2;
+        element.style.backgroundPosition = `${position}% 0`;
         
-        const r = parseInt(rgbValues[0]);
-        const g = parseInt(rgbValues[1]);
-        const b = parseInt(rgbValues[2]);
-        
-        // Calculate brightness (perceived luminance)
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        
-        return brightness < 128; // Dark if brightness less than 128
-    }
+        if (position < 100) {
+            requestAnimationFrame(animateShimmer);
+        } else {
+            // Reset after animation completes
+            setTimeout(() => {
+                element.style.background = '';
+                element.style.backgroundClip = '';
+                element.style.webkitBackgroundClip = '';
+                element.style.webkitTextFillColor = '';
+            }, 1000);
+        }
+    };
     
-    // Update burger color on scroll
-    window.addEventListener('scroll', updateBurgerColor);
+    animateShimmer();
+}
+
+// Dynamic menu color based on background
+function initDynamicMenuColor() {
+    const burgerSpans = document.querySelectorAll('.burger-icon span');
+    const menuLinks = document.querySelectorAll('.menu-link');
+    const sections = document.querySelectorAll('.section');
     
-    // Initial update
-    updateBurgerColor();
-});
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.5
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const isLightSection = 
+                    entry.target.classList.contains('reviews-section') || 
+                    entry.target.classList.contains('contact-section');
+                
+                // Update burger menu color
+                const newColor = isLightSection ? 'var(--color-black)' : 'var(--color-white)';
+                burgerSpans.forEach(span => {
+                    span.style.backgroundColor = newColor;
+                });
+                
+                // Update menu links color
+                menuLinks.forEach(link => {
+                    link.style.color = newColor;
+                });
+            }
+        });
+    }, observerOptions);
+    
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+}
