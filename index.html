@@ -3,579 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A N D Z</title>
-    <link rel="icon" type="image/gif" href="https://andz7z.github.io/assets/photos/site.gif" id="favicon">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/contact.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <body>
-    <!-- Fonturi personalizate -->
-    <style>
-        @font-face {
-            font-family: 'Roboto';
-            src: url('assets/fonts/roboto.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        
-        @font-face {
-            font-family: 'Noverich';
-            src: url('assets/fonts/noverich.otf') format('opentype');
-            font-weight: normal;
-            font-style: normal;
-        }
-    </style>
+    <title>ANDZ - Design. Develop. Deliver.</title>
+    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/style.css">
+    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/home.css">
+    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/about.css">
+    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/portfolio.css">
+    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/services.css">
+    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/reviews.css">
+    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/contact.css">
 </head>
-    <!-- Loader Video -->
-    <div id="video-loader">
-      <video autoplay muted playsinline id="loader-video">
-        <source src="https://andz7z.github.io/assets/videos/loading.mp4" type="video/mp4">
-      </video>
-        <div class="loader-overlay"></div>
-    </div>
-    <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+<body>
+    <!-- Loader Screen -->
+    <div id="loader">
+        <video autoplay muted>
+            <source src="https://andz7z.github.io/assets/videos/loading.mp4" type="video/mp4">
+        </video>
     </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar" id="navbar">
+    <!-- Progress Scroll Bar -->
+    <div id="progress-bar"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
         <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="https://andz7z.github.io/assets/photos/icon.gif" alt="LOGO" class="logo-img">
-            </a>
-            <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">
-                        <i class="fas fa-user"></i>
-                        <span class="nav-text">About</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#services" class="nav-link">
-                        <i class="fas fa-cogs"></i>
-                        <span class="nav-text">Services</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#portfolio" class="nav-link">
-                        <i class="fas fa-briefcase"></i>
-                        <span class="nav-text">Portfolio</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#reviews" class="nav-link">
-                        <i class="fas fa-star"></i>
-                        <span class="nav-text">Reviews</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">
-                        <i class="fas fa-envelope"></i>
-                        <span class="nav-text">Contact</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="hamburger">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            <div class="nav-logo">
+                <span>ANDZ</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-item">
+                    <i class="nav-icon">🏠</i>
+                    <span class="nav-text">Home</span>
+                </a>
+                <a href="#about" class="nav-item">
+                    <i class="nav-icon">👤</i>
+                    <span class="nav-text">About</span>
+                </a>
+                <a href="#portfolio" class="nav-item">
+                    <i class="nav-icon">📁</i>
+                    <span class="nav-text">Portfolio</span>
+                </a>
+                <a href="#services" class="nav-item">
+                    <i class="nav-icon">⚙️</i>
+                    <span class="nav-text">Services</span>
+                </a>
+                <a href="#reviews" class="nav-item">
+                    <i class="nav-icon">⭐</i>
+                    <span class="nav-text">Reviews</span>
+                </a>
+                <a href="#contact" class="nav-item">
+                    <i class="nav-icon">📞</i>
+                    <span class="nav-text">Contact</span>
+                </a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </nav>
 
-    <!-- Back to Home Arrow -->
-    <div class="back-to-home" id="backToHome">
-        <i class="fas fa-arrow-up"></i>
-    </div>
-
-    <!-- Home Section -->
-    <section id="home" class="section home-section">
+    <!-- Sections -->
+    <section id="home" class="section">
         <div class="video-container">
-            <video autoplay muted loop id="backgroundVideo">
-                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+            <video autoplay muted loop>
+                <source src="https://andz7z.github.io/assets/photos/movie/andz.mp4" type="video/mp4">
             </video>
         </div>
-            <div class="home-content">
-                <div class="text-content">
-                    <h1 class="slogan">
-                        <span class="slogan-letter">D</span>
-                        <span class="slogan-letter">E</span>
-                        <span class="slogan-letter">S</span>
-                        <span class="slogan-letter">I</span>
-                        <span class="slogan-letter">G</span>
-                        <span class="slogan-letter">N</span>
-                        <span class="slogan-letter">.</span>
-                        <span class="slogan-letter">&nbsp;</span>
-                        <span class="slogan-letter">D</span>
-                        <span class="slogan-letter">E</span>
-                        <span class="slogan-letter">V</span>
-                        <span class="slogan-letter">E</span>
-                        <span class="slogan-letter">L</span>
-                        <span class="slogan-letter">O</span>
-                        <span class="slogan-letter">P</span>
-                        <span class="slogan-letter">.</span>
-                        <span class="slogan-letter">&nbsp;</span>
-                        <span class="slogan-letter">D</span>
-                        <span class="slogan-letter">E</span>
-                        <span class="slogan-letter">L</span>
-                        <span class="slogan-letter">I</span>
-                        <span class="slogan-letter">V</span>
-                        <span class="slogan-letter">E</span>
-                        <span class="slogan-letter">R</span>
-                    </h1>
-                    
-                    <div class="btn-wrapper">
-                        <button class="btn" id="aboutBtn">
-                               <svg class="btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-          ></path>
-        </svg>
-        <div class="txt-wrapper">
-          <div class="txt-1">
-            <span class="btn-letter">E</span>
-            <span class="btn-letter">x</span>
-            <span class="btn-letter">p</span>
-            <span class="btn-letter">l</span>
-            <span class="btn-letter">o</span>
-            <span class="btn-letter">r</span>
-            <span class="btn-letter">e</span>
-            <span class="btn-letter">&nbsp;</span>
-            <span class="btn-letter">N</span>
-            <span class="btn-letter">o</span>
-            <span class="btn-letter">w</span>
-          </div>
-          <div class="txt-2">
-            <span class="btn-letter">E</span>
-            <span class="btn-letter">x</span>
-            <span class="btn-letter">p</span>
-            <span class="btn-letter">l</span>
-            <span class="btn-letter">o</span>
-            <span class="btn-letter">r</span>
-            <span class="btn-letter">e</span>
-            <span class="btn-letter">&nbsp;</span>
-            <span class="btn-letter">N</span>
-            <span class="btn-letter">o</span>
-            <span class="btn-letter">w</span>
-          </div>
-        </div>
-        </button>
-        </div>
+        <div class="content">
+            <div class="text-container">
+                <h1 class="main-text">
+                    <span class="letter">D</span>
+                    <span class="letter">E</span>
+                    <span class="letter">S</span>
+                    <span class="letter">I</span>
+                    <span class="letter">G</span>
+                    <span class="letter">N</span>
+                    <span class="letter">.</span>
+                    <span class="letter"> </span>
+                    <span class="letter">D</span>
+                    <span class="letter">E</span>
+                    <span class="letter">V</span>
+                    <span class="letter">E</span>
+                    <span class="letter">L</span>
+                    <span class="letter">O</span>
+                    <span class="letter">P</span>
+                    <span class="letter">.</span>
+                    <span class="letter"> </span>
+                    <span class="letter">D</span>
+                    <span class="letter">E</span>
+                    <span class="letter">L</span>
+                    <span class="letter">I</span>
+                    <span class="letter">V</span>
+                    <span class="letter">E</span>
+                    <span class="letter">R</span>
+                </h1>
             </div>
-            
-            <div class="scroll-indicator">
-                <div class="arrow-down"></div>
+            <div class="button-container">
+                <button class="button">
+                    <div class="outline"></div>
+                    <div class="state state--default">
+                        <div class="icon">
+                            <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g style="filter: url(#shadow)">
+                                    <path d="M14.2199 21.63C13.0399 21.63 11.3699 20.8 10.0499 16.83L9.32988 14.67L7.16988 13.95C3.20988 12.63 2.37988 10.96 2.37988 9.78001C2.37988 8.61001 3.20988 6.93001 7.16988 5.60001L15.6599 2.77001C17.7799 2.06001 19.5499 2.27001 20.6399 3.35001C21.7299 4.43001 21.9399 6.21001 21.2299 8.33001L18.3999 16.82C17.0699 20.8 15.3999 21.63 14.2199 21.63ZM7.63988 7.03001C4.85988 7.96001 3.86988 9.06001 3.86988 9.78001C3.86988 10.5 4.85988 11.6 7.63988 12.52L10.1599 13.36C10.3799 13.43 10.5599 13.61 10.6299 13.83L11.4699 16.35C12.3899 19.13 13.4999 20.12 14.2199 20.12C14.9399 20.12 16.0399 19.13 16.9699 16.35L19.7999 7.86001C20.3099 6.32001 20.2199 5.06001 19.5699 4.41001C18.9199 3.76001 17.6599 3.68001 16.1299 4.19001L7.63988 7.03001Z" fill="currentColor"></path>
+                                    <path d="M10.11 14.4C9.92005 14.4 9.73005 14.33 9.58005 14.18C9.29005 13.89 9.29005 13.41 9.58005 13.12L13.16 9.53C13.45 9.24 13.93 9.24 14.22 9.53C14.51 9.82 14.51 10.3 14.22 10.59L10.64 14.18C10.5 14.33 10.3 14.4 10.11 14.4Z" fill="currentColor"></path>
+                                </g>
+                                <defs>
+                                    <filter id="shadow">
+                                        <fedropshadow dx="0" dy="1" stdDeviation="0.6" flood-opacity="0.5"></fedropshadow>
+                                    </filter>
+                                </defs>
+                            </svg>
+                        </div>
+                        <p>
+                            <span style="--i:0">L</span>
+                            <span style="--i:1">e</span>
+                            <span style="--i:2">t</span>
+                            <span style="--i:3">'s</span>
+                            <span style="--i:4">E</span>
+                            <span style="--i:5">x</span>
+                            <span style="--i:6">p</span>
+                            <span style="--i:7">l</span>
+                            <span style="--i:8">o</span>
+                            <span style="--i:9">r</span>
+                            <span style="--i:10">e</span>
+                        </p>
+                    </div>
+                    <div class="state state--sent">
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1em" width="1em" stroke-width="0.5px" stroke="black">
+                                <g style="filter: url(#shadow)">
+                                    <path fill="currentColor" d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z"></path>
+                                    <path fill="currentColor" d="M10.5795 15.5801C10.3795 15.5801 10.1895 15.5001 10.0495 15.3601L7.21945 12.5301C6.92945 12.2401 6.92945 11.7601 7.21945 11.4701C7.50945 11.1801 7.98945 11.1801 8.27945 11.4701L10.5795 13.7701L15.7195 8.6301C16.0095 8.3401 16.4895 8.3401 16.7795 8.6301C17.0695 8.9201 17.0695 9.4001 16.7795 9.6901L11.1095 15.3601C10.9695 15.5001 10.7795 15.5801 10.5795 15.5801Z"></path>
+                                </g>
+                            </svg>
+                        </div>
+                        <p>
+                            <span style="--i:5">N</span>
+                            <span style="--i:6">i</span>
+                            <span style="--i:7">c</span>
+                            <span style="--i:8">e!</span>
+                        </p>
+                    </div>
+                </button>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-<!-- About Section -->
-<section id="about" class="section about-section">
-    <!-- Animated Background Elements -->
-    <div class="about-grid-bg"></div>
-    <div class="particles-container"></div>
-    
-    <div class="about-container">
-        <!-- Header -->
-        <div class="about-header">
-          <div class="about-title-image">
-            <img src="https://andz7z.github.io/assets/photos/about.jpg" alt="About Me Title" />
-          </div>
-          <p class="about-description">
-            Turning Motion into Emotion
-          </p>
-        </div>
-        <!-- Hero Section -->
-        <div class="about-hero">
-  <!-- 3D Profile Card -->
-<div class="profile-3d-container">
-    <div class="profile-card-3d">
-        <div class="profile-face front">
-            <div class="profile-image"></div>
-            <h3 class="profile-name">Andrei L.</h3>
-            <p class="profile-title">FrontEnd Developer & Creative Designer</p>
-            <div class="profile-stats">
-                <div class="stat-item">
-                    <span class="stat-number">21</span>
-                    <span class="stat-label">Age</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Available</span>
-                </div>
-            </div>
-        </div>
-        <div class="profile-face back">
-            <h3 class="profile-name">Personal Traits</h3>
-            <div class="qualities-grid">
-                <div class="quality-item">
-                    <div class="quality-icon">⚡</div>
-                    <span class="quality-text">Fast Learner</span>
-                </div>
-                <div class="quality-item">
-                    <div class="quality-icon">🎯</div>
-                    <span class="quality-text">Goal Oriented</span>
-                </div>
-                <div class="quality-item">
-                    <div class="quality-icon">🔍</div>
-                    <span class="quality-text">Attention to Details</span>
-                </div>
-                <div class="quality-item">
-                    <div class="quality-icon">💡</div>
-                    <span class="quality-text">Creative Problem Solver</span>
-                </div>
-                <div class="quality-item">
-                    <div class="quality-icon">🔄</div>
-                    <span class="quality-text">Adaptable</span>
-                </div>
-                <div class="quality-item">
-                    <div class="quality-icon">🤝</div>
-                    <span class="quality-text">Team Player</span>
-                </div>
-                <div class="quality-item">
-                    <div class="quality-icon">⏱️</div>
-                    <span class="quality-text">Time Management</span>
-                </div>
-                <div class="quality-item">
-                    <div class="quality-icon">📈</div>
-                    <span class="quality-text">Continuous Improvement</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-            <!-- Hero Content -->
-            <div class="hero-content">
-                <div class="hero-badge">✅️ Available for Freelance</div>
-                <h1 class="hero-title">A Few Words<br>'bout me</h1>
-                <p class="hero-description">
-                    I’m a passionate Frontend Developer with over 2 years of experience in building clean, modern, and user-focused web interfaces.
-                    Coming from a natural sciences background, I’ve learned to adapt, explore, and grow continuously.
-                    This portfolio is more than just a presentation - it’s a reflection of my evolution, my dedication, and my vision for the future.
-                </p>
-                <div class="cta-buttons">
-                    <a href="#portfolio" class="btn-3d btn-primary">View My Work</a>
-                    <a href="#contact" class="btn-3d">Get In Touch</a>
-                </div>
-            </div>
-        </div>
-        <!-- Timeline -->
-        <div class="timeline-section">
-            <h3 class="section-title">My Journey</h3>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="timeline-date">2023</span>
-                        <h4 class="timeline-title">University Beginnings</h4>
-                        <p class="timeline-description">
-                        I started university without knowing exactly what to expect, but one thing was certain - I wanted to succeed! It was tough at first, 
-                        especially since I came from a natural sciences high school, not a computer science one. But here I am now.
-                        </p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="timeline-date">2024</span>
-                        <h4 class="timeline-title">The Spark of Creation</h4>
-                        <p class="timeline-description">
-                            I started with small applications in a language called LUA. I was playing GTA: San Andreas and couldn’t stop creating little mods 
-                            that enhanced the user experience - from simple skin changers to a full Season Changer mod that completely transformed the map, UI, 
-                            and overall feel of the game.
-                        </p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="timeline-date">2025</span>
-                        <h4 class="timeline-title">Finding My Direction</h4>
-                        <p class="timeline-description">
-                           I began to develop a clear vision of what I wanted to do. I found myself drawn to languages like Python, HTML/CSS, and JavaScript. 
-                           However, I didn’t know where to start — there was so much to learn. So, I began with Python, creating small projects such as a store 
-                           inventory application.
-                        </p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <span class="timeline-date">Present</span>
-                        <h4 class="timeline-title">My True Passion</h4>
-                        <p class="timeline-description">
-                            My true passion now lies in HTML, CSS, and JavaScript. This website is my personal “degree”, a place where I want to give my best and 
-                            showcase everything I’ll learn along the way. Here, my personal evolution will take shape.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-                
-<!-- Tech Stack Counter Section -->
-<div class="stats-section">
-    <h3 class="section-title">Achievements</h3>
-    <div class="stats-grid">
-        <div class="stat-circle">
-            <div class="circle-progress" data-percentage="95">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring-background" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                    <circle class="progress-ring-circle" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                </svg>
-                <div class="stat-content">
-                    <span class="stat-number" data-target="15">0</span>
-                    <span class="stat-label">Projects</span>
-                </div>
-            </div>
-        </div>
-        <div class="stat-circle">
-            <div class="circle-progress" data-percentage="87">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring-background" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                    <circle class="progress-ring-circle" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                </svg>
-                <div class="stat-content">
-                    <span class="stat-number" data-target="13">0</span>
-                    <span class="stat-label">Customers</span>
-                </div>
-            </div>
-        </div>
-        <div class="stat-circle">
-            <div class="circle-progress" data-percentage="92">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring-background" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                    <circle class="progress-ring-circle" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                </svg>
-                <div class="stat-content">
-                    <span class="stat-number" data-target="99">0</span>
-                    <span class="stat-label">Ratings</span>
-                </div>
-            </div>
-        </div>
-        <div class="stat-circle">
-            <div class="circle-progress" data-percentage="78">
-                <svg class="progress-ring" width="120" height="120">
-                    <circle class="progress-ring-background" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                    <circle class="progress-ring-circle" cx="60" cy="60" r="54" stroke-width="6"></circle>
-                </svg>
-                <div class="stat-content">
-                    <span class="stat-number" data-target="2">0</span>
-                    <span class="stat-label">Years</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-        <!-- Skills Matrix -->
-        <div class="skills-matrix">
-            <h3 class="section-title">Expertise Level</h3>
-            <div class="matrix-grid">
-                <div class="matrix-item">
-                    <div class="matrix-header">
-                        <div class="matrix-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h4 class="matrix-title">Web Development</h4>
-                    </div>
-                    <div class="matrix-bar">
-                        <div class="matrix-progress" data-percentage="70"></div>
-                    </div>
-                    <div class="matrix-percentage">70%</div>
-                </div>
-                <div class="matrix-item">
-                    <div class="matrix-header">
-                        <div class="matrix-icon">
-                            <i class="fas fa-paint-brush"></i>
-                        </div>
-                        <h4 class="matrix-title">UI/UX Design</h4>
-                    </div>
-                    <div class="matrix-bar">
-                        <div class="matrix-progress" data-percentage="75"></div>
-                    </div>
-                    <div class="matrix-percentage">75%</div>
-                </div>
-                <div class="matrix-item">
-                    <div class="matrix-header">
-                        <div class="matrix-icon">
-                            <i class="fas fa-video"></i>
-                        </div>
-                        <h4 class="matrix-title">Video Editing</h4>
-                    </div>
-                    <div class="matrix-bar">
-                        <div class="matrix-progress" data-percentage="85"></div>
-                    </div>
-                    <div class="matrix-percentage">85%</div>
-                </div>
-                <div class="matrix-item">
-                    <div class="matrix-header">
-                        <div class="matrix-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <h4 class="matrix-title">Mobile Development</h4>
-                    </div>
-                    <div class="matrix-bar">
-                        <div class="matrix-progress" data-percentage="75"></div>
-                    </div>
-                    <div class="matrix-percentage">75%</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Final CTA -->
-        <div class="final-cta">
-            <div class="cta-content">
-                <h3 class="cta-title">Ready to Create Something Amazing?</h3>
-                <p class="cta-description">
-                    Let's collaborate to bring your vision to life. Whether you need a stunning website, 
-                    engaging content, or a complete digital solution, I'm here to make it happen.
-                </p>
-                <a href="#contact" class="cta-button-large">Start Your Project</a>
-            </div>
-        </div>
-    </div>
-</section>
-<section id="services" class="section services-section">
-    <div class="container">
-        <h2 class="section-title animate-on-scroll" data-delay="0">Services</h2>
-        <p class="section-description animate-on-scroll" data-delay="1">Unlocking Digital Excellence. Discover My Services.</p>
-        
-        <div class="services-slider-wrapper animate-on-scroll" data-delay="2">
-            <div class="slider-timer">
-                <div class="timer-progress"></div>
-            </div>
-            <div class="services-slider">
-
-                <div class="service-slide" data-slide="0">
-                    <div class="service-grid">
-                        <div class="service-icon-container">
-                            <div class="service-icon">
-                                <i class="fas fa-code"></i>
-                            </div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">Web Development</h3>
-                            <p class="service-info">Transforming visions into digital realities. I build ultra-fast, responsive, and SEO-optimized websites and web applications, from stunning portfolios to complex E-commerce platforms.</p>
-                            <ul class="service-advantages">
-                                <li>Responsive & Mobile-First Design</li>
-                                <li>Technical SEO Optimization</li>
-                                <li>E-commerce Platforms & Custom CMS</li>
-                                <li>API Integration & Third-Party Services</li>
-                            </ul>
-                            <div class="why-me-container">
-                                <h4>Why Me?</h4>
-                                <ul class="why-me-list">
-                                    <li><strong>Pixel-Perfect Precision:</strong> Your design is implemented flawlessly, exactly as envisioned.</li>
-                                    <li><strong>Obsessive Performance:</strong> I code for speed. Sub-second load times aren't a goal; they're a requirement.</li>
-                                    <li><strong>Future-Proof Code:</strong> Built on a modern stack (React, Next.js) for scalability and easy maintenance.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-slide" data-slide="1">
-                    <div class="service-grid">
-                        <div class="service-icon-container">
-                            <div class="service-icon">
-                                <i class="fas fa-terminal"></i>
-                            </div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">Programming</h3>
-                            <p class="service-info">Custom software development, from automation scripts to complex desktop applications and robust APIs. I write clean, scalable, and efficient code built for the future.</p>
-                            <ul class="service-advantages">
-                                <li>Custom Software (Desktop/Web)</li>
-                                <li>Backend & API Development (REST/GraphQL)</li>
-                                <li>Automation Scripts & Web Scraping</li>
-                                <li>Software Architecture Consulting</li>
-                            </ul>
-                            <div class="why-me-container">
-                                <h4>Why Me?</h4>
-                                <ul class="why-me-list">
-                                    <li><strong>Clean & Maintainable Code:</strong> Intuitive logic that your future developers will thank you for.</li>
-                                    <li><strong>Scalable Architecture:</strong> Solutions designed to grow seamlessly with your business needs.</li>
-                                    <li><strong>Algorithmic Efficiency:</strong> I don't just solve problems; I solve them optimally.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="service-slide" data-slide="2">
-                    <div class="service-grid">
-                        <div class="service-icon-container">
-                            <div class="service-icon">
-                                <i class="fas fa-video"></i>
-                            </div>
-                        </div>
-                        <div class="service-content">
-                            <h3 class="service-title">Video & Photo Editing</h3>
-                            <p class="service-info">Professional video editing that captures attention. From viral social media clips to documentaries and music videos, I focus on storytelling, rhythm, and visual quality (4K+).</p>
-                            <ul class="service-advantages">
-                                <li>Editing & Assembly (Adobe Premiere Pro)</li>
-                                <li>Color Grading & Correction (DaVinci Resolve)</li>
-                                <li>Motion Graphics & VFX (After Effects)</li>
-                                <li>Professional Photo Editing (Photoshop/Lightroom)</li>
-                            </ul>
-                            <div class="why-me-container">
-                                <h4>Why Me?</h4>
-                                <ul class="why-me-list">
-                                    <li><strong>Dynamic Storytelling:</strong> Every cut has a purpose. I edit for emotion and impact, not just to fill time.</li>
-                                    <li><strong>No Quality Compromise:</strong> Flawless 4K/8K delivery. No lag, no dropped frames, just pristine quality.</li>
-                                    <li><strong>Ultra-Fast Turnaround:</strong> I respect your deadlines. You get exceptional quality, delivered on time. Every time.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div> <button class="slider-nav prev-slide" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
-            <button class="slider-nav next-slide" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
-
-            <div class="slider-dots">
-                <span class="dot active" data-slide="0"></span>
-                <span class="dot" data-slide="1"></span>
-                <span class="dot" data-slide="2"></span>
-            </div>
-
-        </div> </div>
-</section>
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="section portfolio-section">
+    <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">Portfolio</h2>
-            <p class="section-description">View our latest projects and work.</p>
+            <h2>About</h2>
+            <p>Salut, eu sunt Andrei Lehadus, fondatorul ANDZ.</p>
         </div>
     </section>
 
-    <!-- Reviews Section -->
-    <section id="reviews" class="section reviews-section">
+    <section id="portfolio" class="section">
         <div class="container">
-            <h2 class="section-title">Reviews</h2>
-            <p class="section-description">See what our clients say about us.</p>
+            <h2>Portfolio</h2>
+            <p>Lucrările noastre recente.</p>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
+    <section id="services" class="section">
         <div class="container">
-            <h2 class="section-title">Contact</h2>
-            <p class="section-description">Get in touch with us.</p>
+            <h2>Services</h2>
+            <p>Serviciile oferite de ANDZ.</p>
         </div>
     </section>
 
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
+    <section id="reviews" class="section">
+        <div class="container">
+            <h2>Reviews</h2>
+            <p>Ce spun clienții noștri.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>Contact</h2>
+            <p>Ia legătura cu noi.</p>
+        </div>
+    </section>
+
+    <script src="https://andz7z.github.io/assets/js/script.js"></script>
+    <script src="https://andz7z.github.io/assets/js/home.js"></script>
+    <script src="https://andz7z.github.io/assets/js/about.js"></script>
+    <script src="https://andz7z.github.io/assets/js/portfolio.js"></script>
+    <script src="https://andz7z.github.io/assets/js/services.js"></script>
+    <script src="https://andz7z.github.io/assets/js/reviews.js"></script>
+    <script src="https://andz7z.github.io/assets/js/contact.js"></script>
 </body>
 </html>
