@@ -1,305 +1,230 @@
-/* CSS Variables for Easy Customization */
-:root {
-    /* Colors */
-    --color-black: #000000;
-    --color-dark-gray: #1a1a1a;
-    --color-medium-gray: #4a4a4a;
-    --color-light-gray: #8a8a8a;
-    --color-white: #ffffff;
-    
-    /* Gradients */
-    --gradient-about: linear-gradient(135deg, var(--color-black) 0%, var(--color-dark-gray) 100%);
-    --gradient-portfolio: linear-gradient(135deg, var(--color-dark-gray) 0%, var(--color-medium-gray) 100%);
-    --gradient-services: linear-gradient(135deg, var(--color-medium-gray) 0%, var(--color-light-gray) 100%);
-    --gradient-reviews: linear-gradient(135deg, var(--color-light-gray) 0%, #b0b0b0 100%);
-    --gradient-contact: linear-gradient(135deg, #b0b0b0 0%, var(--color-white) 100%);
-    
-    /* Typography */
-    --font-title: 'Noverich', serif;
-    --font-body: 'Roboto', sans-serif;
-    
-    /* Transitions */
-    --transition-fast: 0.3s ease;
-    --transition-medium: 0.5s ease;
-    --transition-slow: 0.8s ease;
-    
-    /* Effects */
-    --glass-effect: rgba(255, 255, 255, 0.1);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    --blur-effect: blur(10px);
-}
-
-/* Font Face Declarations */
+/* Import font-uri */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/roboto.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-}
-
-/* Base Styles */
+/* Reset și stiluri de bază */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
-
 body {
-    font-family: var(--font-body);
-    color: var(--color-white);
+    font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
-    opacity: 0;
-    animation: fadeIn 2s var(--transition-slow) forwards;
+    color: white;
 }
 
-/* Scroll Progress Bar */
-.scroll-progress {
-    position: fixed;
+/* Sectiuni */
+.section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: background 0.5s ease;
+}
+
+.section-title {
+    font-family: 'Noverich', sans-serif;
+    font-size: 4rem;
+    text-align: center;
+    z-index: 2;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Home section cu video */
+#home {
+    background: #000;
+}
+
+.video-container {
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.progress-bar {
     height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--color-black), var(--color-white));
-    transition: width 0.1s ease;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    overflow: hidden;
 }
 
-/* Navigation */
-.navigation {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 100;
+#bg-video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Gradient pentru sectiuni */
+#about {
+    background: linear-gradient(to bottom, #000000, #1a1a1a);
+}
+
+#portfolio {
+    background: linear-gradient(to bottom, #1a1a1a, #333333);
+}
+
+#services {
+    background: linear-gradient(to bottom, #333333, #4d4d4d);
+}
+
+#reviews {
+    background: linear-gradient(to bottom, #4d4d4d, #666666);
+}
+
+#contact {
+    background: linear-gradient(to bottom, #666666, #ffffff);
+    color: #000;
+}
+
+/* Burger Menu */
 .burger-menu {
+    position: fixed;
+    top: 25px;
+    left: 25px;
     width: 40px;
     height: 30px;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     cursor: pointer;
-    z-index: 101;
-    transition: transform var(--transition-medium);
+    z-index: 1000;
+    transition: transform 0.3s ease;
 }
 
 .burger-line {
-    position: absolute;
-    height: 3px;
     width: 100%;
+    height: 4px;
+    background-color: white;
     border-radius: 2px;
-    transition: all var(--transition-medium);
-    transform-origin: center;
+    transition: all 0.3s ease;
+    transform-origin: left center;
 }
 
-.burger-line.top {
-    top: 0;
-    background-color: var(--color-white);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+.burger-menu:hover {
+    transform: scale(1.1);
 }
 
-.burger-line.middle {
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: var(--color-white);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-.burger-line.bottom {
-    bottom: 0;
-    background-color: var(--color-white);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-}
-
-/* Burger Menu Hover Effect */
-.burger-menu:hover .burger-line {
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
-}
-
-.burger-menu:hover .top {
-    transform: translateY(-2px);
-}
-
-.burger-menu:hover .bottom {
-    transform: translateY(2px);
-}
-
-/* Burger Menu Active State */
-.burger-menu.active {
-    transform: rotate(180deg);
-}
-
-.burger-menu.active .top {
-    transform: translateY(13px) rotate(45deg);
-    background-color: var(--color-black);
-}
-
-.burger-menu.active .middle {
-    opacity: 0;
-}
-
-.burger-menu.active .bottom {
-    transform: translateY(-13px) rotate(-45deg);
-    background-color: var(--color-black);
-}
-
-/* Navigation Overlay */
-.nav-overlay {
+/* Meniu de navigare */
+.nav-menu {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    backdrop-filter: var(--blur-effect);
+    left: -300px;
+    width: 300px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
+    transition: left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    z-index: 999;
     display: flex;
-    justify-content: center;
     align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: all var(--transition-medium);
+    justify-content: center;
 }
 
-.nav-overlay.active {
-    opacity: 1;
-    visibility: visible;
+.nav-menu.active {
+    left: 0;
 }
 
-.nav-list {
+.nav-menu ul {
     list-style: none;
-    text-align: center;
+    width: 100%;
+    padding: 0 20px;
 }
+
+.nav-menu li {
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.4s ease;
+}
+
+.nav-menu.active li {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.nav-menu li:nth-child(1) { transition-delay: 0.1s; }
+.nav-menu li:nth-child(2) { transition-delay: 0.15s; }
+.nav-menu li:nth-child(3) { transition-delay: 0.2s; }
+.nav-menu li:nth-child(4) { transition-delay: 0.25s; }
+.nav-menu li:nth-child(5) { transition-delay: 0.3s; }
+.nav-menu li:nth-child(6) { transition-delay: 0.35s; }
 
 .nav-link {
-    font-family: var(--font-title);
-    font-size: 3rem;
-    color: var(--color-white);
+    display: block;
+    padding: 15px 20px;
+    color: white;
     text-decoration: none;
-    display: inline-block;
-    margin: 1rem 0;
-    position: relative;
-    transition: all var(--transition-fast);
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 3px;
-    bottom: -5px;
-    left: 0;
-    background: linear-gradient(90deg, transparent, var(--color-white), transparent);
-    transition: width var(--transition-medium);
-}
-
-.nav-link:hover {
-    color: rgba(255, 255, 255, 0.8);
-    transform: translateY(-5px);
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/* Sections */
-.section {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Noverich', sans-serif;
+    font-size: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
 }
 
-.content {
-    text-align: center;
-    z-index: 10;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: contentFadeIn 1s var(--transition-slow) forwards;
-    animation-delay: 0.5s;
-}
-
-.title {
-    font-family: var(--font-title);
-    font-size: 5rem;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-    position: relative;
-    padding: 20px;
-}
-
-.title::before {
+.nav-link::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
+    left: -100%;
     width: 100%;
     height: 100%;
-    background: var(--glass-effect);
-    backdrop-filter: var(--blur-effect);
-    border: var(--glass-border);
-    border-radius: 10px;
-    box-shadow: var(--glass-shadow);
-    z-index: -1;
+    background: rgba(255, 255, 255, 0.1);
+    transition: left 0.3s ease;
 }
 
-/* Animations */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+.nav-link:hover::before {
+    left: 0;
 }
 
-@keyframes contentFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(10px);
 }
 
-/* Responsive Design */
+.nav-link.active {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Animație pentru burger când meniul este deschis */
+.burger-menu.active .burger-line:nth-child(1) {
+    transform: rotate(45deg) translateY(-2px);
+}
+
+.burger-menu.active .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active .burger-line:nth-child(3) {
+    transform: rotate(-45deg) translateY(2px);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    .title {
-        font-size: 3rem;
+    .section-title {
+        font-size: 2.5rem;
     }
     
-    .nav-link {
-        font-size: 2rem;
-    }
-    
-    .burger-menu {
-        width: 35px;
-        height: 25px;
+    .nav-menu {
+        width: 250px;
+        left: -250px;
     }
 }
