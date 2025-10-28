@@ -137,3 +137,15 @@ body {
         right: 20px;
     }
 }
+/* Burger Menu Animations */
+.burger-line.rotate-down {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-line.rotate-up {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
+.burger-line.fade-out {
+    opacity: 0;
+}
