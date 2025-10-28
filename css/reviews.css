@@ -1,7 +1,3 @@
-.reviews-section {
+#reviews {
     background: var(--gradient-reviews);
-}
-
-.reviews-section .title {
-    color: var(--color-black);
 }
