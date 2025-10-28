@@ -1,6 +1,6 @@
 // Main JavaScript for burger system and animations
 document.addEventListener('DOMContentLoaded', function() {
-    // Burger System Variables
+    // Burger System Variables - Original
     var bars = document.getElementById("nav-action");
     var nav = document.getElementById("nav");
 

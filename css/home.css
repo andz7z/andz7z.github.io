@@ -54,46 +54,80 @@
     }
 }
 
-/* Burger System Styles - Ultra Simple */
+/* Burger System Styles - Original */
 .bars {
     position: fixed;
-    width: 40px;
-    height: 40px;
+    width: 27px;
+    height: 27px;
     top: 30px;
     right: 30px;
     cursor: pointer;
     z-index: 101;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+    padding-top: 9px;
     opacity: 0;
     animation: fadeInBar 1s ease-out 2s forwards;
 }
 
 .bar {
-    width: 30px;
+    width: 100%;
     height: 4px;
     background-color: #fff;
-    border-radius: 2px;
-    transition: transform 0.2s ease;
+    position: absolute;
 }
 
-.bars.active .bar:nth-child(1) {
-    transform: rotate(45deg) translate(8px, 8px);
+span::before,
+span::after {
+    content: "";
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    height: 4px;
+    position: absolute;
 }
 
-.bars.active .bar:nth-child(2) {
-    opacity: 0;
+.bar::before {
+    transform: translateY(-9px);
 }
 
-.bars.active .bar:nth-child(3) {
-    transform: rotate(-45deg) translate(8px, -8px);
+.bar::after {
+    transform: translateY(9px);
+}
+
+.bars.active .bar {
+    background-color: transparent;
+}
+
+.bars.active span::before {
+    animation: top-bar 1s;
+    animation-fill-mode: forwards;
+}
+
+.bars.active span::after {
+    animation: bottom-bar 1s;
+    animation-fill-mode: forwards;
 }
 
 @keyframes fadeInBar {
     to {
         opacity: 1;
+    }
+}
+
+@keyframes top-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(45deg) translateY(0);
+    }
+}
+
+@keyframes bottom-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(-45deg) translateY(0);
     }
 }
 
