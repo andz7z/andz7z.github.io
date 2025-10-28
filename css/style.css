@@ -1,305 +1,305 @@
-/*
- * STYLE.CSS
- * Global Styles, Variables, Fonts, and Core UI
- */
+/* CSS Variables for Easy Customization */
+:root {
+    /* Colors */
+    --color-black: #000000;
+    --color-dark-gray: #1a1a1a;
+    --color-medium-gray: #4a4a4a;
+    --color-light-gray: #8a8a8a;
+    --color-white: #ffffff;
+    
+    /* Gradients */
+    --gradient-about: linear-gradient(135deg, var(--color-black) 0%, var(--color-dark-gray) 100%);
+    --gradient-portfolio: linear-gradient(135deg, var(--color-dark-gray) 0%, var(--color-medium-gray) 100%);
+    --gradient-services: linear-gradient(135deg, var(--color-medium-gray) 0%, var(--color-light-gray) 100%);
+    --gradient-reviews: linear-gradient(135deg, var(--color-light-gray) 0%, #b0b0b0 100%);
+    --gradient-contact: linear-gradient(135deg, #b0b0b0 0%, var(--color-white) 100%);
+    
+    /* Typography */
+    --font-title: 'Noverich', serif;
+    --font-body: 'Roboto', sans-serif;
+    
+    /* Transitions */
+    --transition-fast: 0.3s ease;
+    --transition-medium: 0.5s ease;
+    --transition-slow: 0.8s ease;
+    
+    /* Effects */
+    --glass-effect: rgba(255, 255, 255, 0.1);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --blur-effect: blur(10px);
+}
 
-/* 1. Font Definitions */
+/* Font Face Declarations */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url('../assets/fonts/roboto.ttf') format('truetype');
-    font-weight: 300;
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/roboto.ttf') format('truetype'); /* Assuming one file, using it for regular */
-    font-weight: 400;
-}
-
-/* 2. CSS Variables (Design System) */
-:root {
-    /* Fonts */
-    --font-title: 'Noverich', serif;
-    --font-text: 'Roboto', sans-serif;
-
-    /* Color Palette */
-    --color-black: #000000;
-    --color-dark-gray: #222222;
-    --color-med-gray: #666666;
-    --color-light-gray: #aaaaaa;
-    --color-very-light-gray: #eeeeee;
-    --color-white: #ffffff;
-    --color-glass-dark: rgba(0, 0, 0, 0.4);
-    --color-glass-frost: rgba(255, 255, 255, 0.05);
-
-    /* Gradients */
-    --gradient-metallic: linear-gradient(90deg, #888 0%, #eee 50%, #888 100%);
-    --gradient-metallic-hover: linear-gradient(90deg, #aaa 0%, #fff 50%, #aaa 100%);
-
-    /* Transitions & Easing */
-    --ease-in-out-cubic: cubic-bezier(0.645, 0.045, 0.355, 1);
-    --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
-    --ease-liquid: cubic-bezier(0.25, 0.1, 0.25, 1); /* For "liquid" feel */
-    
-    --transition-smooth: all 0.4s var(--ease-in-out-cubic);
-    --transition-burger: all 0.5s var(--ease-out-quint);
-    --transition-color: background-color 0.6s var(--ease-in-out-cubic);
-}
-
-/* 3. Global Resets & Body */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* Base Styles */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
     scroll-behavior: smooth;
-    background-color: var(--color-black); /* Base background */
 }
 
 body {
-    font-family: var(--font-text);
+    font-family: var(--font-body);
+    color: var(--color-white);
     overflow-x: hidden;
-    /* This will be set on the sections, but a fallback */
-    color: var(--color-white); 
-    opacity: 0; /* Fade in on load */
-    animation: fadeInBody 1.5s var(--ease-out-quint) 0.5s forwards;
+    opacity: 0;
+    animation: fadeIn 2s var(--transition-slow) forwards;
 }
 
-/* Body fade-in */
-@keyframes fadeInBody {
-    to {
-        opacity: 1;
-    }
-}
-
-/* Class to prevent scroll when menu is open */
-body.no-scroll {
-    overflow: hidden;
-}
-
-/* 4. Scroll Progress Bar */
-.progress-container {
+/* Scroll Progress Bar */
+.scroll-progress {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 4px;
+    background: rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    background-color: transparent;
 }
 
 .progress-bar {
     height: 100%;
-    width: 0;
-    background: var(--gradient-metallic);
-    transition: width 0.1s linear; /* Smooth fill */
+    width: 0%;
+    background: linear-gradient(90deg, var(--color-black), var(--color-white));
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
-/* 5. Burger Menu Icon */
-.burger-menu-icon {
+/* Navigation */
+.navigation {
     position: fixed;
-    top: 25px;
-    left: 25px;
-    width: 30px;
-    height: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+}
+
+.burger-menu {
+    width: 40px;
+    height: 30px;
+    position: relative;
     cursor: pointer;
-    z-index: 1002;
-    transition: transform 0.3s var(--ease-liquid);
+    z-index: 101;
+    transition: transform var(--transition-medium);
 }
 
-.burger-menu-icon:hover {
-    transform: scale(1.1);
-}
-
-.burger-menu-icon span {
-    width: 100%;
+.burger-line {
+    position: absolute;
     height: 3px;
-    background-color: var(--color-white); /* Default: white on dark */
-    border-radius: 3px;
-    transition: var(--transition-burger), var(--transition-color);
+    width: 100%;
+    border-radius: 2px;
+    transition: all var(--transition-medium);
     transform-origin: center;
 }
 
-/* Dynamic color change via JS */
-.burger-menu-icon.is-light span {
-    background-color: var(--color-black); /* Black on light */
+.burger-line.top {
+    top: 0;
+    background-color: var(--color-white);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
-/* Burger 'X' animation */
-.burger-menu-icon.is-active span:nth-child(1) {
-    transform: translateY(10.5px) rotate(45deg);
+.burger-line.middle {
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--color-white);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
-.burger-menu-icon.is-active span:nth-child(2) {
+
+.burger-line.bottom {
+    bottom: 0;
+    background-color: var(--color-white);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Burger Menu Hover Effect */
+.burger-menu:hover .burger-line {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+.burger-menu:hover .top {
+    transform: translateY(-2px);
+}
+
+.burger-menu:hover .bottom {
+    transform: translateY(2px);
+}
+
+/* Burger Menu Active State */
+.burger-menu.active {
+    transform: rotate(180deg);
+}
+
+.burger-menu.active .top {
+    transform: translateY(13px) rotate(45deg);
+    background-color: var(--color-black);
+}
+
+.burger-menu.active .middle {
     opacity: 0;
-    transform: scaleX(0.5);
-}
-.burger-menu-icon.is-active span:nth-child(3) {
-    transform: translateY(-10.5px) rotate(-45deg);
 }
 
-/* 6. Frosted Glass Navigation */
-.main-nav {
+.burger-menu.active .bottom {
+    transform: translateY(-13px) rotate(-45deg);
+    background-color: var(--color-black);
+}
+
+/* Navigation Overlay */
+.nav-overlay {
     position: fixed;
-    inset: 0; /* 0 0 0 0 */
-    z-index: 1001;
-    
-    /* Frosted Glass */
-    background-color: var(--color-glass-frost);
-    backdrop-filter: blur(25px) saturate(180%);
-    -webkit-backdrop-filter: blur(25px) saturate(180%);
-
-    /* Liquid "Surprise Me" Animation */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: var(--blur-effect);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     opacity: 0;
-    clip-path: circle(0% at 40px 40px);
-    transition: opacity 0.7s var(--ease-out-quint), 
-                clip-path 0.8s var(--ease-out-quint);
-    pointer-events: none;
-    
-    display: grid;
-    place-items: center;
+    visibility: hidden;
+    transition: all var(--transition-medium);
 }
 
-.main-nav.is-active {
+.nav-overlay.active {
     opacity: 1;
-    clip-path: circle(150% at 40px 40px); /* Expands from burger */
-    pointer-events: auto;
+    visibility: visible;
 }
 
-.main-nav ul {
+.nav-list {
     list-style: none;
     text-align: center;
 }
 
-.main-nav li {
-    /* Staggered fade-in animation */
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.5s var(--ease-out-quint), 
-                transform 0.5s var(--ease-out-quint);
-    transition-delay: calc(0.05s * var(--i)); /* JS will set --i */
-}
-
-.main-nav.is-active li {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.main-nav a {
-    display: inline-block;
-    padding: 15px 30px;
+.nav-link {
     font-family: var(--font-title);
-    font-size: 5vh;
+    font-size: 3rem;
     color: var(--color-white);
     text-decoration: none;
+    display: inline-block;
+    margin: 1rem 0;
     position: relative;
-    overflow: hidden;
-    transition: color 0.3s;
+    transition: all var(--transition-fast);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Hover "Surprise Me": Metallic reflection */
-.main-nav a::before {
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    bottom: -5px;
+    left: 0;
+    background: linear-gradient(90deg, transparent, var(--color-white), transparent);
+    transition: width var(--transition-medium);
+}
+
+.nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+    transform: translateY(-5px);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Sections */
+.section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.content {
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: contentFadeIn 1s var(--transition-slow) forwards;
+    animation-delay: 0.5s;
+}
+
+.title {
+    font-family: var(--font-title);
+    font-size: 5rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding: 20px;
+}
+
+.title::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: var(--gradient-metallic-hover);
-    opacity: 0.6;
-    transform: skewX(-30deg);
-    transition: left 0.6s var(--ease-liquid);
+    background: var(--glass-effect);
+    backdrop-filter: var(--blur-effect);
+    border: var(--glass-border);
+    border-radius: 10px;
+    box-shadow: var(--glass-shadow);
+    z-index: -1;
 }
 
-.main-nav a:hover {
-    color: var(--color-white); /* Keep it white, reflection does the work */
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
-.main-nav a:hover::before {
-    left: 100%;
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* 7. Global Section Styles */
-.section {
-    width: 100%;
-    height: 100vh; /* Full viewport height */
-    display: grid;
-    place-items: center;
-    position: relative;
-    overflow: hidden;
-    /* For 3D parallax effect */
-    perspective: 1000px;
-}
-
-.section-title {
-    font-family: var(--font-title);
-    font-size: clamp(3rem, 10vw, 12rem);
-    font-weight: normal;
-    text-align: center;
-    position: relative;
-    
-    /* 3D Depth "Surprise Me" */
-    transform-style: preserve-3d;
-    transition: transform 0.5s var(--ease-liquid);
-    
-    /* Fade in on scroll (JS) */
-    opacity: 0;
-    transform: translateY(50px);
-    transition: opacity 1s var(--ease-out-quint), 
-                transform 1s var(--ease-out-quint);
-}
-
-/* JS-driven class */
-.section-title.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Metal Shimmer "Surprise Me" */
-.section-title::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-metallic);
-    background-size: 200% 100%;
-    mix-blend-mode: overlay; /* Blends with text color */
-    opacity: 0.5;
-    animation: metalShimmer 6s linear infinite;
-    z-index: 1;
-}
-
-@keyframes metalShimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-
-/* 8. Responsiveness */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .burger-menu-icon {
-        top: 20px;
-        left: 20px;
+    .title {
+        font-size: 3rem;
     }
     
-    .main-nav a {
-        font-size: 6vh;
-        padding: 10px 20px;
+    .nav-link {
+        font-size: 2rem;
     }
-
-    .section-title {
-        font-size: clamp(2.5rem, 15vw, 10rem);
+    
+    .burger-menu {
+        width: 35px;
+        height: 25px;
     }
 }
