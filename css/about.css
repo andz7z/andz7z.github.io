@@ -1,5 +1,3 @@
-/* Stiluri specifice pentru secțiunea Despre */
-#about .section-title {
-    color: #fff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+#about {
+    background: var(--gradient-about);
 }
