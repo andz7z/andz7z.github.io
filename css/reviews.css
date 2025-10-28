@@ -1,5 +1,7 @@
-/* Reviews Section Styles */
-#reviews .content h1 {
-    color: #333333;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+.reviews-section {
+    background: var(--gradient-reviews);
+}
+
+.reviews-section .title {
+    color: var(--color-black);
 }
