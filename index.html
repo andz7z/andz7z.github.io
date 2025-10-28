@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Premium</title>
+    <title>Sophisticated Portfolio</title>
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
@@ -15,71 +15,76 @@
     <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-    <!-- Progress Scroll Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress">
+        <div class="progress-bar"></div>
     </div>
     
     <!-- Burger Menu -->
-    <div class="burger-menu" id="burgerMenu">
+    <div class="burger-menu">
         <div class="burger-icon">
             <span></span>
             <span></span>
             <span></span>
         </div>
-        <nav class="nav-menu" id="navMenu">
+        <nav class="nav-menu">
             <ul>
-                <li><a href="#home" data-section="home">Home</a></li>
-                <li><a href="#about" data-section="about">About</a></li>
-                <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
-                <li><a href="#services" data-section="services">Services</a></li>
-                <li><a href="#reviews" data-section="reviews">Reviews</a></li>
-                <li><a href="#contact" data-section="contact">Contact</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </nav>
     </div>
     
-    <!-- Sections -->
-    <section id="home" class="section">
+    <!-- Home Section -->
+    <section id="home" class="section home-section">
         <div class="video-container">
-            <video autoplay muted loop id="backgroundVideo">
+            <video autoplay muted loop id="bg-video">
                 <source src="assets/movie/andz.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
-            <div class="video-overlay"></div>
         </div>
-        <div class="content">
-            <h1 class="title">Home</h1>
-        </div>
-    </section>
-    
-    <section id="about" class="section">
-        <div class="content">
-            <h1 class="title">About</h1>
+        <div class="home-content">
+            <h1 class="home-title">Sophisticated Design</h1>
+            <p class="home-subtitle">Premium Experience</p>
         </div>
     </section>
     
-    <section id="portfolio" class="section">
-        <div class="content">
-            <h1 class="title">Portfolio</h1>
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="section-content">
+            <h2 class="section-title">About</h2>
         </div>
     </section>
     
-    <section id="services" class="section">
-        <div class="content">
-            <h1 class="title">Services</h1>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio-section">
+        <div class="section-content">
+            <h2 class="section-title">Portfolio</h2>
         </div>
     </section>
     
-    <section id="reviews" class="section">
-        <div class="content">
-            <h1 class="title">Reviews</h1>
+    <!-- Services Section -->
+    <section id="services" class="section services-section">
+        <div class="section-content">
+            <h2 class="section-title">Services</h2>
         </div>
     </section>
     
-    <section id="contact" class="section">
-        <div class="content">
-            <h1 class="title">Contact</h1>
+    <!-- Reviews Section -->
+    <section id="reviews" class="section reviews-section">
+        <div class="section-content">
+            <h2 class="section-title">Reviews</h2>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="section-content">
+            <h2 class="section-title">Contact</h2>
         </div>
     </section>
     
