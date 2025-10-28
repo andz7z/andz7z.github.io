@@ -1,13 +1,3 @@
-/* ========================================
-   ANDZ WEBSITE - CONTACT SECTION STYLES
-   Minimalist Design
-   ======================================== */
-
 #contact {
-    background: var(--negru);
-}
-
-#contact .section-title {
-    color: var(--alb);
-    text-shadow: var(--glow-subtil);
+    background: var(--gradient-medium);
 }
