@@ -1,23 +1,25 @@
 // Home section specific JavaScript
-
 document.addEventListener('DOMContentLoaded', function() {
-    // Add any home section specific functionality here
-    console.log('Home section loaded');
+    const video = document.getElementById('backgroundVideo');
     
-    // Example: Add a subtle pulse animation to the home title
-    const homeTitle = document.querySelector('.home-section .title');
-    if (homeTitle) {
-        homeTitle.style.animation = 'contentFadeIn 1s ease forwards, pulse 3s infinite 2s';
-        
-        // Add the pulse animation to CSS
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes pulse {
-                0% { transform: scale(1); }
-                50% { transform: scale(1.05); }
-                100% { transform: scale(1); }
-            }
-        `;
-        document.head.appendChild(style);
-    }
+    // Ensure video plays correctly
+    video.addEventListener('loadeddata', function() {
+        console.log('Video loaded successfully');
+    });
+    
+    video.addEventListener('error', function() {
+        console.error('Error loading video');
+    });
+    
+    // Add liquid effect to home title
+    const homeTitle = document.querySelector('#home .title');
+    
+    homeTitle.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.05)';
+        this.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+    });
+    
+    homeTitle.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+    });
 });
