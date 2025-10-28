@@ -1,21 +1,31 @@
-// Reviews Section JavaScript
+// Reviews section specific JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Reviews section loaded');
+    const reviewsTitle = document.querySelector('#reviews .title');
     
-    // Add any reviews-specific functionality here
-    const reviewsSection = document.getElementById('reviews');
-    
-    // Example: Future reviews carousel functionality
-    const reviewsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                console.log('Reviews section is now visible');
-                // Future reviews slider initialization
-            }
-        });
+    // Add liquid metal effect to reviews title
+    reviewsTitle.addEventListener('mouseenter', function() {
+        this.style.color = 'transparent';
+        this.style.background = 'linear-gradient(45deg, #b8b8b8, #e8e8e8, #a0a0a0, #c8c8c8)';
+        this.style.backgroundSize = '400% 400%';
+        this.style.webkitBackgroundClip = 'text';
+        this.style.animation = 'liquidMetal 3s ease infinite';
     });
     
-    if (reviewsSection) {
-        reviewsObserver.observe(reviewsSection);
-    }
+    reviewsTitle.addEventListener('mouseleave', function() {
+        this.style.color = '';
+        this.style.background = '';
+        this.style.webkitBackgroundClip = '';
+        this.style.animation = '';
+    });
 });
+
+// Add liquid metal animation
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes liquidMetal {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+`;
+document.head.appendChild(style);
