@@ -1,13 +1,4 @@
-@font-face {
-    font-family: 'Noverich';
-    src: url('../assets/fonts/noverich.otf') format('opentype');
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/roboto.ttf') format('truetype');
-}
-
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
@@ -15,306 +6,32 @@
 }
 
 body {
-    position: relative;
-    color: #fff;
     font-family: 'Roboto', sans-serif;
-    height: 100%;
     overflow-x: hidden;
 }
 
-.noverich-font {
-    font-family: 'Noverich', serif;
-}
-
-.roboto-font {
-    font-family: 'Roboto', sans-serif;
-}
-
-/* Video Background */
-.video-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-    overflow: hidden;
-}
-
-#bg-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Burger Menu */
-.bars {
-    position: fixed;
-    width: 27px;
-    height: 27px;
-    top: 30px;
-    right: 30px;
-    cursor: pointer;
-    z-index: 101;
-    padding-top: 9px;
-}
-
-.bar {
-    width: 100%;
-    height: 2px;
-    background-color: #fff;
-    position: absolute;
-}
-
-span::before,
-span::after {
-    content: "";
-    display: block;
-    background-color: #fff;
-    width: 100%;
-    height: 2px;
-    position: absolute;
-}
-
-.bar::before {
-    transform: translateY(-9px);
-}
-
-.bar::after {
-    transform: translateY(9px);
-}
-
-.bars.active .bar {
-    background-color: transparent;
-}
-
-.bars.active span::before {
-    animation: top-bar 1s;
-    animation-fill-mode: forwards;
-}
-
-.bars.active span::after {
-    animation: bottom-bar 1s;
-    animation-fill-mode: forwards;
-}
-
-/* Navbar Links CSS */
-#nav {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    transition: all 1s;
-    z-index: -1;
-    overflow: hidden;
-    opacity: 0;
-}
-
-#nav a {
-    color: #fff;
-    text-decoration: none;
-    line-height: 70vw;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-indent: 50vw;
-    border-radius: 50%;
-    transition: all .5s;
-    font-family: 'Noverich', serif;
-}
-
-#nav a:hover {
-    background: #555;
-}
-
-ul {
-    list-style: none;
-}
-
-.visible {
-    z-index: 100 !important;
-    opacity: 1 !important;
-}
-
-.shape-circle {
-    border-radius: 50%;
-    width: 20vw;
-    height: 20vw;
-    top: -10vw;
-    right: -10vw;
-    position: absolute;
-    transition: all 1s ease-in-out;
-    background: #444;
-    box-shadow: 0 0px 0px rgba(4, 26, 62, 0.5);
-}
-
-nav.visible li:first-child {
-    width: 200vw;
-    height: 200vw;
-    top: -100vw;
-    right: -100vw;
-    z-index: 5;
-    transition: all .5s ease-in-out;
-    box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
-}
-
-nav.visible li:nth-child(2) {
-    width: 170vw;
-    height: 170vw;
-    top: -85vw;
-    right: -85vw;
-    z-index: 6;
-    transition: all .6s ease-in-out;
-    box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
-}
-
-nav.visible li:nth-child(3){
-    width: 140vw;
-    height: 140vw;
-    top: -70vw;
-    right: -70vw;
-    z-index: 7;
-    transition: all .7s ease-in-out;
-    box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
-}
-
-nav.visible li:nth-child(4){
-    width: 110vw;
-    height: 110vw;
-    top: -55vw;
-    right: -55vw;
-    z-index: 8;
-    transition: all .8s ease-in-out;
-    box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
-}
-
-nav.visible li:last-child{
-    width: 80vw;
-    height: 80vw;
-    top: -40vw;
-    right: -40vw;
-    z-index: 9;
-    transition: all .9s ease-in-out;
-    box-shadow: 0 0px 80px rgba(4, 26, 62, 0.5);
-}
-
-nav.visible li:first-child a {
-    line-height: 265vw !important;
-    text-indent: 20vw !important;
-}
-
-nav.visible li:nth-child(2) a {
-    line-height: 220vw !important;
-    text-indent: 22vw !important;
-}
-
-nav.visible li:nth-child(3) a {
-    line-height: 180vw !important;
-    text-indent: 20vw !important;
-}
-
-nav.visible li:nth-child(4) a {
-    line-height: 140vw !important;
-    text-indent: 18vw !important;
-}
-
-nav.visible li:last-child a {
-    line-height: 100vw !important;
-    text-indent: 15vw !important;
-}
-
-/* Sectiuni */
 .section {
-    min-height: 100vh;
+    height: 100vh;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
 }
 
-#home {
-    position: relative;
-    z-index: 1;
-}
-
-#about {
-    background: linear-gradient(to bottom, #000, #222);
-}
-
-#portfolio {
-    background: linear-gradient(to bottom, #222, #444);
-}
-
-#services {
-    background: linear-gradient(to bottom, #444, #666);
-}
-
-#reviews {
-    background: linear-gradient(to bottom, #666, #888);
-}
-
-#contact {
-    background: linear-gradient(to bottom, #888, #fff);
-    color: #000;
-}
-
-.container {
+.section-content {
     text-align: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    z-index: 10;
 }
 
-h1 {
-    font-size: 120px;
-    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    margin-bottom: 20px;
+.section-content h2 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-h2 {
-    font-size: 80px;
-    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-    text-transform: uppercase;
-    letter-spacing: 3px;
-}
-
-p {
-    font-size: 24px;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-@keyframes top-bar {
-    50% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: rotate(45deg) translateY(0);
-    }
-}
-
-@keyframes bottom-bar {
-    50% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: rotate(-45deg) translateY(0);
-    }
-}
-
-@media screen and (max-width: 800px) {
-    h1 {
-        font-size: 60px;
-    }
-    
-    h2 {
-        font-size: 40px;
-    }
-    
-    p {
-        font-size: 18px;
-    }
+.section-content p {
+    font-size: 1.2rem;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
