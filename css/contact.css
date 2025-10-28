@@ -1,3 +1,5 @@
-#contact {
-    background: var(--gradient-medium);
+.contact {
+  background: linear-gradient(to bottom, #7a7a7a, #ffffff);
+  min-height:100vh;
+  display: grid; place-items: center;
 }
