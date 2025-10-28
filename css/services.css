@@ -1,3 +1,5 @@
-#services {
-    background: var(--gradient-white);
+.services {
+  background: linear-gradient(to bottom, #2e2e2e, #4a4a4a);
+  min-height: 100vh;
+  display: grid; place-items: center;
 }
