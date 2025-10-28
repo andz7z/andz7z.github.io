@@ -1,5 +1,15 @@
-.about {
-  background: linear-gradient(to bottom, #0a0a0a, #1b1b1b);
-  min-height: 100vh;
-  display: grid; place-items: center;
+.about-section {
+    background: linear-gradient(to bottom, var(--color-dark-gray), var(--color-medium-gray));
+}
+
+.about-section h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.about-section p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    line-height: 1.6;
 }
