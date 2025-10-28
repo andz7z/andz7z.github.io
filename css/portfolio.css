@@ -1,5 +1,44 @@
-.portfolio {
-  background: linear-gradient(to bottom, #1b1b1b, #2e2e2e);
-  min-height: 100vh;
-  display: grid; place-items: center;
+.portfolio-section {
+    background: linear-gradient(to bottom, var(--color-medium-gray), var(--color-light-gray));
+    color: var(--color-dark);
+}
+
+.portfolio-section h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: var(--color-white);
+}
+
+.portfolio-section p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+    color: var(--color-white);
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.portfolio-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
