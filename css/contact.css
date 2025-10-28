@@ -1,7 +1,3 @@
-.contact-section {
+#contact {
     background: var(--gradient-contact);
-}
-
-.contact-section .title {
-    color: var(--color-black);
 }
