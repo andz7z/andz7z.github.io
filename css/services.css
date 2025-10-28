@@ -1,7 +1,3 @@
-.services-section {
+#services {
     background: var(--gradient-services);
-}
-
-.services-section .title {
-    color: var(--color-white);
 }
