@@ -1,4 +1,25 @@
-/* Reset and Base Styles */
+/* Variabile de culoare pentru ușoară personalizare */
+:root {
+    --color-primary: #ff5569;
+    --color-secondary: #6c757d;
+    --color-accent: #17a2b8;
+    --color-dark: #1a1a1a;
+    --color-dark-gray: #2d2d2d;
+    --color-medium-gray: #4a4a4a;
+    --color-light-gray: #6c6c6c;
+    --color-white: #f7f8f7;
+    --color-off-white: #e7e7e7;
+    
+    --gradient-dark: linear-gradient(to bottom, #000000, #2d2d2d);
+    --gradient-medium: linear-gradient(to bottom, #2d2d2d, #4a4a4a);
+    --gradient-light: linear-gradient(to bottom, #4a4a4a, #6c6c6c);
+    --gradient-white: linear-gradient(to bottom, #6c6c6c, #f7f8f7);
+    
+    --blur-amount: 10px;
+    --transition-speed: 0.3s;
+}
+
+/* Reset și stiluri de bază */
 * {
     margin: 0;
     padding: 0;
@@ -10,49 +31,54 @@ html {
 }
 
 body {
-    font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #fff;
-    background-color: #000;
+    font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
 }
 
-/* Fonturi personalizate */
-.section-title, .nav-logo, .slogan {
-    font-family: 'Noverich', 'Roboto', sans-serif;
-}
-/* Progress Bar */
-.progress-container {
+/* Loader */
+#loader {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: transparent;
-    z-index: 1000;
+    height: 100%;
+    background: var(--color-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-.progress-bar {
+#loader video {
+    width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #000, #333, #666, #999, #ccc, #fff);
+    object-fit: cover;
+}
+
+/* Progress Bar */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 0%;
+    height: 4px;
+    background: linear-gradient(to right, var(--color-dark), var(--color-white));
+    z-index: 9998;
     transition: width 0.1s ease;
 }
 
-/* Navigation Bar */
-.navbar {
+/* Navigation */
+#navbar {
     position: fixed;
     top: 0;
+    left: 0;
     width: 100%;
     padding: 1rem 2rem;
-    z-index: 999;
-    backdrop-filter: blur(10px);
-    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    transition: all var(--transition-speed) ease;
+    backdrop-filter: blur(var(--blur-amount));
+    background: rgba(255, 255, 255, 0.1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.navbar.hidden {
-    transform: translateY(-100%);
 }
 
 .nav-container {
@@ -63,477 +89,109 @@ body {
     margin: 0 auto;
 }
 
-.nav-logo {
-    font-size: 1.5rem;
+.nav-logo span {
     font-weight: bold;
-    color: #fff;
-    text-decoration: none;
-}
-
-.logo-img {
-    height: 40px;
-    width: auto;
-    filter: brightness(0) invert(1);
+    font-size: 1.5rem;
+    color: var(--color-white);
 }
 
 .nav-menu {
     display: flex;
-    list-style: none;
     gap: 2rem;
 }
 
-.nav-link {
+.nav-item {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: #fff;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
+    color: var(--color-white);
+    transition: all var(--transition-speed) ease;
     position: relative;
-    padding: 0.5rem;
 }
 
-.nav-link i {
+.nav-icon {
     font-size: 1.2rem;
-    margin-bottom: 0;
-    transition: all 0.3s ease;
+    margin-bottom: 0.25rem;
 }
 
 .nav-text {
-    position: absolute;
-    bottom: -20px;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     opacity: 0;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    transition: opacity var(--transition-speed) ease;
+    position: absolute;
+    bottom: -1.5rem;
 }
 
-.nav-link:hover .nav-text {
+.nav-item:hover .nav-text {
     opacity: 1;
-    bottom: -15px;
 }
 
-.nav-link:hover i {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.7));
-}
-
-.hamburger {
+.nav-toggle {
     display: none;
     flex-direction: column;
     cursor: pointer;
 }
 
-.bar {
+.nav-toggle span {
     width: 25px;
     height: 3px;
-    background-color: #fff;
+    background: var(--color-white);
     margin: 3px 0;
     transition: 0.3s;
 }
 
-/* Back to Home Arrow */
-.back-to-home {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.7);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 998;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.back-to-home.visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.back-to-home i {
-    font-size: 1.2rem;
-    color: #fff;
-    animation: pulse 2s infinite;
-}
-
 /* Sections */
 .section {
-    min-height: 100vh;
-    padding: 2rem;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    padding: 0 2rem;
     text-align: center;
-}
-
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: #fff;
-}
-
-.section-description {
-    font-size: 1.2rem;
-    color: #ccc;
-    max-width: 600px;
-    margin: 0 auto;
+    color: var(--color-white);
 }
 
 /* Responsive */
-@media screen and (max-width: 768px) {
+@media (max-width: 768px) {
     .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 70px;
+        display: none;
         flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.9);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 2rem 0;
-        gap: 0;
-    }
-
-    .nav-menu.active {
+        position: absolute;
+        top: 100%;
         left: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(var(--blur-amount));
+        padding: 1rem 0;
     }
-
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
     .nav-item {
-        margin: 1.5rem 0;
-    }
-
-    .nav-link {
         flex-direction: row;
-        gap: 0.5rem;
+        padding: 0.5rem 2rem;
     }
-
+    
+    .nav-icon {
+        margin-right: 0.5rem;
+        margin-bottom: 0;
+    }
+    
     .nav-text {
         position: static;
         opacity: 1;
-        font-size: 1rem;
     }
-
-    .hamburger {
+    
+    .nav-toggle {
         display: flex;
     }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    .back-to-home {
-        width: 40px;
-        height: 40px;
-        top: 15px;
-        right: 15px;
-    }
-}
-/* =======================
-   VIDEO LOADER STYLING
-======================= */
-#video-loader {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-/* Video inițial — începe blurat */
-#video-loader video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(25px);
-  opacity: 0.4;
-  transform: scale(1.08);
-  transition: filter 1.8s ease-out, opacity 1.8s ease-out, transform 1.8s ease-out;
-}
-
-/* Overlay de blur + întunecare */
-.loader-overlay {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(25px);
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 1;
-  transition: opacity 1.8s ease-in-out, backdrop-filter 1.8s ease-in-out;
-}
-
-/* Logo text */
-.loader-logo {
-  position: absolute;
-  color: white;
-  font-size: 3rem;
-  letter-spacing: 6px;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-shadow: 0 0 20px rgba(255,255,255,0.5);
-  animation: pulseLogo 1.8s ease-in-out infinite alternate;
-}
-
-@keyframes pulseLogo {
-  from { opacity: 0.7; transform: scale(1); }
-  to { opacity: 1; transform: scale(1.05); }
-}
-
-/* ====================================================
-   FADE OUT ANIMATION – DISPARIȚIE DRAMATICĂ
-==================================================== */
-#video-loader.fade-out video {
-  filter: blur(15px) brightness(1.1);
-  opacity: 0;
-  transform: scale(1.12);
-  transition: filter 1.2s ease, opacity 1.5s ease, transform 1.8s ease;
-}
-
-#video-loader.fade-out .loader-overlay {
-  opacity: 0;
-  backdrop-filter: blur(5px);
-  transition: opacity 1.2s ease, backdrop-filter 1.2s ease;
-}
-
-#video-loader.fade-out {
-  opacity: 1;
-  animation: smoothFadeOut 2s ease forwards;
-}
-
-@keyframes smoothFadeOut {
-  0% { 
-    opacity: 1; 
-    transform: scale(1);
-  }
-  50% { 
-    opacity: 0.3; 
-    transform: scale(1.02);
-  }
-  100% { 
-    opacity: 0; 
-    transform: scale(1.05);
-    visibility: hidden;
-  }
-}
-
-/* ==========================
-   MAIN CONTENT FADE IN - NOU
-========================== */
-main {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
-}
-
-main.content-visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-/* ==========================
-   MOBILE VIDEO FIX 
-========================== */
-@media (max-width: 768px) {
-  #video-loader {
-    background: black;
-  }
-
-  #video-loader video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: black;
-    transform: scale(0.95);
-  }
-
-  #video-loader::before,
-  #video-loader::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 10vh;
-    background: black;
-    z-index: 5;
-  }
-
-  #video-loader::before { top: 0; }
-  #video-loader::after  { bottom: 0; }
-}
-
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  transition: transform 0.6s ease, opacity 0.6s ease;
-}
-
-.navbar.nav-hidden {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-/* =======================
-   VIDEO LOADER STYLING
-======================= */
-#video-loader {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-/* Video inițial — începe blurat */
-#video-loader video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: blur(25px) brightness(0.8);
-  opacity: 0.4;
-  transform: scale(1.08);
-  transition: filter 1.8s ease-out, opacity 1.8s ease-out, transform 1.8s ease-out, brightness 1.8s ease-out;
-}
-
-/* Overlay de blur + întunecare */
-.loader-overlay {
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(25px);
-  background: rgba(0, 0, 0, 0.4);
-  opacity: 1;
-  transition: opacity 1.8s ease-in-out, backdrop-filter 1.8s ease-in-out;
-}
-
-/* Logo text */
-.loader-logo {
-  position: absolute;
-  color: white;
-  font-size: 3rem;
-  letter-spacing: 6px;
-  font-weight: 700;
-  text-transform: uppercase;
-  text-shadow: 0 0 20px rgba(255,255,255,0.5);
-  animation: pulseLogo 1.8s ease-in-out infinite alternate;
-}
-
-@keyframes pulseLogo {
-  from { opacity: 0.7; transform: scale(1); }
-  to { opacity: 1; transform: scale(1.05); }
-}
-
-/* ====================================================
-   FADE OUT ANIMATION – DISPARIȚIE DRAMATICĂ
-==================================================== */
-#video-loader.fade-out video {
-  filter: blur(15px) brightness(1.2);
-  opacity: 0;
-  transform: scale(1.12);
-  transition: filter 1.2s ease, opacity 1.2s ease, transform 1.2s ease, brightness 1.2s ease;
-}
-
-#video-loader.fade-out .loader-overlay {
-  opacity: 0;
-  backdrop-filter: blur(5px);
-  transition: opacity 1.2s ease, backdrop-filter 1.2s ease;
-}
-
-#video-loader.fade-out {
-  opacity: 1;
-  animation: smoothFadeOut 1.2s ease forwards;
-}
-
-@keyframes smoothFadeOut {
-  0% { 
-    opacity: 1; 
-    transform: scale(1);
-  }
-  70% { 
-    opacity: 0.3; 
-    transform: scale(1.02);
-  }
-  100% { 
-    opacity: 0; 
-    transform: scale(1.05);
-    visibility: hidden;
-  }
-}
-
-/* ==========================
-   MAIN CONTENT FADE IN - NOU
-========================== */
-main {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1.5s ease-in-out 0.3s, visibility 1.5s ease-in-out 0.3s;
-}
-
-/* Eliminăm clasa content-visible și folosim direct stilurile */
-main.content-visible,
-main[style*="opacity: 1"] {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* ==========================
-   MOBILE VIDEO FIX 
-========================== */
-@media (max-width: 768px) {
-  #video-loader {
-    background: black;
-  }
-
-  #video-loader video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background: black;
-    transform: scale(0.95);
-  }
-
-  #video-loader::before,
-  #video-loader::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 100%;
-    height: 10vh;
-    background: black;
-    z-index: 5;
-  }
-
-  #video-loader::before { top: 0; }
-  #video-loader::after  { bottom: 0; }
 }
