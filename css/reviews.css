@@ -1,13 +1,3 @@
-/* ========================================
-   ANDZ WEBSITE - REVIEWS SECTION STYLES
-   Minimalist Design
-   ======================================== */
-
 #reviews {
-    background: var(--negru);
-}
-
-#reviews .section-title {
-    color: var(--alb);
-    text-shadow: var(--glow-subtil);
+    background: var(--gradient-light);
 }
