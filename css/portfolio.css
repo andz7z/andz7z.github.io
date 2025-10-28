@@ -1,5 +1,7 @@
-/* Portfolio Section Styles */
-#portfolio .content h1 {
-    color: #333333;
-    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
+.portfolio-section {
+    background: var(--gradient-portfolio);
+}
+
+.portfolio-section .title {
+    color: var(--color-white);
 }
