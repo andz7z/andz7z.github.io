@@ -1,133 +1,79 @@
-// Main JavaScript file - handles common functionality
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all modules
-    initScrollProgress();
-    initBurgerMenu();
-    initSectionObserver();
-    initSmoothScroll();
+// Loader
+window.addEventListener('load', function() {
+    const loader = document.getElementById('loader');
+    
+    // Ascunde loader-ul după 3 secunde
+    setTimeout(function() {
+        loader.style.opacity = '0';
+        setTimeout(function() {
+            loader.style.display = 'none';
+        }, 500);
+    }, 3000);
 });
 
-// Scroll Progress Indicator
-function initScrollProgress() {
-    const progressBar = document.querySelector('.progress-bar');
-    
-    window.addEventListener('scroll', function() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollPercent = (scrollTop / documentHeight) * 100;
-        
-        progressBar.style.width = scrollPercent + '%';
-    });
-}
-
-// Burger Menu Functionality
-function initBurgerMenu() {
+// Navbar
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelector('.nav-links');
     const burgerMenu = document.querySelector('.burger-menu');
-    const burgerIcon = document.querySelector('.burger-icon');
-    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileMenu = document.querySelector('.mobile-menu');
     
-    // Toggle menu on burger click
-    burgerIcon.addEventListener('click', function(e) {
-        e.stopPropagation();
-        burgerMenu.classList.toggle('active');
-        document.body.style.overflow = burgerMenu.classList.contains('active') ? 'hidden' : '';
+    // Ascunde navbar-ul la scroll
+    let lastScrollTop = 0;
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scroll în jos - ascunde navbar-ul
+            navbar.classList.add('navbar-minimized');
+            navLinks.style.opacity = '0';
+        } else {
+            // Scroll în sus - arată navbar-ul
+            navbar.classList.remove('navbar-minimized');
+            navLinks.style.opacity = '1';
+        }
+        
+        lastScrollTop = scrollTop;
     });
     
-    // Close menu when clicking on a link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            burgerMenu.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!burgerMenu.contains(e.target) && burgerMenu.classList.contains('active')) {
-            burgerMenu.classList.remove('active');
-            document.body.style.overflow = '';
+    // Burger menu toggle
+    burgerMenu.addEventListener('click', function() {
+        mobileMenu.classList.toggle('mobile-menu-open');
+        
+        // Animație burger
+        const burgerLines = document.querySelectorAll('.burger-line');
+        if (mobileMenu.classList.contains('mobile-menu-open')) {
+            burgerLines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            burgerLines[1].style.opacity = '0';
+            burgerLines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+        } else {
+            burgerLines[0].style.transform = 'none';
+            burgerLines[1].style.opacity = '1';
+            burgerLines[2].style.transform = 'none';
         }
     });
-}
-
-// Section Observer for animations
-function initSectionObserver() {
-    const sections = document.querySelectorAll('.section');
     
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.3
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
-        });
-    }, observerOptions);
-    
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-}
-
-// Smooth Scroll for Navigation
-function initSmoothScroll() {
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+    // Navigare smooth
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
             e.preventDefault();
             
             const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
+            const targetElement = document.querySelector(targetId);
             
-            if (targetSection) {
+            if (targetElement) {
                 window.scrollTo({
-                    top: targetSection.offsetTop,
+                    top: targetElement.offsetTop,
                     behavior: 'smooth'
                 });
+                
+                // Închide meniul mobil dacă este deschis
+                mobileMenu.classList.remove('mobile-menu-open');
+                const burgerLines = document.querySelectorAll('.burger-line');
+                burgerLines[0].style.transform = 'none';
+                burgerLines[1].style.opacity = '1';
+                burgerLines[2].style.transform = 'none';
             }
         });
     });
-}
-
-// Dynamic color adaptation for burger menu
-function updateBurgerColor() {
-    const burgerSpans = document.querySelectorAll('.burger-icon span');
-    const sections = document.querySelectorAll('.section');
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
-    let currentSection = null;
-    
-    // Find the current section based on scroll position
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        
-        if (scrollTop >= sectionTop && scrollTop < sectionTop + sectionHeight) {
-            currentSection = section;
-        }
-    });
-    
-    // Determine if we should use light or dark color
-    if (currentSection) {
-        const isLightSection = currentSection.classList.contains('services-section') || 
-                              currentSection.classList.contains('reviews-section') || 
-                              currentSection.classList.contains('contact-section');
-        
-        const color = isLightSection ? 'var(--color-black)' : 'var(--color-white)';
-        
-        burgerSpans.forEach(span => {
-            span.style.background = color;
-        });
-    }
-}
-
-// Update burger color on scroll
-window.addEventListener('scroll', updateBurgerColor);
-window.addEventListener('load', updateBurgerColor);
+});
