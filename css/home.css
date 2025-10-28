@@ -72,4 +72,130 @@
   border-radius: 2px;
 }
 
-/*
+/* Space characters */
+.letter[aria-label="space"] {
+  width: 0.3em;
+  pointer-events: none;
+}
+
+.letter[aria-label="space"]:hover {
+  filter: none;
+  transform: none;
+}
+
+/* Scroll Button Styles */
+.scroll-button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  padding: 0;
+  cursor: pointer;
+  transition: all var(--transition-medium);
+  position: relative;
+  overflow: hidden;
+  min-width: 200px;
+  min-height: 60px;
+}
+
+.scroll-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left var(--transition-slow);
+}
+
+.scroll-button:hover::before {
+  left: 100%;
+}
+
+.scroll-button:hover,
+.scroll-button:focus {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(255, 85, 105, 0.3);
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  position: relative;
+  z-index: 1;
+}
+
+.button-text {
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-main);
+  letter-spacing: 0.05em;
+}
+
+.button-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-medium);
+}
+
+.scroll-button:hover .button-icon {
+  transform: translateY(2px);
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+  .hero-content {
+    padding-bottom: 15vh;
+  }
+  
+  .hero-text {
+    font-size: clamp(1.5rem, 8vw, 3rem);
+    letter-spacing: 0.05em;
+    gap: 0.02em;
+  }
+  
+  .scroll-button {
+    min-width: 180px;
+    min-height: 54px;
+  }
+  
+  .button-text {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text {
+    font-size: clamp(1.2rem, 6vw, 2rem);
+  }
+  
+  .scroll-button {
+    min-width: 160px;
+    min-height: 48px;
+  }
+  
+  .button-content {
+    padding: var(--space-xs) var(--space-sm);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .letter {
+    transition: none;
+  }
+  
+  .scroll-button::before {
+    display: none;
+  }
+  
+  .scroll-button:hover .button-icon {
+    transform: none;
+  }
+}
