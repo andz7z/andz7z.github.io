@@ -1,59 +1,85 @@
-// Main JavaScript for burger system and animations
+// Main JavaScript File
 document.addEventListener('DOMContentLoaded', function() {
-    // Burger System Variables - Original
-    var bars = document.getElementById("nav-action");
-    var nav = document.getElementById("nav");
-
-    // Setting up the listener
-    bars.addEventListener("click", barClicked, false);
-
-    // Setting up the clicked Effect
-    function barClicked() {
-        bars.classList.toggle('active');
-        nav.classList.toggle('visible');
-    }
-
-    // Smooth scrolling for navigation links
-    document.querySelectorAll('#nav a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Close navigation after clicking
-                bars.classList.remove('active');
-                nav.classList.remove('visible');
-            }
+    // Burger menu functionality
+    const burgerMenu = document.querySelector('.burger-menu');
+    const navMenu = document.querySelector('.nav-menu');
+    const burgerLines = document.querySelectorAll('.burger-line');
+    const sections = document.querySelectorAll('.section');
+    
+    // Toggle menu
+    burgerMenu.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+        
+        // Animate burger to X
+        burgerLines[0].classList.toggle('rotate-down');
+        burgerLines[1].classList.toggle('fade-out');
+        burgerLines[2].classList.toggle('rotate-up');
+    });
+    
+    // Close menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+            burgerLines[0].classList.remove('rotate-down');
+            burgerLines[1].classList.remove('fade-out');
+            burgerLines[2].classList.remove('rotate-up');
         });
     });
-
-    // Close navigation when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!bars.contains(e.target) && !nav.contains(e.target)) {
-            bars.classList.remove('active');
-            nav.classList.remove('visible');
-        }
-    });
-
-    // Add scroll effect to sections
-    window.addEventListener('scroll', function() {
-        const sections = document.querySelectorAll('.section');
+    
+    // Update burger color based on section background
+    function updateBurgerColor() {
+        const currentSection = getCurrentSection();
+        const sectionBg = getSectionBackgroundColor(currentSection);
+        
+        // Determine if background is dark or light
+        const isDark = isDarkBackground(sectionBg);
+        
+        // Update burger color
+        burgerLines.forEach(line => {
+            line.style.backgroundColor = isDark ? 'white' : 'black';
+        });
+    }
+    
+    function getCurrentSection() {
+        let currentSection = sections[0];
         const scrollPosition = window.scrollY + window.innerHeight / 2;
-
+        
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
+            const sectionBottom = sectionTop + section.offsetHeight;
             
-            if (scrollPosition >= sectionTop && scrollPosition <= sectionTop + sectionHeight) {
-                section.classList.add('active');
-            } else {
-                section.classList.remove('active');
+            if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+                currentSection = section;
             }
         });
-    });
+        
+        return currentSection;
+    }
+    
+    function getSectionBackgroundColor(section) {
+        const styles = window.getComputedStyle(section);
+        return styles.backgroundColor;
+    }
+    
+    function isDarkBackground(rgb) {
+        // Convert rgb to values
+        const rgbValues = rgb.match(/\d+/g);
+        if (!rgbValues) return true;
+        
+        const r = parseInt(rgbValues[0]);
+        const g = parseInt(rgbValues[1]);
+        const b = parseInt(rgbValues[2]);
+        
+        // Calculate brightness (perceived luminance)
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        
+        return brightness < 128; // Dark if brightness less than 128
+    }
+    
+    // Update burger color on scroll
+    window.addEventListener('scroll', updateBurgerColor);
+    
+    // Initial update
+    updateBurgerColor();
 });
