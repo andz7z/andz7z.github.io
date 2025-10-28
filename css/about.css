@@ -1,3 +1,5 @@
-#about {
-    background: var(--gradient-medium);
+.about {
+  background: linear-gradient(to bottom, #0a0a0a, #1b1b1b);
+  min-height: 100vh;
+  display: grid; place-items: center;
 }
