@@ -1,10 +1,10 @@
-/* Homepage Styles */
-#home {
+/* home.css */
+.home-section {
     position: relative;
-    background: black;
+    overflow: hidden;
 }
 
-.video-background {
+.video-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -13,7 +13,7 @@
     overflow: hidden;
 }
 
-.video-background video {
+#bg-video {
     min-width: 100%;
     min-height: 100%;
     width: auto;
@@ -25,27 +25,127 @@
     object-fit: cover;
 }
 
-#home .content {
+.video-fallback {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #000000, #1a1a1a);
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(2px);
+}
+
+.home-content {
     position: relative;
     z-index: 2;
-    color: white;
     text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: homeFadeIn 2s ease 0.5s forwards;
 }
 
-#home .content h1 {
-    font-family: 'Noverich', serif;
-    font-size: 5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.home-title {
+    font-family: var(--font-title);
+    font-size: clamp(4rem, 15vw, 12rem);
+    margin-bottom: var(--space-sm);
+    background: linear-gradient(135deg, #ffffff, #cccccc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
 }
 
-/* Ajustari pentru mobile */
-@media (max-width: 768px) {
-    #home .content h1 {
-        font-size: 3rem;
+.home-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: var(--gradient-metallic);
+    animation: expandLine 2s ease 1.5s forwards;
+}
+
+.home-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: var(--space-md);
+    opacity: 0;
+    animation: fadeIn 1s ease 1s forwards;
+}
+
+.scroll-indicator {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--color-white);
+    position: relative;
+    animation: bounce 2s infinite;
+}
+
+.indicator-dot::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: var(--color-white);
+    animation: pulse 2s infinite;
+}
+
+@keyframes homeFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-    
-    .video-background video {
-        width: 100%;
-        height: 100%;
+}
+
+@keyframes expandLine {
+    to {
+        width: 80%;
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
     }
 }
