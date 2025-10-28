@@ -1,128 +1,133 @@
-// Funcționalitatea pentru burger menu și navigare
+// Main JavaScript file
 document.addEventListener('DOMContentLoaded', function() {
-    const bars = document.getElementById("nav-action");
-    const nav = document.getElementById("nav");
-    const navLinks = document.querySelectorAll('.nav-link');
-    const sections = document.querySelectorAll('.section');
+    // Initialize all modules
+    initProgressBar();
+    initBurgerMenu();
+    initScrollAnimations();
+    initColorAdaptation();
+});
+
+// Progress Bar
+function initProgressBar() {
+    const progressBar = document.getElementById('progressBar');
     
-    // Fade in la încărcarea paginii
-    document.body.style.opacity = "0";
-    setTimeout(() => {
-        document.body.style.transition = "opacity 2s ease";
-        document.body.style.opacity = "1";
-    }, 100);
-    
-    // Deschide/închide meniul burger
-    bars.addEventListener("click", barClicked, false);
-    
-    function barClicked() {
-        bars.classList.toggle('active');
-        nav.classList.toggle('visible');
-    }
-    
-    // Schimbă culoarea burger-ului în funcție de secțiune
-    function updateBurgerColor() {
-        const currentSection = getCurrentSection();
-        const barsElement = document.querySelector('.bars');
-        const barElements = document.querySelectorAll('.bar, .bar::before, .bar::after');
+    window.addEventListener('scroll', function() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
         
-        if (currentSection === 'contact') {
-            // Pe secțiunea contact (albă), burger-ul trebuie să fie negru
-            barElements.forEach(bar => {
-                bar.style.backgroundColor = '#000';
+        progressBar.style.width = progress + '%';
+    });
+}
+
+// Burger Menu
+function initBurgerMenu() {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navMenu = document.getElementById('navMenu');
+    const burgerIcon = document.querySelector('.burger-icon');
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    
+    // Toggle menu on burger click
+    burgerMenu.addEventListener('click', function() {
+        burgerMenu.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        
+        // Animate menu items with staggered delay
+        if (navMenu.classList.contains('active')) {
+            navLinks.forEach((link, index) => {
+                link.style.transitionDelay = (index * 0.1) + 's';
             });
-            barsElement.style.color = '#000';
         } else {
-            // Pe celelalte secțiuni (închise), burger-ul trebuie să fie alb
-            barElements.forEach(bar => {
-                bar.style.backgroundColor = '#fff';
+            navLinks.forEach(link => {
+                link.style.transitionDelay = '0s';
             });
-            barsElement.style.color = '#fff';
         }
-    }
+    });
     
-    // Obține secțiunea curentă
-    function getCurrentSection() {
-        let currentSection = 'home';
-        
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
-                currentSection = section.id;
-            }
-        });
-        
-        return currentSection;
-    }
-    
-    // Închide meniul când se face clic pe un link
+    // Close menu when clicking on a link
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // Obține secțiunea țintă
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            
-            // Ascunde toate secțiunile
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Arată secțiunea țintă
-            targetSection.classList.add('active');
-            
-            // Actualizează link-ul activ
-            navLinks.forEach(link => link.classList.remove('active'));
-            this.classList.add('active');
-            
-            // Închide meniul burger
-            bars.classList.remove('active');
-            nav.classList.remove('visible');
-            
-            // Scroll la secțiunea respectivă
-            window.scrollTo({
-                top: targetSection.offsetTop,
-                behavior: 'smooth'
-            });
-            
-            // Actualizează culoarea burger-ului
-            setTimeout(updateBurgerColor, 500);
+        link.addEventListener('click', function() {
+            burgerMenu.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = '';
         });
     });
     
-    // Detectează secțiunea curentă la scroll
-    window.addEventListener('scroll', function() {
-        let current = '';
+    // Hover effect for burger icon
+    burgerIcon.addEventListener('mouseenter', function() {
+        burgerIcon.style.transform = 'scale(1.1)';
+    });
+    
+    burgerIcon.addEventListener('mouseleave', function() {
+        burgerIcon.style.transform = 'scale(1)';
+    });
+}
+
+// Scroll Animations
+function initScrollAnimations() {
+    const sections = document.querySelectorAll('.section');
+    const options = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -100px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, options);
+    
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+}
+
+// Color Adaptation for Burger Menu
+function initColorAdaptation() {
+    const burgerMenu = document.getElementById('burgerMenu');
+    const burgerSpans = document.querySelectorAll('.burger-icon span');
+    const sections = document.querySelectorAll('.section');
+    
+    function updateBurgerColor() {
+        const scrollPosition = window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        
+        // Determine which section is currently in view
+        let currentSection = null;
         
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
+            const sectionHeight = section.offsetHeight;
             
-            if (pageYOffset >= sectionTop - sectionHeight / 3) {
-                current = section.getAttribute('id');
+            if (scrollPosition >= sectionTop - windowHeight / 2 && 
+                scrollPosition < sectionTop + sectionHeight - windowHeight / 2) {
+                currentSection = section;
             }
         });
         
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href').substring(1) === current) {
-                link.classList.add('active');
-            }
-        });
-        
-        // Actualizează culoarea burger-ului la scroll
-        updateBurgerColor();
-    });
-    
-    // Închide meniul când se face clic în afara lui
-    document.addEventListener('click', function(e) {
-        if (!bars.contains(e.target) && !nav.contains(e.target) && nav.classList.contains('visible')) {
-            bars.classList.remove('active');
-            nav.classList.remove('visible');
+        // Update burger color based on section background
+        if (currentSection) {
+            const sectionId = currentSection.id;
+            
+            // Define which sections should have white burger and which black
+            const whiteBurgerSections = ['home', 'about', 'portfolio'];
+            const shouldBeWhite = whiteBurgerSections.includes(sectionId);
+            
+            burgerSpans.forEach(span => {
+                span.style.background = shouldBeWhite ? 'var(--color-secondary)' : 'var(--color-primary)';
+                span.style.boxShadow = shouldBeWhite ? '0 0 5px rgba(0, 0, 0, 0.5)' : '0 0 5px rgba(255, 255, 255, 0.5)';
+            });
         }
-    });
+    }
     
-    // Inițializează culoarea burger-ului
+    // Update on scroll and resize
+    window.addEventListener('scroll', updateBurgerColor);
+    window.addEventListener('resize', updateBurgerColor);
+    
+    // Initial call
     updateBurgerColor();
-});
+}
