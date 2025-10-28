@@ -15,6 +15,14 @@ body {
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
     color: white;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
 /* Sectiuni */
@@ -50,10 +58,9 @@ body {
 }
 
 #bg-video {
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -91,130 +98,230 @@ body {
     color: #000;
 }
 
-/* Burger Menu */
-.burger-menu {
+/* Burger Menu System */
+.bars {
     position: fixed;
-    top: 25px;
-    left: 25px;
-    width: 40px;
-    height: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    width: 27px;
+    height: 27px;
+    top: 30px;
+    right: 30px;
     cursor: pointer;
-    z-index: 1000;
-    transition: transform 0.3s ease;
+    z-index: 101;
+    padding-top: 9px;
+    transition: all 0.5s ease;
 }
 
-.burger-line {
+.bar {
     width: 100%;
     height: 4px;
-    background-color: white;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    transform-origin: left center;
+    background-color: #fff;
+    position: absolute;
+    transition: all 0.5s ease;
 }
 
-.burger-menu:hover {
-    transform: scale(1.1);
+.bar::before,
+.bar::after {
+    content: "";
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    height: 4px;
+    position: absolute;
+    transition: all 0.5s ease;
 }
 
-/* Meniu de navigare */
-.nav-menu {
+.bar::before {
+    transform: translateY(-9px);
+}
+
+.bar::after {
+    transform: translateY(9px);
+}
+
+.bars.active .bar {
+    background-color: transparent;
+}
+
+.bars.active .bar::before {
+    animation: top-bar 1s;
+    animation-fill-mode: forwards;
+}
+
+.bars.active .bar::after {
+    animation: bottom-bar 1s;
+    animation-fill-mode: forwards;
+}
+
+/* Navbar Links CSS */
+#nav {
     position: fixed;
     top: 0;
-    left: -300px;
-    width: 300px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.2);
-    transition: left 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    z-index: 999;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transition: all 1s;
+    z-index: -1;
+    overflow: hidden;
+    opacity: 0;
+}
+
+#nav a {
+    color: #fff;
+    text-decoration: none;
+    line-height: 70vw;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-indent: 50vw;
+    border-radius: 50%;
+    transition: all .5s;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.nav-menu.active {
-    left: 0;
-}
-
-.nav-menu ul {
-    list-style: none;
-    width: 100%;
-    padding: 0 20px;
-}
-
-.nav-menu li {
-    margin-bottom: 20px;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.4s ease;
-}
-
-.nav-menu.active li {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.nav-menu li:nth-child(1) { transition-delay: 0.1s; }
-.nav-menu li:nth-child(2) { transition-delay: 0.15s; }
-.nav-menu li:nth-child(3) { transition-delay: 0.2s; }
-.nav-menu li:nth-child(4) { transition-delay: 0.25s; }
-.nav-menu li:nth-child(5) { transition-delay: 0.3s; }
-.nav-menu li:nth-child(6) { transition-delay: 0.35s; }
-
-.nav-link {
-    display: block;
-    padding: 15px 20px;
-    color: white;
-    text-decoration: none;
     font-family: 'Noverich', sans-serif;
-    font-size: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    font-size: 1.2rem;
 }
 
-.nav-link::before {
-    content: '';
+#nav a:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+ul {
+    list-style: none;
+}
+
+.visible {
+    z-index: 100 !important;
+    opacity: 1 !important;
+}
+
+.shape-circle {
+    border-radius: 50%;
+    width: 20vw;
+    height: 20vw;
+    top: -10vw;
+    right: -10vw;
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    transition: left 0.3s ease;
+    transition: all 1s ease-in-out;
+    background: rgba(41, 121, 255, 0.8);
+    box-shadow: 0 0px 0px rgba(4, 26, 62, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.nav-link:hover::before {
-    left: 0;
+nav.visible li:first-child {
+    width: 60vw;
+    height: 60vw;
+    top: -30vw;
+    right: -30vw;
+    z-index: 5;
+    transition: all .5s ease-in-out;
+    box-shadow: 0 0px 30px rgba(4, 26, 62, 0.5);
 }
 
-.nav-link:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(10px);
+nav.visible li:nth-child(2) {
+    width: 70vw;
+    height: 70vw;
+    top: -35vw;
+    right: -35vw;
+    z-index: 6;
+    transition: all .6s ease-in-out;
+    box-shadow: 0 0px 30px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:nth-child(3){
+    width: 80vw;
+    height: 80vw;
+    top: -40vw;
+    right: -40vw;
+    z-index: 7;
+    transition: all .7s ease-in-out;
+    box-shadow: 0 0px 30px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:nth-child(4){
+    width: 90vw;
+    height: 90vw;
+    top: -45vw;
+    right: -45vw;
+    z-index: 8;
+    transition: all .8s ease-in-out;
+    box-shadow: 0 0px 30px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:nth-child(5){
+    width: 100vw;
+    height: 100vw;
+    top: -50vw;
+    right: -50vw;
+    z-index: 9;
+    transition: all .9s ease-in-out;
+    box-shadow: 0 0px 30px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:last-child{
+    width: 110vw;
+    height: 110vw;
+    top: -55vw;
+    right: -55vw;
+    z-index: 10;
+    transition: all 1s ease-in-out;
+    box-shadow: 0 0px 30px rgba(4, 26, 62, 0.5);
+}
+
+nav.visible li:first-child a {
+    line-height: 60vw !important;
+    text-indent: 0 !important;
+}
+
+nav.visible li:nth-child(2) a {
+    line-height: 70vw !important;
+    text-indent: 0 !important;
+}
+
+nav.visible li:nth-child(3) a {
+    line-height: 80vw !important;
+    text-indent: 0 !important;
+}
+
+nav.visible li:nth-child(4) a {
+    line-height: 90vw !important;
+    text-indent: 0 !important;
+}
+
+nav.visible li:nth-child(5) a {
+    line-height: 100vw !important;
+    text-indent: 0 !important;
+}
+
+nav.visible li:last-child a {
+    line-height: 110vw !important;
+    text-indent: 0 !important;
 }
 
 .nav-link.active {
-    background: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3) !important;
 }
 
-/* Animație pentru burger când meniul este deschis */
-.burger-menu.active .burger-line:nth-child(1) {
-    transform: rotate(45deg) translateY(-2px);
+/* Animații pentru burger */
+@keyframes top-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(45deg) translateY(0);
+    }
 }
 
-.burger-menu.active .burger-line:nth-child(2) {
-    opacity: 0;
-}
-
-.burger-menu.active .burger-line:nth-child(3) {
-    transform: rotate(-45deg) translateY(2px);
+@keyframes bottom-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(-45deg) translateY(0);
+    }
 }
 
 /* Responsive */
@@ -223,8 +330,54 @@ body {
         font-size: 2.5rem;
     }
     
-    .nav-menu {
-        width: 250px;
-        left: -250px;
+    .bars {
+        top: 20px;
+        right: 20px;
+    }
+    
+    nav.visible li:first-child {
+        width: 80vw;
+        height: 80vw;
+        top: -40vw;
+        right: -40vw;
+    }
+    
+    nav.visible li:nth-child(2) {
+        width: 90vw;
+        height: 90vw;
+        top: -45vw;
+        right: -45vw;
+    }
+    
+    nav.visible li:nth-child(3){
+        width: 100vw;
+        height: 100vw;
+        top: -50vw;
+        right: -50vw;
+    }
+    
+    nav.visible li:nth-child(4){
+        width: 110vw;
+        height: 110vw;
+        top: -55vw;
+        right: -55vw;
+    }
+    
+    nav.visible li:nth-child(5){
+        width: 120vw;
+        height: 120vw;
+        top: -60vw;
+        right: -60vw;
+    }
+    
+    nav.visible li:last-child{
+        width: 130vw;
+        height: 130vw;
+        top: -65vw;
+        right: -65vw;
+    }
+    
+    #nav a {
+        font-size: 1rem;
     }
 }
