@@ -1,4 +1,5 @@
 /* Reviews Section */
 #reviews {
-    background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    background: linear-gradient(180deg, #7a7a7a 0%, #8e8e8e 50%, #a3a3a3 100%);
+    transition: background 0.8s ease-in-out;
 }

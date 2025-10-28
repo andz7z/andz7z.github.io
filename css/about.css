@@ -1,4 +1,5 @@
 /* About Section */
 #about {
-    background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+    background: linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
+    transition: background 0.8s ease-in-out;
 }
