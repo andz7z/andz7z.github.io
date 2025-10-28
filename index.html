@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site</title>
+    <title>ANDZ | Premium Personal Brand</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -11,70 +11,79 @@
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Burger Menu -->
-    <div class="burger-menu">
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
-        <div class="burger-line"></div>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress">
+        <div class="progress-bar"></div>
     </div>
 
-    <!-- Navigation Menu -->
-    <nav class="nav-menu">
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+    <!-- Burger Menu -->
+    <div class="burger-menu">
+        <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="menu-overlay">
+            <nav class="menu-nav">
+                <ul>
+                    <li><a href="#home" class="menu-link">Home</a></li>
+                    <li><a href="#about" class="menu-link">About</a></li>
+                    <li><a href="#portfolio" class="menu-link">Portfolio</a></li>
+                    <li><a href="#services" class="menu-link">Services</a></li>
+                    <li><a href="#reviews" class="menu-link">Reviews</a></li>
+                    <li><a href="#contact" class="menu-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
-    <!-- Sections -->
-    <section id="home" class="section">
-        <div class="video-background">
-            <video autoplay muted loop>
-                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+    <!-- Home Section -->
+    <section id="home" class="section home-section">
+        <div class="video-container">
+            <video autoplay muted loop id="bg-video">
+                <source src="assets/movie/andz.mp4" type="video/mp4">
+                <!-- Fallback image if video doesn't load -->
+                <div class="video-fallback"></div>
             </video>
+            <div class="video-overlay"></div>
         </div>
-        <div class="content">
-            <h1>Home</h1>
+        <div class="home-content">
+            <h1 class="home-title">ANDZ</h1>
+            <p class="home-subtitle">Premium Creative Solutions</p>
         </div>
-    </section>
-
-    <section id="about" class="section">
-        <div class="content">
-            <h1>About</h1>
-        </div>
-    </section>
-
-    <section id="portfolio" class="section">
-        <div class="content">
-            <h1>Portfolio</h1>
+        <div class="scroll-indicator">
+            <div class="indicator-dot"></div>
         </div>
     </section>
 
-    <section id="services" class="section">
-        <div class="content">
-            <h1>Services</h1>
-        </div>
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <h2 class="section-title">About</h2>
     </section>
 
-    <section id="reviews" class="section">
-        <div class="content">
-            <h1>Reviews</h1>
-        </div>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section portfolio-section">
+        <h2 class="section-title">Portfolio</h2>
     </section>
 
-    <section id="contact" class="section">
-        <div class="content">
-            <h1>Contact</h1>
-        </div>
+    <!-- Services Section -->
+    <section id="services" class="section services-section">
+        <h2 class="section-title">Services</h2>
     </section>
 
-    <!-- Scripts -->
+    <!-- Reviews Section -->
+    <section id="reviews" class="section reviews-section">
+        <h2 class="section-title">Reviews</h2>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <h2 class="section-title">Contact</h2>
+    </section>
+
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
