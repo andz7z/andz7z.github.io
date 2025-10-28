@@ -1,5 +1,7 @@
-/* Contact Section Styles */
-#contact .content h1 {
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+.contact-section {
+    background: var(--gradient-contact);
+}
+
+.contact-section .title {
+    color: var(--color-black);
 }
