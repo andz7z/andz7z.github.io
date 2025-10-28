@@ -1,84 +1,108 @@
-(function () {
-  const loader = document.getElementById("loader");
-  const loaderVideo = document.getElementById("loader-video");
-  const header = document.querySelector(".site-header");
-  const burger = document.getElementById("burger");
-  const mobileMenu = document.getElementById("mobile-menu");
-  const progress = document.getElementById("scroll-progress");
+// Main JavaScript file
 
-  // Loader: 3s then blur out and remove
-  const endLoader = () => {
-    if (!loader) return;
-    loader.classList.add("blur-out");
-    setTimeout(() => loader.remove(), 700);
-  };
-  // Prefer video end if exactly 3s, fallback timer
-  if (loaderVideo) {
-    let ended = false;
-    loaderVideo.addEventListener("ended", () => { ended = true; endLoader(); });
-    setTimeout(() => { if (!ended) endLoader(); }, 3000);
-  } else {
-    setTimeout(endLoader, 3000);
-  }
+// Wait for DOM to load
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all modules
+    initLoader();
+    initProgressBar();
+    initNavigation();
+    initScrollBehavior();
+});
 
-  // Scroll progress line
-  const onScroll = () => {
-    const doc = document.documentElement;
-    const scrollTop = doc.scrollTop || document.body.scrollTop;
-    const scrollHeight = doc.scrollHeight - doc.clientHeight;
-    const ratio = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
-    if (progress) progress.style.width = `${ratio * 100}%`;
+// Loader functionality
+function initLoader() {
+    const loader = document.getElementById('loader');
+    
+    // Hide loader after 3 seconds
+    setTimeout(() => {
+        loader.classList.add('hidden');
+        
+        // Remove loader from DOM after transition
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500);
+    }, 3000);
+}
 
-    // Header fade -> burger on scroll down past 80px (desktop only)
-    if (window.innerWidth >= 901) {
-      if (scrollTop > 80) header?.classList.add("fade-out");
-      else header?.classList.remove("fade-out");
-    }
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  // Burger toggle (always active on phone)
-  const toggleMenu = () => {
-    const hidden = mobileMenu.hasAttribute("hidden");
-    if (hidden) mobileMenu.removeAttribute("hidden");
-    else mobileMenu.setAttribute("hidden", "");
-    burger.setAttribute("aria-expanded", String(hidden));
-  };
-  burger?.addEventListener("click", toggleMenu);
-
-  // Close mobile menu on click anchor
-  mobileMenu?.addEventListener("click", (e) => {
-    const target = e.target;
-    if (target.tagName === "A") {
-      mobileMenu.setAttribute("hidden", "");
-      burger.setAttribute("aria-expanded", "false");
-    }
-  });
-
-  // Smooth scroll for header and mobile menu links
-  const allLinks = document.querySelectorAll('a[href^="#"]');
-  allLinks.forEach((a) => {
-    a.addEventListener("click", (e) => {
-      const id = a.getAttribute("href");
-      if (!id || id === "#") return;
-      const el = document.querySelector(id);
-      if (el) {
-        e.preventDefault();
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
+// Progress bar functionality
+function initProgressBar() {
+    const progressBar = document.getElementById('progressBar');
+    
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
+        
+        progressBar.style.width = `${progress}%`;
     });
-  });
+}
 
-  // Ensure mobile menu is visible mode on small screens
-  const handleResize = () => {
-    if (window.innerWidth < 901) {
-      header?.classList.remove("fade-out");
-    } else {
-      mobileMenu?.setAttribute("hidden", "");
-      burger?.setAttribute("aria-expanded", "false");
-    }
-  };
-  window.addEventListener("resize", handleResize);
-  handleResize();
-})();
+// Navigation functionality
+function initNavigation() {
+    const navbar = document.getElementById('navbar');
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuItems = document.querySelectorAll('.mobile-menu-item');
+    let lastScrollTop = 0;
+    
+    // Hide/show navbar on scroll
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop && scrollTop > 100) {
+            // Scrolling down
+            navbar.classList.add('hidden');
+        } else {
+            // Scrolling up
+            navbar.classList.remove('hidden');
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // Toggle mobile menu
+    burger.addEventListener('click', () => {
+        mobileMenu.classList.toggle('active');
+        burger.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a menu item
+    mobileMenuItems.forEach(item => {
+        item.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
+            burger.classList.remove('active');
+        });
+    });
+    
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!navbar.contains(e.target) && mobileMenu.classList.contains('active')) {
+            mobileMenu.classList.remove('active');
+            burger.classList.remove('active');
+        }
+    });
+}
+
+// Smooth scroll behavior
+function initScrollBehavior() {
+    // Add smooth scrolling to all links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const offsetTop = targetElement.offsetTop;
+                
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
