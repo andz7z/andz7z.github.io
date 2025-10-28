@@ -3,68 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio 2</title>
+    <title>Portfolio Premium</title>
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- HamBurger Icon -->
-    <div class="bars" id="nav-action">
-        <span class="bar"></span>
+    <!-- Progress Scroll Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
-
-    <!-- Navbar Links -->
-    <nav id="nav">
-        <ul>
-            <li class="shape-circle circle-one"><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
-            <li class="shape-circle circle-two"><a href="#reviews" class="nav-link" data-section="reviews">Recenzii</a></li>
-            <li class="shape-circle circle-three"><a href="#services" class="nav-link" data-section="services">Servicii</a></li>
-            <li class="shape-circle circle-four"><a href="#portfolio" class="nav-link" data-section="portfolio">Portofoliu</a></li>
-            <li class="shape-circle circle-five"><a href="#about" class="nav-link" data-section="about">Despre</a></li>
-            <li class="shape-circle circle-six"><a href="#home" class="nav-link active" data-section="home">Acasă</a></li>
-        </ul>
-    </nav>
-
+    
+    <!-- Burger Menu -->
+    <div class="burger-menu" id="burgerMenu">
+        <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-menu" id="navMenu">
+            <ul>
+                <li><a href="#home" data-section="home">Home</a></li>
+                <li><a href="#about" data-section="about">About</a></li>
+                <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
+                <li><a href="#services" data-section="services">Services</a></li>
+                <li><a href="#reviews" data-section="reviews">Reviews</a></li>
+                <li><a href="#contact" data-section="contact">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+    
     <!-- Sections -->
-    <main>
-        <section id="home" class="section active">
-            <div class="video-container">
-                <video autoplay muted loop id="bg-video">
-                    <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
-                    Browser-ul tău nu suportă elementul video.
-                </video>
-                <div class="video-overlay"></div>
-            </div>
-            <h1 class="section-title">Acasă</h1>
-        </section>
-
-        <section id="about" class="section">
-            <h1 class="section-title">Despre</h1>
-        </section>
-
-        <section id="portfolio" class="section">
-            <h1 class="section-title">Portofoliu</h1>
-        </section>
-
-        <section id="services" class="section">
-            <h1 class="section-title">Servicii</h1>
-        </section>
-
-        <section id="reviews" class="section">
-            <h1 class="section-title">Recenzii</h1>
-        </section>
-
-        <section id="contact" class="section">
-            <h1 class="section-title">Contact</h1>
-        </section>
-    </main>
-
+    <section id="home" class="section">
+        <div class="video-container">
+            <video autoplay muted loop id="backgroundVideo">
+                <source src="assets/movie/andz.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-overlay"></div>
+        </div>
+        <div class="content">
+            <h1 class="title">Home</h1>
+        </div>
+    </section>
+    
+    <section id="about" class="section">
+        <div class="content">
+            <h1 class="title">About</h1>
+        </div>
+    </section>
+    
+    <section id="portfolio" class="section">
+        <div class="content">
+            <h1 class="title">Portfolio</h1>
+        </div>
+    </section>
+    
+    <section id="services" class="section">
+        <div class="content">
+            <h1 class="title">Services</h1>
+        </div>
+    </section>
+    
+    <section id="reviews" class="section">
+        <div class="content">
+            <h1 class="title">Reviews</h1>
+        </div>
+    </section>
+    
+    <section id="contact" class="section">
+        <div class="content">
+            <h1 class="title">Contact</h1>
+        </div>
+    </section>
+    
+    <!-- JavaScript Files -->
     <script src="js/script.js"></script>
+    <script src="js/home.js"></script>
     <script src="js/about.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/services.js"></script>
