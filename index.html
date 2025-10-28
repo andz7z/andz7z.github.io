@@ -1,197 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Design. Develop. Deliver.</title>
-    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/style.css">
-    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/home.css">
-    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/about.css">
-    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/portfolio.css">
-    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/services.css">
-    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/reviews.css">
-    <link rel="stylesheet" href="https://andz7z.github.io/assets/css/contact.css">
-</head>
-<body>
-    <!-- Loader Screen -->
-    <div id="loader">
-        <video autoplay muted>
-            <source src="https://andz7z.github.io/assets/videos/loading.mp4" type="video/mp4">
-        </video>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ANDZ — Design. Develop. Deliver.</title>
+    <meta name="description" content="ANDZ — Andrei Lehadus. Design. Develop. Deliver." />
+    <link rel="preload" href="https://andz7z.github.io/assets/fonts/roboto.ttf" as="font" type="font/ttf" crossorigin>
+    <link rel="preload" href="https://andz7z.github.io/assets/fonts/noverich.otf" as="font" type="font/otf" crossorigin>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/about.css" />
+    <link rel="stylesheet" href="css/portfolio.css" />
+    <link rel="stylesheet" href="css/services.css" />
+    <link rel="stylesheet" href="css/reviews.css" />
+    <link rel="stylesheet" href="css/contact.css" />
+  </head>
+  <body>
+    <!-- Scroll progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Loader -->
+    <div id="loader" aria-hidden="true">
+      <video id="loader-video" src="https://andz7z.github.io/assets/videos/loading.mp4" playsinline muted autoplay></video>
     </div>
 
-    <!-- Progress Scroll Bar -->
-    <div id="progress-bar"></div>
+    <!-- Header -->
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-word">ANDZ</span>
+        <span class="brand-by">by Andrei Lehadus</span>
+      </div>
 
-    <!-- Navigation -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span>ANDZ</span>
+      <nav class="site-nav" aria-label="Principal">
+        <ul>
+          <li>
+            <a href="#about" class="nav-item" aria-label="About">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4.33 0-8 2.17-8 4.84V21h16v-2.16C20 16.17 16.33 14 12 14Z" fill="currentColor"/></svg>
+              <span class="label">About</span>
+            </a>
+          </li>
+          <li>
+            <a href="#portfolio" class="nav-item" aria-label="Portfolio">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 3h8v8H3Zm10 0h8v8h-8ZM3 13h8v8H3Zm10 0h8v8h-8Z" fill="currentColor"/></svg>
+              <span class="label">Portfolio</span>
+            </a>
+          </li>
+          <li>
+            <a href="#services" class="nav-item" aria-label="Services">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M21 10h-3.18a3 3 0 0 0-5.64 0H3v4h9.18a3 3 0 0 0 5.64 0H21z" fill="currentColor"/></svg>
+              <span class="label">Services</span>
+            </a>
+          </li>
+          <li>
+            <a href="#reviews" class="nav-item" aria-label="Reviews">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="m12 17.27 5.18 3.05-1.64-5.81L20 10.9l-6-.52L12 4.5 10 10.38l-6 .52 4.46 3.61-1.64 5.81z" fill="currentColor"/></svg>
+              <span class="label">Reviews</span>
+            </a>
+          </li>
+          <li>
+            <a href="#contact" class="nav-item" aria-label="Contact">
+              <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 4h16v12H5.17L4 17.17Zm2 2v8h12V6Zm-2 12h16v2H4Z" fill="currentColor"/></svg>
+              <span class="label">Contact</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <button id="burger" class="burger" aria-label="Deschide meniul" aria-controls="mobile-menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav id="mobile-menu" class="mobile-menu" hidden>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#services">Services</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Home -->
+      <section id="home" class="section home">
+        <div class="home-video-wrap">
+          <video id="bg-video" src="https://andz7z.github.io/assets/photos/movie/andz.mp4" playsinline autoplay muted loop></video>
+        </div>
+        <div class="home-content">
+          <h1 class="headline" aria-label="DESIGN. DEVELOP. DELIVER">
+            <span class="word" data-word="DESIGN."></span>
+            <span class="word" data-word="DEVELOP."></span>
+            <span class="word" data-word="DELIVER"></span>
+          </h1>
+
+          <!-- Provided button -->
+          <button class="button" id="cta-button" type="button">
+            <div class="outline"></div>
+            <div class="state state--default">
+              <div class="icon">
+                <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g style="filter: url(#shadow)">
+                    <path d="M14.2199 21.63C13.0399 21.63 11.3699 20.8 10.0499 16.83L9.32988 14.67L7.16988 13.95C3.20988 12.63 2.37988 10.96 2.37988 9.78001C2.37988 8.61001 3.20988 6.93001 7.16988 5.60001L15.6599 2.77001C17.7799 2.06001 19.5499 2.27001 20.6399 3.35001C21.7299 4.43001 21.9399 6.21001 21.2299 8.33001L18.3999 16.82C17.0699 20.8 15.3999 21.63 14.2199 21.63ZM7.63988 7.03001C4.85988 7.96001 3.86988 9.06001 3.86988 9.78001C3.86988 10.5 4.85988 11.6 7.63988 12.52L10.1599 13.36C10.3799 13.43 10.5599 13.61 10.6299 13.83L11.4699 16.35C12.3899 19.13 13.4999 20.12 14.2199 20.12C14.9399 20.12 16.0399 19.13 16.9699 16.35L19.7999 7.86001C20.3099 6.32001 20.2199 5.06001 19.5699 4.41001C18.9199 3.76001 17.6599 3.68001 16.1299 4.19001L7.63988 7.03001Z" fill="currentColor"></path>
+                    <path d="M10.11 14.4C9.92005 14.4 9.73005 14.33 9.58005 14.18C9.29005 13.89 9.29005 13.41 9.58005 13.12L13.16 9.53C13.45 9.24 13.93 9.24 14.22 9.53C14.51 9.82 14.51 10.3 14.22 10.59L10.64 14.18C10.5 14.33 10.3 14.4 10.11 14.4Z" fill="currentColor"></path>
+                  </g>
+                  <defs>
+                    <filter id="shadow">
+                      <fedropshadow dx="0" dy="1" stdDeviation="0.6" flood-opacity="0.5"></fedropshadow>
+                    </filter>
+                  </defs>
+                </svg>
+              </div>
+              <p>
+                <span style="--i:0">L</span>
+                <span style="--i:1">e</span>
+                <span style="--i:2">t</span>
+                <span style="--i:3">'s</span>
+                <span style="--i:4">E</span>
+                <span style="--i:5">x</span>
+                <span style="--i:6">p</span>
+                <span style="--i:7">l</span>
+                <span style="--i:8">o</span>
+                <span style="--i:9">r</span>
+                <span style="--i:10">e</span>
+              </p>
             </div>
-            <div class="nav-menu">
-                <a href="#home" class="nav-item">
-                    <i class="nav-icon">🏠</i>
-                    <span class="nav-text">Home</span>
-                </a>
-                <a href="#about" class="nav-item">
-                    <i class="nav-icon">👤</i>
-                    <span class="nav-text">About</span>
-                </a>
-                <a href="#portfolio" class="nav-item">
-                    <i class="nav-icon">📁</i>
-                    <span class="nav-text">Portfolio</span>
-                </a>
-                <a href="#services" class="nav-item">
-                    <i class="nav-icon">⚙️</i>
-                    <span class="nav-text">Services</span>
-                </a>
-                <a href="#reviews" class="nav-item">
-                    <i class="nav-icon">⭐</i>
-                    <span class="nav-text">Reviews</span>
-                </a>
-                <a href="#contact" class="nav-item">
-                    <i class="nav-icon">📞</i>
-                    <span class="nav-text">Contact</span>
-                </a>
+            <div class="state state--sent">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1em" width="1em" stroke-width="0.5px" stroke="black">
+                  <g style="filter: url(#shadow)">
+                    <path fill="currentColor" d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z"></path>
+                    <path fill="currentColor" d="M10.5795 15.5801C10.3795 15.5801 10.1895 15.5001 10.0495 15.3601L7.21945 12.5301C6.92945 12.2401 6.92945 11.7601 7.21945 11.4701C7.50945 11.1801 7.98945 11.1801 8.27945 11.4701L10.5795 13.7701L15.7195 8.6301C16.0095 8.3401 16.4895 8.3401 16.7795 8.6301C17.0695 8.9201 17.0695 9.4001 16.7795 9.6901L11.1095 15.3601C10.9695 15.5001 10.7795 15.5801 10.5795 15.5801Z"></path>
+                  </g>
+                </svg>
+              </div>
+              <p>
+                <span style="--i:5">N</span>
+                <span style="--i:6">i</span>
+                <span style="--i:7">c</span>
+                <span style="--i:8">e!</span>
+              </p>
             </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+          </button>
         </div>
-    </nav>
+      </section>
 
-    <!-- Sections -->
-    <section id="home" class="section">
-        <div class="video-container">
-            <video autoplay muted loop>
-                <source src="https://andz7z.github.io/assets/photos/movie/andz.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="content">
-            <div class="text-container">
-                <h1 class="main-text">
-                    <span class="letter">D</span>
-                    <span class="letter">E</span>
-                    <span class="letter">S</span>
-                    <span class="letter">I</span>
-                    <span class="letter">G</span>
-                    <span class="letter">N</span>
-                    <span class="letter">.</span>
-                    <span class="letter"> </span>
-                    <span class="letter">D</span>
-                    <span class="letter">E</span>
-                    <span class="letter">V</span>
-                    <span class="letter">E</span>
-                    <span class="letter">L</span>
-                    <span class="letter">O</span>
-                    <span class="letter">P</span>
-                    <span class="letter">.</span>
-                    <span class="letter"> </span>
-                    <span class="letter">D</span>
-                    <span class="letter">E</span>
-                    <span class="letter">L</span>
-                    <span class="letter">I</span>
-                    <span class="letter">V</span>
-                    <span class="letter">E</span>
-                    <span class="letter">R</span>
-                </h1>
-            </div>
-            <div class="button-container">
-                <button class="button">
-                    <div class="outline"></div>
-                    <div class="state state--default">
-                        <div class="icon">
-                            <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g style="filter: url(#shadow)">
-                                    <path d="M14.2199 21.63C13.0399 21.63 11.3699 20.8 10.0499 16.83L9.32988 14.67L7.16988 13.95C3.20988 12.63 2.37988 10.96 2.37988 9.78001C2.37988 8.61001 3.20988 6.93001 7.16988 5.60001L15.6599 2.77001C17.7799 2.06001 19.5499 2.27001 20.6399 3.35001C21.7299 4.43001 21.9399 6.21001 21.2299 8.33001L18.3999 16.82C17.0699 20.8 15.3999 21.63 14.2199 21.63ZM7.63988 7.03001C4.85988 7.96001 3.86988 9.06001 3.86988 9.78001C3.86988 10.5 4.85988 11.6 7.63988 12.52L10.1599 13.36C10.3799 13.43 10.5599 13.61 10.6299 13.83L11.4699 16.35C12.3899 19.13 13.4999 20.12 14.2199 20.12C14.9399 20.12 16.0399 19.13 16.9699 16.35L19.7999 7.86001C20.3099 6.32001 20.2199 5.06001 19.5699 4.41001C18.9199 3.76001 17.6599 3.68001 16.1299 4.19001L7.63988 7.03001Z" fill="currentColor"></path>
-                                    <path d="M10.11 14.4C9.92005 14.4 9.73005 14.33 9.58005 14.18C9.29005 13.89 9.29005 13.41 9.58005 13.12L13.16 9.53C13.45 9.24 13.93 9.24 14.22 9.53C14.51 9.82 14.51 10.3 14.22 10.59L10.64 14.18C10.5 14.33 10.3 14.4 10.11 14.4Z" fill="currentColor"></path>
-                                </g>
-                                <defs>
-                                    <filter id="shadow">
-                                        <fedropshadow dx="0" dy="1" stdDeviation="0.6" flood-opacity="0.5"></fedropshadow>
-                                    </filter>
-                                </defs>
-                            </svg>
-                        </div>
-                        <p>
-                            <span style="--i:0">L</span>
-                            <span style="--i:1">e</span>
-                            <span style="--i:2">t</span>
-                            <span style="--i:3">'s</span>
-                            <span style="--i:4">E</span>
-                            <span style="--i:5">x</span>
-                            <span style="--i:6">p</span>
-                            <span style="--i:7">l</span>
-                            <span style="--i:8">o</span>
-                            <span style="--i:9">r</span>
-                            <span style="--i:10">e</span>
-                        </p>
-                    </div>
-                    <div class="state state--sent">
-                        <div class="icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="1em" width="1em" stroke-width="0.5px" stroke="black">
-                                <g style="filter: url(#shadow)">
-                                    <path fill="currentColor" d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z"></path>
-                                    <path fill="currentColor" d="M10.5795 15.5801C10.3795 15.5801 10.1895 15.5001 10.0495 15.3601L7.21945 12.5301C6.92945 12.2401 6.92945 11.7601 7.21945 11.4701C7.50945 11.1801 7.98945 11.1801 8.27945 11.4701L10.5795 13.7701L15.7195 8.6301C16.0095 8.3401 16.4895 8.3401 16.7795 8.6301C17.0695 8.9201 17.0695 9.4001 16.7795 9.6901L11.1095 15.3601C10.9695 15.5001 10.7795 15.5801 10.5795 15.5801Z"></path>
-                                </g>
-                            </svg>
-                        </div>
-                        <p>
-                            <span style="--i:5">N</span>
-                            <span style="--i:6">i</span>
-                            <span style="--i:7">c</span>
-                            <span style="--i:8">e!</span>
-                        </p>
-                    </div>
-                </button>
-            </div>
-        </div>
-    </section>
+      <!-- About -->
+      <section id="about" class="section about">
+        <h2>About</h2>
+      </section>
+      <!-- Portfolio -->
+      <section id="portfolio" class="section portfolio">
+        <h2>Portfolio</h2>
+      </section>
+      <!-- Services -->
+      <section id="services" class="section services">
+        <h2>Services</h2>
+      </section>
+      <!-- Reviews -->
+      <section id="reviews" class="section reviews">
+        <h2>Reviews</h2>
+      </section>
+      <!-- Contact -->
+      <section id="contact" class="section contact">
+        <h2>Contact</h2>
+      </section>
+    </main>
 
-    <section id="about" class="section">
-        <div class="container">
-            <h2>About</h2>
-            <p>Salut, eu sunt Andrei Lehadus, fondatorul ANDZ.</p>
-        </div>
-    </section>
-
-    <section id="portfolio" class="section">
-        <div class="container">
-            <h2>Portfolio</h2>
-            <p>Lucrările noastre recente.</p>
-        </div>
-    </section>
-
-    <section id="services" class="section">
-        <div class="container">
-            <h2>Services</h2>
-            <p>Serviciile oferite de ANDZ.</p>
-        </div>
-    </section>
-
-    <section id="reviews" class="section">
-        <div class="container">
-            <h2>Reviews</h2>
-            <p>Ce spun clienții noștri.</p>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <div class="container">
-            <h2>Contact</h2>
-            <p>Ia legătura cu noi.</p>
-        </div>
-    </section>
-
-    <script src="https://andz7z.github.io/assets/js/script.js"></script>
-    <script src="https://andz7z.github.io/assets/js/home.js"></script>
-    <script src="https://andz7z.github.io/assets/js/about.js"></script>
-    <script src="https://andz7z.github.io/assets/js/portfolio.js"></script>
-    <script src="https://andz7z.github.io/assets/js/services.js"></script>
-    <script src="https://andz7z.github.io/assets/js/reviews.js"></script>
-    <script src="https://andz7z.github.io/assets/js/contact.js"></script>
-</body>
+    <script src="js/script.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/about.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/services.js" defer></script>
+    <script src="js/reviews.js" defer></script>
+    <script src="js/contact.js" defer></script>
+  </body>
 </html>
