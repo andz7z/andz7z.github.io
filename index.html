@@ -1,90 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Portfolio</title>
+    <title>Portfolio Website</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress">
-        <div class="progress-bar"></div>
+    <!-- Burger Menu Button -->
+    <div class="burger-menu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
     </div>
 
     <!-- Navigation Menu -->
-    <nav class="navigation">
-        <div class="burger-menu">
-            <div class="burger-line top"></div>
-            <div class="burger-line middle"></div>
-            <div class="burger-line bottom"></div>
-        </div>
-        <div class="nav-overlay">
-            <ul class="nav-list">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="#home" class="nav-link active" data-section="home">Acasă</a></li>
+            <li><a href="#about" class="nav-link" data-section="about">Despre</a></li>
+            <li><a href="#portfolio" class="nav-link" data-section="portfolio">Portofoliu</a></li>
+            <li><a href="#services" class="nav-link" data-section="services">Servicii</a></li>
+            <li><a href="#reviews" class="nav-link" data-section="reviews">Recenzii</a></li>
+            <li><a href="#contact" class="nav-link" data-section="contact">Contact</a></li>
+        </ul>
     </nav>
 
     <!-- Sections -->
     <main>
-        <section id="home" class="section home-section">
+        <section id="home" class="section active">
             <div class="video-container">
-                <video autoplay muted loop class="bg-video">
-                    <source src="assets/movie/andz.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
+                <video autoplay muted loop id="bg-video">
+                    <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+                    Browser-ul tău nu suportă elementul video.
                 </video>
                 <div class="video-overlay"></div>
             </div>
-            <div class="content">
-                <h1 class="title">Home</h1>
-            </div>
+            <h1 class="section-title">Acasă</h1>
         </section>
 
-        <section id="about" class="section about-section">
-            <div class="content">
-                <h1 class="title">About</h1>
-            </div>
+        <section id="about" class="section">
+            <h1 class="section-title">Despre</h1>
         </section>
 
-        <section id="portfolio" class="section portfolio-section">
-            <div class="content">
-                <h1 class="title">Portfolio</h1>
-            </div>
+        <section id="portfolio" class="section">
+            <h1 class="section-title">Portofoliu</h1>
         </section>
 
-        <section id="services" class="section services-section">
-            <div class="content">
-                <h1 class="title">Services</h1>
-            </div>
+        <section id="services" class="section">
+            <h1 class="section-title">Servicii</h1>
         </section>
 
-        <section id="reviews" class="section reviews-section">
-            <div class="content">
-                <h1 class="title">Reviews</h1>
-            </div>
+        <section id="reviews" class="section">
+            <h1 class="section-title">Recenzii</h1>
         </section>
 
-        <section id="contact" class="section contact-section">
-            <div class="content">
-                <h1 class="title">Contact</h1>
-            </div>
+        <section id="contact" class="section">
+            <h1 class="section-title">Contact</h1>
         </section>
     </main>
 
     <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
     <script src="js/about.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/services.js"></script>
