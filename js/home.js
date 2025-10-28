@@ -1,22 +1,23 @@
-// home.js - Home section specific functionality
+// Home section specific JavaScript
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure video plays correctly
-    const video = document.getElementById('bg-video');
+    // Add any home section specific functionality here
+    console.log('Home section loaded');
     
-    if (video) {
-        video.play().catch(error => {
-            console.log('Video autoplay prevented:', error);
-            // Fallback: show play button or handle accordingly
-        });
-    }
-    
-    // Add scroll indicator click functionality
-    const scrollIndicator = document.querySelector('.scroll-indicator');
-    
-    if (scrollIndicator) {
-        scrollIndicator.addEventListener('click', function() {
-            const aboutSection = document.getElementById('about');
-            aboutSection.scrollIntoView({ behavior: 'smooth' });
-        });
+    // Example: Add a subtle pulse animation to the home title
+    const homeTitle = document.querySelector('.home-section .title');
+    if (homeTitle) {
+        homeTitle.style.animation = 'contentFadeIn 1s ease forwards, pulse 3s infinite 2s';
+        
+        // Add the pulse animation to CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
     }
 });
