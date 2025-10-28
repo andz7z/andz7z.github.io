@@ -1,25 +1,34 @@
 // Home section specific JavaScript
+
 document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('backgroundVideo');
+    initHomeVideo();
+    initHomeAnimations();
+});
+
+function initHomeVideo() {
+    const video = document.getElementById('bg-video');
     
     // Ensure video plays correctly
     video.addEventListener('loadeddata', function() {
-        console.log('Video loaded successfully');
+        console.log('Home video loaded successfully');
     });
     
     video.addEventListener('error', function() {
-        console.error('Error loading video');
+        console.error('Error loading home video');
+        // Fallback background if video fails to load
+        document.querySelector('.home-section').style.background = 'var(--color-black)';
     });
+}
+
+function initHomeAnimations() {
+    // Additional home section animations can be added here
+    const homeContent = document.querySelector('.home-content');
     
-    // Add liquid effect to home title
-    const homeTitle = document.querySelector('#home .title');
-    
-    homeTitle.addEventListener('mouseenter', function() {
-        this.style.transform = 'scale(1.05)';
-        this.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+    // Parallax effect on mouse move
+    document.addEventListener('mousemove', function(e) {
+        const moveX = (e.clientX / window.innerWidth) * 20 - 10;
+        const moveY = (e.clientY / window.innerHeight) * 20 - 10;
+        
+        homeContent.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
     });
-    
-    homeTitle.addEventListener('mouseleave', function() {
-        this.style.transform = 'scale(1)';
-    });
-});
+}
