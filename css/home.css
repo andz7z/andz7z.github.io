@@ -1,11 +1,6 @@
-/* Home Section */
-.home-section {
+#home {
+    background: var(--gradient-dark);
     position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     overflow: hidden;
 }
 
@@ -15,7 +10,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1;
+    z-index: 1;
 }
 
 .video-container video {
@@ -24,565 +19,57 @@
     object-fit: cover;
 }
 
-.home-content {
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding-bottom: 80px;
+.content {
     position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--color-white);
+    width: 100%;
+    padding: 0 2rem;
 }
 
-.text-content {
-    margin-bottom: 20px;
+.text-container {
+    margin-bottom: 3rem;
 }
 
-/* Slogan */
-.slogan {
-    font-size: 3.5rem;
-    font-weight: 700;
-    letter-spacing: 0.2rem;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeInUp 2s ease-out 0.5s forwards;
+.main-text {
+    font-size: 4rem;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.slogan-letter {
-    display: inline-block;
+.letter {
     transition: all 0.3s ease;
-    opacity: 0;
-    animation: letterFadeIn 0.8s ease-out forwards;
+    cursor: pointer;
+    display: inline-block;
 }
 
-/* Animație corectată pentru fiecare literă - ordinea corectă */
-.slogan-letter:nth-child(1) { animation-delay: 1s; }
-.slogan-letter:nth-child(2) { animation-delay: 1.1s; }
-.slogan-letter:nth-child(3) { animation-delay: 1.2s; }
-.slogan-letter:nth-child(4) { animation-delay: 1.3s; }
-.slogan-letter:nth-child(5) { animation-delay: 1.4s; }
-.slogan-letter:nth-child(6) { animation-delay: 1.5s; }
-.slogan-letter:nth-child(7) { animation-delay: 1.6s; }
-.slogan-letter:nth-child(8) { animation-delay: 1.7s; }
-.slogan-letter:nth-child(9) { animation-delay: 1.8s; }
-.slogan-letter:nth-child(10) { animation-delay: 1.9s; }
-.slogan-letter:nth-child(11) { animation-delay: 2s; }
-.slogan-letter:nth-child(12) { animation-delay: 2.1s; }
-.slogan-letter:nth-child(13) { animation-delay: 2.2s; }
-.slogan-letter:nth-child(14) { animation-delay: 2.3s; }
-.slogan-letter:nth-child(15) { animation-delay: 2.4s; }
-.slogan-letter:nth-child(16) { animation-delay: 2.5s; }
-.slogan-letter:nth-child(17) { animation-delay: 2.6s; }
-.slogan-letter:nth-child(18) { animation-delay: 2.7s; }
-.slogan-letter:nth-child(19) { animation-delay: 2.8s; }
-.slogan-letter:nth-child(20) { animation-delay: 2.9s; }
-.slogan-letter:nth-child(21) { animation-delay: 3s; }
-.slogan-letter:nth-child(22) { animation-delay: 3.1s; }
-.slogan-letter:nth-child(23) { animation-delay: 3.2s; }
-.slogan-letter:nth-child(24) { animation-delay: 3.3s; }
-
-.slogan-letter:hover {
-    filter: blur(5px);
+.letter:hover {
+    filter: blur(2px);
     transform: scale(1.1);
 }
 
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes letterFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Scroll Indicator */
-.scroll-indicator {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.arrow-down {
-    width: 15px;
-    height: 15px;
-    border-right: 2px solid #fff;
-    border-bottom: 2px solid #fff;
-    transform: rotate(45deg);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0% {
-        opacity: 0.5;
-        transform: rotate(45deg) translate(-5px, -5px);
-    }
-    50% {
-        opacity: 1;
-        transform: rotate(45deg) translate(0, 0);
-    }
-    100% {
-        opacity: 0.5;
-        transform: rotate(45deg) translate(-5px, -5px);
-    }
-}
-
-/* Button Styles */
-.btn-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
-.btn {
-  --border-radius: 24px;
-  --padding: 4px;
-  --transition: 0.4s;
-  --button-color: #000000;
-  --highlight-color-hue: 210deg;
-
-  user-select: none;
-  display: flex;
-  justify-content: center;
-  padding: 0.5em 0.5em 0.5em 1.1em;
-  font-family: "Poppins", "Inter", "Segoe UI", sans-serif;
-  font-size: 1em;
-  font-weight: 400;
-
-  background-color: var(--button-color);
-
-  box-shadow:
-    inset 0px 1px 1px rgba(255, 255, 255, 0.2),
-    inset 0px 2px 2px rgba(255, 255, 255, 0.15),
-    inset 0px 4px 4px rgba(255, 255, 255, 0.1),
-    inset 0px 8px 8px rgba(255, 255, 255, 0.05),
-    inset 0px 16px 16px rgba(255, 255, 255, 0.05),
-    0px -1px 1px rgba(0, 0, 0, 0.02),
-    0px -2px 2px rgba(0, 0, 0, 0.03),
-    0px -4px 4px rgba(0, 0, 0, 0.05),
-    0px -8px 8px rgba(0, 0, 0, 0.06),
-    0px -16px 16px rgba(0, 0, 0, 0.08);
-
-  border: solid 1px #fff2;
-  border-radius: var(--border-radius);
-  cursor: pointer;
-
-  transition:
-    box-shadow var(--transition),
-    border var(--transition),
-    background-color var(--transition);
-}
-.btn::before {
-  content: "";
-  position: absolute;
-  top: calc(0px - var(--padding));
-  left: calc(0px - var(--padding));
-  width: calc(100% + var(--padding) * 2);
-  height: calc(100% + var(--padding) * 2);
-  border-radius: calc(var(--border-radius) + var(--padding));
-  pointer-events: none;
-  background-image: linear-gradient(0deg, #0004, #000a);
-
-  z-index: -1;
-  transition:
-    box-shadow var(--transition),
-    filter var(--transition);
-  box-shadow:
-    0 -8px 8px -6px #0000 inset,
-    0 -16px 16px -8px #00000000 inset,
-    1px 1px 1px #fff2,
-    2px 2px 2px #fff1,
-    -1px -1px 1px #0002,
-    -2px -2px 2px #0001;
-}
-.btn::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: inherit;
-  pointer-events: none;
-  background-image: linear-gradient(
-    0deg,
-    #fff,
-    hsl(var(--highlight-color-hue), 100%, 70%),
-    hsla(var(--highlight-color-hue), 100%, 70%, 50%),
-    8%,
-    transparent
-  );
-  background-position: 0 0;
-  opacity: 0;
-  transition:
-    opacity var(--transition),
-    filter var(--transition);
-}
-
-.btn-letter {
-  position: relative;
-  display: inline-block;
-  color: #fff5;
-  animation: letter-anim 2s ease-in-out infinite;
-  transition:
-    color var(--transition),
-    text-shadow var(--transition),
-    opacity var(--transition);
-}
-
-@keyframes letter-anim {
-  50% {
-    text-shadow: 0 0 3px #fff8;
-    color: #fff;
-  }
-}
-
-.btn-svg {
-  flex-grow: 1;
-  height: 24px;
-  margin-right: 0.5rem;
-  fill: #e8e8e8;
-  animation: flicker 2s linear infinite;
-  animation-delay: 0.5s;
-  filter: drop-shadow(0 0 2px #fff9);
-  transition:
-    fill var(--transition),
-    filter var(--transition),
-    opacity var(--transition);
-}
-@keyframes flicker {
-  50% {
-    opacity: 0.3;
-  }
-}
-
-/* Focus state */
-.txt-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  min-width: 6.4em;
-}
-.txt-1,
-.txt-2 {
-  position: absolute;
-  word-spacing: -1em;
-}
-.txt-1 {
-  animation: appear-anim 1s ease-in-out forwards;
-}
-.txt-2 {
-  opacity: 0;
-}
-@keyframes appear-anim {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-.btn:focus .txt-1 {
-  animation: opacity-anim 0.3s ease-in-out forwards;
-  animation-delay: 1s;
-}
-.btn:focus .txt-2 {
-  animation: opacity-anim 0.3s ease-in-out reverse forwards;
-  animation-delay: 1s;
-}
-@keyframes opacity-anim {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-.btn:focus .btn-letter {
-  animation:
-    focused-letter-anim 1s ease-in-out forwards,
-    letter-anim 1.2s ease-in-out infinite;
-  animation-delay: 0s, 1s;
-}
-@keyframes focused-letter-anim {
-  0%,
-  100% {
-    filter: blur(0px);
-  }
-  50% {
-    transform: scale(2);
-    filter: blur(10px) brightness(150%)
-      drop-shadow(-36px 12px 12px hsl(var(--highlight-color-hue), 100%, 70%));
-  }
-}
-.btn:focus .btn-svg {
-  animation-duration: 1.2s;
-  animation-delay: 0.2s;
-}
-
-.btn:focus::before {
-  box-shadow:
-    0 -8px 12px -6px #fff3 inset,
-    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 20%) inset,
-    1px 1px 1px #fff3,
-    2px 2px 2px #fff1,
-    -1px -1px 1px #0002,
-    -2px -2px 2px #0001;
-}
-.btn:focus::after {
-  opacity: 0.6;
-  mask-image: linear-gradient(0deg, #fff, transparent);
-  filter: brightness(100%);
-}
-
-/* Animation delays for .btn-letter elements */
-.btn-letter:nth-child(1),
-.btn:focus .btn-letter:nth-child(1) {
-  animation-delay: 0s;
-}
-.btn-letter:nth-child(2),
-.btn:focus .btn-letter:nth-child(2) {
-  animation-delay: 0.08s;
-}
-.btn-letter:nth-child(3),
-.btn:focus .btn-letter:nth-child(3) {
-  animation-delay: 0.16s;
-}
-.btn-letter:nth-child(4),
-.btn:focus .btn-letter:nth-child(4) {
-  animation-delay: 0.24s;
-}
-.btn-letter:nth-child(5),
-.btn:focus .btn-letter:nth-child(5) {
-  animation-delay: 0.32s;
-}
-.btn-letter:nth-child(6),
-.btn:focus .btn-letter:nth-child(6) {
-  animation-delay: 0.4s;
-}
-.btn-letter:nth-child(7),
-.btn:focus .btn-letter:nth-child(7) {
-  animation-delay: 0.48s;
-}
-.btn-letter:nth-child(8),
-.btn:focus .btn-letter:nth-child(8) {
-  animation-delay: 0.56s;
-}
-.btn-letter:nth-child(9),
-.btn:focus .btn-letter:nth-child(9) {
-  animation-delay: 0.64s;
-}
-.btn-letter:nth-child(10),
-.btn:focus .btn-letter:nth-child(10) {
-  animation-delay: 0.72s;
-}
-.btn-letter:nth-child(11),
-.btn:focus .btn-letter:nth-child(11) {
-  animation-delay: 0.8s;
-}
-.btn-letter:nth-child(12),
-.btn:focus .btn-letter:nth-child(12) {
-  animation-delay: 0.88s;
-}
-.btn-letter:nth-child(13),
-.btn:focus .btn-letter:nth-child(13) {
-  animation-delay: 0.96s;
-}
-
-/* Active state */
-.btn:active {
-  border: solid 1px hsla(var(--highlight-color-hue), 100%, 80%, 70%);
-  background-color: hsla(var(--highlight-color-hue), 50%, 20%, 0.5);
-}
-.btn:active::before {
-  box-shadow:
-    0 -8px 12px -6px #fffa inset,
-    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 80%) inset,
-    1px 1px 1px #fff4,
-    2px 2px 2px #fff2,
-    -1px -1px 1px #0002,
-    -2px -2px 2px #0001;
-}
-.btn:active::after {
-  opacity: 1;
-  mask-image: linear-gradient(0deg, #fff, transparent);
-  filter: brightness(200%);
-}
-.btn:active .btn-letter {
-  text-shadow: 0 0 1px hsla(var(--highlight-color-hue), 100%, 90%, 90%);
-  animation: none;
-}
-
-/* Hover state */
-.btn:hover {
-  border: solid 1px hsla(var(--highlight-color-hue), 100%, 80%, 40%);
-}
-
-.btn:hover::before {
-  box-shadow:
-    0 -8px 8px -6px #fffa inset,
-    0 -16px 16px -8px hsla(var(--highlight-color-hue), 100%, 70%, 30%) inset,
-    1px 1px 1px #fff2,
-    2px 2px 2px #fff1,
-    -1px -1px 1px #0002,
-    -2px -2px 2px #0001;
-}
-
-.btn:hover::after {
-  opacity: 1;
-  mask-image: linear-gradient(0deg, #fff, transparent);
-}
-
-.btn:hover .btn-svg {
-  fill: #fff;
-  filter: drop-shadow(0 0 3px hsl(var(--highlight-color-hue), 100%, 70%))
-    drop-shadow(0 -4px 6px #0009);
-  animation: none;
-}
-
-/* VIDEO BACKGROUND */
-.video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    background-color: #000;
-}
-
-/* CONTENT */
-.home-content {
-    z-index: 1;
-    width: 100%;
-    height: 100%;
+.button-container {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    padding-bottom: 80px;
-    position: relative;
-}
-/* SLOGAN - Mobile Optimization */
-.slogan {
-    font-size: clamp(1.5rem, 4vw, 3.5rem);
-    font-weight: 700;
-    letter-spacing: 0.15rem;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    line-height: 1.2;
-    word-wrap: break-word;
-    opacity: 0;
-    animation: fadeInUp 2s ease-out 0.5s forwards;
-    padding: 0 1rem;
-    /* Adăugăm proprietăți pentru a asigura afișarea corectă */
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+    justify-content: center;
 }
 
-/* 📱 MOBILE OPTIMIZATION */
-@media screen and (max-width: 768px) {
-    .home-section {
-        height: 100dvh;
-    }
-
-    .video-container video {
-        object-fit: contain;
-        transform: scale(1.05);
-    }
-
-    .home-content {
-        padding-bottom: 60px;
-        justify-content: flex-end;
-    }
-
-    .slogan {
-        font-size: clamp(1rem, 4.5vw, 1.8rem);
-        letter-spacing: 0.08rem;
-        margin-bottom: 1rem;
-        white-space: nowrap;
-        text-align: center;
-        padding: 0 0.5rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        /* Forțăm afișarea pe o singură linie */
-        display: block;
-        width: 95%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    /* Reducem spațiile dintre litere pentru ecrane mici */
-    .slogan-letter {
-        letter-spacing: 0.05rem;
-    }
-
-    .btn {
-        font-size: 0.85rem;
-        padding: 0.45em 0.8em;
-    }
-
-    .scroll-indicator {
-        bottom: 15px;
-    }
-
-    .arrow-down {
-        width: 12px;
-        height: 12px;
-    }
-}
-
-/* EXTRA SMALL DEVICES - Soluție pentru ecrane foarte mici */
-@media screen and (max-width: 480px) {
-    .slogan {
-        font-size: clamp(0.8rem, 4vw, 1.4rem);
-        letter-spacing: 0.03rem;
-        white-space: nowrap;
-        text-align: center;
-        padding: 0 0.3rem;
-        /* Ajustare fină pentru ecrane foarte mici */
-        transform: scale(0.95);
-        transform-origin: center;
-    }
-
-    /* Dacă tot nu încape, reducem și mai mult spațiile */
-    .slogan-letter {
-        letter-spacing: 0.02rem;
-    }
-
-    .btn {
-        font-size: 0.75rem;
-        border-radius: 18px;
-        padding: 0.4em 0.7em;
-    }
-
-    .btn-svg {
-        height: 16px;
-    }
-}
-
-/* Soluție de urgență pentru ecrane extrem de mici */
-@media screen and (max-width: 360px) {
-    .slogan {
-        font-size: clamp(0.7rem, 3.5vw, 1.2rem);
-        letter-spacing: 0.01rem;
-        transform: scale(0.9);
+/* Responsive pentru home */
+@media (max-width: 768px) {
+    .main-text {
+        font-size: 2rem;
+        flex-wrap: wrap;
     }
     
-    .home-content {
-        padding-bottom: 40px;
+    .video-container video {
+        object-fit: contain;
+        transform: scale(1.2);
+    }
+    
+    .button {
+        transform: scale(0.8);
     }
 }
