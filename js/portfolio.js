@@ -1,21 +1,17 @@
-// Portfolio Section JavaScript
+// Portfolio section specific JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Portfolio section loaded');
+    const portfolioTitle = document.querySelector('#portfolio .title');
     
-    // Add any portfolio-specific functionality here
-    const portfolioSection = document.getElementById('portfolio');
+    // Add 3D effect to portfolio title
+    portfolioTitle.style.transition = 'all 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
     
-    // Example: Future portfolio item interactions
-    const portfolioObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                console.log('Portfolio section is now visible');
-                // Future portfolio grid animations
-            }
-        });
+    portfolioTitle.addEventListener('mouseenter', function() {
+        this.style.transform = 'perspective(500px) rotateX(10deg) rotateY(10deg)';
+        this.style.textShadow = '5px 5px 10px rgba(0, 0, 0, 0.5)';
     });
     
-    if (portfolioSection) {
-        portfolioObserver.observe(portfolioSection);
-    }
+    portfolioTitle.addEventListener('mouseleave', function() {
+        this.style.transform = 'perspective(500px) rotateX(0) rotateY(0)';
+        this.style.textShadow = 'none';
+    });
 });
