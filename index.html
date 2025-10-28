@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Portfolio</title>
+    <title>Site</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -11,84 +11,70 @@
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Homepage Section -->
-    <section id="homepage" class="section">
-        <!-- Burger System -->
-        <div class="bars" id="nav-action">
-            <span class="bar"></span>
-        </div>
+    <!-- Burger Menu -->
+    <div class="burger-menu">
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+        <div class="burger-line"></div>
+    </div>
 
-        <!-- Navbar Links -->
-        <nav id="nav">
-            <ul>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#homepage">Home</a></li>
-            </ul>
-        </nav>
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <!-- Video Background -->
-        <div class="video-container">
-            <video autoplay muted loop class="background-video">
-                <source src="assets/movie/andz.mp4" type="video/mp4">
+    <!-- Sections -->
+    <section id="home" class="section">
+        <div class="video-background">
+            <video autoplay muted loop>
+                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
             </video>
         </div>
-
-        <!-- Main Content -->
-        <div class="home-content">
-            <h1 class="fade-in-title">Welcome</h1>
-            <p class="fade-in-subtitle">Creative Portfolio</p>
+        <div class="content">
+            <h1>Home</h1>
         </div>
     </section>
 
-    <!-- About Section -->
     <section id="about" class="section">
-        <div class="section-content">
-            <h2>About</h2>
-            <p>Despre mine și experiența mea</p>
+        <div class="content">
+            <h1>About</h1>
         </div>
     </section>
 
-    <!-- Portfolio Section -->
     <section id="portfolio" class="section">
-        <div class="section-content">
-            <h2>Portfolio</h2>
-            <p>Lucrările mele</p>
+        <div class="content">
+            <h1>Portfolio</h1>
         </div>
     </section>
 
-    <!-- Services Section -->
     <section id="services" class="section">
-        <div class="section-content">
-            <h2>Services</h2>
-            <p>Serviciile oferite</p>
+        <div class="content">
+            <h1>Services</h1>
         </div>
     </section>
 
-    <!-- Reviews Section -->
     <section id="reviews" class="section">
-        <div class="section-content">
-            <h2>Reviews</h2>
-            <p>Recenziile clienților</p>
+        <div class="content">
+            <h1>Reviews</h1>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact" class="section">
-        <div class="section-content">
-            <h2>Contact</h2>
-            <p>Contactează-mă</p>
+        <div class="content">
+            <h1>Contact</h1>
         </div>
     </section>
 
+    <!-- Scripts -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
