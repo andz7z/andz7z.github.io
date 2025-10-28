@@ -1,108 +1,56 @@
-// =======================
-// VIDEO LOADER SCRIPT
-// =======================
-window.addEventListener("load", () => {
-  const loader = document.getElementById("video-loader");
-  const video = document.getElementById("loader-video");
-  const overlay = document.querySelector(".loader-overlay");
-  const mainContent = document.querySelector("main");
-
-  // Pregătește conținutul principal
-  if (mainContent) {
-    mainContent.style.opacity = "0";
-    mainContent.style.visibility = "hidden";
-  }
-
-  // Start animația de intrare a loader-ului
-  setTimeout(() => {
-    if (video) {
-      video.style.filter = "blur(0px)";
-      video.style.opacity = "1";
-    }
-    if (overlay) {
-      overlay.style.opacity = "0.2";
-    }
-  }, 500);
-
-  const closeLoader = () => {
-      if (!loader || loader.classList.contains("fade-out")) return;
-      
-      // Start fade-out loader
-      loader.classList.add("fade-out");
-      
-      // Așteaptă 1.2s după începerea fade-out-ului, apoi afișează conținutul
-      setTimeout(() => {
-          // Ascunde loader-ul complet
-          if (loader) {
-              loader.style.display = "none";
-          }
-          
-          // Afișează smooth conținutul principal
-          if (mainContent) {
-              mainContent.style.opacity = "1";
-              mainContent.style.visibility = "visible";
-          }
-      }, 1200); // Corelat cu durata fade-out-ului
-  };
-
-  if (video) {
-    video.addEventListener("ended", closeLoader);
-  }
-
-  // Fallback timeout
-  setTimeout(closeLoader, 9000);
+// Loader
+window.addEventListener('load', function() {
+    const loader = document.getElementById('loader');
+    setTimeout(function() {
+        loader.style.opacity = '0';
+        setTimeout(function() {
+            loader.style.display = 'none';
+        }, 500);
+    }, 3000);
 });
 
-// =======================
-// NAV BAR & BURGER MENU SCRIPT
-// =======================
-document.addEventListener('DOMContentLoaded', function() {
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
+// Progress Bar
+window.addEventListener('scroll', function() {
+    const winHeight = window.innerHeight;
+    const docHeight = document.documentElement.scrollHeight;
+    const scrollTop = window.pageYOffset;
+    const trackLength = docHeight - winHeight;
+    const progress = Math.floor(scrollTop / trackLength * 100);
+    
+    document.getElementById('progress-bar').style.width = progress + '%';
+});
 
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
+// Navigation
+const navbar = document.getElementById('navbar');
+const navToggle = document.getElementById('nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+// Hide/show navbar on scroll
+let lastScrollTop = 0;
+window.addEventListener('scroll', function() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    
+    if (scrollTop > lastScrollTop && scrollTop > 100) {
+        // Scrolling down
+        navbar.style.transform = 'translateY(-100%)';
+    } else {
+        // Scrolling up
+        navbar.style.transform = 'translateY(0)';
     }
+    
+    lastScrollTop = scrollTop;
+});
 
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (hamburger && hamburger.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            }
-        });
-    });
+// Mobile menu toggle
+navToggle.addEventListener('click', function() {
+    navMenu.classList.toggle('active');
+    this.classList.toggle('active');
+});
 
-    // NAVBAR HIDE/SHOW LOGIC
-    const navbar = document.querySelector(".navbar");
-    if (!navbar) return;
-
-    let lastScrollTop = 0;
-    const homeThreshold = 100;
-
-    window.addEventListener("scroll", () => {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        
-        // În home section - mereu vizibil
-        if (scrollTop < homeThreshold) {
-            navbar.classList.remove("nav-hidden");
-            lastScrollTop = scrollTop;
-            return;
-        }
-
-        // Scroll în sus - arată navbar
-        if (scrollTop < lastScrollTop) {
-            navbar.classList.remove("nav-hidden");
-        } 
-        // Scroll în jos - ascunde navbar
-        else if (scrollTop > lastScrollTop + 5) {
-            navbar.classList.add("nav-hidden");
-        }
-
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+// Close mobile menu when clicking on a link
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        navToggle.classList.remove('active');
     });
 });
