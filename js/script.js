@@ -1,147 +1,121 @@
-/*
- * SCRIPT.JS
- * Main application logic
- */
+// Main JavaScript file with common functionality
 
-document.addEventListener('DOMContentLoaded', () => {
+// DOM Elements
+const burgerMenu = document.querySelector('.burger-menu');
+const navOverlay = document.querySelector('.nav-overlay');
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('.section');
+const progressBar = document.querySelector('.progress-bar');
 
-    // --- 1. Element Selection ---
-    const burgerMenu = document.getElementById('burgerMenu');
-    const mainNav = document.getElementById('mainNav');
-    const navLinks = document.querySelectorAll('.nav-link');
-    const progressBar = document.getElementById('progressBar');
-    const sections = document.querySelectorAll('.section'); // All content sections
-    const sectionTitles = document.querySelectorAll('.section-title');
-    const mainContent = document.getElementById('main-content');
+// Initialize the page
+document.addEventListener('DOMContentLoaded', function() {
+    // Set initial burger menu color based on first section
+    updateBurgerColor();
     
-    // Define which sections are "light"
-    const lightSections = ['services', 'reviews', 'contact'];
-
-    // --- 2. Burger Menu Logic ---
-    burgerMenu.addEventListener('click', toggleMenu);
-
-    navLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
-    });
-
-    function toggleMenu() {
-        const isActive = burgerMenu.classList.toggle('is-active');
-        mainNav.classList.toggle('is-active');
-        document.body.classList.toggle('no-scroll', isActive);
-
-        // Staggered list item animation ("Surprise Me")
-        if (isActive) {
-            const navItems = mainNav.querySelectorAll('li');
-            navItems.forEach((item, index) => {
-                item.style.setProperty('--i', index);
-            });
-        }
-    }
-
-    function closeMenu() {
-        burgerMenu.classList.remove('is-active');
-        mainNav.classList.remove('is-active');
-        document.body.classList.remove('no-scroll');
-    }
-
-    // --- 3. Scroll Event Handler ---
-    // We use one 'scroll' listener for performance
-    window.addEventListener('scroll', () => {
-        handleScrollProgress();
-        handleBurgerColor();
-        handleParallaxTitles(); // "Surprise Me"
-    });
-
-    // --- 4. Scroll Progress Bar ---
-    function handleScrollProgress() {
-        const scrollTop = window.scrollY;
-        const docHeight = document.documentElement.scrollHeight;
-        const winHeight = window.innerHeight;
-        const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
-        
-        progressBar.style.width = scrollPercent + '%';
-    }
-
-    // --- 5. Dynamic Burger Color ---
-    function handleBurgerColor() {
-        // Get the burger's vertical position (it's fixed)
-        const burgerRect = burgerMenu.getBoundingClientRect();
-        const burgerCenterY = burgerRect.top + burgerRect.height / 2;
-
-        let isOverLight = false;
-
-        // Check which section the burger is currently over
-        sections.forEach(section => {
-            const sectionRect = section.getBoundingClientRect();
-            // Check if burger's Y position is within the section's top and bottom
-            if (burgerCenterY >= sectionRect.top && burgerCenterY <= sectionRect.bottom) {
-                if (lightSections.includes(section.id)) {
-                    isOverLight = true;
-                }
-            }
-        });
-
-        // Also check #home section separately (it's not in .section array)
-        const homeSection = document.getElementById('home');
-        if (homeSection) {
-            const homeRect = homeSection.getBoundingClientRect();
-            if (burgerCenterY >= homeRect.top && burgerCenterY <= homeRect.bottom) {
-                 isOverLight = false; // Home is dark
-            }
-        }
-
-        // Apply class for smooth CSS transition
-        if (isOverLight) {
-            burgerMenu.classList.add('is-light');
-        } else {
-            burgerMenu.classList.remove('is-light');
-        }
-    }
-
-    // --- 6. Section Title Fade-in on Scroll ---
-    const observerOptions = {
-        root: null,
-        threshold: 0.3, // 30% visible
-        rootMargin: "0px"
-    };
-
-    const titleObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            } else {
-                // Optional: remove class to re-animate on scroll up
-                // entry.target.classList.remove('is-visible');
-            }
-        });
-    }, observerOptions);
-
-    sectionTitles.forEach(title => {
-        titleObserver.observe(title);
-    });
-
-    // --- 7. "Surprise Me": 3D Parallax Titles on Scroll ---
-    function handleParallaxTitles() {
-        const winHeight = window.innerHeight;
-        
-        sectionTitles.forEach(title => {
-            const rect = title.parentElement.getBoundingClientRect();
-            const sectionCenter = rect.top + rect.height / 2;
-            const screenCenter = winHeight / 2;
-
-            // Calculate percentage from center ( -1 to 1 )
-            const percent = (sectionCenter - screenCenter) / screenCenter;
-            
-            // Apply a subtle 3D rotation based on its position
-            const rotateX = percent * -15; // Max 15deg tilt
-            
-            // Only apply if the section is somewhat in view
-            if (rect.top < winHeight && rect.bottom > 0) {
-                 title.style.transform = `translateY(0) rotateX(${rotateX}deg)`;
-            }
-        });
-    }
-
-    // Initial check on load
-    handleBurgerColor();
+    // Add event listeners
+    setupEventListeners();
+    
+    // Initialize scroll progress
+    setupScrollProgress();
 });
+
+// Setup all event listeners
+function setupEventListeners() {
+    // Burger menu toggle
+    burgerMenu.addEventListener('click', toggleBurgerMenu);
+    
+    // Navigation link clicks
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            navigateToSection(targetId);
+            closeBurgerMenu();
+        });
+    });
+    
+    // Close menu when clicking outside
+    navOverlay.addEventListener('click', function(e) {
+        if (e.target === navOverlay) {
+            closeBurgerMenu();
+        }
+    });
+    
+    // Update burger color on scroll
+    window.addEventListener('scroll', updateBurgerColor);
+}
+
+// Toggle burger menu
+function toggleBurgerMenu() {
+    burgerMenu.classList.toggle('active');
+    navOverlay.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (burgerMenu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+// Close burger menu
+function closeBurgerMenu() {
+    burgerMenu.classList.remove('active');
+    navOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Navigate to section
+function navigateToSection(sectionId) {
+    const targetSection = document.getElementById(sectionId);
+    if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+// Update burger menu color based on current section
+function updateBurgerColor() {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        
+        if (scrollPosition >= sectionTop - windowHeight / 2 && 
+            scrollPosition < sectionTop + sectionHeight - windowHeight / 2) {
+            
+            // Determine if section has light or dark background
+            const computedStyle = window.getComputedStyle(section);
+            const bgColor = computedStyle.backgroundColor;
+            
+            // Simple check for light/dark background
+            const rgb = bgColor.match(/\d+/g);
+            if (rgb) {
+                const brightness = (parseInt(rgb[0]) * 299 + parseInt(rgb[1]) * 587 + parseInt(rgb[2]) * 114) / 1000;
+                const isLight = brightness > 128;
+                
+                // Update burger color
+                const burgerLines = document.querySelectorAll('.burger-line');
+                burgerLines.forEach(line => {
+                    line.style.backgroundColor = isLight ? 'var(--color-black)' : 'var(--color-white)';
+                    line.style.boxShadow = isLight ? 
+                        '0 0 5px rgba(255, 255, 255, 0.5)' : 
+                        '0 0 5px rgba(0, 0, 0, 0.5)';
+                });
+            }
+        }
+    });
+}
+
+// Setup scroll progress indicator
+function setupScrollProgress() {
+    window.addEventListener('scroll', updateScrollProgress);
+}
+
+// Update scroll progress bar
+function updateScrollProgress() {
+    const windowHeight = window.document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (window.scrollY / windowHeight) * 100;
+    progressBar.style.width = scrolled + '%';
+}
