@@ -1,5 +1,5 @@
-/* Contact Section */
-#contact {
-    background: linear-gradient(180deg, #a3a3a3 0%, #b8b8b8 50%, #cccccc 100%);
-    transition: background 0.8s ease-in-out;
+/* Contact Section Styles */
+#contact .content h1 {
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
