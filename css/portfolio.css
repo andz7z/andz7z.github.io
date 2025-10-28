@@ -1,5 +1,5 @@
-/* Portfolio Section */
-#portfolio {
-    background: linear-gradient(180deg, #2d2d2d 0%, #404040 50%, #525252 100%);
-    transition: background 0.8s ease-in-out;
+/* Portfolio Section Styles */
+#portfolio .content h1 {
+    color: #333333;
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.5);
 }
