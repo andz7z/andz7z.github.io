@@ -1,5 +1,6 @@
-.home-section {
+#home {
     position: relative;
+    background: var(--color-primary);
 }
 
 .video-container {
@@ -9,9 +10,10 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
+    z-index: 1;
 }
 
-.bg-video {
+#backgroundVideo {
     min-width: 100%;
     min-height: 100%;
     width: auto;
@@ -30,10 +32,10 @@
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    z-index: 1;
+    z-index: 2;
 }
 
-.home-section .title {
-    color: var(--color-white);
-    text-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+#home .content {
+    color: var(--color-secondary);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
