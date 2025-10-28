@@ -1,11 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sophisticated Portfolio</title>
+    <title>Site Glassy Monocrom</title>
     
-    <!-- CSS Files -->
+    <!-- Încărcare fonturi -->
+    <style>
+        @font-face {
+            font-family: 'Noverich';
+            src: url('assets/fonts/noverich.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Roboto';
+            src: url('assets/fonts/roboto.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    
+    <!-- CSS-uri pentru fiecare secțiune -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
@@ -15,80 +32,112 @@
     <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-    <!-- Scroll Progress Indicator -->
-    <div class="scroll-progress">
-        <div class="progress-bar"></div>
+    <!-- Loader Screen -->
+    <div id="loader">
+        <video autoplay muted playsinline>
+            <source src="assets/videos/loader.mp4" type="video/mp4">
+            Browser-ul tău nu suportă elementul video.
+        </video>
     </div>
     
-    <!-- Burger Menu -->
-    <div class="burger-menu">
-        <div class="burger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- Navbar -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-links">
+                <a href="#home" class="nav-link" data-section="home">
+                    <i class="icon-home"></i>
+                    <span>Home</span>
+                </a>
+                <a href="#about" class="nav-link" data-section="about">
+                    <i class="icon-about"></i>
+                    <span>About</span>
+                </a>
+                <a href="#portfolio" class="nav-link" data-section="portfolio">
+                    <i class="icon-portfolio"></i>
+                    <span>Portfolio</span>
+                </a>
+                <a href="#services" class="nav-link" data-section="services">
+                    <i class="icon-services"></i>
+                    <span>Services</span>
+                </a>
+                <a href="#reviews" class="nav-link" data-section="reviews">
+                    <i class="icon-reviews"></i>
+                    <span>Reviews</span>
+                </a>
+                <a href="#contact" class="nav-link" data-section="contact">
+                    <i class="icon-contact"></i>
+                    <span>Contact</span>
+                </a>
+            </div>
+            
+            <div class="burger-menu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+            </div>
         </div>
-        <nav class="nav-menu">
-            <ul>
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
+        
+        <!-- Meniu mobil -->
+        <div class="mobile-menu">
+            <a href="#home" class="mobile-link">Home</a>
+            <a href="#about" class="mobile-link">About</a>
+            <a href="#portfolio" class="mobile-link">Portfolio</a>
+            <a href="#services" class="mobile-link">Services</a>
+            <a href="#reviews" class="mobile-link">Reviews</a>
+            <a href="#contact" class="mobile-link">Contact</a>
+        </div>
+    </nav>
     
-    <!-- Home Section -->
-    <section id="home" class="section home-section">
+    <!-- Secțiuni -->
+    <section id="home" class="section">
         <div class="video-container">
-            <video autoplay muted loop id="bg-video">
-                <source src="assets/movie/andz.mp4" type="video/mp4">
-                Your browser does not support the video tag.
+            <video autoplay muted loop playsinline>
+                <source src="assets/photos/movie/andz.mp4" type="video/mp4">
+                Browser-ul tău nu suportă elementul video.
             </video>
         </div>
         <div class="home-content">
-            <h1 class="home-title">Sophisticated Design</h1>
-            <p class="home-subtitle">Premium Experience</p>
+            <h1>Home Page</h1>
+            <p>Bine ai venit pe site-ul nostru</p>
         </div>
     </section>
     
-    <!-- About Section -->
-    <section id="about" class="section about-section">
+    <section id="about" class="section">
         <div class="section-content">
-            <h2 class="section-title">About</h2>
+            <h2>About</h2>
+            <p>Aceasta este secțiunea despre noi.</p>
         </div>
     </section>
     
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="section portfolio-section">
+    <section id="portfolio" class="section">
         <div class="section-content">
-            <h2 class="section-title">Portfolio</h2>
+            <h2>Portfolio</h2>
+            <p>Aici poți vedea proiectele noastre.</p>
         </div>
     </section>
     
-    <!-- Services Section -->
-    <section id="services" class="section services-section">
+    <section id="services" class="section">
         <div class="section-content">
-            <h2 class="section-title">Services</h2>
+            <h2>Services</h2>
+            <p>Serviciile pe care le oferim.</p>
         </div>
     </section>
     
-    <!-- Reviews Section -->
-    <section id="reviews" class="section reviews-section">
+    <section id="reviews" class="section">
         <div class="section-content">
-            <h2 class="section-title">Reviews</h2>
+            <h2>Reviews</h2>
+            <p>Recenziile clienților noștri.</p>
         </div>
     </section>
     
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
+    <section id="contact" class="section">
         <div class="section-content">
-            <h2 class="section-title">Contact</h2>
+            <h2>Contact</h2>
+            <p>Ia legătura cu noi.</p>
         </div>
     </section>
     
-    <!-- JavaScript Files -->
+    <!-- Script-uri JavaScript -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
