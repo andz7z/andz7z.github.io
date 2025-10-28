@@ -1,7 +1,3 @@
-.portfolio-section {
+#portfolio {
     background: var(--gradient-portfolio);
-}
-
-.portfolio-section .title {
-    color: var(--color-white);
 }
