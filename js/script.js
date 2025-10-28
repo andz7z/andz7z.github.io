@@ -1,15 +1,59 @@
 // Funcționalitatea pentru burger menu și navigare
 document.addEventListener('DOMContentLoaded', function() {
-    const burgerMenu = document.querySelector('.burger-menu');
-    const navMenu = document.querySelector('.nav-menu');
+    const bars = document.getElementById("nav-action");
+    const nav = document.getElementById("nav");
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('.section');
     
+    // Fade in la încărcarea paginii
+    document.body.style.opacity = "0";
+    setTimeout(() => {
+        document.body.style.transition = "opacity 2s ease";
+        document.body.style.opacity = "1";
+    }, 100);
+    
     // Deschide/închide meniul burger
-    burgerMenu.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
+    bars.addEventListener("click", barClicked, false);
+    
+    function barClicked() {
+        bars.classList.toggle('active');
+        nav.classList.toggle('visible');
+    }
+    
+    // Schimbă culoarea burger-ului în funcție de secțiune
+    function updateBurgerColor() {
+        const currentSection = getCurrentSection();
+        const barsElement = document.querySelector('.bars');
+        const barElements = document.querySelectorAll('.bar, .bar::before, .bar::after');
+        
+        if (currentSection === 'contact') {
+            // Pe secțiunea contact (albă), burger-ul trebuie să fie negru
+            barElements.forEach(bar => {
+                bar.style.backgroundColor = '#000';
+            });
+            barsElement.style.color = '#000';
+        } else {
+            // Pe celelalte secțiuni (închise), burger-ul trebuie să fie alb
+            barElements.forEach(bar => {
+                bar.style.backgroundColor = '#fff';
+            });
+            barsElement.style.color = '#fff';
+        }
+    }
+    
+    // Obține secțiunea curentă
+    function getCurrentSection() {
+        let currentSection = 'home';
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+                currentSection = section.id;
+            }
+        });
+        
+        return currentSection;
+    }
     
     // Închide meniul când se face clic pe un link
     navLinks.forEach(link => {
@@ -33,14 +77,17 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             // Închide meniul burger
-            burgerMenu.classList.remove('active');
-            navMenu.classList.remove('active');
+            bars.classList.remove('active');
+            nav.classList.remove('visible');
             
             // Scroll la secțiunea respectivă
             window.scrollTo({
                 top: targetSection.offsetTop,
                 behavior: 'smooth'
             });
+            
+            // Actualizează culoarea burger-ului
+            setTimeout(updateBurgerColor, 500);
         });
     });
     
@@ -63,13 +110,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 link.classList.add('active');
             }
         });
+        
+        // Actualizează culoarea burger-ului la scroll
+        updateBurgerColor();
     });
     
     // Închide meniul când se face clic în afara lui
     document.addEventListener('click', function(e) {
-        if (!burgerMenu.contains(e.target) && !navMenu.contains(e.target) && navMenu.classList.contains('active')) {
-            burgerMenu.classList.remove('active');
-            navMenu.classList.remove('active');
+        if (!bars.contains(e.target) && !nav.contains(e.target) && nav.classList.contains('visible')) {
+            bars.classList.remove('active');
+            nav.classList.remove('visible');
         }
     });
+    
+    // Inițializează culoarea burger-ului
+    updateBurgerColor();
 });
