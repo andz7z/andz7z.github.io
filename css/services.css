@@ -1,5 +1,7 @@
-/* Services Section Styles */
-#services .content h1 {
-    color: #666666;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+.services-section {
+    background: var(--gradient-services);
+}
+
+.services-section .title {
+    color: var(--color-white);
 }
