@@ -1,3 +1,7 @@
 #contact {
     background: var(--gradient-contact);
 }
+
+#contact .title {
+    color: var(--color-primary);
+}
