@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,249 +11,325 @@
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Loader Screen -->
-    <div class="loader" id="loader">
-        <video autoplay muted playsinline>
-            <source src="https://andz7z.github.io/assets/videos/loading.mp4" type="video/mp4">
-        </video>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" role="progressbar" aria-label="Page scroll progress">
+        <div class="scroll-progress-bar"></div>
     </div>
 
-    <!-- Progress Bar -->
-    <div class="progress-bar" id="progressBar"></div>
+    <!-- Loader Screen -->
+    <section id="loader" aria-label="Loading screen" aria-live="polite">
+        <div class="loader-video-container">
+            <video class="loader-video" muted playsinline>
+                <source src="https://andz7z.github.io/assets/videos/loading.mp4" type="video/mp4">
+                <!-- Fallback content -->
+                <div class="loader-fallback">
+                    <div class="loader-logo">ANDZ</div>
+                </div>
+            </video>
+        </div>
+    </section>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
-            <div class="nav-logo">
-                <a href="#home">ANDZ</a>
+            <a href="#home" class="nav-home" aria-label="Home">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </a>
+            
+            <div class="nav-center">
+                <a href="#about" class="nav-icon" aria-label="About">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span class="nav-label">About</span>
+                </a>
+                <a href="#portfolio" class="nav-icon" aria-label="Portfolio">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    <span class="nav-label">Portfolio</span>
+                </a>
+                <a href="#services" class="nav-icon" aria-label="Services">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span class="nav-label">Services</span>
+                </a>
+                <a href="#reviews" class="nav-icon" aria-label="Reviews">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    <span class="nav-label">Reviews</span>
+                </a>
+                <a href="#contact" class="nav-icon" aria-label="Contact">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span class="nav-label">Contact</span>
+                </a>
             </div>
-            <div class="nav-menu" id="navMenu">
-                <a href="#home" class="nav-item">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-text">Home</span>
-                </a>
-                <a href="#about" class="nav-item">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-text">About</span>
-                </a>
-                <a href="#portfolio" class="nav-item">
-                    <span class="nav-icon">💼</span>
-                    <span class="nav-text">Portfolio</span>
-                </a>
-                <a href="#services" class="nav-item">
-                    <span class="nav-icon">🛠️</span>
-                    <span class="nav-text">Services</span>
-                </a>
-                <a href="#reviews" class="nav-item">
-                    <span class="nav-icon">⭐</span>
-                    <span class="nav-text">Reviews</span>
-                </a>
-                <a href="#contact" class="nav-item">
-                    <span class="nav-icon">📞</span>
-                    <span class="nav-text">Contact</span>
-                </a>
-            </div>
-            <div class="burger" id="burger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            
+            <button class="burger-menu" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#portfolio" class="mobile-nav-link">Portfolio</a>
+            <a href="#services" class="mobile-nav-link">Services</a>
+            <a href="#reviews" class="mobile-nav-link">Reviews</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
         </div>
     </nav>
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="#home" class="mobile-menu-item">Home</a>
-        <a href="#about" class="mobile-menu-item">About</a>
-        <a href="#portfolio" class="mobile-menu-item">Portfolio</a>
-        <a href="#services" class="mobile-menu-item">Services</a>
-        <a href="#reviews" class="mobile-menu-item">Reviews</a>
-        <a href="#contact" class="mobile-menu-item">Contact</a>
-    </div>
-
-    <!-- Sections -->
+    <!-- Main Content -->
     <main>
         <!-- Home Section -->
-        <section id="home" class="section home-section">
-            <div class="video-container">
-                <video autoplay muted loop playsinline>
+        <section id="home" aria-labelledby="home-heading">
+            <div class="video-background">
+                <video class="hero-video" muted playsinline loop>
                     <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+                    <!-- Fallback image -->
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='600' viewBox='0 0 800 600'%3E%3Crect width='800' height='600' fill='%231a1a1a'/%3E%3Ctext x='50%25' y='50%25' font-family='Arial' font-size='24' fill='%23ffffff' text-anchor='middle'%3EANDZ%3C/text%3E%3C/svg%3E" alt="ANDZ background">
                 </video>
             </div>
-            <div class="home-content">
-                <h1 class="design-text" id="designText">
-                    <span>D</span>
-                    <span>E</span>
-                    <span>S</span>
-                    <span>I</span>
-                    <span>G</span>
-                    <span>N</span>
-                    <span>.</span>
-                    <span> </span>
-                    <span>D</span>
-                    <span>E</span>
-                    <span>V</span>
-                    <span>E</span>
-                    <span>L</span>
-                    <span>O</span>
-                    <span>P</span>
-                    <span>.</span>
-                    <span> </span>
-                    <span>D</span>
-                    <span>E</span>
-                    <span>L</span>
-                    <span>I</span>
-                    <span>V</span>
-                    <span>E</span>
-                    <span>R</span>
+            
+            <div class="hero-content">
+                <h1 class="hero-text" id="home-heading">
+                    <span class="letter" aria-label="D" tabindex="0">D</span>
+                    <span class="letter" aria-label="E" tabindex="0">E</span>
+                    <span class="letter" aria-label="S" tabindex="0">S</span>
+                    <span class="letter" aria-label="I" tabindex="0">I</span>
+                    <span class="letter" aria-label="G" tabindex="0">G</span>
+                    <span class="letter" aria-label="N" tabindex="0">N</span>
+                    <span class="letter" aria-label="." tabindex="0">.</span>
+                    <span class="letter" aria-label="space" aria-hidden="true">&nbsp;</span>
+                    <span class="letter" aria-label="D" tabindex="0">D</span>
+                    <span class="letter" aria-label="E" tabindex="0">E</span>
+                    <span class="letter" aria-label="V" tabindex="0">V</span>
+                    <span class="letter" aria-label="E" tabindex="0">E</span>
+                    <span class="letter" aria-label="L" tabindex="0">L</span>
+                    <span class="letter" aria-label="O" tabindex="0">O</span>
+                    <span class="letter" aria-label="P" tabindex="0">P</span>
+                    <span class="letter" aria-label="." tabindex="0">.</span>
+                    <span class="letter" aria-label="space" aria-hidden="true">&nbsp;</span>
+                    <span class="letter" aria-label="D" tabindex="0">D</span>
+                    <span class="letter" aria-label="E" tabindex="0">E</span>
+                    <span class="letter" aria-label="L" tabindex="0">L</span>
+                    <span class="letter" aria-label="I" tabindex="0">I</span>
+                    <span class="letter" aria-label="V" tabindex="0">V</span>
+                    <span class="letter" aria-label="E" tabindex="0">E</span>
+                    <span class="letter" aria-label="R" tabindex="0">R</span>
                 </h1>
-                <button class="button" id="exploreButton">
-                    <div class="outline"></div>
-                    <div class="state state--default">
-                        <div class="icon">
-                            <svg
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <g style="filter: url(#shadow)">
-                                    <path
-                                        d="M14.2199 21.63C13.0399 21.63 11.3699 20.8 10.0499 16.83L9.32988 14.67L7.16988 13.95C3.20988 12.63 2.37988 10.96 2.37988 9.78001C2.37988 8.61001 3.20988 6.93001 7.16988 5.60001L15.6599 2.77001C17.7799 2.06001 19.5499 2.27001 20.6399 3.35001C21.7299 4.43001 21.9399 6.21001 21.2299 8.33001L18.3999 16.82C17.0699 20.8 15.3999 21.63 14.2199 21.63ZM7.63988 7.03001C4.85988 7.96001 3.86988 9.06001 3.86988 9.78001C3.86988 10.5 4.85988 11.6 7.63988 12.52L10.1599 13.36C10.3799 13.43 10.5599 13.61 10.6299 13.83L11.4699 16.35C12.3899 19.13 13.4999 20.12 14.2199 20.12C14.9399 20.12 16.0399 19.13 16.9699 16.35L19.7999 7.86001C20.3099 6.32001 20.2199 5.06001 19.5699 4.41001C18.9199 3.76001 17.6599 3.68001 16.1299 4.19001L7.63988 7.03001Z"
-                                        fill="currentColor"
-                                    ></path>
-                                    <path
-                                        d="M14.22 10.59L10.64 14.18C10.5 14.33 10.3 14.4 10.11 14.4C9.92005 14.4 9.73005 14.33 9.58005 14.18C9.29005 13.89 9.29005 13.41 9.58005 13.12L13.16 9.53C13.45 9.24 13.93 9.24 14.22 9.53C14.51 9.82 14.51 10.3 14.22 10.59Z"
-                                        fill="currentColor"
-                                    ></path>
-                                </g>
-                                <defs>
-                                    <filter id="shadow">
-                                        <feDropShadow
-                                            dx="0"
-                                            dy="1"
-                                            stdDeviation="0.6"
-                                            flood-opacity="0.5"
-                                        ></feDropShadow>
-                                    </filter>
-                                </defs>
+                
+                <button class="scroll-button" aria-label="Scroll to About section">
+                    <div class="button-content">
+                        <div class="button-text">Discover More</div>
+                        <div class="button-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="7 13 12 18 17 13"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="6"></line>
                             </svg>
                         </div>
-                        <p>
-                            <span style="--i:0">L</span>
-                            <span style="--i:1">e</span>
-                            <span style="--i:2">t</span>
-                            <span style="--i:3">'s</span>
-                            <span style="--i:4">E</span>
-                            <span style="--i:5">x</span>
-                            <span style="--i:6">p</span>
-                            <span style="--i:7">l</span>
-                            <span style="--i:8">o</span>
-                            <span style="--i:9">r</span>
-                            <span style="--i:10">e</span>
-                        </p>
-                    </div>
-                    <div class="state state--sent">
-                        <div class="icon">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                height="1em"
-                                width="1em"
-                                stroke-width="0.5px"
-                                stroke="black"
-                            >
-                                <g style="filter: url(#shadow)">
-                                    <path
-                                        fill="currentColor"
-                                        d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z"
-                                    ></path>
-                                    <path
-                                        fill="currentColor"
-                                        d="M10.5795 15.5801C10.3795 15.5801 10.1895 15.5001 10.0495 15.3601L7.21945 12.5301C6.92945 12.2401 6.92945 11.7601 7.21945 11.4701C7.50945 11.1801 7.98945 11.1801 8.27945 11.4701L10.5795 13.7701L15.7195 8.6301C16.0095 8.3401 16.4895 8.3401 16.7795 8.6301C17.0695 8.9201 17.0695 9.4001 16.7795 9.6901L11.1095 15.3601C10.9695 15.5001 10.7795 15.5801 10.5795 15.5801Z"
-                                    ></path>
-                                </g>
-                            </svg>
-                        </div>
-                        <p>
-                            <span style="--i:5">N</span>
-                            <span style="--i:6">i</span>
-                            <span style="--i:7">c</span>
-                            <span style="--i:8">e!</span>
-                        </p>
                     </div>
                 </button>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="section about-section">
-            <div class="container">
-                <h2>About</h2>
-                <p>Bine ați venit la ANDZ. Numele meu este Andrei Lehadus și sunt pasionat de crearea de experiențe digitale unice și memorabile.</p>
-                <p>Cu o abordare centrată pe detalii și o viziune modernă, transform ideile în realitate prin design, dezvoltare și livrare de calitate.</p>
+        <section id="about" aria-labelledby="about-heading">
+            <div class="section-container">
+                <h2 id="about-heading">About</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>ANDZ is the creative studio of Andrei Lehadus, specializing in cutting-edge design and development solutions.</p>
+                        <p>With a focus on liquid, glassy aesthetics and modern interactions, we create digital experiences that captivate and convert.</p>
+                    </div>
+                    <div class="about-image">
+                        <div class="glass-card">
+                            <div class="card-content">
+                                <h3>Andrei Lehadus</h3>
+                                <p>Creative Director & Developer</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- Portfolio Section -->
-        <section id="portfolio" class="section portfolio-section">
-            <div class="container">
-                <h2>Portfolio</h2>
-                <p>Iată câteva dintre proiectele mele recente care ilustrează abilitățile și expertiza mea în domeniu.</p>
+        <section id="portfolio" aria-labelledby="portfolio-heading">
+            <div class="section-container">
+                <h2 id="portfolio-heading">Portfolio</h2>
                 <div class="portfolio-grid">
-                    <div class="portfolio-item">Proiect 1</div>
-                    <div class="portfolio-item">Proiect 2</div>
-                    <div class="portfolio-item">Proiect 3</div>
+                    <div class="portfolio-item glass-card">
+                        <div class="portfolio-image"></div>
+                        <div class="portfolio-info">
+                            <h3>Liquid Design System</h3>
+                            <p>A comprehensive design system built with glass morphism principles.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item glass-card">
+                        <div class="portfolio-image"></div>
+                        <div class="portfolio-info">
+                            <h3>Interactive Platform</h3>
+                            <p>An engaging web platform with advanced micro-interactions.</p>
+                        </div>
+                    </div>
+                    <div class="portfolio-item glass-card">
+                        <div class="portfolio-image"></div>
+                        <div class="portfolio-info">
+                            <h3>Brand Identity</h3>
+                            <p>Complete visual identity for a modern tech startup.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="section services-section">
-            <div class="container">
-                <h2>Services</h2>
-                <p>Ofer servicii complete de design și dezvoltare adaptate nevoilor dumneavoastră specifice.</p>
+        <section id="services" aria-labelledby="services-heading">
+            <div class="section-container">
+                <h2 id="services-heading">Services</h2>
                 <div class="services-grid">
-                    <div class="service-item">Web Design</div>
-                    <div class="service-item">Development</div>
-                    <div class="service-item">UI/UX</div>
+                    <div class="service-item glass-card">
+                        <div class="service-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        </div>
+                        <h3>Web Design</h3>
+                        <p>Custom, responsive designs with modern aesthetics and user experience focus.</p>
+                    </div>
+                    <div class="service-item glass-card">
+                        <div class="service-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+                                <line x1="12" y1="22" x2="12" y2="15.5"></line>
+                                <polyline points="22 8.5 12 15.5 2 8.5"></polyline>
+                                <polyline points="2 15.5 12 8.5 22 15.5"></polyline>
+                                <line x1="12" y1="15.5" x2="12" y2="8.5"></line>
+                            </svg>
+                        </div>
+                        <h3>Development</h3>
+                        <p>Clean, efficient code with modern frameworks and performance optimization.</p>
+                    </div>
+                    <div class="service-item glass-card">
+                        <div class="service-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <h3>Brand Strategy</h3>
+                        <p>Comprehensive brand development from concept to implementation.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Reviews Section -->
-        <section id="reviews" class="section reviews-section">
-            <div class="container">
-                <h2>Reviews</h2>
-                <p>Feedback-ul clienților este foarte important pentru mine. Iată câteva dintre opiniile lor.</p>
-                <div class="reviews-grid">
-                    <div class="review-item">Review 1</div>
-                    <div class="review-item">Review 2</div>
-                    <div class="review-item">Review 3</div>
+        <section id="reviews" aria-labelledby="reviews-heading">
+            <div class="section-container">
+                <h2 id="reviews-heading">Reviews</h2>
+                <div class="reviews-slider">
+                    <div class="review-item glass-card">
+                        <div class="review-content">
+                            <p>"Working with ANDZ transformed our digital presence. The attention to detail and innovative approach exceeded our expectations."</p>
+                            <div class="review-author">
+                                <h4>Sarah Johnson</h4>
+                                <p>CEO, TechVision</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-item glass-card">
+                        <div class="review-content">
+                            <p>"The liquid design aesthetic ANDZ created for our platform has received countless compliments from our users and stakeholders."</p>
+                            <div class="review-author">
+                                <h4>Michael Chen</h4>
+                                <p>Product Director, InnovateCo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-item glass-card">
+                        <div class="review-content">
+                            <p>"Andrei's technical expertise combined with his design sensibility resulted in a product that is both beautiful and functional."</p>
+                            <div class="review-author">
+                                <h4>Emily Rodriguez</h4>
+                                <p>Marketing Lead, GrowthLabs</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="section contact-section">
-            <div class="container">
-                <h2>Contact</h2>
-                <p>Sunteți interesat de colaborare? Nu ezitați să mă contactați pentru a discuta despre proiectul dumneavoastră.</p>
-                <form class="contact-form">
-                    <input type="text" placeholder="Nume" required>
-                    <input type="email" placeholder="Email" required>
-                    <textarea placeholder="Mesaj" rows="5" required></textarea>
-                    <button type="submit">Trimite</button>
-                </form>
+        <section id="contact" aria-labelledby="contact-heading">
+            <div class="section-container">
+                <h2 id="contact-heading">Contact</h2>
+                <div class="contact-content">
+                    <div class="contact-info glass-card">
+                        <h3>Get In Touch</h3>
+                        <p>Ready to bring your vision to life? Let's discuss how we can create something extraordinary together.</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span>Based in Digital Space</span>
+                            </div>
+                            <div class="contact-item">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <span>hello@andz.com</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="contact-form glass-card" aria-labelledby="contact-form-heading">
+                        <h3 id="contact-form-heading">Send a Message</h3>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required aria-required="true">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Scripts -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
     <script src="js/about.js"></script>
