@@ -1,68 +1,41 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const burgerMenu = document.querySelector('.burger-menu');
-    const burgerIcon = document.querySelector('.burger-icon');
-    const menuLinks = document.querySelectorAll('.menu-link');
+// Home section specific functionality
+class HomeSection {
+    constructor() {
+        this.init();
+    }
     
-    // Funcție pentru deschiderea/închiderea meniului
-    burgerIcon.addEventListener('click', function() {
-        burgerMenu.classList.toggle('active');
-        
-        // Animație suplimentară pentru iconiță
-        if (burgerMenu.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
+    init() {
+        this.createCardContent();
+        this.addScrollEffects();
+    }
+    
+    createCardContent() {
+        const glassCard = document.querySelector('.glass-card');
+        if (glassCard) {
+            // This is where About Me content will be added later
+            glassCard.innerHTML = `
+                <div class="card-content">
+                    <!-- About Me content will go here -->
+                </div>
+            `;
         }
-    });
+    }
     
-    // Închidere meniu la click pe link
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
+    addScrollEffects() {
+        // Add subtle parallax and effects for the home section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const homeSection = document.querySelector('.home-section');
             
-            // Animație de închidere
-            burgerMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            
-            // Navigare către secțiune
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            
-            if (targetSection) {
-                // Calculăm poziția țintei
-                let targetPosition;
-                if (targetId === '#home') {
-                    targetPosition = 0;
-                } else {
-                    targetPosition = targetSection.offsetTop;
-                }
-                
-                // Scroll animat
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+            if (homeSection && scrolled < homeSection.offsetHeight) {
+                const opacity = 1 - (scrolled / (homeSection.offsetHeight * 0.5));
+                homeSection.style.opacity = Math.max(opacity, 0.7);
             }
         });
-    });
-    
-    // Închidere meniu la click în afara lui
-    document.addEventListener('click', function(e) {
-        if (!burgerMenu.contains(e.target) && burgerMenu.classList.contains('active')) {
-            burgerMenu.classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-    });
-    
-    // Efect de paralaxă pentru titlu
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const homeSection = document.querySelector('.home-section');
-        const title = document.querySelector('.futuristic-title');
-        
-        if (title && homeSection) {
-            const rate = scrolled * -0.5;
-            title.style.transform = `translateY(${rate}px)`;
-        }
-    });
+    }
+}
+
+// Initialize home section
+document.addEventListener('DOMContentLoaded', () => {
+    new HomeSection();
 });
