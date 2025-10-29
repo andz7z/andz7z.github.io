@@ -1,34 +1,30 @@
 // Home section specific JavaScript
-
 document.addEventListener('DOMContentLoaded', function() {
-    initHomeVideo();
-    initHomeAnimations();
-});
-
-function initHomeVideo() {
-    const video = document.getElementById('bg-video');
-    
-    // Ensure video plays correctly
-    video.addEventListener('loadeddata', function() {
-        console.log('Home video loaded successfully');
-    });
-    
-    video.addEventListener('error', function() {
-        console.error('Error loading home video');
-        // Fallback background if video fails to load
-        document.querySelector('.home-section').style.background = 'var(--color-black)';
-    });
-}
-
-function initHomeAnimations() {
-    // Additional home section animations can be added here
+    const video = document.getElementById('backgroundVideo');
     const homeContent = document.querySelector('.home-content');
     
-    // Parallax effect on mouse move
-    document.addEventListener('mousemove', function(e) {
-        const moveX = (e.clientX / window.innerWidth) * 20 - 10;
-        const moveY = (e.clientY / window.innerHeight) * 20 - 10;
+    // Fade in video and content
+    if (video) {
+        video.style.opacity = '0';
         
-        homeContent.style.transform = `translate(calc(-50% + ${moveX}px), calc(-50% + ${moveY}px))`;
+        video.addEventListener('loadeddata', function() {
+            setTimeout(function() {
+                video.style.transition = 'opacity 1.5s ease';
+                video.style.opacity = '1';
+            }, 300);
+        });
+    }
+    
+    // Fade in navbar links
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach((link, index) => {
+        link.style.opacity = '0';
+        link.style.transform = 'translateY(-10px)';
+        
+        setTimeout(function() {
+            link.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            link.style.opacity = '1';
+            link.style.transform = 'translateY(0)';
+        }, 800 + (index * 100));
     });
-}
+});
