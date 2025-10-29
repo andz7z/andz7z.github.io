@@ -14,9 +14,10 @@
     --color-grey-900: #111111;
     
     /* Glass effects */
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    --glass-bg-strong: rgba(255, 255, 255, 0.12);
     
     /* Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -35,7 +36,7 @@ html {
 }
 
 body {
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: linear-gradient(to bottom, var(--color-black), var(--color-grey-900), var(--color-grey-800), var(--color-grey-700), var(--color-grey-600), var(--color-white));
     color: var(--color-white);
     overflow-x: hidden;
@@ -50,37 +51,68 @@ body {
     justify-content: center;
 }
 
-/* Burger menu styles */
+.section-content {
+    text-align: center;
+    z-index: 2;
+}
+
+.section-title {
+    font-size: 4rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.3s forwards;
+}
+
+.section-description {
+    font-size: 1.2rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.6s forwards;
+}
+
+/* Burger menu styles - Premium version */
 .burger-menu {
     position: fixed;
-    top: 1.5rem;
-    left: 1.5rem;
+    top: 2rem;
+    left: 2rem;
     z-index: 1000;
-    background: var(--glass-bg);
+    background: var(--glass-bg-strong);
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 8px;
-    width: 50px;
-    height: 50px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 12px;
+    width: 60px;
+    height: 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
+    gap: 5px;
     cursor: pointer;
     transition: var(--transition-smooth);
 }
 
+.burger-menu:hover {
+    background: var(--glass-bg-strong);
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
 .burger-menu span {
-    width: 24px;
+    width: 26px;
     height: 2px;
     background: var(--color-white);
     transition: var(--transition-smooth);
+    border-radius: 1px;
+}
+
+.burger-menu[aria-expanded="true"] {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .burger-menu[aria-expanded="true"] span:nth-child(1) {
-    transform: rotate(45deg) translate(6px, 6px);
+    transform: rotate(45deg) translate(7px, 7px);
 }
 
 .burger-menu[aria-expanded="true"] span:nth-child(2) {
@@ -88,26 +120,27 @@ body {
 }
 
 .burger-menu[aria-expanded="true"] span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
+    transform: rotate(-45deg) translate(7px, -7px);
 }
 
-/* Navigation overlay */
+/* Premium Navigation overlay */
 .nav-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     z-index: 999;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     opacity: 0;
     visibility: hidden;
     transition: var(--transition-smooth);
+    padding-left: 8%;
 }
 
 .nav-overlay[aria-hidden="false"] {
@@ -115,42 +148,151 @@ body {
     visibility: visible;
 }
 
-.nav-overlay ul {
-    list-style: none;
-    text-align: center;
+.nav-content {
+    text-align: left;
+    max-width: 500px;
 }
 
-.nav-overlay li {
-    margin: 1.5rem 0;
+.nav-header {
+    margin-bottom: 3rem;
+}
+
+.nav-title {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--color-grey-300);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.nav-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--color-white), transparent);
+    opacity: 0.3;
+}
+
+.nav-list {
+    list-style: none;
+    margin-bottom: 3rem;
+}
+
+.nav-list li {
+    margin: 1.2rem 0;
+    overflow: hidden;
 }
 
 .nav-link {
     color: var(--color-white);
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 3.5rem;
     font-weight: 300;
-    padding: 0.5rem 2rem;
-    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
     transition: var(--transition-smooth);
-    display: inline-block;
+    position: relative;
+}
+
+.nav-number {
+    font-size: 0.9rem;
+    color: var(--color-grey-400);
+    font-weight: 400;
+    transition: var(--transition-smooth);
+    min-width: 30px;
+}
+
+.nav-text {
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.nav-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--color-white);
+    border-radius: 50%;
+    opacity: 0;
+    transition: var(--transition-smooth);
+    margin-left: auto;
 }
 
 .nav-link:hover {
-    background: var(--glass-bg);
-    transform: translateY(-2px);
+    transform: translateX(10px);
+}
+
+.nav-link:hover .nav-number {
+    color: var(--color-white);
+}
+
+.nav-link:hover .nav-text {
+    color: var(--color-grey-300);
+}
+
+.nav-link:hover .nav-dot {
+    opacity: 1;
+    transform: scale(1.2);
+}
+
+.nav-footer {
+    margin-top: 2rem;
+}
+
+.nav-copyright {
+    font-size: 0.9rem;
+    color: var(--color-grey-400);
+    margin-top: 1rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
     .burger-menu {
-        width: 44px;
-        height: 44px;
-        top: 1rem;
-        left: 1rem;
+        width: 50px;
+        height: 50px;
+        top: 1.5rem;
+        left: 1.5rem;
+    }
+    
+    .nav-overlay {
+        padding-left: 5%;
+        justify-content: center;
+    }
+    
+    .nav-content {
+        max-width: 90%;
     }
     
     .nav-link {
-        font-size: 1.5rem;
-        padding: 0.5rem 1.5rem;
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-link {
+        font-size: 2rem;
+        gap: 1rem;
+    }
+    
+    .nav-number {
+        font-size: 0.8rem;
+        min-width: 25px;
     }
 }
