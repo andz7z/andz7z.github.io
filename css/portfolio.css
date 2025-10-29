@@ -1,8 +1,4 @@
-/* Secțiunea Portfolio */
-#portfolio {
-    height: 100vh;
-    background: linear-gradient(135deg, #000000, #434343);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.portfolio-section {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #404040 100%);
+    position: relative;
 }
