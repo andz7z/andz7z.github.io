@@ -1,34 +1,29 @@
-/* CSS Variables for easy customization */
+/* CSS Variables */
 :root {
     /* Colors */
     --color-black: #000000;
-    --color-dark-gray: #1a1a1a;
-    --color-gray: #333333;
-    --color-light-gray: #666666;
     --color-white: #ffffff;
-    --color-off-white: #f5f5f5;
+    --color-grey-100: #f5f5f5;
+    --color-grey-200: #e0e0e0;
+    --color-grey-300: #c0c0c0;
+    --color-grey-400: #999999;
+    --color-grey-500: #666666;
+    --color-grey-600: #444444;
+    --color-grey-700: #333333;
+    --color-grey-800: #222222;
+    --color-grey-900: #111111;
     
-    /* Gradients */
-    --gradient-monochrome: linear-gradient(135deg, var(--color-black), var(--color-gray), var(--color-white));
-    --gradient-scroll: linear-gradient(to right, var(--color-black), var(--color-white));
+    /* Glass effects */
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
     
     /* Transitions */
-    --transition-fast: 0.3s ease;
-    --transition-medium: 0.5s ease;
-    --transition-slow: 1s ease;
-    
-    /* Fonts */
-    --font-primary: 'Noverich', sans-serif;
-    --font-secondary: 'Roboto', sans-serif;
-    
-    /* Effects */
-    --glass-effect: rgba(255, 255, 255, 0.1);
-    --blur-effect: blur(10px);
-    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 8px 15px rgba(0, 0, 0, 0.2);
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* Reset and Base Styles */
+/* Reset and base styles */
 * {
     margin: 0;
     padding: 0;
@@ -40,176 +35,122 @@ html {
 }
 
 body {
-    font-family: var(--font-secondary);
+    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(to bottom, var(--color-black), var(--color-grey-900), var(--color-grey-800), var(--color-grey-700), var(--color-grey-600), var(--color-white));
     color: var(--color-white);
     overflow-x: hidden;
-    background: var(--gradient-monochrome);
 }
 
-/* Sections */
+/* Section base styles */
 .section {
-    min-height: 100vh;
+    height: 100vh;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
 }
 
-.section-content {
-    text-align: center;
-    z-index: 1;
-}
-
-.section-title {
-    font-family: var(--font-primary);
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity var(--transition-medium), transform var(--transition-medium);
-}
-
-.section-title.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Progress Scroll Bar */
-.progress-container {
+/* Burger menu styles */
+.burger-menu {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: transparent;
+    top: 1.5rem;
+    left: 1.5rem;
     z-index: 1000;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
 }
 
-.progress-bar {
-    height: 100%;
-    background: var(--gradient-scroll);
-    width: 0%;
-    transition: width 0.1s ease;
+.burger-menu span {
+    width: 24px;
+    height: 2px;
+    background: var(--color-white);
+    transition: var(--transition-smooth);
 }
 
-/* Navbar */
-.navbar {
+.burger-menu[aria-expanded="true"] span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-menu[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu[aria-expanded="true"] span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Navigation overlay */
+.nav-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 1rem 2rem;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     z-index: 999;
-    transition: all var(--transition-medium);
-}
-
-.nav-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition-smooth);
 }
 
-.nav-logo {
-    font-family: var(--font-primary);
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--color-white);
+.nav-overlay[aria-hidden="false"] {
+    opacity: 1;
+    visibility: visible;
 }
 
-.nav-menu {
-    display: flex;
-    gap: 2rem;
+.nav-overlay ul {
+    list-style: none;
+    text-align: center;
+}
+
+.nav-overlay li {
+    margin: 1.5rem 0;
 }
 
 .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
     color: var(--color-white);
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    transition: all var(--transition-fast);
-    background: var(--glass-effect);
-    backdrop-filter: var(--blur-effect);
-    border: 1px solid transparent;
+    font-size: 2rem;
+    font-weight: 300;
+    padding: 0.5rem 2rem;
+    border-radius: 12px;
+    transition: var(--transition-smooth);
+    display: inline-block;
 }
 
 .nav-link:hover {
-    border: 1px solid var(--color-white);
-    box-shadow: var(--shadow-light);
+    background: var(--glass-bg);
     transform: translateY(-2px);
 }
 
-.nav-icon {
-    font-size: 1.2rem;
-}
-
-.nav-text {
-    font-size: 0.9rem;
-}
-
-/* Burger Menu */
-.burger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 4px;
-}
-
-.burger-line {
-    width: 25px;
-    height: 3px;
-    background-color: var(--color-white);
-    transition: all var(--transition-fast);
-}
-
-/* Responsive Design */
+/* Responsive design */
 @media (max-width: 768px) {
-    .nav-menu {
-        position: fixed;
-        top: 0;
-        left: -100%;
-        width: 80%;
-        height: 100vh;
-        background: var(--glass-effect);
-        backdrop-filter: var(--blur-effect);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: left var(--transition-medium);
-        gap: 2rem;
+    .burger-menu {
+        width: 44px;
+        height: 44px;
+        top: 1rem;
+        left: 1rem;
     }
     
-    .nav-menu.active {
-        left: 0;
-    }
-    
-    .burger {
-        display: flex;
-    }
-    
-    .burger.active .burger-line:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .burger.active .burger-line:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .burger.active .burger-line:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    .navbar.scrolled .nav-menu {
-        display: none;
-    }
-    
-    .navbar.scrolled .burger {
-        display: flex;
+    .nav-link {
+        font-size: 1.5rem;
+        padding: 0.5rem 1.5rem;
     }
 }
-
-/* Section-specific background gradients will be defined in their respective CSS files */
