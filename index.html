@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Glass Portfolio</title>
+    <title>Portofoliu Modern</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/portfolio.css">
@@ -12,113 +12,67 @@
     <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-    <!-- Burger Menu -->
-    <button class="burger-menu" aria-label="Toggle navigation menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <nav class="nav-overlay" aria-hidden="true">
-        <div class="nav-content">
-            <div class="nav-header">
-                <h2 class="nav-title">Navigation</h2>
-                <div class="nav-divider"></div>
-            </div>
-            <ul class="nav-list">
-                <li><a href="#home" class="nav-link">
-                    <span class="nav-number">01</span>
-                    <span class="nav-text">Home</span>
-                    <span class="nav-dot"></span>
-                </a></li>
-                <li><a href="#about" class="nav-link">
-                    <span class="nav-number">02</span>
-                    <span class="nav-text">About</span>
-                    <span class="nav-dot"></span>
-                </a></li>
-                <li><a href="#portfolio" class="nav-link">
-                    <span class="nav-number">03</span>
-                    <span class="nav-text">Portfolio</span>
-                    <span class="nav-dot"></span>
-                </a></li>
-                <li><a href="#services" class="nav-link">
-                    <span class="nav-number">04</span>
-                    <span class="nav-text">Services</span>
-                    <span class="nav-dot"></span>
-                </a></li>
-                <li><a href="#reviews" class="nav-link">
-                    <span class="nav-number">05</span>
-                    <span class="nav-text">Reviews</span>
-                    <span class="nav-dot"></span>
-                </a></li>
-                <li><a href="#contact" class="nav-link">
-                    <span class="nav-number">06</span>
-                    <span class="nav-text">Contact</span>
-                    <span class="nav-dot"></span>
-                </a></li>
+    <!-- Meniu Burger -->
+    <div class="burger-menu">
+        <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="menu-content">
+            <ul>
+                <li><a href="#home" class="menu-link">Home</a></li>
+                <li><a href="#portfolio" class="menu-link">Portfolio</a></li>
+                <li><a href="#services" class="menu-link">Servicii</a></li>
+                <li><a href="#reviews" class="menu-link">Recenzii</a></li>
+                <li><a href="#contact" class="menu-link">Contact</a></li>
             </ul>
-            <div class="nav-footer">
-                <div class="nav-divider"></div>
-                <p class="nav-copyright">© 2024 Portfolio</p>
+        </nav>
+    </div>
+
+    <!-- Secțiuni -->
+    <section id="home">
+        <video autoplay muted loop id="bg-video">
+            <source src="assets/movie/andz.mp4" type="video/mp4">
+            Browser-ul tău nu suportă tag-ul video.
+        </video>
+        <div class="home-overlay"></div>
+        <div class="glassy-card">
+            <h2 class="card-title">About Me</h2>
+            <div class="card-content">
+                <p>Sunt un profesionist pasionat de crearea de experiențe digitale memorabile. Cu o experiență de peste 5 ani în domeniu, am lucrat cu clienți din diverse industrii pentru a aduce vieții ideile lor.</p>
+                <p>Specializat în design modern și funcțional, cred că fiecare proiect este o oportunitate de a învăța ceva nou și de a împinge limitele creativității.</p>
             </div>
         </div>
-    </nav>
+    </section>
 
-    <!-- Main Sections -->
-    <main>
-        <section id="home" class="section home-section">
-            <div class="video-container">
-                <video autoplay muted loop playsinline>
-                    <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="hero-content">
-                <h1 class="hero-title">Creative Visionary</h1>
-                <p class="hero-subtitle">Crafting digital experiences that inspire</p>
-            </div>
-            <div class="hero-card">
-                <h2 class="card-title">About Me</h2>
-                <div class="card-content">
-                    <p class="card-description">Passionate designer and developer creating innovative solutions for modern challenges. With years of experience in digital transformation.</p>
-                </div>
-            </div>
-        </section>
+    <section id="portfolio">
+        <div class="section-content">
+            <h1>Portofoliu</h1>
+            <p>Iată câteva dintre proiectele mele recente.</p>
+        </div>
+    </section>
 
-        <section id="about" class="section">
-            <div class="section-content">
-                <h2 class="section-title">About</h2>
-                <p class="section-description">Learn more about my journey and expertise</p>
-            </div>
-        </section>
+    <section id="services">
+        <div class="section-content">
+            <h1>Servicii</h1>
+            <p>Servicii profesionale adaptate nevoilor tale.</p>
+        </div>
+    </section>
 
-        <section id="portfolio" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Portfolio</h2>
-                <p class="section-description">Explore my latest projects and creations</p>
-            </div>
-        </section>
+    <section id="reviews">
+        <div class="section-content">
+            <h1>Recenzii</h1>
+            <p>Ce spun clienții despre colaborarea cu mine.</p>
+        </div>
+    </section>
 
-        <section id="services" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Services</h2>
-                <p class="section-description">Discover what I can do for you</p>
-            </div>
-        </section>
-
-        <section id="reviews" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Reviews</h2>
-                <p class="section-description">What clients say about my work</p>
-            </div>
-        </section>
-
-        <section id="contact" class="section">
-            <div class="section-content">
-                <h2 class="section-title">Contact</h2>
-                <p class="section-description">Let's start a conversation</p>
-            </div>
-        </section>
-    </main>
+    <section id="contact">
+        <div class="section-content">
+            <h1>Contact</h1>
+            <p>Hai să discutăm despre următorul tău proiect.</p>
+        </div>
+    </section>
 
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
