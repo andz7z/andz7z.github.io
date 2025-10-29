@@ -1,30 +1,25 @@
-// Home section specific JavaScript
-document.addEventListener('DOMContentLoaded', function() {
+// Home section specific functionality
+
+document.addEventListener('DOMContentLoaded', () => {
     const video = document.getElementById('backgroundVideo');
-    const homeContent = document.querySelector('.home-content');
     
-    // Fade in video and content
+    // Ensure video plays correctly
     if (video) {
-        video.style.opacity = '0';
-        
-        video.addEventListener('loadeddata', function() {
-            setTimeout(function() {
-                video.style.transition = 'opacity 1.5s ease';
-                video.style.opacity = '1';
-            }, 300);
+        video.play().catch(error => {
+            console.log('Video autoplay prevented:', error);
         });
     }
     
-    // Fade in navbar links
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach((link, index) => {
-        link.style.opacity = '0';
-        link.style.transform = 'translateY(-10px)';
+    // Fade in navbar elements
+    const navElements = document.querySelectorAll('.nav-link, .nav-logo');
+    navElements.forEach((element, index) => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(-20px)';
         
-        setTimeout(function() {
-            link.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            link.style.opacity = '1';
-            link.style.transform = 'translateY(0)';
-        }, 800 + (index * 100));
+        setTimeout(() => {
+            element.style.transition = 'opacity 1s ease, transform 1s ease';
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, 500 + (index * 100));
     });
 });
