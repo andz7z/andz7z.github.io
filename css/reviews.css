@@ -1,8 +1,4 @@
-/* Secțiunea Recenzii */
-#reviews {
-    height: 100vh;
-    background: linear-gradient(135deg, #000000, #3a3a3a);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.reviews-section {
+    background: linear-gradient(135deg, #404040 0%, #525252 50%, #666666 100%);
+    position: relative;
 }
