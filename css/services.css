@@ -1,4 +1,4 @@
 /* Services Section */
-.services-section {
-    background: linear-gradient(to bottom, var(--color-gray), var(--color-light-gray));
+#services {
+    background: linear-gradient(135deg, var(--color-gray), var(--color-light-gray));
 }
