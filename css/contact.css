@@ -1,8 +1,4 @@
-/* Secțiunea Contact */
-#contact {
-    height: 100vh;
-    background: linear-gradient(135deg, #000000, #2c2c2c);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.contact-section {
+    background: linear-gradient(135deg, #525252 0%, #666666 50%, #808080 100%);
+    position: relative;
 }
