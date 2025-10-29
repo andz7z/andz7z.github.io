@@ -1,4 +1,4 @@
 /* About Section */
-.about-section {
-    background: linear-gradient(to bottom, var(--color-black), var(--color-dark-gray));
+#about {
+    background: linear-gradient(135deg, var(--color-black), var(--color-dark-gray));
 }
