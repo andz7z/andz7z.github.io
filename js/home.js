@@ -1,25 +1,49 @@
-// Home section specific functionality
-
-document.addEventListener('DOMContentLoaded', () => {
-    const video = document.getElementById('backgroundVideo');
-    
-    // Ensure video plays correctly
-    if (video) {
-        video.play().catch(error => {
-            console.log('Video autoplay prevented:', error);
-        });
+// Home section specific JavaScript
+class HomeSection {
+    constructor() {
+        this.heroCard = document.querySelector('.hero-card');
+        this.aboutSection = document.querySelector('#about');
+        this.init();
     }
-    
-    // Fade in navbar elements
-    const navElements = document.querySelectorAll('.nav-link, .nav-logo');
-    navElements.forEach((element, index) => {
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(-20px)';
-        
-        setTimeout(() => {
-            element.style.transition = 'opacity 1s ease, transform 1s ease';
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }, 500 + (index * 100));
-    });
+
+    init() {
+        this.setupIntersectionObserver();
+        this.setupAnimations();
+    }
+
+    setupIntersectionObserver() {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.target.id === 'about') {
+                        if (entry.isIntersecting) {
+                            this.heroCard.classList.add('active');
+                        } else {
+                            // Only remove active class when scrolling back up past about section
+                            if (entry.boundingClientRect.top > 0) {
+                                this.heroCard.classList.remove('active');
+                            }
+                        }
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '-10% 0px -10% 0px'
+            }
+        );
+
+        if (this.aboutSection) {
+            observer.observe(this.aboutSection);
+        }
+    }
+
+    setupAnimations() {
+        // Additional home section animations can be added here
+    }
+}
+
+// Initialize home section
+document.addEventListener('DOMContentLoaded', () => {
+    new HomeSection();
 });
