@@ -1,4 +1,4 @@
-/* Portfolio Section */
+/* Portfolio section specific styles */
 #portfolio {
-    background: linear-gradient(135deg, var(--color-dark-gray), var(--color-gray));
+    background: transparent;
 }
