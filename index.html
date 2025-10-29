@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofoliu Modern</title>
+    <title>Portofoliu Personal</title>
+    
+    <!-- Fonturi -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/portfolio.css">
@@ -19,61 +24,145 @@
             <span></span>
             <span></span>
         </div>
-        <nav class="menu-content">
+        <nav class="nav-menu">
             <ul>
-                <li><a href="#home" class="menu-link">Home</a></li>
-                <li><a href="#portfolio" class="menu-link">Portfolio</a></li>
-                <li><a href="#services" class="menu-link">Servicii</a></li>
-                <li><a href="#reviews" class="menu-link">Recenzii</a></li>
-                <li><a href="#contact" class="menu-link">Contact</a></li>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
         </nav>
     </div>
 
-    <!-- Secțiuni -->
-    <section id="home">
+    <!-- Sectiunea Home -->
+    <section id="home" class="section">
         <video autoplay muted loop id="bg-video">
             <source src="assets/movie/andz.mp4" type="video/mp4">
-            Browser-ul tău nu suportă tag-ul video.
         </video>
-        <div class="home-overlay"></div>
-        <div class="glassy-card">
-            <h2 class="card-title">About Me</h2>
-            <div class="card-content">
-                <p>Sunt un profesionist pasionat de crearea de experiențe digitale memorabile. Cu o experiență de peste 5 ani în domeniu, am lucrat cu clienți din diverse industrii pentru a aduce vieții ideile lor.</p>
-                <p>Specializat în design modern și funcțional, cred că fiecare proiect este o oportunitate de a învăța ceva nou și de a împinge limitele creativității.</p>
+        <div class="content">
+            <div class="glassy-card">
+                <h2>About Me</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
             </div>
         </div>
     </section>
 
-    <section id="portfolio">
-        <div class="section-content">
-            <h1>Portofoliu</h1>
-            <p>Iată câteva dintre proiectele mele recente.</p>
+    <!-- Sectiunea Portfolio -->
+    <section id="portfolio" class="section">
+        <div class="content">
+            <h1>Portfolio</h1>
         </div>
     </section>
 
-    <section id="services">
-        <div class="section-content">
-            <h1>Servicii</h1>
-            <p>Servicii profesionale adaptate nevoilor tale.</p>
+    <!-- Sectiunea Services -->
+    <section id="services" class="section">
+        <div class="content">
+            <h1>Services</h1>
         </div>
     </section>
 
-    <section id="reviews">
-        <div class="section-content">
-            <h1>Recenzii</h1>
-            <p>Ce spun clienții despre colaborarea cu mine.</p>
+    <!-- Sectiunea Reviews -->
+    <section id="reviews" class="section">
+        <div class="content">
+            <h1>Reviews</h1>
         </div>
     </section>
 
-    <section id="contact">
-        <div class="section-content">
+    <!-- Sectiunea Contact -->
+    <section id="contact" class="section">
+        <div class="content">
             <h1>Contact</h1>
-            <p>Hai să discutăm despre următorul tău proiect.</p>
         </div>
     </section>
 
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofoliu Personal</title>
+    
+    <!-- Fonturi -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/services.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="css/contact.css">
+</head>
+<body>
+    <!-- Meniu Burger -->
+    <div class="burger-menu">
+        <div class="burger-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <nav class="nav-menu">
+            <ul>
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Sectiunea Home -->
+    <section id="home" class="section">
+        <video autoplay muted loop id="bg-video">
+            <source src="assets/movie/andz.mp4" type="video/mp4">
+        </video>
+        <div class="content">
+            <div class="glassy-card">
+                <h2>About Me</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sectiunea Portfolio -->
+    <section id="portfolio" class="section">
+        <div class="content">
+            <h1>Portfolio</h1>
+        </div>
+    </section>
+
+    <!-- Sectiunea Services -->
+    <section id="services" class="section">
+        <div class="content">
+            <h1>Services</h1>
+        </div>
+    </section>
+
+    <!-- Sectiunea Reviews -->
+    <section id="reviews" class="section">
+        <div class="content">
+            <h1>Reviews</h1>
+        </div>
+    </section>
+
+    <!-- Sectiunea Contact -->
+    <section id="contact" class="section">
+        <div class="content">
+            <h1>Contact</h1>
+        </div>
+    </section>
+
+    <!-- JavaScript -->
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
     <script src="js/portfolio.js"></script>
