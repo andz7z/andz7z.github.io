@@ -3,57 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Futurist</title>
+    <title>Portfolio</title>
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/portfolio.css">
+    <link rel="stylesheet" href="css/services.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-    <!-- Meniu Burger -->
-    <div class="burger-menu">
-        <div class="burger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <nav class="menu-overlay">
-            <ul class="menu-items">
-                <li><a href="#home" class="menu-link">Home</a></li>
-                <li><a href="#portfolio" class="menu-link">Portfolio</a></li>
-                <li><a href="#services" class="menu-link">Servicii</a></li>
-                <li><a href="#reviews" class="menu-link">Recenzii</a></li>
-                <li><a href="#contact" class="menu-link">Contact</a></li>
-            </ul>
-        </nav>
-    </div>
-
-    <!-- Secțiuni -->
-    <section id="home" class="section home-section">
-        <div class="home-content">
-            <h1 class="futuristic-title">VIITORUL<br>ESTE AICI</h1>
-            <p class="subtitle">Explorăm limitele designului și tehnologiei</p>
-            <div class="scroll-indicator">
-                <div class="scroll-line"></div>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="burger-menu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
             </div>
         </div>
+    </nav>
+
+    <!-- Navigation Overlay -->
+    <div class="nav-overlay">
+        <div class="overlay-content">
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sections -->
+    <section id="home" class="section home-section">
+        <div class="glass-card">
+            <!-- About Me card content will go here -->
+        </div>
     </section>
 
-    <section id="portfolio" class="section">
-        <!-- Conținutul va fi adăugat ulterior -->
-    </section>
+    <section id="portfolio" class="section portfolio-section"></section>
+    <section id="services" class="section services-section"></section>
+    <section id="reviews" class="section reviews-section"></section>
+    <section id="contact" class="section contact-section"></section>
 
-    <section id="services" class="section">
-        <!-- Conținutul va fi adăugat ulterior -->
-    </section>
-
-    <section id="reviews" class="section">
-        <!-- Conținutul va fi adăugat ulterior -->
-    </section>
-
-    <section id="contact" class="section">
-        <!-- Conținutul va fi adăugat ulterior -->
-    </section>
-
+    <!-- JavaScript Files -->
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>
