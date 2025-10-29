@@ -1,9 +1,8 @@
-/* Contact Section */
+/* Secțiunea Contact */
 #contact {
-    background: linear-gradient(135deg, var(--color-off-white), var(--color-white));
-    color: var(--color-black);
-}
-
-#contact .section-title {
-    color: var(--color-black);
+    height: 100vh;
+    background: linear-gradient(135deg, #000000, #2c2c2c);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
