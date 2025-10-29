@@ -40,6 +40,7 @@ class HomeSection {
 
     setupAnimations() {
         // Additional home section animations can be added here
+        console.log('Home section initialized with extended height');
     }
 }
 
