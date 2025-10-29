@@ -8,6 +8,7 @@ class App {
         this.setupBurgerMenu();
         this.setupSmoothScrolling();
         this.setupAccessibility();
+        this.setupScrollEffects();
     }
 
     setupBurgerMenu() {
@@ -19,6 +20,9 @@ class App {
             const isExpanded = burgerMenu.getAttribute('aria-expanded') === 'true';
             burgerMenu.setAttribute('aria-expanded', !isExpanded);
             navOverlay.setAttribute('aria-hidden', isExpanded);
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = isExpanded ? 'auto' : 'hidden';
         });
 
         // Close menu when clicking on links
@@ -26,6 +30,7 @@ class App {
             link.addEventListener('click', () => {
                 burgerMenu.setAttribute('aria-expanded', 'false');
                 navOverlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = 'auto';
             });
         });
 
@@ -34,6 +39,7 @@ class App {
             if (e.target === navOverlay) {
                 burgerMenu.setAttribute('aria-expanded', 'false');
                 navOverlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = 'auto';
             }
         });
     }
@@ -45,9 +51,12 @@ class App {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
+                    const headerHeight = 0; // Adjust if you have a fixed header
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
                     });
                 }
             });
@@ -62,6 +71,27 @@ class App {
                 const navOverlay = document.querySelector('.nav-overlay');
                 burgerMenu.setAttribute('aria-expanded', 'false');
                 navOverlay.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
+
+    setupScrollEffects() {
+        // Add subtle parallax effect to home section elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const homeSection = document.querySelector('.home-section');
+            const heroContent = document.querySelector('.hero-content');
+            
+            if (heroContent && homeSection) {
+                const homeHeight = homeSection.offsetHeight;
+                const scrollPercent = scrolled / homeHeight;
+                
+                // Parallax effect for hero content
+                if (scrollPercent < 1) {
+                    heroContent.style.transform = `translateY(${scrollPercent * 50}px)`;
+                    heroContent.style.opacity = 1 - (scrollPercent * 2);
+                }
             }
         });
     }
