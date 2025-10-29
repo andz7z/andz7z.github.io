@@ -1,4 +1,5 @@
-/* Services Section */
+/* Services section specific styles */
 #services {
-    background: linear-gradient(135deg, var(--color-gray), var(--color-light-gray));
+    background: transparent;
+    background: linear-gradient(135deg, var(--color-grey-800), var(--color-grey-700));
 }
