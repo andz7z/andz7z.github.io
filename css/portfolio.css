@@ -1,3 +1,4 @@
-#portfolio {
-    background: linear-gradient(to bottom, #333, #666);
+/* Portfolio Section */
+.portfolio-section {
+    background: linear-gradient(to bottom, var(--color-dark-gray), var(--color-gray));
 }
