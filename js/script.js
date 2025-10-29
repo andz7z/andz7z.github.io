@@ -1,79 +1,81 @@
-// Loader
-window.addEventListener('load', function() {
-    const loader = document.getElementById('loader');
-    
-    // Ascunde loader-ul după 3 secunde
-    setTimeout(function() {
-        loader.style.opacity = '0';
-        setTimeout(function() {
-            loader.style.display = 'none';
-        }, 500);
-    }, 3000);
+// Main JavaScript file
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all components
+    initProgressBar();
+    initNavbar();
+    initScrollAnimations();
 });
 
-// Navbar
-document.addEventListener('DOMContentLoaded', function() {
-    const navbar = document.getElementById('navbar');
-    const navLinks = document.querySelector('.nav-links');
-    const burgerMenu = document.querySelector('.burger-menu');
-    const mobileMenu = document.querySelector('.mobile-menu');
+// Progress Bar
+function initProgressBar() {
+    const progressBar = document.getElementById('progressBar');
     
-    // Ascunde navbar-ul la scroll
-    let lastScrollTop = 0;
     window.addEventListener('scroll', function() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
         
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scroll în jos - ascunde navbar-ul
-            navbar.classList.add('navbar-minimized');
-            navLinks.style.opacity = '0';
+        progressBar.style.width = progress + '%';
+    });
+}
+
+// Navbar
+function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    
+    // Navbar scroll effect
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
         } else {
-            // Scroll în sus - arată navbar-ul
-            navbar.classList.remove('navbar-minimized');
-            navLinks.style.opacity = '1';
+            navbar.classList.remove('scrolled');
         }
-        
-        lastScrollTop = scrollTop;
     });
     
     // Burger menu toggle
-    burgerMenu.addEventListener('click', function() {
-        mobileMenu.classList.toggle('mobile-menu-open');
-        
-        // Animație burger
-        const burgerLines = document.querySelectorAll('.burger-line');
-        if (mobileMenu.classList.contains('mobile-menu-open')) {
-            burgerLines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            burgerLines[1].style.opacity = '0';
-            burgerLines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-        } else {
-            burgerLines[0].style.transform = 'none';
-            burgerLines[1].style.opacity = '1';
-            burgerLines[2].style.transform = 'none';
-        }
+    burger.addEventListener('click', function() {
+        burger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
     });
     
-    // Navigare smooth
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Închide meniul mobil dacă este deschis
-                mobileMenu.classList.remove('mobile-menu-open');
-                const burgerLines = document.querySelectorAll('.burger-line');
-                burgerLines[0].style.transform = 'none';
-                burgerLines[1].style.opacity = '1';
-                burgerLines[2].style.transform = 'none';
-            }
+    // Close mobile menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            burger.classList.remove('active');
+            mobileMenu.classList.remove('active');
         });
     });
-});
+    
+    // Fade in navbar on page load
+    setTimeout(function() {
+        navbar.style.opacity = '1';
+        navbar.style.transform = 'translateY(0)';
+    }, 500);
+}
+
+// Scroll animations for sections
+function initScrollAnimations() {
+    const sections = document.querySelectorAll('.section');
+    
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.3
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+    
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+}
