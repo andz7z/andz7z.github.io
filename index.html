@@ -1,126 +1,71 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio Modern</title>
-    
-    <!-- CSS Files -->
+    <title>Modern Glass Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    
-    <!-- Fonts -->
-    <style>
-        @font-face {
-            font-family: 'Noverich';
-            src: url('assets/fonts/noverich.otf') format('opentype');
-        }
-        @font-face {
-            font-family: 'Roboto';
-            src: url('assets/fonts/roboto.ttf') format('truetype');
-        }
-    </style>
 </head>
 <body>
-    <!-- Progress Scroll Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
-    
-    <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
-                <span>Portfolio</span>
-            </div>
-            <div class="nav-menu" id="navMenu">
-                <a href="#home" class="nav-link">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-text">Home</span>
-                </a>
-                <a href="#about" class="nav-link">
-                    <span class="nav-icon">👤</span>
-                    <span class="nav-text">About</span>
-                </a>
-                <a href="#portfolio" class="nav-link">
-                    <span class="nav-icon">💼</span>
-                    <span class="nav-text">Portfolio</span>
-                </a>
-                <a href="#services" class="nav-link">
-                    <span class="nav-icon">🛠️</span>
-                    <span class="nav-text">Services</span>
-                </a>
-                <a href="#reviews" class="nav-link">
-                    <span class="nav-icon">⭐</span>
-                    <span class="nav-text">Reviews</span>
-                </a>
-                <a href="#contact" class="nav-link">
-                    <span class="nav-icon">📞</span>
-                    <span class="nav-text">Contact</span>
-                </a>
-            </div>
-            <div class="burger" id="burger">
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-                <span class="burger-line"></span>
-            </div>
-        </div>
+    <!-- Burger Menu -->
+    <button class="burger-menu" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="nav-overlay" aria-hidden="true">
+        <ul>
+            <li><a href="#home" class="nav-link">Home</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
+            <li><a href="#services" class="nav-link">Services</a></li>
+            <li><a href="#reviews" class="nav-link">Reviews</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
     </nav>
-    
-    <!-- Sections -->
-    <section id="home" class="section">
-        <div class="video-container">
-            <video autoplay muted loop id="backgroundVideo">
-                <source src="assets/movie/andz.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-overlay"></div>
-        </div>
-        <div class="home-content">
-            <h1 class="home-title">Bine ai venit</h1>
-            <p class="home-subtitle">Portfolio-ul meu profesional</p>
-        </div>
-    </section>
-    
-    <section id="about" class="section">
-        <div class="section-content">
-            <h2 class="section-title">Despre mine</h2>
-        </div>
-    </section>
-    
-    <section id="portfolio" class="section">
-        <div class="section-content">
-            <h2 class="section-title">Portofoliu</h2>
-        </div>
-    </section>
-    
-    <section id="services" class="section">
-        <div class="section-content">
-            <h2 class="section-title">Servicii</h2>
-        </div>
-    </section>
-    
-    <section id="reviews" class="section">
-        <div class="section-content">
-            <h2 class="section-title">Recenzii</h2>
-        </div>
-    </section>
-    
-    <section id="contact" class="section">
-        <div class="section-content">
-            <h2 class="section-title">Contact</h2>
-        </div>
-    </section>
-    
-    <!-- JavaScript Files -->
-    <script src="js/script.js"></script>
+
+    <!-- Main Sections -->
+    <main>
+        <section id="home" class="section">
+            <div class="video-container">
+                <video autoplay muted loop playsinline>
+                    <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="hero-card">
+                <h2 class="card-title">About Me</h2>
+            </div>
+        </section>
+
+        <section id="about" class="section">
+            <!-- Content will be added via JS or additional HTML if needed -->
+        </section>
+
+        <section id="portfolio" class="section">
+            <!-- Portfolio content -->
+        </section>
+
+        <section id="services" class="section">
+            <!-- Services content -->
+        </section>
+
+        <section id="reviews" class="section">
+            <!-- Reviews content -->
+        </section>
+
+        <section id="contact" class="section">
+            <!-- Contact content -->
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
     <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/services.js"></script>
     <script src="js/reviews.js"></script>
