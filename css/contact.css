@@ -1,4 +1,9 @@
+/* Contact Section */
 #contact {
-    background: linear-gradient(to bottom, #ccc, #fff);
-    color: #000;
+    background: linear-gradient(135deg, var(--color-off-white), var(--color-white));
+    color: var(--color-black);
+}
+
+#contact .section-title {
+    color: var(--color-black);
 }
