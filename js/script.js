@@ -1,76 +1,73 @@
 // Main JavaScript file
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize all components
-    initProgressBar();
-    initNavbar();
-    initScrollAnimations();
+
+// DOM Elements
+const navbar = document.getElementById('navbar');
+const navMenu = document.getElementById('navMenu');
+const burger = document.getElementById('burger');
+const progressBar = document.getElementById('progressBar');
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+const sectionTitles = document.querySelectorAll('.section-title');
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initializeNavbar();
+    initializeScrollProgress();
+    initializeSectionAnimations();
 });
 
-// Progress Bar
-function initProgressBar() {
-    const progressBar = document.getElementById('progressBar');
-    
-    window.addEventListener('scroll', function() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const progress = (scrollTop / documentHeight) * 100;
-        
-        progressBar.style.width = progress + '%';
+// Navbar functionality
+function initializeNavbar() {
+    // Toggle burger menu
+    burger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        burger.classList.toggle('active');
     });
-}
-
-// Navbar
-function initNavbar() {
-    const navbar = document.getElementById('navbar');
-    const burger = document.getElementById('burger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    
+    // Close menu when clicking on a link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            burger.classList.remove('active');
+        });
+    });
     
     // Navbar scroll effect
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
     });
-    
-    // Burger menu toggle
-    burger.addEventListener('click', function() {
-        burger.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking on a link
-    navLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            burger.classList.remove('active');
-            mobileMenu.classList.remove('active');
-        });
-    });
-    
-    // Fade in navbar on page load
-    setTimeout(function() {
-        navbar.style.opacity = '1';
-        navbar.style.transform = 'translateY(0)';
-    }, 500);
 }
 
-// Scroll animations for sections
-function initScrollAnimations() {
-    const sections = document.querySelectorAll('.section');
-    
+// Scroll progress bar
+function initializeScrollProgress() {
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollPercent = (scrollTop / documentHeight) * 100;
+        
+        progressBar.style.width = scrollPercent + '%';
+    });
+}
+
+// Section animations on scroll
+function initializeSectionAnimations() {
     const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.3
+        threshold: 0.3,
+        rootMargin: '0px 0px -50px 0px'
     };
     
-    const observer = new IntersectionObserver(function(entries) {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
+                const title = entry.target.querySelector('.section-title');
+                if (title) {
+                    title.classList.add('visible');
+                }
             }
         });
     }, observerOptions);
