@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Modern</title>
+    <title>Portfolio Modern</title>
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
@@ -13,29 +13,57 @@
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    
+    <!-- Fonts -->
+    <style>
+        @font-face {
+            font-family: 'Noverich';
+            src: url('assets/fonts/noverich.otf') format('opentype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('assets/fonts/roboto.ttf') format('truetype');
+        }
+    </style>
 </head>
 <body>
     <!-- Progress Scroll Bar -->
     <div class="progress-container">
         <div class="progress-bar" id="progressBar"></div>
     </div>
-
-    <!-- Navigation -->
+    
+    <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <a href="#home">LOGO</a>
+                <span>Portfolio</span>
             </div>
-            
             <div class="nav-menu" id="navMenu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#about" class="nav-link">About</a>
-                <a href="#portfolio" class="nav-link">Portfolio</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#reviews" class="nav-link">Reviews</a>
-                <a href="#contact" class="nav-link">Contact</a>
+                <a href="#home" class="nav-link">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-text">Home</span>
+                </a>
+                <a href="#about" class="nav-link">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">About</span>
+                </a>
+                <a href="#portfolio" class="nav-link">
+                    <span class="nav-icon">💼</span>
+                    <span class="nav-text">Portfolio</span>
+                </a>
+                <a href="#services" class="nav-link">
+                    <span class="nav-icon">🛠️</span>
+                    <span class="nav-text">Services</span>
+                </a>
+                <a href="#reviews" class="nav-link">
+                    <span class="nav-icon">⭐</span>
+                    <span class="nav-text">Reviews</span>
+                </a>
+                <a href="#contact" class="nav-link">
+                    <span class="nav-icon">📞</span>
+                    <span class="nav-text">Contact</span>
+                </a>
             </div>
-            
             <div class="burger" id="burger">
                 <span class="burger-line"></span>
                 <span class="burger-line"></span>
@@ -43,68 +71,52 @@
             </div>
         </div>
     </nav>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-container">
-            <a href="#home" class="mobile-nav-link">Home</a>
-            <a href="#about" class="mobile-nav-link">About</a>
-            <a href="#portfolio" class="mobile-nav-link">Portfolio</a>
-            <a href="#services" class="mobile-nav-link">Services</a>
-            <a href="#reviews" class="mobile-nav-link">Reviews</a>
-            <a href="#contact" class="mobile-nav-link">Contact</a>
-        </div>
-    </div>
-
+    
     <!-- Sections -->
-    <section id="home" class="section home-section">
+    <section id="home" class="section">
         <div class="video-container">
             <video autoplay muted loop id="backgroundVideo">
-                <source src="https://andz7z.github.io/assets/movie/andz.mp4" type="video/mp4">
+                <source src="assets/movie/andz.mp4" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
+            <div class="video-overlay"></div>
         </div>
         <div class="home-content">
-            <h1 class="home-title">Welcome</h1>
-            <p class="home-subtitle">Modern Design & Elegant Solutions</p>
+            <h1 class="home-title">Bine ai venit</h1>
+            <p class="home-subtitle">Portfolio-ul meu profesional</p>
         </div>
     </section>
-
-    <section id="about" class="section about-section">
-        <div class="container">
-            <h2 class="section-title">About</h2>
-            <p class="section-description">This is the about section.</p>
+    
+    <section id="about" class="section">
+        <div class="section-content">
+            <h2 class="section-title">Despre mine</h2>
         </div>
     </section>
-
-    <section id="portfolio" class="section portfolio-section">
-        <div class="container">
-            <h2 class="section-title">Portfolio</h2>
-            <p class="section-description">This is the portfolio section.</p>
+    
+    <section id="portfolio" class="section">
+        <div class="section-content">
+            <h2 class="section-title">Portofoliu</h2>
         </div>
     </section>
-
-    <section id="services" class="section services-section">
-        <div class="container">
-            <h2 class="section-title">Services</h2>
-            <p class="section-description">This is the services section.</p>
+    
+    <section id="services" class="section">
+        <div class="section-content">
+            <h2 class="section-title">Servicii</h2>
         </div>
     </section>
-
-    <section id="reviews" class="section reviews-section">
-        <div class="container">
-            <h2 class="section-title">Reviews</h2>
-            <p class="section-description">This is the reviews section.</p>
+    
+    <section id="reviews" class="section">
+        <div class="section-content">
+            <h2 class="section-title">Recenzii</h2>
         </div>
     </section>
-
-    <section id="contact" class="section contact-section">
-        <div class="container">
+    
+    <section id="contact" class="section">
+        <div class="section-content">
             <h2 class="section-title">Contact</h2>
-            <p class="section-description">This is the contact section.</p>
         </div>
     </section>
-
+    
     <!-- JavaScript Files -->
     <script src="js/script.js"></script>
     <script src="js/home.js"></script>
