@@ -1,5 +1,5 @@
-#home {
-    background-color: #000;
+/* Home Section */
+.home-section {
     position: relative;
     overflow: hidden;
 }
@@ -10,6 +10,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
 }
 
 .video-container video {
@@ -19,20 +20,30 @@
 }
 
 .home-content {
-    position: relative;
-    z-index: 1;
     text-align: center;
-    color: #fff;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeInUp 1.5s var(--transition-slow) forwards;
 }
 
-.home-content h1 {
-    font-family: 'Noverich', sans-serif;
+.home-title {
     font-size: 4rem;
-    margin-bottom: 20px;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
 
-.home-content p {
+.home-subtitle {
     font-size: 1.5rem;
-    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-weight: 300;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
