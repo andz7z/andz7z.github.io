@@ -11,4 +11,15 @@ document.addEventListener('DOMContentLoaded', function() {
         homeSection.style.transition = 'opacity 1.5s ease';
         homeSection.style.opacity = '1';
     }, 100);
+    
+    // Glass card animation on load
+    const glassCard = document.getElementById('glassCard');
+    glassCard.style.opacity = '0';
+    glassCard.style.transform = 'translate(-50%, -40%) scale(0.9)';
+    
+    setTimeout(() => {
+        glassCard.style.transition = 'opacity 1s ease, transform 1s ease';
+        glassCard.style.opacity = '1';
+        glassCard.style.transform = 'translate(-50%, -50%) scale(1)';
+    }, 500);
 });
