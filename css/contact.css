@@ -1,9 +1,9 @@
-/* Contact Section */
-#contact {
-    background: #404040;
-    color: #fff;
+/* CONTACT SECTION - MODIFY GRADIENT COLORS HERE */
+.contact-section {
+    height: 100vh;
+    background: linear-gradient(135deg, #444444 0%, #000000 100%);
 }
 
-#contact .section-title {
-    color: #fff;
+.contact-section .section-title {
+    color: #ffffff; /* MODIFY TEXT COLOR */
 }
