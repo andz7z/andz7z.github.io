@@ -1,6 +1,29 @@
-/* Font Declarations */
+/* ---------------------------------- */
+/* 7. Variabile Tema (Culori & Materiale) */
+/* ---------------------------------- */
+:root {
+    /* Culori (Monochrome) */
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-grey-dark: #333333;
+    --color-grey-mid: #808080;
+    --color-grey-light: #cfcfcf;
+    --color-glass-bg: rgba(255, 255, 255, 0.1); /* Pt efectul de sticla */
+
+    /* Fonturi */
+    --font-primary: 'NoveRich', sans-serif;
+    --font-secondary: 'Roboto', sans-serif;
+
+    /* Tranzitii */
+    --transition-speed: 0.4s;
+    --transition-cubic: cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Efect "elastic" */
+}
+
+/* ---------------------------------- */
+/* Import Fonturi Custom */
+/* ---------------------------------- */
 @font-face {
-    font-family: 'Noverich';
+    font-family: 'NoveRich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
@@ -13,28 +36,9 @@
     font-style: normal;
 }
 
-/* CSS Variables for Easy Customization */
-:root {
-    --color-black: #000000;
-    --color-white: #ffffff;
-    --color-gray-light: #cfcfcf;
-    --color-gray-medium: #808080;
-    --color-gray-dark: #333333;
-    
-    --gradient-main: linear-gradient(135deg, #cfcfcf 0%, #000000 100%);
-    --gradient-progress: linear-gradient(90deg, #000000 0%, #ffffff 100%);
-    
-    --transition-slow: 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition-medium: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition-fast: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    
-    --glass-effect: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    --backdrop-blur: blur(10px);
-}
-
-/* Reset and Base Styles */
+/* ---------------------------------- */
+/* Reset & Stiluri Globale */
+/* ---------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -42,292 +46,281 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: smooth; /* Scroll lin la click pe link-urile ancorei */
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: var(--color-black);
+    font-family: var(--font-secondary);
     color: var(--color-white);
-    overflow-x: hidden;
+    background-color: var(--color-black); /* Fundal de baza */
+    overflow-x: hidden; /* Previne scroll-ul orizontal */
 }
 
-/* Progress Bar */
-.progress-bar {
+h1, h2 {
+    font-family: var(--font-primary);
+    text-align: center;
+    padding: 4rem 1rem;
+    font-weight: normal;
+}
+
+section {
+    min-height: 100vh; /* Fiecare sectiune ocupa cel putin inaltimea ecranului */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ---------------------------------- */
+/* 4. Scroll Progress Bar */
+/* ---------------------------------- */
+.progress-bar-container {
+    width: 100%;
+    height: 5px;
     position: fixed;
     top: 0;
     left: 0;
-    width: 0%;
-    height: 3px;
-    background: var(--gradient-progress);
     z-index: 1000;
-    transition: width 0.1s ease;
 }
 
-/* Main Navigation */
+.progress-bar {
+    height: 100%;
+    width: 0%; /* Initial 0, se modifica cu JS */
+    background: linear-gradient(to right, var(--color-black), var(--color-white));
+    transition: width 0.1s linear;
+}
+
+/* ---------------------------------- */
+/* 5. & 8. Navigatie Principala (Top-Left) */
+/* ---------------------------------- */
 .main-nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 900;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-}
-
-.nav-items {
-    display: flex;
-    gap: 3rem;
-    background: var(--glass-effect);
-    backdrop-filter: var(--backdrop-blur);
-    border: 1px solid var(--glass-border);
-    border-radius: 50px;
-    padding: 1rem 2rem;
-    box-shadow: var(--glass-shadow);
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    color: var(--color-white);
-    font-family: 'Noverich', sans-serif;
-    font-size: 1.1rem;
-    transition: var(--transition-medium);
-    position: relative;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.nav-text {
-    transition: var(--transition-medium);
-    opacity: 1;
-    transform: scale(1);
-    position: absolute;
-}
-
-.nav-icon {
-    width: 24px;
-    height: 24px;
-    fill: var(--color-white);
-    opacity: 0;
-    transform: scale(0.5);
-    transition: var(--transition-medium);
-    position: absolute;
-}
-
-.nav-item:hover {
-    background: var(--glass-effect);
-    transform: translateY(-2px);
-}
-
-.nav-item:hover .nav-text {
-    opacity: 0;
-    transform: scale(0.5);
-}
-
-.nav-item:hover .nav-icon {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Burger Menu */
-.burger-menu {
-    display: none;
-    position: fixed;
     top: 2rem;
-    right: 2rem;
-    z-index: 950;
+    left: 2rem;
+    z-index: 998;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
-.burger-icon {
-    width: 30px;
-    height: 20px;
-    position: relative;
-    cursor: pointer;
-    z-index: 951;
-}
-
-.burger-icon span {
-    display: block;
-    position: absolute;
-    height: 2px;
-    width: 100%;
-    background: var(--color-white);
-    border-radius: 2px;
-    opacity: 1;
-    left: 0;
-    transform: rotate(0deg);
-    transition: var(--transition-medium);
-}
-
-.burger-icon span:nth-child(1) {
-    top: 0px;
-}
-
-.burger-icon span:nth-child(2) {
-    top: 9px;
-}
-
-.burger-icon span:nth-child(3) {
-    top: 18px;
-}
-
-.burger-menu.active .burger-icon span:nth-child(1) {
-    top: 9px;
-    transform: rotate(135deg);
-}
-
-.burger-menu.active .burger-icon span:nth-child(2) {
-    opacity: 0;
-    left: -60px;
-}
-
-.burger-menu.active .burger-icon span:nth-child(3) {
-    top: 9px;
-    transform: rotate(-135deg);
-}
-
-.burger-nav {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--glass-effect);
-    backdrop-filter: var(--backdrop-blur);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1rem;
-    min-width: 150px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: var(--transition-medium);
-    box-shadow: var(--glass-shadow);
-}
-
-.burger-menu.active .burger-nav {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.burger-nav a {
-    display: block;
-    color: var(--color-white);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    font-family: 'Noverich', sans-serif;
-    transition: var(--transition-fast);
-    border-radius: 6px;
-}
-
-.burger-nav a:hover {
-    background: var(--glass-effect);
-    transform: translateX(5px);
-}
-
-/* Sections */
-.section {
-    min-height: 100vh;
+.main-nav ul {
+    list-style: none;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    scroll-margin-top: 0;
+    gap: 1.5rem; /* Spatiu intre elemente */
 }
 
-.section-content {
-    text-align: center;
-    z-index: 1;
-}
-
-.section h1 {
-    font-family: 'Noverich', sans-serif;
-    font-size: 4rem;
-    margin-bottom: 2rem;
+.main-nav ul li {
+    /* 8. Animatie Fade IN */
     opacity: 0;
-    animation: fadeInUp 1s ease 0.5s forwards;
+    transform: translateY(-10px);
+    animation: fadeInNav 0.5s ease-out forwards;
 }
 
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
+/* Delay animatie pentru fiecare element */
+.main-nav ul li:nth-child(1) { animation-delay: 0.2s; }
+.main-nav ul li:nth-child(2) { animation-delay: 0.4s; }
+.main-nav ul li:nth-child(3) { animation-delay: 0.6s; }
+.main-nav ul li:nth-child(4) { animation-delay: 0.8s; }
+.main-nav ul li:nth-child(5) { animation-delay: 1.0s; }
+
+@keyframes fadeInNav {
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .main-nav .nav-items {
-        display: none;
-    }
-    
-    .burger-menu {
-        display: block;
-    }
-    
-    .section h1 {
-        font-size: 2.5rem;
-    }
-    
-    .nav-items {
-        gap: 1.5rem;
-        padding: 0.8rem 1.5rem;
-    }
-    
-    .nav-item {
-        width: 40px;
-        height: 40px;
-        font-size: 0.9rem;
-    }
-}
-
-/* Scroll Behavior */
-.scrolled .main-nav .nav-items {
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-20px);
-    transition: var(--transition-medium);
-}
-
-.scrolled .burger-menu {
-    display: block;
-}
-
-/* Ensure sections are properly spaced and visible */
-main {
+.main-nav a {
+    font-family: var(--font-primary);
+    text-decoration: none;
+    color: var(--color-white);
+    font-size: 1.2rem;
     position: relative;
-    z-index: 1;
+    display: block;
+    width: 100px; /* Latime fixa pentru a centra iconita */
+    height: 30px; /* Inaltime fixa */
+    transition: color var(--transition-speed) ease;
 }
 
-/* Navigation animations */
-.nav-item {
-    animation: fadeInLeft 0.8s ease forwards;
+.main-nav .nav-text,
+.main-nav .nav-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity var(--transition-speed) var(--transition-cubic), transform var(--transition-speed) var(--transition-cubic);
+}
+
+.main-nav .nav-icon {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5); /* Iconita e initial mica si invizibila */
+}
+
+.main-nav .nav-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--color-white);
+}
+
+/* 5. Efect Hover Navigatie */
+.main-nav a:hover .nav-text {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5); /* Textul dispare (OUT) */
+}
+
+.main-nav a:hover .nav-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1); /* Iconita apare (IN) */
+}
+
+/* Clasa adaugata cu JS cand se da scroll */
+.main-nav.hidden {
+    opacity: 0;
+    transform: translateY(-50px);
+    pointer-events: none; /* Sa nu poti da click cand e ascuns */
+}
+
+/* ---------------------------------- */
+/* 6. Burger Menu */
+/* ---------------------------------- */
+.burger-menu-btn {
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+    z-index: 1001; /* Peste meniul ascuns, dar sub meniul deschis */
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+
+    /* Initial ascuns */
+    opacity: 0;
+    transform: translateY(-50px);
+    pointer-events: none;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+/* Clasa adaugata cu JS cand se da scroll */
+.burger-menu-btn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.burger-menu-btn span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    background-color: var(--color-white);
+    transition: transform 0.4s ease, background-color 0.4s ease;
+}
+
+/* Animatie X pentru burger */
+.burger-menu-btn.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.burger-menu-btn.active span:nth-child(2) {
     opacity: 0;
 }
+.burger-menu-btn.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
 
-.nav-item:nth-child(1) { animation-delay: 0.1s; }
-.nav-item:nth-child(2) { animation-delay: 0.2s; }
-.nav-item:nth-child(3) { animation-delay: 0.3s; }
-.nav-item:nth-child(4) { animation-delay: 0.4s; }
-.nav-item:nth-child(5) { animation-delay: 0.5s; }
+/* Panoul de Navigatie Burger (Minimalist, Futurist) */
+.burger-nav {
+    position: fixed;
+    top: 5rem; /* Sub butonul burger */
+    left: 2rem;
+    z-index: 1000;
+    width: 250px; /* Minimalist, nu tot ecranul */
+    
+    /* 7. Glassmorphism / Blur Effect */
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px); /* Safari support */
+    
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 1.5rem;
+    
+    /* 7. Chrome/Metal - o umbra subtila */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+
+    /* Initial ascuns */
+    opacity: 0;
+    transform: translateX(-100%);
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s var(--transition-cubic);
+}
+
+.burger-nav.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.burger-nav ul {
+    list-style: none;
+}
+
+.burger-nav ul li {
+    margin-bottom: 1rem;
+}
+
+.burger-nav ul li a {
+    text-decoration: none;
+    color: var(--color-white);
+    font-family: var(--font-primary);
+    font-size: 1.5rem;
+    transition: color var(--transition-speed) ease;
+}
+
+.burger-nav ul li a:hover {
+    color: var(--color-grey-light);
+}
+
+
+/* ---------------------------------- */
+/* 3. Background Sectiuni (Gradient) */
+/* ---------------------------------- */
+.fullscreen-section {
+    height: 100vh;
+    width: 100%;
+}
+
+.content-section {
+    min-height: 100vh; /* Ajusteaza dupa nevoie */
+    padding: 6rem 2rem;
+}
+
+/* Wrapper-ul care contine gradientul */
+.content-wrapper {
+    /* Gradientul liniar de la gri deschis la negru, aplicat pe toata lungimea sectiunilor */
+    background: linear-gradient(to bottom, var(--color-grey-light), var(--color-black));
+}
+
+/* Modificam culoarea textului in wrapper (pentru contrast) */
+.content-wrapper #services h2,
+.content-wrapper #portfolio h2 {
+    color: var(--color-black); /* Text negru pe fundalul gri deschis */
+}
+
+.content-wrapper #reviews h2 {
+    color: var(--color-grey-mid); /* Text gri pe fundalul de tranzitie */
+}
+
+.content-wrapper #contact h2 {
+    color: var(--color-white); /* Text alb pe fundalul negru */
+}
+
+/* ---------------------------------- */
+/* Clasa Utilitara pentru Glassmorphism */
+/* ---------------------------------- */
+.glass-effect {
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
