@@ -23,6 +23,8 @@
 body {
     font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
+    background: #000;
+    color: #fff;
 }
 
 /* Progress Scroll Bar */
@@ -31,16 +33,157 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.1);
+    height: 4px;
+    background: rgba(0, 0, 0, 0.2);
     z-index: 1000;
 }
 
 .progress-bar {
-    height: 5px;
-    background: linear-gradient(to right, #4CAF50, #2196F3);
+    height: 4px;
+    background: linear-gradient(to right, #000, #fff);
     width: 0%;
     transition: width 0.3s ease;
+}
+
+/* Navigation */
+.main-nav {
+    position: fixed;
+    top: 20px;
+    left: 40px;
+    z-index: 999;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    font-family: 'Noverich', sans-serif;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:hover {
+    color: #ccc;
+}
+
+/* Burger Menu */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    right: 40px;
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.burger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+
+.burger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.burger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+}
+
+.mobile-nav-link {
+    font-family: 'Noverich', sans-serif;
+    text-decoration: none;
+    color: #fff;
+    font-size: 2rem;
+    position: relative;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.4s ease;
+}
+
+.mobile-nav-link:hover::after {
+    width: 100%;
+}
+
+.mobile-nav-link:hover {
+    color: #ccc;
 }
 
 /* Sectiuni generale */
@@ -55,8 +198,24 @@ body {
 
 .title {
     font-family: 'Noverich', sans-serif;
-    font-size: 4rem;
+    font-size: 5rem;
     color: white;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
     text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-nav {
+        display: none;
+    }
+    
+    .burger-menu {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .title {
+        font-size: 3rem;
+    }
 }
