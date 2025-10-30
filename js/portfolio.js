@@ -1,14 +1,34 @@
-// Portfolio section specific functionality
-document.addEventListener('DOMContentLoaded', function() {
+// Portfolio Section Specific JavaScript
+class PortfolioSection {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupPortfolioAnimations();
+    }
+
+    setupPortfolioAnimations() {
+        // Portfolio-specific animations and functionality
+        console.log('Portfolio section initialized');
+    }
+}
+
+// Initialize portfolio section when it becomes active
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const target = mutation.target;
+                if (target.id === 'portfolio' && target.classList.contains('active')) {
+                    new PortfolioSection();
+                }
+            }
+        });
+    });
+
     const portfolioSection = document.getElementById('portfolio');
-    
-    // Asigurăm că secțiunea portfolio are înălțimea de 100vh
-    portfolioSection.style.height = '100vh';
-    
-    // Adăugăm un efect de fade-in la încărcare
-    portfolioSection.style.opacity = '0';
-    setTimeout(() => {
-        portfolioSection.style.transition = 'opacity 1s ease';
-        portfolioSection.style.opacity = '1';
-    }, 300);
+    if (portfolioSection) {
+        observer.observe(portfolioSection, { attributes: true });
+    }
 });
