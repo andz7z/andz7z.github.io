@@ -1,4 +1,26 @@
-/* Importare Font-uri */
+/* REQ 7: Definirea tematicii (culori, fonturi) pentru editare usoara */
+:root {
+    /* Culori */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-gray-start: #cfcfcf; /* REQ 3 */
+    --color-gray-medium: #888;
+    
+    /* Materiale (Glassmorphism) */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-blur: blur(15px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+
+    /* Fonturi */
+    --font-primary: 'Roboto', sans-serif;
+    --font-display: 'Noverich', sans-serif; /* Pt titluri */
+
+    /* Tranzitii */
+    --transition-smooth: all 0.3s ease-in-out;
+    --transition-fast: all 0.2s ease;
+}
+
+/* Importarea Fonturilor Custom (din assets/fonts) */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
@@ -13,34 +35,11 @@
     font-style: normal;
 }
 
-/* Variabile de Culoare (Neschimbate) */
-:root {
-    --color-primary: #000000;
-    --color-secondary: #ffffff;
-    
-    --color-gray: #cfcfcf; 
-    --color-gray-mid-1: #999999; 
-    --color-gray-mid-2: #666666; 
-    --color-gray-dark: #333333; 
-    
-    --gradient-progress: linear-gradient(to right, var(--color-primary), var(--color-secondary));
-    
-    --font-primary: 'Noverich', sans-serif;
-    --font-secondary: 'Roboto', sans-serif;
-    
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-blur: blur(12px);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-}
-
-/* Resetare de bază și stiluri globale (Neschimbate) */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+/* Resetari Globale & Setari Body */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -48,259 +47,201 @@ html {
 }
 
 body {
-    font-family: var(--font-secondary);
-    background-color: var(--color-primary);
-    color: var(--color-secondary);
-    overflow-x: hidden;
-}
-
-/* Stiluri de bază pentru secțiuni (Neschimbate) */
-section {
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-section:not(#home) {
-    height: 100vh;
-}
-
-section h2 {
     font-family: var(--font-primary);
-    font-size: 4rem;
+    background-color: var(--color-black); /* Fundal de baza */
+    color: var(--color-white);
+    overflow-x: hidden; /* Previne scroll orizontal */
+}
+
+/* Stilul de baza pt titlurile sectiunilor (Req 2) */
+h2 {
+    font-family: var(--font-display);
+    font-size: 5rem;
     font-weight: normal;
-    color: var(--color-secondary);
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+    text-align: center;
+    padding-top: 100px; /* Spatiu fata de marginea de sus */
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-#home > h2 {
-    display: none;
-}
-
-/* Progress Bar (Neschimbat) */
-.progress-bar-container {
+/* REQ 4: Progress Bar */
+.progress-bar {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
     height: 4px;
-    background-color: rgba(255, 255, 255, 0.1);
-    z-index: 1000;
+    width: 0;
+    /* Gradient negru -> alb */
+    background: linear-gradient(to right, var(--color-black), var(--color-white));
+    z-index: 1001;
+    transition: width 0.1s linear; /* Fara delay, sa fie responsiv */
 }
 
-.progress-bar {
-    height: 100%;
-    width: 0%;
-    background: var(--gradient-progress);
-}
-
-/* Navigație centru sus (Neschimbată) */
+/* REQ 5: Top Navigation */
 .top-nav {
     position: fixed;
     top: 30px;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 1000;
     display: flex;
-    gap: 25px;
-    z-index: 900;
-    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    gap: 35px;
+    
+    /* REQ 8 & 9: Animatie Fade-in (initial ascuns) */
     opacity: 0;
-    animation: fadeIn 1s ease-out 1.5s forwards;
+    transition: opacity 1s ease 0.8s, transform 0.5s ease; /* Delay 0.8s (dupa video) */
 }
 
-.top-nav a {
-    font-family: var(--font-primary);
-    font-size: 1.2rem;
-    color: var(--color-secondary);
-    text-decoration: none;
-    padding: 5px 10px;
+/* Clasa adaugata de JS pentru animatia de intrare */
+.top-nav.visible {
+    opacity: 1;
+}
+
+/* Clasa adaugata de JS la scroll (Req 6) */
+.top-nav.hidden {
+    opacity: 0;
+    transform: translate(-50%, -50px); /* Dispare in sus */
+}
+
+.nav-item {
     position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 100px;
-    text-align: center;
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    padding: 10px 5px;
+    cursor: pointer;
 }
 
-.nav-text, .nav-icon {
-    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+.nav-item .nav-text {
+    display: inline-block;
+    transition: var(--transition-fast);
 }
 
-.nav-icon {
+.nav-item .nav-icon {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Initial ascuns si micsorat */
+    transform: translate(-50%, -50%) scale(0);
     opacity: 0;
-    transform: scale(0.8);
-    pointer-events: none;
+    width: 22px;
+    height: 22px;
+    transition: var(--transition-smooth);
+    fill: var(--color-white);
 }
 
-.nav-icon svg {
-    width: 24px;
-    height: 24px;
-    color: var(--color-secondary);
-}
-
-.top-nav a:hover .nav-text {
+/* REQ 5: Tranzitie Hover (IN/OUT) */
+.nav-item:hover .nav-text {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.8); /* Textul se micsoreaza si dispare */
 }
 
-.top-nav a:hover .nav-icon {
+.nav-item:hover .nav-icon {
     opacity: 1;
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1.2); /* Iconita apare si creste usor */
 }
 
-/* Tranziție scroll navigație (Neschimbată) */
-body.scrolled .top-nav {
-    opacity: 0;
-    transform: translate(-50%, -100px);
-    pointer-events: none;
-}
-
-/* Meniu Burger (Neschimbat) */
-.burger-menu-container {
+/* REQ 6: Burger Menu Icon */
+.burger-menu-icon {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 950;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.5s ease-out;
-}
-
-body.scrolled .burger-menu-container {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.burger-icon {
+    top: 30px;
+    right: 40px;
+    z-index: 1002;
+    cursor: pointer;
     width: 30px;
     height: 22px;
-    position: relative;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 951; /* Asigură-te că e deasupra cercului inițial */
+    
+    /* Initial ascuns (apare la scroll) */
+    opacity: 0;
+    transform: scale(0.8);
+    transition: var(--transition-smooth);
 }
 
-.burger-icon span {
+.burger-menu-icon.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.burger-menu-icon span {
     width: 100%;
     height: 3px;
-    background-color: var(--color-secondary);
-    border-radius: 3px;
-    transition: all 0.3s ease;
+    background-color: var(--color-white);
+    border-radius: 2px;
+    transition: var(--transition-smooth);
 }
 
-/* Animație burger icon -> X (Neschimbată) */
-.burger-icon.active span:nth-child(1) {
-    transform: translateY(9.5px) rotate(45deg);
-}
-.burger-icon.active span:nth-child(2) {
-    opacity: 0;
-}
-.burger-icon.active span:nth-child(3) {
-    transform: translateY(-9.5px) rotate(-45deg);
-}
+/* (Vom adauga animatia de 'X' in JS cand facem meniul functional) */
 
-
-/* Cerința Nouă 1: Meniu Burger Radial (Stil Nou) */
-.burger-nav {
-    position: absolute;
-    /* Centrat pe iconița burger (care e 30x22) */
-    top: 11px; /* Jumătatea înălțimii iconiței */
-    left: 15px; /* Jumătatea lățimii iconiței */
+/* REQ 6: Minimalist, Futuristic Menu */
+.minimalist-menu {
+    position: fixed;
+    top: 80px; /* Sub icon-ul burger */
+    right: 40px;
+    z-index: 1001;
     
-    /* Începe ca un punct invizibil */
-    width: 0;
-    height: 0;
-    opacity: 0;
-    
-    /* Stilul Glass */
+    /* REQ 7: Glass/Blur/Modern */
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     border: var(--glass-border);
+    border-radius: 12px;
+    padding: 15px;
     
-    border-radius: 50%; /* Esențial pentru forma circulară */
-    
-    /* Se va scala din centru */
-    transform: scale(0.1);
-    transform-origin: center center;
-    
-    /* O tranziție "elastică" (cubic-bezier) */
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    
-    pointer-events: none;
-    
-    /* Pentru a centra link-urile în interior */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    /* Resetăm padding-ul de la designul anterior */
-    padding: 0;
-}
-
-.burger-nav.active {
-    /* Dimensiunea finală a cercului */
-    width: 320px;
-    height: 320px;
-    
-    /* Repoziționare pentru a rămâne centrat */
-    /* (320px / 2) - 11px (top inițial) = 149px */
-    top: -149px; 
-    /* (320px / 2) - 15px (left inițial) = 145px */
-    left: -145px;
-    
-    opacity: 1;
-    transform: scale(1);
-    pointer-events: auto;
-}
-
-/* Stilul link-urilor din noul meniu */
-.burger-nav a {
-    display: block;
-    color: var(--color-secondary);
-    text-decoration: none;
-    font-family: var(--font-primary);
-    font-size: 1.4rem; /* Puțin mai mari */
-    padding: 12px 20px;
-    border-radius: 5px;
-    
-    /* Starea inițială pentru animația decalată */
+    /* Initial ascuns */
+    display: none;
     opacity: 0;
-    transform: translateY(10px);
-    transition: background-color 0.2s ease, opacity 0.3s ease, transform 0.3s ease;
+    transform: translateY(-20px);
+    transition: var(--transition-smooth);
 }
 
-.burger-nav a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-/* Animația decalată (staggered) la apariție */
-.burger-nav.active a {
+.minimalist-menu.visible {
+    display: block;
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Întârzierile încep DUPĂ ce cercul s-a extins (0.4s) */
-/* Am scurtat puțin delay-ul cercului pentru a se sincroniza mai bine */
-.burger-nav.active a:nth-child(1) { transition-delay: 0.25s; }
-.burger-nav.active a:nth-child(2) { transition-delay: 0.3s; }
-.burger-nav.active a:nth-child(3) { transition-delay: 0.35s; }
-.burger-nav.active a:nth-child(4) { transition-delay: 0.4s; }
-.burger-nav.active a:nth-child(5) { transition-delay: 0.45s; }
+.minimalist-menu a {
+    display: block;
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    padding: 12px 20px;
+    transition: var(--transition-fast);
+}
+
+.minimalist-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
 
 
-/* Keyframes pentru animații (Neschimbat) */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+/* REQ 3: Gradient Wrapper (pentru Portfolio, Reviews, Contact) */
+.gradient-wrapper {
+    /* Incepe de unde a ramas #services (#cfcfcf) si merge la negru */
+    background: linear-gradient(to bottom, 
+        var(--color-gray-start), 
+        #999 33%, /* tranzitie */
+        #444 66%, /* tranzitie */
+        var(--color-black)
+    );
+}
+
+/* Sectiunile din wrapper trebuie sa fie transparente */
+.gradient-wrapper > section {
+    background: transparent;
+}
+
+/* Titlurile din wrapper trebuie sa aiba culori lizibile */
+#portfolio h2 {
+    color: #222; /* Lizibil pe gri deschis */
+}
+#reviews h2 {
+    color: var(--color-gray-medium); /* Lizibil pe gri mediu */
+}
+#contact h2 {
+    color: var(--color-white); /* Lizibil pe gri inchis/negru */
 }
