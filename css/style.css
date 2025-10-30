@@ -53,27 +53,15 @@ body {
 .navbar {
     position: fixed;
     top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 2rem;
+    right: 0;
+    padding: 2rem;
     z-index: 999;
     transition: all 0.3s ease;
 }
 
 .nav-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.nav-logo a {
-    font-family: 'Noverich', sans-serif;
-    font-size: 1.5rem;
-    color: #fff;
-    text-decoration: none;
-    letter-spacing: 2px;
 }
 
 .nav-menu {
@@ -83,52 +71,122 @@ body {
 }
 
 .nav-link {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
     color: #fff;
     text-decoration: none;
     font-size: 0.9rem;
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
-    border-radius: 25px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
 }
 
-.nav-icon {
-    width: 20px;
-    height: 20px;
-    fill: #fff;
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: #fff;
     transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+    width: 80%;
 }
 
 .nav-link:hover {
+    color: #ccc;
+}
+
+/* Burger Menu */
+.burger-menu {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1001;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+}
+
+.burger-menu.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.burger-content {
     background: rgba(255, 255, 255, 0.1);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    min-width: 200px;
 }
 
-.nav-link:hover .nav-icon {
-    fill: #ccc;
-    transform: scale(1.1);
+.burger-link {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 1rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.burger-link:last-child {
+    border-bottom: none;
+}
+
+.burger-link:hover {
+    color: #ccc;
+    transform: translateX(5px);
+}
+
+/* Burger Toggle */
 .nav-toggle {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    padding: 5px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.nav-toggle:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
 }
 
 .bar {
     width: 25px;
-    height: 3px;
+    height: 2px;
     background: #fff;
     margin: 3px 0;
     transition: 0.3s;
-    border-radius: 2px;
+    border-radius: 1px;
+}
+
+.nav-toggle.active .bar:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .bar:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
 }
 
 /* Section Base Styles */
@@ -148,44 +206,29 @@ body {
     opacity: 0.8;
 }
 
-/* Responsive Navigation */
+/* Navigation States */
+.navbar.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+}
+
+/* Responsive */
 @media screen and (max-width: 768px) {
     .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 300px;
-        height: 100vh;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: right 0.5s ease;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        display: none;
     }
-
-    .nav-menu.active {
-        right: 0;
-    }
-
+    
     .nav-toggle {
         display: flex;
     }
-
-    .nav-toggle.active .bar:nth-child(1) {
-        transform: rotate(-45deg) translate(-5px, 6px);
+    
+    .navbar {
+        padding: 1.5rem;
     }
-
-    .nav-toggle.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .nav-toggle.active .bar:nth-child(3) {
-        transform: rotate(45deg) translate(-5px, -6px);
-    }
-
-    .navbar.scrolled .nav-menu {
-        background: rgba(0, 0, 0, 0.9);
+    
+    .burger-menu {
+        top: 1.5rem;
+        right: 1.5rem;
     }
 }
