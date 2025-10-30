@@ -1,3 +1,5 @@
+/* css/reviews.css */
 #reviews {
-    background: linear-gradient(135deg, #707070 0%, #000000 100%);
+    /* Se apropie de gri închis */
+    background: linear-gradient(180deg, var(--color-mid-grey-2), var(--color-dark-grey));
 }
