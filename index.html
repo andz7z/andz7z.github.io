@@ -3,72 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Website</title>
+    <title>Proiectul Meu</title>
+
     <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+
 </head>
 <body>
-    <!-- Progress Bar -->
-    <div class="progress-bar"></div>
 
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-center">
-            <a href="#home" class="nav-item" data-section="home">Home</a>
-            <a href="#services" class="nav-item" data-section="services">Services</a>
-            <a href="#portfolio" class="nav-item" data-section="portfolio">Portfolio</a>
-            <a href="#reviews" class="nav-item" data-section="reviews">Reviews</a>
-            <a href="#contact" class="nav-item" data-section="contact">Contact</a>
-        </div>
-        
-        <!-- Burger Menu -->
-        <div class="burger-menu">
-            <div class="burger-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="burger-content">
-                <a href="#home">Home</a>
-                <a href="#services">Services</a>
-                <a href="#portfolio">Portfolio</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#contact">Contact</a>
-            </div>
-        </div>
+    <div id="scroll-progress-bar"></div>
+
+    <nav id="main-nav">
+        <a href="#home" class="nav-item">
+            <span>Home</span>
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        </a>
+        <a href="#services" class="nav-item">
+            <span>Services</span>
+            <svg viewBox="0 0 24 24"><path d="M19.4 7.3c-.3-.5-.7-1-1.2-1.2-.5-.3-1-.4-1.6-.4s-1.1.1-1.6.4c-.5.3-1 .7-1.2 1.2-.3.5-.4 1-.4 1.6s.1 1.1.4 1.6c.3.5.7 1 1.2 1.2.5.3 1 .4 1.6.4s1.1-.1 1.6-.4c.5-.3 1-.7 1.2-1.2.3-.5.4-1 .4-1.6s-.1-1.1-.4-1.6zm-10 0c-.3-.5-.7-1-1.2-1.2-.5-.3-1-.4-1.6-.4s-1.1.1-1.6.4c-.5.3-1 .7-1.2 1.2-.3.5-.4 1-.4 1.6s.1 1.1.4 1.6c.3.5.7 1 1.2 1.2.5.3 1 .4 1.6.4s1.1-.1 1.6-.4c.5-.3 1-.7 1.2-1.2.3-.5.4-1 .4-1.6s-.1-1.1-.4-1.6zm10 10c-.3-.5-.7-1-1.2-1.2-.5-.3-1-.4-1.6-.4s-1.1.1-1.6.4c-.5.3-1 .7-1.2 1.2-.3.5-.4 1-.4 1.6s.1 1.1.4 1.6c.3.5.7 1 1.2 1.2.5.3 1 .4 1.6.4s1.1-.1 1.6-.4c.5-.3 1-.7 1.2-1.2.3-.5.4-1 .4-1.6s-.1-1.1-.4-1.6zm-10 0c-.3-.5-.7-1-1.2-1.2-.5-.3-1-.4-1.6-.4s-1.1.1-1.6.4c-.5.3-1 .7-1.2 1.2-.3.5-.4 1-.4 1.6s.1 1.1.4 1.6c.3.5.7 1 1.2 1.2.5.3 1 .4 1.6.4s1.1-.1 1.6-.4c.5-.3 1-.7 1.2-1.2.3-.5.4-1 .4-1.6s-.1-1.1-.4-1.6z"/></svg>
+        </a>
+        <a href="#portfolio" class="nav-item">
+            <span>Portfolio</span>
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h3v3H6zm5 0h3v3h-3zm5 0h3v3h-3z"/></svg>
+        </a>
+        <a href="#reviews" class="nav-item">
+            <span>Reviews</span>
+            <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        </a>
+        <a href="#contact" class="nav-item">
+            <span>Contact</span>
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.24.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.2 2.2z"/></svg>
+        </a>
     </nav>
 
-    <!-- Sections -->
-    <section id="home" class="section">
-        <video class="background-video" autoplay muted loop>
-            <source src="assets/movie/andz.mp4" type="video/mp4">
-        </video>
-        <div class="glass-card">
-            <h1 class="card-title">Welcome</h1>
-            <p class="card-content">Your content goes here...</p>
-        </div>
-    </section>
+    <button id="burger-menu-toggle">
+        <div class="burger-line line1"></div>
+        <div class="burger-line line2"></div>
+        <div class="burger-line line3"></div>
+    </button>
+    <nav id="burger-nav-links">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
-    <section id="services" class="section">
-        <h2>Services</h2>
-    </section>
 
-    <section id="portfolio" class="section">
-        <h2>Portfolio</h2>
-    </section>
+    <main>
+        <section id="home">
+            <div class="video-background">
+                <video autoplay muted loop playsinline id="home-video">
+                    <source src="assets/movie/andz.mp4" type="video/mp4">
+                    Browser-ul tău nu suportă tag-ul video.
+                </video>
+            </div>
+            
+            <div class="home-glass-card">
+                <div class="card-content">
+                    <h1>Titlul tău Aici</h1>
+                    <p>Un text de prezentare modern.</p>
+                </div>
+            </div>
+        </section>
 
-    <section id="reviews" class="section">
-        <h2>Reviews</h2>
-    </section>
+        <section id="services">
+            <h2>Services</h2>
+        </section>
 
-    <section id="contact" class="section">
-        <h2>Contact</h2>
-    </section>
+        <section id="portfolio">
+            <h2>Portfolio</h2>
+        </section>
+
+        <section id="reviews">
+            <h2>Reviews</h2>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+        </section>
+    </main>
+
 
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
