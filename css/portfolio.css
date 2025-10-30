@@ -1,9 +1,9 @@
-/* Portfolio Section */
-#portfolio {
-    background: #d0d0d0;
-    color: #000;
+/* PORTFOLIO SECTION - MODIFY GRADIENT COLORS HERE */
+.portfolio-section {
+    height: 100vh;
+    background: linear-gradient(135deg, #f0f0f0 0%, #888888 100%);
 }
 
-#portfolio .section-title {
-    color: #333;
+.portfolio-section .section-title {
+    color: #222222; /* MODIFY TEXT COLOR */
 }
