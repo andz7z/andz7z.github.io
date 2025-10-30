@@ -1,1 +1,13 @@
+/* css/contact.css */
+
+/* Cerința Nouă 2: Gradient Smooth (Pas 4) */
+#contact {
+    /* Finalizează tranziția la negru */
+    background: linear-gradient(to bottom, var(--color-gray-dark), var(--color-primary));
+}
+
+/* Textul rămâne alb */
+#contact h2 {
+    color: var(--color-secondary);
+}
 
