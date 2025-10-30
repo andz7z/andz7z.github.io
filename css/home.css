@@ -44,13 +44,13 @@
     /* MARIME: (Cerinta 2) */
     width: 80vw; 
     max-width: 1200px; 
-    height: 80vh; /* MODIFICAT: Mai inalt (inainte era 70vh) */
+    height: 120vh; /* MODIFICAT: Mai inalt (inainte era 70vh) */
 
     /* POZITIONARE: (Cerinta 2) */
     /* Era la 'top: 50%' (centru). 
        Un 'top' mai mic (ex: 35%) il muta MAI SUS.
     */
-    top: 35%; /* MODIFICAT: L-am ridicat (inainte era 50%) */
+    top: 40%; /* MODIFICAT: L-am ridicat (inainte era 50%) */
     left: 50%;
     transform: translate(-50%, -50%); /* Aici translateY(-50%) il centreaza relativ la noul 'top' */
     
