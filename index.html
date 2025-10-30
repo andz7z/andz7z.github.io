@@ -1,134 +1,93 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andz Portfolio</title>
+    <title>Modern Portfolio</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Noverich';
+            src: url('assets/fonts/noverich.otf') format('opentype');
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('assets/fonts/roboto.ttf') format('truetype');
+        }
+    </style>
 </head>
 <body>
-    <!-- Progress Scroll Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress">
+        <div class="progress-bar"></div>
     </div>
     
-    <!-- Futuristic Burger Menu -->
-    <div class="futuristic-menu" id="futuristicMenu">
-        <div class="menu-toggle" id="menuToggle">
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="#reviews" class="nav-link">Reviews</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="burger-menu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
             </div>
         </div>
-        
-        <div class="menu-content" id="menuContent">
-            <div class="menu-items">
-                <a href="#about" class="menu-item" data-text="ABOUT ME">
-                    <span class="menu-text">ABOUT ME</span>
-                    <div class="menu-line"></div>
-                </a>
-                <a href="#portfolio" class="menu-item" data-text="PORTFOLIO">
-                    <span class="menu-text">PORTFOLIO</span>
-                    <div class="menu-line"></div>
-                </a>
-                <a href="#reviews" class="menu-item" data-text="REVIEWS">
-                    <span class="menu-text">REVIEWS</span>
-                    <div class="menu-line"></div>
-                </a>
-                <a href="#contact" class="menu-item" data-text="CONTACT">
-                    <span class="menu-text">CONTACT</span>
-                    <div class="menu-line"></div>
-                </a>
-            </div>
-            
-            <div class="menu-decoration">
-                <div class="decoration-line"></div>
-                <div class="decoration-dots">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
+    </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay">
+        <div class="mobile-menu">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#services" class="mobile-nav-link">Services</a>
+            <a href="#portfolio" class="mobile-nav-link">Portfolio</a>
+            <a href="#reviews" class="mobile-nav-link">Reviews</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
         </div>
     </div>
     
     <!-- Sections -->
-    <section id="home" class="section">
-        <!-- Glass Card -->
-        <div class="glass-card" id="glassCard">
-            <div class="card-content">
-                <h2 class="card-title">Welcome to My World</h2>
-                <p class="card-text">Creative designer & developer passionate about futuristic interfaces and innovative digital experiences.</p>
-                <div class="card-stats">
-                    <div class="stat">
-                        <span class="stat-number">50+</span>
-                        <span class="stat-label">Projects</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">5+</span>
-                        <span class="stat-label">Years</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Passion</span>
-                    </div>
-                </div>
-            </div>
-            <div class="card-controls">
-                <button class="control-btn" id="moveCard">
-                    <i class="fas fa-arrows-alt"></i>
-                </button>
-                <button class="control-btn" id="resizeCard">
-                    <i class="fas fa-expand-alt"></i>
-                </button>
-            </div>
-        </div>
-        
-        <h1 class="title">Home</h1>
+    <section id="home" class="section home-section">
+        <div class="glass-card"></div>
     </section>
     
-    <!-- About Me Section (bottom of home) -->
-    <div id="about" class="about-section">
-        <div class="about-content">
-            <h2 class="about-title">About Me</h2>
-            <p class="about-text">I am a passionate designer and developer with a focus on creating immersive digital experiences. My work combines technical expertise with artistic vision to deliver innovative solutions.</p>
-            <div class="skills">
-                <span class="skill-tag">UI/UX Design</span>
-                <span class="skill-tag">Web Development</span>
-                <span class="skill-tag">Motion Graphics</span>
-                <span class="skill-tag">3D Modeling</span>
-            </div>
-        </div>
-    </div>
-    
-    <section id="portfolio" class="section">
-        <h1 class="title">Portfolio</h1>
+    <section id="services" class="section services-section">
+        <h2 class="section-title">Services</h2>
     </section>
     
-    <section id="reviews" class="section">
-        <h1 class="title">Reviews</h1>
+    <section id="portfolio" class="section portfolio-section">
+        <h2 class="section-title">Portfolio</h2>
     </section>
     
-    <section id="contact" class="section">
-        <h1 class="title">Contact</h1>
+    <section id="reviews" class="section reviews-section">
+        <h2 class="section-title">Reviews</h2>
+    </section>
+    
+    <section id="contact" class="section contact-section">
+        <h2 class="section-title">Contact</h2>
     </section>
     
     <!-- JavaScript Files -->
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/services.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/contact.js"></script>
