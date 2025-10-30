@@ -1,10 +1,4 @@
-/*
- * FILE: css/style.css
- * PURPOSE: Global styles, variables, fonts, navigation, and progress bar.
- */
-
-/* --- 1. Font Imports --- */
-
+/* Import Fonts */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
@@ -19,30 +13,7 @@
     font-style: normal;
 }
 
-/* --- 2. Root Variables (Theme Customization) --- */
-
-:root {
-    /* Colors */
-    --color-black: #000000;
-    --color-white: #ffffff;
-    --color-gray-dark: #333333;
-    --color-gray-mid: #888888;
-    --color-gray-light: #f4f4f4;
-
-    /* Typography */
-    --font-title: 'Noverich', sans-serif;
-    --font-body: 'Roboto', sans-serif;
-
-    /* Effects */
-    --glass-blur-heavy: 12px;
-    --glass-blur-light: 5px;
-    --glass-bg-light: rgba(255, 255, 255, 0.1);
-    --glass-bg-dark: rgba(0, 0, 0, 0.1);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-/* --- 3. Global Resets & Base Styles --- */
-
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -51,329 +22,170 @@
 
 html {
     scroll-behavior: smooth;
-    /* Hide horizontal scrollbar if any overflow occurs */
-    overflow-x: hidden;
 }
 
 body {
-    font-family: var(--font-body);
-    background-color: var(--color-black); /* Default bg */
-    color: var(--color-white);
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    overflow-x: hidden;
+    background: #000;
 }
 
-/* --- 4. Scroll Progress Bar --- */
-
-#scroll-progress-bar {
-    /* --- Progress Bar Customization --- */
-    --bar-height: 4px;
-    --bar-gradient: linear-gradient(
-        90deg, 
-        var(--color-black), 
-        var(--color-gray-mid), 
-        var(--color-white)
-    );
-    /* ---------------------------------- */
-
+/* Progress Bar */
+.progress-container {
     position: fixed;
     top: 0;
     left: 0;
-    height: var(--bar-height);
-    background: var(--bar-gradient);
-    width: 0%; /* Controlled by JS */
-    z-index: 1001; /* Above all content */
-    transition: width 0.1s linear;
-}
-
-/* --- 5. Navigation Bar (Desktop) --- */
-
-#main-nav {
-    /* --- Nav Position Customization --- */
-    --nav-padding-y: 20px;
-    --nav-padding-x: 30px;
-    /* ---------------------------------- */
-
-    position: fixed;
-    top: var(--nav-padding-y);
-    left: var(--nav-padding-x);
-    z-index: 1000;
-    transition: all 0.4s ease-in-out;
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 10px;
-}
-
-.nav-links a {
-    /* --- Nav Link Customization --- */
-    --link-color: var(--color-white);
-    --link-hover-color: var(--color-gray-mid);
-    --link-hover-bg: var(--glass-bg-light);
-    --link-hover-blur: var(--glass-blur-light);
-    --link-hover-border: var(--glass-border);
-    /* ------------------------------ */
-
-    color: var(--link-color);
-    text-decoration: none;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.nav-links a .icon {
-    /* --- Nav Icon Customization --- */
-    --icon-size: 1.1em;
-    --icon-margin: 6px;
-    /* ------------------------------ */
-
-    font-size: var(--icon-size);
-    margin-right: var(--icon-margin);
-    line-height: 1; /* Aligns unicode icons better */
-}
-
-/* Nav Link Effects */
-.nav-links a:hover {
-    color: var(--link-hover-color);
-    background: var(--link-hover-bg);
-    backdrop-filter: blur(var(--link-hover-blur));
-    -webkit-backdrop-filter: blur(var(--link-hover-blur));
-    border: var(--link-hover-border);
-}
-
-.nav-links a:active {
-    transform: scale(0.96);
-}
-
-/* --- 6. Navigation Bar (Scroll Transform -> Burger) --- */
-
-#burger-menu-btn {
-    /* --- Burger Button Customization --- */
-    --burger-line-width: 25px;
-    --burger-line-height: 3px;
-    --burger-line-gap: 5px;
-    --burger-line-radius: 2px;
-    /* "Metallic" gradient for visibility on all backgrounds */
-    --burger-line-bg: linear-gradient(
-        145deg, 
-        #e0e0e0, 
-        #b0b0b0
-    );
-    --burger-line-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
-    /* --------------------------------- */
-
-    display: none; /* Hidden by default */
-    flex-direction: column;
-    gap: var(--burger-line-gap);
-    cursor: pointer;
-    width: 35px; /* Click target size */
-    height: 35px; /* Click target size */
-    justify-content: center;
-    align-items: center;
-}
-
-#burger-menu-btn span {
-    width: var(--burger-line-width);
-    height: var(--burger-line-height);
-    background: var(--burger-line-bg);
-    box-shadow: var(--burger-line-shadow);
-    border-radius: var(--burger-line-radius);
-    transition: all 0.3s ease;
-}
-
-/* "Scrolled" state, applied by JS */
-#main-nav.scrolled {
-    /* --- Burger Position Customization --- */
-    --burger-pos-y: 25px;
-    --burger-pos-x: 30px;
-    /* ----------------------------------- */
-
-    top: var(--burger-pos-y);
-    left: auto;
-    right: var(--burger-pos-x);
-}
-
-#main-nav.scrolled .nav-links {
-    display: none; /* Hide desktop links */
-}
-
-#main-nav.scrolled #burger-menu-btn {
-    display: flex; /* Show burger button */
-}
-
-/* Burger "X" active state */
-#burger-menu-btn.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-#burger-menu-btn.active span:nth-child(2) {
-    opacity: 0;
-}
-#burger-menu-btn.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-
-/* --- 7. Mobile Menu (Glassy Popup) --- */
-
-#mobile-menu {
-    /* --- Mobile Menu Customization --- */
-    --menu-width: 300px;
-    --menu-bg-color: var(--glass-bg-dark);
-    --menu-blur: var(--glass-blur-heavy);
-    --menu-border: var(--glass-border);
-    --menu-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    --menu-border-radius: 12px;
-    --menu-link-color: var(--color-white);
-    --menu-link-font-size: 1.5rem;
-    /* --------------------------------- */
-
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    opacity: 0;
-    visibility: hidden;
-    width: var(--menu-width);
-    background: var(--menu-bg-color);
-    backdrop-filter: blur(var(--menu-blur));
-    -webkit-backdrop-filter: blur(var(--menu-blur));
-    border: var(--menu-border);
-    border-radius: var(--menu-border-radius);
-    box-shadow: var(--menu-shadow);
-    z-index: 999;
-    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-}
-
-/* Mobile Menu "Active" state */
-#mobile-menu.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.mobile-nav-links {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 30px 20px;
-    gap: 15px;
-}
-
-.mobile-nav-links a {
-    color: var(--menu-link-color);
-    text-decoration: none;
-    font-family: var(--font-title);
-    font-size: var(--menu-link-font-size);
-    padding: 10px;
-    transition: color 0.3s ease;
-}
-
-.mobile-nav-links a:hover {
-    color: var(--color-gray-mid);
-}
-
-/* --- 8. General Section & Gradient Wrapper Styling --- */
-
-/* Base styles for all sections */
-section {
     width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden; /* Clips content */
+    height: 4px;
+    background: transparent;
+    z-index: 1000;
 }
 
-/* Section titles */
-h2 {
-    /* --- Title Font Customization --- */
-    --title-font-size: 6rem;
-    --title-letter-spacing: 2px;
-    /* -------------------------------- */
-
-    font-family: var(--font-title);
-    font-size: var(--title-font-size);
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: var(--title-letter-spacing);
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(to right, #000, #333, #666, #999, #ccc, #fff);
+    width: 0%;
+    transition: width 0.1s ease;
 }
 
-/* * This wrapper creates the continuous gradient background for
- * Services, Portfolio, Reviews, and Contact.
- * It is 400vh tall (4 sections * 100vh).
- */
-.gradient-wrapper {
-    height: 400vh;
-    position: relative;
-    background: linear-gradient(
-        to bottom,
-        /* --- Gradient Stop Customization --- */
-        #ffffff 0%,   /* Services: Start */
-        #f0f0f0 20%,  /* Services: End */
-        #cccccc 25%,  /* Portfolio: Start */
-        #aaaaaa 45%,  /* Portfolio: End */
-        #555555 50%,  /* Reviews: Start */
-        #222222 70%,  /* Reviews: End */
-        #000000 75%,  /* Contact: Start */
-        #000000 100%  /* Contact: End */
-    );
-}
-
-/*
- * This makes each section "stick" to the top of the viewport
- * as you scroll through the 400vh gradient wrapper,
- * revealing the gradient color for that 100vh "window".
- */
-.gradient-wrapper > section {
-    position: sticky;
+/* Navigation */
+.navbar {
+    position: fixed;
     top: 0;
-    background: transparent; /* Sections must be transparent */
+    left: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    z-index: 999;
+    transition: all 0.3s ease;
 }
 
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
 
-/* --- 9. Responsiveness --- */
+.nav-logo a {
+    font-family: 'Noverich', sans-serif;
+    font-size: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 2px;
+}
 
-@media (max-width: 1024px) {
-    h2 {
-        --title-font-size: 4rem;
+.nav-menu {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    fill: #fff;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.nav-link:hover .nav-icon {
+    fill: #ccc;
+    transform: scale(1.1);
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    margin: 3px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+}
+
+/* Section Base Styles */
+.section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.section-title {
+    font-family: 'Noverich', sans-serif;
+    font-size: 4rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    opacity: 0.8;
+}
+
+/* Responsive Navigation */
+@media screen and (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: right 0.5s ease;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
-}
 
-@media (max-width: 768px) {
-    /* Force burger menu on mobile */
-    #main-nav {
-        /* Move nav container to top right */
-        top: 0; 
-        left: auto;
+    .nav-menu.active {
         right: 0;
-        /* Apply "scrolled" styles immediately */
-        top: var(--burger-pos-y, 25px);
-        right: var(--burger-pos-x, 30px);
-    }
-    
-    #main-nav .nav-links {
-        display: none; /* Hide desktop links */
-    }
-    
-    #main-nav #burger-menu-btn {
-        display: flex; /* Show burger button */
     }
 
-    h2 {
-        --title-font-size: 2.5rem;
-        padding: 0 20px; /* Add padding for small screens */
-        text-align: center;
+    .nav-toggle {
+        display: flex;
     }
 
-    #mobile-menu {
-        --menu-width: 90vw;
+    .nav-toggle.active .bar:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+
+    .nav-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .nav-toggle.active .bar:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+    }
+
+    .navbar.scrolled .nav-menu {
+        background: rgba(0, 0, 0, 0.9);
     }
 }
