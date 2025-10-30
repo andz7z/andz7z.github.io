@@ -3,97 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A N D Z</title>
-
-    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
-
+    <title>Andz Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-
+    <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
 
-    <div id="scroll-progress-bar"></div>
-
-    <nav>
-        <ul>
-            <li><a href="#home" class="active">
-                <span class="nav-text">Home</span>
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                </span>
-            </a></li>
-            <li><a href="#services">
-                <span class="nav-text">Services</span>
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.14 12.17c.52-2.32-.3-4.66-2.14-6.5C15.17 3.84 12.63 3 10 3c-.1 0-.19.01-.28.02-.1-.01-.19-.02-.28-.02C6.9 3 4.36 3.84 2.53 5.67c-1.83 1.84-2.65 4.18-2.14 6.5.4 1.79 1.46 3.32 2.92 4.32C4.07 17.22 5 17.9 5 18.75V21h4v-2.25c0-.85.93-1.53 1.7-1.97C11.39 16.33 12 15.68 12 15c0-.68-.61-1.33-1.3-1.77-.77-.5-1.7-1.2-1.7-1.98 0-.78.93-1.47 1.7-1.97C11.39 8.83 12 8.18 12 7.5c0-.68-.61-1.33-1.3-1.77C9.93 5.28 9 4.6 9 3.75V3h4v.75c0 .85.93 1.53 1.7 1.97.77.5 1.7 1.2 1.7 1.98 0 .78-.93 1.47-1.7 1.97-.69.44-1.3.99-1.3 1.77 0 .68.61 1.33 1.3 1.77.77.5 1.7 1.2 1.7 1.98 0 .78-.93 1.47-1.7 1.97-.69.44-1.3.99-1.3 1.77 0 .68.61 1.33 1.3 1.77.69.44 1.3.99 1.3 1.77V21h4v-2.25c0-.85.93-1.53 1.7-1.97 1.46-1 2.52-2.53 2.92-4.32z"/></svg>
-                </span>
-            </a></li>
-            <li><a href="#portfolio">
-                <span class="nav-text">Portfolio</span>
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 4v12H8V4h12m0-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg>
-                </span>
-            </a></li>
-            <li><a href="#reviews">
-                <span class="nav-text">Reviews</span>
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6.06 9.68L12 15l-1.94-3.32L6 10l4.06 1.68L12 16l1.94-3.32L18 10l-4.06 1.68z"/></svg>
-                </span>
-            </a></li>
-            <li><a href="#contact">
-                <span class="nav-text">Contact</span>
-                <span class="nav-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
-                </span>
-            </a></li>
-        </ul>
-    </nav>
-    <div id="burger-icon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    
-        <div id="burger-menu-container">
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#contact">Contact</a></li>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#home" data-section="home">Home</a></li>
+                <li><a href="#services" data-section="services">Services</a></li>
+                <li><a href="#portfolio" data-section="portfolio">Portfolio</a></li>
+                <li><a href="#reviews" data-section="reviews">Reviews</a></li>
+                <li><a href="#contact" data-section="contact">Contact</a></li>
             </ul>
         </div>
-    <section id="home">
-        <div class="glassy-card">
-            <h2>Who Am I?</h2>
-            <p>A few words 'bout me.</p>
+        <div class="burger-menu" id="burgerMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Sections -->
+    <section id="home" class="section">
+        <div class="background-image"></div>
+        <div class="home-content">
+            <div class="glass-card">
+                <h1>Andz</h1>
+                <p>Bine ai venit pe site-ul meu. Sunt un creator pasionat de design și tehnologie.</p>
+                <!-- Adaugă aici conținutul tău -->
+            </div>
         </div>
     </section>
-    <section id="services">
-        <h2>Services</h2>
+
+    <section id="services" class="section">
+        <div class="section-content">
+            <h2>Services</h2>
+            <!-- Conținutul pentru Services -->
+        </div>
     </section>
 
-    <section id="portfolio">
-        <h2>Portfolio</h2>
+    <section id="portfolio" class="section">
+        <div class="section-content">
+            <h2>Portfolio</h2>
+            <!-- Conținutul pentru Portfolio -->
+        </div>
     </section>
 
-    <section id="reviews">
-        <h2>Reviews</h2>
+    <section id="reviews" class="section">
+        <div class="section-content">
+            <h2>Reviews</h2>
+            <!-- Conținutul pentru Reviews -->
+        </div>
     </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
+    <section id="contact" class="section">
+        <div class="section-content">
+            <h2>Contact</h2>
+            <!-- Conținutul pentru Contact -->
+        </div>
     </section>
-    <script src="js/main.js" defer></script>
-    <script src="js/home.js" defer></script>
-    <script src="js/services.js" defer></script>
-    <script src="js/portfolio.js" defer></script>
-    <script src="js/reviews.js" defer></script>
-    <script src="js/contact.js" defer></script>
+
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/portfolio.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/contact.js"></script>
 </body>
 </html>
