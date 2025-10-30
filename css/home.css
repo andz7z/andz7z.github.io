@@ -3,24 +3,23 @@
 /* ---------------------------------- */
 #home {
     background-image: url('../assets/photos/andz.jpg');
-    background-size: cover; /* 'cover' va umple ecranul. 'contain' arata toata poza, dar poate lasa spatii goale */
+    background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Creeaza un efect de paralaxa simplu */
+    background-attachment: fixed;
 
-    /* 8. Animatie Fade-In (Cerinta #8) */
     opacity: 0;
     animation: fadeInBg 1.5s ease forwards;
 }
 
 /* ---------------------------------- */
-/* 10. CARD GLASSY (Cerinta #10)      */
+/* 10. CARD GLASSY (ACTUALIZAT)      */
 /* ---------------------------------- */
 .glassy-card {
     /* Efectul de Glassmorphism (Tematica #7) */
     background: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur)); /* Pentru Safari */
+    -webkit-backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
     box-shadow: 0 4px 30px var(--glass-shadow);
     border-radius: 16px;
@@ -31,32 +30,21 @@
     CUM SA MODIFICI POZITIA SI MARIMEA (Cerinta #10)
     =================================================
     
-    Folosim 'position: absolute' pentru a-l plasa oriunde in sectiunea #home.
-    
-    1. POZITIONARE (sus/jos, stanga/dreapta):
-       - 'top: 50%' -> Il plaseaza la 50% de SUS. Schimba in 'top: 20%' sa-l muti mai sus.
-       - 'left: 50%' -> Il plaseaza la 50% de STANGA. Schimba in 'left: 80%' sa-l muti spre dreapta.
+    1. POZITIONARE:
+       - 'top' si 'left'
        
-    2. CENTRARE (Important!):
-       - 'transform: translate(-50%, -50%)' -> Acesta este un truc. El centreaza cardul exact 
-         pe punctul dat de 'top' si 'left'. Daca pui top: 50% si left: 50%, cardul va fi
-         perfect centrat pe ecran. Lasa aceasta linie neschimbata.
-         
-    3. MARIME (latime/inaltime):
-       - 'width: 50%' -> Cardul va avea 50% din latimea ecranului. Poti pune o valoare fixa, 
-         de ex. 'width: 600px'.
-       - 'height: 300px' -> Cardul are 300px inaltime. Schimba la 'height: 500px' sa-l faci mai inalt.
+    2. MARIME:
+       - 'width' si 'height'
     */
     
     position: absolute;
     
-    /* Poti edita valorile de mai jos */
+    /* MODIFICARE (Cerinta +): Am schimbat valorile */
     width: 50%;
-    height: 300px;
-    top: 50%;
+    height: 450px; /* Mai lung (inainte era 300px) */
+    top: 40%;      /* Mai sus (inainte era 50%) */
     left: 50%;
 
-    /* Nu edita linia de mai jos decat daca stii ce faci :) */
     transform: translate(-50%, -50%); 
 }
 
