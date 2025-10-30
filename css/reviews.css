@@ -1,5 +1,3 @@
-/* REQ 10: Inaltimea sectiunii */
 #reviews {
-    height: 100vh;
-    /* Fundalul este gestionat de .gradient-wrapper in style.css */
+    background: linear-gradient(135deg, #707070 0%, #000000 100%);
 }
