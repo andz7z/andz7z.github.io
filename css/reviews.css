@@ -1,1 +1,13 @@
+/* css/reviews.css */
+
+/* Cerința Nouă 2: Gradient Smooth (Pas 3) */
+#reviews {
+    /* Continuă tranziția spre întunecat */
+    background: linear-gradient(to bottom, var(--color-gray-mid-1), var(--color-gray-dark));
+}
+
+/* Aici fundalul e suficient de întunecat pentru text alb */
+#reviews h2 {
+    color: var(--color-secondary);
+}
 
