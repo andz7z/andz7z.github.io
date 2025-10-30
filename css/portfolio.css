@@ -1,3 +1,6 @@
+/* css/portfolio.css */
 #portfolio {
-    background: linear-gradient(135deg, #a0a0a0 0%, #000000 100%);
+    /* Continuă tranziția */
+    background: linear-gradient(180deg, var(--color-mid-grey-1), var(--color-mid-grey-2));
+    color: var(--color-white); /* Reîncepem cu text alb */
 }
