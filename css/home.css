@@ -1,87 +1,113 @@
-/* css/home.css */
-
+/* --- 3. Fundalul Video (Home) --- */
 #home {
-    color: var(--color-white); /* Asigurăm textul alb peste video */
+    /* Asigură că elementele absolute sunt relative la secțiune */
+    position: relative; 
 }
 
-/* Containerul pentru video (Req 3) */
-.video-background {
+.video-background-wrapper {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh; /* Doar pe primul ecran */
+    overflow: hidden;
     z-index: -1; /* În spatele conținutului */
-    opacity: 0; /* Inițial ascuns */
     
-    /* Req 9: Animație fade-in lentă */
-    animation: fadeInVideo 2s forwards;
-    animation-delay: 0.1s; /* Să înceapă aproape imediat */
+    /* 9. Animație Fade-in la încărcare (prima) */
+    opacity: 0;
+    animation: videoFadeIn 1.5s ease-out forwards;
+}
+
+@keyframes videoFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 #home-video {
-    width: 100%;
-    height: 100%;
-    
-    /* Req 3: Să fie încadrat total, fără zoom excesiv.
-       'cover' umple ecranul (poate tăia marginile).
-       'contain' arată tot video-ul (poate lăsa bare negre).
-       De obicei, pentru fundaluri se dorește 'cover'. 
+    /* Pentru a respecta "încadrat pe orizontală" și 16:9:
+      Setăm lățimea la 100% și înălțimea auto.
+      Asta înseamnă că pe ecrane foarte înalte (telefon) 
+      s-ar putea să apară bare negre (letterboxing) sus și jos.
+      Dacă vrei să umple MEREU ecranul (cu zoom), ai folosi 'object-fit: cover'.
     */
-    object-fit: cover; 
+    width: 100%;
+    height: auto;
+    
+    /* Centrare în cazul letterboxing-ului */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* Dacă ecranul e mai lat decât 16:9, 'width: 100%' e mai mic 
+       decât 'min-width: 100vw'. Trebuie să ne asigurăm că umple
+       cel puțin lățimea, dar și înălțimea.
+       
+       Soluția standard pentru background video este 'cover'.
+       Să mergem pe asta, este cel mai probabil ce îți dorești 
+       pentru un background. "Nu prea zoomed in" e controlat de video.
+    */
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover; /* Umple ecranul, păstrând proporția, dar taie marginile */
 }
 
-/* Cardul Glassy (Req 11) */
-.home-glass-card {
-    /* Stilul Glass/Blur (Req 7) */
-    background: var(--glass-background);
-    backdrop-filter: blur(var(--glass-blur));
-    border: var(--glass-border);
-    border-radius: 20px;
-    
-    /* Stilul Chrome/3D (Req 7) */
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-
-    /* Poziționarea cerută (Req 11) */
+/* --- 11. Card-ul Glassy (Home) --- */
+.glassy-card {
+    /* Stilurile cerute de tine */
     position: absolute;
     width: 80%;
-    max-width: 1200px; /* Adăugăm un max-width pentru ecrane mari */
+    max-width: 1200px; /* Adăugăm un max-width */
     height: 700px;
     top: 45%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Centrare perfectă */
+    transform: translate(-50%, -50%);
 
-    /* Aliniere conținut intern */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* 7. Tematica Glass/Blur */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--blur-value));
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
     padding: 40px;
     
-    /* Animația (Req 11) */
+    /* 11. Animație Fade-in (după video și nav) */
     opacity: 0;
-    animation: fadeInCard 1.5s forwards;
-    animation-delay: 2.0s; /* Apare după video și navigație */
+    animation: cardFadeIn 1s ease-out 2s forwards; /* 2s delay */
 }
 
-.home-glass-card .card-content {
-    text-align: center;
+@keyframes cardFadeIn {
+    from { opacity: 0; transform: translate(-50%, -45%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
 }
 
-.home-glass-card .card-content h1 {
-    font-size: 4rem;
+/* Animația textului din card (după card) */
+.glassy-card .card-title,
+.glassy-card .card-text {
+    opacity: 0;
+    animation: textFadeIn 1s ease-out 2.5s forwards; /* 2.5s delay */
+}
+
+.glassy-card .card-text {
+    animation-delay: 3s; /* Textul apare după titlu (3s delay) */
+}
+
+@keyframes textFadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.glassy-card .card-title {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    color: var(--color-white);
     margin-bottom: 20px;
-    
-    /* Animația (Req 11) */
-    opacity: 0;
-    animation: fadeInText 1s forwards;
-    animation-delay: 2.5s; /* Apare după card */
 }
 
-.home-glass-card .card-content p {
-    font-size: 1.5rem;
-    
-    /* Animația (Req 11) */
-    opacity: 0;
-    animation: fadeInText 1s forwards;
-    animation-delay: 2.8s; /* Apare după titlu */
+.glassy-card .card-text {
+    font-size: 1.2rem;
+    color: var(--color-start); /* Gri-ul deschis */
+    line-height: 1.6;
 }
