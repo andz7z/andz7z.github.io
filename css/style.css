@@ -1,39 +1,30 @@
-/* ---------------------------------- */
-/* 7. TEMATICA SI VARIABILE (Cerinta #7) */
-/* ---------------------------------- */
-:root {
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray: #cfcfcf;
-    
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.18);
-    --glass-shadow: rgba(0, 0, 0, 0.1);
-    --glass-blur: 10px;
-
-    --font-primary: 'Roboto', sans-serif;
-    --font-secondary: 'Noverich', sans-serif;
-}
-/* ---------------------------------- */
-/* DEFINIRE FONTURI CUSTOM            */
-/* ---------------------------------- */
+/* Import fonturi */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url('../assets/fonts/roboto.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
-/* ---------------------------------- */
-/* RESETARI DE BAZA SI STILURI GLOBALE*/
-/* ---------------------------------- */
+/* Variabile CSS pentru culori și stiluri */
+:root {
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-gray: #cfcfcf;
+    --color-dark-gray: #333333;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --blur-intensity: blur(10px);
+    --transition-slow: 1s ease;
+    --transition-medium: 0.5s ease;
+    --transition-fast: 0.3s ease;
+}
+
+/* Reset și stiluri de bază */
 * {
     margin: 0;
     padding: 0;
@@ -45,193 +36,290 @@ html {
 }
 
 body {
-    font-family: var(--font-primary);
-    background-color: var(--color-black);
-    color: var(--color-white);
+    font-family: 'Roboto', sans-serif;
     overflow-x: hidden;
-}
-
-section {
-    width: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* 2. Titlurile Sectiunilor (Cerinta #2) */
-section h2 {
-    font-family: var(--font-secondary);
-    font-size: 5rem;
     color: var(--color-white);
-    text-shadow: 2px 2px 10px var(--color-black);
 }
 
-/* 9. MARIMEA SECTIUNILOR (Cerinta #9) */
-#home {
-    height: 300vh;
-}
-
-#services,
-#portfolio,
-#reviews,
-#contact {
-    height: 100vh;
-}
-
-/* 3. FUNDAL GRADIENT (Cerinta #3 - ACTUALIZAT) */
-/* Am sters stilul de 'background' de pe sectiuni (#services, etc.) */
-/* si l-am mutat pe containerul adaugat in HTML */
-
-.gradient-container {
-    background: linear-gradient(to bottom, var(--color-gray), var(--color-black));
-    position: relative;
-}
-
-/* ---------------------------------- */
-/* 4. SCROLL PROGRESS BAR (Cerinta #4) */
-/* ---------------------------------- */
-#scroll-progress-bar {
+/* Progress Bar */
+.progress-container {
     position: fixed;
     top: 0;
     left: 0;
-    height: 5px;
+    width: 100%;
+    height: 4px;
+    background: transparent;
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
     background: linear-gradient(to right, var(--color-black), var(--color-white));
     width: 0%;
-    z-index: 1000;
-    transition: width 0.1s linear;
+    transition: width 0.1s ease;
 }
 
-/* ---------------------------------- */
-/* 5. & 6. NAVIGATIE (ACTUALIZAT) */
-/* ---------------------------------- */
-nav {
+/* Navigation */
+.main-nav {
     position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 999;
-    padding: 10px 20px; /* Acesta se va micsora la scroll */
-    border-radius: 50px;
-    
-    /* MODIFICARE (Cerinta #2): Am adaugat 'padding' la tranzitie */
-    transition: transform 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease, padding 0.3s ease;
-    
-    opacity: 0;
-    animation: fadeInNav 1s ease 1.5s forwards;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 0;
+    z-index: 900;
+    transition: all var(--transition-medium);
 }
 
-/* ---------------------------------- */
-/* MODIFICARE (Cerinta #2): BURGER MENU */
-/* ---------------------------------- */
-
-#burger-icon {
-    position: fixed;
-    top: 25px;
-    left: 25px;
-    z-index: 1002; /* Peste progress bar, dar sub meniu */
-    cursor: pointer;
-    
-    /* Initial ascuns */
-    opacity: 0;
-    transform: translateX(-20px);
-    pointer-events: none;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+.nav-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* Starea vizibila, la scroll */
-#burger-icon.visible {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
-}
-
-/* Liniile burger-ului */
-#burger-icon span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: var(--color-white);
-    margin: 5px 0;
-    border-radius: 3px;
-    transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-/* Animatia spre 'X' cand meniul e deschis */
-#burger-icon.open span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-#burger-icon.open span:nth-child(2) {
-    opacity: 0;
-}
-#burger-icon.open span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-
-/* Container-ul meniului "wow" */
-#burger-menu-container {
-    position: fixed;
-    top: 80px; /* Sub iconita */
-    left: 25px;
-    z-index: 1001; /* Sub iconita, peste restul */
-
-    /* Stilul Glassy */
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 30px var(--glass-shadow);
-    border-radius: 12px;
-    
-    /* Initial ascuns in stanga */
-    transform: translateX(-120%);
-    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); /* Tranzitie "wow" */
-}
-
-/* Starea deschis a meniului */
-#burger-menu-container.open {
-    transform: translateX(0);
-}
-
-#burger-menu-container ul {
+.nav-links {
+    display: flex;
     list-style: none;
-    padding: 10px;
+    gap: 40px;
 }
 
-#burger-menu-container a {
-    display: block;
-    padding: 12px 20px;
+.nav-links li a {
     color: var(--color-white);
     text-decoration: none;
-    font-family: var(--font-secondary);
-    font-size: 1.1rem;
-    border-radius: 8px;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-family: 'Noverich', sans-serif;
+    font-size: 18px;
+    position: relative;
+    padding: 10px 20px;
+    transition: all var(--transition-medium);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 120px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur-intensity);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    box-shadow: var(--glass-shadow);
 }
 
-#burger-menu-container a:hover {
+.nav-links li a:hover {
+    color: transparent;
+}
+
+.nav-links li a:hover::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 1;
+    transition: opacity var(--transition-medium);
+}
+
+.nav-links li a::before {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity var(--transition-medium);
+}
+
+/* Burger Menu */
+.burger-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 30px;
+    height: 25px;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.burger-menu span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: var(--color-white);
+    border-radius: 2px;
+    transition: all var(--transition-medium);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: var(--blur-intensity);
+    z-index: 999;
+    padding: 80px 20px 20px;
+    transition: left var(--transition-medium);
+    border-right: 1px solid var(--glass-border);
+}
+
+.mobile-menu.active {
+    left: 0;
+}
+
+.mobile-menu ul {
+    list-style: none;
+}
+
+.mobile-menu ul li {
+    margin-bottom: 20px;
+}
+
+.mobile-menu ul li a {
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: 'Noverich', sans-serif;
+    font-size: 20px;
+    display: block;
+    padding: 10px;
+    transition: all var(--transition-medium);
+    border-radius: 5px;
+}
+
+.mobile-menu ul li a:hover {
     background: var(--glass-bg);
 }
 
-/* Stilul pentru link-ul activ in meniul burger */
-#burger-menu-container a.active {
-    color: var(--color-gray);
-    background-color: rgba(0, 0, 0, 0.2);
+/* Sections */
+.section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
+#home {
+    min-height: 300vh;
+    background: linear-gradient(to bottom, var(--color-gray), var(--color-black));
+}
 
-/* ---------------------------------- */
-/* 8. ANIMATII KEYFRAMES (ACTUALIZAT) */
-/* ---------------------------------- */
+#services, #portfolio, #reviews, #contact {
+    background: linear-gradient(to bottom, var(--color-gray), var(--color-black));
+}
 
-@keyframes fadeInNav {
+/* Background Image pentru Home */
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/photos/andz.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.5s;
+}
+
+/* Glass Card pentru Home */
+.home-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.glass-card {
+    position: absolute;
+    width: 80%;
+    height: 700px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur-intensity);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    padding: 40px;
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards;
+    animation-delay: 1.5s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.glass-card h1 {
+    font-family: 'Noverich', sans-serif;
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: var(--color-white);
+}
+
+.glass-card p {
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 600px;
+}
+
+/* Section Content */
+.section-content {
+    text-align: center;
+    z-index: 1;
+}
+
+.section-content h2 {
+    font-family: 'Noverich', sans-serif;
+    font-size: 48px;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+}
+
+/* Animations */
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -20px);
     }
     to {
         opacity: 1;
-        transform: translate(-50%, 0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .burger-menu {
+        display: flex;
+    }
+    
+    .glass-card {
+        width: 90%;
+        height: 500px;
+        padding: 20px;
+    }
+    
+    .glass-card h1 {
+        font-size: 36px;
+    }
+    
+    .glass-card p {
+        font-size: 16px;
     }
 }
