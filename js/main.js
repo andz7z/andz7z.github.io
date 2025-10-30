@@ -1,83 +1,131 @@
-// Main JavaScript file - Navigation and progress bar functionality
+// Main JavaScript File
+class PortfolioSite {
+    constructor() {
+        this.init();
+    }
 
-document.addEventListener('DOMContentLoaded', function() {
+    init() {
+        this.setupProgressBar();
+        this.setupNavigation();
+        this.setupScrollBehavior();
+        this.setupSectionTransitions();
+        this.setupNavAnimations();
+    }
+
     // Progress Bar
-    const progressBar = document.querySelector('.progress-bar');
-    
-    // Navigation Elements
-    const navbar = document.querySelector('.navbar');
-    const burgerMenu = document.querySelector('.burger-menu');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav a');
-    
-    // Progress Bar Update
-    function updateProgressBar() {
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const progress = (scrollTop / documentHeight) * 100;
-        
-        progressBar.style.width = progress + '%';
+    setupProgressBar() {
+        window.addEventListener('scroll', () => {
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset;
+            const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+        });
     }
-    
-    // Navbar Scroll Behavior
-    function handleScroll() {
-        const scrolled = window.pageYOffset > 100;
-        
-        if (scrolled) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-        
-        updateProgressBar();
+
+    // Navigation Setup
+    setupNavigation() {
+        // Burger menu toggle
+        const burgerMenu = document.querySelector('.burger-menu');
+        const burgerIcon = document.querySelector('.burger-icon');
+
+        burgerIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            burgerMenu.classList.toggle('active');
+        });
+
+        // Close burger menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!burgerMenu.contains(e.target)) {
+                burgerMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    burgerMenu.classList.remove('active');
+                }
+            });
+        });
     }
-    
-    // Burger Menu Toggle
-    function toggleMobileMenu() {
-        burgerMenu.classList.toggle('active');
-        mobileMenu.classList.toggle('active');
-        
-        // Animate burger lines
-        const lines = document.querySelectorAll('.burger-line');
-        if (burgerMenu.classList.contains('active')) {
-            lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            lines[1].style.opacity = '0';
-            lines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-        } else {
-            lines[0].style.transform = 'none';
-            lines[1].style.opacity = '1';
-            lines[2].style.transform = 'none';
-        }
+
+    // Scroll Behavior
+    setupScrollBehavior() {
+        let lastScrollTop = 0;
+        const nav = document.querySelector('.main-nav');
+
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add scrolled class for navigation transition
+            if (scrollTop > 100) {
+                document.body.classList.add('scrolled');
+            } else {
+                document.body.classList.remove('scrolled');
+            }
+
+            // Section activation based on scroll position
+            this.activateCurrentSection();
+            
+            lastScrollTop = scrollTop;
+        }, { passive: true });
     }
-    
-    // Close mobile menu when clicking on links
-    function closeMobileMenu() {
-        burgerMenu.classList.remove('active');
-        mobileMenu.classList.remove('active');
-        
-        const lines = document.querySelectorAll('.burger-line');
-        lines[0].style.transform = 'none';
-        lines[1].style.opacity = '1';
-        lines[2].style.transform = 'none';
+
+    // Section Transitions
+    setupSectionTransitions() {
+        // Initial section activation
+        this.activateCurrentSection();
     }
-    
-    // Event Listeners
-    window.addEventListener('scroll', handleScroll);
-    burgerMenu.addEventListener('click', toggleMobileMenu);
-    
-    // Close mobile menu when clicking on navigation links
-    navLinks.forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
-    });
-    
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!navbar.contains(event.target) && mobileMenu.classList.contains('active')) {
-            closeMobileMenu();
-        }
-    });
-    
-    // Initialize progress bar
-    updateProgressBar();
+
+    // Activate current section based on scroll position
+    activateCurrentSection() {
+        const sections = document.querySelectorAll('.section');
+        const scrollPosition = window.pageYOffset + window.innerHeight / 2;
+
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionBottom = sectionTop + section.offsetHeight;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                // Deactivate all sections
+                sections.forEach(s => s.classList.remove('active'));
+                // Activate current section
+                section.classList.add('active');
+            }
+        });
+    }
+
+    // Navigation Animations
+    setupNavAnimations() {
+        const navItems = document.querySelectorAll('.nav-item');
+        
+        // Staggered animation for nav items
+        navItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+            item.classList.add('fade-in-left');
+        });
+    }
+}
+
+// Initialize the site when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new PortfolioSite();
 });
+
+// Add CSS for fade-in-left animation
+const style = document.createElement('style');
+style.textContent = `
+    .fade-in-left {
+        animation: fadeInLeft 0.8s ease forwards;
+        opacity: 0;
+    }
+`;
+document.head.appendChild(style);
