@@ -1,125 +1,61 @@
-// Main JavaScript File
-class PortfolioSite {
-    constructor() {
-        this.init();
+// Asteptam ca tot continutul paginii sa fie incarcat
+window.addEventListener('DOMContentLoaded', () => {
+
+    const progressBar = document.getElementById('progressBar');
+    const mainNav = document.getElementById('mainNav');
+    const burgerBtn = document.getElementById('burgerBtn');
+    const burgerNav = document.getElementById('burgerNav');
+    const burgerLinks = document.querySelectorAll('.burger-link');
+
+    // ----------------------------------
+    // 4. Functie Progress Bar
+    // ----------------------------------
+    function updateProgressBar() {
+        // (Inaltimea totala a documentului - inaltimea ferestrei vizibile)
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        // Pozitia curenta a scroll-ului
+        const scrollTop = window.scrollY;
+        
+        // Calculam procentajul
+        const scrollPercent = (scrollTop / scrollableHeight) * 100;
+
+        progressBar.style.width = scrollPercent + '%';
     }
 
-    init() {
-        this.setupProgressBar();
-        this.setupNavigation();
-        this.setupScrollBehavior();
-        this.setupSectionTransitions();
-        this.setupNavAnimations();
-    }
-
-    // Progress Bar
-    setupProgressBar() {
-        window.addEventListener('scroll', () => {
-            const winHeight = window.innerHeight;
-            const docHeight = document.documentElement.scrollHeight;
-            const scrollTop = window.pageYOffset;
-            const scrollPercent = (scrollTop / (docHeight - winHeight)) * 100;
-            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
-        });
-    }
-
-    // Navigation Setup
-    setupNavigation() {
-        // Burger menu toggle
-        const burgerMenu = document.querySelector('.burger-menu');
-        const burgerIcon = document.querySelector('.burger-icon');
-
-        burgerIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            burgerMenu.classList.toggle('active');
-        });
-
-        // Close burger menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!burgerMenu.contains(e.target)) {
-                burgerMenu.classList.remove('active');
-            }
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    burgerMenu.classList.remove('active');
-                }
-            });
-        });
-    }
-
-    // Scroll Behavior
-    setupScrollBehavior() {
-        let lastScrollTop = 0;
-        const nav = document.querySelector('.main-nav');
-
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            // Add scrolled class for navigation transition
-            if (scrollTop > 100) {
-                document.body.classList.add('scrolled');
-            } else {
-                document.body.classList.remove('scrolled');
-            }
-
-            // Section activation based on scroll position
-            this.activateCurrentSection();
-            
-            lastScrollTop = scrollTop;
-        }, { passive: true });
-    }
-
-    // Section Transitions
-    setupSectionTransitions() {
-        // Initial section activation
-        this.activateCurrentSection();
-    }
-
-    // Activate current section based on scroll position
-    activateCurrentSection() {
-        const sections = document.querySelectorAll('.section');
-        const scrollPosition = window.pageYOffset + window.innerHeight / 3;
-
-        let currentSection = null;
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionBottom = sectionTop + section.offsetHeight;
-
-            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                currentSection = section;
-            }
-        });
-
-        // Update active class
-        if (currentSection) {
-            sections.forEach(s => s.classList.remove('active'));
-            currentSection.classList.add('active');
+    // ----------------------------------
+    // 6. Functie Navigatie la Scroll
+    // ----------------------------------
+    function toggleNavOnScroll() {
+        // Daca am dat scroll mai mult de 100px
+        if (window.scrollY > 100) {
+            mainNav.classList.add('hidden'); // Ascundem navigatia principala
+            burgerBtn.classList.add('visible'); // Afisam butonul burger
+        } else {
+            mainNav.classList.remove('hidden'); // Afisam navigatia principala
+            burgerBtn.classList.remove('visible'); // Ascundem butonul burger
         }
     }
 
-    // Navigation Animations
-    setupNavAnimations() {
-        const navItems = document.querySelectorAll('.nav-item');
-        
-        // Staggered animation for nav items
-        navItems.forEach((item, index) => {
-            item.style.animationDelay = `${index * 0.1}s`;
-        });
+    // ----------------------------------
+    // 6. Functie Toggle Burger Menu
+    // ----------------------------------
+    function toggleBurgerMenu() {
+        burgerBtn.classList.toggle('active'); // Activeaza animatia 'X'
+        burgerNav.classList.toggle('active'); // Afiseaza/ascunde meniul
     }
-}
 
-// Initialize the site when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new PortfolioSite();
+    // Adaugam event listenerii
+    window.addEventListener('scroll', () => {
+        updateProgressBar();
+        toggleNavOnScroll();
+    });
+
+    // Event listener pentru butonul burger
+    burgerBtn.addEventListener('click', toggleBurgerMenu);
+
+    // Inchide meniul burger cand se da click pe un link
+    burgerLinks.forEach(link => {
+        link.addEventListener('click', toggleBurgerMenu);
+    });
+
 });
