@@ -1,95 +1,63 @@
-document.addEventListener('DOMContentLoaded', () => {
-
-    const nav = document.querySelector('nav');
-    const progressBar = document.getElementById('scroll-progress-bar');
-    const sections = document.querySelectorAll('section');
+// Main JavaScript file
+document.addEventListener('DOMContentLoaded', function() {
+    // Progress Bar
+    const progressBar = document.getElementById('progressBar');
     
-    // MODIFICARE (Cerinta #2): Elemente noi
-    const burgerIcon = document.getElementById('burger-icon');
-    const burgerMenuContainer = document.getElementById('burger-menu-container');
-    
-    // MODIFICARE (Cerinta #2): Selectam link-urile din AMBELE meniuri
-    const navLinks = document.querySelectorAll('nav a, #burger-menu-container a');
-
-    // Functie pentru a gestiona tot ce tine de scroll
-    function handleScroll() {
-        // --- 4. Logic Progress Bar (Neschimbat) ---
-        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollTop = window.scrollY;
-        const progress = (scrollTop / scrollableHeight) * 100;
-        progressBar.style.width = progress + '%';
-
-        // --- MODIFICARE (Cerinta #2): Logica Navigatie la Scroll ---
+    window.addEventListener('scroll', function() {
+        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        progressBar.style.width = scrolled + '%';
         
-        if (window.scrollY > 50) {
-            // Ascundem nav-ul de sus
-            nav.classList.add('nav-hidden');
-            // Afisam iconita burger
-            burgerIcon.classList.add('visible');
+        // Navigation transition
+        const nav = document.querySelector('.main-nav');
+        if (window.scrollY > 100) {
+            nav.style.transform = 'translateY(-100%)';
+            document.querySelector('.burger-menu').style.display = 'flex';
         } else {
-            // Afisam nav-ul de sus
-            nav.classList.remove('nav-hidden');
-            // Ascundem iconita burger
-            burgerIcon.classList.remove('visible');
-            
-            // Inchidem automat meniul burger daca user-ul da scroll sus
-            burgerIcon.classList.remove('open');
-            burgerMenuContainer.classList.remove('open');
+            nav.style.transform = 'translateY(0)';
+            document.querySelector('.burger-menu').style.display = 'none';
         }
-    }
-
-    // Adaugam listener-ul pentru evenimentul 'scroll'
-    window.addEventListener('scroll', handleScroll);
-
-    // --- MODIFICARE (Cerinta #2): Logica Click Burger Menu ---
-    burgerIcon.addEventListener('click', () => {
-        // Animam iconita (devine X)
-        burgerIcon.classList.toggle('open');
-        // Deschidem/inchidem meniul lateral
-        burgerMenuContainer.classList.toggle('open');
     });
-
-    // Bonus: Inchidem meniul daca se da click pe un link (util pt mobile)
-    const burgerLinks = document.querySelectorAll('#burger-menu-container a');
-    burgerLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            burgerIcon.classList.remove('open');
-            burgerMenuContainer.classList.remove('open');
+    
+    // Burger Menu
+    const burgerMenu = document.getElementById('burgerMenu');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    burgerMenu.addEventListener('click', function() {
+        mobileMenu.classList.toggle('active');
+        burgerMenu.classList.toggle('active');
+    });
+    
+    // Close mobile menu when clicking on a link
+    const mobileLinks = mobileMenu.querySelectorAll('a');
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            burgerMenu.classList.remove('active');
         });
     });
-
-
-    // --- 6. Logica Active Section (ACTUALIZATA) ---
-    // Functioneaza la fel, dar acum tinteste ambele seturi de link-uri
+    
+    // Section title animations
+    const sections = document.querySelectorAll('.section');
     
     const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.5
+        threshold: 0.3
     };
-
-    const observer = new IntersectionObserver((entries) => {
+    
+    const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const id = entry.target.id;
-                
-                // Scoatem clasa 'active' de la TOATE link-urile
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                });
-
-                // Adaugam clasa 'active' la link-urile corespondente
-                // (va gasi link-ul si in nav-ul de sus, si in cel burger)
-                const activeLinks = document.querySelectorAll(`nav a[href="#${id}"], #burger-menu-container a[href="#${id}"]`);
-                activeLinks.forEach(link => {
-                    link.classList.add('active');
-                });
+                const sectionTitle = entry.target.querySelector('.section-content h2');
+                if (sectionTitle) {
+                    sectionTitle.style.animation = 'fadeIn 1s ease forwards';
+                }
             }
         });
     }, observerOptions);
-
+    
     sections.forEach(section => {
-        observer.observe(section);
+        if (section.id !== 'home') {
+            observer.observe(section);
+        }
     });
-
 });
