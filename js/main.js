@@ -88,19 +88,24 @@ class PortfolioSite {
     // Activate current section based on scroll position
     activateCurrentSection() {
         const sections = document.querySelectorAll('.section');
-        const scrollPosition = window.pageYOffset + window.innerHeight / 2;
+        const scrollPosition = window.pageYOffset + window.innerHeight / 3;
+
+        let currentSection = null;
 
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionBottom = sectionTop + section.offsetHeight;
 
             if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-                // Deactivate all sections
-                sections.forEach(s => s.classList.remove('active'));
-                // Activate current section
-                section.classList.add('active');
+                currentSection = section;
             }
         });
+
+        // Update active class
+        if (currentSection) {
+            sections.forEach(s => s.classList.remove('active'));
+            currentSection.classList.add('active');
+        }
     }
 
     // Navigation Animations
@@ -110,7 +115,6 @@ class PortfolioSite {
         // Staggered animation for nav items
         navItems.forEach((item, index) => {
             item.style.animationDelay = `${index * 0.1}s`;
-            item.classList.add('fade-in-left');
         });
     }
 }
@@ -119,13 +123,3 @@ class PortfolioSite {
 document.addEventListener('DOMContentLoaded', () => {
     new PortfolioSite();
 });
-
-// Add CSS for fade-in-left animation
-const style = document.createElement('style');
-style.textContent = `
-    .fade-in-left {
-        animation: fadeInLeft 0.8s ease forwards;
-        opacity: 0;
-    }
-`;
-document.head.appendChild(style);
