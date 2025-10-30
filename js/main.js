@@ -1,73 +1,93 @@
-// Asteptam ca tot continutul paginii sa fie incarcat
 document.addEventListener('DOMContentLoaded', () => {
 
     const nav = document.querySelector('nav');
     const progressBar = document.getElementById('scroll-progress-bar');
     const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav a');
+    
+    // MODIFICARE (Cerinta #2): Elemente noi
+    const burgerIcon = document.getElementById('burger-icon');
+    const burgerMenuContainer = document.getElementById('burger-menu-container');
+    
+    // MODIFICARE (Cerinta #2): Selectam link-urile din AMBELE meniuri
+    const navLinks = document.querySelectorAll('nav a, #burger-menu-container a');
 
     // Functie pentru a gestiona tot ce tine de scroll
     function handleScroll() {
-        // --- 4. Logic Progress Bar (Cerinta #4) ---
-        
-        // Inaltimea totala care poate fi derulata
+        // --- 4. Logic Progress Bar (Neschimbat) ---
         const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-        // Cat de mult am derulat de sus
         const scrollTop = window.scrollY;
-        
-        // Calculam procentajul
         const progress = (scrollTop / scrollableHeight) * 100;
-        
-        // Aplicam procentajul la latimea barei
         progressBar.style.width = progress + '%';
 
-
-        // --- 6. Logica Navigatie la Scroll (Cerinta #6) ---
+        // --- MODIFICARE (Cerinta #2): Logica Navigatie la Scroll ---
         
-        // Daca am dat scroll mai mult de 50px de sus...
         if (window.scrollY > 50) {
-            nav.classList.add('nav-scrolled'); // ...adaugam clasa
+            // Ascundem nav-ul de sus
+            nav.classList.add('nav-hidden');
+            // Afisam iconita burger
+            burgerIcon.classList.add('visible');
         } else {
-            nav.classList.remove('nav-scrolled'); // ...o scoatem
+            // Afisam nav-ul de sus
+            nav.classList.remove('nav-hidden');
+            // Ascundem iconita burger
+            burgerIcon.classList.remove('visible');
+            
+            // Inchidem automat meniul burger daca user-ul da scroll sus
+            burgerIcon.classList.remove('open');
+            burgerMenuContainer.classList.remove('open');
         }
     }
 
     // Adaugam listener-ul pentru evenimentul 'scroll'
     window.addEventListener('scroll', handleScroll);
 
+    // --- MODIFICARE (Cerinta #2): Logica Click Burger Menu ---
+    burgerIcon.addEventListener('click', () => {
+        // Animam iconita (devine X)
+        burgerIcon.classList.toggle('open');
+        // Deschidem/inchidem meniul lateral
+        burgerMenuContainer.classList.toggle('open');
+    });
 
-    // --- 6. Logica Active Section "Glow" (Cerinta #6) ---
-    // Vom folosi un IntersectionObserver pentru a detecta
-    // ce sectiune este vizibila pe ecran
+    // Bonus: Inchidem meniul daca se da click pe un link (util pt mobile)
+    const burgerLinks = document.querySelectorAll('#burger-menu-container a');
+    burgerLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            burgerIcon.classList.remove('open');
+            burgerMenuContainer.classList.remove('open');
+        });
+    });
+
+
+    // --- 6. Logica Active Section (ACTUALIZATA) ---
+    // Functioneaza la fel, dar acum tinteste ambele seturi de link-uri
     
     const observerOptions = {
-        root: null, // foloseste viewport-ul
+        root: null,
         rootMargin: '0px',
-        threshold: 0.5 // 50% din sectiune trebuie sa fie vizibila
+        threshold: 0.5
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            // Daca sectiunea intra in viewport
             if (entry.isIntersecting) {
-                const id = entry.target.id; // Luam ID-ul sectiunii (ex: "home")
+                const id = entry.target.id;
                 
-                // Scoatem clasa 'active' de la toate link-urile
+                // Scoatem clasa 'active' de la TOATE link-urile
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                 });
 
-                // Adaugam clasa 'active' doar link-ului care corespunde sectiunii
-                // Folosim querySelector pentru a gasi link-ul dupa atributul href
-                const activeLink = document.querySelector(`nav a[href="#${id}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
+                // Adaugam clasa 'active' la link-urile corespondente
+                // (va gasi link-ul si in nav-ul de sus, si in cel burger)
+                const activeLinks = document.querySelectorAll(`nav a[href="#${id}"], #burger-menu-container a[href="#${id}"]`);
+                activeLinks.forEach(link => {
+                    link.classList.add('active');
+                });
             }
         });
     }, observerOptions);
 
-    // Punem observer-ul sa urmareasca fiecare sectiune
     sections.forEach(section => {
         observer.observe(section);
     });
