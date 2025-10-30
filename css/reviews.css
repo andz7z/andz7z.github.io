@@ -1,9 +1,21 @@
-/* REVIEWS SECTION - MODIFY GRADIENT COLORS HERE */
-.reviews-section {
-    height: 100vh;
-    background: linear-gradient(135deg, #888888 0%, #444444 100%);
+#reviews {
+    background: var(--gradient-main);
+    position: relative;
 }
 
-.reviews-section .section-title {
-    color: #ffffff; /* MODIFY TEXT COLOR */
+#reviews::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(207, 207, 207, 0.05) 0%, transparent 70%);
+    z-index: 0;
+}
+
+#reviews .section-content {
+    position: relative;
+    z-index: 1;
 }
