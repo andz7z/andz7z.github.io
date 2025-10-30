@@ -1,9 +1,9 @@
-/* Reviews Section */
-#reviews {
-    background: #909090;
-    color: #fff;
+/* REVIEWS SECTION - MODIFY GRADIENT COLORS HERE */
+.reviews-section {
+    height: 100vh;
+    background: linear-gradient(135deg, #888888 0%, #444444 100%);
 }
 
-#reviews .section-title {
-    color: #fff;
+.reviews-section .section-title {
+    color: #ffffff; /* MODIFY TEXT COLOR */
 }
