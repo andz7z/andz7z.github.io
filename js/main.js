@@ -1,92 +1,83 @@
-// Main JavaScript File
+// Main JavaScript file - Navigation and progress bar functionality
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Elements
-    const progressBar = document.getElementById('progressBar');
-    const navToggle = document.getElementById('navToggle');
-    const burgerMenu = document.getElementById('burgerMenu');
-    const navbar = document.getElementById('navbar');
-    const navMenu = document.getElementById('navMenu');
-    
-    // Variables
-    let lastScrollY = window.scrollY;
-    let ticking = false;
-    
     // Progress Bar
+    const progressBar = document.querySelector('.progress-bar');
+    
+    // Navigation Elements
+    const navbar = document.querySelector('.navbar');
+    const burgerMenu = document.querySelector('.burger-menu');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav a');
+    
+    // Progress Bar Update
     function updateProgressBar() {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight - windowHeight;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const progress = (scrollTop / documentHeight) * 100;
+        
         progressBar.style.width = progress + '%';
     }
     
-    // Navigation Scroll Effect
-    function handleNavScroll() {
-        const currentScrollY = window.scrollY;
+    // Navbar Scroll Behavior
+    function handleScroll() {
+        const scrolled = window.pageYOffset > 100;
         
-        if (currentScrollY > 100) {
-            // Hide main navigation, show burger toggle
-            navbar.classList.add('hidden');
-            navToggle.style.display = 'flex';
+        if (scrolled) {
+            navbar.classList.add('scrolled');
         } else {
-            // Show main navigation, hide burger toggle
-            navbar.classList.remove('hidden');
-            navToggle.style.display = 'none';
-            burgerMenu.classList.remove('active');
-            navToggle.classList.remove('active');
+            navbar.classList.remove('scrolled');
         }
         
-        lastScrollY = currentScrollY;
-        ticking = false;
+        updateProgressBar();
     }
     
-    // Request Animation Frame for scroll
-    function onScroll() {
-        if (!ticking) {
-            requestAnimationFrame(function() {
-                updateProgressBar();
-                handleNavScroll();
-            });
-            ticking = true;
+    // Burger Menu Toggle
+    function toggleMobileMenu() {
+        burgerMenu.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        
+        // Animate burger lines
+        const lines = document.querySelectorAll('.burger-line');
+        if (burgerMenu.classList.contains('active')) {
+            lines[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            lines[1].style.opacity = '0';
+            lines[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+        } else {
+            lines[0].style.transform = 'none';
+            lines[1].style.opacity = '1';
+            lines[2].style.transform = 'none';
         }
     }
     
-    // Toggle Burger Menu
-    function toggleBurgerMenu() {
-        burgerMenu.classList.toggle('active');
-        navToggle.classList.toggle('active');
-    }
-    
-    // Close burger menu when clicking on a link
-    function closeBurgerMenu() {
+    // Close mobile menu when clicking on links
+    function closeMobileMenu() {
         burgerMenu.classList.remove('active');
-        navToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        
+        const lines = document.querySelectorAll('.burger-line');
+        lines[0].style.transform = 'none';
+        lines[1].style.opacity = '1';
+        lines[2].style.transform = 'none';
     }
     
     // Event Listeners
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', handleScroll);
+    burgerMenu.addEventListener('click', toggleMobileMenu);
     
-    navToggle.addEventListener('click', toggleBurgerMenu);
-    
-    // Close menu when clicking on burger links
-    const burgerLinks = document.querySelectorAll('.burger-link');
-    burgerLinks.forEach(link => {
-        link.addEventListener('click', closeBurgerMenu);
+    // Close mobile menu when clicking on navigation links
+    navLinks.forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
     });
     
-    // Close menu when clicking outside
+    // Close mobile menu when clicking outside
     document.addEventListener('click', function(event) {
-        if (!event.target.closest('.burger-menu') && 
-            !event.target.closest('.nav-toggle') &&
-            burgerMenu.classList.contains('active')) {
-            closeBurgerMenu();
+        if (!navbar.contains(event.target) && mobileMenu.classList.contains('active')) {
+            closeMobileMenu();
         }
     });
     
-    // Initialize
+    // Initialize progress bar
     updateProgressBar();
-    handleNavScroll();
-    
-    // Hide burger toggle initially
-    navToggle.style.display = 'none';
 });
