@@ -1,87 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Monochrome Portfolio</title>
-
-    <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
-
+    <title>Modern Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
-
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
 </head>
 <body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
 
-    <div id="scroll-progress-bar"></div>
-
-    <nav id="main-nav">
-        <ul class="nav-links">
-            <li><a href="#home"><span class="icon">⌂</span> Home</a></li>
-            <li><a href="#services"><span class="icon">✧</span> Services</a></li>
-            <li><a href="#portfolio"><span class="icon">⎚</span> Portfolio</a></li>
-            <li><a href="#reviews"><span class="icon">♡</span> Reviews</a></li>
-            <li><a href="#contact"><span class="icon">✉</span> Contact</a></li>
-        </ul>
-        
-        <div id="burger-menu-btn">
-            <span></span>
-            <span></span>
-            <span></span>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <a href="#home">LOGO</a>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <div class="nav-item">
+                    <a href="#home" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                        </svg>
+                        <span>Home</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#services" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M12 2l-5.5 9h11z"/>
+                            <circle cx="17.5" cy="17.5" r="4.5"/>
+                            <path d="M3 13.5h8v8H3z"/>
+                        </svg>
+                        <span>Services</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#portfolio" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+                        </svg>
+                        <span>Portfolio</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#reviews" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                        <span>Reviews</span>
+                    </a>
+                </div>
+                <div class="nav-item">
+                    <a href="#contact" class="nav-link">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                        <span>Contact</span>
+                    </a>
+                </div>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
         </div>
     </nav>
 
-    <div id="mobile-menu">
-        <ul class="mobile-nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Portfolio</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </div>
-
-
-    <main>
-
-        <section id="home">
-            <div class="glass-card">
-                </div>
-        </section>
-
-        <div class="gradient-wrapper">
-
-            <section id="services">
-                <h2>Services</h2>
-            </section>
-
-            <section id="portfolio">
-                <h2>Portfolio</h2>
-            </section>
-
-            <section id="reviews">
-                <h2>Reviews</h2>
-            </section>
-
-            <section id="contact">
-                <h2>Contact</h2>
-            </section>
-            
+    <!-- Sections -->
+    <section id="home" class="section">
+        <div class="home-content">
+            <div class="glass-card" id="homeCard"></div>
         </div>
+    </section>
 
-    </main>
+    <section id="services" class="section">
+        <h2 class="section-title">Services</h2>
+    </section>
+
+    <section id="portfolio" class="section">
+        <h2 class="section-title">Portfolio</h2>
+    </section>
+
+    <section id="reviews" class="section">
+        <h2 class="section-title">Reviews</h2>
+    </section>
+
+    <section id="contact" class="section">
+        <h2 class="section-title">Contact</h2>
+    </section>
 
     <script src="js/main.js"></script>
-
     <script src="js/home.js"></script>
     <script src="js/services.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/contact.js"></script>
-
 </body>
 </html>
