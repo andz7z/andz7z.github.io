@@ -69,32 +69,45 @@ body {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
     z-index: 900;
     padding: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
 .nav-items {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    gap: 3rem;
+    background: var(--glass-effect);
+    backdrop-filter: var(--backdrop-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    box-shadow: var(--glass-shadow);
 }
 
 .nav-item {
     display: flex;
     align-items: center;
+    justify-content: center;
     text-decoration: none;
     color: var(--color-white);
     font-family: 'Noverich', sans-serif;
     font-size: 1.1rem;
     transition: var(--transition-medium);
     position: relative;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     overflow: hidden;
 }
 
 .nav-text {
     transition: var(--transition-medium);
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
+    position: absolute;
 }
 
 .nav-icon {
@@ -102,20 +115,24 @@ body {
     height: 24px;
     fill: var(--color-white);
     opacity: 0;
-    transform: translateX(-10px);
+    transform: scale(0.5);
     transition: var(--transition-medium);
     position: absolute;
-    left: 0;
+}
+
+.nav-item:hover {
+    background: var(--glass-effect);
+    transform: translateY(-2px);
 }
 
 .nav-item:hover .nav-text {
     opacity: 0;
-    transform: translateX(10px);
+    transform: scale(0.5);
 }
 
 .nav-item:hover .nav-icon {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
 }
 
 /* Burger Menu */
@@ -216,14 +233,11 @@ body {
 /* Sections */
 .section {
     min-height: 100vh;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-}
-
-.section.active {
-    display: flex;
+    scroll-margin-top: 0;
 }
 
 .section-content {
@@ -275,16 +289,45 @@ body {
     .section h1 {
         font-size: 2.5rem;
     }
+    
+    .nav-items {
+        gap: 1.5rem;
+        padding: 0.8rem 1.5rem;
+    }
+    
+    .nav-item {
+        width: 40px;
+        height: 40px;
+        font-size: 0.9rem;
+    }
 }
 
 /* Scroll Behavior */
 .scrolled .main-nav .nav-items {
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-20px);
+    transform: translateY(-20px);
     transition: var(--transition-medium);
 }
 
 .scrolled .burger-menu {
     display: block;
 }
+
+/* Ensure sections are properly spaced and visible */
+main {
+    position: relative;
+    z-index: 1;
+}
+
+/* Navigation animations */
+.nav-item {
+    animation: fadeInLeft 0.8s ease forwards;
+    opacity: 0;
+}
+
+.nav-item:nth-child(1) { animation-delay: 0.1s; }
+.nav-item:nth-child(2) { animation-delay: 0.2s; }
+.nav-item:nth-child(3) { animation-delay: 0.3s; }
+.nav-item:nth-child(4) { animation-delay: 0.4s; }
+.nav-item:nth-child(5) { animation-delay: 0.5s; }
