@@ -1,206 +1,234 @@
-/* FONT IMPORTS - MODIFY FONT PATHS HERE */
-@font-face {
-    font-family: 'Noverich';
-    src: url('../assets/fonts/noverich.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+:root{
+  /* palette - modifică ușor aici */
+  --bg-start: #cfcfcf; /* gradient start for sections */
+  --bg-end: #000000;   /* gradient end */
+  --mono-1: #ffffff;
+  --mono-2: #cfcfcf;
+  --mono-3: #8f8f8f;
+  --text: #f7f7f7;
+  --glass-alpha: 0.12;
+
+  /* progress bar height */
+  --progress-height: 6px;
+
+  /* timings */
+  --fast: 180ms;
+  --med: 360ms;
+  --slow: 700ms;
 }
 
-@font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/roboto.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+/* reset & base */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family: RobotoCustom, system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+  background: linear-gradient(180deg, var(--bg-end) 0%, var(--bg-end) 100%); /* overall dark base */
+  color: var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
 }
 
-/* RESET & BASE STYLES */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* progress bar */
+#scroll-progress{
+  position:fixed;
+  left:0;
+  top:0;
+  height:var(--progress-height);
+  width:0%;
+  z-index:9999;
+  background: linear-gradient(90deg,#000000,#ffffff); /* black to white */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  transition: width 120ms linear;
 }
 
-html {
-    scroll-behavior: smooth;
+/* left nav */
+#left-sections{
+  position:fixed;
+  left:18px;
+  top:18px;
+  z-index:999;
+  display:flex;
+  align-items:center;
+  pointer-events:auto;
+  transition: transform var(--med) ease, opacity var(--med) ease;
+  will-change: transform, opacity;
+}
+#left-sections.hidden{
+  transform: translateY(-12px) scale(0.98);
+  opacity:0;
+  pointer-events:none;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
+#left-sections ul{
+  list-style:none;
+  margin:0;
+  padding:6px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
 
-/* PROGRESS BAR - MODIFY COLORS HERE */
-.progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 0%;
-    height: 4px;
-    background: linear-gradient(90deg, #000000, #333333, #666666, #999999, #ffffff);
-    z-index: 1000;
-    transition: width 0.1s ease;
+/* each label + icon container */
+.section-btn{
+  background: rgba(255,255,255, var(--glass-alpha));
+  padding:8px 10px;
+  border-radius:12px;
+  backdrop-filter: blur(6px) saturate(120%);
+  border: 1px solid rgba(255,255,255,0.06);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  min-width:86px;
+  cursor:pointer;
+  color:var(--mono-1);
+  overflow:visible;
+  position:relative;
+  transition: transform var(--fast) ease, box-shadow var(--fast) ease;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.45);
+}
+.section-btn:active{ transform: translateY(1px); }
+
+/* label and icon styling - icon initially hidden */
+.section-btn .label{
+  display:inline-block;
+  font-weight:600;
+  font-size:13px;
+  line-height:1;
+  transform-origin:center;
+  transition: opacity var(--med) ease, transform var(--med) ease;
+}
+.section-btn .icon{
+  width:20px;
+  height:20px;
+  display:inline-block;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%,-50%) scale(0.85);
+  opacity:0;
+  pointer-events:none;
+  transition: opacity var(--med) ease, transform var(--med) ease;
+  color:var(--mono-1);
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.6));
 }
 
-/* NAVIGATION STYLES */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem 2rem;
-    z-index: 999;
-    transition: all 0.3s ease;
+/* On hover: hide label, show icon with nice IN animation */
+.section-btn:hover .label{
+  opacity:0;
+  transform: translateY(-6px) scale(0.98);
+}
+.section-btn:hover .icon{
+  opacity:1;
+  transform: translate(-50%,-50%) scale(1);
 }
 
-.nav-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+/* burger (hidden by default) */
+#burger{
+  position:fixed;
+  left:18px;
+  top:18px;
+  z-index:1000;
+  width:44px;
+  height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  gap:4px;
+  padding:6px;
+  display:none; /* shown by JS on scroll */
+  cursor:pointer;
+}
+#burger span{
+  display:block;
+  width:18px;
+  height:2px;
+  background:var(--mono-1);
+  margin:3px 0;
+  border-radius:1px;
+  transition: transform var(--fast) ease, opacity var(--fast) ease;
 }
 
-/* LOGO STYLES - MODIFY SIZE HERE */
-.nav-logo img {
-    height: 40px; /* MODIFY LOGO HEIGHT */
-    width: auto;
-    transition: all 0.3s ease;
+/* burger menu popup (minimalist) */
+#burger-menu{
+  position:fixed;
+  left:18px;
+  top:70px;
+  z-index:1000;
+  min-width:180px;
+  padding:10px;
+  border-radius:12px;
+  display:none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.45));
+  border:1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+}
+#burger-menu ul{ list-style:none; margin:0; padding:0; }
+#burger-menu li{
+  padding:8px 10px;
+  font-weight:600;
+  cursor:pointer;
+  border-radius:8px;
+  transition: background var(--fast);
+}
+#burger-menu li:hover{
+  background: rgba(255,255,255,0.03);
 }
 
-/* DESKTOP MENU */
-.nav-menu {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
+/* Main sections base */
+main{
+  margin:0;
+  padding:0;
+}
+.page-section{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: background 1s ease;
+  position:relative;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
 }
 
-.nav-link {
-    text-decoration: none;
-    color: #ffffff;
-    font-family: 'Noverich', sans-serif;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    position: relative;
+/* inner wrapper for content to control padding */
+.section-inner{
+  width:100%;
+  max-width:1000px;
+  padding:60px 28px;
 }
 
-/* HOVER EFFECTS - MODIFY COLORS HERE */
-.nav-link:hover {
-    color: #cccccc;
+/* section titles style (big & editable) */
+.section-title{
+  font-family: Noverich, RobotoCustom, sans-serif;
+  font-size: clamp(28px, 6vw, 64px);
+  margin:0;
+  letter-spacing: -0.02em;
+  color:var(--mono-1);
+  text-shadow: 0 6px 30px rgba(0,0,0,0.6);
 }
 
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #ffffff;
-    transition: width 0.3s ease;
+/* Fade-in for left labels on initial load */
+#left-sections .section-btn{
+  opacity:0;
+  transform: translateY(6px);
 }
-
-.nav-link:hover::after {
-    width: 100%;
+#left-sections.entrance .section-btn{
+  opacity:1;
+  transform: translateY(0);
 }
+#left-sections.entrance .section-btn:nth-child(1){ transition-delay:120ms; }
+#left-sections.entrance .section-btn:nth-child(2){ transition-delay:160ms; }
+#left-sections.entrance .section-btn:nth-child(3){ transition-delay:200ms; }
+#left-sections.entrance .section-btn:nth-child(4){ transition-delay:240ms; }
+#left-sections.entrance .section-btn:nth-child(5){ transition-delay:280ms; }
 
-/* BURGER MENU - MODIFY SIZE/COLOR HERE */
-.burger-menu {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    gap: 4px;
-}
-
-.burger-line {
-    width: 25px;
-    height: 3px;
-    background: #ffffff;
-    transition: all 0.3s ease;
-}
-
-/* MOBILE MENU - MODIFY BACKGROUND/BLUR HERE */
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 300px;
-    height: 100vh;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    z-index: 998;
-    transition: right 0.3s ease;
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.mobile-menu.active {
-    right: 0;
-}
-
-.mobile-nav {
-    list-style: none;
-    padding: 6rem 2rem;
-}
-
-.mobile-nav li {
-    margin-bottom: 2rem;
-}
-
-.mobile-nav a {
-    text-decoration: none;
-    color: #ffffff;
-    font-family: 'Noverich', sans-serif;
-    font-size: 1.2rem;
-    transition: color 0.3s ease;
-}
-
-.mobile-nav a:hover {
-    color: #cccccc;
-}
-
-/* SECTION BASE STYLES */
-.section {
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.section-title {
-    font-family: 'Noverich', sans-serif;
-    font-size: 4rem;
-    color: #ffffff;
-    text-align: center;
-}
-
-/* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-    .nav-menu {
-        display: none;
-    }
-    
-    .burger-menu {
-        display: flex;
-    }
-    
-    .section-title {
-        font-size: 3rem;
-    }
-    
-    .navbar {
-        padding: 1rem;
-    }
-}
-
-/* SCROLL BEHAVIOR FOR NAVBAR */
-.navbar.scrolled {
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    padding: 0.5rem 2rem;
-}
-
-.navbar.scrolled .nav-logo img {
-    height: 30px; /* Smaller logo when scrolled */
+/* small responsive tweaks */
+@media (max-width:900px){
+  #left-sections { display:none; }
+  #burger { display:flex; }
 }
