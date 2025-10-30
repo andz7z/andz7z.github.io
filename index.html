@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site-ul Meu</title>
+    <title>Proiectul Meu Web</title>
 
-    <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
+    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
@@ -13,95 +13,75 @@
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+
 </head>
 <body>
 
-    <div class="progress-bar-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <div id="scroll-progress-bar"></div>
 
-<nav class="main-nav" id="mainNav">
+    <nav>
         <ul>
-            <li>
-                <a href="#about-section"> 
-                    <span class="nav-text">About</span>
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="#services">
-                    <span class="nav-text">Services</span>
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="#portfolio">
-                    <span class="nav-text">Portfolio</span>
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="#reviews">
-                    <span class="nav-text">Reviews</span>
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="#contact">
-                    <span class="nav-text">Contact</span>
-                    <span class="nav-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    </span>
-                </a>
-            </li>
+            <li><a href="#home" class="active">
+                <span class="nav-text">Home</span>
+                <span class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                </span>
+            </a></li>
+            <li><a href="#services">
+                <span class="nav-text">Services</span>
+                <span class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.14 12.17c.52-2.32-.3-4.66-2.14-6.5C15.17 3.84 12.63 3 10 3c-.1 0-.19.01-.28.02-.1-.01-.19-.02-.28-.02C6.9 3 4.36 3.84 2.53 5.67c-1.83 1.84-2.65 4.18-2.14 6.5.4 1.79 1.46 3.32 2.92 4.32C4.07 17.22 5 17.9 5 18.75V21h4v-2.25c0-.85.93-1.53 1.7-1.97C11.39 16.33 12 15.68 12 15c0-.68-.61-1.33-1.3-1.77-.77-.5-1.7-1.2-1.7-1.98 0-.78.93-1.47 1.7-1.97C11.39 8.83 12 8.18 12 7.5c0-.68-.61-1.33-1.3-1.77C9.93 5.28 9 4.6 9 3.75V3h4v.75c0 .85.93 1.53 1.7 1.97.77.5 1.7 1.2 1.7 1.98 0 .78-.93 1.47-1.7 1.97-.69.44-1.3.99-1.3 1.77 0 .68.61 1.33 1.3 1.77.77.5 1.7 1.2 1.7 1.98 0 .78-.93 1.47-1.7 1.97-.69.44-1.3.99-1.3 1.77 0 .68.61 1.33 1.3 1.77.69.44 1.3.99 1.3 1.77V21h4v-2.25c0-.85.93-1.53 1.7-1.97 1.46-1 2.52-2.53 2.92-4.32z"/></svg>
+                </span>
+            </a></li>
+            <li><a href="#portfolio">
+                <span class="nav-text">Portfolio</span>
+                <span class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 4v12H8V4h12m0-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6z"/></svg>
+                </span>
+            </a></li>
+            <li><a href="#reviews">
+                <span class="nav-text">Reviews</span>
+                <span class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-6.06 9.68L12 15l-1.94-3.32L6 10l4.06 1.68L12 16l1.94-3.32L18 10l-4.06 1.68z"/></svg>
+                </span>
+            </a></li>
+            <li><a href="#contact">
+                <span class="nav-text">Contact</span>
+                <span class="nav-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                </span>
+            </a></li>
         </ul>
     </nav>
 
-    <button class="burger-menu-btn" id="burgerBtn" aria-label="Open navigation">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+    <section id="home">
+        <div class="glassy-card">
+            <h2>Card-ul meu Glassy</h2>
+            <p>Acesta este conținutul card-ului.</p>
+        </div>
+    </section>
 
-    <div class="burger-nav" id="burgerNav">
-        <ul>
-            <li><a href="#about-section" class="burger-link">About</a></li>
-            <li><a href="#services" class="burger-link">Services</a></li>
-            <li><a href="#portfolio" class="burger-link">Portfolio</a></li>
-            <li><a href="#reviews" class="burger-link">Reviews</a></li>
-            <li><a href="#contact" class="burger-link">Contact</a></li>
-        </ul>
-    </div>
+    <section id="services">
+        <h2>Services</h2>
+    </section>
 
-    <section id="home" class="fullscreen-section">
-        
-     <div class="home-glass-card" id="about-section">
-                <h1>About</h1> </div>
-        </section>
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+    </section>
 
-    <div class="content-wrapper">
-        <section id="services" class="content-section">
-            <h2>Services</h2>
-        </section>
-        <section id="portfolio" class="content-section">
-            <h2>Portfolio</h2>
-        </section>
-        <section id="reviews" class="content-section">
-            <h2>Reviews</h2>
-        </section>
-        <section id="contact" class="content-section">
-            <h2>Contact</h2>
-        </section>
-    </div> 
+    <section id="reviews">
+        <h2>Reviews</h2>
+    </section>
 
-    <script src="js/main.js"></script>
-    </body>
+    <section id="contact">
+        <h2>Contact</h2>
+    </section>
+
+    <script src="js/main.js" defer></script>
+    <script src="js/home.js" defer></script>
+    <script src="js/services.js" defer></script>
+    <script src="js/portfolio.js" defer></script>
+    <script src="js/reviews.js" defer></script>
+    <script src="js/contact.js" defer></script>
+</body>
 </html>
