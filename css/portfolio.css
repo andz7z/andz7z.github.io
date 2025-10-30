@@ -1,4 +1,4 @@
-.portfolio-section {
-    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #404040 100%);
-    position: relative;
+#portfolio {
+    height: 100vh;
+    background: linear-gradient(to bottom, #ffffff, #000000);
 }
