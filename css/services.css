@@ -1,9 +1,9 @@
-/* Services Section */
-#services {
-    background: #f0f0f0;
-    color: #000;
+/* SERVICES SECTION - MODIFY GRADIENT COLORS HERE */
+.services-section {
+    height: 100vh;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
 }
 
-#services .section-title {
-    color: #333;
+.services-section .section-title {
+    color: #333333; /* MODIFY TEXT COLOR */
 }
