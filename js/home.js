@@ -1,14 +1,23 @@
-// Home section specific JavaScript
-document.addEventListener('DOMContentLoaded', function() {
-    // Add any home section specific functionality here
-    console.log('Home section loaded');
-    
-    // Example: Parallax effect for home section
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const homeSection = document.querySelector('.home-section');
-        const parallaxSpeed = 0.5;
-        
-        homeSection.style.backgroundPositionY = -(scrolled * parallaxSpeed) + 'px';
-    });
+// Home Section Specific JavaScript
+class HomeSection {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupHomeAnimations();
+    }
+
+    setupHomeAnimations() {
+        // Additional home-specific animations can be added here
+        console.log('Home section initialized');
+    }
+}
+
+// Initialize home section when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const homeSection = document.getElementById('home');
+    if (homeSection && homeSection.classList.contains('active')) {
+        new HomeSection();
+    }
 });
