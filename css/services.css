@@ -1,10 +1,9 @@
-/*
- * FILE: css/services.css
- * PURPOSE: Styles for the Services section content.
- * (Background is controlled by .gradient-wrapper in style.css)
- */
+/* Services Section */
+#services {
+    background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%);
+    color: #000;
+}
 
-#services h2 {
-    /* --- Title Color Customization --- */
-    color: var(--color-black); /* Dark text on light background */
+#services .section-title {
+    color: #333;
 }
