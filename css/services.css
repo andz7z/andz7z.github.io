@@ -1,5 +1,6 @@
-/* css/reviews.css */
-#reviews {
-    /* Se apropie de gri închis */
-    background: linear-gradient(180deg, var(--color-mid-grey-2), var(--color-dark-grey));
+/* css/services.css */
+#services {
+    /* Începe de la griul deschis */
+    background: linear-gradient(180deg, var(--color-light-grey), var(--color-mid-grey-1));
+    color: var(--color-black); /* Textul trebuie să fie închis pe fundal deschis */
 }
