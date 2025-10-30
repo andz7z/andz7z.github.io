@@ -65,3 +65,81 @@
         opacity: 1;
     }
 }
+/* ---------------------------------- */
+/* 3. FUNDAL HOME                     */
+/* ---------------------------------- */
+#home {
+    background-image: url('../assets/photos/andz.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    /* MODIFICARE (Cerinta P.S.): Animatie Fade-In (prima) */
+    opacity: 0;
+    /* Incepe imediat (0.5s delay) si dureaza 1.5s */
+    animation: fadeInBg 1.5s ease 0.5s forwards;
+}
+
+/* ---------------------------------- */
+/* 10. CARD GLASSY (ACTUALIZAT)       */
+/* ---------------------------------- */
+.glassy-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px var(--glass-shadow);
+    border-radius: 16px;
+    color: var(--color-white);
+    padding: 30px;
+    
+    position: absolute;
+    width: 50%;
+    height: 450px;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* MODIFICARE (Cerinta #1): Animatie Fade-In (a treia) */
+    opacity: 0;
+    /* Incepe dupa Nav (care incepe la 2s) */
+    animation: fadeInCard 1s ease 2.5s forwards;
+}
+
+/* MODIFICARE (Cerinta #1): Animam textul din card (a patra) */
+.glassy-card > * { /* Selecteaza toti copiii directi (h2, p) */
+    opacity: 0;
+    animation: fadeInCardText 1s ease 3s forwards;
+}
+
+.glassy-card h2 {
+    font-family: var(--font-secondary);
+    font-size: 2.5rem;
+}
+
+/* ---------------------------------- */
+/* 8. ANIMATII KEYFRAMES (ACTUALIZAT) */
+/* ---------------------------------- */
+
+@keyframes fadeInBg {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Keyframes noi pentru card si text */
+@keyframes fadeInCard {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%); /* Vine usor de sus */
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%); /* Se aseaza la locul lui */
+    }
+}
+
+@keyframes fadeInCardText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
