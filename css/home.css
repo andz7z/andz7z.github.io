@@ -1,58 +1,66 @@
-/* ===== HOME SECTION ===== */
-.home-section {
-    height: 300vh;
-    background: url('../assets/photos/andz.jpg') no-repeat center center;
+/*
+ * FILE: css/home.css
+ * PURPOSE: Styles for the Home section.
+ */
+
+#home {
+    /* --- Background Image Customization --- */
+    background-image: url('../assets/photos/andz.jpg');
     background-size: cover;
-    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* ------------------------------------ */
+
+    height: 300vh; /* As requested */
+    
+    /* Align card to the lower part of the section */
+    justify-content: center;
+    align-items: flex-end;
 }
 
-/* Glass Card - Positioned in lower part of home section */
 .glass-card {
-    /* Position: Change these values to adjust card placement */
-    position: absolute;
-    bottom: 10%;
-    left: 10%;
+    /* --- Glass Card Customization --- */
+    /* Edit these variables to change the card's appearance */
     
-    /* Size: Change these values to adjust card dimensions */
-    width: 80%;
-    height: 80%;
-    
-    /* Glass effect styling */
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    
-    /* Blur intensity: Change this value to adjust blur effect */
-    -webkit-backdrop-filter: blur(10px);
-    
-    /* Metallic/chrome effect */
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    
-    /* Animation */
-    animation: float 6s ease-in-out infinite;
+    --card-width: 60vw;
+    --card-height-percentage: 80%; /* 80% of section's 300vh height */
+    --card-blur: 15px;
+    --card-bg-color: rgba(0, 0, 0, 0.15); /* Darker, futuristic glass */
+    --card-border: 1px solid rgba(255, 255, 255, 0.1);
+    --card-radius: 15px;
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+
+    /* Edit this to change the card's position from the bottom */
+    --card-bottom-position: 5%; /* 5% margin from the bottom of the section */
+    /* ---------------------------------- */
+
+    width: var(--card-width);
+    height: var(--card-height-percentage);
+    margin-bottom: var(--card-bottom-position);
+
+    background: var(--card-bg-color);
+    backdrop-filter: blur(var(--card-blur));
+    -webkit-backdrop-filter: blur(var(--card-blur));
+    border: var(--card-border);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
 }
 
-/* Floating animation for glass card */
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0) rotate(0.5deg);
-    }
-    50% {
-        transform: translateY(-10px) rotate(-0.5deg);
+
+/* --- Responsiveness --- */
+
+@media (max-width: 1024px) {
+    .glass-card {
+        --card-width: 75vw;
     }
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .glass-card {
-        width: 90%;
-        left: 5%;
-        height: 70%;
+        /* Adjust card for mobile */
+        --card-width: 90vw;
+        --card-height-percentage: 70%;
+        --card-bottom-position: 15%; /* More space from bottom */
+        --card-blur: 10px; /* Lighter blur for performance */
     }
 }
