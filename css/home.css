@@ -1,5 +1,5 @@
 #home {
-    height: 300px;
+    height: 300vh;
     background: url('../assets/photos/andz.jpg') no-repeat center center;
     background-size: cover;
     position: relative;
