@@ -1,20 +1,27 @@
+/* ---------------------------------- */
+/* 3. Background Sectiunea Home */
+/* ---------------------------------- */
+
 #home {
-    background: url('../assets/photos/andz.jpg') center/cover no-repeat;
-    position: relative;
+    background-image: url('../assets/photos/andz.jpg');
+    background-size: cover; /* Incadreaza imaginea fara zoom excesiv (acopera tot) */
+    background-position: center center; /* Centreaza imaginea */
+    background-repeat: no-repeat;
 }
 
+/* Un mic overlay intunecat peste imaginea de home pentru a face textul (daca adaugi) mai vizibil */
 #home::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3); /* Overlay negru 30% */
 }
 
-#home .section-content {
-    position: relative;
-    z-index: 1;
+#home h1 {
+    color: var(--color-white);
+    font-size: 5rem;
+    z-index: 1; /* Titlul sa fie peste overlay */
 }
