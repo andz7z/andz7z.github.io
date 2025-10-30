@@ -64,3 +64,319 @@
     margin-top: 20px;
     color: var(--color-gray);
 }
+/* About Me Section Styles */
+.about-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
+}
+
+.about-container.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 3D Card */
+.card-3d-container {
+    flex: 1;
+    min-width: 300px;
+    perspective: 1500px;
+    height: 400px;
+}
+
+.card-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.card-3d:hover {
+    transform: rotateY(15deg) rotateX(10deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.card-front {
+    background: linear-gradient(135deg, #2d2d42 0%, #1a1a2e 100%);
+    color: white;
+}
+
+.card-back {
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d2d42 100%);
+    color: white;
+    transform: rotateY(180deg);
+    text-align: center;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--color-accent);
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.name {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+
+.age {
+    font-size: 1.2rem;
+    color: var(--color-gray);
+}
+
+.card-back p {
+    margin-top: 15px;
+    line-height: 1.6;
+}
+
+/* About Description */
+.about-description {
+    flex: 2;
+    min-width: 300px;
+    padding: 20px;
+}
+
+.about-description h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--color-accent);
+    position: relative;
+    display: inline-block;
+}
+
+.about-description h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 50%;
+    height: 2px;
+    background: var(--color-accent);
+}
+
+.about-description p {
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.highlight {
+    color: var(--color-accent);
+    font-weight: 600;
+}
+
+/* Skills Section */
+.skills-section {
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
+}
+
+.skills-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-accent), transparent);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.skill-item {
+    background: rgba(30, 30, 40, 0.7);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.skill-item h4 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--color-light);
+}
+
+.skill-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-accent), #8a84ff);
+    border-radius: 5px;
+    width: 0;
+    transition: width 1.5s ease-in-out;
+}
+
+.skill-percent {
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+/* Timeline Section */
+.timeline-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s ease;
+}
+
+.timeline-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--color-accent), transparent);
+}
+
+.timeline-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.timeline-item:nth-child(odd) {
+    flex-direction: row;
+}
+
+.timeline-item:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.timeline-date {
+    flex: 1;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    padding: 10px 20px;
+    background: rgba(108, 99, 255, 0.1);
+    border-radius: 25px;
+    border: 1px solid rgba(108, 99, 255, 0.3);
+}
+
+.timeline-content {
+    flex: 2;
+    background: rgba(30, 30, 40, 0.7);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 0 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-left: 3px solid var(--color-accent);
+}
+
+.timeline-content h4 {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: var(--color-light);
+}
+
+.timeline-content p {
+    line-height: 1.6;
+    color: var(--color-gray);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-container {
+        flex-direction: column;
+    }
+    
+    .card-3d-container {
+        height: 350px;
+    }
+    
+    .timeline::before {
+        left: 30px;
+    }
+    
+    .timeline-item {
+        flex-direction: row !important;
+        align-items: flex-start;
+    }
+    
+    .timeline-date {
+        flex: 0 0 100px;
+        margin-right: 20px;
+    }
+    
+    .timeline-content {
+        margin: 0;
+    }
+}
