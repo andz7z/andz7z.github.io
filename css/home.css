@@ -1,66 +1,67 @@
-/*
- * FILE: css/home.css
- * PURPOSE: Styles for the Home section.
- */
-
+/* Home Section */
 #home {
-    /* --- Background Image Customization --- */
-    background-image: url('../assets/photos/andz.jpg');
+    min-height: 300vh;
+    background: url('../assets/photos/andz.jpg') no-repeat center center;
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    /* ------------------------------------ */
+    background-attachment: fixed;
+    position: relative;
+}
 
-    height: 300vh; /* As requested */
-    
-    /* Align card to the lower part of the section */
-    justify-content: center;
+#home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.home-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
     align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10vh;
 }
 
+/* Glass Card - MODIFICA AICI PENTRU POZITIONARE/DIMENSIUNE */
 .glass-card {
-    /* --- Glass Card Customization --- */
-    /* Edit these variables to change the card's appearance */
-    
-    --card-width: 60vw;
-    --card-height-percentage: 80%; /* 80% of section's 300vh height */
-    --card-blur: 15px;
-    --card-bg-color: rgba(0, 0, 0, 0.15); /* Darker, futuristic glass */
-    --card-border: 1px solid rgba(255, 255, 255, 0.1);
-    --card-radius: 15px;
-    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-
-    /* Edit this to change the card's position from the bottom */
-    --card-bottom-position: 5%; /* 5% margin from the bottom of the section */
-    /* ---------------------------------- */
-
-    width: var(--card-width);
-    height: var(--card-height-percentage);
-    margin-bottom: var(--card-bottom-position);
-
-    background: var(--card-bg-color);
-    backdrop-filter: blur(var(--card-blur));
-    -webkit-backdrop-filter: blur(var(--card-blur));
-    border: var(--card-border);
-    border-radius: var(--card-radius);
-    box-shadow: var(--card-shadow);
+    width: 80%; /* Schimba aceasta valoare pentru latime */
+    height: 80vh; /* Schimba aceasta valoare pentru inaltime */
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-
-/* --- Responsiveness --- */
-
-@media (max-width: 1024px) {
-    .glass-card {
-        --card-width: 75vw;
-    }
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transition: left 0.5s ease;
 }
 
-@media (max-width: 768px) {
-    .glass-card {
-        /* Adjust card for mobile */
-        --card-width: 90vw;
-        --card-height-percentage: 70%;
-        --card-bottom-position: 15%; /* More space from bottom */
-        --card-blur: 10px; /* Lighter blur for performance */
-    }
+.glass-card:hover::before {
+    left: 100%;
+}
+
+.glass-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
