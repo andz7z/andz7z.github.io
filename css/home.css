@@ -85,22 +85,6 @@
 /* 10. CARD GLASSY (ACTUALIZAT)       */
 /* ---------------------------------- */
 .glassy-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 30px var(--glass-shadow);
-    border-radius: 16px;
-    color: var(--color-white);
-    padding: 30px;
-    
-    position: absolute;
-    width: 50%;
-    height: 450px;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
     /* MODIFICARE (Cerinta #1): Animatie Fade-In (a treia) */
     opacity: 0;
     /* Incepe dupa Nav (care incepe la 2s) */
