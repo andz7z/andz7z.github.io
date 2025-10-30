@@ -1,4 +1,6 @@
-#reviews {
+/* ===== REVIEWS SECTION ===== */
+.reviews-section {
     height: 100vh;
-    background: linear-gradient(to bottom, #808080, #404040);
+    background: linear-gradient(to bottom, #888888, #333333);
+    color: #fff;
 }
