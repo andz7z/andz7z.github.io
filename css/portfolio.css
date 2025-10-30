@@ -1,4 +1,6 @@
-#portfolio {
+/* ===== PORTFOLIO SECTION ===== */
+.portfolio-section {
     height: 100vh;
-    background: linear-gradient(to bottom, #ffffff, #808080);
+    background: linear-gradient(to bottom, #f0f0f0, #888888);
+    color: #fff;
 }
