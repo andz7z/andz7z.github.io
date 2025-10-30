@@ -1,88 +1,58 @@
-/*
- * FILE: js/main.js
- * PURPOSE: Global scripts for navigation and scroll progress.
- */
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    const progressBar = document.getElementById('scroll-progress-bar');
-    const mainNav = document.getElementById('main-nav');
-    const burgerBtn = document.getElementById('burger-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
-
-    // --- 1. Scroll Progress Bar Handler ---
+// Main JavaScript File
+document.addEventListener('DOMContentLoaded', function() {
+    // Progress Bar
+    const progressBar = document.getElementById('progressBar');
     
-    const updateScrollProgress = () => {
-        // scrollTop: How far scrolled from the top
-        const scrollTop = document.documentElement.scrollTop;
-        // scrollHeight: Total height of the document
-        const scrollHeight = document.documentElement.scrollHeight;
-        // clientHeight: Height of the visible window
-        const clientHeight = document.documentElement.clientHeight;
-
-        // Calculate percentage scrolled
-        const scrollPercent = (scrollTop / (scrollHeight - clientHeight)) * 100;
-
-        // Update the progress bar width
-        if (progressBar) {
-            progressBar.style.width = `${scrollPercent}%`;
-        }
-    };
-
-    // --- 2. Navigation Transform Handler ---
-
-    const updateNavTransform = () => {
-        // --- Scroll Threshold Customization ---
-        // Pixels to scroll before nav transforms into burger
-        const scrollThreshold = 100; 
-        // ------------------------------------
-
-        if (mainNav) {
-            if (window.scrollY > scrollThreshold) {
-                mainNav.classList.add('scrolled');
-            } else {
-                mainNav.classList.remove('scrolled');
-            }
-        }
-    };
-
-    // --- 3. Burger Menu Toggle Handler ---
-
-    const toggleMobileMenu = () => {
-        if (burgerBtn && mobileMenu) {
-            // Toggle 'active' class on both button (for 'X' animation)
-            // and menu (for visibility)
-            burgerBtn.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        }
-    };
-
-    // --- 4. Close Mobile Menu on Link Click ---
-
-    const closeMobileMenu = () => {
-        if (burgerBtn && mobileMenu) {
-            burgerBtn.classList.remove('active');
-            mobileMenu.classList.remove('active');
-        }
-    };
-
-    // --- Event Listeners ---
+    // Navigation Elements
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    const navbar = document.querySelector('.navbar');
     
-    // Listen for scroll events to update progress bar and nav
-    window.addEventListener('scroll', () => {
-        updateScrollProgress();
-        updateNavTransform();
-    });
-
-    // Listen for clicks on the burger button
-    if (burgerBtn) {
-        burgerBtn.addEventListener('click', toggleMobileMenu);
+    // Scroll Progress
+    function updateProgressBar() {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const progress = (scrollTop / documentHeight) * 100;
+        progressBar.style.width = progress + '%';
     }
-
-    // Listen for clicks on mobile menu links to close the menu
-    mobileMenuLinks.forEach(link => {
+    
+    // Navigation Scroll Effect
+    function handleNavScroll() {
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    }
+    
+    // Toggle Mobile Menu
+    function toggleMobileMenu() {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    }
+    
+    // Close mobile menu when clicking on a link
+    function closeMobileMenu() {
+        navToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+    }
+    
+    // Event Listeners
+    window.addEventListener('scroll', function() {
+        updateProgressBar();
+        handleNavScroll();
+    });
+    
+    navToggle.addEventListener('click', toggleMobileMenu);
+    
+    // Close menu when clicking on nav links
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
         link.addEventListener('click', closeMobileMenu);
     });
-
+    
+    // Initialize
+    updateProgressBar();
+    handleNavScroll();
 });
