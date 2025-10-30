@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evolving Site</title>
-    
-    <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
-    
+    <title>AndZ - Site in Evolutie</title>
+
+    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/services.css">
@@ -16,233 +16,56 @@
 </head>
 <body>
 
-    <div class="progress-bar-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <div class="progress-bar"></div>
 
-    <nav class="top-nav" id="topNav">
-        <a href="#home">
+    <nav class="top-nav">
+        <a href="#home" class="nav-item">
             <span class="nav-text">Home</span>
-            <span class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" /></svg>
-            </span>
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
         </a>
-        <a href="#services">
+        <a href="#services" class="nav-item">
             <span class="nav-text">Services</span>
-            <span class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h6M9 11.25h6M9 15.75h6" /></svg>
-            </span>
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 12.3c.1-.3.1-.5.1-.8 0-.3 0-.5-.1-.8l2.1-1.6c.2-.1.2-.4.1-.6l-2-3.5c-.1-.2-.4-.3-.6-.2l-2.5 1c-.5-.4-1-.7-1.5-1L14.6 2.6c0-.3-.2-.5-.5-.5h-4c-.3 0-.5.2-.5.5l-.3 2.9c-.5.3-1 .6-1.5 1L5.3 6.3c-.2-.1-.5 0-.6.2l-2 3.5c-.1.2 0 .5.2.6l2.1 1.6c-.1.3-.1.5-.1.8 0 .3 0 .5.1.8l-2.1 1.6c-.2.1-.2.4-.1.6l2 3.5c.1.2.4.3.6.2l2.5-1c.5.4 1 .7 1.5 1l.3 2.9c0 .3.2.5.5.5h4c.3 0 .5-.2.5-.5l.3-2.9c.5-.3 1-.6 1.5-1l2.5 1c.2.1.5 0 .6-.2l2-3.5c.1-.2 0-.5-.2-.6l-2.1-1.6zM12 15.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z"/></svg>
         </a>
-        <a href="#portfolio">
+        <a href="#portfolio" class="nav-item">
             <span class="nav-text">Portfolio</span>
-            <span class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm1.5-6h.008v.008H5.25v-.008Z" /></svg>
-            </span>
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 17H4V8h16v13z"/></svg>
         </a>
-        <a href="#reviews">
+        <a href="#reviews" class="nav-item">
             <span class="nav-text">Reviews</span>
-            <span class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.31h5.518c.478 0 .676.652.34 1.002l-4.462 3.232a.562.562 0 0 0-.192.518l1.7 5.309c.144.448-.387.822-.764.55l-4.88-3.53a.563.563 0 0 0-.642 0l-4.88 3.53c-.377.272-.908-.102-.764-.55l1.7-5.309a.562.562 0 0 0-.192-.518L2.61 9.922c-.336-.35-.138-1.002.34-1.002h5.518a.563.563 0 0 0 .475-.31L11.48 3.5Z" /></svg>
-            </span>
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3l-5.4 2.8c-.5.3-1.1-.1-1-.7l1-6L2.2 9c-.4-.4-.2-1.1.5-1.2l6-.9L11.2 1.4c.2-.5.9-.5 1.1 0l2.7 5.5 6 .9c.7.1.9.8.5 1.2l-4.4 4.3 1 6c.1.6-.5 1-1 .7L12 17.3z"/></svg>
         </a>
-        <a href="#contact">
+        <a href="#contact" class="nav-item">
             <span class="nav-text">Contact</span>
-            <span class="nav-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.211-.99-.55-1.348l-3.218-3.218a2.25 2.25 0 0 0-3.181 0l-.515.515a.659.659 0 0 1-.93 0l-2.121-2.121a.659.659 0 0 1 0-.93l.515-.515a2.25 2.25 0 0 0 0-3.181L8.47 4.22a2.25 2.25 0 0 0-1.348-.55H4.5A2.25 2.25 0 0 0 2.25 6.75Z" /></svg>
-            </span>
+            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .4 1 1V20c0 .5-.4 1-1 1C9.4 21 3 14.6 3 6c0-.5.4-1 1-1h3.5c.5 0 1 .4 1 1 0 1.2.2 2.4.6 3.6.1.3 0 .7-.2 1l-2.3 2.2z"/></svg>
         </a>
     </nav>
 
-    <div class="burger-menu-container" id="burgerMenuContainer">
-        <div class="burger-icon" id="burgerIcon">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <nav class="burger-nav" id="burgerNav">
-            <a href="#home">Home</a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#reviews">Reviews</a>
-            <a href="#contact">Contact</a>
-        </nav>
+    <div class="burger-menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <div class="minimalist-menu">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
     </div>
 
 
     <main>
         <section id="home">
+            <video autoplay muted loop playsinline class="home-video">
+                <source src="assets/movie/andz.mp4" type="video/mp4">
+                Browser-ul tau nu suporta tag-ul video.
+            </video>
+            
             <div class="home-card">
-                <div class="home-card-text">
-                    <h2>About Me</h2>
-                    <p>Web Developer & Video Editor passionate about creating digital experiences</p>
-                </div>
-                
-                <!-- Profile Section -->
-                <div class="profile-section">
-                    <!-- 3D Card -->
-                    <div class="card-3d-container">
-                        <div class="card-3d">
-                            <div class="card-front">
-                                <img src="assets/photos/andz.jpg" alt="Andrei L." class="profile-img">
-                                <h3 class="name">Andrei L.</h3>
-                                <p class="age">24 ani</p>
-                                <div class="social-links">
-                                    <span class="social-icon">💼</span>
-                                    <span class="social-icon">📁</span>
-                                    <span class="social-icon">🎬</span>
-                                </div>
-                            </div>
-                            <div class="card-back">
-                                <h3>Detalii Contact</h3>
-                                <p>📧 contact@andrei.dev</p>
-                                <p>📱 +40 723 456 789</p>
-                                <p>📍 București, Romania</p>
-                                <div class="tech-tags">
-                                    <span class="tag">JavaScript</span>
-                                    <span class="tag">React</span>
-                                    <span class="tag">Node.js</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card-content">
                     </div>
-                    
-                    <!-- Description -->
-                    <div class="about-description">
-                        <h3>Salut, sunt <span class="highlight">Andrei</span>!</h3>
-                        <p>Sunt un <span class="highlight">Web Developer pasionat</span> cu experiență în crearea de aplicații web moderne și interactive. Îmi place să transform ideile în realitate digitală.</p>
-                        
-                        <div class="stats-grid">
-                            <div class="stat-item">
-                                <div class="stat-number">15+</div>
-                                <div class="stat-label">Proiecte</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">2+</div>
-                                <div class="stat-label">Ani Experiență</div>
-                            </div>
-                            <div class="stat-item">
-                                <div class="stat-number">10+</div>
-                                <div class="stat-label">Clienți</div>
-                            </div>
-                        </div>
-                        
-                        <p>Specializat în <span class="highlight">JavaScript, React, Node.js</span> și <span class="highlight">editare video</span>, creez soluții care combină funcționalitatea cu designul elegant.</p>
-                        
-                        <button class="cta-button">Contactează-mă</button>
-                    </div>
-                </div>
-                
-                <!-- Timeline Section -->
-                <div class="timeline-section">
-                    <h3 class="section-title">Istoria Mea</h3>
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-date">2023</div>
-                            <div class="timeline-content">
-                                <h4>Primii pași în Web Dev</h4>
-                                <p>Începutul călătoriei în programare. Am învățat bazele HTML, CSS, JavaScript și am creat primele proiecte personale.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-date">2024</div>
-                            <div class="timeline-content">
-                                <h4>Dezvoltator Full-Stack</h4>
-                                <p>Am dezvoltat proiecte complexe cu React, Node.js și baze de date. Am lucrat cu primii clienți și am început să creez aplicații video interactive.</p>
-                            </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-dot"></div>
-                            <div class="timeline-date">2025</div>
-                            <div class="timeline-content">
-                                <h4>Specializare Avansată</h4>
-                                <p>Focus pe performanță, securitate și tehnologii emergente. Dezvoltare de aplicații enterprise și optimizare avansată.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Skills Section -->
-                <div class="skills-section">
-                    <h3 class="section-title">Skills & Tehnologii</h3>
-                    <div class="skills-grid">
-                        <div class="skill-category">
-                            <h4>Frontend</h4>
-                            <div class="skill-item">
-                                <span class="skill-name">HTML/CSS</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="95"></div>
-                                </div>
-                                <span class="skill-percent">95%</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">JavaScript</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="90"></div>
-                                </div>
-                                <span class="skill-percent">90%</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">React</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85"></div>
-                                </div>
-                                <span class="skill-percent">85%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-category">
-                            <h4>Backend</h4>
-                            <div class="skill-item">
-                                <span class="skill-name">Node.js</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="88"></div>
-                                </div>
-                                <span class="skill-percent">88%</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">Express</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85"></div>
-                                </div>
-                                <span class="skill-percent">85%</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">MongoDB</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="80"></div>
-                                </div>
-                                <span class="skill-percent">80%</span>
-                            </div>
-                        </div>
-                        
-                        <div class="skill-category">
-                            <h4>Video & Design</h4>
-                            <div class="skill-item">
-                                <span class="skill-name">Video Editing</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="92"></div>
-                                </div>
-                                <span class="skill-percent">92%</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">After Effects</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="85"></div>
-                                </div>
-                                <span class="skill-percent">85%</span>
-                            </div>
-                            <div class="skill-item">
-                                <span class="skill-name">UI/UX Design</span>
-                                <div class="skill-bar">
-                                    <div class="skill-progress" data-width="78"></div>
-                                </div>
-                                <span class="skill-percent">78%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -250,19 +73,21 @@
             <h2>Services</h2>
         </section>
 
-        <section id="portfolio">
-            <h2>Portfolio</h2>
-        </section>
+        <div class="gradient-wrapper">
+            <section id="portfolio">
+                <h2>Portfolio</h2>
+            </section>
 
-        <section id="reviews">
-            <h2>Reviews</h2>
-        </section>
+            <section id="reviews">
+                <h2>Reviews</h2>
+            </section>
 
-        <section id="contact">
-            <h2>Contact</h2>
-        </section>
+            <section id="contact">
+                <h2>Contact</h2>
+            </section>
+        </div>
     </main>
-    
+
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
     <script src="js/services.js"></script>
