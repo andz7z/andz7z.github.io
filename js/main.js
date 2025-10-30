@@ -1,84 +1,46 @@
-// Main JavaScript File
-class WebsiteManager {
-    constructor() {
-        this.init();
+// js/main.js
+
+window.addEventListener('scroll', function() {
+    // --- Logica Progress Bar (Req 4) ---
+    const progressBar = document.getElementById('scroll-progress-bar');
+    
+    // Totalul paginii scrollabile
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    
+    // Cât de mult s-a scrollat (în procent)
+    const scrollProgress = (window.pageYOffset / totalHeight) * 100;
+    
+    progressBar.style.width = scrollProgress + '%';
+
+    
+    // --- Logica Navigație la Scroll (Req 6) ---
+    const mainNav = document.getElementById('main-nav');
+    const burgerToggle = document.getElementById('burger-menu-toggle');
+    
+    // Când dăm scroll mai mult de, să zicem, 100px în jos
+    if (window.scrollY > 100) {
+        mainNav.classList.add('hidden');
+        burgerToggle.classList.add('visible');
+    } else {
+        mainNav.classList.remove('hidden');
+        burgerToggle.classList.remove('visible');
     }
+});
 
-    init() {
-        this.setupProgressBar();
-        this.setupNavigation();
-        this.setupScrollEffects();
-        this.setupBurgerMenu();
-    }
+// --- Logica Meniu Burger (Req 6) ---
+const burgerToggle = document.getElementById('burger-menu-toggle');
+const burgerNavLinks = document.getElementById('burger-nav-links');
 
-    setupProgressBar() {
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector('.progress-bar').style.width = scrolled + '%';
-        });
-    }
+burgerToggle.addEventListener('click', function() {
+    // Adaugă/scoate clasa 'open' pe ambele elemente
+    burgerToggle.classList.toggle('open');
+    burgerNavLinks.classList.toggle('open');
+});
 
-    setupNavigation() {
-        const navItems = document.querySelectorAll('.nav-item');
-        navItems.forEach(item => {
-            item.addEventListener('mouseenter', this.handleNavHover);
-            item.addEventListener('mouseleave', this.handleNavLeave);
-        });
-    }
-
-    handleNavHover(e) {
-        const item = e.target;
-        item.style.transform = 'scale(1.1)';
-    }
-
-    handleNavLeave(e) {
-        const item = e.target;
-        item.style.transform = 'scale(1)';
-    }
-
-    setupScrollEffects() {
-        let lastScrollY = window.scrollY;
-        
-        window.addEventListener('scroll', () => {
-            const currentScrollY = window.scrollY;
-            
-            // Show/hide burger menu based on scroll
-            if (currentScrollY > 100) {
-                document.body.classList.add('scrolled');
-            } else {
-                document.body.classList.remove('scrolled');
-            }
-            
-            lastScrollY = currentScrollY;
-        });
-    }
-
-    setupBurgerMenu() {
-        const burgerIcon = document.querySelector('.burger-icon');
-        const burgerContent = document.querySelector('.burger-content');
-
-        burgerIcon.addEventListener('click', (e) => {
-            e.stopPropagation();
-            const isVisible = burgerContent.style.display === 'flex';
-            burgerContent.style.display = isVisible ? 'none' : 'flex';
-            
-            // Animate burger icon
-            burgerIcon.classList.toggle('active');
-        });
-
-        // Close burger menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.burger-menu')) {
-                burgerContent.style.display = 'none';
-                burgerIcon.classList.remove('active');
-            }
-        });
-    }
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    new WebsiteManager();
+// Ascunde meniul burger dacă se dă click pe un link (pentru single-page app)
+document.querySelectorAll('#burger-nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        burgerToggle.classList.remove('open');
+        burgerNavLinks.classList.remove('open');
+    });
 });
