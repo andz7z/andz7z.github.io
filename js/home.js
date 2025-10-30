@@ -1,12 +1,14 @@
-// Home Section JavaScript
+// Home section specific JavaScript
 document.addEventListener('DOMContentLoaded', function() {
-    const homeCard = document.getElementById('homeCard');
+    // Add any home section specific functionality here
+    console.log('Home section loaded');
     
-    // Add any home-specific interactions here
-    // Example: Parallax effect for the glass card
+    // Example: Parallax effect for home section
     window.addEventListener('scroll', function() {
         const scrolled = window.pageYOffset;
-        const rate = scrolled * -0.5;
-        homeCard.style.transform = `translateY(${rate}px)`;
+        const homeSection = document.querySelector('.home-section');
+        const parallaxSpeed = 0.5;
+        
+        homeSection.style.backgroundPositionY = -(scrolled * parallaxSpeed) + 'px';
     });
 });
