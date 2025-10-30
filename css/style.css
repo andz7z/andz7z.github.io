@@ -1,41 +1,30 @@
-/* REQ 7: Definirea tematicii (culori, fonturi) pentru editare usoara */
-:root {
-    /* Culori */
-    --color-white: #ffffff;
-    --color-black: #000000;
-    --color-gray-start: #cfcfcf; /* REQ 3 */
-    --color-gray-medium: #888;
-    
-    /* Materiale (Glassmorphism) */
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-blur: blur(15px);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.18);
-
-    /* Fonturi */
-    --font-primary: 'Roboto', sans-serif;
-    --font-display: 'Noverich', sans-serif; /* Pt titluri */
-
-    /* Tranzitii */
-    --transition-smooth: all 0.3s ease-in-out;
-    --transition-fast: all 0.2s ease;
-}
-
-/* Importarea Fonturilor Custom (din assets/fonts) */
+/* Font Declarations */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url('../assets/fonts/roboto.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
 }
 
-/* Resetari Globale & Setari Body */
+/* CSS Variables for Easy Editing */
+:root {
+    --color-light: #cfcfcf;
+    --color-dark: #000000;
+    --color-mid: #808080;
+    --color-white: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --blur-amount: blur(10px);
+    --transition-slow: 1s ease;
+    --transition-medium: 0.5s ease;
+    --transition-fast: 0.3s ease;
+}
+
+/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -47,253 +36,268 @@ html {
 }
 
 body {
-    font-family: var(--font-primary);
-    background-color: var(--color-black); /* Fundal de baza */
-    color: var(--color-white);
-    overflow-x: hidden; /* Previne scroll orizontal */
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
 }
 
-/* Stilul de baza pt titlurile sectiunilor (Req 2) */
-h2 {
-    font-family: var(--font-display);
-    font-size: 5rem;
-    font-weight: normal;
-    text-align: center;
-    padding-top: 100px; /* Spatiu fata de marginea de sus */
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-/* REQ 4: Progress Bar */
+/* Progress Bar */
 .progress-bar {
     position: fixed;
     top: 0;
     left: 0;
+    width: 0%;
     height: 4px;
-    width: 0;
-    /* Gradient negru -> alb */
-    background: linear-gradient(to right, var(--color-black), var(--color-white));
-    z-index: 1001;
-    transition: width 0.1s linear; /* Fara delay, sa fie responsiv */
-}
-
-/* REQ 5: Top Navigation */
-.top-nav {
-    position: fixed;
-    top: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+    background: linear-gradient(90deg, #000000, #ffffff);
     z-index: 1000;
+    transition: width 0.1s ease;
+}
+
+/* Navigation Styles */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 2rem 0;
+    transition: var(--transition-medium);
+}
+
+.nav-center {
     display: flex;
-    gap: 35px;
-    
-    /* REQ 8 & 9: Animatie Fade-in (initial ascuns) */
-    opacity: 0;
-    transition: opacity 1s ease 0.8s, transform 0.5s ease; /* Delay 0.8s (dupa video) */
-}
-
-/* Clasa adaugata de JS pentru animatia de intrare */
-.top-nav.visible {
-    opacity: 1;
-}
-
-/* Clasa adaugata de JS la scroll (Req 6) */
-.top-nav.hidden {
-    opacity: 0;
-    transform: translate(-50%, -50px); /* Dispare in sus */
+    justify-content: center;
+    gap: 3rem;
+    transition: var(--transition-medium);
 }
 
 .nav-item {
-    position: relative;
+    font-family: 'Noverich', sans-serif;
     color: var(--color-white);
     text-decoration: none;
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    padding: 10px 5px;
-    cursor: pointer;
+    font-size: 1.2rem;
+    position: relative;
+    padding: 0.5rem 1rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    transition: var(--transition-medium);
 }
 
-.nav-item .nav-text {
-    display: inline-block;
-    transition: var(--transition-fast);
+.nav-item:nth-child(1) { animation-delay: 2s; }
+.nav-item:nth-child(2) { animation-delay: 2.2s; }
+.nav-item:nth-child(3) { animation-delay: 2.4s; }
+.nav-item:nth-child(4) { animation-delay: 2.6s; }
+.nav-item:nth-child(5) { animation-delay: 2.8s; }
+
+.nav-item:hover {
+    color: transparent;
 }
 
-.nav-item .nav-icon {
+.nav-item:hover::before {
+    content: '';
     position: absolute;
     top: 50%;
     left: 50%;
-    /* Initial ascuns si micsorat */
-    transform: translate(-50%, -50%) scale(0);
-    opacity: 0;
-    width: 22px;
-    height: 22px;
-    transition: var(--transition-smooth);
-    fill: var(--color-white);
-}
-
-/* REQ 5: Tranzitie Hover (IN/OUT) */
-.nav-item:hover .nav-text {
-    opacity: 0;
-    transform: scale(0.8); /* Textul se micsoreaza si dispare */
-}
-
-.nav-item:hover .nav-icon {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.2); /* Iconita apare si creste usor */
-}
-
-/* REQ 6: Burger Menu Icon - MODIFICAT (mutat stanga) */
-.burger-menu-icon {
-    position: fixed;
-    top: 30px;
-    /* MODIFICAT: mutat pe stanga */
-    left: 40px; 
-    z-index: 1002;
-    cursor: pointer;
-    width: 30px;
-    height: 22px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    
-    /* Initial ascuns (pe desktop) */
-    opacity: 0;
-    transform: scale(0.8);
-    transition: var(--transition-smooth);
-}
-
-.burger-menu-icon.visible {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.burger-menu-icon span {
-    width: 100%;
-    height: 3px;
+    transform: translate(-50%, -50%);
+    width: 24px;
+    height: 24px;
     background-color: var(--color-white);
-    border-radius: 2px;
-    transition: var(--transition-smooth);
-    /* Setam originea transformarii pt animatia 'X' */
-    transform-origin: center;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+    transition: var(--transition-medium);
 }
 
-/* NOU: Animația 'X' pentru Burger (Refacere "wow") */
-.burger-menu-icon.active span:nth-child(1) {
-    /* Rotim prima linie */
-    transform: translateY(9.5px) rotate(45deg);
-}
-.burger-menu-icon.active span:nth-child(2) {
-    /* Ascundem linia din mijloc */
-    opacity: 0;
-    transform: scaleX(0);
-}
-.burger-menu-icon.active span:nth-child(3) {
-    /* Rotim a treia linie */
-    transform: translateY(-9.5px) rotate(-45deg);
+.nav-item[data-section="home"]:hover::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z'/%3E%3C/svg%3E");
 }
 
+.nav-item[data-section="services"]:hover::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2l9 4.5v5c0 4.25-2.67 8.03-6.5 9.5-1.5.56-3.1.9-4.7 1-1.6-.1-3.2-.44-4.7-1C5.67 19.53 3 15.75 3 11.5v-5L12 2z'/%3E%3C/svg%3E");
+}
 
-/* REQ 6: Minimalist, Futuristic Menu - MODIFICAT */
-.minimalist-menu {
+.nav-item[data-section="portfolio"]:hover::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 3v18h18V3H3zm16 16H5V5h14v14z'/%3E%3C/svg%3E");
+}
+
+.nav-item[data-section="reviews"]:hover::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/%3E%3C/svg%3E");
+}
+
+.nav-item[data-section="contact"]:hover::before {
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z'/%3E%3C/svg%3E");
+}
+
+/* Burger Menu */
+.burger-menu {
     position: fixed;
-    top: 80px; /* Sub icon-ul burger */
-    /* MODIFICAT: mutat pe stanga */
-    left: 40px; 
-    z-index: 1001;
-    
-    /* REQ 7: Glass/Blur/Modern */
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border: var(--glass-border);
-    border-radius: 12px;
-    padding: 15px;
-    
-    /* Initial ascuns */
+    top: 2rem;
+    right: 2rem;
+    z-index: 101;
     display: none;
-    opacity: 0;
-    /* MODIFICAT: animatie din stanga */
-    transform: translateX(-20px); 
-    transition: var(--transition-smooth);
 }
 
-.minimalist-menu.visible {
-    display: block;
-    opacity: 1;
-    transform: translateX(0); /* Intra in ecran */
+.burger-icon {
+    width: 30px;
+    height: 25px;
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition-medium);
 }
 
-.minimalist-menu a {
+.burger-icon span {
     display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: var(--color-white);
+    border-radius: 3px;
+    transition: var(--transition-medium);
+}
+
+.burger-icon span:nth-child(1) { top: 0; }
+.burger-icon span:nth-child(2) { top: 11px; }
+.burger-icon span:nth-child(3) { top: 22px; }
+
+.burger-content {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur-amount);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    padding: 1rem;
+    display: none;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 150px;
+}
+
+.burger-content a {
     color: var(--color-white);
     text-decoration: none;
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    padding: 12px 20px;
-    
-    /* NOU: Starea initiala pentru animatia "wow" */
+    font-family: 'Noverich', sans-serif;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: var(--transition-fast);
+}
+
+.burger-content a:hover {
+    background: var(--glass-border);
+}
+
+/* Section Base Styles */
+.section {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#home {
+    height: 500vh;
+    position: relative;
+}
+
+/* Background Video */
+.background-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
     opacity: 0;
-    transform: translateX(-15px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    animation: fadeIn 2s ease forwards;
+    animation-delay: 0.5s;
 }
 
-.minimalist-menu a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+/* Glass Card */
+.glass-card {
+    position: absolute;
+    width: 80%;
+    height: 700px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur-amount);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards;
+    animation-delay: 3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
-/* NOU: Animatia "Staggered" (decalata) pentru meniu */
-.minimalist-menu.visible a {
-    opacity: 1;
-    transform: translateX(0);
+.card-title {
+    font-family: 'Noverich', sans-serif;
+    color: var(--color-white);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 3.5s;
 }
 
-/* Setam intarzierile (delay) pentru fiecare link */
-.minimalist-menu.visible a:nth-child(1) { transition-delay: 0.1s; }
-.minimalist-menu.visible a:nth-child(2) { transition-delay: 0.2s; }
-.minimalist-menu.visible a:nth-child(3) { transition-delay: 0.3s; }
-.minimalist-menu.visible a:nth-child(4) { transition-delay: 0.4s; }
-.minimalist-menu.visible a:nth-child(5) { transition-delay: 0.5s; }
-
-
-/* REQ 3: Gradient Wrapper (pentru Portfolio, Reviews, Contact) */
-.gradient-wrapper {
-    /* Incepe de unde a ramas #services (#cfcfcf) si merge la negru */
-    background: linear-gradient(to bottom, 
-        var(--color-gray-start), 
-        #999 33%, /* tranzitie */
-        #444 66%, /* tranzitie */
-        var(--color-black)
-    );
+.card-content {
+    font-family: 'Roboto', sans-serif;
+    color: var(--color-white);
+    font-size: 1.2rem;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 4s;
 }
 
-/* Sectiunile din wrapper trebuie sa fie transparente */
-.gradient-wrapper > section {
-    background: transparent;
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-/* Titlurile din wrapper trebuie sa aiba culori lizibile */
-#portfolio h2 {
-    color: #222; /* Lizibil pe gri deschis */
-}
-#reviews h2 {
-    color: var(--color-gray-medium); /* Lizibil pe gri mediu */
-}
-#contact h2 {
-    color: var(--color-white); /* Lizibil pe gri inchis/negru */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* --- NOU: Media Query pentru Mobil --- */
-/* (Always burger menu, fara nav system) */
+/* Scroll-triggered Navigation */
+.scrolled .nav-center {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.scrolled .burger-menu {
+    display: block;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-    
-    /* Ascundem navigatia de sus */
-    .top-nav {
-        display: none;
+    .nav-center {
+        gap: 1.5rem;
     }
     
-    /* Afisam burger-ul by default, nu doar la scroll */
-    .burger-menu-icon {
-        opacity: 1;
-        transform: scale(1);
+    .nav-item {
+        font-size: 1rem;
+    }
+    
+    .glass-card {
+        width: 90%;
+        height: 500px;
     }
 }
