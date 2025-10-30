@@ -122,99 +122,107 @@ nav {
     animation: fadeInNav 1s ease 1.5s forwards;
 }
 
-/* 6. Starea navigației la scroll (ACTUALIZAT) */
-nav.nav-scrolled {
-    /* MODIFICARE (Cerinta #2): Scale e mai mic (0.85) si padding-ul e redus */
-    transform: translateX(-50%) scale(0.85); 
-    padding: 5px 15px; /* Mai mic decat starea initiala */
+/* ---------------------------------- */
+/* MODIFICARE (Cerinta #2): BURGER MENU */
+/* ---------------------------------- */
 
-    background-color: var(--glass-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 4px 30px var(--glass-shadow);
-}
-
-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-nav a {
-    font-family: var(--font-secondary);
-    font-size: 1.2rem;
-    color: var(--color-white);
-    text-decoration: none;
-    padding: 10px;
-    position: relative;
-    display: block;
+#burger-icon {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 1002; /* Peste progress bar, dar sub meniu */
+    cursor: pointer;
     
-    /* MODIFICARE (Cerinta #1): Facem link-urile non-active usor transparente */
-    opacity: 0.7;
-    transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-/* MODIFICARE (Cerinta #1): Am scos stilul 'nav a.active' cu glow */
-/* Acum link-ul activ devine 100% opac */
-nav a.active {
-    opacity: 1;
-}
-
-/* MODIFICARE (Cerinta #1): Adaugam un underline animat */
-nav a::after {
-    content: '';
-    position: absolute;
-    bottom: 5px; /* Pozitionam linia sub text */
-    left: 50%;
-    width: 80%; /* Latimea liniei */
-    height: 2px;
-    background-color: var(--color-white);
-    
-    /* Animatia: porneste din centru (scaleX(0)) */
-    transform: translateX(-50%) scaleX(0);
-    transform-origin: center;
-    transition: transform 0.3s ease;
-}
-
-/* Cand link-ul devine activ, animam linia sa apara */
-nav a.active::after {
-    transform: translateX(-50%) scaleX(1);
-}
-
-
-/* 5. Tranzitia Text -> Icon (Cerinta #5) */
-.nav-text,
-.nav-icon {
-    display: block;
+    /* Initial ascuns */
+    opacity: 0;
+    transform: translateX(-20px);
+    pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.nav-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0;
-}
-
-.nav-icon svg {
-    width: 24px;
-    height: 24px;
-    fill: var(--color-white);
-}
-
-nav a:hover .nav-text {
-    opacity: 0;
-    transform: scale(0.8);
-}
-
-nav a:hover .nav-icon {
+/* Starea vizibila, la scroll */
+#burger-icon.visible {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translateX(0);
+    pointer-events: auto;
 }
+
+/* Liniile burger-ului */
+#burger-icon span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--color-white);
+    margin: 5px 0;
+    border-radius: 3px;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+/* Animatia spre 'X' cand meniul e deschis */
+#burger-icon.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+#burger-icon.open span:nth-child(2) {
+    opacity: 0;
+}
+#burger-icon.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Container-ul meniului "wow" */
+#burger-menu-container {
+    position: fixed;
+    top: 80px; /* Sub iconita */
+    left: 25px;
+    z-index: 1001; /* Sub iconita, peste restul */
+
+    /* Stilul Glassy */
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 30px var(--glass-shadow);
+    border-radius: 12px;
+    
+    /* Initial ascuns in stanga */
+    transform: translateX(-120%);
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1); /* Tranzitie "wow" */
+}
+
+/* Starea deschis a meniului */
+#burger-menu-container.open {
+    transform: translateX(0);
+}
+
+#burger-menu-container ul {
+    list-style: none;
+    padding: 10px;
+}
+
+#burger-menu-container a {
+    display: block;
+    padding: 12px 20px;
+    color: var(--color-white);
+    text-decoration: none;
+    font-family: var(--font-secondary);
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#burger-menu-container a:hover {
+    background: var(--glass-bg);
+}
+
+/* Stilul pentru link-ul activ in meniul burger */
+#burger-menu-container a.active {
+    color: var(--color-gray);
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 
 /* ---------------------------------- */
-/* 8. ANIMATII KEYFRAMES (Cerinta #8) */
+/* 8. ANIMATII KEYFRAMES (ACTUALIZAT) */
 /* ---------------------------------- */
 
 @keyframes fadeInNav {
