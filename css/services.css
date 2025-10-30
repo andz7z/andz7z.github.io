@@ -1,6 +1,10 @@
-/* ===== SERVICES SECTION ===== */
-.services-section {
-    height: 100vh;
-    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
-    color: #000;
+/*
+ * FILE: css/services.css
+ * PURPOSE: Styles for the Services section content.
+ * (Background is controlled by .gradient-wrapper in style.css)
+ */
+
+#services h2 {
+    /* --- Title Color Customization --- */
+    color: var(--color-black); /* Dark text on light background */
 }
