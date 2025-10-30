@@ -3,58 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Andz Portfolio</title>
     
     <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="main-nav">
-        <div class="nav-container">
-            <div class="burger-menu">
-                <div class="burger-line"></div>
-                <div class="burger-line"></div>
-                <div class="burger-line"></div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Navigation Overlay -->
-    <div class="nav-overlay">
-        <div class="overlay-content">
-            <ul class="nav-links">
-                <li><a href="#home" class="nav-link">Home</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-            </ul>
-        </div>
+    <!-- Progress Scroll Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
-
+    
     <!-- Sections -->
-    <section id="home" class="section home-section">
-        <div class="glass-card">
-            <!-- About Me card content will go here -->
-        </div>
+    <section id="home" class="section">
+        <h1 class="title">Home</h1>
     </section>
-
-    <section id="portfolio" class="section portfolio-section"></section>
-    <section id="services" class="section services-section"></section>
-    <section id="reviews" class="section reviews-section"></section>
-    <section id="contact" class="section contact-section"></section>
-
+    
+    <section id="portfolio" class="section">
+        <h1 class="title">Portfolio</h1>
+    </section>
+    
+    <section id="reviews" class="section">
+        <h1 class="title">Reviews</h1>
+    </section>
+    
+    <section id="contact" class="section">
+        <h1 class="title">Contact</h1>
+    </section>
+    
     <!-- JavaScript Files -->
-    <script src="js/main.js"></script>
+    <script src="js/style.js"></script>
     <script src="js/home.js"></script>
     <script src="js/portfolio.js"></script>
-    <script src="js/services.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/contact.js"></script>
 </body>
