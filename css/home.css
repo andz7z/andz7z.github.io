@@ -42,7 +42,7 @@
     /* MODIFICARE (Cerinta +): Am schimbat valorile */
     width: 80%;
     height: 700px; /* Mai lung (inainte era 300px) */
-    top: 55%;      /* Mai sus (inainte era 50%) */
+    top: 45%;      /* Mai sus (inainte era 50%) */
     left: 50%;
 
     transform: translate(-50%, -50%); 
