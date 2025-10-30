@@ -3,93 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Portfolio</title>
+    <title>Portfolio</title>
+    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
+    
+    <!-- CSS Files -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
 </head>
 <body>
     <!-- Progress Bar -->
-    <div class="progress-container">
-        <div class="progress-bar" id="progressBar"></div>
-    </div>
+    <div class="progress-bar"></div>
 
     <!-- Navigation -->
-    <nav class="navbar" id="navbar">
+    <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-menu" id="navMenu">
-                <div class="nav-item">
-                    <a href="#home" class="nav-link">
-                        <span>Home</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#services" class="nav-link">
-                        <span>Services</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#portfolio" class="nav-link">
-                        <span>Portfolio</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#reviews" class="nav-link">
-                        <span>Reviews</span>
-                    </a>
-                </div>
-                <div class="nav-item">
-                    <a href="#contact" class="nav-link">
-                        <span>Contact</span>
-                    </a>
-                </div>
+            <!-- Logo - MODIFY LOGO PATH HERE -->
+            <div class="nav-logo">
+                <img src="assets/photos/logo.gif" alt="Logo">
             </div>
-            <div class="nav-toggle" id="navToggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+            
+            <!-- Desktop Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">Services</a></li>
+                <li class="nav-item"><a href="#portfolio" class="nav-link">Portfolio</a></li>
+                <li class="nav-item"><a href="#reviews" class="nav-link">Reviews</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+
+            <!-- Burger Menu -->
+            <div class="burger-menu">
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
+                <div class="burger-line"></div>
             </div>
         </div>
     </nav>
 
-    <!-- Burger Menu -->
-    <div class="burger-menu" id="burgerMenu">
-        <div class="burger-content">
-            <a href="#home" class="burger-link">Home</a>
-            <a href="#services" class="burger-link">Services</a>
-            <a href="#portfolio" class="burger-link">Portfolio</a>
-            <a href="#reviews" class="burger-link">Reviews</a>
-            <a href="#contact" class="burger-link">Contact</a>
-        </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <ul class="mobile-nav">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </div>
 
     <!-- Sections -->
-    <section id="home" class="section">
-        <div class="home-content">
-            <div class="glass-card" id="homeCard"></div>
+    <section id="home" class="section home-section">
+        <!-- MODIFY CARD POSITION: Adjust top/left/right/bottom in home.css -->
+        <div class="glass-card">
+            <h2 class="card-title">About Me</h2>
         </div>
     </section>
 
-    <section id="services" class="section">
-        <h2 class="section-title">Services</h2>
+    <section id="services" class="section services-section">
+        <h1 class="section-title">Services</h1>
     </section>
 
-    <section id="portfolio" class="section">
-        <h2 class="section-title">Portfolio</h2>
+    <section id="portfolio" class="section portfolio-section">
+        <h1 class="section-title">Portfolio</h1>
     </section>
 
-    <section id="reviews" class="section">
-        <h2 class="section-title">Reviews</h2>
+    <section id="reviews" class="section reviews-section">
+        <h1 class="section-title">Reviews</h1>
     </section>
 
-    <section id="contact" class="section">
-        <h2 class="section-title">Contact</h2>
+    <section id="contact" class="section contact-section">
+        <h1 class="section-title">Contact</h1>
     </section>
 
+    <!-- JavaScript Files -->
     <script src="js/main.js"></script>
     <script src="js/home.js"></script>
     <script src="js/services.js"></script>
