@@ -1,4 +1,4 @@
-.reviews-section {
-    background: linear-gradient(135deg, #404040 0%, #525252 50%, #666666 100%);
-    position: relative;
+#reviews {
+    height: 100vh;
+    background: linear-gradient(to bottom, #ffffff, #000000);
 }
