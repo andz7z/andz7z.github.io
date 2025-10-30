@@ -1,61 +1,75 @@
 // Asteptam ca tot continutul paginii sa fie incarcat
-window.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
 
-    const progressBar = document.getElementById('progressBar');
-    const mainNav = document.getElementById('mainNav');
-    const burgerBtn = document.getElementById('burgerBtn');
-    const burgerNav = document.getElementById('burgerNav');
-    const burgerLinks = document.querySelectorAll('.burger-link');
+    const nav = document.querySelector('nav');
+    const progressBar = document.getElementById('scroll-progress-bar');
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
 
-    // ----------------------------------
-    // 4. Functie Progress Bar
-    // ----------------------------------
-    function updateProgressBar() {
-        // (Inaltimea totala a documentului - inaltimea ferestrei vizibile)
+    // Functie pentru a gestiona tot ce tine de scroll
+    function handleScroll() {
+        // --- 4. Logic Progress Bar (Cerinta #4) ---
+        
+        // Inaltimea totala care poate fi derulata
         const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-        // Pozitia curenta a scroll-ului
+        // Cat de mult am derulat de sus
         const scrollTop = window.scrollY;
         
         // Calculam procentajul
-        const scrollPercent = (scrollTop / scrollableHeight) * 100;
+        const progress = (scrollTop / scrollableHeight) * 100;
+        
+        // Aplicam procentajul la latimea barei
+        progressBar.style.width = progress + '%';
 
-        progressBar.style.width = scrollPercent + '%';
-    }
 
-    // ----------------------------------
-    // 6. Functie Navigatie la Scroll
-    // ----------------------------------
-    function toggleNavOnScroll() {
-        // Daca am dat scroll mai mult de 100px
-        if (window.scrollY > 100) {
-            mainNav.classList.add('hidden'); // Ascundem navigatia principala
-            burgerBtn.classList.add('visible'); // Afisam butonul burger
+        // --- 6. Logica Navigatie la Scroll (Cerinta #6) ---
+        
+        // Daca am dat scroll mai mult de 50px de sus...
+        if (window.scrollY > 50) {
+            nav.classList.add('nav-scrolled'); // ...adaugam clasa
         } else {
-            mainNav.classList.remove('hidden'); // Afisam navigatia principala
-            burgerBtn.classList.remove('visible'); // Ascundem butonul burger
+            nav.classList.remove('nav-scrolled'); // ...o scoatem
         }
     }
 
-    // ----------------------------------
-    // 6. Functie Toggle Burger Menu
-    // ----------------------------------
-    function toggleBurgerMenu() {
-        burgerBtn.classList.toggle('active'); // Activeaza animatia 'X'
-        burgerNav.classList.toggle('active'); // Afiseaza/ascunde meniul
-    }
+    // Adaugam listener-ul pentru evenimentul 'scroll'
+    window.addEventListener('scroll', handleScroll);
 
-    // Adaugam event listenerii
-    window.addEventListener('scroll', () => {
-        updateProgressBar();
-        toggleNavOnScroll();
-    });
 
-    // Event listener pentru butonul burger
-    burgerBtn.addEventListener('click', toggleBurgerMenu);
+    // --- 6. Logica Active Section "Glow" (Cerinta #6) ---
+    // Vom folosi un IntersectionObserver pentru a detecta
+    // ce sectiune este vizibila pe ecran
+    
+    const observerOptions = {
+        root: null, // foloseste viewport-ul
+        rootMargin: '0px',
+        threshold: 0.5 // 50% din sectiune trebuie sa fie vizibila
+    };
 
-    // Inchide meniul burger cand se da click pe un link
-    burgerLinks.forEach(link => {
-        link.addEventListener('click', toggleBurgerMenu);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Daca sectiunea intra in viewport
+            if (entry.isIntersecting) {
+                const id = entry.target.id; // Luam ID-ul sectiunii (ex: "home")
+                
+                // Scoatem clasa 'active' de la toate link-urile
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Adaugam clasa 'active' doar link-ului care corespunde sectiunii
+                // Folosim querySelector pentru a gasi link-ul dupa atributul href
+                const activeLink = document.querySelector(`nav a[href="#${id}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        });
+    }, observerOptions);
+
+    // Punem observer-ul sa urmareasca fiecare sectiune
+    sections.forEach(section => {
+        observer.observe(section);
     });
 
 });
