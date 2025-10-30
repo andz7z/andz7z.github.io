@@ -1,1 +1,14 @@
+/* css/services.css */
 
+/* Cerința Nouă 2: Gradient Smooth (Pas 1) */
+#services {
+    /* Începem cu griul cel mai deschis, fără gradient încă */
+    background-color: var(--color-gray);
+}
+
+/* Trebuie să suprascriem culoarea textului h2, 
+   deoarece fundalul este acum deschis */
+#services h2 {
+    color: var(--color-primary); /* Negru pe fundal gri */
+    text-shadow: none;
+}
