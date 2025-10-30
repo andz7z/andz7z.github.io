@@ -1,58 +1,84 @@
-// Asteptam ca tot continutul paginii sa fie incarcat
-document.addEventListener('DOMContentLoaded', () => {
+// Main JavaScript File
+class WebsiteManager {
+    constructor() {
+        this.init();
+    }
 
-    // Selectam elementele cheie
-    const video = document.querySelector('.home-video');
-    const topNav = document.querySelector('.top-nav');
-    const card = document.querySelector('.home-card');
-    const progressBar = document.querySelector('.progress-bar');
-    const burgerIcon = document.querySelector('.burger-menu-icon');
-    const minimalistMenu = document.querySelector('.minimalist-menu');
+    init() {
+        this.setupProgressBar();
+        this.setupNavigation();
+        this.setupScrollEffects();
+        this.setupBurgerMenu();
+    }
 
-    // REQ 9 & 11: Animatiile de intrare (Fade In)
-    if (video) video.classList.add('visible');
-    if (topNav) topNav.classList.add('visible');
-    if (card) card.classList.add('visible');
-    
-    // Logica pentru scroll
-    window.addEventListener('scroll', () => {
-        
-        // REQ 4: Logica Progress Bar (ruleaza mereu)
-        const totalScrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolledPercentage = (window.scrollY / totalScrollableHeight) * 100;
-        
-        if (progressBar) {
-            progressBar.style.width = scrolledPercentage + '%';
-        }
-
-        // --- MODIFICAT: Tranzitia Nav -> Burger Menu ---
-        // Ruleaza DOAR pe ecrane mai mari de 768px (Desktop)
-        if (window.innerWidth > 768) {
-            if (window.scrollY > 50) {
-                // Daca am dat scroll mai mult de 50px
-                if (topNav) topNav.classList.add('hidden');
-                if (burgerIcon) burgerIcon.classList.add('visible');
-            } else {
-                // Daca suntem inapoi sus
-                if (topNav) topNav.classList.remove('hidden');
-                if (burgerIcon) burgerIcon.classList.remove('visible');
-                // Ascundem si meniul minimalist daca era deschis
-                if (minimalistMenu) minimalistMenu.classList.remove('visible');
-                // Scoatem si animatia 'X' daca meniul s-a inchis
-                if (burgerIcon) burgerIcon.classList.remove('active'); 
-            }
-        }
-    });
-
-    // REQ 6: Logica deschidere/inchidere Burger Menu
-    if (burgerIcon && minimalistMenu) {
-        burgerIcon.addEventListener('click', () => {
-            // Comutam (toggle) clasa 'visible' pentru meniu
-            minimalistMenu.classList.toggle('visible');
-            
-            // MODIFICAT: Adaugam clasa 'active' pt animatia 'X'
-            burgerIcon.classList.toggle('active');
+    setupProgressBar() {
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.progress-bar').style.width = scrolled + '%';
         });
     }
 
+    setupNavigation() {
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('mouseenter', this.handleNavHover);
+            item.addEventListener('mouseleave', this.handleNavLeave);
+        });
+    }
+
+    handleNavHover(e) {
+        const item = e.target;
+        item.style.transform = 'scale(1.1)';
+    }
+
+    handleNavLeave(e) {
+        const item = e.target;
+        item.style.transform = 'scale(1)';
+    }
+
+    setupScrollEffects() {
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            // Show/hide burger menu based on scroll
+            if (currentScrollY > 100) {
+                document.body.classList.add('scrolled');
+            } else {
+                document.body.classList.remove('scrolled');
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+    }
+
+    setupBurgerMenu() {
+        const burgerIcon = document.querySelector('.burger-icon');
+        const burgerContent = document.querySelector('.burger-content');
+
+        burgerIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isVisible = burgerContent.style.display === 'flex';
+            burgerContent.style.display = isVisible ? 'none' : 'flex';
+            
+            // Animate burger icon
+            burgerIcon.classList.toggle('active');
+        });
+
+        // Close burger menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.burger-menu')) {
+                burgerContent.style.display = 'none';
+                burgerIcon.classList.remove('active');
+            }
+        });
+    }
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    new WebsiteManager();
 });
