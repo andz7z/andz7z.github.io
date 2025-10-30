@@ -1,6 +1,9 @@
-/* ===== REVIEWS SECTION ===== */
-.reviews-section {
-    height: 100vh;
-    background: linear-gradient(to bottom, #888888, #333333);
+/* Reviews Section */
+#reviews {
+    background: linear-gradient(135deg, #a0a0a0 0%, #606060 100%);
+    color: #fff;
+}
+
+#reviews .section-title {
     color: #fff;
 }
