@@ -1,25 +1,27 @@
-// Home section specific functionality
+// ===== HOME SECTION JAVASCRIPT =====
+// Handles any home section specific interactions
+
 document.addEventListener('DOMContentLoaded', function() {
-    const homeSection = document.getElementById('home');
+    const homeSection = document.querySelector('.home-section');
+    const glassCard = document.querySelector('.glass-card');
     
-    // Setăm înălțimea exactă pentru secțiunea home
-    homeSection.style.height = '300vh';
+    // Add parallax effect to glass card on scroll
+    function handleHomeScroll() {
+        const scrollPosition = window.scrollY;
+        const homeHeight = homeSection.offsetHeight;
+        
+        // Only apply effects while in home section
+        if (scrollPosition < homeHeight) {
+            // Parallax effect - card moves slower than scroll
+            const parallaxValue = scrollPosition * 0.5;
+            glassCard.style.transform = `translateY(${parallaxValue}px) rotate(${scrollPosition * 0.01}deg)`;
+            
+            // Adjust opacity based on scroll position
+            const opacity = 1 - (scrollPosition / homeHeight);
+            glassCard.style.opacity = Math.max(opacity, 0.3);
+        }
+    }
     
-    // Adăugăm un efect de fade-in la încărcare
-    homeSection.style.opacity = '0';
-    setTimeout(() => {
-        homeSection.style.transition = 'opacity 1.5s ease';
-        homeSection.style.opacity = '1';
-    }, 100);
-    
-    // Glass card animation on load
-    const glassCard = document.getElementById('glassCard');
-    glassCard.style.opacity = '0';
-    glassCard.style.transform = 'translate(-50%, -40%) scale(0.9)';
-    
-    setTimeout(() => {
-        glassCard.style.transition = 'opacity 1s ease, transform 1s ease';
-        glassCard.style.opacity = '1';
-        glassCard.style.transform = 'translate(-50%, -50%) scale(1)';
-    }, 500);
+    // Event listener for scroll
+    window.addEventListener('scroll', handleHomeScroll);
 });
