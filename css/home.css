@@ -1,67 +1,64 @@
-/* Home Section */
-#home {
-    min-height: 300vh;
+/* HOME SECTION - MODIFY BACKGROUND IMAGE PATH HERE */
+.home-section {
+    height: 300vh;
     background: url('../assets/photos/andz.jpg') no-repeat center center;
     background-size: cover;
-    background-attachment: fixed;
     position: relative;
 }
 
-#home::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-}
-
-.home-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    padding-bottom: 10vh;
-}
-
-/* Glass Card - MODIFICA AICI PENTRU POZITIONARE/DIMENSIUNE */
+/* GLASS CARD - MODIFY POSITION/SIZE/STYLE HERE */
 .glass-card {
-    width: 80%; /* Schimba aceasta valoare pentru latime */
-    height: 80vh; /* Schimba aceasta valoare pentru inaltime */
+    position: absolute;
+    /* POSITION MODIFICATION: Change these values to move the card */
+    bottom: 10%; /* Distance from bottom */
+    left: 10%; /* Distance from left */
+    right: 10%; /* Distance from right */
+    
+    /* SIZE MODIFICATION: Change height and width */
+    height: 80vh; /* Card height */
+    width: auto; /* Card width */
+    
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
-    border-radius: 20px;
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-}
-
-.glass-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    
+    /* 3D/CHROME EFFECT */
     background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.1),
-        transparent
+        135deg,
+        rgba(255, 255, 255, 0.1) 0%,
+        rgba(255, 255, 255, 0.05) 100%
     );
-    transition: left 0.5s ease;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 2rem;
 }
 
-.glass-card:hover::before {
-    left: 100%;
+/* CARD TITLE - MODIFY TEXT STYLES HERE */
+.card-title {
+    font-family: 'Noverich', sans-serif;
+    font-size: 2.5rem;
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.glass-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+/* RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+    .glass-card {
+        bottom: 5%;
+        left: 5%;
+        right: 5%;
+        height: 70vh;
+    }
+    
+    .card-title {
+        font-size: 2rem;
+    }
 }
