@@ -1,14 +1,17 @@
 // Main JavaScript File
 document.addEventListener('DOMContentLoaded', function() {
-    // Progress Bar
+    // Elements
     const progressBar = document.getElementById('progressBar');
-    
-    // Navigation Elements
     const navToggle = document.getElementById('navToggle');
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navbar = document.getElementById('navbar');
     const navMenu = document.getElementById('navMenu');
-    const navbar = document.querySelector('.navbar');
     
-    // Scroll Progress
+    // Variables
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    // Progress Bar
     function updateProgressBar() {
         const windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight - windowHeight;
@@ -19,40 +22,71 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Navigation Scroll Effect
     function handleNavScroll() {
-        if (window.scrollY > 100) {
-            navbar.classList.add('scrolled');
+        const currentScrollY = window.scrollY;
+        
+        if (currentScrollY > 100) {
+            // Hide main navigation, show burger toggle
+            navbar.classList.add('hidden');
+            navToggle.style.display = 'flex';
         } else {
-            navbar.classList.remove('scrolled');
+            // Show main navigation, hide burger toggle
+            navbar.classList.remove('hidden');
+            navToggle.style.display = 'none';
+            burgerMenu.classList.remove('active');
+            navToggle.classList.remove('active');
+        }
+        
+        lastScrollY = currentScrollY;
+        ticking = false;
+    }
+    
+    // Request Animation Frame for scroll
+    function onScroll() {
+        if (!ticking) {
+            requestAnimationFrame(function() {
+                updateProgressBar();
+                handleNavScroll();
+            });
+            ticking = true;
         }
     }
     
-    // Toggle Mobile Menu
-    function toggleMobileMenu() {
+    // Toggle Burger Menu
+    function toggleBurgerMenu() {
+        burgerMenu.classList.toggle('active');
         navToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
     }
     
-    // Close mobile menu when clicking on a link
-    function closeMobileMenu() {
+    // Close burger menu when clicking on a link
+    function closeBurgerMenu() {
+        burgerMenu.classList.remove('active');
         navToggle.classList.remove('active');
-        navMenu.classList.remove('active');
     }
     
     // Event Listeners
-    window.addEventListener('scroll', function() {
-        updateProgressBar();
-        handleNavScroll();
+    window.addEventListener('scroll', onScroll);
+    
+    navToggle.addEventListener('click', toggleBurgerMenu);
+    
+    // Close menu when clicking on burger links
+    const burgerLinks = document.querySelectorAll('.burger-link');
+    burgerLinks.forEach(link => {
+        link.addEventListener('click', closeBurgerMenu);
     });
     
-    navToggle.addEventListener('click', toggleMobileMenu);
-    
-    // Close menu when clicking on nav links
-    const navLinks = document.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', closeMobileMenu);
+    // Close menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.burger-menu') && 
+            !event.target.closest('.nav-toggle') &&
+            burgerMenu.classList.contains('active')) {
+            closeBurgerMenu();
+        }
     });
     
     // Initialize
     updateProgressBar();
     handleNavScroll();
+    
+    // Hide burger toggle initially
+    navToggle.style.display = 'none';
 });
