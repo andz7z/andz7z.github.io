@@ -1,63 +1,50 @@
-// Main JavaScript file
-document.addEventListener('DOMContentLoaded', function() {
-    // Progress Bar
-    const progressBar = document.getElementById('progressBar');
-    
-    window.addEventListener('scroll', function() {
-        const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrolled = (window.scrollY / windowHeight) * 100;
-        progressBar.style.width = scrolled + '%';
+// Așteaptă ca întregul document să fie încărcat
+document.addEventListener("DOMContentLoaded", function() {
+
+    const progressBar = document.getElementById("progressBar");
+    const topNav = document.getElementById("topNav");
+    const burgerMenuContainer = document.getElementById("burgerMenuContainer");
+    const burgerIcon = document.getElementById("burgerIcon");
+    const burgerNav = document.getElementById("burgerNav");
+
+    // Funcție pentru actualizarea barei de progres (Cerința 4)
+    function updateProgressBar() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
         
-        // Navigation transition
-        const nav = document.querySelector('.main-nav');
-        if (window.scrollY > 100) {
-            nav.style.transform = 'translateY(-100%)';
-            document.querySelector('.burger-menu').style.display = 'flex';
+        progressBar.style.width = scrollPercent + "%";
+    }
+
+    // Funcție pentru gestionarea navigației la scroll (Cerința 6)
+    function handleNavScroll() {
+        // Adăugăm clasa 'scrolled' pe body dacă am derulat mai mult de 50px
+        if (window.scrollY > 50) {
+            document.body.classList.add("scrolled");
         } else {
-            nav.style.transform = 'translateY(0)';
-            document.querySelector('.burger-menu').style.display = 'none';
+            document.body.classList.remove("scrolled");
         }
+    }
+
+    // Toggle pentru meniul burger (Cerința 6)
+    burgerIcon.addEventListener("click", function() {
+        burgerIcon.classList.toggle("active");
+        burgerNav.classList.toggle("active");
     });
     
-    // Burger Menu
-    const burgerMenu = document.getElementById('burgerMenu');
-    const mobileMenu = document.getElementById('mobileMenu');
-    
-    burgerMenu.addEventListener('click', function() {
-        mobileMenu.classList.toggle('active');
-        burgerMenu.classList.toggle('active');
-    });
-    
-    // Close mobile menu when clicking on a link
-    const mobileLinks = mobileMenu.querySelectorAll('a');
-    mobileLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileMenu.classList.remove('active');
-            burgerMenu.classList.remove('active');
+    // Închide meniul dacă se dă clic pe un link din el
+    burgerNav.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", () => {
+            burgerIcon.classList.remove("active");
+            burgerNav.classList.remove("active");
         });
     });
-    
-    // Section title animations
-    const sections = document.querySelectorAll('.section');
-    
-    const observerOptions = {
-        threshold: 0.3
-    };
-    
-    const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const sectionTitle = entry.target.querySelector('.section-content h2');
-                if (sectionTitle) {
-                    sectionTitle.style.animation = 'fadeIn 1s ease forwards';
-                }
-            }
-        });
-    }, observerOptions);
-    
-    sections.forEach(section => {
-        if (section.id !== 'home') {
-            observer.observe(section);
-        }
+
+
+    // Adaugă event listenere
+    window.addEventListener("scroll", function() {
+        updateProgressBar();
+        handleNavScroll();
     });
+    
 });
