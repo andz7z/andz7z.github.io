@@ -1,78 +1,25 @@
-/* REQ 10: Inaltimea sectiunii Home */
+/* Home Section Specific Styles */
 #home {
-    height: 500vh;
-    position: relative; /* Necesar pt pozitionarea video-ului si card-ului */
+    background: transparent;
 }
 
-/* REQ 3 & 9: Fundalul Video */
-.home-video {
+/* Gradient overlay for better text readability */
+#home::before {
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    
-    /* MODIFICAT: 'contain' arata video-ul la rezolutia natala, fara zoom */
-    object-fit: contain; 
-    
-    z-index: -1; /* In spatele continutului */
-    
-    /* REQ 9: Animatie Fade-in (initial ascuns) */
-    opacity: 0;
-    transition: opacity 1.5s ease;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.3) 100%
+    );
+    z-index: 1;
 }
 
-/* Clasa adaugata de JS pentru animatia de intrare */
-.home-video.visible {
-    opacity: 1;
-}
-
-/* REQ 11: Card-ul Glassy */
-.home-card {
-    /* Pozitionarea exacta ceruta */
-    position: absolute;
-    width: 80%;
-    
-    /* MODIFICAT: Mai lung */
-    height: 800px;
-    
-    /* MODIFICAT: Mai sus */
-    top: 40%;
-    left: 50%;
-
-    /* REQ 7: Stilul Glass/Blur */
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border: var(--glass-border);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2); /* O umbra subtila */
-    
-    /* REQ 11: Animatie Fade-in (dupa video si nav) */
-    opacity: 0;
-    /* Incepe usor marit (efect 3D/Chrome) */
-    transform: translate(-50%, -50%) scale(0.95); 
-    /* Delay 1.2s (dupa nav) */
-    transition: opacity 1s ease 1.2s, transform 1s ease 1.2s; 
-}
-
-/* Clasa adaugata de JS pentru animatia de intrare */
-.home-card.visible {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.card-content {
-    /* Aici vom stiliza textul cand il adaugi */
-    /* De ex:
-    padding: 40px;
-    text-align: center;
-    */
-    /* Animatia textului (Req 11) - va aparea dupa card */
-    opacity: 0;
-    transition: opacity 1s ease 2s; /* Delay 2s (dupa card) */
-}
-
-/* Clasa adaugata de JS (sau cand card-ul e vizibil) */
-.home-card.visible .card-content {
-    opacity: 1;
+.glass-card {
+    z-index: 2;
 }
