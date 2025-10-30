@@ -2,6 +2,7 @@
     height: 300vh;
     background: url('../assets/photos/andz.jpg') no-repeat center center;
     background-size: cover;
+    background-attachment: fixed;
     position: relative;
 }
 
@@ -12,7 +13,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 1;
 }
 
