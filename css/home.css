@@ -1,64 +1,20 @@
-/* HOME SECTION - MODIFY BACKGROUND IMAGE PATH HERE */
-.home-section {
-    height: 300vh;
-    background: url('../assets/photos/andz.jpg') no-repeat center center;
-    background-size: cover;
+#home {
+    background: url('../assets/photos/andz.jpg') center/cover no-repeat;
     position: relative;
 }
 
-/* GLASS CARD - MODIFY POSITION/SIZE/STYLE HERE */
-.glass-card {
+#home::before {
+    content: '';
     position: absolute;
-    /* POSITION MODIFICATION: Change these values to move the card */
-    bottom: 10%; /* Distance from bottom */
-    left: 10%; /* Distance from left */
-    right: 10%; /* Distance from right */
-    
-    /* SIZE MODIFICATION: Change height and width */
-    height: 80vh; /* Card height */
-    width: auto; /* Card width */
-    
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    
-    /* 3D/CHROME EFFECT */
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.1) 0%,
-        rgba(255, 255, 255, 0.05) 100%
-    );
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 2rem;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
 }
 
-/* CARD TITLE - MODIFY TEXT STYLES HERE */
-.card-title {
-    font-family: 'Noverich', sans-serif;
-    font-size: 2.5rem;
-    color: #ffffff;
-    text-align: center;
-    margin: 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-/* RESPONSIVE ADJUSTMENTS */
-@media (max-width: 768px) {
-    .glass-card {
-        bottom: 5%;
-        left: 5%;
-        right: 5%;
-        height: 70vh;
-    }
-    
-    .card-title {
-        font-size: 2rem;
-    }
+#home .section-content {
+    position: relative;
+    z-index: 1;
 }
