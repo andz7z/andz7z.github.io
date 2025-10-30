@@ -3,25 +3,89 @@
 /* ---------------------------------- */
 
 #home {
+    /* MODIFICAT: Inaltimea sectiunii */
+    height: 300vh;
+    
     background-image: url('../assets/photos/andz.jpg');
-    background-size: cover; /* Incadreaza imaginea fara zoom excesiv (acopera tot) */
-    background-position: center center; /* Centreaza imaginea */
+    background-size: cover; 
+    background-position: center center; 
     background-repeat: no-repeat;
+    /* Important: Atasam imaginea pentru a crea un efect de parallax */
+    background-attachment: fixed;
 }
 
-/* Un mic overlay intunecat peste imaginea de home pentru a face textul (daca adaugi) mai vizibil */
+/* Overlay-ul intunecat */
 #home::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3); /* Overlay negru 30% */
+    height: 100%; /* MODIFICAT: Sa acopere toti 300vh, nu doar 100vh */
+    background-color: rgba(0, 0, 0, 0.3); 
 }
 
-#home h1 {
+/* ---------------------------------- */
+/* Cardul Glassy (NOU) */
+/* ---------------------------------- */
+.home-glass-card {
+    /* Folosim pozitionare absoluta fata de sectiunea #home */
+    position: absolute;
+    z-index: 2; /* Peste overlay-ul ::before */
+
+    /* --- CUM SA MODIFICI POZITIA SI MARIMEA --- */
+    
+    /* MARIME: 
+       Foloseste 'vw' (viewport width) si 'vh' (viewport height) 
+       pentru marime relativa la ecran, sau 'px' pentru marime fixa.
+       '80vw' = 80% din latimea ecranului.
+       '70vh' = 70% din inaltimea ecranului.
+    */
+    width: 80vw; /* Exemplu: 80% latime ecran */
+    max-width: 1200px; /* O limita maxima pe ecrane mari */
+    height: 70vh; /* Exemplu: 70% inaltime ecran */
+
+    /* POZITIONARE:
+       Combinatia 'top: 50%' si 'transform: translateY(-50%)' centreaza 
+       elementul perfect pe verticala in cadrul parintelui (#home).
+       La fel si 'left: 50%' cu 'transform: translateX(-50%)' pe orizontala.
+       
+       DACA VREI SA IL POZITIONEZI SPECIFIC:
+       - Sterge 'top', 'left' si 'transform'.
+       - Foloseste 'top: 150px;' (la 150px de sus)
+       - Sau 'bottom: 100px;' (la 100px de jos)
+       - Si 'left: 50px;' (la 50px de stanga)
+       - Sau 'right: 50px;' (la 50px de dreapta)
+       
+       Exemplu: Pentru a-l pune la 100px de sus si 100px de stanga:
+       top: 100px;
+       left: 100px;
+       (Sterge 'bottom', 'right' si 'transform')
+    */
+    
+    /* Acum este centrat in mijlocul sectiunii de 300vh */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+    /* --- STILUL GLASSMORPHISM --- */
+    background: var(--color-glass-bg);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--color-glass-border);
+    border-radius: 20px; /* Colturi mai rotunjite */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Umbra mai pronuntata */
+
+    /* Aliniere continut interior (titlul) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.home-glass-card h1 {
     color: var(--color-white);
     font-size: 5rem;
-    z-index: 1; /* Titlul sa fie peste overlay */
+    padding: 0; /* Resetam padding-ul implicit al lui h1 */
 }
