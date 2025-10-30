@@ -1,4 +1,6 @@
+/* ===== SERVICES SECTION ===== */
 .services-section {
-    background: linear-gradient(135deg, #2d2d2d 0%, #404040 50%, #525252 100%);
-    position: relative;
+    height: 100vh;
+    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
+    color: #000;
 }
