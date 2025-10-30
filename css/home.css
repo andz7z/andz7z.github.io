@@ -2,7 +2,6 @@
 #home {
     height: 500vh;
     position: relative; /* Necesar pt pozitionarea video-ului si card-ului */
-    background-color: var(--color-black); /* Adaugam un fundal negru */
 }
 
 /* REQ 3 & 9: Fundalul Video */
