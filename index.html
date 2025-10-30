@@ -3,93 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Portfolio</title>
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/gif" href="assets/photos/icon.gif">
-    
-    <!-- CSS Files -->
+    <title>Modern Monochrome Portfolio</title>
+
+    <link rel="icon" href="assets/photos/icon.gif" type="image/gif">
+
     <link rel="stylesheet" href="css/style.css">
+
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/portfolio.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    
-    <!-- Fonts -->
-    <style>
-        @font-face {
-            font-family: 'Noverich';
-            src: url('assets/fonts/noverich.otf') format('opentype');
-        }
-        @font-face {
-            font-family: 'Roboto';
-            src: url('assets/fonts/roboto.ttf') format('truetype');
-        }
-    </style>
 </head>
 <body>
-    <!-- Scroll Progress Bar -->
-    <div class="scroll-progress">
-        <div class="progress-bar"></div>
-    </div>
-    
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-menu">
-                <a href="#home" class="nav-link">Home</a>
-                <a href="#services" class="nav-link">Services</a>
-                <a href="#portfolio" class="nav-link">Portfolio</a>
-                <a href="#reviews" class="nav-link">Reviews</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
-            <div class="burger-menu">
-                <div class="burger-line"></div>
-                <div class="burger-line"></div>
-                <div class="burger-line"></div>
-            </div>
+
+    <div id="scroll-progress-bar"></div>
+
+    <nav id="main-nav">
+        <ul class="nav-links">
+            <li><a href="#home"><span class="icon">⌂</span> Home</a></li>
+            <li><a href="#services"><span class="icon">✧</span> Services</a></li>
+            <li><a href="#portfolio"><span class="icon">⎚</span> Portfolio</a></li>
+            <li><a href="#reviews"><span class="icon">♡</span> Reviews</a></li>
+            <li><a href="#contact"><span class="icon">✉</span> Contact</a></li>
+        </ul>
+        
+        <div id="burger-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </nav>
-    
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay">
-        <div class="mobile-menu">
-            <a href="#home" class="mobile-nav-link">Home</a>
-            <a href="#services" class="mobile-nav-link">Services</a>
-            <a href="#portfolio" class="mobile-nav-link">Portfolio</a>
-            <a href="#reviews" class="mobile-nav-link">Reviews</a>
-            <a href="#contact" class="mobile-nav-link">Contact</a>
-        </div>
+
+    <div id="mobile-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
     </div>
-    
-    <!-- Sections -->
-    <section id="home" class="section home-section">
-        <div class="glass-card"></div>
-    </section>
-    
-    <section id="services" class="section services-section">
-        <h2 class="section-title">Services</h2>
-    </section>
-    
-    <section id="portfolio" class="section portfolio-section">
-        <h2 class="section-title">Portfolio</h2>
-    </section>
-    
-    <section id="reviews" class="section reviews-section">
-        <h2 class="section-title">Reviews</h2>
-    </section>
-    
-    <section id="contact" class="section contact-section">
-        <h2 class="section-title">Contact</h2>
-    </section>
-    
-    <!-- JavaScript Files -->
+
+
+    <main>
+
+        <section id="home">
+            <div class="glass-card">
+                </div>
+        </section>
+
+        <div class="gradient-wrapper">
+
+            <section id="services">
+                <h2>Services</h2>
+            </section>
+
+            <section id="portfolio">
+                <h2>Portfolio</h2>
+            </section>
+
+            <section id="reviews">
+                <h2>Reviews</h2>
+            </section>
+
+            <section id="contact">
+                <h2>Contact</h2>
+            </section>
+            
+        </div>
+
+    </main>
+
     <script src="js/main.js"></script>
+
     <script src="js/home.js"></script>
     <script src="js/services.js"></script>
     <script src="js/portfolio.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/contact.js"></script>
+
 </body>
 </html>
