@@ -1,34 +1,44 @@
-/* Import fonturi */
+/* Importare Font-uri */
 @font-face {
     font-family: 'Noverich';
     src: url('../assets/fonts/noverich.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
 }
 
 @font-face {
     font-family: 'Roboto';
     src: url('../assets/fonts/roboto.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* Variabile CSS pentru culori și stiluri */
+/* Cerința 7: Variabile pentru Tematică & Culori */
 :root {
-    --color-black: #000000;
-    --color-white: #ffffff;
+    --color-primary: #000000;
+    --color-secondary: #ffffff;
     --color-gray: #cfcfcf;
-    --color-dark-gray: #333333;
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    --blur-intensity: blur(10px);
-    --transition-slow: 1s ease;
-    --transition-medium: 0.5s ease;
-    --transition-fast: 0.3s ease;
+    
+    --gradient-sections: linear-gradient(to bottom, var(--color-gray), var(--color-primary));
+    --gradient-progress: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+    
+    --font-primary: 'Noverich', sans-serif;
+    --font-secondary: 'Roboto', sans-serif;
+    
+    /* Cerința 7 & 11: Stiluri Glass/Blur/Chrome */
+    --glass-bg: rgba(255, 255, 255, 0.05); /* Fundal foarte subtil */
+    --glass-blur: blur(12px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1); /* Efect "chrome" */
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-/* Reset și stiluri de bază */
-* {
+/* Resetare de bază și stiluri globale */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 html {
@@ -36,290 +46,223 @@ html {
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
-    color: var(--color-white);
+    font-family: var(--font-secondary);
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
+    overflow-x: hidden; /* Previne scroll orizontal */
 }
 
-/* Progress Bar */
-.progress-container {
+/* Stiluri de bază pentru secțiuni (Cerința 2, 3, 10) */
+section {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Ascunde conținutul care depășește */
+}
+
+/* Toate secțiunile, cu excepția #home, au 100vh și gradient */
+section:not(#home) {
+    height: 100vh;
+    background: var(--gradient-sections);
+}
+
+section h2 {
+    font-family: var(--font-primary);
+    font-size: 4rem;
+    font-weight: normal;
+    color: var(--color-secondary);
+    /* Asigură că titlul din #home (card) e vizibil */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
+}
+
+/* Sectiunea #home are titlul ascuns, e în card */
+#home > h2 {
+    display: none;
+}
+
+/* Cerința 4: Progress Bar */
+.progress-bar-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px;
-    background: transparent;
+    height: 4px; /* Înălțimea barei */
+    background-color: rgba(255, 255, 255, 0.1); /* Fundal subtil */
     z-index: 1000;
 }
 
 .progress-bar {
     height: 100%;
-    background: linear-gradient(to right, var(--color-black), var(--color-white));
-    width: 0%;
-    transition: width 0.1s ease;
+    width: 0%; /* Inițial 0, se umple cu JS */
+    background: var(--gradient-progress);
 }
 
-/* Navigation */
-.main-nav {
+/* Cerința 5, 8, 9: Navigație centru sus */
+.top-nav {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 20px 0;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 25px;
     z-index: 900;
-    transition: all var(--transition-medium);
-}
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 
-.nav-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 40px;
-}
-
-.nav-links li a {
-    color: var(--color-white);
-    text-decoration: none;
-    font-family: 'Noverich', sans-serif;
-    font-size: 18px;
-    position: relative;
-    padding: 10px 20px;
-    transition: all var(--transition-medium);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    width: 120px;
-    background: var(--glass-bg);
-    backdrop-filter: var(--blur-intensity);
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    box-shadow: var(--glass-shadow);
-}
-
-.nav-links li a:hover {
-    color: transparent;
-}
-
-.nav-links li a:hover::before {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E");
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 1;
-    transition: opacity var(--transition-medium);
-}
-
-.nav-links li a::before {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
+    /* Cerința 8 & 9: Animație Fade IN (începe după 1.5s) */
     opacity: 0;
-    transition: opacity var(--transition-medium);
+    animation: fadeIn 1s ease-out 1.5s forwards;
 }
 
-/* Burger Menu */
-.burger-menu {
+.top-nav a {
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+    color: var(--color-secondary);
+    text-decoration: none;
+    padding: 5px 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px; /* Lățime minimă pentru a centra iconița */
+    text-align: center;
+}
+
+/* Container-ele pentru text și iconiță */
+.nav-text, .nav-icon {
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.nav-icon {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none; /* Nu bloca hover-ul */
+}
+
+.nav-icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-secondary);
+}
+
+/* Cerința 5: Tranziție Hover IN */
+.top-nav a:hover .nav-text {
+    opacity: 0;
+    transform: scale(0.8);
+}
+
+.top-nav a:hover .nav-icon {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Cerința 6: Tranziție scroll pentru navigația de sus */
+body.scrolled .top-nav {
+    opacity: 0;
+    transform: translate(-50%, -100px); /* Dispare în sus */
+    pointer-events: none;
+}
+
+/* Cerința 6: Meniu Burger (Stiluri) */
+.burger-menu-container {
     position: fixed;
     top: 20px;
     left: 20px;
+    z-index: 950;
+    
+    /* Inițial ascuns, apare la scroll */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Apariție la scroll */
+body.scrolled .burger-menu-container {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.burger-icon {
     width: 30px;
-    height: 25px;
-    display: none;
+    height: 22px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
-    z-index: 1001;
 }
 
-.burger-menu span {
-    display: block;
+.burger-icon span {
+    width: 100%;
     height: 3px;
-    width: 100%;
-    background-color: var(--color-white);
-    border-radius: 2px;
-    transition: all var(--transition-medium);
+    background-color: var(--color-secondary);
+    border-radius: 3px;
+    transition: all 0.3s ease;
 }
 
-/* Mobile Menu */
-.mobile-menu {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 280px;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.9);
-    backdrop-filter: var(--blur-intensity);
-    z-index: 999;
-    padding: 80px 20px 20px;
-    transition: left var(--transition-medium);
-    border-right: 1px solid var(--glass-border);
+/* Animație burger icon -> X */
+.burger-icon.active span:nth-child(1) {
+    transform: translateY(9.5px) rotate(45deg);
 }
-
-.mobile-menu.active {
-    left: 0;
-}
-
-.mobile-menu ul {
-    list-style: none;
-}
-
-.mobile-menu ul li {
-    margin-bottom: 20px;
-}
-
-.mobile-menu ul li a {
-    color: var(--color-white);
-    text-decoration: none;
-    font-family: 'Noverich', sans-serif;
-    font-size: 20px;
-    display: block;
-    padding: 10px;
-    transition: all var(--transition-medium);
-    border-radius: 5px;
-}
-
-.mobile-menu ul li a:hover {
-    background: var(--glass-bg);
-}
-
-/* Sections */
-.section {
-    min-height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-#home {
-    min-height: 300vh;
-    background: linear-gradient(to bottom, var(--color-gray), var(--color-black));
-}
-
-#services, #portfolio, #reviews, #contact {
-    background: linear-gradient(to bottom, var(--color-gray), var(--color-black));
-}
-
-/* Background Image pentru Home */
-.background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('../assets/photos/andz.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.burger-icon.active span:nth-child(2) {
     opacity: 0;
-    animation: fadeIn 2s ease forwards;
-    animation-delay: 0.5s;
+}
+.burger-icon.active span:nth-child(3) {
+    transform: translateY(-9.5px) rotate(-45deg);
 }
 
-/* Glass Card pentru Home */
-.home-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.glass-card {
+/* Cerința 6: Meniul minimalist/futurist */
+.burger-nav {
     position: absolute;
-    width: 80%;
-    height: 700px;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50px; /* Sub iconiță */
+    left: 0;
+    width: 220px;
+    padding: 15px;
+    
+    /* Stilul Glass/Chrome */
     background: var(--glass-bg);
-    backdrop-filter: var(--blur-intensity);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: 10px;
     box-shadow: var(--glass-shadow);
-    padding: 40px;
+    
+    /* Inițial ascuns */
     opacity: 0;
-    animation: fadeIn 1.5s ease forwards;
-    animation-delay: 1.5s;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    transform: translateX(-20px);
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.glass-card h1 {
-    font-family: 'Noverich', sans-serif;
-    font-size: 48px;
-    margin-bottom: 20px;
-    color: var(--color-white);
+.burger-nav.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
 }
 
-.glass-card p {
-    font-size: 18px;
-    line-height: 1.6;
-    max-width: 600px;
+.burger-nav a {
+    display: block;
+    color: var(--color-secondary);
+    text-decoration: none;
+    font-family: var(--font-primary);
+    font-size: 1.3rem;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
 }
 
-/* Section Content */
-.section-content {
-    text-align: center;
-    z-index: 1;
+.burger-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.section-content h2 {
-    font-family: 'Noverich', sans-serif;
-    font-size: 48px;
-    margin-bottom: 30px;
-    opacity: 0;
-    animation: fadeIn 1s ease forwards;
-}
 
-/* Animations */
+/* Keyframes pentru animații (Cerința 9 & 11) */
 @keyframes fadeIn {
     from {
         opacity: 0;
     }
     to {
         opacity: 1;
-    }
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-    
-    .burger-menu {
-        display: flex;
-    }
-    
-    .glass-card {
-        width: 90%;
-        height: 500px;
-        padding: 20px;
-    }
-    
-    .glass-card h1 {
-        font-size: 36px;
-    }
-    
-    .glass-card p {
-        font-size: 16px;
     }
 }
