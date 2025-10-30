@@ -142,11 +142,12 @@ h2 {
     transform: translate(-50%, -50%) scale(1.2); /* Iconita apare si creste usor */
 }
 
-/* REQ 6: Burger Menu Icon */
+/* REQ 6: Burger Menu Icon - MODIFICAT (mutat stanga) */
 .burger-menu-icon {
     position: fixed;
     top: 30px;
-    right: 40px;
+    /* MODIFICAT: mutat pe stanga */
+    left: 40px; 
     z-index: 1002;
     cursor: pointer;
     width: 30px;
@@ -155,7 +156,7 @@ h2 {
     flex-direction: column;
     justify-content: space-between;
     
-    /* Initial ascuns (apare la scroll) */
+    /* Initial ascuns (pe desktop) */
     opacity: 0;
     transform: scale(0.8);
     transition: var(--transition-smooth);
@@ -172,15 +173,32 @@ h2 {
     background-color: var(--color-white);
     border-radius: 2px;
     transition: var(--transition-smooth);
+    /* Setam originea transformarii pt animatia 'X' */
+    transform-origin: center;
 }
 
-/* (Vom adauga animatia de 'X' in JS cand facem meniul functional) */
+/* NOU: Animația 'X' pentru Burger (Refacere "wow") */
+.burger-menu-icon.active span:nth-child(1) {
+    /* Rotim prima linie */
+    transform: translateY(9.5px) rotate(45deg);
+}
+.burger-menu-icon.active span:nth-child(2) {
+    /* Ascundem linia din mijloc */
+    opacity: 0;
+    transform: scaleX(0);
+}
+.burger-menu-icon.active span:nth-child(3) {
+    /* Rotim a treia linie */
+    transform: translateY(-9.5px) rotate(-45deg);
+}
 
-/* REQ 6: Minimalist, Futuristic Menu */
+
+/* REQ 6: Minimalist, Futuristic Menu - MODIFICAT */
 .minimalist-menu {
     position: fixed;
     top: 80px; /* Sub icon-ul burger */
-    right: 40px;
+    /* MODIFICAT: mutat pe stanga */
+    left: 40px; 
     z-index: 1001;
     
     /* REQ 7: Glass/Blur/Modern */
@@ -193,14 +211,15 @@ h2 {
     /* Initial ascuns */
     display: none;
     opacity: 0;
-    transform: translateY(-20px);
+    /* MODIFICAT: animatie din stanga */
+    transform: translateX(-20px); 
     transition: var(--transition-smooth);
 }
 
 .minimalist-menu.visible {
     display: block;
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0); /* Intra in ecran */
 }
 
 .minimalist-menu a {
@@ -210,13 +229,30 @@ h2 {
     font-family: var(--font-display);
     font-size: 1.2rem;
     padding: 12px 20px;
-    transition: var(--transition-fast);
+    
+    /* NOU: Starea initiala pentru animatia "wow" */
+    opacity: 0;
+    transform: translateX(-15px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .minimalist-menu a:hover {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
 }
+
+/* NOU: Animatia "Staggered" (decalata) pentru meniu */
+.minimalist-menu.visible a {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Setam intarzierile (delay) pentru fiecare link */
+.minimalist-menu.visible a:nth-child(1) { transition-delay: 0.1s; }
+.minimalist-menu.visible a:nth-child(2) { transition-delay: 0.2s; }
+.minimalist-menu.visible a:nth-child(3) { transition-delay: 0.3s; }
+.minimalist-menu.visible a:nth-child(4) { transition-delay: 0.4s; }
+.minimalist-menu.visible a:nth-child(5) { transition-delay: 0.5s; }
 
 
 /* REQ 3: Gradient Wrapper (pentru Portfolio, Reviews, Contact) */
@@ -244,4 +280,20 @@ h2 {
 }
 #contact h2 {
     color: var(--color-white); /* Lizibil pe gri inchis/negru */
+}
+
+/* --- NOU: Media Query pentru Mobil --- */
+/* (Always burger menu, fara nav system) */
+@media (max-width: 768px) {
+    
+    /* Ascundem navigatia de sus */
+    .top-nav {
+        display: none;
+    }
+    
+    /* Afisam burger-ul by default, nu doar la scroll */
+    .burger-menu-icon {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
