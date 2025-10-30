@@ -1,14 +1,34 @@
-// Reviews section specific functionality
-document.addEventListener('DOMContentLoaded', function() {
+// Reviews Section Specific JavaScript
+class ReviewsSection {
+    constructor() {
+        this.init();
+    }
+
+    init() {
+        this.setupReviewsAnimations();
+    }
+
+    setupReviewsAnimations() {
+        // Reviews-specific animations and functionality
+        console.log('Reviews section initialized');
+    }
+}
+
+// Initialize reviews section when it becomes active
+document.addEventListener('DOMContentLoaded', () => {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const target = mutation.target;
+                if (target.id === 'reviews' && target.classList.contains('active')) {
+                    new ReviewsSection();
+                }
+            }
+        });
+    });
+
     const reviewsSection = document.getElementById('reviews');
-    
-    // Asigurăm că secțiunea reviews are înălțimea de 100vh
-    reviewsSection.style.height = '100vh';
-    
-    // Adăugăm un efect de fade-in la încărcare
-    reviewsSection.style.opacity = '0';
-    setTimeout(() => {
-        reviewsSection.style.transition = 'opacity 1s ease';
-        reviewsSection.style.opacity = '1';
-    }, 500);
+    if (reviewsSection) {
+        observer.observe(reviewsSection, { attributes: true });
+    }
 });
