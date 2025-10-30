@@ -1,7 +1,6 @@
 /* ---------------------------------- */
 /* 7. TEMATICA SI VARIABILE (Cerinta #7) */
 /* ---------------------------------- */
-/* Aici poti schimba culorile si fonturile pentru tot site-ul */
 :root {
     --color-white: #ffffff;
     --color-black: #000000;
@@ -45,24 +44,23 @@
 }
 
 html {
-    scroll-behavior: smooth; /* Pentru scroll lin la click pe link-urile ancorei */
+    scroll-behavior: smooth;
 }
 
 body {
     font-family: var(--font-primary);
-    background-color: var(--color-black); /* Fundal de baza */
+    background-color: var(--color-black);
     color: var(--color-white);
-    overflow-x: hidden; /* Previne scroll-ul orizontal */
+    overflow-x: hidden;
 }
 
-/* Stiluri de baza pentru toate sectiunile */
 section {
     width: 100%;
-    position: relative; /* Necesar pentru pozitionarea continutului intern */
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Previne 'scurgerea' elementelor */
+    overflow: hidden;
 }
 
 /* 2. Titlurile Sectiunilor (Cerinta #2) */
@@ -75,23 +73,23 @@ section h2 {
 
 /* 9. MARIMEA SECTIUNILOR (Cerinta #9) */
 #home {
-    height: 300vh; /* Home de 300vh */
+    height: 300vh;
 }
 
 #services,
 #portfolio,
 #reviews,
 #contact {
-    height: 100vh; /* Restul de 100vh */
+    height: 100vh;
 }
 
-/* 3. FUNDAL GRADIENT (Cerinta #3) */
-/* Gradientul pentru celelalte sectiuni */
-#services,
-#portfolio,
-#reviews,
-#contact {
+/* 3. FUNDAL GRADIENT (Cerinta #3 - ACTUALIZAT) */
+/* Am sters stilul de 'background' de pe sectiuni (#services, etc.) */
+/* si l-am mutat pe containerul adaugat in HTML */
+
+.gradient-container {
     background: linear-gradient(to bottom, var(--color-gray), var(--color-black));
+    position: relative;
 }
 
 /* ---------------------------------- */
@@ -103,13 +101,13 @@ section h2 {
     left: 0;
     height: 5px;
     background: linear-gradient(to right, var(--color-black), var(--color-white));
-    width: 0%; /* Va fi controlat de JS */
+    width: 0%;
     z-index: 1000;
     transition: width 0.1s linear;
 }
 
 /* ---------------------------------- */
-/* 5. & 6. NAVIGATIE (Cerinta #5, #6) */
+/* 5. & 6. NAVIGATIE (ACTUALIZAT) */
 /* ---------------------------------- */
 nav {
     position: fixed;
@@ -117,20 +115,22 @@ nav {
     left: 50%;
     transform: translateX(-50%);
     z-index: 999;
-    padding: 10px 20px;
-    border-radius: 50px; /* Forma de capsula */
+    padding: 10px 20px; /* Acesta se va micsora la scroll */
+    border-radius: 50px;
     
-    /* Tranzitia pentru micsorare/marire la scroll */
-    transition: transform 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease;
+    /* MODIFICARE (Cerinta #2): Am adaugat 'padding' la tranzitie */
+    transition: transform 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease, padding 0.3s ease;
     
-    /* 8. Animatie Fade-In (Cerinta #8) */
     opacity: 0;
-    animation: fadeInNav 1s ease 1.5s forwards; /* Incepe dupa 1.5s */
+    animation: fadeInNav 1s ease 1.5s forwards;
 }
 
-/* 6. Starea navigației la scroll (Cerinta #6) */
+/* 6. Starea navigației la scroll (ACTUALIZAT) */
 nav.nav-scrolled {
-    transform: translateX(-50%) scale(0.9); /* Se face mai mica */
+    /* MODIFICARE (Cerinta #2): Scale e mai mic (0.85) si padding-ul e redus */
+    transform: translateX(-50%) scale(0.85); 
+    padding: 5px 15px; /* Mai mic decat starea initiala */
+
     background-color: var(--glass-bg);
     backdrop-filter: blur(var(--glass-blur));
     border: 1px solid var(--glass-border);
@@ -140,7 +140,7 @@ nav.nav-scrolled {
 nav ul {
     display: flex;
     list-style: none;
-    gap: 30px; /* Spatiu intre elemente */
+    gap: 30px;
 }
 
 nav a {
@@ -149,16 +149,41 @@ nav a {
     color: var(--color-white);
     text-decoration: none;
     padding: 10px;
-    position: relative; /* Necesar pentru pozitionarea icon-ului */
-    display: block; /* Asigura ca 'a' ocupa spatiu */
-    transition: color 0.3s ease;
+    position: relative;
+    display: block;
+    
+    /* MODIFICARE (Cerinta #1): Facem link-urile non-active usor transparente */
+    opacity: 0.7;
+    transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-/* 6. Glow-ul subtil pentru sectiunea activa (Cerinta #6) */
+/* MODIFICARE (Cerinta #1): Am scos stilul 'nav a.active' cu glow */
+/* Acum link-ul activ devine 100% opac */
 nav a.active {
-    color: var(--color-gray);
-    text-shadow: 0 0 10px var(--color-white);
+    opacity: 1;
 }
+
+/* MODIFICARE (Cerinta #1): Adaugam un underline animat */
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 5px; /* Pozitionam linia sub text */
+    left: 50%;
+    width: 80%; /* Latimea liniei */
+    height: 2px;
+    background-color: var(--color-white);
+    
+    /* Animatia: porneste din centru (scaleX(0)) */
+    transform: translateX(-50%) scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+/* Cand link-ul devine activ, animam linia sa apara */
+nav a.active::after {
+    transform: translateX(-50%) scaleX(1);
+}
+
 
 /* 5. Tranzitia Text -> Icon (Cerinta #5) */
 .nav-text,
@@ -173,24 +198,22 @@ nav a.active {
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
     opacity: 0;
-    /* Asiguram ca SVG-ul preia culoarea alba */
 }
 
 .nav-icon svg {
     width: 24px;
     height: 24px;
-    fill: var(--color-white); /* Seteaza culoarea icon-ului */
+    fill: var(--color-white);
 }
 
-/* La hover pe link */
 nav a:hover .nav-text {
     opacity: 0;
-    transform: scale(0.8); /* Textul dispare si se micsoreaza */
+    transform: scale(0.8);
 }
 
 nav a:hover .nav-icon {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1); /* Icon-ul apare si se mareste */
+    transform: translate(-50%, -50%) scale(1);
 }
 
 /* ---------------------------------- */
