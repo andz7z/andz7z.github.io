@@ -1,4 +1,6 @@
-#contact {
+/* ===== CONTACT SECTION ===== */
+.contact-section {
     height: 100vh;
-    background: linear-gradient(to bottom, #404040, #000000);
+    background: linear-gradient(to bottom, #333333, #000000);
+    color: #fff;
 }
