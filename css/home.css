@@ -1,25 +1,87 @@
-/* Home Section Specific Styles */
+/* css/home.css */
+
 #home {
-    background: transparent;
+    color: var(--color-white); /* Asigurăm textul alb peste video */
 }
 
-/* Gradient overlay for better text readability */
-#home::before {
-    content: '';
+/* Containerul pentru video (Req 3) */
+.video-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.3) 0%,
-        rgba(0, 0, 0, 0.1) 50%,
-        rgba(0, 0, 0, 0.3) 100%
-    );
-    z-index: 1;
+    z-index: -1; /* În spatele conținutului */
+    opacity: 0; /* Inițial ascuns */
+    
+    /* Req 9: Animație fade-in lentă */
+    animation: fadeInVideo 2s forwards;
+    animation-delay: 0.1s; /* Să înceapă aproape imediat */
 }
 
-.glass-card {
-    z-index: 2;
+#home-video {
+    width: 100%;
+    height: 100%;
+    
+    /* Req 3: Să fie încadrat total, fără zoom excesiv.
+       'cover' umple ecranul (poate tăia marginile).
+       'contain' arată tot video-ul (poate lăsa bare negre).
+       De obicei, pentru fundaluri se dorește 'cover'. 
+    */
+    object-fit: cover; 
+}
+
+/* Cardul Glassy (Req 11) */
+.home-glass-card {
+    /* Stilul Glass/Blur (Req 7) */
+    background: var(--glass-background);
+    backdrop-filter: blur(var(--glass-blur));
+    border: var(--glass-border);
+    border-radius: 20px;
+    
+    /* Stilul Chrome/3D (Req 7) */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    /* Poziționarea cerută (Req 11) */
+    position: absolute;
+    width: 80%;
+    max-width: 1200px; /* Adăugăm un max-width pentru ecrane mari */
+    height: 700px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrare perfectă */
+
+    /* Aliniere conținut intern */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    
+    /* Animația (Req 11) */
+    opacity: 0;
+    animation: fadeInCard 1.5s forwards;
+    animation-delay: 2.0s; /* Apare după video și navigație */
+}
+
+.home-glass-card .card-content {
+    text-align: center;
+}
+
+.home-glass-card .card-content h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    
+    /* Animația (Req 11) */
+    opacity: 0;
+    animation: fadeInText 1s forwards;
+    animation-delay: 2.5s; /* Apare după card */
+}
+
+.home-glass-card .card-content p {
+    font-size: 1.5rem;
+    
+    /* Animația (Req 11) */
+    opacity: 0;
+    animation: fadeInText 1s forwards;
+    animation-delay: 2.8s; /* Apare după titlu */
 }
