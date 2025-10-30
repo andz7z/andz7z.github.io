@@ -1,9 +1,82 @@
-/* Stiluri specifice pentru secțiunea Home */
+/* Cerința 10: Înălțime specifică Home */
 #home {
-    position: relative;
+    height: 300vh;
 }
 
-.home-content {
-    position: relative;
-    z-index: 2;
+/* Cerința 3 & 9: Fundal Home și animație Fade IN 
+   Folosim un pseudo-element pentru a anima fundalul separat de conținut */
+#home::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Acoperă doar primii 100vh ai secțiunii */
+    
+    /* Cerința 3: Poza încadrată */
+    background-image: url('../assets/photos/andz.jpg');
+    background-size: cover; /* Umple ecranul fără distorsiuni */
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Parallax effect */
+    
+    z-index: -1; /* În spatele conținutului */
+
+    /* Cerința 9: Animație Fade IN (prima) */
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Corecție: Asigură că pseudo-elementul acoperă toată secțiunea de 300vh 
+   dacă `background-attachment: fixed;` este folosit.
+   Dacă se dorește ca poza să fie doar pe primii 100vh, 
+   se poate ajusta height la 100vh. 
+   'fixed' o va face să pară că acoperă tot. */
+
+
+/* Cerința 11: Card-ul Glassy */
+.home-card {
+    /* Poziționare fixă în centrul primului "ecran" (viewport) */
+    position: absolute;
+    width: 80%;
+    max-width: 1200px; /* Previne lățimea excesivă pe ecrane mari */
+    height: 700px;
+    
+    /* Ajustăm top pentru 300vh: 
+       top: 45% ar fi 45% din 300vh. 
+       Folosim 50vh pentru a-l centra pe primul ecran */
+    top: 50vh; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    /* Stilul Glass/Blur/Chrome */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: 20px; /* Colțuri rotunjite */
+    
+    /* Aliniere conținut intern */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+
+    /* Cerința 11: Animație Fade IN (după navigație) */
+    opacity: 0;
+    animation: fadeIn 1s ease-out 2.5s forwards;
+}
+
+.home-card-text {
+    text-align: center;
+    
+    /* Cerința 11: Animație Fade IN (ultimul) */
+    opacity: 0;
+    animation: fadeIn 1s ease-out 3.5s forwards;
+}
+
+.home-card-text p {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    color: var(--color-gray); /* Un gri deschis pentru contrast */
 }
