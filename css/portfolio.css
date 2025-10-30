@@ -1,5 +1,3 @@
-/* REQ 10: Inaltimea sectiunii */
 #portfolio {
-    height: 100vh;
-    /* Fundalul este gestionat de .gradient-wrapper in style.css */
+    background: linear-gradient(135deg, #a0a0a0 0%, #000000 100%);
 }
