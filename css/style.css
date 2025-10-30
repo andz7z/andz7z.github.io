@@ -13,22 +13,26 @@
     font-style: normal;
 }
 
-/* Cerința 7: Variabile pentru Tematică & Culori */
+/* Cerința 7 (Actualizată) + Cerința Nouă 2: Variabile de Culoare */
 :root {
+    /* Culori principale */
     --color-primary: #000000;
     --color-secondary: #ffffff;
-    --color-gray: #cfcfcf;
     
-    --gradient-sections: linear-gradient(to bottom, var(--color-gray), var(--color-primary));
+    /* Etapele gradientului (Cerința Nouă 2) */
+    --color-gray: #cfcfcf; /* Început (Services) */
+    --color-gray-mid-1: #999999; /* Trecere (Portfolio) */
+    --color-gray-mid-2: #666666; /* Trecere (Reviews) */
+    --color-gray-dark: #333333; /* Aproape negru (Contact) */
+    
     --gradient-progress: linear-gradient(to right, var(--color-primary), var(--color-secondary));
     
     --font-primary: 'Noverich', sans-serif;
     --font-secondary: 'Roboto', sans-serif;
     
-    /* Cerința 7 & 11: Stiluri Glass/Blur/Chrome */
-    --glass-bg: rgba(255, 255, 255, 0.05); /* Fundal foarte subtil */
+    --glass-bg: rgba(255, 255, 255, 0.05);
     --glass-blur: blur(12px);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.1); /* Efect "chrome" */
+    --glass-border: 1px solid rgba(255, 255, 255, 0.1);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -49,23 +53,23 @@ body {
     font-family: var(--font-secondary);
     background-color: var(--color-primary);
     color: var(--color-secondary);
-    overflow-x: hidden; /* Previne scroll orizontal */
+    overflow-x: hidden;
 }
 
-/* Stiluri de bază pentru secțiuni (Cerința 2, 3, 10) */
+/* Stiluri de bază pentru secțiuni */
 section {
     width: 100%;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Ascunde conținutul care depășește */
+    overflow: hidden;
 }
 
-/* Toate secțiunile, cu excepția #home, au 100vh și gradient */
+/* Toate secțiunile, cu excepția #home, au 100vh */
 section:not(#home) {
     height: 100vh;
-    background: var(--gradient-sections);
+    /* AM ȘTERS gradientul de aici. Îl vom pune în fișierele individuale. */
 }
 
 section h2 {
@@ -73,33 +77,31 @@ section h2 {
     font-size: 4rem;
     font-weight: normal;
     color: var(--color-secondary);
-    /* Asigură că titlul din #home (card) e vizibil */
     text-shadow: 0 2px 4px rgba(0,0,0,0.5); 
 }
 
-/* Sectiunea #home are titlul ascuns, e în card */
 #home > h2 {
     display: none;
 }
 
-/* Cerința 4: Progress Bar */
+/* Cerința 4: Progress Bar (Neschimbat) */
 .progress-bar-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px; /* Înălțimea barei */
-    background-color: rgba(255, 255, 255, 0.1); /* Fundal subtil */
+    height: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
     z-index: 1000;
 }
 
 .progress-bar {
     height: 100%;
-    width: 0%; /* Inițial 0, se umple cu JS */
+    width: 0%;
     background: var(--gradient-progress);
 }
 
-/* Cerința 5, 8, 9: Navigație centru sus */
+/* Cerința 5, 8, 9: Navigație centru sus (Neschimbat) */
 .top-nav {
     position: fixed;
     top: 30px;
@@ -109,8 +111,6 @@ section h2 {
     gap: 25px;
     z-index: 900;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-
-    /* Cerința 8 & 9: Animație Fade IN (începe după 1.5s) */
     opacity: 0;
     animation: fadeIn 1s ease-out 1.5s forwards;
 }
@@ -125,11 +125,10 @@ section h2 {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 100px; /* Lățime minimă pentru a centra iconița */
+    min-width: 100px;
     text-align: center;
 }
 
-/* Container-ele pentru text și iconiță */
 .nav-text, .nav-icon {
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
@@ -138,7 +137,7 @@ section h2 {
     position: absolute;
     opacity: 0;
     transform: scale(0.8);
-    pointer-events: none; /* Nu bloca hover-ul */
+    pointer-events: none;
 }
 
 .nav-icon svg {
@@ -147,7 +146,6 @@ section h2 {
     color: var(--color-secondary);
 }
 
-/* Cerința 5: Tranziție Hover IN */
 .top-nav a:hover .nav-text {
     opacity: 0;
     transform: scale(0.8);
@@ -158,27 +156,24 @@ section h2 {
     transform: scale(1);
 }
 
-/* Cerința 6: Tranziție scroll pentru navigația de sus */
+/* Cerința 6: Tranziție scroll navigație (Neschimbat) */
 body.scrolled .top-nav {
     opacity: 0;
-    transform: translate(-50%, -100px); /* Dispare în sus */
+    transform: translate(-50%, -100px);
     pointer-events: none;
 }
 
-/* Cerința 6: Meniu Burger (Stiluri) */
+/* Cerința 6: Meniu Burger (Neschimbat) */
 .burger-menu-container {
     position: fixed;
     top: 20px;
     left: 20px;
     z-index: 950;
-    
-    /* Inițial ascuns, apare la scroll */
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease-out;
 }
 
-/* Apariție la scroll */
 body.scrolled .burger-menu-container {
     opacity: 1;
     pointer-events: auto;
@@ -202,7 +197,7 @@ body.scrolled .burger-menu-container {
     transition: all 0.3s ease;
 }
 
-/* Animație burger icon -> X */
+/* Animație burger icon -> X (Neschimbat) */
 .burger-icon.active span:nth-child(1) {
     transform: translateY(9.5px) rotate(45deg);
 }
@@ -213,22 +208,18 @@ body.scrolled .burger-menu-container {
     transform: translateY(-9.5px) rotate(-45deg);
 }
 
-/* Cerința 6: Meniul minimalist/futurist */
+/* Meniul minimalist (Neschimbat) */
 .burger-nav {
     position: absolute;
-    top: 50px; /* Sub iconiță */
+    top: 50px;
     left: 0;
     width: 220px;
     padding: 15px;
-    
-    /* Stilul Glass/Chrome */
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
     border: var(--glass-border);
     border-radius: 10px;
     box-shadow: var(--glass-shadow);
-    
-    /* Inițial ascuns */
     opacity: 0;
     transform: translateX(-20px);
     pointer-events: none;
@@ -241,6 +232,7 @@ body.scrolled .burger-menu-container {
     pointer-events: auto;
 }
 
+/* Cerința Nouă 3: Meniu Burger Inovativ (Stil link-uri) */
 .burger-nav a {
     display: block;
     color: var(--color-secondary);
@@ -249,15 +241,33 @@ body.scrolled .burger-menu-container {
     font-size: 1.3rem;
     padding: 10px 15px;
     border-radius: 5px;
-    transition: background-color 0.2s ease;
+    
+    /* Starea inițială pentru animație */
+    opacity: 0;
+    transform: translateX(-15px);
+    /* Tranziția include acum opacity și transform */
+    transition: background-color 0.2s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 
 .burger-nav a:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Cerința Nouă 3: Animația decalată (staggered) */
+.burger-nav.active a {
+    opacity: 1;
+    transform: translateX(0);
+}
 
-/* Keyframes pentru animații (Cerința 9 & 11) */
+/* Setăm întârzieri diferite pentru fiecare link */
+.burger-nav.active a:nth-child(1) { transition-delay: 0.1s; }
+.burger-nav.active a:nth-child(2) { transition-delay: 0.15s; }
+.burger-nav.active a:nth-child(3) { transition-delay: 0.2s; }
+.burger-nav.active a:nth-child(4) { transition-delay: 0.25s; }
+.burger-nav.active a:nth-child(5) { transition-delay: 0.3s; }
+
+
+/* Keyframes pentru animații (Neschimbat) */
 @keyframes fadeIn {
     from {
         opacity: 0;
