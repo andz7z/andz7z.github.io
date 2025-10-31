@@ -280,7 +280,8 @@
   /* [MODIFICARE] Setează imaginea să fie complet vizibilă ('zoom out') */
   .home-section::before {
     background-attachment: scroll;
-    background-size: contain; /* Aceasta face 'zoom out' */
+    background-size: cover;
+    background-position: center top;/* Aceasta face 'zoom out' */
     /* ATENȚIE: 'contain' poate lăsa spații goale (dacă imaginea nu are același raport ca ecranul).
       O alternativă, dacă 'contain' nu arată bine, este să păstrezi 'cover'
       dar să ajustezi poziția pentru a arăta partea importantă (ex. fața):
