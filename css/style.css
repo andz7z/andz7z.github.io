@@ -1,288 +1,49 @@
-/* --- 7. Tematica și Variabilele (pentru editare ușoară) --- */
-@font-face {
-    font-family: 'Noverich';
-    src: url('../assets/fonts/noverich.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../assets/fonts/roboto.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-:root {
-    /* Culori */
-    --color-start: #cfcfcf;
-    --color-end: #000000;
-    --color-white: #ffffff;
-    --color-grey: #aaaaaa;
-    
-    /* Materiale (Glassmorphism) */
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --blur-value: 10px;
-
-    /* Fonturi */
-    --font-display: 'Noverich', sans-serif;
-    --font-text: 'Roboto', sans-serif;
-
-    /* Tranziții */
-    --transition-fast: 0.3s ease;
-    --transition-slow: 0.5s ease;
-}
-
-/* --- Resetare de bază --- */
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth; /* Scroll lin la click pe link-uri ancore */
-}
-
 body {
-    font-family: var(--font-text);
-    background-color: var(--color-end); /* Fundalul de bază e negru */
-    color: var(--color-white);
-    overflow-x: hidden; /* Previne scroll-ul orizontal */
+    font-family: 'Roboto', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
-/* --- Stiluri Secțiuni (10) --- */
-section {
-    width: 100%;
-    height: 100vh; /* Înălțime standard */
+.section {
+    height: 100vh;
     position: relative;
-    overflow: hidden; /* Ascunde ce depășește secțiunea */
     display: flex;
-    justify-content: center;
     align-items: center;
-}
-
-/* Suprascriere pentru Home */
-#home {
-    height: 500vh;
-}
-
-section h1 {
-    font-family: var(--font-display);
-    font-size: 5rem;
-    color: var(--color-white);
-    opacity: 0.7;
-    /* Un mic efect 3D/Chrome (7) */
-    text-shadow: 
-        0 0 5px var(--color-grey),
-        0 0 10px var(--color-grey),
-        1px 1px 2px var(--color-end);
-}
-
-/* --- 3. Background Gradient Secvențial --- */
-/* Services primește culoarea de start */
-#services {
-    background-color: var(--color-start);
-}
-#services h1 {
-    color: var(--color-end); /* Text negru pe fundal deschis */
-    text-shadow: none;
-}
-
-/* Wrapper-ul pentru restul secțiunilor poartă gradientul */
-.gradient-sections-wrapper {
-    position: relative;
-    z-index: 1;
-    /* Fără pseudo-element, aplicăm gradientul direct */
-    /* Începe de unde a rămas #services și merge spre negru */
-    background: linear-gradient(to bottom, var(--color-start), var(--color-end));
-}
-
-/* Fiecare secțiune din wrapper este transparentă
-   pentru a lăsa gradientul de pe părinte să se vadă.
-   Le setăm înălțimea de 100vh (sunt 3 secțiuni) */
-.gradient-sections-wrapper > section {
-    height: 100vh; 
-    background: transparent;
-}
-
-
-/* --- 4. Progress Bar --- */
-#scroll-progress-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 5px;
-    background: linear-gradient(to right, var(--color-end), var(--color-white));
-    width: 0%; /* Va fi controlat de JS */
-    z-index: 1001; /* Peste tot, chiar și peste nav */
-    transition: width 0.1s linear;
-}
-
-/* --- 5. Navigația Centrală (Top Nav) --- */
-#top-nav {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    display: flex;
     justify-content: center;
-    
-    /* 8 & 9. Animație Fade-in la încărcare (după video) */
-    opacity: 0;
-    animation: fadeIn 1s var(--transition-slow) 1s forwards; /* 1s delay */
+    transition: all 0.8s ease-in-out;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px) translateX(-50%); }
-    to { opacity: 1; transform: translateY(0) translateX(-50%); }
-}
-
-#top-nav ul {
-    list-style: none;
-    display: flex;
-    /* Fundal glassy pentru navigație */
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--blur-value));
-    border: 1px solid var(--glass-border);
-    border-radius: 50px;
-    padding: 10px 20px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-#top-nav li {
-    margin: 0 15px;
-}
-
-#top-nav a {
-    font-family: var(--font-display);
-    text-decoration: none;
-    color: var(--color-white);
-    font-size: 1.2rem;
-    position: relative;
-    display: block;
-    width: 100px; /* Lățime fixă pentru a centra iconița */
+.section-content {
     text-align: center;
-    transition: var(--transition-fast);
-}
-
-#top-nav .nav-text,
-#top-nav .nav-icon {
-    display: block;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-#top-nav .nav-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    z-index: 10;
     opacity: 0;
-    pointer-events: none; /* Nu bloca hover-ul */
+    transform: translateY(30px);
+    transition: all 0.8s ease-in-out;
 }
 
-#top-nav .nav-icon svg {
-    width: 24px;
-    height: 24px;
-    stroke: var(--color-white);
-}
-
-/* Animația de hover (5) */
-#top-nav a:hover .nav-text {
-    opacity: 0;
-    transform: translateY(-5px); /* Tranzitie OUT */
-}
-
-#top-nav a:hover .nav-icon {
+.section.active .section-content {
     opacity: 1;
-    transform: translate(-50%, -50%) translateY(-3px); /* Tranzitie IN */
+    transform: translateY(0);
 }
 
-/* --- 6. Burger Menu și Side Nav --- */
-#burger-menu-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--blur-value));
-    border: 1px solid var(--glass-border);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-    display: none; /* Ascuns inițial */
-    opacity: 0;
-    transition: opacity var(--transition-slow), transform var(--transition-slow);
-    transform: translateX(-100px); /* Pentru animația de intrare */
+.section-content h2 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    font-weight: 300;
 }
 
-#burger-menu-btn svg {
-    stroke: var(--color-white);
-}
-
-/* Clasa 'visible' va fi adăugată de JS */
-#top-nav.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(-100px) translateX(-50%);
-}
-#burger-menu-btn.visible {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 1;
-    transform: translateX(0);
-}
-
-/* Side Nav (Meniul futurist) */
-#side-nav {
-    position: fixed;
-    top: 90px; /* Sub butonul burger */
-    left: 20px;
-    z-index: 999;
-    
-    /* Ascuns inițial */
-    opacity: 0;
-    transform: translateX(-100%);
-    pointer-events: none;
-    transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-/* Design-ul "futurist/metalic/glass" */
-#side-nav .side-nav-content {
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--blur-value));
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    /* Efect de metal/chrome */
-    box-shadow: 
-        inset 0 0 2px rgba(255, 255, 255, 0.5),
-        0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-#side-nav a {
-    text-decoration: none;
-    color: var(--color-white);
-    font-family: var(--font-display);
+.section-content p {
     font-size: 1.5rem;
-    transition: color var(--transition-fast), transform var(--transition-fast);
-}
-
-#side-nav a:hover {
-    color: var(--color-start);
-    transform: translateX(5px);
-}
-
-/* Clasa 'active' adăugată de JS la click pe burger */
-#side-nav.active {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: auto;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-weight: 300;
 }

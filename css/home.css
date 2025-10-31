@@ -1,113 +1,190 @@
-/* --- 3. Fundalul Video (Home) --- */
-#home {
-    /* Asigură că elementele absolute sunt relative la secțiune */
-    position: relative; 
+/* Homepage Styles */
+#homepage {
+    background: #000000;
+    position: relative;
+    overflow: hidden;
 }
 
-.video-background-wrapper {
+.video-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh; /* Doar pe primul ecran */
-    overflow: hidden;
-    z-index: -1; /* În spatele conținutului */
-    
-    /* 9. Animație Fade-in la încărcare (prima) */
-    opacity: 0;
-    animation: videoFadeIn 1.5s ease-out forwards;
+    height: 100%;
+    z-index: 1;
 }
 
-@keyframes videoFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-#home-video {
-    /* Pentru a respecta "încadrat pe orizontală" și 16:9:
-      Setăm lățimea la 100% și înălțimea auto.
-      Asta înseamnă că pe ecrane foarte înalte (telefon) 
-      s-ar putea să apară bare negre (letterboxing) sus și jos.
-      Dacă vrei să umple MEREU ecranul (cu zoom), ai folosi 'object-fit: cover'.
-    */
+.background-video {
     width: 100%;
-    height: auto;
-    
-    /* Centrare în cazul letterboxing-ului */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    /* Dacă ecranul e mai lat decât 16:9, 'width: 100%' e mai mic 
-       decât 'min-width: 100vw'. Trebuie să ne asigurăm că umple
-       cel puțin lățimea, dar și înălțimea.
-       
-       Soluția standard pentru background video este 'cover'.
-       Să mergem pe asta, este cel mai probabil ce îți dorești 
-       pentru un background. "Nu prea zoomed in" e controlat de video.
-    */
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: cover; /* Umple ecranul, păstrând proporția, dar taie marginile */
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
 }
 
-/* --- 11. Card-ul Glassy (Home) --- */
-.glassy-card {
-    /* Stilurile cerute de tine */
-    position: absolute;
-    width: 80%;
-    max-width: 1200px; /* Adăugăm un max-width */
-    height: 700px;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.home-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
+}
 
-    /* 7. Tematica Glass/Blur */
-    background: var(--glass-bg);
-    backdrop-filter: blur(var(--blur-value));
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-    padding: 40px;
-    
-    /* 11. Animație Fade-in (după video și nav) */
+.fade-in-title {
+    font-size: 6rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
     opacity: 0;
-    animation: cardFadeIn 1s ease-out 2s forwards; /* 2s delay */
+    transform: translateY(50px);
+    animation: fadeInUp 2s ease-out 0.5s forwards;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-@keyframes cardFadeIn {
-    from { opacity: 0; transform: translate(-50%, -45%); }
-    to { opacity: 1; transform: translate(-50%, -50%); }
-}
-
-/* Animația textului din card (după card) */
-.glassy-card .card-title,
-.glassy-card .card-text {
+.fade-in-subtitle {
+    font-size: 2rem;
+    font-weight: 300;
     opacity: 0;
-    animation: textFadeIn 1s ease-out 2.5s forwards; /* 2.5s delay */
+    transform: translateY(30px);
+    animation: fadeInUp 2s ease-out 1s forwards;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
-.glassy-card .card-text {
-    animation-delay: 3s; /* Textul apare după titlu (3s delay) */
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-@keyframes textFadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+/* Burger System Styles - Original */
+.bars {
+    position: fixed;
+    width: 27px;
+    height: 27px;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 101;
+    padding-top: 9px;
+    opacity: 0;
+    animation: fadeInBar 1s ease-out 2s forwards;
 }
 
-.glassy-card .card-title {
-    font-family: var(--font-display);
-    font-size: 3rem;
-    color: var(--color-white);
-    margin-bottom: 20px;
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #fff;
+    position: absolute;
 }
 
-.glassy-card .card-text {
-    font-size: 1.2rem;
-    color: var(--color-start); /* Gri-ul deschis */
-    line-height: 1.6;
+span::before,
+span::after {
+    content: "";
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    height: 4px;
+    position: absolute;
+}
+
+.bar::before {
+    transform: translateY(-9px);
+}
+
+.bar::after {
+    transform: translateY(9px);
+}
+
+.bars.active .bar {
+    background-color: transparent;
+}
+
+.bars.active span::before {
+    animation: top-bar 1s;
+    animation-fill-mode: forwards;
+}
+
+.bars.active span::after {
+    animation: bottom-bar 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInBar {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes top-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(45deg) translateY(0);
+    }
+}
+
+@keyframes bottom-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(-45deg) translateY(0);
+    }
+}
+
+/* Navbar Links CSS - Ultra Simple */
+#nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+#nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 300;
+    padding: 20px;
+    display: block;
+    text-align: center;
+    transition: background 0.2s ease;
+}
+
+#nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 20px;
+}
+
+.visible {
+    z-index: 100 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+@media screen and (max-width: 800px) {
+    .fade-in-title {
+        font-size: 4rem;
+    }
+    
+    .fade-in-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    #nav a {
+        font-size: 1.5rem;
+    }
 }

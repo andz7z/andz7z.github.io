@@ -1,6 +1,5 @@
-/* css/portfolio.css */
+/* Portfolio Section */
 #portfolio {
-    /* Continuă tranziția */
-    background: linear-gradient(180deg, var(--color-mid-grey-1), var(--color-mid-grey-2));
-    color: var(--color-white); /* Reîncepem cu text alb */
+    background: linear-gradient(180deg, #2d2d2d 0%, #404040 50%, #525252 100%);
+    transition: background 0.8s ease-in-out;
 }
