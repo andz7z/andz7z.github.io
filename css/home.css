@@ -360,3 +360,16 @@
     font-size: 1.3rem;
   }
 }
+/* Starea inițială a secțiunilor care trebuie să apară */
+.fade-in-section {
+  opacity: 0; /* Începe invizibilă */
+  transform: translateY(30px); /* Începe puțin mai jos */
+  transition: opacity 1.2s ease-out, transform 1s ease-out; /* Animația "lentă" */
+  will-change: opacity, transform; /* Optimizare pentru performanță */
+}
+
+/* Starea finală (vizibilă) pe care o va adăuga JavaScript */
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
