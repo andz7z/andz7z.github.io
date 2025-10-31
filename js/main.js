@@ -1,45 +1,41 @@
-// Așteaptă ca tot conținutul paginii să fie încărcat
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // Selectăm elementele de care avem nevoie
+    const menuContainer = document.getElementById('burger-menu-container');
+    const burgerIcon = document.getElementById('burger-icon');
+    const mainNav = document.getElementById('main-nav');
 
-    const scrollProgressBar = document.getElementById('scroll-progress-bar');
-    const topNav = document.getElementById('top-nav');
-    const burgerBtn = document.getElementById('burger-menu-btn');
-    const sideNav = document.getElementById('side-nav');
+    // Funcție pentru a deschide meniul
+    const openMenu = () => {
+        mainNav.classList.add('active');
+    };
 
-    // --- 4. Funcția pentru Progress Bar ---
-    function updateScrollProgress() {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrollPercent = (scrollTop / docHeight) * 100;
-        
-        scrollProgressBar.style.width = scrollPercent + '%';
-    }
+    // Funcție pentru a închide meniul
+    const closeMenu = () => {
+        mainNav.classList.remove('active');
+    };
 
-    // --- 6. Funcția pentru Navigație (Swap la scroll) ---
-    function handleNavScroll() {
-        // Schimbă navigația după un scroll de 100px
-        if (window.scrollY > 100) {
-            topNav.classList.add('hidden');
-            burgerBtn.classList.add('visible');
-        } else {
-            topNav.classList.remove('hidden');
-            burgerBtn.classList.remove('visible');
-            // Ascunde side-nav dacă utilizatorul dă scroll înapoi sus
-            sideNav.classList.remove('active');
-        }
-    }
-
-    // --- 6. Funcționalitate Meniu Burger ---
-    burgerBtn.addEventListener('click', function() {
-        sideNav.classList.toggle('active');
-        // Adaugă o clasă pentru a anima iconița burger (ex: transformare în X)
-        burgerBtn.classList.toggle('active'); 
+    // MODIFICAT: Deschidem meniul la 'mouseenter' (hover)
+    // în loc de 'click'
+    burgerIcon.addEventListener('mouseenter', (e) => {
+        // Oprim propagarea evenimentului
+        e.stopPropagation(); 
+        // Deschidem meniul
+        openMenu();
     });
 
-    // --- Atașare Evenimente ---
-    window.addEventListener('scroll', function() {
-        updateScrollProgress();
-        handleNavScroll();
+    // Când mouse-ul părăsește *întregul container* (icon + nav),
+    // închidem meniul.
+    menuContainer.addEventListener('mouseleave', () => {
+        closeMenu();
+    });
+
+    // O măsură de siguranță: dacă dăm click oriunde în pagină
+    // în afara containerului de meniu, îl închidem.
+    document.addEventListener('click', (e) => {
+        if (!menuContainer.contains(e.target)) {
+            closeMenu();
+        }
     });
 
 });

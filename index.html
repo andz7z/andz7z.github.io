@@ -1,100 +1,128 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Portfolio</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/contact.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ANDZ Portfolio</title>
+
+  <!-- CSS principal -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/services.css">
+  <link rel="stylesheet" href="css/portfolio.css">
+  <link rel="stylesheet" href="css/reviews.css">
+  <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
-    <!-- Homepage Section -->
-    <section id="homepage" class="section">
-        <!-- Burger System -->
-        <div class="bars" id="nav-action">
-            <span class="bar"></span>
-        </div>
-
-        <!-- Navbar Links -->
-        <nav id="nav">
+      <div id="burger-menu-container">
+        <ion-icon name="grid-outline" id="burger-icon"></ion-icon>
+        <nav id="main-nav">
             <ul>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#homepage">Home</a></li>
+                <li>
+                    <a href="#about">
+                        <ion-icon name="person-circle-outline" class="menu-item-icon"></ion-icon>
+                        <span class="menu-text">About Me</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#services">
+                        <ion-icon name="briefcase-outline" class="menu-item-icon"></ion-icon>
+                        <span class="menu-text">Services</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#portfolio">
+                        <ion-icon name="image-outline" class="menu-item-icon"></ion-icon>
+                        <span class="menu-text">Portfolio</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#reviews">
+                        <ion-icon name="chatbubbles-outline" class="menu-item-icon"></ion-icon>
+                        <span class="menu-text">Reviews</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#contact">
+                        <ion-icon name="paper-plane-outline" class="menu-item-icon"></ion-icon>
+                        <span class="menu-text">Contact Me</span>
+                    </a>
+                </li>
             </ul>
         </nav>
-
-        <!-- Video Background -->
-        <div class="video-container">
-            <video autoplay muted loop class="background-video">
-                <source src="assets/movie/andz.mp4" type="video/mp4">
-            </video>
+    </div>
+  <!-- Section: HOME -->
+<section class="home-section">
+    <div class="home-content">
+        <p class="greeting">Hello, my name is</p>
+        <div class="name-container">
+            <h1 class="name">ANDZ</h1>
         </div>
+        <h2 class="profession">and I'm a <span id="typing-text"></span></h2>
+    </div>
+    
+    <div class="social-links">
+        <a href="https://github.com/andz7z" class="social-icon">
+            <ion-icon name="logo-github"></ion-icon>
+        </a>
+        <a href="https://linkedin.com/in/lehadus-andrei-25a807372/" class="social-icon">
+            <ion-icon name="logo-linkedin"></ion-icon>
+        </a>
+        <a href="https://youtube.com/@visuals_mods" class="social-icon">
+            <ion-icon name="logo-youtube"></ion-icon>
+        </a>
+        <a href="https://www.tiktok.com/@andrei38axc" class="social-icon">
+            <ion-icon name="logo-tiktok"></ion-icon>
+        </a>
+    </div>
+<a href="https://andz7z.github.io/assets/cv/cv.pdf" download="Andz_CV.pdf">
+  <button class="Btn">
+    <div class="sign">
+      <ion-icon name="document-outline"></ion-icon>
+    </div>
+    <div class="text">Download</div>
+  </button>
+</a>
 
-        <!-- Main Content -->
-        <div class="home-content">
-            <h1 class="fade-in-title">Welcome</h1>
-            <p class="fade-in-subtitle">Creative Portfolio</p>
-        </div>
-    </section>
+    <div class="scroll-down">
+        <div class="scroll-arrow"></div>
+    </div>
+</section>
+  <!-- Section: ABOUT -->
+  <section id="about" class="section about-section">
+    <h2>About Me</h2>
+  </section>
 
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="section-content">
-            <h2>About</h2>
-            <p>Despre mine și experiența mea</p>
-        </div>
-    </section>
+  <!-- Section: SERVICES -->
+  <section id="services" class="section services-section">
+    <h2>Services</h2>
+  </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="section">
-        <div class="section-content">
-            <h2>Portfolio</h2>
-            <p>Lucrările mele</p>
-        </div>
-    </section>
+  <!-- Section: PORTFOLIO -->
+  <section id="portfolio" class="section portfolio-section">
+    <h2>Portfolio</h2>
+  </section>
 
-    <!-- Services Section -->
-    <section id="services" class="section">
-        <div class="section-content">
-            <h2>Services</h2>
-            <p>Serviciile oferite</p>
-        </div>
-    </section>
+  <!-- Section: REVIEWS -->
+  <section id="reviews" class="section reviews-section">
+    <h2>Reviews</h2>
+  </section>
 
-    <!-- Reviews Section -->
-    <section id="reviews" class="section">
-        <div class="section-content">
-            <h2>Reviews</h2>
-            <p>Recenziile clienților</p>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="section-content">
-            <h2>Contact</h2>
-            <p>Contactează-mă</p>
-        </div>
-    </section>
-
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
-    <script src="js/about.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/reviews.js"></script>
-    <script src="js/contact.js"></script>
+  <!-- Section: CONTACT -->
+  <section id="contact" class="section contact-section">
+    <h2>Contact</h2>
+  </section>
+  <!-- JS principal -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/portfolio.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/contact.js"></script>
 </body>
 </html>
