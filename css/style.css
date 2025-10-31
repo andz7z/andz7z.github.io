@@ -146,3 +146,106 @@ html, body {
   transform: translateX(0) scale(0.7);
   transition-delay: 0s !important;
 }
+
+@media (max-width: 768px) {
+  
+  /* 1. Facem containerul iconiței burger puțin mai vizibil 
+       și îl decuplăm de meniul care va deveni un overlay.
+  */
+  #burger-menu-container {
+    /* Opțional: adaugă un fundal pentru vizibilitate mai bună */
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+    border-radius: 50%;
+    padding: 0.5rem;
+    padding-right: 0.5rem; /* Asigură un cerc perfect */
+  }
+
+  /* 2. Transformăm #main-nav într-un overlay full-screen
+  */
+  #main-nav {
+    /* Îl scoatem din fluxul normal */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;  /* Ocupă toată lățimea ecranului */
+    height: 100vh; /* Ocupă toată înălțimea ecranului */
+    margin-left: 0; /* Anulăm marginea de desktop */
+
+    /* Un fundal întunecat pentru overlay */
+    background-color: rgba(0, 0, 0, 0.95);
+    
+    /* Centrarea listei pe verticală și orizontală în overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Păstrăm ascunderea implicită */
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.4s ease; /* O tranziție lină */
+  }
+
+  /* Starea activă doar arată overlay-ul */
+  #main-nav.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  /* 3. Facem lista de link-uri verticală
+  */
+  #main-nav ul {
+    flex-direction: column; /* CHEIA: Elementele vor fi una sub alta */
+    gap: 2rem; /* Spațiu mai mare între elementele verticale */
+    align-items: center; /* Centrarea textului */
+  }
+
+  /* 4. Stilul link-urilor și textului în overlay
+  */
+  #main-nav li a {
+    display: block;
+    text-align: center;
+  }
+
+  .menu-text {
+    font-size: 2.2rem; /* Mult mai mare pentru a fi lizibil în full-screen */
+    font-family: 'Aquarium', sans-serif;
+    
+    /* Schimbăm animația să vină de jos */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  /* 5. Ascundem iconițele din meniu pe mobil (sunt inutile) 
+       și dezactivăm efectul de hover
+  */
+  .menu-item-icon {
+    display: none;
+  }
+
+  #main-nav li:hover .menu-item-icon {
+    opacity: 0;
+  }
+
+  #main-nav li:hover .menu-text {
+    /* Anulăm efectul de hover de pe desktop */
+    opacity: 1;
+    transform: none;
+    transition-delay: 0s !important;
+  }
+
+  /* 6. Păstrăm animația de "stagger" (eșalonare) la deschidere 
+       dar scurtăm puțin timpii
+  */
+  #main-nav.active .menu-text {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #main-nav.active li:nth-child(1) .menu-text { transition-delay: 0.1s; }
+  #main-nav.active li:nth-child(2) .menu-text { transition-delay: 0.2s; }
+  #main-nav.active li:nth-child(3) .menu-text { transition-delay: 0.3s; } 
+  #main-nav.active li:nth-child(4) .menu-text { transition-delay: 0.4s; } 
+  #main-nav.active li:nth-child(5) .menu-text { transition-delay: 0.5s; } 
+}
