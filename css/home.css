@@ -277,40 +277,59 @@
 }
 
 @media (max-width: 768px) {
+  /* [MODIFICARE] Setează imaginea să fie complet vizibilă ('zoom out') */
   .home-section::before {
     background-attachment: scroll;
+    background-size: contain; /* Aceasta face 'zoom out' */
+    /* ATENȚIE: 'contain' poate lăsa spații goale (dacă imaginea nu are același raport ca ecranul).
+      O alternativă, dacă 'contain' nu arată bine, este să păstrezi 'cover'
+      dar să ajustezi poziția pentru a arăta partea importantă (ex. fața):
+      
+      background-size: cover;
+      background-position: center top; 
+    */
   }
 
   .home-section {
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: center; /* Păstrăm asta pentru a centra blocurile principale */
     padding: 0 20px;
   }
+
+  /* [MODIFICARE] Aliniază textul la stânga pentru un aspect mai curat */
   .home-content {
-    text-align: center;
+    text-align: left; /* <-- AICI ESTE MODIFICAREA CHEIE */
     max-width: 100%;
+    width: 100%; /* Asigură-te că ocupă lățimea disponibilă */
   }
+
   .greeting {
     transform: none;
     margin-left: 0;
     font-size: 1.2rem;
   }
+
   .name-container {
     margin-left: 0;
     margin-bottom: 10px;
     font-size: 5.5rem;
   }
+
   .profession {
     margin-left: 0;
     margin-bottom: 30px;
     font-size: 1.5rem;
     min-height: auto;
   }
+
+  /* Butonul va fi centrat de 'align-items: center' din .home-section */
   .Btn {
     transform: none;
-    margin: 20px 0;
+    margin: 20px 0; 
   }
+
+  /* Link-urile sociale vor fi centrate de 'align-items: center' din .home-section */
   .social-links {
     position: static;
     flex-direction: row;
@@ -318,15 +337,20 @@
     padding: 0;
     margin-top: 10px;
   }
+
   .social-links::before,
   .social-links::after {
     display: none;
   }
+
   .scroll-down {
     bottom: 20px;
   }
 }
 
+/* Breakpoint-ul tău pentru telefoane și mai mici. 
+  Acesta va moșteni acum alinierea la stânga de la cel de 768px.
+*/
 @media (max-width: 380px) {
   .name-container {
     font-size: 4.5rem;
