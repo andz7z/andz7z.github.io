@@ -1,144 +1,156 @@
-/* ========== HOME SECTION ========== */
 .home-section {
   position: relative;
   height: 100vh;
+  min-height: 100vh; 
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10%;
   overflow: hidden;
 }
 
-/* Background */
 .home-section::before {
   content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url('https://andz7z.github.io/assets/photos/andz.jpg');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  filter: brightness(0.55);
-  z-index: 0;
-  opacity: 0;
-  animation: fadeIn 1.2s ease forwards;
-}
-
-/* ========== TOP BAR (socials + CV) ========== */
-.top-bar {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 18px;
-  z-index: 2;
+  height: 100%;
+  z-index: 0;
+  background-image: url('https://andz7z.github.io/assets/photos/andz.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  opacity: 0;
+  animation: fadeIn 1.2s ease forwards;
 }
 
-.social-links {
-  display: flex;
-  gap: 14px;
-}
-
-.social-icon {
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.social-icon:hover {
-  color: #000;
-  transform: translateY(-3px);
-}
-
-/* CV Button */
-.Btn {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.1);
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.Btn ion-icon {
-  font-size: 1.3rem;
-  color: white;
-}
-
-.Btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.1);
-}
-
-/* ========== TEXT AREA (bottom-left corner) ========== */
 .home-content {
-  position: absolute;
-  bottom: 25px;
-  left: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  z-index: 2;
-  text-align: left;
+  max-width: 600px;
+  z-index: 1;
 }
 
-/* Hello text */
 .greeting {
-  font-size: 1rem;
-  color: #ffffff99;
+  font-family: Roboto, sans-serif;
+  font-size: 1.4rem;
+  color: #ffffff66;
+  transform: translateY(70px);
+  margin-left: 157px;
   font-weight: 500;
-  margin-bottom: -10px;
   opacity: 0;
-  animation: fadeIn 1s ease 0.4s forwards;
+  animation: fadeIn 1s ease 0.5s forwards; 
 }
 
-/* Name (ANDZ) */
 .name-container {
-  font-family: 'Aquarium', sans-serif;
-  font-size: clamp(4rem, 18vw, 8rem);
-  font-weight: 700;
-  line-height: 0.9;
+  font-family: Aquarium, sans-serif;
+  margin-bottom: -60px;
+  margin-left: -50px;
+  font-size: 11rem;
   opacity: 0;
-  animation: fadeInSlideUp 1s ease 0.7s forwards;
+  animation: fadeInSlideUp 1s ease 0.8s forwards;
 }
 
-.name-container .name {
-  margin: 0;
-}
-
-/* Profession */
 .profession {
-  font-size: clamp(1rem, 4vw, 1.5rem);
-  color: rgba(255, 255, 255, 0.85);
-  margin-top: 5px;
-  min-height: 40px;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  min-height: 60px;
+  color: rgba(255, 255, 255, 0.452);
+  transform: translateY(0px);
+  margin-left: -50px;
   opacity: 0;
-  animation: fadeInSlideUp 1s ease 1s forwards;
+  animation: fadeInSlideUp 1s ease 1.1s forwards; 
 }
-
 .profession span {
-  color: #fff;
-  border-right: 2px solid #ffffff80;
+  font-family: Roboto, sans-serif;
+  color: #ffffff;
+  border-right: 2px solid #00000080;
   padding-right: 5px;
   animation: blink 0.7s infinite;
 }
 
-/* ========== SCROLL ARROW ========== */
+@keyframes blink {
+  0%, 100% { border-color: transparent; }
+  50% { border-color: #ffffff7d; }
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  position: absolute;
+  right: 20px;
+  padding: 40px 0;
+  z-index: 1;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.7s forwards; 
+}
+
+.social-links::before,
+.social-links::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.social-links::before {
+  top: 0;
+  height: 30px;
+}
+
+.social-links::after {
+  bottom: 0;
+  height: 30px;
+}
+
+.social-icon {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.4s ease;
+  position: relative;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.social-icon::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #000000;
+  transform: translateY(-5px);
+}
+
+.social-icon:hover::before {
+  transform: scale(1);
+}
+
+/* sageata */
 .scroll-down {
   position: absolute;
-  bottom: 15px;
+  bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  z-index: 2;
+  z-index: 1;
   opacity: 0;
-  animation: fadeIn 1s ease 2s forwards;
+  animation: fadeIn 1s ease 2s forwards; 
 }
 
 .scroll-arrow {
@@ -150,44 +162,223 @@
   animation: pulse 2s infinite;
 }
 
-/* ========== ANIMATIONS ========== */
+@keyframes pulse {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(-5px, -5px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+}
+/* cv */
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 20%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  background-color: transparent;
+  margin-left: auto;
+  margin-bottom: 620px;
+  transform: translateX(119px);
+  transition: all 0.25s ease;
+  will-change: transform;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  opacity: 0;
+  animation: fadeIn 1s ease 1.4s forwards;
+}
+
+.sign {
+  width: 100%;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 25px;
+}
+
+.sign svg path {
+  fill: white;
+}
+
+.text {
+  position: absolute;
+  left: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: left;
+  padding-left: 13px;
+  padding-top: 3px;
+}
+
+.Btn:hover {
+  width: 100px;
+  border-radius: 40px;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  padding-left: 5px;
+}
+
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  padding-right: 10px;
+}
+
+.Btn:active {
+  transform: translateX(119px) scale(0.97);
+  transition: transform 0.1s ease;
+}
+/* efect de pulse (inutil dar e ok) */
+.Btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.Btn:active::after {
+  opacity: 1;
+  transform: scale(1.3);
+  transition: none;
+}
+
+/* animatii */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
 @keyframes fadeInSlideUp {
-  from { opacity: 0; transform: translateY(25px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* ======== MOBILE LAYOUT ======== */
+@media (max-width: 768px) {
 
-@keyframes blink {
-  0%, 100% { border-color: transparent; }
-  50% { border-color: #ffffff7d; }
-}
-
-@keyframes pulse {
-  0% { opacity: 0; transform: rotate(45deg) translate(-5px, -5px); }
-  50% { opacity: 1; }
-  100% { opacity: 0; transform: rotate(45deg) translate(5px, 5px); }
-}
-
-/* ========== RESPONSIVE ADJUSTMENTS ========== */
-@media (min-width: 768px) {
-  .top-bar {
-    padding: 18px 40px;
+  /* Background fix pentru portret */
+  .home-section::before {
+    background-position: center top;
+    background-attachment: scroll;
+    filter: brightness(0.7);
   }
 
+  /* Structura principală */
+  .home-section {
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0;
+  }
+
+  /* Social icons + CV button pe orizontală sus */
+  .social-links {
+    position: absolute;
+    top: 15px;
+    right: 60px;
+    flex-direction: row;
+    gap: 14px;
+    padding: 0;
+    opacity: 1;
+    animation: none;
+  }
+
+  .social-links::before,
+  .social-links::after {
+    display: none;
+  }
+
+  .social-icon {
+    font-size: 1.5rem;
+    padding: 6px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* CV button — lângă iconițe */
+  .Btn {
+    position: absolute;
+    top: 8px;
+    right: 15px;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    transform: none;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    opacity: 1;
+    animation: none;
+  }
+
+  .Btn ion-icon,
+  .Btn .sign svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .Btn:hover {
+    width: 36px;
+    transform: scale(1.05);
+  }
+
+  /* Textul principal jos-stânga */
   .home-content {
-    bottom: 60px;
-    left: 80px;
+    position: absolute;
+    bottom: 70px;
+    left: 20px;
+    right: 20px;
+    text-align: left;
+    max-width: 100%;
   }
 
   .greeting {
-    font-size: 1.2rem;
+    font-size: 1rem;
+    margin-left: 0;
+    transform: none;
+    color: #ffffff99;
+  }
+
+  .name-container {
+    font-size: clamp(4rem, 18vw, 7rem);
+    margin-left: 0;
+    margin-bottom: -20px;
   }
 
   .profession {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    margin-left: 0;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Scroll arrow mai jos */
+  .scroll-down {
+    bottom: 10px;
+  }
+
+  /* Elimină bordurile verticale decorative pe mobil */
+  .social-links::before,
+  .social-links::after {
+    display: none;
   }
 }
