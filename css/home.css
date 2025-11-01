@@ -275,63 +275,149 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* Optimizare pentru ecrane mici - doar pentru mobile */
+@media screen and (max-width: 768px) {
+    .home-section {
+        align-items: flex-end;
+        padding: 0 5%;
+    }
 
-@media (max-width: 768px) {
-  .home-section::before {
-    background-attachment: scroll;
-  }
+    .home-content {
+        max-width: 100%;
+        margin-bottom: 80px;
+    }
 
-  .home-section {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0 20px;
-  }
-  .home-content {
-    text-align: center;
-    max-width: 100%;
-  }
-  .greeting {
-    transform: none;
-    margin-left: 0;
-    font-size: 1.2rem;
-  }
-  .name-container {
-    margin-left: 0;
-    margin-bottom: 10px;
-    font-size: 5.5rem;
-  }
-  .profession {
-    margin-left: 0;
-    margin-bottom: 30px;
-    font-size: 1.5rem;
-    min-height: auto;
-  }
-  .Btn {
-    transform: none;
-    margin: 20px 0;
-  }
-  .social-links {
-    position: static;
-    flex-direction: row;
-    gap: 20px;
-    padding: 0;
-    margin-top: 10px;
-  }
-  .social-links::before,
-  .social-links::after {
-    display: none;
-  }
-  .scroll-down {
-    bottom: 20px;
-  }
+    .greeting {
+        font-size: 1.2rem;
+        margin-left: 110px;
+        transform: translateY(0);
+        margin-bottom: -25px;
+    }
+
+    .name-container {
+        font-size: 8rem;
+        margin-left: -20px;
+        margin-bottom: -20px;
+        line-height: 1;
+    }
+
+    .profession {
+        font-size: 1.5rem;
+        margin-left: -20px;
+        margin-bottom: -20px;
+        min-height: 40px;
+    }
+    .social-links {
+        position: fixed;
+        top: 50px;
+        right: 20px;
+        left: auto;
+        flex-direction: column;
+        gap: 100px;
+        padding: 0;
+    }
+
+    .social-links::before,
+    .social-links::after {
+        display: none;
+    }
+
+    .social-icon {
+        font-size: 1.5rem;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(5px);
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Buton CV mutat lângă iconițe */
+    .Btn {
+        position: fixed;
+        font-size: 1.6rem;
+        bottom: 75px;
+        right: 27px;
+        margin: 0;
+        transform: none;
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(5px);
+    }
+
+    .Btn:hover {
+        width: 100px;
+    }
+
+    .Btn:active {
+        transform: scale(0.97);
+    }
+
+    /* hide arrow */
+    .scroll-down {
+        display: none;
+    }
 }
 
-@media (max-width: 380px) {
-  .name-container {
-    font-size: 4.5rem;
-  }
-  .profession {
-    font-size: 1.3rem;
-  }
+/* Optimizare suplimentară pentru ecrane foarte mici */
+@media screen and (max-width: 480px) {
+    .name-container {
+        font-size: 3.5rem;
+    }
+
+    .profession {
+        font-size: 1.3rem;
+    }
+
+    .greeting {
+        font-size: 1rem;
+    }
+
+    .social-links {
+        top: 15px;
+        right: 15px;
+        gap: 10px;
+    }
+
+    .social-icon {
+        font-size: 1.3rem;
+        width: 35px;
+        height: 35px;
+    }
+
+    .Btn {
+        top: 15px;
+        left: 15px;
+    }
+
+    .home-content {
+        margin-bottom: 60px;
+    }
+}
+
+/* Pentru orientare landscape pe mobile */
+@media screen and (max-width: 768px) and (orientation: landscape) {
+    .home-content {
+        margin-bottom: 40px;
+    }
+
+    .name-container {
+        font-size: 3rem;
+    }
+
+    .profession {
+        font-size: 1.2rem;
+        min-height: 30px;
+    }
+
+    .social-links {
+        top: 10px;
+        right: 10px;
+    }
+
+    .Btn {
+        top: 10px;
+        left: 10px;
+    }
 }
