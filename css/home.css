@@ -275,110 +275,63 @@
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-/* ======== MOBILE LAYOUT ======== */
-@media (max-width: 768px) {
 
-  /* Background fix pentru portret */
+@media (max-width: 768px) {
   .home-section::before {
-    background-position: center top;
     background-attachment: scroll;
-    filter: brightness(0.7);
   }
 
-  /* Structura principală */
   .home-section {
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 0;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
   }
-
-  /* Social icons + CV button pe orizontală sus */
-  .social-links {
-    position: absolute;
-    top: 15px;
-    right: 60px;
-    flex-direction: row;
-    gap: 14px;
-    padding: 0;
-    opacity: 1;
-    animation: none;
-  }
-
-  .social-links::before,
-  .social-links::after {
-    display: none;
-  }
-
-  .social-icon {
-    font-size: 1.5rem;
-    padding: 6px;
-    color: rgba(255, 255, 255, 0.9);
-  }
-
-  /* CV button — lângă iconițe */
-  .Btn {
-    position: absolute;
-    top: 8px;
-    right: 15px;
-    width: 36px;
-    height: 36px;
-    margin: 0;
-    transform: none;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
-    box-shadow: none;
-    opacity: 1;
-    animation: none;
-  }
-
-  .Btn ion-icon,
-  .Btn .sign svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  .Btn:hover {
-    width: 36px;
-    transform: scale(1.05);
-  }
-
-  /* Textul principal jos-stânga */
   .home-content {
-    position: absolute;
-    bottom: 70px;
-    left: 20px;
-    right: 20px;
-    text-align: left;
+    text-align: center;
     max-width: 100%;
   }
-
   .greeting {
-    font-size: 1rem;
-    margin-left: 0;
     transform: none;
-    color: #ffffff99;
-  }
-
-  .name-container {
-    font-size: clamp(4rem, 18vw, 7rem);
     margin-left: 0;
-    margin-bottom: -20px;
-  }
-
-  .profession {
     font-size: 1.2rem;
+  }
+  .name-container {
     margin-left: 0;
-    color: rgba(255, 255, 255, 0.85);
+    margin-bottom: 10px;
+    font-size: 5.5rem;
   }
-
-  /* Scroll arrow mai jos */
-  .scroll-down {
-    bottom: 10px;
+  .profession {
+    margin-left: 0;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    min-height: auto;
   }
-
-  /* Elimină bordurile verticale decorative pe mobil */
+  .Btn {
+    transform: none;
+    margin: 20px 0;
+  }
+  .social-links {
+    position: static;
+    flex-direction: row;
+    gap: 20px;
+    padding: 0;
+    margin-top: 10px;
+  }
   .social-links::before,
   .social-links::after {
     display: none;
+  }
+  .scroll-down {
+    bottom: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .name-container {
+    font-size: 4.5rem;
+  }
+  .profession {
+    font-size: 1.3rem;
   }
 }
