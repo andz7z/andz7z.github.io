@@ -43,6 +43,9 @@ html, body {
   text-align: center;
   transition: background 0.8s ease;
 }
+/* -------------------------------
+   🔹 STRUCTURA DE BAZĂ EXISTENTĂ
+-------------------------------- */
 #burger-menu-container {
   position: fixed;
   top: 1rem;
@@ -70,10 +73,8 @@ html, body {
   display: flex;
   align-items: center;
   margin-left: 1rem;
-
   visibility: hidden;
   opacity: 0;
-
   transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -96,7 +97,7 @@ html, body {
   place-items: center;
   text-decoration: none;
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 500; 
   color: #ffffff;
   position: relative;
   padding: 0.5rem 0.75rem;
@@ -146,23 +147,24 @@ html, body {
   transition-delay: 0s !important;
 }
 
-/* ---------------------------
-   📱 MOBILE VERSION UPGRADE
---------------------------- */
+/* -------------------------------
+   📱 REDESIGN COMPLET PENTRU TELEFON
+-------------------------------- */
 @media (max-width: 768px) {
+  /* păstrăm burger-ul sus-stânga */
   #burger-menu-container {
-    top: auto;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 1rem;
+    left: 1rem;
     background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 2rem;
-    padding: 0.75rem 1.25rem;
+    backdrop-filter: blur(8px);
+    border-radius: 1rem;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
 
   #burger-icon {
-    font-size: 2.5rem;
+    font-size: 2.3rem;
+    color: #fff;
     transition: transform 0.4s ease;
   }
 
@@ -170,58 +172,81 @@ html, body {
     transform: rotate(90deg) scale(1.1);
   }
 
+  /* meniu full-screen tip carduri */
   #main-nav {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
     width: 100%;
+    height: 100vh;
+    background: rgba(15, 15, 25, 0.85);
+    backdrop-filter: blur(15px);
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    background: rgba(20, 20, 20, 0.9);
-    backdrop-filter: blur(12px);
-    border-radius: 1.5rem 1.5rem 0 0;
-    padding: 2rem 0;
-    gap: 1rem;
-
-    transform: translateY(100%);
-    transition: transform 0.6s ease, opacity 0.6s ease;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: all 0.6s ease;
   }
 
   #main-nav.active {
     visibility: visible;
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
   }
 
   #main-nav ul {
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 1.2rem;
   }
 
+  /* Card-style pentru secțiuni */
   #main-nav li a {
-    font-size: 1.4rem;
-    color: #ffffff;
-    background: rgba(255,255,255,0.08);
-    padding: 0.75rem 1.25rem;
-    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
     width: 80%;
+    max-width: 320px;
+    padding: 1rem 1.25rem;
+    font-size: 1.3rem;
     text-align: center;
+    border-radius: 1rem;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+                0 6px 18px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
   }
 
   #main-nav li a:hover {
-    background: rgba(255,255,255,0.2);
-    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+  }
+
+  /* icon + text clare și lizibile */
+  .menu-item-icon {
+    font-size: 1.8rem;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 
   .menu-text {
+    font-size: 1.1rem;
+    font-weight: 600;
     opacity: 1;
-    transform: translateY(10px);
+    transform: none;
+    color: #f1f1f1;
+    letter-spacing: 0.5px;
   }
 
+  /* Animații de intrare pentru fiecare card */
   #main-nav.active li {
-    animation: slideUp 0.5s ease forwards;
+    animation: fadeUp 0.5s ease forwards;
   }
 
   #main-nav.active li:nth-child(1) { animation-delay: 0.1s; }
@@ -230,7 +255,7 @@ html, body {
   #main-nav.active li:nth-child(4) { animation-delay: 0.4s; }
   #main-nav.active li:nth-child(5) { animation-delay: 0.5s; }
 
-  @keyframes slideUp {
+  @keyframes fadeUp {
     from {
       opacity: 0;
       transform: translateY(30px);
