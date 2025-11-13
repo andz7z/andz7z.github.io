@@ -1,0 +1,180 @@
+#home {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#home video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: fadeIn 2s ease-in forwards;
+  filter: brightness(0.8)
+}
+
+.home-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Stats section */
+.stats-container {
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 20px;
+  z-index: 2;
+}
+
+.stat-item {
+  text-align: center;
+  color: white;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+.stat-number {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.422);
+}
+
+.stat-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.422);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Text elements with animations */
+.welcome {
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10rem;
+  top: -7rem;
+  left: -9rem;
+  color: white;
+  opacity: 0;
+  animation: fadeInRight 1.2s ease-out 0.5s forwards;
+}
+.my {
+  position: relative;
+  left: 9rem;
+  top: -2rem;
+  font-size: 5rem;
+}
+.port {
+  position: relative;
+  font-family: 'Dancing', cursive;
+  font-size: 10rem;
+  top: -18rem;
+  left: 16rem;
+  opacity: 0;
+  animation: fadeInUp 1.2s ease-out 0.8s forwards;
+}
+
+.welcome, .port, .my {
+  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.422);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #home video {
+    object-fit: contain;
+    transform:scaleY(200%) scaleX(200%);
+    top: -3.5rem;
+    left: 14.5rem;
+  }
+  .welcome, .port {
+    font-size: 4rem;
+    position: relative;
+  }
+  
+  .welcome {
+    top: -14rem;
+    left: 0.5rem;
+  }
+  
+  .port {
+    top: -14.5rem;
+  }
+  
+  .an {
+    font-size: 1rem;
+    top: -18rem;
+    left: 6.1rem;
+  }
+  
+  .stats-container {
+    flex-wrap: wrap;
+    gap: 20px;
+    bottom: 30px;
+  }
+  
+  .stat-item {
+    flex: 0 0 45%;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .stat-text {
+    font-size: 0.8rem;
+  }
+}
+
+/* maybe later
+  #home::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 60%; 
+  height: 100%;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
+  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
+} */

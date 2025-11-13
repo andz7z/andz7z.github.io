@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANDZ | Portfolio</title>
+  <link rel="icon" type="image/gif" href="https://andz7z.github.io/assets/photos/favicon/favicon.gif">
+  
+  <!-- css principal -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- css -->
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/projects.css">
+  <link rel="stylesheet" href="css/reviews.css">
+  <link rel="stylesheet" href="css/contact.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+</head>
+
+<body>
+<!-- scroll progress -->
+  <div id="scrollProgress">
+  </div>
+<!-- NAVBAR -->
+<header>
+    <div class="menu-icon" id="menuToggle">
+        <ion-icon name="grid-outline"></ion-icon>
+        <span class="menu-text">Menu</span>
+    </div>
+    
+    <!-- Full Screen Menu Overlay -->
+    <div class="fullscreen-menu" id="fullscreenMenu">
+        <div class="menu-background"></div>
+        
+        <div class="menu-header">
+            <div class="header-content">
+                <div class="menu-logo">
+                    <span class="logo-text">ANDZ</span>
+                    <div class="status-bar">
+                        <div class="status-dot"></div>
+                        <span>Available for work</span>
+                    </div>
+                </div>
+                <div class="menu-header-buttons">
+                    <a href="#contact" class="lets-talk-btn">
+                        <span class="btn-text">Let's talk</span>
+                        <span class="btn-arrow">↗</span>
+                    </a>
+                    <button class="close-menu" id="closeMenu" aria-label="Close menu">
+                        <span class="close-line"></span>
+                        <span class="close-line"></span>
+                    </button>
+                    
+                </div>
+            </div>
+            <div class="header-divider"></div>
+        </div>
+        
+        <nav class="fullscreen-nav">
+            <a href="#home" class="nav-item active" data-desc-target="home-desc">
+                <span class="nav-number">01</span>
+                <span class="nav-text">Home</span>
+                <div class="nav-icon">
+                    <ion-icon name="home-outline"></ion-icon>
+                </div>
+            </a>
+            <a href="#about" class="nav-item" data-desc-target="about-desc">
+                <span class="nav-number">02</span>
+                <span class="nav-text">About</span>
+                <div class="nav-icon">
+                    <ion-icon name="person-outline"></ion-icon>
+                </div>
+            </a>
+            <a href="#projects" class="nav-item" data-desc-target="projects-desc">
+                <span class="nav-number">03</span>
+                <span class="nav-text">Projects</span>
+                <div class="nav-icon">
+                    <ion-icon name="briefcase-outline"></ion-icon>
+                </div>
+            </a>
+            <a href="#reviews" class="nav-item" data-desc-target="reviews-desc">
+                <span class="nav-number">04</span>
+                <span class="nav-text">Reviews</span>
+                <div class="nav-icon">
+                    <ion-icon name="star-outline"></ion-icon>
+                </div>
+            </a>
+            <a href="#contact" class="nav-item" data-desc-target="contact-desc">
+                <span class="nav-number">05</span>
+                <span class="nav-text">Contact</span>
+                <div class="nav-icon">
+                    <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                </div>
+            </a>
+        </nav>
+        <div class="menu-footer">
+            <div class="footer-divider"></div>
+            <div class="footer-content">
+                <div class="follow-me-section">
+                    <div class="follow-me">Follow me.</div>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/lehadus-andrei-25a807372/" target="_blank" class="social-link" aria-label="LinkedIn">
+                            <span class="social-text">LinkedIn ↗</span>
+                            <div class="social-icon-wrapper">
+                                <ion-icon name="logo-linkedin" class="social-icon"></ion-icon>
+                            </div>
+                        </a>
+                        <a href="https://github.com/andz7z" target="_blank" class="social-link" aria-label="GitHub">
+                            <span class="social-text">GitHub ↗</span>
+                            <div class="social-icon-wrapper">
+                                <ion-icon name="logo-github" class="social-icon"></ion-icon>
+                            </div>
+                        </a>
+                        <a href="https://www.youtube.com/@visuals_mods" target="_blank" class="social-link" aria-label="YouTube">
+                            <span class="social-text">YouTube ↗</span>
+                            <div class="social-icon-wrapper">
+                                <ion-icon name="logo-youtube" class="social-icon"></ion-icon>
+                            </div>
+                        </a>
+                        <a href="https://tiktok.com/andrei38axc" target="_blank" class="social-link" aria-label="TikTok">
+                            <span class="social-text">TikTok ↗</span>
+                            <div class="social-icon-wrapper">
+                                <ion-icon name="logo-tiktok" class="social-icon"></ion-icon>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- sections -->
+  <main>
+    <!-- home -->
+<section id="home">
+  <video id="bg-video" autoplay muted playsinline>
+    <source src="https://res.cloudinary.com/dw0ycaw1f/video/upload/v1762642805/andz_h5stfa.mp4" type="video/mp4">
+  </video>
+  <div class="home-content">
+    <div class="welcome">welcome to<div class="my">my</div>
+    </div>
+    <div class="port">portfolio</div>
+  </div>
+  
+  <!-- Stats section -->
+  <div class="stats-container">
+    <div class="stat-item" data-target="99.9" data-delay="0">
+      <div class="stat-number">0%</div>
+      <div class="stat-text">clients satisfied</div>
+    </div>
+    <div class="stat-item" data-target="3" data-delay="200">
+      <div class="stat-number">0x</div>
+      <div class="stat-text">faster delivery</div>
+    </div>
+    <div class="stat-item" data-target="24" data-delay="400">
+      <div class="stat-number">0/7</div>
+      <div class="stat-text">active support</div>
+    </div>
+    <div class="stat-item" data-target="20" data-delay="600">
+      <div class="stat-number">0</div>
+      <div class="stat-text">projects done</div>
+    </div>
+  </div>
+</section>
+    <!-- about -->
+    <section id="about">
+      <div class="about-content">
+        <div class="hi">hi, my name is</div>
+        <div class="lehadus">Lehadus Andrei.</div>
+        <div class="descriere">I’m a 21-year-old Computer Science student at the Faculty of Automation and Computer Science in Galați, Romania.<br> Passionate about front-end development, I love creating clean, engaging, and user-friendly interfaces.<br> I’m detail-oriented, motivated, and always focused on improving my skills. Constantly learning and evolving, <br>I aim to grow into a well-rounded developer and bring creative ideas to life through code.</div>
+      </div><div class="first_line"></div>
+    <div class="container">
+        <div class="titlu">My goal? Make your users feel <br> the same <span class ="highlight">confidence</span> you feel in your brand!</div>
+        <div class="parent">
+            <div class="grid-item">
+                <ion-icon name="desktop-outline" class="icon"></ion-icon>
+                <h3 class="title">Design Web</h3>
+                <p class="description">Creăm site-uri web moderne și responsive care oferă o experiență utilizator excepțională.</p>
+            </div>
+            <div class="grid-item">
+                <ion-icon name="phone-portrait-outline" class="icon"></ion-icon>
+                <h3 class="title">Aplicații Mobile</h3>
+                <p class="description">Dezvoltăm aplicații mobile pentru iOS și Android, personalizate nevoilor dumneavoastră.</p>
+            </div>
+            <div class="grid-item">
+                <ion-icon name="bar-chart-outline" class="icon"></ion-icon>
+                <h3 class="title">Analiză Date</h3>
+                <p class="description">Transformăm datele în informații valoroase pentru a vă îmbunătăți procesele de business.</p>
+            </div>
+            <div class="grid-item">
+                <ion-icon name="shield-checkmark-outline" class="icon"></ion-icon>
+                <h3 class="title">Securitate</h3>
+                <p class="description">Oferim soluții complete de securitate cibernetică pentru a vă proteja datele și sistemele.</p>
+            </div>
+            <div class="grid-item">
+                <ion-icon name="cloud-upload-outline" class="icon"></ion-icon>
+                <h3 class="title">Cloud Computing</h3>
+                <p class="description">Migrăm și gestionăm infrastructura dumneavoastră în cloud pentru eficiență și scalabilitate.</p>
+            </div>
+            <div class="grid-item">
+                <ion-icon name="headset-outline" class="icon"></ion-icon>
+                <h3 class="title">Suport 24/7</h3>
+                <p class="description">Echipa noastră oferă suport tehnic non-stop pentru a vă asigura că totul funcționează perfect.</p>
+            </div>
+        </div>
+    </div>
+    <div class="second_line"></div>
+    </section>
+    <!-- projects -->
+<section id="projects">
+  <div class="projects-content">
+    <p class="projects-description">I treat every project<br><span class="part">like it's part of my own <span class="brand">brand.</span></span></p>
+    
+    <!-- Butoanele pentru categorii -->
+    <div class="category-buttons">
+      <button class="button active" data-category="web">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Web Development
+      </button>
+      <button class="button" data-category="brand">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Brand Design
+      </button>
+      <button class="button" data-category="photo">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Photo Editing
+      </button>
+    </div>
+    
+    <!-- Container pentru galerie -->
+    <div class="gallery-container">
+      <div class="gallery-category active" id="web-gallery">
+        <div class="project-grid">
+          <!-- Proiectele vor fi adăugate dinamic prin JavaScript -->
+        </div>
+      </div>
+      
+      <div class="gallery-category" id="brand-gallery">
+        <div class="project-grid">
+          <!-- Proiectele vor fi adăugate dinamic prin JavaScript -->
+        </div>
+      </div>
+      
+      <div class="gallery-category" id="photo-gallery">
+        <div class="project-grid">
+          <!-- Proiectele vor fi adăugate dinamic prin JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal pentru afișarea detaliată a proiectelor -->
+  <div class="project-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="contact-icon">
+          <i class="icon ion-ios-call"></i>
+          <span class="tooltip">Seen Enough? Contact me Now.</span>
+        </div>
+        <h2 class="modal-title">Web Development Projects</h2>
+        <div class="close-modal">
+          <i class="icon ion-md-close"></i>
+          <span class="tooltip">Close</span>
+        </div>
+      </div>
+      
+      <div class="modal-body">
+        <div class="project-slideshow">
+          <div class="slideshow-container">
+            <button class="slide-nav prev">
+              <i class="icon ion-ios-arrow-back"></i>
+            </button>
+            
+            <div class="slides-wrapper">
+              <!-- Slide-urile vor fi adăugate dinamic -->
+            </div>
+            
+            <button class="slide-nav next">
+              <i class="icon ion-ios-arrow-forward"></i>
+            </button>
+          </div>
+          
+          <div class="project-info">
+            <h3 class="project-name">Project Name</h3>
+            <p class="project-description">Project description will appear here.</p>
+            <div class="project-features">
+              <!-- Caracteristicile vor fi adăugate dinamic -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="more-projects">
+          <h4>Want to see more? Click one below ➜</h4>
+          <div class="project-previews">
+            <!-- Previzualizările vor fi adăugate dinamic -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+    <!-- reviews -->
+    <section id="reviews">
+      <div class="reviews-content">
+        <h2> Reviews Section </h2>
+      </div>
+    </section>
+    <!-- contact -->
+    <section id="contact">
+      <div class="contact-content">
+        <h2> Contact Section </h2>
+      </div>
+    </section>
+  </main> 
+  <!-- librarii js -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <!-- scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/about.js"></script>
+  <script src="js/projects.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/contact.js"></script>
+  </body>
+  </html>
