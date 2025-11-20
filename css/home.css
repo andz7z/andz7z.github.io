@@ -1,180 +1,190 @@
-#home {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
+/* Homepage Styles */
+#homepage {
+    background: #000000;
+    position: relative;
+    overflow: hidden;
 }
 
-#home video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  animation: fadeIn 2s ease-in forwards;
-  filter: brightness(0.8)
+.video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 1;
 }
 
 .home-content {
-  position: relative;
-  z-index: 1;
-  color: white;
-  text-align: center;
-  top: 50%;
-  transform: translateY(-50%);
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: white;
 }
 
-/* Stats section */
-.stats-container {
-  position: absolute;
-  bottom: 50px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  padding: 0 20px;
-  z-index: 2;
+.fade-in-title {
+    font-size: 6rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 2s ease-out 0.5s forwards;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-.stat-item {
-  text-align: center;
-  color: white;
-  opacity: 0;
-  animation: fadeInUp 1s ease-out forwards;
-}
-
-.stat-number {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-bottom: 5px;
-  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.422);
-}
-
-.stat-text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
-  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.422);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.fade-in-subtitle {
+    font-size: 2rem;
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 2s ease-out 1s forwards;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
 }
 
 @keyframes fadeInUp {
-  from {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Burger System Styles - Original */
+.bars {
+    position: fixed;
+    width: 27px;
+    height: 27px;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+    z-index: 101;
+    padding-top: 9px;
     opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    animation: fadeInBar 1s ease-out 2s forwards;
 }
 
-@keyframes fadeInRight {
-  from {
+.bar {
+    width: 100%;
+    height: 4px;
+    background-color: #fff;
+    position: absolute;
+}
+
+span::before,
+span::after {
+    content: "";
+    display: block;
+    background-color: #fff;
+    width: 100%;
+    height: 4px;
+    position: absolute;
+}
+
+.bar::before {
+    transform: translateY(-9px);
+}
+
+.bar::after {
+    transform: translateY(9px);
+}
+
+.bars.active .bar {
+    background-color: transparent;
+}
+
+.bars.active span::before {
+    animation: top-bar 1s;
+    animation-fill-mode: forwards;
+}
+
+.bars.active span::after {
+    animation: bottom-bar 1s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeInBar {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes top-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(45deg) translateY(0);
+    }
+}
+
+@keyframes bottom-bar {
+    50% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: rotate(-45deg) translateY(0);
+    }
+}
+
+/* Navbar Links CSS - Ultra Simple */
+#nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
     opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
-/* Text elements with animations */
-.welcome {
-  position: relative;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10rem;
-  top: -7rem;
-  left: -9rem;
-  color: white;
-  opacity: 0;
-  animation: fadeInRight 1.2s ease-out 0.5s forwards;
-}
-.my {
-  position: relative;
-  left: 9rem;
-  top: -2rem;
-  font-size: 5rem;
-}
-.port {
-  position: relative;
-  font-family: 'Dancing', cursive;
-  font-size: 10rem;
-  top: -18rem;
-  left: 16rem;
-  opacity: 0;
-  animation: fadeInUp 1.2s ease-out 0.8s forwards;
-}
-
-.welcome, .port, .my {
-  text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.422);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  #home video {
-    object-fit: contain;
-    transform:scaleY(200%) scaleX(200%);
-    top: -3.5rem;
-    left: 14.5rem;
-  }
-  .welcome, .port {
-    font-size: 4rem;
-    position: relative;
-  }
-  
-  .welcome {
-    top: -14rem;
-    left: 0.5rem;
-  }
-  
-  .port {
-    top: -14.5rem;
-  }
-  
-  .an {
-    font-size: 1rem;
-    top: -18rem;
-    left: 6.1rem;
-  }
-  
-  .stats-container {
-    flex-wrap: wrap;
-    gap: 20px;
-    bottom: 30px;
-  }
-  
-  .stat-item {
-    flex: 0 0 45%;
-  }
-  
-  .stat-number {
+#nav a {
+    color: #fff;
+    text-decoration: none;
     font-size: 2rem;
-  }
-  
-  .stat-text {
-    font-size: 0.8rem;
-  }
+    font-weight: 300;
+    padding: 20px;
+    display: block;
+    text-align: center;
+    transition: background 0.2s ease;
 }
 
-/* maybe later
-  #home::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 60%; 
-  height: 100%;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
-  -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,1), rgba(0,0,0,0));
-} */
+#nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 20px;
+}
+
+.visible {
+    z-index: 100 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+@media screen and (max-width: 800px) {
+    .fade-in-title {
+        font-size: 4rem;
+    }
+    
+    .fade-in-subtitle {
+        font-size: 1.5rem;
+    }
+    
+    #nav a {
+        font-size: 1.5rem;
+    }
+}

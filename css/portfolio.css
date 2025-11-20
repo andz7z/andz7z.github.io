@@ -1,0 +1,5 @@
+/* Portfolio Section */
+#portfolio {
+    background: linear-gradient(180deg, #2d2d2d 0%, #404040 50%, #525252 100%);
+    transition: background 0.8s ease-in-out;
+}
