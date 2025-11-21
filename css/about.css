@@ -1,5 +1,425 @@
-/* About Section */
+/* About Section CSS - With Animations */
 #about {
-    background: linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #2d2d2d 100%);
-    transition: background 0.8s ease-in-out;
+  position: relative;
+  background: #000000;
+  color: #ffffff;
+  height: 120vh;
+  display: flex;
+  align-items: center;
+  font-family: 'Sora', sans-serif;
+  overflow: hidden;
+}
+
+.about-video-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  transform: scale(1.1);
+  transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#about.animated .about-video-container {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.about-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #000000 0%, rgba(0,0,0,0.9) 40%, transparent 100%);
+  z-index: 2;
+}
+
+.about-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  margin: 0 auto;
+  padding: 80px 60px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 100px;
+  align-items: start;
+  min-height: 100vh;
+}
+
+.about-left {
+  max-width: 800px;
+}
+
+/* Animation Base Styles */
+.animate-element {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#about.animated .animate-element {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Title */
+.about-main-title {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  font-family: 'Sora', cursive;
+  margin-bottom: 40px;
+  margin-top: -7vh;
+  line-height: 1.1;
+}
+
+/* Description */
+.about-description {
+  margin-bottom: 20px;
+}
+
+.description-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.814);
+  letter-spacing: 2px;
+  max-width: 550px;
+  font-weight: 100;
+  margin-bottom: 125px;
+}
+
+/* Qualities Container */
+.qualities-row {
+  margin-bottom: 100px;
+  margin-top: -5vh;
+}
+
+.quality-category {
+  display: flex;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+.category-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.712);
+  min-width: 90px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+.quality-tags {
+  display: flex;
+  white-space: nowrap;
+  gap: 15px;
+}
+
+.quality-tag {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+}
+
+.hobby-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.hobby-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.80rem;
+  color: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s ease;
+}
+
+.hobby-tag:hover {
+  color: #ffffff;
+}
+
+.hobby-tag:hover .hobby-icon {
+  transform: scale(1.4);
+}
+
+.hobby-icon {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+/* Contact Button - Far Left */
+.contact-left-container {
+  margin-top: 40px;
+  margin-left: 0;
+  align-self: flex-start;
+}
+
+.about-contact-btn {
+  background: rgba(255, 255, 255, 0);
+  border: 1px solid rgba(255, 255, 255, 0);
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  margin-top: -10vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-contact-btn:hover {
+  background: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, 0.5);
+  width: 200px;
+  border-radius: 30px;
+  justify-content: flex-start;
+  padding-left: 25px;
+}
+
+.about-contact-btn:hover::before {
+  left: 100%;
+}
+
+.contact-icon {
+  font-size: 1.4rem;
+  transition: all 0.3s ease;
+  position: absolute;
+  left: 20px;
+}
+
+.about-contact-btn:hover .contact-icon {
+  left: 5px;
+}
+
+.contact-hover-content {
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  position: absolute;
+  right: 25px;
+  white-space: nowrap;
+  text-align: right;
+}
+
+.about-contact-btn:hover .contact-hover-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.contact-text {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+  margin-bottom: 2px;
+  right: 20px;
+}
+
+.time-display {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  justify-content: flex-end;
+}
+
+.time-value {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.time-unit {
+  margin-left: 1px;
+}
+
+/* Location - Bottom Right */
+.about-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+  position: relative;
+}
+
+.location-minimal {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: -2vw;
+  margin-bottom: 0vh;
+  white-space: nowrap;
+}
+
+.location-icon-minimal {
+  font-size: 1.4rem;
+  color: rgb(255, 255, 255);
+}
+
+.location-text-minimal {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+}
+
+/* Color states for time display */
+.time-green .time-value {
+  color: #4ade80;
+}
+
+.time-yellow .time-value {
+  color: #facc15;
+}
+
+.time-orange .time-value {
+  color: #fb923c;
+}
+
+.time-red .time-value {
+  color: #f87171;
+}
+
+.time-expired .time-value {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Stagger delays for individual elements */
+#about.animated .about-main-title {
+  transition-delay: 0.2s;
+}
+
+#about.animated .about-description {
+  transition-delay: 0.4s;
+}
+
+#about.animated .professional-row {
+  transition-delay: 0.6s;
+}
+
+#about.animated .personal-row {
+  transition-delay: 0.8s;
+}
+
+#about.animated .hobbies-row {
+  transition-delay: 1s;
+}
+
+#about.animated .contact-left-container {
+  transition-delay: 1.2s;
+}
+
+#about.animated .location-minimal {
+  transition-delay: 1.4s;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 50px;
+    padding: 60px 40px;
+  }
+  
+  .about-right {
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 40px;
+    position: relative;
+  }
+  
+  .location-minimal {
+    position: static;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-content {
+    padding: 40px 30px;
+  }
+  
+  .about-main-title {
+    font-size: 2.2rem;
+  }
+  
+  .quality-category {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .quality-tags, .hobby-tags {
+    gap: 10px;
+  }
+  
+  .about-contact-btn {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .about-contact-btn:hover {
+    width: 180px;
+  }
+  
+  .contact-icon {
+    font-size: 1.2rem;
+    left: 15px;
+  }
+  
+  .about-contact-btn:hover .contact-icon {
+    left: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-content {
+    padding: 30px 20px;
+  }
+  
+  .about-main-title {
+    font-size: 1.8rem;
+  }
+  
+  .description-text {
+    font-size: 1rem;
+  }
+  
+  .quality-tags, .hobby-tags {
+    gap: 8px;
+  }
+  
+  .quality-tag, .hobby-tag {
+    font-size: 0.85rem;
+  }
+}
+.highlight {
+  font-weight: 1000;       /* ultra bold */
+  color: #fff;             /* optional — culoare */
+  background: #000;        /* optional — highlight */
+  padding: 2px 4px;        /* opțional — spațiu */
+  border-radius: 4px;      /* opțional — colțuri rotunjite */
 }

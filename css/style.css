@@ -1,49 +1,147 @@
-/* Global Styles */
+@font-face {
+    font-family: 'Sora';
+    src: url('https://andz7z.github.io/assets/fonts/PlayfairDisplay-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Great';
+    src: url('https://andz7z.github.io/assets/fonts/GreatVibes-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
-body {
-    font-family: 'Roboto', sans-serif;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
-}
-
-.section {
+section {
     height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.8s ease-in-out;
+    width: 100%;
+}
+/* Container (bara fixă de sus) */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;               /* ajustează înălțimea după gust */
+  z-index: 9999;
+  background: #000;          /* fundalul implicit (negru) */
+  overflow: hidden;
+  pointer-events: none;      /* nu interacționează cu userul */
 }
 
-.section-content {
-    text-align: center;
-    z-index: 10;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-in-out;
+/* Fill — gradient care se prelungește pe măsură ce scroll-ul crește */
+#scroll-progress .progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%; /* va fi actualizat din JS */
+  background: linear-gradient(to right, #000 0%, #fff 100%); /* negru -> alb */
+  /* ușoară tranziție pentru mișcare mai lină */
+  transition: width 120ms linear;
 }
 
-.section.active .section-content {
-    opacity: 1;
-    transform: translateY(0);
+/* Glow difuz la capătul "leading" (partea din dreapta a fill-ului) */
+#scroll-progress .progress-fill::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100px;               /* lățimea glow-ului — ajustează după nevoie */
+  height: 100px;
+  border-radius: 50%;
+  background: rgb(255, 255, 255); /* culoare de bază a glow-ului */
+  filter: blur(10px);
+  pointer-events: none;
+  mix-blend-mode: screen;    /* opțional, arată bine peste fundal în unele cazuri */
+  opacity: 0.9;
+}
+/* Stiluri pentru navbar */
+.navbar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+
+  opacity: 0;
+  animation: navbarFade 1s ease forwards;
+  animation-delay: 2s;
 }
 
-.section-content h2 {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-    font-weight: 300;
+@keyframes navbarFade {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.section-content p {
-    font-size: 1.5rem;
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    font-weight: 300;
+
+.nav-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0px;
+  position: relative;
+  top: 5vh;
+  left: -2vw;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.link-text {
+  transition: transform 0.3s ease;
+}
+
+.nav-icon {
+  font-size: 18px;
+  margin-left: 8px;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}
+
+/* Efecte la hover */
+.nav-link:hover {
+  transform: scale(1.2);
+}
+
+.nav-link:hover .link-text {
+  transform: translateX(-5px);
+}
+
+.nav-link:hover .nav-icon {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Blur pentru celelalte elemente când unul este hover */
+.nav-list:hover .nav-item:not(:hover) .nav-link {
+  filter: blur(2px);
+  opacity: 0.7;
+}
+
+/* Ascunderea navbar-ului în afara secțiunii Home */
+body:not(.home-section) .navbar {
+  display: none;
 }

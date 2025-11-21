@@ -1,369 +1,556 @@
-// Date pentru proiecte
-const projectsData = {
-  web: [
-    {
-      id: 1,
-      name: "E-Commerce Platform",
-      description: "A modern e-commerce solution with advanced filtering, user authentication, and secure payment processing.",
-      images: [
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800",
-        "https://images.unsplash.com/photo-1556742044-3c52d6e88c62?w=800",
-        "https://images.unsplash.com/photo-1563013546-7e58a73f5c14?w=800"
-      ],
-      features: ["User Registration", "Shopping Cart", "Payment Gateway", "Product Reviews", "Admin Dashboard"],
-      thumbnail: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400",
-      shortDesc: "Full-featured online store"
-    },
-    {
-      id: 2,
-      name: "Portfolio Website",
-      description: "A responsive portfolio website with smooth animations, project gallery, and contact form integration.",
-      images: [
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800",
-        "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800",
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800"
-      ],
-      features: ["Responsive Design", "Smooth Animations", "Contact Form", "Project Gallery", "SEO Optimized"],
-      thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400",
-      shortDesc: "Creative portfolio showcase"
-    },
-    {
-      id: 3,
-      name: "Task Management App",
-      description: "A collaborative task management application with real-time updates, team collaboration, and progress tracking.",
-      images: [
-        "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800",
-        "https://images.unsplash.com/photo-1543286386-713bdd548da4?w=800",
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800"
-      ],
-      features: ["Real-time Updates", "Team Collaboration", "Progress Tracking", "File Sharing", "Mobile App"],
-      thumbnail: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=400",
-      shortDesc: "Team productivity tool"
-    }
-  ],
-  brand: [
-    {
-      id: 1,
-      name: "Coffee Shop Branding",
-      description: "Complete branding package for a specialty coffee shop including logo, packaging, and merchandise design.",
-      images: [
-        "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=800",
-        "https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?w=800",
-        "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800"
-      ],
-      features: ["Logo Design", "Packaging", "Merchandise", "Brand Guidelines", "Social Media Kit"],
-      thumbnail: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400",
-      shortDesc: "Artisan coffee brand identity"
-    },
-    {
-      id: 2,
-      name: "Tech Startup Identity",
-      description: "Modern and innovative branding for a technology startup focusing on AI and machine learning solutions.",
-      images: [
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800",
-        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800",
-        "https://images.unsplash.com/photo-1526379879527-8559ecfcaec0?w=800"
-      ],
-      features: ["Logo & Identity", "Website Design", "Presentation Templates", "Product Mockups", "Brand Book"],
-      thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400",
-      shortDesc: "Innovative tech branding"
-    },
-    {
-      id: 3,
-      name: "Fashion Label",
-      description: "Luxury fashion brand identity with elegant typography, sophisticated color palette, and premium packaging.",
-      images: [
-        "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800",
-        "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800",
-        "https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=800"
-      ],
-      features: ["Brand Identity", "Packaging Design", "Lookbook Design", "Social Media Assets", "Retail Materials"],
-      thumbnail: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400",
-      shortDesc: "Luxury fashion identity"
-    }
-  ],
-  photo: [
-    {
-      id: 1,
-      name: "Product Photography",
-      description: "Professional product photography with advanced lighting techniques and post-processing for e-commerce.",
-      images: [
-        "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=800",
-        "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800",
-        "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800"
-      ],
-      features: ["Studio Lighting", "Color Correction", "Background Removal", "Detail Enhancement", "Multiple Angles"],
-      thumbnail: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400",
-      shortDesc: "E-commerce product shots"
-    },
-    {
-      id: 2,
-      name: "Portrait Retouching",
-      description: "Professional portrait retouching while maintaining natural features and enhancing overall image quality.",
-      images: [
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800",
-        "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800",
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800"
-      ],
-      features: ["Skin Retouching", "Color Grading", "Background Enhancement", "Detail Sharpening", "Natural Look"],
-      thumbnail: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400",
-      shortDesc: "Professional portrait editing"
-    },
-    {
-      id: 3,
-      name: "Real Estate Enhancement",
-      description: "Real estate photography editing to make properties look their best with proper lighting and perspective correction.",
-      images: [
-        "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800",
-        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
-        "https://images.unsplash.com/photo-1484154218962-a197022b5858?w=800"
-      ],
-      features: ["Perspective Correction", "HDR Blending", "Color Enhancement", "Window View Replacement", "Virtual Staging"],
-      thumbnail: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=400",
-      shortDesc: "Property photo enhancement"
-    }
-  ]
-};
-
-// Variabile globale
-let currentCategory = 'web';
-let currentProjectIndex = 0;
-let currentSlideIndex = 0;
-
-// Inițializare
+// JavaScript pentru functionalitatea sectiunii Projects
 document.addEventListener('DOMContentLoaded', function() {
-  initializeGallery();
-  setupEventListeners();
-  setupIntersectionObserver();
-});
+  // Datele proiectelor
+  const projectsData = {
+    'web-development': [
+      {
+        id: 1,
+        name: 'Website Template 1',
+        description: 'A fully responsive e-commerce platform with advanced features designed to provide a seamless shopping experience across all devices. This project includes a sophisticated product management system, secure payment processing, and personalized user recommendations. The platform is optimized for performance and SEO, ensuring maximum visibility and conversion rates for online businesses.',
+        features: [
+          'Advanced User Registration System',
+          'Interactive Review & Rating System',
+          'Real-time Chat Functionality',
+          'Payment Integration System',
+          'Advanced Analytics Dashboard'
+        ],
+        images: [
+          'https://andz7z.github.io/assets/photos/altele/entry_project_slide.jpg',
+          'https://andz7z.github.io/assets/photos/altele/entry_project_slide1.jpg',
+          'https://andz7z.github.io/assets/photos/altele/entry_project_slide2.jpg'
+        ],
+        thumbnail: 'https://andz7z.github.io/assets/photos/altele/entry_project_slide.jpg'
+      },
+      {
+        id: 2,
+        name: 'Website Template 2',
+        description: 'A modern portfolio website showcasing creative work with smooth animations and interactive elements to engage visitors. The design emphasizes visual storytelling and user experience, with carefully crafted transitions and micro-interactions. The site is fully responsive and optimized for fast loading times across all devices and connection speeds.',
+        features: [
+          'Smooth Scroll Animations',
+          'Interactive Gallery',
+          'Contact Form with Validation',
+          'Responsive Design',
+          'SEO Optimization'
+        ],
+        images: [
+          'https://andz7z.github.io/assets/photos/altele/project_one.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_one.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_one.jpg'
+        ],
+        thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_one.jpg'
+      },
+      {
+        id: 3,
+        name: 'Website Template 3',
+        description: 'A comprehensive business dashboard with real-time data visualization and reporting tools for informed decision-making. This project features customizable widgets, interactive charts, and advanced filtering options. The dashboard integrates with multiple data sources and provides actionable insights through intuitive visual representations of complex business metrics.',
+        features: [
+          'Real-time Data Visualization',
+          'Custom Reporting Tools',
+          'User Management System',
+          'Data Export Functionality',
+          'Multi-level Access Control'
+        ],
+        images: [
+          'https://andz7z.github.io/assets/photos/altele/project_two.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_two.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_two.jpg'
+        ],
+        thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_two.jpg'
+      }
+    ],
+    'ui-ux-design': [
+      {
+        id: 1,
+        name: 'Brand Design Template 1',
+        description: 'A user-friendly mobile banking application with intuitive navigation and secure transaction features for modern banking needs. The design focuses on simplifying complex financial operations while maintaining the highest security standards. The app includes personalized dashboards, spending analytics, and seamless integration with banking services for a comprehensive financial management experience.',
+        features: [
+          'Intuitive Navigation Design',
+          'Secure Transaction Flow',
+          'Biometric Authentication',
+          'Personalized Dashboard',
+          'Bill Payment System'
+        ],
+        images: [
+          'https://andz7z.github.io/assets/photos/altele/project_three.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_three.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_three.jpg'
+        ],
+        thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_three.jpg'
+      },
+      {
+        id: 2,
+        name: 'Brand Design Template 2',
+        description: 'A comprehensive fitness tracking application with personalized workout plans and progress monitoring features. The design emphasizes motivation and consistency through gamification elements and social features. Users can track various metrics, set goals, and connect with friends for a more engaging fitness journey. The interface is clean, energetic, and easy to navigate during workouts.',
+        features: [
+          'Personalized Workout Plans',
+          'Progress Tracking Dashboard',
+          'Social Sharing Features',
+          'Nutrition Tracking',
+          'Goal Setting System'
+        ],
+        images: [
+          'https://andz7z.github.io/assets/photos/altele/project_four.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_four.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_four.jpg'
+        ],
+        thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_four.jpg'
+      },
+      {
+        id: 3,
+        name: 'Brand Design Template 3',
+        description: 'An intuitive travel booking platform with seamless booking flow and personalized recommendations for travelers. The design focuses on reducing friction in the booking process while providing comprehensive information about destinations and accommodations. Visual elements are carefully selected to evoke wanderlust while maintaining clarity and usability throughout the customer journey.',
+        features: [
+          'Seamless Booking Flow',
+          'Personalized Recommendations',
+          'Interactive Maps Integration',
+          'Review & Rating System',
+          'Multi-language Support'
+        ],
+        images: [
+          'https://andz7z.github.io/assets/photos/altele/project_five.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_five.jpg',
+          'https://andz7z.github.io/assets/photos/altele/project_five.jpg'
+        ],
+        thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_five.jpg'
+      }
+    ],
+    'video-editing': [
+      {
+        id: 1,
+        name: 'Corporate Brand Video',
+        description: 'A professional corporate brand video showcasing company values and services with high-quality visuals and engaging storytelling. This project involved extensive pre-production planning, including script development and storyboarding. The final video effectively communicates the brand identity through carefully crafted visuals, sound design, and narrative structure that resonates with the target audience and strengthens brand recognition.',
+        features: [
+          'High-Quality Visuals',
+          'Engaging Storytelling',
+          'Professional Voiceover',
+          'Motion Graphics',
+          'Color Grading'
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1439&q=80',
+          'https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80',
+          'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+        ],
+        thumbnail: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1439&q=80'
+      },
+      {
+        id: 2,
+        name: 'Product Launch Video',
+        description: 'An engaging product launch video with dynamic transitions and compelling visuals to showcase new product features. This project required close collaboration with the product team to highlight key benefits and differentiators. The video combines live-action footage with animated elements to create an exciting and informative presentation that generates buzz and drives pre-orders for the new product launch.',
+        features: [
+          'Dynamic Transitions',
+          'Compelling Visuals',
+          'Sound Design',
+          'Product Demonstrations',
+          'Call-to-Action Elements'
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80',
+          'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+          'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+        ],
+        thumbnail: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80'
+      },
+      {
+        id: 3,
+        name: 'Event Highlights Reel',
+        description: 'A dynamic event highlights reel capturing key moments with creative editing and energetic pacing. This project involved sorting through hours of footage to identify the most impactful moments that tell the story of the event. The final video combines multiple camera angles, audience reactions, and speaker highlights to create an engaging recap that can be shared across social media platforms to extend the event reach.',
+        features: [
+          'Creative Editing',
+          'Energetic Pacing',
+          'Music Synchronization',
+          'Highlight Selection',
+          'Social Media Optimization'
+        ],
+        images: [
+          'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80',
+          'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
+          'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
+        ],
+        thumbnail: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80'
+      }
+    ]
+  };
 
-// Inițializare galerie
-function initializeGallery() {
-  renderCategoryProjects('web');
-}
+  // Variabile globale
+  let currentCategory = 'web-development';
+  let currentProjectIndex = 0;
+  let currentSlideIndex = 0;
+  let isChangingProject = false;
 
-// Setare event listeners
-function setupEventListeners() {
-  // Butoane categorii
-  document.querySelectorAll('.button').forEach(button => {
-    button.addEventListener('click', function() {
-      const category = this.dataset.category;
-      switchCategory(category, this);
+  // Elemente DOM
+  const projectsSection = document.getElementById('projects');
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  const projectMain = document.querySelector('.project-main');
+  const projectModal = document.querySelector('.project-modal');
+  const modalTitle = document.querySelector('.modal-title');
+  const gallerySlides = document.querySelector('.gallery-slides');
+  const projectName = document.querySelector('.project-name');
+  const projectDescription = document.querySelector('.project-description p');
+  const keyFeatures = document.querySelector('.key-features');
+  const relatedProjects = document.querySelector('.related-projects');
+  const backBtn = document.querySelector('.back-btn');
+  const contactBtn = document.querySelector('.contact-btn');
+  const prevBtn = document.querySelector('.prev-btn');
+  const nextBtn = document.querySelector('.next-btn');
+  const modalContent = document.querySelector('.modal-content');
+
+  // Inițializare
+  function init() {
+    // Încarcă proiectele inițiale
+    loadProjects(currentCategory);
+    
+    // Adaugă event listeners
+    categoryButtons.forEach(btn => {
+      btn.addEventListener('click', handleCategoryChange);
     });
-  });
-  
-  // Închidere modal
-  document.querySelector('.close-modal').addEventListener('click', closeModal);
-  
-  // Navigare slide-uri
-  document.querySelector('.slide-nav.prev').addEventListener('click', prevSlide);
-  document.querySelector('.slide-nav.next').addEventListener('click', nextSlide);
-  
-  // Contact icon
-  document.querySelector('.contact-icon').addEventListener('click', function() {
-    // Redirecționare către secțiunea de contact
-    alert('Redirecting to contact section...');
-    // window.location.href = '#contact'; // Decomentează dacă ai o secțiune de contact
-  });
-}
-
-// Observer pentru animații la scroll
-function setupIntersectionObserver() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
+    
+    backBtn.addEventListener('click', handleBack);
+    contactBtn.addEventListener('click', handleContact);
+    prevBtn.addEventListener('click', showPrevSlide);
+    nextBtn.addEventListener('click', showNextSlide);
+    
+    // Adaugă event listener pentru proiectele conexe (se va adăuga dinamic)
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.view-more')) {
+        e.preventDefault();
+        const projectId = parseInt(e.target.closest('.view-more').dataset.projectId);
+        openModal(currentCategory, projectId);
+      }
+      
+      if (e.target.closest('.related-project')) {
+        if (isChangingProject) return;
+        const projectId = parseInt(e.target.closest('.related-project').dataset.projectId);
+        changeProject(currentCategory, projectId);
       }
     });
-  }, { threshold: 0.1 });
-  
-  document.querySelectorAll('.project-item').forEach(item => {
-    observer.observe(item);
-  });
-}
+    
+    // Navigare cu tastatura
+    document.addEventListener('keydown', handleKeyboardNavigation);
+    
+    // Gestionează scroll-ul pentru animație
+    window.addEventListener('scroll', handleScroll);
+  }
 
-// Schimbare categorie
-function switchCategory(category, button) {
-  // Actualizare butoane active
-  document.querySelectorAll('.button').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  button.classList.add('active');
-  
-  // Actualizare galerii active
-  document.querySelectorAll('.gallery-category').forEach(gallery => {
-    gallery.classList.remove('active');
-  });
-  document.getElementById(`${category}-gallery`).classList.add('active');
-  
-  // Re-render proiecte
-  renderCategoryProjects(category);
-  currentCategory = category;
-}
+  // Gestionează scroll-ul pentru animație
+  function handleScroll() {
+    const sectionTop = projectsSection.offsetTop;
+    const sectionHeight = projectsSection.offsetHeight;
+    const scrollPosition = window.pageYOffset;
+    const windowHeight = window.innerHeight;
+    
+    // Calculează cât de mult este vizibilă secțiunea
+    const sectionStart = sectionTop - windowHeight;
+    const sectionEnd = sectionTop + sectionHeight;
+    
+    if (scrollPosition > sectionStart && scrollPosition < sectionEnd) {
+      // Secțiunea este în viewport - setează opacitatea normală
+      projectsSection.style.opacity = '1';
+    } else {
+      // Secțiunea nu este în viewport - setează opacitatea redusă
+      projectsSection.style.opacity = '0.3';
+    }
+  }
 
-// Randare proiecte pentru categorie
-function renderCategoryProjects(category) {
-  const gallery = document.querySelector(`#${category}-gallery .project-grid`);
-  gallery.innerHTML = '';
-  
-  projectsData[category].forEach((project, index) => {
-    const projectElement = document.createElement('div');
-    projectElement.className = 'project-item';
-    projectElement.innerHTML = `
+  // Navigare cu tastatura
+  function handleKeyboardNavigation(e) {
+    if (!projectModal.classList.contains('active')) return;
+    
+    switch(e.key) {
+      case 'ArrowLeft':
+        e.preventDefault();
+        showPrevSlide();
+        break;
+      case 'ArrowRight':
+        e.preventDefault();
+        showNextSlide();
+        break;
+      case 'Escape':
+        e.preventDefault();
+        handleBack();
+        break;
+    }
+  }
+
+  // Schimbă categoria
+  function handleCategoryChange(e) {
+    const category = e.target.dataset.category;
+    
+    // Actualizează butoanele active
+    categoryButtons.forEach(btn => {
+      btn.classList.remove('active');
+    });
+    e.target.classList.add('active');
+    
+    // Schimbă categoria curentă
+    currentCategory = category;
+    currentProjectIndex = 0;
+    
+    // Animație de tranziție pentru thumbnail
+    projectMain.classList.add('thumbnail-changing');
+    
+    setTimeout(() => {
+      // Încarcă proiectele noi
+      loadProjects(category);
+    }, 300);
+  }
+
+  // Încarcă proiectele pentru o categorie
+  function loadProjects(category) {
+    const projects = projectsData[category];
+    
+    if (projects && projects.length > 0) {
+      // Afișează primul proiect
+      displayProject(projects[0], category);
+    }
+  }
+
+  // Afișează un proiect în secțiunea principală
+  function displayProject(project, category) {
+    // Actualizează thumbnail-ul
+    projectMain.innerHTML = `
       <img src="${project.thumbnail}" alt="${project.name}" class="project-thumbnail">
       <div class="project-overlay">
-        <h3 class="project-title">${project.name}</h3>
-        <p class="project-desc">${project.shortDesc}</p>
+        <a href="#" class="view-more" data-project-id="${project.id}">VIEW MORE TEMPLATES</a>
       </div>
-      <div class="click-more">Click for more</div>
     `;
+  }
+
+  // Deschide modalul cu detaliile proiectului
+  function openModal(category, projectId) {
+    const projects = projectsData[category];
+    const project = projects.find(p => p.id === projectId);
     
-    projectElement.addEventListener('click', () => {
-      openProjectModal(category, index);
+    if (!project) return;
+    
+    // Actualizează indexul proiectului curent
+    currentProjectIndex = projects.findIndex(p => p.id === projectId);
+    currentCategory = category;
+    
+    // Adaugă clasa pentru scrollbar mai subțire
+    document.documentElement.classList.add('modal-open');
+    
+    // Actualizează titlul modalului
+    modalTitle.textContent = `${getCategoryName(category)} Projects`;
+    
+    // Încarcă galeria de imagini
+    loadGallery(project.images);
+    
+    // Actualizează informațiile proiectului
+    projectName.textContent = project.name;
+    projectDescription.textContent = project.description;
+    
+    // Actualizează caracteristicile cheie
+    keyFeatures.innerHTML = '';
+    project.features.forEach(feature => {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <ion-icon name="checkmark-circle"></ion-icon>
+        <span class="feature-text">${feature}</span>
+      `;
+      keyFeatures.appendChild(li);
     });
     
-    gallery.appendChild(projectElement);
+    // Încarcă proiectele conexe
+    loadRelatedProjects(category, projectId);
     
-    // Animație de intrare întârziată
+    // Afișează modalul
+    projectModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    
+    // Scroll automat la începutul modalului
     setTimeout(() => {
-      projectElement.classList.add('visible');
-    }, index * 200);
-  });
-}
-
-// Deschidere modal proiect
-function openProjectModal(category, projectIndex) {
-  const project = projectsData[category][projectIndex];
-  currentProjectIndex = projectIndex;
-  currentSlideIndex = 0;
-  
-  // Actualizare titlu modal în funcție de categorie
-  const modalTitle = document.querySelector('.modal-title');
-  if (category === 'web') {
-    modalTitle.textContent = 'Web Development Projects';
-  } else if (category === 'brand') {
-    modalTitle.textContent = 'Brand Design Projects';
-  } else {
-    modalTitle.textContent = 'Photo Editing Projects';
+      modalContent.scrollTop = 0;
+      
+      // Activează animațiile de intrare
+      animateModalContent();
+    }, 100);
   }
-  
-  // Actualizare conținut slideshow
-  updateSlideshow(project);
-  
-  // Actualizare informații proiect
-  updateProjectInfo(project);
-  
-  // Actualizare previzualizări
-  updateProjectPreviews(category, projectIndex);
-  
-  // Afișare modal
-  document.querySelector('.project-modal').classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
 
-// Actualizare slideshow
-function updateSlideshow(project) {
-  const slidesWrapper = document.querySelector('.slides-wrapper');
-  slidesWrapper.innerHTML = '';
-  
-  project.images.forEach((image, index) => {
-    const slide = document.createElement('div');
-    slide.className = `slide ${index === 0 ? 'active' : ''}`;
-    slide.innerHTML = `<img src="${image}" alt="${project.name} - Image ${index + 1}">`;
-    slidesWrapper.appendChild(slide);
-  });
-}
-
-// Actualizare informații proiect
-function updateProjectInfo(project) {
-  document.querySelector('.project-name').textContent = project.name;
-  document.querySelector('.project-description').textContent = project.description;
-  
-  const featuresContainer = document.querySelector('.project-features');
-  featuresContainer.innerHTML = '';
-  
-  project.features.forEach(feature => {
-    const featureElement = document.createElement('div');
-    featureElement.className = 'feature-tag';
-    featureElement.textContent = feature;
-    featuresContainer.appendChild(featureElement);
-  });
-}
-
-// Actualizare previzualizări proiecte
-function updateProjectPreviews(category, currentIndex) {
-  const previewsContainer = document.querySelector('.project-previews');
-  previewsContainer.innerHTML = '';
-  
-  const projects = projectsData[category];
-  const totalProjects = projects.length;
-  
-  // Calculăm indicii pentru proiectele adiacente
-  const prevIndex = (currentIndex - 1 + totalProjects) % totalProjects;
-  const nextIndex = (currentIndex + 1) % totalProjects;
-  
-  // Adăugăm previzualizări pentru proiectele adiacente
-  [prevIndex, nextIndex].forEach(index => {
-    const project = projects[index];
-    const previewElement = document.createElement('div');
-    previewElement.className = 'preview-item';
-    previewElement.innerHTML = `
-      <img src="${project.thumbnail}" alt="${project.name}" class="preview-thumbnail">
-      <div class="preview-overlay">
-        <div class="preview-title">${project.name}</div>
-        <div class="preview-desc">${project.shortDesc}</div>
-      </div>
-    `;
+  // Schimbă proiectul în modal
+  function changeProject(category, projectId) {
+    if (isChangingProject) return;
     
-    previewElement.addEventListener('click', () => {
-      // Reîncărcare modal cu noul proiect
-      openProjectModal(category, index);
+    isChangingProject = true;
+    const projects = projectsData[category];
+    const project = projects.find(p => p.id === projectId);
+    
+    if (!project) return;
+    
+    // Actualizează indexul proiectului curent
+    currentProjectIndex = projects.findIndex(p => p.id === projectId);
+    
+    // Animație de ieșire
+    modalContent.classList.add('changing');
+    
+    setTimeout(() => {
+      // Actualizează conținutul
+      modalTitle.textContent = `${getCategoryName(category)} Projects`;
+      loadGallery(project.images);
+      projectName.textContent = project.name;
+      projectDescription.textContent = project.description;
+      
+      // Actualizează caracteristicile cheie
+      keyFeatures.innerHTML = '';
+      project.features.forEach(feature => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <ion-icon name="checkmark-circle"></ion-icon>
+          <span class="feature-text">${feature}</span>
+        `;
+        keyFeatures.appendChild(li);
+      });
+      
+      // Încarcă proiectele conexe
+      loadRelatedProjects(category, projectId);
+      
+      // Scroll la început
+      modalContent.scrollTop = 0;
+      
+      // Animație de intrare
+      modalContent.classList.remove('changing');
+      
+      setTimeout(() => {
+        animateModalContent();
+        isChangingProject = false;
+      }, 50);
+    }, 500);
+  }
+
+  // Animație pentru conținutul modalului
+  function animateModalContent() {
+    // Resetează clasele pentru animații
+    projectName.classList.remove('typing');
+    projectDescription.classList.remove('typing');
+    keyFeatures.querySelectorAll('li').forEach(li => {
+      li.classList.remove('typing');
+      li.querySelector('.feature-text').classList.remove('typing');
     });
     
-    previewsContainer.appendChild(previewElement);
-  });
-}
-
-// Navigare slide anterior
-function prevSlide() {
-  const slides = document.querySelectorAll('.slide');
-  if (slides.length === 0) return;
-  
-  slides[currentSlideIndex].classList.remove('active');
-  currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
-  slides[currentSlideIndex].classList.add('active');
-}
-
-// Navigare slide următor
-function nextSlide() {
-  const slides = document.querySelectorAll('.slide');
-  if (slides.length === 0) return;
-  
-  slides[currentSlideIndex].classList.remove('active');
-  currentSlideIndex = (currentSlideIndex + 1) % slides.length;
-  slides[currentSlideIndex].classList.add('active');
-}
-
-// Închidere modal
-function closeModal() {
-  document.querySelector('.project-modal').classList.remove('active');
-  document.body.style.overflow = 'auto';
-}
-
-// Navigare cu taste
-document.addEventListener('keydown', function(e) {
-  const modal = document.querySelector('.project-modal');
-  if (!modal.classList.contains('active')) return;
-  
-  switch(e.key) {
-    case 'Escape':
-      closeModal();
-      break;
-    case 'ArrowLeft':
-      prevSlide();
-      break;
-    case 'ArrowRight':
-      nextSlide();
-      break;
+    // Activează animațiile
+    setTimeout(() => {
+      projectName.classList.add('typing');
+      
+      setTimeout(() => {
+        projectDescription.classList.add('typing');
+        
+        keyFeatures.querySelectorAll('li').forEach((li, index) => {
+          setTimeout(() => {
+            li.classList.add('typing');
+            
+            setTimeout(() => {
+              li.querySelector('.feature-text').classList.add('typing');
+            }, 150);
+          }, index * 200);
+        });
+      }, 300);
+    }, 300);
   }
+
+  // Gestionează butonul de back
+  function handleBack() {
+    closeModal();
+  }
+
+  // Închide modalul
+  function closeModal() {
+    projectModal.classList.add('closing');
+    
+    setTimeout(() => {
+      projectModal.classList.remove('active', 'closing');
+      document.body.style.overflow = 'auto';
+      document.documentElement.classList.remove('modal-open');
+    }, 600);
+  }
+
+  // Încarcă galeria de imagini
+  function loadGallery(images) {
+    gallerySlides.innerHTML = '';
+    currentSlideIndex = 0;
+    
+    images.forEach((image, index) => {
+      const slide = document.createElement('div');
+      slide.className = `gallery-slide ${index === 0 ? 'active' : ''}`;
+      slide.innerHTML = `<img src="${image}" alt="Project image ${index + 1}" class="gallery-image">`;
+      gallerySlides.appendChild(slide);
+    });
+  }
+
+  // Afișează slide-ul anterior
+  function showPrevSlide() {
+    const slides = document.querySelectorAll('.gallery-slide');
+    if (slides.length === 0) return;
+    
+    slides[currentSlideIndex].classList.remove('active');
+    currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+    slides[currentSlideIndex].classList.add('active');
+  }
+
+  // Afișează slide-ul următor
+  function showNextSlide() {
+    const slides = document.querySelectorAll('.gallery-slide');
+    if (slides.length === 0) return;
+    
+    slides[currentSlideIndex].classList.remove('active');
+    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+    slides[currentSlideIndex].classList.add('active');
+  }
+
+  // Încarcă proiectele conexe
+  function loadRelatedProjects(category, currentProjectId) {
+    const projects = projectsData[category];
+    const related = projects.filter(p => p.id !== currentProjectId);
+    
+    relatedProjects.innerHTML = '';
+    
+    related.forEach(project => {
+      const projectEl = document.createElement('div');
+      projectEl.className = 'related-project';
+      projectEl.dataset.projectId = project.id;
+      projectEl.innerHTML = `
+        <img src="${project.thumbnail}" alt="${project.name}" class="related-image">
+        <div class="related-overlay">
+          <h4 class="related-title">${project.name}</h4>
+        </div>
+      `;
+      relatedProjects.appendChild(projectEl);
+    });
+  }
+
+  // Gestionează butonul de contact
+  function handleContact() {
+    // Animație de ieșire
+    projectModal.classList.add('closing');
+    
+    setTimeout(() => {
+      // Închide modalul
+      projectModal.classList.remove('active', 'closing');
+      document.body.style.overflow = 'auto';
+      document.documentElement.classList.remove('modal-open');
+      
+      // Redirecționează către secțiunea de contact
+      setTimeout(() => {
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          alert('Contact section not found!');
+        }
+      }, 300);
+    }, 600);
+  }
+
+  // Obține numele categoriei pentru afișare
+  function getCategoryName(category) {
+    const names = {
+      'web-development': 'Web Development',
+      'ui-ux-design': 'UI/UX Design',
+      'video-editing': 'Video Editing'
+    };
+    
+    return names[category] || category;
+  }
+
+  // Pornește aplicația
+  init();
 });

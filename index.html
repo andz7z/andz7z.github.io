@@ -1,100 +1,893 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Portfolio</title>
+    <title>A N D Z | Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/portfolio.css">
-    <link rel="stylesheet" href="css/services.css">
-    <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/contact.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/cv.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/projects.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <link rel="stylesheet" href="css/services.css">
 </head>
 <body>
-    <!-- Homepage Section -->
-    <section id="homepage" class="section">
-        <!-- Burger System -->
-        <div class="bars" id="nav-action">
-            <span class="bar"></span>
+  <!-- Scroll progress bar -->
+<div id="scroll-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Scroll progress">
+  <div class="progress-fill" aria-hidden="true"></div>
+</div>
+<header>
+  <nav class="navbar">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="#about" class="nav-link">
+          <span class="link-text">About Me</span>
+          <ion-icon name="person-outline" class="nav-icon"></ion-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#cv-section" class="nav-link">
+          <span class="link-text">Skills</span>
+          <ion-icon name="construct-outline" class="nav-icon"></ion-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#projects" class="nav-link">
+          <span class="link-text">Projects</span>
+          <ion-icon name="folder-outline" class="nav-icon"></ion-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#reviews" class="nav-link">
+          <span class="link-text">Reviews</span>
+          <ion-icon name="star-outline" class="nav-icon"></ion-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#contact" class="nav-link">
+          <span class="link-text">Contact Me</span>
+          <ion-icon name="mail-outline" class="nav-icon"></ion-icon>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<section id="home">
+  <video class="bg-video" src="https://res.cloudinary.com/deahos6sr/video/upload/v1763674155/movie_homepage_uwzspd.mp4" autoplay muted loop playsinline></video>
+
+  <div class="home-content">
+
+    <div class="logo-wrapper">
+      <span class="logo-symbol">☣︎</span>
+      <h1 class="logo-text">ANDZ</h1>
+      <div class="switcher">
+        <span class="dot"></span><span class="switch-text"></span>
+      </div>
+    </div>
+
+    <div class="bottom-left">
+      Beyond Visuals <br>
+      <span class="vision">Built with Vision.</span>
+    </div>
+
+    <div class="bottom-right">
+      <span class="pulse-dot"></span> Available for project
+    </div>
+
+  </div>
+</section>
+    <!-- about -->
+<section id="about">
+  <div class="about-video-container">
+    <video autoplay muted loop class="about-video">
+      <source src="https://res.cloudinary.com/deahos6sr/video/upload/v1763647296/loop_qljtqz.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+  
+  <div class="about-content">
+    <div class="about-left">
+      <h2 class="about-main-title animate-element" data-delay="200">A few words about me.</h2>
+      
+      <div class="about-description animate-element" data-delay="400">
+        <p class="description-text">I am a <span class="highlight">21-year-old</span> student currently pursuing a degree in <span class="highlight">Systems Engineering</span> within the Automation faculty. Passionate about <span class="highlight">web development</span> — particularly the front-end side. I enjoy creating clean, intuitive, and visually engaging user experiences. I'm a serious and <span class="highlight">detail-oriented</span> person who doesn't give up until I achieve the result I want. <span class="highlight">Constant growth</span> is important to me, and I'm continuously working on both my <span class="highlight">personal and professional</span> development. I'm always eager to learn new technologies, take on challenges, and refine my skills to become a <span class="highlight">better version of myself.</span></p>
+      </div>
+      
+      <div class="qualities-container">
+        <div class="qualities-row professional-row animate-element" data-delay="600">
+          <div class="quality-category">
+            <h3 class="category-title">Professional</h3>
+            <div class="quality-tags">
+              <span class="quality-tag">Detail-oriented</span>
+              <span class="quality-tag">Problem-solving</span>
+              <span class="quality-tag">Time management</span>
+              <span class="quality-tag">Teamwork</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="qualities-row personal-row animate-element" data-delay="800">
+          <div class="quality-category">
+            <h3 class="category-title">Personal</h3>
+            <div class="quality-tags">
+              <span class="quality-tag">Motivated</span>
+              <span class="quality-tag">Responsible</span>
+              <span class="quality-tag">Open-minded</span>
+              <span class="quality-tag">Patient</span>
+              <span class="quality-tag">Ambitious</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="qualities-row hobbies-row animate-element" data-delay="1000">
+          <div class="quality-category">
+            <h3 class="category-title">Hobbies</h3>
+            <div class="hobby-tags">
+              <span class="hobby-tag"><ion-icon name="film-outline" class="hobby-icon"></ion-icon>Watching Series</span>
+              <span class="hobby-tag"><ion-icon name="game-controller-outline" class="hobby-icon"></ion-icon>Playing Games</span>
+              <span class="hobby-tag"><ion-icon name="walk-outline" class="hobby-icon"></ion-icon> Going out</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="contact-left-container animate-element" data-delay="1200">
+        <button class="about-contact-btn" id="contactBtn">
+          <ion-icon name="call-outline" class="contact-icon"></ion-icon>
+          <div class="contact-hover-content">
+            <span class="contact-text">Contact Now</span>
+            <div class="time-display" id="timeDisplay">
+              <span id="timeStatus">Available for</span>
+              <span class="time-value" id="timeValue">03:37:38</span>
+              <span class="time-unit">hr</span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+    
+    <div class="about-right">
+      <div class="location-minimal animate-element" data-delay="1400">
+        <ion-icon name="location-outline" class="location-icon-minimal"></ion-icon>
+        <span class="location-text-minimal">Romania, Galati</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- cv -->
+<section id="cv-section">
+  <!-- Technologies Slider -->
+<div class="cv-tech-section">
+  <h2>Technologies & Tools</h2>
+  <div class="cv-tech-slider-container">
+    <div class="cv-tech-slider-mask left-mask"></div>
+    <div class="cv-tech-slider-mask right-mask"></div>
+    <div class="cv-tech-slider">
+
+      <!-- LUA -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="LUA">
+        <span>LUA</span>
+      </div>
+
+      <!-- Python -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+        <span>Python</span>
+      </div>
+
+      <!-- C++ -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+        <span>C++</span>
+      </div>
+
+      <!-- HTML -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+        <span>HTML</span>
+      </div>
+
+      <!-- CSS -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+        <span>CSS</span>
+      </div>
+
+      <!-- JavaScript -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+        <span>JavaScript</span>
+      </div>
+
+      <!-- Firebase (dacă nu vrei Firebase, pot pune PHP) -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+        <span>Firebase</span>
+      </div>
+
+      <!-- React.js -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js">
+        <span>React.js</span>
+      </div>
+
+      <!-- GitHub -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+        <span>GitHub</span>
+      </div>
+
+      <!-- CapCut -->
+      <div class="cv-tech-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="CapCut">
+        <span>Figma</span>
+      </div>
+
+      <!-- DaVinci Resolve -->
+      <div class="cv-tech-item">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968472.png" alt="DaVinci Resolve">
+        <span>DaVinci Resolve</span>
+      </div>
+
+      <!-- Photoshop -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
+        <span>Photoshop</span>
+      </div>
+
+      <!-- Illustrator -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Adobe Illustrator">
+        <span>Adobe Illustrator</span>
+      </div>
+
+      <!-- Premiere Pro -->
+      <div class="cv-tech-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg" alt="Premiere Pro">
+        <span>Premiere Pro</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+  <!-- Horizontal Timeline -->
+  <div class="cv-timeline-section">
+    <div class="cv-timeline-card cv-card">
+      <h2>My Journey</h2>
+      <div class="cv-timeline-horizontal">
+        <div class="cv-timeline-item">
+          <div class="cv-timeline-marker"></div>
+          <div class="cv-timeline-content">
+            <span class="cv-timeline-year">2023</span>
+            <h3>Joining Faculty</h3>
+            <p>Started academic journey in computer science</p>
+          </div>
+        </div>
+        <div class="cv-timeline-item">
+          <div class="cv-timeline-marker"></div>
+          <div class="cv-timeline-content">
+            <span class="cv-timeline-year">2024</span>
+            <h3>First Projects</h3>
+            <p>Made my first projects with LUA</p>
+          </div>
+        </div>
+        <div class="cv-timeline-item">
+          <div class="cv-timeline-marker"></div>
+          <div class="cv-timeline-content">
+            <span class="cv-timeline-year">2025</span>
+            <h3>Area of expertise</h3>
+            <p>Constantly learning new things in JS</p>
+          </div>
+        </div>
+        <div class="cv-timeline-item cv-timeline-active">
+          <div class="cv-timeline-marker"></div>
+          <div class="cv-timeline-content">
+            <span class="cv-timeline-year">Present</span>
+            <h3>Front-End Developer</h3>
+            <p>Managed to master the front end side.</p>
+          </div>
+        </div>
+        <div class="cv-timeline-item">
+          <div class="cv-timeline-marker"></div>
+          <div class="cv-timeline-content">
+            <span class="cv-timeline-year">Future</span>
+            <h3>Full-Stack Developer</h3>
+            <p>Planning to master the back end side.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- YouTube & Projects Row -->
+  <div class="cv-content-row">
+    <!-- YouTube Card -->
+    <div class="cv-youtube-column">
+      <div class="cv-youtube-card cv-card">
+        <h2>Youtube Statistics</h2>
+        <div class="cv-youtube-content-rectangle">
+          <div class="cv-youtube-left">
+            <div class="cv-youtube-avatar-rectangle">
+              <img id="cv-avatar" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="YouTube Avatar">
+            </div>
+          </div>
+          <div class="cv-youtube-right">
+            <div class="cv-youtube-info-rectangle">
+              <h3 id="cv-channel-name">// visuals \\</h3>
+              <div class="cv-stats-grid-rectangle">
+                <div class="cv-stat-rectangle">
+                  <span class="cv-stat-number" id="cv-view-count">125K</span>
+                  <span class="cv-stat-label">Views</span>
+                </div>
+                <div class="cv-stat-rectangle">
+                  <span class="cv-stat-number" id="cv-subscriber-count">2.4K</span>
+                  <span class="cv-stat-label">Subscribers</span>
+                </div>
+                <div class="cv-stat-rectangle">
+                  <span class="cv-stat-number" id="cv-video-count">48</span>
+                  <span class="cv-stat-label">Videos</span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Last Video Section -->
+            <div class="cv-last-video-section">
+              <h4>Last Video Posted</h4>
+              <div class="cv-last-video-preview">
+                <div class="cv-video-thumbnail">
+                  <img src="https://i.ytimg.com/vi/HbAOwc0uuog/hqdefault.jpg" alt="Last Video Thumbnail">
+                  <div class="cv-play-button">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                      <path d="M8 5v14l11-7z" fill="currentColor"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="cv-video-info">
+                  <h5>Season Changer [LUA]</h5>
+                  <span class="cv-video-date">1 months ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects Grid -->
+    <div class="cv-projects-column">
+      <div class="cv-projects-card cv-card">
+        <h2>Projects</h2>
+        <div class="cv-projects-grid-rectangle">
+          <div class="cv-project-item" data-index="0">
+            <div class="cv-project-thumbnail">
+              <img src="https://andz7z.github.io/assets/photos/seasonchanger.jpg" alt="Code Editor">
+              <div class="cv-project-overlay">
+                <h3>Season Changer</h3>
+              </div>
+            </div>
+          </div>
+          <div class="cv-project-item" data-index="1">
+            <div class="cv-project-thumbnail">
+              <img src="https://andz7z.github.io/assets/photos/nametags.jpg" alt="Mobile App">
+              <div class="cv-project-overlay">
+                <h3>Name Tags</h3>
+              </div>
+            </div>
+          </div>
+          <div class="cv-project-item" data-index="2">
+            <div class="cv-project-thumbnail">
+              <img src="https://andz7z.github.io/assets/photos/timechanger.jpg" alt="Data Viz">
+              <div class="cv-project-overlay">
+                <h3>Time Changer</h3>
+              </div>
+            </div>
+          </div>
+          <div class="cv-project-item" data-index="3">
+            <div class="cv-project-thumbnail">
+              <img src="https://andz7z.github.io/assets/photos/folder.jpg" alt="E-commerce">
+              <div class="cv-project-overlay">
+                <h3>Complete Pack</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project CV -->
+  <div class="cv-project-modal">
+    <div class="cv-modal-backdrop"></div>
+    <div class="cv-modal-content">
+      <div class="cv-modal-header">
+        <button class="cv-back-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span class="cv-back-text">Go Back</span>
+        </button>
+        <button class="cv-contact-btn">
+          <span class="cv-contact-text">Contact</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="cv-modal-body">
+        <h2 class="cv-modal-title">Project Details</h2>
+        <div class="cv-title-divider"></div>
+        
+        <div class="cv-project-details-full">
+          <div class="cv-project-video-full">
+            <div class="cv-video-container-full">
+              <iframe id="cv-project-video" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+          
+          <div class="cv-project-info-full">
+            <h3 class="cv-project-name-full">Project Title</h3>
+            <div class="cv-project-description-full">
+              <p>Project description goes here. This is a detailed explanation of the project, its purpose, and the technologies used.</p>
+              <p>This section can include challenges faced during development, solutions implemented, and the overall impact of the project.</p>
+            </div>
+            
+            <div class="cv-key-features-full">
+              <h4>Key Features</h4>
+              <ul>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <span class="cv-feature-text">Responsive Design</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <span class="cv-feature-text">Modern UI/UX</span>
+                </li>
+                <li>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"/>
+                  </svg>
+                  <span class="cv-feature-text">Performance Optimized</span>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
 
-        <!-- Navbar Links -->
-        <nav id="nav">
-            <ul>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#reviews">Reviews</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#homepage">Home</a></li>
+        <div class="cv-divider-section">
+          <div class="cv-divider-line"></div>
+          <div class="cv-divider-text">
+            <span>Related Projects</span>
+          </div>
+        </div>
+
+        <div class="cv-related-projects">
+          <!-- Related projects will be populated dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+      <a href="https://andz7z.github.io/assets/cv/cv.pdf" class="cv-btn-download" target="_blank">
+      <span>Get my CV</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <path d="M12 16L12 4M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2"/>
+        <path d="M4 20H20" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </a>
+</section>
+<!-- proiecte -->
+<section id="projects">
+  <div class="projects-container">
+    <div class="projects-header">
+      <h2 class="projects-title">My goal? Make your users feel the <br>same <span class="confidence">confidence</span> you feel in <br>your brand.</h2>
+    </div>
+    
+    <div class="projects-content">
+      <div class="categories-nav">
+        <button class="category-btn active" data-category="web-development">Web Development</button>
+        <button class="category-btn" data-category="ui-ux-design">UI/UX Design</button>
+        <button class="category-btn" data-category="video-editing">Video Editing</button>
+      </div>
+      
+      <div class="projects-display">
+        <div class="project-main">
+          <!-- Conținutul incarcat dinamic -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal pentru proiecte -->
+  <div class="project-modal" id="projectsModal">
+    <div class="modal-header">
+      <button class="back-btn" id="projectsBackBtn">
+        <ion-icon name="arrow-back"></ion-icon>
+        <span class="back-text">Go back</span>
+      </button>
+      
+      <button class="contact-btn" id="projectsContactBtn">
+        <span class="contact-text">Seen enough? Contact me now</span>
+        <ion-icon name="call"></ion-icon>
+      </button>
+    </div>
+    
+    <div class="modal-content">
+      <h2 class="modal-title">Web Development Projects</h2>
+      <div class="title-divider"></div>
+      
+      <div class="project-details">
+        <div class="project-gallery">
+          <div class="gallery-container">
+            <button class="slide-btn prev-btn" id="projectsPrevBtn">
+              <ion-icon name="chevron-back"></ion-icon>
+            </button>
+            
+            <div class="gallery-slides" id="projectsGallerySlides">
+              <!-- Imaginile vor fi incarcate dinamic -->
+            </div>
+            
+            <button class="slide-btn next-btn" id="projectsNextBtn">
+              <ion-icon name="chevron-forward"></ion-icon>
+            </button>
+          </div>
+        </div>
+        
+        <div class="project-info">
+          <h3 class="project-name" id="projectsProjectName">Website 1</h3>
+          <div class="project-description">
+            <p id="projectsDescription">This project showcases a modern, responsive website with cutting-edge features designed to enhance user experience and drive engagement. Built with the latest technologies and frameworks, it provides a seamless experience across all devices and platforms.</p>
+            <ul class="key-features" id="projectsKeyFeatures">
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span class="feature-text">Advanced User Registration System</span>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span class="feature-text">Interactive Review & Rating System</span>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span class="feature-text">Real-time Chat Functionality</span>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span class="feature-text">Payment Integration System</span>
+              </li>
+              <li>
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <span class="feature-text">Advanced Analytics Dashboard</span>
+              </li>
             </ul>
-        </nav>
-
-        <!-- Video Background -->
-        <div class="video-container">
-            <video autoplay muted loop class="background-video">
-                <source src="assets/movie/andz.mp4" type="video/mp4">
-            </video>
+          </div>
         </div>
-
-        <!-- Main Content -->
-        <div class="home-content">
-            <h1 class="fade-in-title">Welcome</h1>
-            <p class="fade-in-subtitle">Creative Portfolio</p>
+      </div>
+      
+      <div class="divider-section">
+        <div class="divider-line"></div>
+        <div class="divider-text">
+          <span>Want to see more? Check these out</span>
+          <ion-icon name="chevron-down"></ion-icon>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="section-content">
-            <h2>About</h2>
-            <p>Despre mine și experiența mea</p>
+      </div>
+      
+      <div class="related-projects" id="projectsRelatedProjects">
+      </div>
+    </div>
+  </div>
+</section>
+<!-- reviews -->
+<section id="reviews">
+  <div class="reviews-container">
+    <div class="reviews-left">
+      <div class="reviews-content">
+        <h1 class="reviews-title">
+          Reputation is everything <br>
+          Mine is <span class="flawless">flawless.</span>
+        </h1>
+        <p class="reviews-subtitle">Real People. Real Results</p>
+        
+        <div class="stats-container">
+          <div class="avg-rating">
+            <div class="rating-display">
+              <span class="rating-number" id="avg-rating-value">0.00</span>
+              <span class="rating-max">/5</span>
+            </div>
+            <div class="rating-bar">
+              <div class="rating-fill" id="rating-fill"></div>
+            </div>
+            <div class="total-votes" id="total-votes">0 reviews in total</div>
+          </div>
         </div>
-    </section>
-
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="section">
-        <div class="section-content">
-            <h2>Portfolio</h2>
-            <p>Lucrările mele</p>
+        
+        <button class="submit-review-btn" id="open-form-btn">
+          <span>Share Your Experience</span>
+          <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        </button>
+      </div>
+    </div>
+    <div class="reviews-right">
+      <div class="mask top-mask"></div>
+      <div class="mask bottom-mask"></div>
+      
+      <div class="reviews-slider">
+        <div class="review-column column-1"></div>
+        <div class="review-column column-2"></div>
+        <div class="review-column column-3"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Formular review -->
+  <div class="review-form-overlay" id="review-form">
+    <div class="form-header">
+      <button class="back-btn" id="back-btn">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+        <span class="back-text">Go Back</span>
+      </button>
+      <button class="submit-form-btn" id="submit-form-btn">
+        <span class="submit-text">Submit Review</span>
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </button>
+    </div>
+    
+    <div class="form-layout">
+      <div class="form-side">
+        <div class="form-content">
+          <h2 class="form-title">Share Your Experience</h2>
+          
+          <form class="review-form" id="reviewForm">
+            <div class="form-section">
+              <div class="input-container">
+                <input type="text" id="fullName" name="fullName" required>
+                <label for="fullName" class="floating-label">Your Name</label>
+                <div class="input-glow"></div>
+              </div>
+            </div>
+            <div class="form-section">
+              <label class="section-label">Gender</label>
+              <div class="gender-options">
+                <label class="gender-option">
+                  <input type="radio" name="gender" value="male">
+                  <div class="option-content">
+                    <ion-icon name="male" class="option-icon"></ion-icon>
+                    <span class="option-text">Male</span>
+                  </div>
+                  <div class="selection-glow"></div>
+                </label>
+                <label class="gender-option">
+                  <input type="radio" name="gender" value="female">
+                  <div class="option-content">
+                    <ion-icon name="female" class="option-icon"></ion-icon>
+                    <span class="option-text">Female</span>
+                  </div>
+                  <div class="selection-glow"></div>
+                </label>
+              </div>
+            </div>
+            <div class="form-section">
+              <label class="section-label">Service Used</label>
+              <div class="service-options">
+                <label class="service-option">
+                  <input type="radio" name="service" value="web development">
+                  <div class="option-content">
+                    <ion-icon name="code-slash-outline" class="option-icon"></ion-icon>
+                    <span class="option-text">Web Development</span>
+                  </div>
+                  <div class="selection-glow"></div>
+                </label>
+                <label class="service-option">
+                  <input type="radio" name="service" value="brand design">
+                  <div class="option-content">
+                    <ion-icon name="color-palette-outline" class="option-icon"></ion-icon>
+                    <span class="option-text">Brand Design</span>
+                  </div>
+                  <div class="selection-glow"></div>
+                </label>
+                <label class="service-option">
+                  <input type="radio" name="service" value="video editing">
+                  <div class="option-content">
+                    <ion-icon name="videocam-outline" class="option-icon"></ion-icon>
+                    <span class="option-text">Video Editing</span>
+                  </div>
+                  <div class="selection-glow"></div>
+                </label>
+              </div>
+            </div>
+            <div class="form-section">
+              <label class="section-label">Your Rating</label>
+              <div class="rating-slider-container">
+                <div class="slider-wrapper">
+                  <input type="range" id="rating-slider" class="rating-slider" 
+                         min="1" max="5" step="1" value="3">
+                  <div class="slider-track">
+                    <div class="slider-fill" id="slider-fill"></div>
+                  </div>
+                  <div class="slider-thumb"></div>
+                </div>
+                <div class="rating-feedback" id="rating-feedback">
+                  Good - Glad you had a decent experience
+                </div>
+              </div>
+            </div>
+            <div class="form-section">
+              <div class="input-container">
+                <textarea id="message" name="message" maxlength="50" required></textarea>
+                <label for="message" class="floating-label">Your Message (max 50 characters)</label>
+                <div class="input-glow"></div>
+                <div class="char-count">0/50</div>
+              </div>
+            </div>
+          </form>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section">
-        <div class="section-content">
-            <h2>Services</h2>
-            <p>Serviciile oferite</p>
+      </div>
+      <div class="preview-side">
+        <div class="preview-content">
+          <h3 class="preview-title">Live Preview</h3>
+          <div class="live-preview-card" id="live-preview">
+            <div class="preview-header">
+              <div class="preview-avatar" id="preview-avatar">
+                <span id="preview-initials">?</span>
+              </div>
+              <div class="preview-user-info">
+                <div class="preview-name" id="preview-name">Your Name</div>
+                <div class="preview-date">Just now • <span class="verified-badge">Verified</span></div>
+              </div>
+            </div>
+            <div class="preview-message" id="preview-message">
+              Your message will appear here...
+            </div>
+            <div class="preview-footer">
+              <div class="preview-rating" id="preview-rating">
+              </div>
+              <div class="preview-service" id="preview-service">
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-
-    <!-- Reviews Section -->
-    <section id="reviews" class="section">
-        <div class="section-content">
-            <h2>Reviews</h2>
-            <p>Recenziile clienților</p>
+      </div>
+    </div>
+  </div>
+  <div class="notification-top" id="notification">
+    <div class="notification-content">
+      <ion-icon name="checkmark-circle" class="notification-icon"></ion-icon>
+      <span class="notification-text">Review submitted successfully!</span>
+    </div>
+  </div>
+</section>
+<!-- contact -->
+<section id="contact">
+  <div class="contact-container">
+    <div class="contact-left">
+      <div class="contact-title">
+        <h2>You got questions? <br>I got <span class="answers">answers</span>.</h2>
+      </div>
+      
+      <div class="contact-form-container">
+        <form id="contact-form" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" id="firstName" name="firstName" required>
+              <label for="firstName">First Name</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="lastName" name="lastName" required>
+              <label for="lastName">Last Name</label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <input type="email" id="email" name="email" required>
+            <label for="email">Email Address</label>
+          </div>
+          
+          <div class="form-group">
+            <input type="tel" id="phone" name="phone" required>
+            <label for="phone">Phone Number</label>
+          </div>
+          
+          <div class="form-group">
+            <textarea id="message" name="message" rows="3" required></textarea>
+            <label for="message">Your Message</label>
+          </div>
+          
+          <button type="submit" class="submit-btn">
+            <span>Send Message</span>
+            <ion-icon name="paper-plane-outline"></ion-icon>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="socials-section">
+        <div class="socials-header">
+          <h3>Connect with me everywhere</h3>
+          <p>Let's build something amazing together</p>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section">
-        <div class="section-content">
-            <h2>Contact</h2>
-            <p>Contactează-mă</p>
+        
+        <div class="socials-grid">
+          <a href="linkedin.com/in/lehadus-andrei-25a807372/" class="social-item" target="_blank" data-platform="linkedin">
+            <div class="social-icon">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </div>
+            <span class="social-name">LinkedIn</span>
+          </a>
+          
+          <a href="https://github.com/andz7z" class="social-item" target="_blank" data-platform="github">
+            <div class="social-icon">
+              <ion-icon name="logo-github"></ion-icon>
+            </div>
+            <span class="social-name">GitHub</span>
+          </a>
+          
+          <a href="https://discord.com/users/andz7z" class="social-item" target="_blank" data-platform="discord">
+            <div class="social-icon">
+              <ion-icon name="logo-discord"></ion-icon>
+            </div>
+            <span class="social-name">Discord</span>
+          </a>
+          
+          <a href="https://tiktok.com/@andrei38axc" class="social-item" target="_blank" data-platform="tiktok">
+            <div class="social-icon">
+              <ion-icon name="logo-tiktok"></ion-icon>
+            </div>
+            <span class="social-name">TikTok</span>
+          </a>
+          
+          <a href="https://youtube.com/@visualsmods" class="social-item" target="_blank" data-platform="youtube">
+            <div class="social-icon">
+              <ion-icon name="logo-youtube"></ion-icon>
+            </div>
+            <span class="social-name">YouTube</span>
+          </a>
+          
+          <a href="https://instagram.com/ndr.xc" class="social-item" target="_blank" data-platform="instagram">
+            <div class="social-icon">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </div>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="https://facebook.com/acabcristian" class="social-item" target="_blank" data-platform="facebook">
+            <div class="social-icon">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </div>
+            <span class="social-name">Facebook</span>
+          </a>
+          
+          <a href="mailto:lehadus04@gmail.com" class="social-item" data-platform="gmail">
+            <div class="social-icon">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+            <span class="social-name">Gmail</span>
+          </a>
         </div>
-    </section>
-
-    <script src="js/script.js"></script>
-    <script src="js/home.js"></script>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
     <script src="js/about.js"></script>
-    <script src="js/portfolio.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/reviews.js"></script>
     <script src="js/contact.js"></script>
+    <script src="js/cv.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/reviews.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/services.js"></script>
 </body>
 </html>

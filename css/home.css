@@ -1,190 +1,147 @@
-/* Homepage Styles */
-#homepage {
-    background: #000000;
-    position: relative;
-    overflow: hidden;
+/* --- GENERAL --- */
+#home {
+  background: black;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Sora', sans-serif;
+  color: white;
 }
 
-.video-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+/* --- BACKGROUND VIDEO --- */
+#home .bg-video {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  width: 95%;        /* ajustezi mărimea după preferință */
+  height: 90%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  filter: brightness(0.7);
+  border-radius: 40px;          /* colțuri rotunjite */
+  overflow: hidden;             /* important pt ca video-ul să nu iasă din radius */
+  opacity: 0;
+  animation: fadeInVideo 2s ease forwards;
 }
 
-.background-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+@keyframes fadeInVideo {
+  to {
     opacity: 1;
+  }
 }
 
+/* --- CONTENT --- */
 .home-content {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    color: white;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
 }
 
-.fade-in-title {
-    font-size: 6rem;
-    font-weight: 300;
-    margin-bottom: 1rem;
-    opacity: 0;
-    transform: translateY(50px);
-    animation: fadeInUp 2s ease-out 0.5s forwards;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+/* --- LOGO AREA --- */
+.logo-wrapper {
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+  animation-delay: 1.5s;
 }
 
-.fade-in-subtitle {
-    font-size: 2rem;
-    font-weight: 300;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: fadeInUp 2s ease-out 1s forwards;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+.logo-symbol {
+  font-size: 20px;
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+  top: 2vh;
+  left: 1vw;
 }
 
-@keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.logo-text {
+  font-size: 120px;
+  font-weight: 100;
+  color: rgb(226, 226, 226);
+  letter-spacing: 5px;
+  position: relative;
+  top: -9vh;
+  left: 1vw;
 }
 
-/* Burger System Styles - Original */
-.bars {
-    position: fixed;
-    width: 27px;
-    height: 27px;
-    top: 30px;
-    right: 30px;
-    cursor: pointer;
-    z-index: 101;
-    padding-top: 9px;
-    opacity: 0;
-    animation: fadeInBar 1s ease-out 2s forwards;
+/* --- SWITCH TEXT --- */
+.switcher {
+  display: flex;
+  align-items: center;
+  font-size: 10px;
+  position: relative;
+  top: -14.75vh;
+  left: 23vw;
+  font-weight: 1000;
+  letter-spacing: 3px;
+  opacity: 0;
+  animation: fadeIn 1.5s ease forwards;
+  animation-delay: 2.5s;
 }
 
-.bar {
-    width: 100%;
-    height: 4px;
-    background-color: #fff;
-    position: absolute;
+.switcher .dot {
+  width: 4px;
+  height: 4px;
+  background: #fff;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
-span::before,
-span::after {
-    content: "";
-    display: block;
-    background-color: #fff;
-    width: 100%;
-    height: 4px;
-    position: absolute;
+.switch-text {
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
-.bar::before {
-    transform: translateY(-9px);
+/* --- BOTTOM LEFT --- */
+.bottom-left {
+  position: relative;
+  margin-top: 35vh;
+  font-size: 70px;
+  font-weight: 100;
+  opacity: 0;
+  animation: fadeIn 1.5s forwards ease;
+  animation-delay: 3s;
+  color: rgb(195, 195, 195);
+}
+.vision {
+    color:white;
+}
+/* --- BOTTOM RIGHT --- */
+.bottom-right {
+  position: absolute;
+  bottom: 30px;
+  right: 64px;
+  font-size: 16px;
+  display: flex;
+  letter-spacing: 2px;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1.5s forwards ease;
+  animation-delay: 3.3s;
 }
 
-.bar::after {
-    transform: translateY(9px);
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  position: relative;
+  left: 14vw;
+  background: #00ff62;
+  border-radius: 50%;
+  animation: pulse 1.7s infinite ease-in-out;
 }
 
-.bars.active .bar {
-    background-color: transparent;
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.8; }
 }
 
-.bars.active span::before {
-    animation: top-bar 1s;
-    animation-fill-mode: forwards;
-}
-
-.bars.active span::after {
-    animation: bottom-bar 1s;
-    animation-fill-mode: forwards;
-}
-
-@keyframes fadeInBar {
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes top-bar {
-    50% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: rotate(45deg) translateY(0);
-    }
-}
-
-@keyframes bottom-bar {
-    50% {
-        transform: translateY(0);
-    }
-    100% {
-        transform: rotate(-45deg) translateY(0);
-    }
-}
-
-/* Navbar Links CSS - Ultra Simple */
-#nav {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-}
-
-#nav a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 2rem;
-    font-weight: 300;
-    padding: 20px;
-    display: block;
-    text-align: center;
-    transition: background 0.2s ease;
-}
-
-#nav a:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    gap: 20px;
-}
-
-.visible {
-    z-index: 100 !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-@media screen and (max-width: 800px) {
-    .fade-in-title {
-        font-size: 4rem;
-    }
-    
-    .fade-in-subtitle {
-        font-size: 1.5rem;
-    }
-    
-    #nav a {
-        font-size: 1.5rem;
-    }
+/* --- FADE IN GLOBAL --- */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }
