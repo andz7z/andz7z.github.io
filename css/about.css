@@ -48,7 +48,7 @@
   z-index: 3;
   width: 100%;
   margin: 0 auto;
-  padding: 80px 60px;
+  padding: 70px 40px;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 100px;
@@ -57,7 +57,7 @@
 }
 
 .about-left {
-  max-width: 800px;
+  max-width: 1200px;
 }
 
 /* Animation Base Styles */
@@ -79,13 +79,13 @@
   letter-spacing: 3px;
   font-family: 'Sora', cursive;
   margin-bottom: 40px;
-  margin-top: -7vh;
+  margin-top: 10vh;
   line-height: 1.1;
 }
 
 /* Description */
 .about-description {
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .description-text {
@@ -93,7 +93,7 @@
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.814);
   letter-spacing: 2px;
-  max-width: 550px;
+  max-width: 580px;
   font-weight: 100;
   margin-bottom: 125px;
 }
@@ -101,7 +101,7 @@
 /* Qualities Container */
 .qualities-row {
   margin-bottom: 100px;
-  margin-top: -5vh;
+  margin-top: -10vh;
 }
 
 .quality-category {
@@ -128,7 +128,7 @@
 
 .quality-tag {
   font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
 }
@@ -172,14 +172,14 @@
   background: rgba(255, 255, 255, 0);
   border: 1px solid rgba(255, 255, 255, 0);
   color: #ffffff;
-  padding: 20px;
+  padding: 30px;
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   overflow: hidden;
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
   display: flex;
   margin-top: -10vh;
   align-items: center;
@@ -188,7 +188,7 @@
 
 .about-contact-btn:hover {
   background: rgba(255, 255, 255, 0);
-  border-color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0);
   width: 200px;
   border-radius: 30px;
   justify-content: flex-start;
@@ -270,7 +270,7 @@
   position: absolute;
   bottom: 0;
   right: 0;
-  margin-right: -2vw;
+  margin-right: -14vw;
   margin-bottom: 0vh;
   white-space: nowrap;
 }

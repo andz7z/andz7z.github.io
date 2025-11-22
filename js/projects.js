@@ -1,8 +1,8 @@
 // JavaScript pentru functionalitatea sectiunii Projects
 document.addEventListener('DOMContentLoaded', function() {
-  // Datele proiectelor
+  // Datele proiectelor - toate 6 proiecte într-o singură categorie
   const projectsData = {
-    'web-development': [
+    'ui-ux-design': [
       {
         id: 1,
         name: 'Website Template 1',
@@ -56,12 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
           'https://andz7z.github.io/assets/photos/altele/project_two.jpg'
         ],
         thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_two.jpg'
-      }
-    ],
-    'ui-ux-design': [
+      },
       {
-        id: 1,
-        name: 'Brand Design Template 1',
+        id: 4,
+        name: 'Website Template 4',
         description: 'A user-friendly mobile banking application with intuitive navigation and secure transaction features for modern banking needs. The design focuses on simplifying complex financial operations while maintaining the highest security standards. The app includes personalized dashboards, spending analytics, and seamless integration with banking services for a comprehensive financial management experience.',
         features: [
           'Intuitive Navigation Design',
@@ -78,8 +76,8 @@ document.addEventListener('DOMContentLoaded', function() {
         thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_three.jpg'
       },
       {
-        id: 2,
-        name: 'Brand Design Template 2',
+        id: 5,
+        name: 'Website Template 5',
         description: 'A comprehensive fitness tracking application with personalized workout plans and progress monitoring features. The design emphasizes motivation and consistency through gamification elements and social features. Users can track various metrics, set goals, and connect with friends for a more engaging fitness journey. The interface is clean, energetic, and easy to navigate during workouts.',
         features: [
           'Personalized Workout Plans',
@@ -96,8 +94,8 @@ document.addEventListener('DOMContentLoaded', function() {
         thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_four.jpg'
       },
       {
-        id: 3,
-        name: 'Brand Design Template 3',
+        id: 6,
+        name: 'Website Template 6',
         description: 'An intuitive travel booking platform with seamless booking flow and personalized recommendations for travelers. The design focuses on reducing friction in the booking process while providing comprehensive information about destinations and accommodations. Visual elements are carefully selected to evoke wanderlust while maintaining clarity and usability throughout the customer journey.',
         features: [
           'Seamless Booking Flow',
@@ -113,67 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_five.jpg'
       }
-    ],
-    'video-editing': [
-      {
-        id: 1,
-        name: 'Corporate Brand Video',
-        description: 'A professional corporate brand video showcasing company values and services with high-quality visuals and engaging storytelling. This project involved extensive pre-production planning, including script development and storyboarding. The final video effectively communicates the brand identity through carefully crafted visuals, sound design, and narrative structure that resonates with the target audience and strengthens brand recognition.',
-        features: [
-          'High-Quality Visuals',
-          'Engaging Storytelling',
-          'Professional Voiceover',
-          'Motion Graphics',
-          'Color Grading'
-        ],
-        images: [
-          'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1439&q=80',
-          'https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80',
-          'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
-        ],
-        thumbnail: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1439&q=80'
-      },
-      {
-        id: 2,
-        name: 'Product Launch Video',
-        description: 'An engaging product launch video with dynamic transitions and compelling visuals to showcase new product features. This project required close collaboration with the product team to highlight key benefits and differentiators. The video combines live-action footage with animated elements to create an exciting and informative presentation that generates buzz and drives pre-orders for the new product launch.',
-        features: [
-          'Dynamic Transitions',
-          'Compelling Visuals',
-          'Sound Design',
-          'Product Demonstrations',
-          'Call-to-Action Elements'
-        ],
-        images: [
-          'https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80',
-          'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-          'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
-        ],
-        thumbnail: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1528&q=80'
-      },
-      {
-        id: 3,
-        name: 'Event Highlights Reel',
-        description: 'A dynamic event highlights reel capturing key moments with creative editing and energetic pacing. This project involved sorting through hours of footage to identify the most impactful moments that tell the story of the event. The final video combines multiple camera angles, audience reactions, and speaker highlights to create an engaging recap that can be shared across social media platforms to extend the event reach.',
-        features: [
-          'Creative Editing',
-          'Energetic Pacing',
-          'Music Synchronization',
-          'Highlight Selection',
-          'Social Media Optimization'
-        ],
-        images: [
-          'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80',
-          'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
-          'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
-        ],
-        thumbnail: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80'
-      }
     ]
   };
 
   // Variabile globale
-  let currentCategory = 'web-development';
+  let currentCategory = 'ui-ux-design';
   let currentProjectIndex = 0;
   let currentSlideIndex = 0;
   let isChangingProject = false;
@@ -181,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Elemente DOM
   const projectsSection = document.getElementById('projects');
   const categoryButtons = document.querySelectorAll('.category-btn');
-  const projectMain = document.querySelector('.project-main');
+  const projectsGallery = document.querySelector('.projects-gallery');
   const projectModal = document.querySelector('.project-modal');
   const modalTitle = document.querySelector('.modal-title');
   const gallerySlides = document.querySelector('.gallery-slides');
@@ -197,8 +139,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Inițializare
   function init() {
-    // Încarcă proiectele inițiale
-    loadProjects(currentCategory);
+    // Încarcă galeria inițială cu toate cele 6 proiecte
+    loadGallery();
     
     // Adaugă event listeners
     categoryButtons.forEach(btn => {
@@ -209,21 +151,6 @@ document.addEventListener('DOMContentLoaded', function() {
     contactBtn.addEventListener('click', handleContact);
     prevBtn.addEventListener('click', showPrevSlide);
     nextBtn.addEventListener('click', showNextSlide);
-    
-    // Adaugă event listener pentru proiectele conexe (se va adăuga dinamic)
-    document.addEventListener('click', function(e) {
-      if (e.target.closest('.view-more')) {
-        e.preventDefault();
-        const projectId = parseInt(e.target.closest('.view-more').dataset.projectId);
-        openModal(currentCategory, projectId);
-      }
-      
-      if (e.target.closest('.related-project')) {
-        if (isChangingProject) return;
-        const projectId = parseInt(e.target.closest('.related-project').dataset.projectId);
-        changeProject(currentCategory, projectId);
-      }
-    });
     
     // Navigare cu tastatura
     document.addEventListener('keydown', handleKeyboardNavigation);
@@ -254,21 +181,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Navigare cu tastatura
   function handleKeyboardNavigation(e) {
-    if (!projectModal.classList.contains('active')) return;
-    
-    switch(e.key) {
-      case 'ArrowLeft':
+    if (!projectModal.classList.contains('active')) {
+      // Navigare între proiecte în afara modalului
+      if (e.key === 'ArrowLeft') {
         e.preventDefault();
-        showPrevSlide();
-        break;
-      case 'ArrowRight':
+        navigateGallery('prev');
+      } else if (e.key === 'ArrowRight') {
         e.preventDefault();
-        showNextSlide();
-        break;
-      case 'Escape':
-        e.preventDefault();
-        handleBack();
-        break;
+        navigateGallery('next');
+      }
+    } else {
+      // Navigare în modal
+      switch(e.key) {
+        case 'ArrowLeft':
+          e.preventDefault();
+          showPrevSlide();
+          break;
+        case 'ArrowRight':
+          e.preventDefault();
+          showNextSlide();
+          break;
+        case 'Escape':
+          e.preventDefault();
+          handleBack();
+          break;
+      }
     }
   }
 
@@ -286,55 +223,133 @@ document.addEventListener('DOMContentLoaded', function() {
     currentCategory = category;
     currentProjectIndex = 0;
     
-    // Animație de tranziție pentru thumbnail
-    projectMain.classList.add('thumbnail-changing');
-    
-    setTimeout(() => {
-      // Încarcă proiectele noi
-      loadProjects(category);
-    }, 300);
+    // Reîncarcă galeria
+    loadGallery();
   }
 
-  // Încarcă proiectele pentru o categorie
-  function loadProjects(category) {
-    const projects = projectsData[category];
+  // Încarcă galeria pentru categoria curentă
+  function loadGallery() {
+    const projects = projectsData[currentCategory];
+    projectsGallery.innerHTML = '';
     
     if (projects && projects.length > 0) {
-      // Afișează primul proiect
-      displayProject(projects[0], category);
+      // Creează slide-urile pentru galerie - toate cele 6 proiecte
+      projects.forEach((project, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'project-slide';
+        slide.dataset.projectId = project.id;
+        slide.dataset.index = index;
+        
+        // Setează poziția slide-ului pentru toate cele 6
+        if (index === 0) {
+          slide.classList.add('active');
+        } else if (index === 1) {
+          slide.classList.add('next');
+        } else if (index === 2) {
+          slide.classList.add('far-next');
+        } else if (index === 5) {
+          slide.classList.add('prev');
+        } else if (index === 4) {
+          slide.classList.add('far-prev');
+        } else {
+          slide.classList.add('hidden');
+        }
+        
+        slide.innerHTML = `
+          <img src="${project.thumbnail}" alt="${project.name}" class="project-thumbnail">
+          <div class="project-overlay">
+            <a href="#" class="view-more" data-project-id="${project.id}">VIEW MORE DETAILS</a>
+          </div>
+        `;
+        
+        projectsGallery.appendChild(slide);
+        
+        // Adaugă event listener pentru click pe slide
+        slide.addEventListener('click', function(e) {
+          if (!e.target.closest('.view-more')) {
+            const clickedIndex = parseInt(this.dataset.index);
+            if (clickedIndex !== currentProjectIndex) {
+              navigateToProject(clickedIndex);
+            } else {
+              // Dacă se dă click pe proiectul activ, deschide modalul
+              openModal(project.id);
+            }
+          }
+        });
+      });
+      
+      // Adaugă event listener pentru butoanele "VIEW MORE"
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('.view-more')) {
+          e.preventDefault();
+          const projectId = parseInt(e.target.closest('.view-more').dataset.projectId);
+          openModal(projectId);
+        }
+      });
     }
   }
 
-  // Afișează un proiect în secțiunea principală
-  function displayProject(project, category) {
-    // Actualizează thumbnail-ul
-    projectMain.innerHTML = `
-      <img src="${project.thumbnail}" alt="${project.name}" class="project-thumbnail">
-      <div class="project-overlay">
-        <a href="#" class="view-more" data-project-id="${project.id}">VIEW MORE TEMPLATES</a>
-      </div>
-    `;
+  // Navighează la un proiect specific în galerie
+  function navigateToProject(targetIndex) {
+    const projects = projectsData[currentCategory];
+    const slides = document.querySelectorAll('.project-slide');
+    
+    // Actualizează indexul curent
+    currentProjectIndex = targetIndex;
+    
+    // Actualizează clasele pentru toate slide-urile
+    slides.forEach((slide, index) => {
+      const slideIndex = parseInt(slide.dataset.index);
+      slide.classList.remove('active', 'prev', 'next', 'far-prev', 'far-next', 'hidden');
+      
+      // Calculează pozițiile relative pentru toate cele 6 proiecte
+      const diff = slideIndex - targetIndex;
+      const totalSlides = projects.length;
+      
+      if (diff === 0) {
+        slide.classList.add('active');
+      } else if (diff === 1 || diff === 1 - totalSlides) {
+        slide.classList.add('next');
+      } else if (diff === -1 || diff === totalSlides - 1) {
+        slide.classList.add('prev');
+      } else if (diff === 2 || diff === 2 - totalSlides) {
+        slide.classList.add('far-next');
+      } else if (diff === -2 || diff === totalSlides - 2) {
+        slide.classList.add('far-prev');
+      } else {
+        slide.classList.add('hidden');
+      }
+    });
+  }
+
+  // Navighează în galerie (prev/next)
+  function navigateGallery(direction) {
+    const projects = projectsData[currentCategory];
+    let newIndex;
+    
+    if (direction === 'prev') {
+      newIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+    } else {
+      newIndex = (currentProjectIndex + 1) % projects.length;
+    }
+    
+    navigateToProject(newIndex);
   }
 
   // Deschide modalul cu detaliile proiectului
-  function openModal(category, projectId) {
-    const projects = projectsData[category];
-    const project = projects.find(p => p.id === projectId);
+  function openModal(projectId) {
+    const project = findProjectById(projectId);
     
     if (!project) return;
-    
-    // Actualizează indexul proiectului curent
-    currentProjectIndex = projects.findIndex(p => p.id === projectId);
-    currentCategory = category;
     
     // Adaugă clasa pentru scrollbar mai subțire
     document.documentElement.classList.add('modal-open');
     
     // Actualizează titlul modalului
-    modalTitle.textContent = `${getCategoryName(category)} Projects`;
+    modalTitle.textContent = 'UI/UX Design Projects';
     
     // Încarcă galeria de imagini
-    loadGallery(project.images);
+    loadModalGallery(project.images);
     
     // Actualizează informațiile proiectului
     projectName.textContent = project.name;
@@ -351,8 +366,8 @@ document.addEventListener('DOMContentLoaded', function() {
       keyFeatures.appendChild(li);
     });
     
-    // Încarcă proiectele conexe
-    loadRelatedProjects(category, projectId);
+    // Încarcă proiectele conexe (următoarele 2 proiecte în loop)
+    loadRelatedProjects(projectId);
     
     // Afișează modalul
     projectModal.classList.add('active');
@@ -368,25 +383,21 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Schimbă proiectul în modal
-  function changeProject(category, projectId) {
+  function changeProject(projectId) {
     if (isChangingProject) return;
     
     isChangingProject = true;
-    const projects = projectsData[category];
-    const project = projects.find(p => p.id === projectId);
+    const project = findProjectById(projectId);
     
     if (!project) return;
-    
-    // Actualizează indexul proiectului curent
-    currentProjectIndex = projects.findIndex(p => p.id === projectId);
     
     // Animație de ieșire
     modalContent.classList.add('changing');
     
     setTimeout(() => {
       // Actualizează conținutul
-      modalTitle.textContent = `${getCategoryName(category)} Projects`;
-      loadGallery(project.images);
+      modalTitle.textContent = 'UI/UX Design Projects';
+      loadModalGallery(project.images);
       projectName.textContent = project.name;
       projectDescription.textContent = project.description;
       
@@ -402,7 +413,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       
       // Încarcă proiectele conexe
-      loadRelatedProjects(category, projectId);
+      loadRelatedProjects(projectId);
       
       // Scroll la început
       modalContent.scrollTop = 0;
@@ -463,8 +474,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 600);
   }
 
-  // Încarcă galeria de imagini
-  function loadGallery(images) {
+  // Încarcă galeria de imagini pentru modal
+  function loadModalGallery(images) {
     gallerySlides.innerHTML = '';
     currentSlideIndex = 0;
     
@@ -496,10 +507,17 @@ document.addEventListener('DOMContentLoaded', function() {
     slides[currentSlideIndex].classList.add('active');
   }
 
-  // Încarcă proiectele conexe
-  function loadRelatedProjects(category, currentProjectId) {
-    const projects = projectsData[category];
-    const related = projects.filter(p => p.id !== currentProjectId);
+  // Încarcă proiectele conexe (următoarele 2 proiecte în loop)
+  function loadRelatedProjects(currentProjectId) {
+    const projects = projectsData[currentCategory];
+    const currentIndex = projects.findIndex(p => p.id === currentProjectId);
+    
+    // Calculează următoarele 2 proiecte în loop
+    const related = [];
+    for (let i = 1; i <= 2; i++) {
+      const nextIndex = (currentIndex + i) % projects.length;
+      related.push(projects[nextIndex]);
+    }
     
     relatedProjects.innerHTML = '';
     
@@ -514,6 +532,13 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       `;
       relatedProjects.appendChild(projectEl);
+      
+      // Adaugă event listener pentru proiectele conexe
+      projectEl.addEventListener('click', function() {
+        if (isChangingProject) return;
+        const projectId = parseInt(this.dataset.projectId);
+        changeProject(projectId);
+      });
     });
   }
 
@@ -540,15 +565,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 600);
   }
 
-  // Obține numele categoriei pentru afișare
-  function getCategoryName(category) {
-    const names = {
-      'web-development': 'Web Development',
-      'ui-ux-design': 'UI/UX Design',
-      'video-editing': 'Video Editing'
-    };
-    
-    return names[category] || category;
+  // Găsește un proiect după ID
+  function findProjectById(projectId) {
+    for (const category in projectsData) {
+      const project = projectsData[category].find(p => p.id === projectId);
+      if (project) return project;
+    }
+    return null;
   }
 
   // Pornește aplicația

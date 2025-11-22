@@ -18,6 +18,8 @@
 <div id="scroll-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Scroll progress">
   <div class="progress-fill" aria-hidden="true"></div>
 </div>
+<!-- Custom Cursor -->
+<div class="custom-cursor"></div>
 <header>
   <nav class="navbar">
     <ul class="nav-list">
@@ -54,6 +56,9 @@
     </ul>
   </nav>
 </header>
+<!-- Custom White Cursor -->
+<div class="cursor-ball"></div>
+
 <section id="home">
   <video class="bg-video" src="https://res.cloudinary.com/deahos6sr/video/upload/v1763674155/movie_homepage_uwzspd.mp4" autoplay muted loop playsinline></video>
 
@@ -133,20 +138,19 @@
         </div>
       </div>
       
-      <div class="contact-left-container animate-element" data-delay="1200">
-        <button class="about-contact-btn" id="contactBtn">
-          <ion-icon name="call-outline" class="contact-icon"></ion-icon>
-          <div class="contact-hover-content">
-            <span class="contact-text">Contact Now</span>
-            <div class="time-display" id="timeDisplay">
-              <span id="timeStatus">Available for</span>
-              <span class="time-value" id="timeValue">03:37:38</span>
-              <span class="time-unit">hr</span>
-            </div>
-          </div>
-        </button>
+<div class="contact-left-container animate-element" data-delay="1200">
+  <button class="about-contact-btn" id="contactBtn">
+    <ion-icon name="call-outline" class="contact-icon"></ion-icon>
+    <div class="contact-hover-content">
+      <span class="contact-text" id="contactText">Contact Now</span>
+      <div class="time-display" id="timeDisplay">
+        <span id="timeStatus">Available for</span>
+        <span class="time-value" id="timeValue">03:37:38</span>
+        <span class="time-unit">hr</span>
       </div>
     </div>
+  </button>
+</div>
     
     <div class="about-right">
       <div class="location-minimal animate-element" data-delay="1400">
@@ -159,101 +163,100 @@
 <!-- cv -->
 <section id="cv-section">
   <!-- Technologies Slider -->
-<div class="cv-tech-section">
-  <h2>Technologies & Tools</h2>
-  <div class="cv-tech-slider-container">
-    <div class="cv-tech-slider-mask left-mask"></div>
-    <div class="cv-tech-slider-mask right-mask"></div>
-    <div class="cv-tech-slider">
+  <div class="cv-tech-section">
+    <h2>Technologies & Tools</h2>
+    <div class="cv-tech-slider-container">
+      <div class="cv-tech-slider-mask left-mask"></div>
+      <div class="cv-tech-slider-mask right-mask"></div>
+      <div class="cv-tech-slider">
 
-      <!-- LUA -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="LUA">
-        <span>LUA</span>
+        <!-- LUA -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="LUA">
+          <span>LUA</span>
+        </div>
+
+        <!-- Python -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
+          <span>Python</span>
+        </div>
+
+        <!-- C++ -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
+          <span>C++</span>
+        </div>
+
+        <!-- HTML -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
+          <span>HTML</span>
+        </div>
+
+        <!-- CSS -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
+          <span>CSS</span>
+        </div>
+
+        <!-- JavaScript -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
+          <span>JavaScript</span>
+        </div>
+
+        <!-- Firebase -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
+          <span>Firebase</span>
+        </div>
+
+        <!-- React.js -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js">
+          <span>React.js</span>
+        </div>
+
+        <!-- GitHub -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
+          <span>GitHub</span>
+        </div>
+
+        <!-- Figma -->
+        <div class="cv-tech-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Figma">
+          <span>Figma</span>
+        </div>
+
+        <!-- DaVinci Resolve -->
+        <div class="cv-tech-item">
+          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968472.png" alt="DaVinci Resolve">
+          <span>DaVinci Resolve</span>
+        </div>
+
+        <!-- Photoshop -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
+          <span>Photoshop</span>
+        </div>
+
+        <!-- Illustrator -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Adobe Illustrator">
+          <span>Adobe Illustrator</span>
+        </div>
+
+        <!-- Premiere Pro -->
+        <div class="cv-tech-item">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg" alt="Premiere Pro">
+          <span>Premiere Pro</span>
+        </div>
+
       </div>
-
-      <!-- Python -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-        <span>Python</span>
-      </div>
-
-      <!-- C++ -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
-        <span>C++</span>
-      </div>
-
-      <!-- HTML -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
-        <span>HTML</span>
-      </div>
-
-      <!-- CSS -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
-        <span>CSS</span>
-      </div>
-
-      <!-- JavaScript -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-        <span>JavaScript</span>
-      </div>
-
-      <!-- Firebase (dacă nu vrei Firebase, pot pune PHP) -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
-        <span>Firebase</span>
-      </div>
-
-      <!-- React.js -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js">
-        <span>React.js</span>
-      </div>
-
-      <!-- GitHub -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
-        <span>GitHub</span>
-      </div>
-
-      <!-- CapCut -->
-      <div class="cv-tech-item">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="CapCut">
-        <span>Figma</span>
-      </div>
-
-      <!-- DaVinci Resolve -->
-      <div class="cv-tech-item">
-        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968472.png" alt="DaVinci Resolve">
-        <span>DaVinci Resolve</span>
-      </div>
-
-      <!-- Photoshop -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
-        <span>Photoshop</span>
-      </div>
-
-      <!-- Illustrator -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Adobe Illustrator">
-        <span>Adobe Illustrator</span>
-      </div>
-
-      <!-- Premiere Pro -->
-      <div class="cv-tech-item">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg" alt="Premiere Pro">
-        <span>Premiere Pro</span>
-      </div>
-
     </div>
   </div>
-</div>
-
 
   <!-- Horizontal Timeline -->
   <div class="cv-timeline-section">
@@ -303,186 +306,6 @@
       </div>
     </div>
   </div>
-
-  <!-- YouTube & Projects Row -->
-  <div class="cv-content-row">
-    <!-- YouTube Card -->
-    <div class="cv-youtube-column">
-      <div class="cv-youtube-card cv-card">
-        <h2>Youtube Statistics</h2>
-        <div class="cv-youtube-content-rectangle">
-          <div class="cv-youtube-left">
-            <div class="cv-youtube-avatar-rectangle">
-              <img id="cv-avatar" src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80" alt="YouTube Avatar">
-            </div>
-          </div>
-          <div class="cv-youtube-right">
-            <div class="cv-youtube-info-rectangle">
-              <h3 id="cv-channel-name">// visuals \\</h3>
-              <div class="cv-stats-grid-rectangle">
-                <div class="cv-stat-rectangle">
-                  <span class="cv-stat-number" id="cv-view-count">125K</span>
-                  <span class="cv-stat-label">Views</span>
-                </div>
-                <div class="cv-stat-rectangle">
-                  <span class="cv-stat-number" id="cv-subscriber-count">2.4K</span>
-                  <span class="cv-stat-label">Subscribers</span>
-                </div>
-                <div class="cv-stat-rectangle">
-                  <span class="cv-stat-number" id="cv-video-count">48</span>
-                  <span class="cv-stat-label">Videos</span>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Last Video Section -->
-            <div class="cv-last-video-section">
-              <h4>Last Video Posted</h4>
-              <div class="cv-last-video-preview">
-                <div class="cv-video-thumbnail">
-                  <img src="https://i.ytimg.com/vi/HbAOwc0uuog/hqdefault.jpg" alt="Last Video Thumbnail">
-                  <div class="cv-play-button">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
-                      <path d="M8 5v14l11-7z" fill="currentColor"/>
-                    </svg>
-                  </div>
-                </div>
-                <div class="cv-video-info">
-                  <h5>Season Changer [LUA]</h5>
-                  <span class="cv-video-date">1 months ago</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Projects Grid -->
-    <div class="cv-projects-column">
-      <div class="cv-projects-card cv-card">
-        <h2>Projects</h2>
-        <div class="cv-projects-grid-rectangle">
-          <div class="cv-project-item" data-index="0">
-            <div class="cv-project-thumbnail">
-              <img src="https://andz7z.github.io/assets/photos/seasonchanger.jpg" alt="Code Editor">
-              <div class="cv-project-overlay">
-                <h3>Season Changer</h3>
-              </div>
-            </div>
-          </div>
-          <div class="cv-project-item" data-index="1">
-            <div class="cv-project-thumbnail">
-              <img src="https://andz7z.github.io/assets/photos/nametags.jpg" alt="Mobile App">
-              <div class="cv-project-overlay">
-                <h3>Name Tags</h3>
-              </div>
-            </div>
-          </div>
-          <div class="cv-project-item" data-index="2">
-            <div class="cv-project-thumbnail">
-              <img src="https://andz7z.github.io/assets/photos/timechanger.jpg" alt="Data Viz">
-              <div class="cv-project-overlay">
-                <h3>Time Changer</h3>
-              </div>
-            </div>
-          </div>
-          <div class="cv-project-item" data-index="3">
-            <div class="cv-project-thumbnail">
-              <img src="https://andz7z.github.io/assets/photos/folder.jpg" alt="E-commerce">
-              <div class="cv-project-overlay">
-                <h3>Complete Pack</h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Project CV -->
-  <div class="cv-project-modal">
-    <div class="cv-modal-backdrop"></div>
-    <div class="cv-modal-content">
-      <div class="cv-modal-header">
-        <button class="cv-back-btn">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          <span class="cv-back-text">Go Back</span>
-        </button>
-        <button class="cv-contact-btn">
-          <span class="cv-contact-text">Contact</span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </button>
-      </div>
-      
-      <div class="cv-modal-body">
-        <h2 class="cv-modal-title">Project Details</h2>
-        <div class="cv-title-divider"></div>
-        
-        <div class="cv-project-details-full">
-          <div class="cv-project-video-full">
-            <div class="cv-video-container-full">
-              <iframe id="cv-project-video" width="100%" height="100%" src="" frameborder="0" allowfullscreen></iframe>
-            </div>
-          </div>
-          
-          <div class="cv-project-info-full">
-            <h3 class="cv-project-name-full">Project Title</h3>
-            <div class="cv-project-description-full">
-              <p>Project description goes here. This is a detailed explanation of the project, its purpose, and the technologies used.</p>
-              <p>This section can include challenges faced during development, solutions implemented, and the overall impact of the project.</p>
-            </div>
-            
-            <div class="cv-key-features-full">
-              <h4>Key Features</h4>
-              <ul>
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                  <span class="cv-feature-text">Responsive Design</span>
-                </li>
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                  <span class="cv-feature-text">Modern UI/UX</span>
-                </li>
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17L4 12" stroke="currentColor" stroke-width="2"/>
-                  </svg>
-                  <span class="cv-feature-text">Performance Optimized</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="cv-divider-section">
-          <div class="cv-divider-line"></div>
-          <div class="cv-divider-text">
-            <span>Related Projects</span>
-          </div>
-        </div>
-
-        <div class="cv-related-projects">
-          <!-- Related projects will be populated dynamically -->
-        </div>
-      </div>
-    </div>
-  </div>
-      <a href="https://andz7z.github.io/assets/cv/cv.pdf" class="cv-btn-download" target="_blank">
-      <span>Get my CV</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <path d="M12 16L12 4M12 16L8 12M12 16L16 12" stroke="currentColor" stroke-width="2"/>
-        <path d="M4 20H20" stroke="currentColor" stroke-width="2"/>
-      </svg>
-    </a>
 </section>
 <!-- proiecte -->
 <section id="projects">
@@ -490,17 +313,10 @@
     <div class="projects-header">
       <h2 class="projects-title">My goal? Make your users feel the <br>same <span class="confidence">confidence</span> you feel in <br>your brand.</h2>
     </div>
-    
-    <div class="projects-content">
-      <div class="categories-nav">
-        <button class="category-btn active" data-category="web-development">Web Development</button>
-        <button class="category-btn" data-category="ui-ux-design">UI/UX Design</button>
-        <button class="category-btn" data-category="video-editing">Video Editing</button>
-      </div>
       
       <div class="projects-display">
-        <div class="project-main">
-          <!-- Conținutul incarcat dinamic -->
+        <div class="projects-gallery">
+          <!-- Toate cele 6 slide-uri vor fi incarcate dinamic -->
         </div>
       </div>
     </div>
@@ -521,7 +337,7 @@
     </div>
     
     <div class="modal-content">
-      <h2 class="modal-title">Web Development Projects</h2>
+      <h2 class="modal-title">UI/UX Design Projects</h2>
       <div class="title-divider"></div>
       
       <div class="project-details">
@@ -542,7 +358,7 @@
         </div>
         
         <div class="project-info">
-          <h3 class="project-name" id="projectsProjectName">Website 1</h3>
+          <h3 class="project-name" id="projectsProjectName">Website Template 1</h3>
           <div class="project-description">
             <p id="projectsDescription">This project showcases a modern, responsive website with cutting-edge features designed to enhance user experience and drive engagement. Built with the latest technologies and frameworks, it provides a seamless experience across all devices and platforms.</p>
             <ul class="key-features" id="projectsKeyFeatures">

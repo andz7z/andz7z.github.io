@@ -93,3 +93,34 @@ document.addEventListener('DOMContentLoaded', function() {
   window.addEventListener('load', checkHomeSection);
   window.addEventListener('scroll', checkHomeSection);
 });
+const cursor = document.querySelector('.cursor-ball');
+const cursorInner = document.querySelector('.cursor-ball-inner');
+
+document.addEventListener('mousemove', e => {
+  cursor.style.top = `${e.clientY}px`;
+  cursor.style.left = `${e.clientX}px`;
+
+  cursorInner.style.top = `${e.clientY}px`;
+  cursorInner.style.left = `${e.clientX}px`;
+});
+
+/* Click pulse */
+document.addEventListener('mousedown', () => {
+  cursor.classList.add('click');
+});
+
+document.addEventListener('mouseup', () => {
+  setTimeout(() => cursor.classList.remove('click'), 120);
+});
+
+/* Detectează elemente clickable */
+const clickableElements = document.querySelectorAll('a, button, .nav-link');
+
+clickableElements.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('active');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('active');
+  });
+});

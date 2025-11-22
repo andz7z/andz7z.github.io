@@ -3,8 +3,11 @@ class AboutSection {
   constructor() {
     this.section = document.getElementById('about');
     this.contactBtn = document.getElementById('contactBtn');
+    this.contactText = document.getElementById('contactText');
+    this.contactIcon = document.querySelector('.contact-icon');
     this.timeValue = document.getElementById('timeValue');
     this.timeStatus = document.getElementById('timeStatus');
+    this.timeUnit = document.querySelector('.time-unit');
     this.hasAnimated = false;
     
     this.workStartHour = 8; // 8:00 AM
@@ -67,33 +70,44 @@ class AboutSection {
     
     // Check if it's Sunday
     if (currentDay === 0) {
-      this.timeStatus.textContent = 'Busy, try again tomorrow';
-      this.timeValue.textContent = '';
+      this.contactText.textContent = 'Try Tomorrow';
+      this.contactIcon.style.color = '#ff4757';
+      this.timeStatus.textContent = 'Available from';
+      this.timeValue.textContent = '08:00';
+      this.timeUnit.textContent = 'AM';
       this.contactBtn.classList.add('time-expired');
       return;
     }
     
-    // Calculate remaining time in work day (UTC+2 timezone)
+    // Calculate remaining time in work day
     let remainingHours, remainingMinutes, remainingSeconds;
+    let isWorkingHours = false;
     
     if (currentHour < this.workStartHour) {
       // Before work hours
       remainingHours = this.workStartHour - currentHour - 1;
       remainingMinutes = 60 - currentMinute - 1;
       remainingSeconds = 60 - currentSecond;
-      this.timeStatus.textContent = 'Available in';
+      this.timeStatus.textContent = 'Available at';
+      this.contactText.textContent = 'Try Tomorrow';
+      this.contactIcon.style.color = '#ff4757';
     } else if (currentHour >= this.workStartHour && currentHour < this.workEndHour) {
       // During work hours
       remainingHours = this.workEndHour - currentHour - 1;
       remainingMinutes = 60 - currentMinute - 1;
       remainingSeconds = 60 - currentSecond;
       this.timeStatus.textContent = 'Available for';
+      this.contactText.textContent = 'Contact Now';
+      this.contactIcon.style.color = '';
+      isWorkingHours = true;
     } else {
       // After work hours
       remainingHours = (24 - currentHour) + this.workStartHour - 1;
       remainingMinutes = 60 - currentMinute - 1;
       remainingSeconds = 60 - currentSecond;
       this.timeStatus.textContent = 'Available in';
+      this.contactText.textContent = 'Try Tomorrow';
+      this.contactIcon.style.color = '#ff4757';
     }
     
     // Handle negative values
@@ -112,16 +126,27 @@ class AboutSection {
     if (remainingSeconds < 0) remainingSeconds = 0;
     
     // Update time display
-    const timeString = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    this.timeValue.textContent = timeString;
+    if (isWorkingHours) {
+      const timeString = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+      this.timeValue.textContent = timeString;
+      this.timeUnit.textContent = 'hr';
+    } else {
+      this.timeValue.textContent = '08:00';
+      this.timeUnit.textContent = 'AM';
+    }
     
     // Update colors based on remaining time
-    this.updateTimeAppearance(remainingHours, remainingMinutes);
+    this.updateTimeAppearance(remainingHours, remainingMinutes, isWorkingHours);
   }
   
-  updateTimeAppearance(hours, minutes) {
+  updateTimeAppearance(hours, minutes, isWorkingHours) {
     // Remove all color classes
     this.contactBtn.classList.remove('time-green', 'time-yellow', 'time-orange', 'time-red', 'time-expired');
+    
+    if (!isWorkingHours) {
+      this.contactBtn.classList.add('time-expired');
+      return;
+    }
     
     if (hours >= 8) {
       this.contactBtn.classList.add('time-green');
@@ -137,6 +162,8 @@ class AboutSection {
       this.contactBtn.classList.add('time-expired');
       this.timeStatus.textContent = 'Busy, try again tomorrow';
       this.timeValue.textContent = '';
+      this.contactText.textContent = 'Try Tomorrow';
+      this.contactIcon.style.color = '#ff4757';
     }
   }
   

@@ -30,3 +30,30 @@ setTimeout(() => {
 
   setInterval(changeRole, 3000);
 }, 3500);
+// Custom cursor simplu și rapid
+const cursor = document.querySelector('.custom-cursor');
+
+// Mișcare cursor INSTANT
+document.addEventListener('mousemove', (e) => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  
+  const isInHomeSection = e.target.closest('#home');
+  if (isInHomeSection) {
+    document.body.classList.add('home-cursor-active');
+  } else {
+    document.body.classList.remove('home-cursor-active');
+  }
+});
+
+// Ascunde cursorul când părăsește fereastra
+document.addEventListener('mouseleave', () => {
+  document.body.classList.remove('home-cursor-active');
+});
+
+document.addEventListener('mouseenter', () => {
+  const isInHomeSection = document.querySelector('#home:hover');
+  if (isInHomeSection) {
+    document.body.classList.add('home-cursor-active');
+  }
+});
