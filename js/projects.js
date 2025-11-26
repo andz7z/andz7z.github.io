@@ -15,11 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
           'Advanced Analytics Dashboard'
         ],
         images: [
-          'https://andz7z.github.io/assets/photos/altele/entry_project_slide.jpg',
-          'https://andz7z.github.io/assets/photos/altele/entry_project_slide1.jpg',
-          'https://andz7z.github.io/assets/photos/altele/entry_project_slide2.jpg'
+          'https://andz7z.github.io/assets/photos/corelle/poza1.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza2.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza3.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza4.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza5.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza6.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza7.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza8.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza9.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza10.jpg',
+          'https://andz7z.github.io/assets/photos/corelle/poza11.jpg',
         ],
-        thumbnail: 'https://andz7z.github.io/assets/photos/altele/entry_project_slide.jpg'
+        thumbnail: 'https://andz7z.github.io/assets/photos/corelle/poza1.jpg'
       },
       {
         id: 2,
@@ -576,4 +584,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Pornește aplicația
   init();
+
 });
