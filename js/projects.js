@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', function() {
     'ui-ux-design': [
       {
         id: 1,
-        name: 'Website Template 1',
-        description: 'A fully responsive e-commerce platform with advanced features designed to provide a seamless shopping experience across all devices. This project includes a sophisticated product management system, secure payment processing, and personalized user recommendations. The platform is optimized for performance and SEO, ensuring maximum visibility and conversion rates for online businesses.',
+        name: 'CORELLE | Nail Brand Template',
+        description: 'Personal template for the CORELLE brand, category: nail products. It is a fully responsive website, optimized for both mobile and desktop. It includes systems such as Register, Login, Reviews, Favourites, History, and an Order System.',
         features: [
           'Advanced User Registration System',
           'Interactive Review & Rating System',
@@ -15,19 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
           'Advanced Analytics Dashboard'
         ],
         images: [
-          'https://andz7z.github.io/assets/photos/corelle/poza1.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza2.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza3.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza4.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza5.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza6.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza7.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza8.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza9.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza10.jpg',
-          'https://andz7z.github.io/assets/photos/corelle/poza11.jpg',
+          'https://andz7z.github.io/assets/corelle/poza1.jpg',
+          'https://andz7z.github.io/assets/corelle/poza2.jpg',
+          'https://andz7z.github.io/assets/corelle/poza3.jpg',
+          'https://andz7z.github.io/assets/corelle/poza4.jpg',
+          'https://andz7z.github.io/assets/corelle/poza5.jpg',
+          'https://andz7z.github.io/assets/corelle/poza6.jpg',
+          'https://andz7z.github.io/assets/corelle/poza7.jpg',
+          'https://andz7z.github.io/assets/corelle/poza8.jpg',
+          'https://andz7z.github.io/assets/corelle/poza9.jpg',
+          'https://andz7z.github.io/assets/corelle/poza10.jpg',
+          'https://andz7z.github.io/assets/corelle/poza11.jpg',
         ],
-        thumbnail: 'https://andz7z.github.io/assets/photos/corelle/poza1.jpg'
+        thumbnail: 'https://andz7z.github.io/assets/corelle/poza1.jpg'
       },
       {
         id: 2,
@@ -586,3 +586,4 @@ document.addEventListener('DOMContentLoaded', function() {
   init();
 
 });
+
