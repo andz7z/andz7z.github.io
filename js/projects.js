@@ -15,19 +15,19 @@ document.addEventListener('DOMContentLoaded', function() {
           'Advanced Analytics Dashboard'
         ],
         images: [
-          'https://andz7z.github.io/assets/corelle/poza1.jpg',
-          'https://andz7z.github.io/assets/corelle/poza2.jpg',
-          'https://andz7z.github.io/assets/corelle/poza3.jpg',
-          'https://andz7z.github.io/assets/corelle/poza4.jpg',
-          'https://andz7z.github.io/assets/corelle/poza5.jpg',
-          'https://andz7z.github.io/assets/corelle/poza6.jpg',
-          'https://andz7z.github.io/assets/corelle/poza7.jpg',
-          'https://andz7z.github.io/assets/corelle/poza8.jpg',
-          'https://andz7z.github.io/assets/corelle/poza9.jpg',
-          'https://andz7z.github.io/assets/corelle/poza10.jpg',
-          'https://andz7z.github.io/assets/corelle/poza11.jpg',
+          'https://andz7z.github.io/assets/corelle/poza1.png',
+          'https://andz7z.github.io/assets/corelle/poza2.png',
+          'https://andz7z.github.io/assets/corelle/poza3.png',
+          'https://andz7z.github.io/assets/corelle/poza4.png',
+          'https://andz7z.github.io/assets/corelle/poza5.png',
+          'https://andz7z.github.io/assets/corelle/poza6.png',
+          'https://andz7z.github.io/assets/corelle/poza7.png',
+          'https://andz7z.github.io/assets/corelle/poza8.png',
+          'https://andz7z.github.io/assets/corelle/poza9.png',
+          'https://andz7z.github.io/assets/corelle/poza10.png',
+          'https://andz7z.github.io/assets/corelle/poza11.png',
         ],
-        thumbnail: 'https://andz7z.github.io/assets/corelle/poza1.jpg'
+        thumbnail: 'https://andz7z.github.io/assets/corelle/poza1.png'
       },
       {
         id: 2,
@@ -586,4 +586,5 @@ document.addEventListener('DOMContentLoaded', function() {
   init();
 
 });
+
 
