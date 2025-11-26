@@ -99,9 +99,6 @@ const cursorInner = document.querySelector('.cursor-ball-inner');
 document.addEventListener('mousemove', e => {
   cursor.style.top = `${e.clientY}px`;
   cursor.style.left = `${e.clientX}px`;
-
-  cursorInner.style.top = `${e.clientY}px`;
-  cursorInner.style.left = `${e.clientX}px`;
 });
 
 /* Click pulse */
@@ -124,3 +121,4 @@ clickableElements.forEach(el => {
     cursor.classList.remove('active');
   });
 });
+
