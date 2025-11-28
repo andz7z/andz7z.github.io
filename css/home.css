@@ -62,7 +62,7 @@
   color: rgb(226, 226, 226);
   letter-spacing: 5px;
   position: relative;
-  top: -9vh;
+  top: -4vh;
   left: 1vw;
   line-height: 1;
 }
@@ -73,7 +73,7 @@
   align-items: center;
   font-size: 10px;
   position: relative;
-  top: -14.75vh;
+  top: -7.34vh;
   left: 23vw;
   font-weight: 800; /* 1000 nu exista standard, am pus 800 (Extra Bold) */
   letter-spacing: 3px;

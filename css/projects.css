@@ -322,7 +322,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   height: 100vh;
   overflow-y: auto;
   scroll-behavior: smooth;
-  padding-top: 100px;
+  padding-top: 1px;
   box-sizing: border-box;
 }
 
