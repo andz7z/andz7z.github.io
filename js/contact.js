@@ -1,310 +1,194 @@
-// contact.js - Folosește Firebase deja inițializat din main.js
+class ContactManager {
+  constructor() {
+    this.db = window.db;
+    this.firebase = window.firebase;
+    
+    this.dom = {
+      form: document.getElementById('contact-form'),
+      socials: document.querySelectorAll('.social-item'),
+      body: document.body
+    };
 
-// Folosește db global din main.js fără a-l redeclara
-function initContactSystem() {
-  // Verifică dacă db este disponibil
-  if (typeof db === 'undefined' || !db) {
-    console.error('Firestore database not available in contact.js');
-    return;
+    if (!this.validateSystem()) return;
+
+    this.init();
   }
 
-  console.log('Contact system initializing...');
-  initContactForm();
-  initSocialInteractions();
-  addNotificationStyles();
-}
-
-// DOM Elements
-const contactForm = document.getElementById('contact-form');
-const socialItems = document.querySelectorAll('.social-item');
-
-// Inițializare aplicație contact
-document.addEventListener('DOMContentLoaded', function() {
-  initContactSystem();
-});
-
-// Restul funcțiilor rămân la fel...
-function initContactForm() {
-  if (!contactForm) {
-    console.log('Contact form not found on this page');
-    return;
-  }
-
-  console.log('Contact form found, initializing...');
-
-  // Form submission handler
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const submitBtn = contactForm.querySelector('.submit-btn');
-    const originalText = submitBtn.innerHTML;
-    
-    // Show loading state
-    submitBtn.innerHTML = '<span>Sending...</span>';
-    submitBtn.disabled = true;
-    
-    try {
-      // Get form values
-      const firstName = contactForm.querySelector('#firstName')?.value || '';
-      const lastName = contactForm.querySelector('#lastName')?.value || '';
-      const email = contactForm.querySelector('#email')?.value || '';
-      const phone = contactForm.querySelector('#phone')?.value || '';
-      const message = contactForm.querySelector('#message')?.value || '';
-      
-      console.log('Form values:', { firstName, lastName, email, phone, message });
-      
-      // Validare de bază
-      if (!firstName.trim()) {
-        showNotification('Please enter your first name.', 'error');
-        return;
-      }
-      if (!lastName.trim()) {
-        showNotification('Please enter your last name.', 'error');
-        return;
-      }
-      if (!email.trim()) {
-        showNotification('Please enter your email address.', 'error');
-        return;
-      }
-      if (!message.trim()) {
-        showNotification('Please enter your message.', 'error');
-        return;
-      }
-      
-      // Validare email
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        showNotification('Please enter a valid email address.', 'error');
-        return;
-      }
-      
-      // Create contact data object
-      const contactData = {
-        firstName: firstName.trim(),
-        lastName: lastName.trim(),
-        email: email.trim(),
-        phone: phone ? phone.trim() : '',
-        message: message.trim(),
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        read: false
-      };
-      
-      console.log('Saving contact data:', contactData);
-      
-      // Save to Firebase in 'contacts' collection
-      await db.collection('contacts').add(contactData);
-      
-      // Show success message
-      showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
-      
-      // Reset form
-      contactForm.reset();
-      
-    } catch (error) {
-      console.error('Error saving contact:', error);
-      showNotification('An error occurred while sending your message. Please try again.', 'error');
-    } finally {
-      // Restore button state
-      submitBtn.innerHTML = originalText;
-      submitBtn.disabled = false;
-    }
-  });
-}
-
-function initSocialInteractions() {
-  socialItems.forEach(item => {
-    item.addEventListener('mouseenter', () => {
-      item.style.transform = 'scale(1.02)';
-    });
-    
-    item.addEventListener('mouseleave', () => {
-      item.style.transform = 'scale(1)';
-    });
-  });
-}
-
-function showNotification(message, type) {
-  // Remove existing notifications
-  const existingNotifications = document.querySelectorAll('.notification');
-  existingNotifications.forEach(notif => notif.remove());
-  
-  const notification = document.createElement('div');
-  notification.className = `notification ${type}`;
-  notification.innerHTML = `
-    <span>${message}</span>
-    <button>
-      <ion-icon name="close-outline"></ion-icon>
-    </button>
-  `;
-  
-  // Add basic styles
-  notification.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: ${type === 'success' ? '#1a1a1a' : '#331a1a'};
-    color: #fff;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: 1.5px solid ${type === 'success' ? '#00ff88' : '#ff4444'};
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 10000;
-    font-family: 'Sora', sans-serif;
-    font-size: 0.9rem;
-    max-width: 300px;
-    animation: slideInRight 0.3s ease-out;
-  `;
-  
-  notification.querySelector('button').style.cssText = `
-    background: none;
-    border: none;
-    color: #fff;
-    cursor: pointer;
-    padding: 4px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-  `;
-  
-  // Close button functionality
-  notification.querySelector('button').addEventListener('click', () => {
-    notification.style.animation = 'slideOutRight 0.3s ease-in';
-    setTimeout(() => {
-      if (notification.parentElement) {
-        notification.remove();
-      }
-    }, 300);
-  });
-  
-  document.body.appendChild(notification);
-  
-  // Auto remove after 4 seconds
-  setTimeout(() => {
-    if (notification.parentElement) {
-      notification.style.animation = 'slideOutRight 0.3s ease-in';
-      setTimeout(() => {
-        if (notification.parentElement) {
-          notification.remove();
-        }
-      }, 300);
-    }
-  }, 4000);
-}
-
-function addNotificationStyles() {
-  if (document.getElementById('notification-styles')) return;
-  
-  const notificationStyles = document.createElement('style');
-  notificationStyles.id = 'notification-styles';
-  notificationStyles.textContent = `
-    @keyframes slideInRight {
-      from {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
-    
-    @keyframes slideOutRight {
-      from {
-        transform: translateX(0);
-        opacity: 1;
-      }
-      to {
-        transform: translateX(100%);
-        opacity: 0;
-      }
-    }
-    
-    .notification button:hover {
-      background: rgba(255, 255, 255, 0.1) !important;
-    }
-    
-    .notification.success {
-      background: #1a1a1a !important;
-      border-color: #00ff88 !important;
-    }
-    
-    .notification.error {
-      background: #331a1a !important;
-      border-color: #ff4444 !important;
-    }
-  `;
-  document.head.appendChild(notificationStyles);
-}
-
-// Validare formular în timp real (opțional)
-function initRealTimeValidation() {
-  const inputs = contactForm?.querySelectorAll('input[required], textarea[required]');
-  
-  if (inputs) {
-    inputs.forEach(input => {
-      input.addEventListener('blur', () => {
-        validateField(input);
-      });
-      
-      input.addEventListener('input', () => {
-        clearFieldError(input);
-      });
-    });
-  }
-}
-
-function validateField(field) {
-  const value = field.value.trim();
-  
-  if (!value) {
-    showFieldError(field, 'This field is required');
-    return false;
-  }
-  
-  if (field.type === 'email') {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(value)) {
-      showFieldError(field, 'Please enter a valid email address');
+  validateSystem() {
+    if (typeof this.db === 'undefined' || !this.db) {
+      console.error('Database connection missing.');
       return false;
     }
+    return true;
   }
-  
-  clearFieldError(field);
-  return true;
-}
 
-function showFieldError(field, message) {
-  clearFieldError(field);
-  
-  const errorElement = document.createElement('div');
-  errorElement.className = 'field-error';
-  errorElement.textContent = message;
-  errorElement.style.cssText = `
-    color: #ff6b6b;
-    font-size: 0.8rem;
-    margin-top: 5px;
-    font-family: 'Sora', sans-serif;
-  `;
-  
-  field.parentNode.appendChild(errorElement);
-  field.style.borderColor = '#ff6b6b';
-}
-
-function clearFieldError(field) {
-  const existingError = field.parentNode.querySelector('.field-error');
-  if (existingError) {
-    existingError.remove();
+  init() {
+    this.injectStyles();
+    this.setupForm();
+    this.setupSocials();
+    this.setupRealTimeValidation();
+    
+    window.contactSystem = {
+      showNotification: (msg, type) => this.showNotification(msg, type)
+    };
   }
-  field.style.borderColor = '';
+
+  injectStyles() {
+    if (document.getElementById('contact-sys-styles')) return;
+    
+    const css = `
+      .sys-notif {
+        position: fixed; top: 20px; right: 20px;
+        padding: 12px 16px; border-radius: 10px;
+        display: flex; align-items: center; gap: 12px;
+        z-index: 10000; font-family: 'Sora', sans-serif; font-size: 0.9rem;
+        max-width: 300px; color: #fff;
+        animation: slideInRight 0.3s ease-out forwards;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      }
+      .sys-notif.success { background: #1a1a1a; border: 1.5px solid #00ff88; }
+      .sys-notif.error { background: #331a1a; border: 1.5px solid #ff4444; }
+      .sys-notif.hiding { animation: slideOutRight 0.3s ease-in forwards; }
+      .sys-notif button {
+        background: none; border: none; color: #fff; cursor: pointer;
+        padding: 4px; border-radius: 50%; display: flex;
+        transition: background 0.2s;
+      }
+      .sys-notif button:hover { background: rgba(255,255,255,0.1); }
+      .field-error { color: #ff6b6b; font-size: 0.8rem; margin-top: 5px; font-family: 'Sora', sans-serif; }
+      .input-error { border-color: #ff6b6b !important; }
+      @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+      @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+    `;
+    
+    const style = document.createElement('style');
+    style.id = 'contact-sys-styles';
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  setupForm() {
+    if (!this.dom.form) return;
+
+    this.dom.form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = this.dom.form.querySelector('.submit-btn');
+      const originalContent = btn.innerHTML;
+
+      if (!this.validateForm()) return;
+
+      this.setLoading(btn, true);
+
+      try {
+        const formData = new FormData(this.dom.form);
+        const data = {
+          firstName: formData.get('firstName').trim(),
+          lastName: formData.get('lastName').trim(),
+          email: formData.get('email').trim(),
+          phone: formData.get('phone')?.trim() || '',
+          message: formData.get('message').trim(),
+          timestamp: this.firebase.firestore.FieldValue.serverTimestamp(),
+          read: false
+        };
+
+        await this.db.collection('contacts').add(data);
+        this.showNotification("Message sent successfully! I'll get back to you soon.", 'success');
+        this.dom.form.reset();
+        this.clearErrors();
+      } catch (err) {
+        console.error(err);
+        this.showNotification('An error occurred. Please try again.', 'error');
+      } finally {
+        this.setLoading(btn, false, originalContent);
+      }
+    });
+  }
+
+  validateForm() {
+    let isValid = true;
+    const required = this.dom.form.querySelectorAll('[required]');
+    
+    required.forEach(field => {
+      if (!this.checkField(field)) isValid = false;
+    });
+
+    if (!isValid) this.showNotification('Please check the highlighted fields.', 'error');
+    return isValid;
+  }
+
+  checkField(field) {
+    const val = field.value.trim();
+    this.clearFieldError(field);
+
+    if (!val) {
+      this.showFieldError(field, 'This field is required');
+      return false;
+    }
+
+    if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      this.showFieldError(field, 'Invalid email address');
+      return false;
+    }
+
+    return true;
+  }
+
+  showFieldError(field, msg) {
+    field.classList.add('input-error');
+    const div = document.createElement('div');
+    div.className = 'field-error';
+    div.textContent = msg;
+    field.parentNode.appendChild(div);
+  }
+
+  clearFieldError(field) {
+    field.classList.remove('input-error');
+    const err = field.parentNode.querySelector('.field-error');
+    if (err) err.remove();
+  }
+
+  clearErrors() {
+    this.dom.form.querySelectorAll('.field-error').forEach(e => e.remove());
+    this.dom.form.querySelectorAll('.input-error').forEach(e => e.classList.remove('input-error'));
+  }
+
+  setupRealTimeValidation() {
+    if (!this.dom.form) return;
+    const inputs = this.dom.form.querySelectorAll('input[required], textarea[required]');
+    inputs.forEach(input => {
+      input.addEventListener('blur', () => this.checkField(input));
+      input.addEventListener('input', () => this.clearFieldError(input));
+    });
+  }
+
+  setLoading(btn, isLoading, content = '') {
+    btn.disabled = isLoading;
+    btn.innerHTML = isLoading ? '<span>Sending...</span>' : content;
+  }
+
+  setupSocials() {
+    this.dom.socials.forEach(item => {
+      item.addEventListener('mouseenter', () => item.style.transform = 'scale(1.02)');
+      item.addEventListener('mouseleave', () => item.style.transform = 'scale(1)');
+    });
+  }
+
+  showNotification(msg, type) {
+    document.querySelectorAll('.sys-notif').forEach(n => n.remove());
+
+    const notif = document.createElement('div');
+    notif.className = `sys-notif ${type}`;
+    notif.innerHTML = `<span>${msg}</span><button><ion-icon name="close-outline"></ion-icon></button>`;
+    
+    const close = () => {
+      notif.classList.add('hiding');
+      setTimeout(() => notif.remove(), 300);
+    };
+
+    notif.querySelector('button').onclick = close;
+    this.dom.body.appendChild(notif);
+    setTimeout(() => { if(notif.isConnected) close(); }, 4000);
+  }
 }
 
-// Export functions for global access (dacă este necesar)
-window.contactSystem = {
-  showNotification,
-  initContactForm,
-  initSocialInteractions
-};
+document.addEventListener('DOMContentLoaded', () => new ContactManager());

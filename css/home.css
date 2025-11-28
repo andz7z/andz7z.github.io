@@ -1,9 +1,14 @@
-/* --- GENERAL --- */
+/* =========================================
+   DESKTOP STYLES (BASE)
+   ========================================= */
+
 #home {
   background: black;
   position: relative;
   width: 100%;
   height: 100vh;
+  /* Fix pentru bara de adrese pe mobil */
+  height: 100dvh; 
   overflow: hidden;
   font-family: 'Sora', sans-serif;
   color: white;
@@ -14,24 +19,19 @@
   position: absolute;
   top: 52%;
   left: 50%;
-  width: 95%;        /* ajustezi mărimea după preferință */
+  width: 95%;
   height: 90%;
   transform: translate(-50%, -50%);
   object-fit: cover;
   filter: brightness(0.7);
-  border-radius: 40px;          /* colțuri rotunjite */
-  overflow: hidden;             /* important pt ca video-ul să nu iasă din radius */
+  border-radius: 40px;
+  overflow: hidden;
   opacity: 0;
   animation: fadeInVideo 2s ease forwards;
+  z-index: 1;
 }
 
-@keyframes fadeInVideo {
-  to {
-    opacity: 1;
-  }
-}
-
-/* --- CONTENT --- */
+/* --- CONTENT WRAPPER --- */
 .home-content {
   position: relative;
   z-index: 5;
@@ -64,6 +64,7 @@
   position: relative;
   top: -9vh;
   left: 1vw;
+  line-height: 1;
 }
 
 /* --- SWITCH TEXT --- */
@@ -74,7 +75,7 @@
   position: relative;
   top: -14.75vh;
   left: 23vw;
-  font-weight: 1000;
+  font-weight: 800; /* 1000 nu exista standard, am pus 800 (Extra Bold) */
   letter-spacing: 3px;
   opacity: 0;
   animation: fadeIn 1.5s ease forwards;
@@ -104,10 +105,13 @@
   animation: fadeIn 1.5s forwards ease;
   animation-delay: 3s;
   color: rgb(195, 195, 195);
+  line-height: 1.1;
 }
+
 .vision {
-    color:white;
+  color: white;
 }
+
 /* --- BOTTOM RIGHT --- */
 .bottom-right {
   position: absolute;
@@ -126,22 +130,99 @@
 .pulse-dot {
   width: 7px;
   height: 7px;
-  position: relative;
-  left: 14vw;
+  /* Eliminat position relative left 14vw pentru că strica layout-ul dacă se schimbă ecranul */
   background: #00ff62;
   border-radius: 50%;
   animation: pulse 1.7s infinite ease-in-out;
+  flex-shrink: 0;
 }
 
+/* --- ANIMATIONS --- */
+@keyframes fadeInVideo { to { opacity: 1; } }
+@keyframes fadeIn { to { opacity: 1; } }
 @keyframes pulse {
   0% { transform: scale(0.9); opacity: 0.8; }
   50% { transform: scale(1.3); opacity: 1; }
   100% { transform: scale(0.9); opacity: 0.8; }
 }
 
-/* --- FADE IN GLOBAL --- */
-@keyframes fadeIn {
-  to {
-    opacity: 1;
+/* =========================================
+   MOBILE OPTIMIZATION (Max Width 768px)
+   ========================================= */
+
+@media (max-width: 768px) {
+  
+  /* 1. Resetăm containerul pentru Flexbox Vertical */
+  .home-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrează vertical */
+    align-items: flex-start; /* Aliniază la stânga */
+    padding: 30px 20px;
+    text-align: left;
   }
+
+  /* 2. Ajustăm video-ul pentru ecrane înalte (Portrait) */
+  #home .bg-video {
+    width: 92%;
+    height: 94%; /* Mai înalt pe mobil */
+    border-radius: 30px;
+  }
+
+  /* 3. Logo Symbol (Top left mic) */
+  .logo-symbol {
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    margin-bottom: 20px;
+    position: absolute; /* Îl fixăm sus stânga */
+    top: 40px;
+    left: 30px;
+  }
+
+  /* 4. Logo Text (Numele Mare) */
+  .logo-text {
+    font-size: 14vw; /* Font dinamic bazat pe lățimea ecranului */
+    top: auto;
+    left: auto;
+    margin-top: -60px; /* Ușoară ajustare verticală */
+    margin-bottom: 20px;
+  }
+
+  /* 5. Switcher (Rolurile) */
+  .switcher {
+    top: auto;
+    left: auto;
+    font-size: 12px; /* Mai lizibil pe mobil */
+    margin-bottom: 40px;
+    margin-left: 5px; /* Aliniere fină cu titlul */
+  }
+
+  /* 6. Bottom Left (Vision Text) */
+  .bottom-left {
+    margin-top: 0; /* Reset margine uriașă */
+    font-size: 32px; /* Mult mai mic decât 70px */
+    line-height: 1.3;
+  }
+
+  /* 7. Bottom Right (Scroll/Pulse) */
+  .bottom-right {
+    position: absolute;
+    bottom: 40px;
+    right: auto;
+    left: 30px; /* Mutăm în stânga jos pe mobil pentru simetrie */
+    font-size: 14px;
+  }
+
+  /* Reset poziție ciudată a punctului verde pe mobil */
+  .pulse-dot {
+    left: auto;
+    order: -1; /* Mută punctul în fața textului, dacă vrei */
+  }
+}
+
+/* Pentru ecrane foarte mici (iPhone SE, etc) */
+@media (max-width: 380px) {
+  .logo-text { font-size: 13vw; }
+  .bottom-left { font-size: 28px; }
 }

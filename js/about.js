@@ -1,180 +1,113 @@
-// About Section JavaScript - Proper Animation System
 class AboutSection {
   constructor() {
-    this.section = document.getElementById('about');
-    this.contactBtn = document.getElementById('contactBtn');
-    this.contactText = document.getElementById('contactText');
-    this.contactIcon = document.querySelector('.contact-icon');
-    this.timeValue = document.getElementById('timeValue');
-    this.timeStatus = document.getElementById('timeStatus');
-    this.timeUnit = document.querySelector('.time-unit');
-    this.hasAnimated = false;
-    
-    this.workStartHour = 8; // 8:00 AM
-    this.workEndHour = 20;  // 8:00 PM
-    this.timeUpdateInterval = null;
-    
+    this.dom = {
+      section: document.getElementById('about'),
+      btn: document.getElementById('contactBtn'),
+      text: document.getElementById('contactText'),
+      icon: document.querySelector('.contact-icon'),
+      val: document.getElementById('timeValue'),
+      status: document.getElementById('timeStatus'),
+      unit: document.querySelector('.time-unit')
+    };
+
+    this.config = {
+      start: 8,
+      end: 20,
+      classes: ['time-green', 'time-yellow', 'time-orange', 'time-red', 'time-expired']
+    };
+
+    this.timer = null;
     this.init();
   }
-  
+
   init() {
-    this.setupScrollObserver();
-    this.startTimeUpdate();
-    this.setupContactButton();
+    this.setupObserver();
+    this.startClock();
+    this.dom.btn.addEventListener('click', () => console.log('Contact action triggered'));
   }
-  
-  setupScrollObserver() {
-    const observer = new IntersectionObserver((entries) => {
+
+  setupObserver() {
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && !this.hasAnimated) {
-          this.animateIn();
-          this.hasAnimated = true;
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+          obs.unobserve(entry.target);
         }
       });
-    }, {
-      threshold: 0.4,
-      rootMargin: '0px 0px -50px 0px'
-    });
+    }, { threshold: 0.4, rootMargin: '0px 0px -50px 0px' });
     
-    observer.observe(this.section);
+    observer.observe(this.dom.section);
   }
-  
-  animateIn() {
-    // Add animated class to trigger CSS animations
-    this.section.classList.add('animated');
-    
-    console.log('Animating about section...');
+
+  startClock() {
+    this.tick();
+    this.timer = setInterval(() => this.tick(), 1000);
   }
-  
-  setupContactButton() {
-    this.contactBtn.addEventListener('click', () => {
-      // Add your contact action here
-      console.log('Contact button clicked!');
-      // Example: window.location.href = 'mailto:your@email.com';
-    });
-  }
-  
-  startTimeUpdate() {
-    this.updateTime();
-    this.timeUpdateInterval = setInterval(() => {
-      this.updateTime();
-    }, 1000);
-  }
-  
-  updateTime() {
+
+  tick() {
     const now = new Date();
-    const currentDay = now.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
-    const currentHour = now.getHours();
-    const currentMinute = now.getMinutes();
-    const currentSecond = now.getSeconds();
-    
-    // Check if it's Sunday
-    if (currentDay === 0) {
-      this.contactText.textContent = 'Try Tomorrow';
-      this.contactIcon.style.color = '#ff4757';
-      this.timeStatus.textContent = 'Available from';
-      this.timeValue.textContent = '08:00';
-      this.timeUnit.textContent = 'AM';
-      this.contactBtn.classList.add('time-expired');
+    const day = now.getDay();
+    const hour = now.getHours();
+
+    if (day === 0) {
+      this.setUnavailableState('Try Tomorrow', 'Available from', '08:00', 'AM');
       return;
     }
-    
-    // Calculate remaining time in work day
-    let remainingHours, remainingMinutes, remainingSeconds;
-    let isWorkingHours = false;
-    
-    if (currentHour < this.workStartHour) {
-      // Before work hours
-      remainingHours = this.workStartHour - currentHour - 1;
-      remainingMinutes = 60 - currentMinute - 1;
-      remainingSeconds = 60 - currentSecond;
-      this.timeStatus.textContent = 'Available at';
-      this.contactText.textContent = 'Try Tomorrow';
-      this.contactIcon.style.color = '#ff4757';
-    } else if (currentHour >= this.workStartHour && currentHour < this.workEndHour) {
-      // During work hours
-      remainingHours = this.workEndHour - currentHour - 1;
-      remainingMinutes = 60 - currentMinute - 1;
-      remainingSeconds = 60 - currentSecond;
-      this.timeStatus.textContent = 'Available for';
-      this.contactText.textContent = 'Contact Now';
-      this.contactIcon.style.color = '';
-      isWorkingHours = true;
+
+    if (hour < this.config.start) {
+      this.setUnavailableState('Try Tomorrow', 'Available at', '08:00', 'AM');
+    } else if (hour >= this.config.end) {
+      this.setUnavailableState('Try Tomorrow', 'Available in', '08:00', 'AM');
     } else {
-      // After work hours
-      remainingHours = (24 - currentHour) + this.workStartHour - 1;
-      remainingMinutes = 60 - currentMinute - 1;
-      remainingSeconds = 60 - currentSecond;
-      this.timeStatus.textContent = 'Available in';
-      this.contactText.textContent = 'Try Tomorrow';
-      this.contactIcon.style.color = '#ff4757';
-    }
-    
-    // Handle negative values
-    if (remainingMinutes < 0) {
-      remainingHours -= 1;
-      remainingMinutes += 60;
-    }
-    if (remainingSeconds < 0) {
-      remainingMinutes -= 1;
-      remainingSeconds += 60;
-    }
-    
-    // Ensure we don't show negative time
-    if (remainingHours < 0) remainingHours = 0;
-    if (remainingMinutes < 0) remainingMinutes = 0;
-    if (remainingSeconds < 0) remainingSeconds = 0;
-    
-    // Update time display
-    if (isWorkingHours) {
-      const timeString = `${remainingHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-      this.timeValue.textContent = timeString;
-      this.timeUnit.textContent = 'hr';
-    } else {
-      this.timeValue.textContent = '08:00';
-      this.timeUnit.textContent = 'AM';
-    }
-    
-    // Update colors based on remaining time
-    this.updateTimeAppearance(remainingHours, remainingMinutes, isWorkingHours);
-  }
-  
-  updateTimeAppearance(hours, minutes, isWorkingHours) {
-    // Remove all color classes
-    this.contactBtn.classList.remove('time-green', 'time-yellow', 'time-orange', 'time-red', 'time-expired');
-    
-    if (!isWorkingHours) {
-      this.contactBtn.classList.add('time-expired');
-      return;
-    }
-    
-    if (hours >= 8) {
-      this.contactBtn.classList.add('time-green');
-    } else if (hours >= 6) {
-      this.contactBtn.classList.add('time-green');
-    } else if (hours >= 4) {
-      this.contactBtn.classList.add('time-yellow');
-    } else if (hours >= 2) {
-      this.contactBtn.classList.add('time-orange');
-    } else if (hours >= 1 || (hours === 0 && minutes > 0)) {
-      this.contactBtn.classList.add('time-red');
-    } else {
-      this.contactBtn.classList.add('time-expired');
-      this.timeStatus.textContent = 'Busy, try again tomorrow';
-      this.timeValue.textContent = '';
-      this.contactText.textContent = 'Try Tomorrow';
-      this.contactIcon.style.color = '#ff4757';
+      this.updateWorkingState(now);
     }
   }
-  
+
+  setUnavailableState(btnText, statusText, timeVal, unitVal) {
+    this.dom.text.textContent = btnText;
+    this.dom.status.textContent = statusText;
+    this.dom.val.textContent = timeVal;
+    this.dom.unit.textContent = unitVal;
+    this.dom.icon.style.color = '#ff4757';
+    this.updateBtnClass('time-expired');
+  }
+
+  updateWorkingState(now) {
+    const target = new Date(now).setHours(this.config.end, 0, 0, 0);
+    const diff = target - now;
+    
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+
+    const fmt = n => n.toString().padStart(2, '0');
+    
+    this.dom.text.textContent = 'Contact Now';
+    this.dom.status.textContent = 'Available for';
+    this.dom.val.textContent = `${fmt(h)}:${fmt(m)}:${fmt(s)}`;
+    this.dom.unit.textContent = 'hr';
+    this.dom.icon.style.color = '';
+
+    this.updateColorState(h);
+  }
+
+  updateColorState(hoursLeft) {
+    let cls = 'time-red';
+    if (hoursLeft >= 6) cls = 'time-green';
+    else if (hoursLeft >= 4) cls = 'time-yellow';
+    else if (hoursLeft >= 2) cls = 'time-orange';
+    
+    this.updateBtnClass(cls);
+  }
+
+  updateBtnClass(newClass) {
+    this.dom.btn.classList.remove(...this.config.classes);
+    this.dom.btn.classList.add(newClass);
+  }
+
   destroy() {
-    if (this.timeUpdateInterval) {
-      clearInterval(this.timeUpdateInterval);
-    }
+    if (this.timer) clearInterval(this.timer);
   }
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  new AboutSection();
-});
+document.addEventListener('DOMContentLoaded', () => new AboutSection());

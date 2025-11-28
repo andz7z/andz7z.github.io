@@ -1,4 +1,4 @@
-/* Contact Section Styles - Compact */
+/* Contact Section Styles - Base (PC First) */
 #contact {
   font-family: 'Sora', sans-serif;
   background-color: #000;
@@ -6,6 +6,8 @@
   padding: 60px 20px;
   position: relative;
   min-height: 100vh;
+  /* Folosim dvh pentru mobile browsers care au bara de jos dinamică */
+  min-height: 100dvh; 
   display: flex;
   align-items: center;
 }
@@ -19,7 +21,7 @@
   width: 100%;
 }
 
-/* Left Side Styles - Compact */
+/* Left Side Styles */
 .contact-left {
   display: flex;
   flex-direction: column;
@@ -31,7 +33,7 @@
   font-weight: 100;
   line-height: 1.2;
   margin-bottom: 30px;
-  color: #fff; /* Textul normal este alb */
+  color: #fff;
 }
 
 .answers {
@@ -47,7 +49,7 @@
   background-clip: text;
 }
 
-/* Form Styles - Compact */
+/* Form Styles */
 .contact-form-container {
   margin-top: 20px;
 }
@@ -74,19 +76,22 @@
   width: 100%;
   padding: 12px 16px;
   border: 1.5px solid #333;
-  background-color: #11111100;
+  background-color: rgba(17, 17, 17, 0);
   color: #fff;
   font-size: 0.9rem;
   font-family: 'Sora', sans-serif;
   border-radius: 12px;
   transition: all 0.3s ease;
+  /* Elimină stilul default pe iOS */
+  -webkit-appearance: none; 
+  appearance: none;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: #fff;
-  background-color: #1a1a1a00;
+  background-color: rgba(26, 26, 26, 0);
   transform: translateY(-1px);
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
 }
@@ -99,10 +104,11 @@
   color: #888;
   pointer-events: none;
   transition: all 0.3s ease;
-  background-color: #11111100;
+  background-color: transparent; /* Fix pentru suprapunere */
   padding: 0 6px;
 }
 
+/* Fix pentru label background ca să nu taie linia inputului urât */
 .form-group input:focus ~ label,
 .form-group input:valid ~ label,
 .form-group textarea:focus ~ label,
@@ -121,7 +127,7 @@
 .submit-btn {
   background: linear-gradient(135deg, #000 0%, #000000 100%);
   color: #fff;
-  border: 2px solid #ffffff6a;
+  border: 2px solid rgba(255, 255, 255, 0.4);
   padding: 12px 30px;
   font-size: 0.95rem;
   font-family: 'Sora', sans-serif;
@@ -132,17 +138,25 @@
   border-radius: 25px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
 }
 
-.submit-btn:hover {
-  background: linear-gradient(135deg, #fff 0%, #ccc 100%);
-  color: #000;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+/* Hover effects doar pentru dispozitive cu mouse (PC) */
+@media (hover: hover) {
+  .submit-btn:hover {
+    background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+  }
 }
 
-/* Right Side Social Media Styles - Compact */
+.submit-btn:active {
+  transform: scale(0.98);
+}
+
+/* Right Side Social Media Styles */
 .contact-right {
   display: flex;
   flex-direction: column;
@@ -150,11 +164,11 @@
 }
 
 .socials-section {
-  background: #11111100;
+  background: rgba(17, 17, 17, 0);
   border-radius: 20px;
   padding: 30px 25px;
   border: 1px solid #333333;
-  box-shadow: 0 10px 30px rgb(255, 255, 255);
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05); /* Fix alpha la shadow */
 }
 
 .socials-header {
@@ -177,7 +191,7 @@
   font-weight: 300;
 }
 
-/* Social Media Grid - Compact */
+/* Social Media Grid */
 .socials-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -189,8 +203,8 @@
   align-items: center;
   gap: 12px;
   padding: 15px;
-  background: #1a1a1a00;
-  border: 1px solid #33333300;
+  background: rgba(26, 26, 26, 0);
+  border: 1px solid transparent;
   border-radius: 15px;
   text-decoration: none;
   color: #fff;
@@ -206,7 +220,7 @@
   align-items: center;
   justify-content: center;
   background: #000;
-  border: 1.5px solid #ffffff00;
+  border: 1.5px solid transparent;
   transition: all 0.3s ease;
   flex-shrink: 0;
 }
@@ -222,71 +236,46 @@
   transition: all 0.3s ease;
 }
 
-/* Hover Effects with Platform Colors */
-.socials-grid:hover .social-item:not(:hover) {
-  filter: blur(2px);
-  opacity: 0.5;
-  transform: scale(0.95);
+/* --- LOGICA AVANSATĂ PENTRU HOVER --- */
+/* Aceste efecte se aplică DOAR pe PC. Pe telefon blur-ul este enervant. */
+@media (hover: hover) {
+  .socials-grid:hover .social-item:not(:hover) {
+    filter: blur(2px);
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+
+  .social-item:hover {
+    transform: scale(1.02);
+    border-color: #fff;
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
+    z-index: 10;
+  }
+
+  .social-item:hover .social-icon ion-icon {
+    color: #fff;
+    transform: scale(1.1);
+  }
+
+  /* Platform specific colors on Hover */
+  .social-item[data-platform="linkedin"]:hover .social-icon { background: #0077b5; border-color: #0077b5; }
+  .social-item[data-platform="github"]:hover .social-icon { background: #333; border-color: #333; }
+  .social-item[data-platform="discord"]:hover .social-icon { background: #5865f2; border-color: #5865f2; }
+  .social-item[data-platform="tiktok"]:hover .social-icon { background: #000; border-color: #000; }
+  .social-item[data-platform="youtube"]:hover .social-icon { background: #ff0000; border-color: #ff0000; }
+  .social-item[data-platform="instagram"]:hover .social-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: transparent; }
+  .social-item[data-platform="facebook"]:hover .social-icon { background: #1877f2; border-color: #1877f2; }
+  .social-item[data-platform="gmail"]:hover .social-icon { background: #ea4335; border-color: #ea4335; }
 }
 
-.social-item:hover {
-  transform: scale(1.02);
-  border-color: #fff;
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.08);
-  z-index: 10;
-}
+/* =========================================
+   PERFECT MOBILE OPTIMIZATION
+   ========================================= */
 
-/* Platform-specific hover colors */
-.social-item[data-platform="linkedin"]:hover .social-icon {
-  background: #0077b5;
-  border-color: #0077b5;
-}
-
-.social-item[data-platform="github"]:hover .social-icon {
-  background: #333;
-  border-color: #333;
-}
-
-.social-item[data-platform="discord"]:hover .social-icon {
-  background: #5865f2;
-  border-color: #5865f2;
-}
-
-.social-item[data-platform="tiktok"]:hover .social-icon {
-  background: #000;
-  border-color: #000;
-}
-
-.social-item[data-platform="youtube"]:hover .social-icon {
-  background: #ff0000;
-  border-color: #ff0000;
-}
-
-.social-item[data-platform="instagram"]:hover .social-icon {
-  background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-  border-color: transparent;
-}
-
-.social-item[data-platform="facebook"]:hover .social-icon {
-  background: #1877f2;
-  border-color: #1877f2;
-}
-
-.social-item[data-platform="gmail"]:hover .social-icon {
-  background: #ea4335;
-  border-color: #ea4335;
-}
-
-/* All platform hovers share these */
-.social-item:hover .social-icon ion-icon {
-  color: #fff;
-  transform: scale(1.1);
-}
-
-/* Responsive Design - Compact */
 @media (max-width: 1024px) {
   .contact-container {
     gap: 40px;
+    padding: 0 20px; /* Extra siguranță la margini */
   }
   
   .contact-title h2 {
@@ -299,67 +288,102 @@
 }
 
 @media (max-width: 768px) {
+  #contact {
+    padding: 80px 15px 40px 15px; /* Mai mult spațiu sus pentru header */
+    height: auto; /* Permite containerului să crească */
+    min-height: auto;
+  }
+
   .contact-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr; /* Stivare verticală */
+    gap: 50px;
+    max-width: 500px; /* Limitează lățimea pe tablete portrait */
   }
   
+  .contact-left, .contact-right {
+    width: 100%;
+  }
+
   .contact-title h2 {
+    text-align: center;
     font-size: 1.8rem;
   }
-  
-  .answers {
-    font-size: 2rem;
+
+  /* Centrare titlu pe mobil */
+  .contact-title {
+    text-align: center;
   }
   
   .form-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* Input-uri unul sub altul */
+    gap: 20px;
   }
-  
+
+  /* FIX iOS ZOOM: Font size 16px previne zoom-ul automat */
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; 
+    padding: 14px 16px; /* Touch target mai mare */
+  }
+
+  .submit-btn {
+    width: 100%; /* Buton full width pe mobil */
+    padding: 15px; /* Mai ușor de apăsat */
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+
   .socials-section {
     padding: 25px 20px;
-  }
-  
-  .socials-header h3 {
-    font-size: 1.3rem;
   }
 }
 
 @media (max-width: 480px) {
   #contact {
-    padding: 40px 15px;
+    padding: 60px 15px;
   }
   
   .contact-title h2 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
   
   .answers {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
+    display: block; /* Pe ecrane foarte mici, poate fi pe rând nou */
+    margin-top: 5px;
   }
   
-  .socials-section {
-    padding: 20px 15px;
+  .socials-header h3 {
+    font-size: 1.3rem;
   }
-  
+
+  /* IMPORTANT: Păstrăm 2 coloane pe mobil!
+     1 coloană arată urât și ocupă prea mult spațiu vertical.
+  */
   .socials-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
   
   .social-item {
-    padding: 12px;
+    padding: 10px;
+    flex-direction: column; /* Icon sus, text jos pentru aspect compact */
+    text-align: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.03); /* Ușor fundal pentru contrast */
   }
   
   .social-icon {
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 2px;
   }
   
   .social-icon ion-icon {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   
   .social-name {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
   }
 }

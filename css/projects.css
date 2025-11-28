@@ -1,4 +1,13 @@
-/* Scrollbar global pentru întreg site-ul */
+/* =========================================
+   BASE STYLES (PC FIRST - NESCHIMBAT)
+   ========================================= */
+
+body {
+  background-color: #0e0e0e !important;
+  color: #fff;
+}
+
+/* Scrollbar global */
 html {
   scrollbar-width: thin;
   scrollbar-color: #fff #000;
@@ -23,7 +32,6 @@ html::-webkit-scrollbar-thumb:hover {
   background: #ccc;
 }
 
-/* Când modalul este deschis, scrollbar-ul devine mai subțire */
 html.modal-open::-webkit-scrollbar {
   width: 6px;
 }
@@ -32,15 +40,16 @@ html.modal-open::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.7);
 }
 
-/* Stiluri pentru sectiunea Projects */
+/* --- PROJECTS SECTION --- */
 #projects {
   background-color: #000;
   color: #fff;
+  margin: 0;
   padding: 100px 0;
   font-family: 'Sora', sans-serif;
   position: relative;
   overflow: hidden;
-  height: 140vh;
+  height: 140vh; /* PC Height */
   display: flex;
   align-items: center;
 }
@@ -109,6 +118,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   perspective: 1200px;
 }
 
+/* Slide Styles */
 .project-slide {
   position: absolute;
   width: 600px;
@@ -122,9 +132,12 @@ html.modal-open::-webkit-scrollbar-thumb {
   transform-style: preserve-3d;
 }
 
-.project-slide:hover {
-  filter: grayscale(0%);
-  transform: translateY(-10px) scale(1.02);
+/* Hover effect doar pe PC */
+@media (hover: hover) {
+  .project-slide:hover {
+    filter: grayscale(0%);
+    transform: translateY(-10px) scale(1.02);
+  }
 }
 
 .project-slide.active {
@@ -169,9 +182,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   opacity: 0.4;
 }
 
-.project-slide.hidden {
-  display: none;
-}
+.project-slide.hidden { display: none; }
 
 .project-thumbnail {
   width: 100%;
@@ -180,16 +191,11 @@ html.modal-open::-webkit-scrollbar-thumb {
   transition: transform 0.8s ease;
 }
 
-.project-slide:hover .project-thumbnail {
-  transform: scale(1.08);
-}
+.project-slide:hover .project-thumbnail { transform: scale(1.08); }
 
 .project-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 0; left: 0; width: 100%; height: 100%;
   background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
   display: flex;
   justify-content: center;
@@ -198,10 +204,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   transition: opacity 0.5s ease;
 }
 
-.project-slide:hover .project-overlay {
-  opacity: 1;
-}
-
+.project-slide:hover .project-overlay,
 .project-slide.active .project-overlay {
   opacity: 1;
 }
@@ -231,32 +234,25 @@ html.modal-open::-webkit-scrollbar-thumb {
 .view-more::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
   background: rgba(255, 255, 255, 0.1);
   transition: left 0.5s ease;
   z-index: -1;
 }
 
-.view-more:hover::before {
-  left: 0;
-}
-
+.view-more:hover::before { left: 0; }
 .view-more:hover {
   border-color: #fff;
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Modal Styles - CORECTAT */
+/* --- MODAL STYLES --- */
 #projectsModal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100%; height: 100vh;
   background-color: #000;
   z-index: 1000;
   display: none;
@@ -265,60 +261,40 @@ html.modal-open::-webkit-scrollbar-thumb {
   overflow: hidden;
 }
 
-#projectsModal.active {
-  display: block;
-  opacity: 1;
-}
+#projectsModal.active { display: block; opacity: 1; }
+#projectsModal.closing { animation: modalClose 0.6s ease forwards; }
 
-#projectsModal.closing {
-  animation: modalClose 0.6s ease forwards;
-}
-
-/* Header modal - CORECTAT */
 #projectsModal .modal-header {
   display: flex;
   justify-content: space-between;
   padding: 30px 40px;
   position: fixed;
-  top: 0;
-  left: 0;
+  top: 0; left: 0;
   width: 100%;
   z-index: 1001;
   background: transparent;
+  pointer-events: none; /* Permite click prin header */
 }
 
-/* Butoane specifice pentru Projects modal */
+/* Butoanele trebuie să aibă pointer-events: auto */
 #projectsModal .back-btn,
 #projectsModal .contact-btn {
-  background: none;
-  border: none;
+  pointer-events: auto; 
+  background: rgba(0, 0, 0, 0.3); /* Ușor fundal pentru vizibilitate */
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0);
   color: #fff;
   display: flex;
   align-items: center;
   gap: 10px;
   cursor: pointer;
   position: relative;
-  top: 0vh;
+  /* Reset top/left pentru consistență */
   font-family: 'Sora', sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
-  padding: 10px 15px;
-  border-radius: 5px;
-}
-#projectsModal .contact-btn {
-  top: -2vh;
-}
-#projectsModal .back-btn {
-  flex-direction: row;
-}
-
-#projectsModal .contact-btn {
-  flex-direction: row;
-  margin-left: auto;
-}
-
-#projectsModal .contact-btn:hover ion-icon {
-  color: #4CAF50;
+  padding: 10px 20px;
+  border-radius: 30px;
 }
 
 #projectsModal .back-text,
@@ -327,19 +303,20 @@ html.modal-open::-webkit-scrollbar-thumb {
   transform: translateX(-10px);
   transition: all 0.3s ease;
   font-size: 0.8rem;
+  display: none; /* Ascuns default pe PC până la hover */
 }
 
-#projectsModal .back-btn:hover .back-text {
-  opacity: 1;
-  transform: translateX(0);
+@media (min-width: 1025px) {
+  #projectsModal .back-text,
+  #projectsModal .contact-text { display: inline-block; }
+  
+  #projectsModal .back-btn:hover .back-text,
+  #projectsModal .contact-btn:hover .contact-text {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
-#projectsModal .contact-btn:hover .contact-text {
-  opacity: 1;
-  transform: translateX(0);
-}
-
-/* Conținut modal - CORECTAT */
 #projectsModal .modal-content {
   padding: 40px;
   height: 100vh;
@@ -349,36 +326,21 @@ html.modal-open::-webkit-scrollbar-thumb {
   box-sizing: border-box;
 }
 
-/* Scrollbar custom pentru modal */
-#projectsModal .modal-content::-webkit-scrollbar {
-  width: 8px;
-}
+#projectsModal .modal-content::-webkit-scrollbar { width: 8px; }
+#projectsModal .modal-content::-webkit-scrollbar-track { background: #000; }
+#projectsModal .modal-content::-webkit-scrollbar-thumb { background: #fff; border-radius: 4px; }
 
-#projectsModal .modal-content::-webkit-scrollbar-track {
-  background: #000;
-}
-
-#projectsModal .modal-content::-webkit-scrollbar-thumb {
-  background: #fff;
-  border-radius: 4px;
-}
-
-#projectsModal .modal-content::-webkit-scrollbar-thumb:hover {
-  background: #ccc;
-}
-
-/* Elemente specifice modal Projects */
 #projectsModal .modal-title {
   text-align: center;
   font-size: 1.7rem;
   font-weight: 400;
-  margin-top: -11vh;
+  margin-top: 20px; /* Reset negative margins */
+  margin-bottom: 20px;
   opacity: 0;
   transform: translateY(-30px);
   animation: modalTitleSlide 0.6s ease 0.3s forwards;
 }
 
-/* Linie despartitoare sub titlu */
 #projectsModal .title-divider {
   height: 1px;
   background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
@@ -396,9 +358,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   animation: modalContentReveal 0.8s ease 0.5s forwards;
 }
 
-#projectsModal .project-gallery {
-  flex: 1;
-}
+#projectsModal .project-gallery { flex: 1; }
 
 #projectsModal .gallery-container {
   position: relative;
@@ -408,520 +368,270 @@ html.modal-open::-webkit-scrollbar-thumb {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-#projectsModal .gallery-slides {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
+#projectsModal .gallery-slides { width: 100%; height: 100%; position: relative; }
 #projectsModal .gallery-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.8s ease;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+  opacity: 0; transition: opacity 0.8s ease;
 }
-
-#projectsModal .gallery-slide.active {
-  opacity: 1;
-}
-
+#projectsModal .gallery-slide.active { opacity: 1; }
 #projectsModal .gallery-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(30%);
-  transition: filter 0.5s ease;
+  width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(30%); transition: filter 0.5s ease;
 }
+#projectsModal .gallery-slide.active .gallery-image { filter: grayscale(0%); }
 
-#projectsModal .gallery-slide.active .gallery-image {
-  filter: grayscale(0%);
-}
-
-/* Butoane slide - CORECTAT */
 #projectsModal .slide-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgb(255, 255, 255);
-  color: #fff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  z-index: 10;
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5); border: 1px solid #fff;
+  color: #fff; width: 40px; height: 40px; border-radius: 50%;
+  display: flex; justify-content: center; align-items: center;
+  cursor: pointer; transition: all 0.4s ease; z-index: 10;
 }
-
-#projectsModal .slide-btn:hover {
-  background-color: #fff;
-  border-color: #fff;
-}
-
-#projectsModal .slide-btn:hover ion-icon {
-  color: #000;
-  transform: scale(1.2);
-}
-
-#projectsModal .slide-btn ion-icon {
-  font-size: 28px;
-  transition: all 0.3s ease;
-}
-
-#projectsModal .prev-btn {
-  left: 25px;
-}
-
-#projectsModal .next-btn {
-  right: 25px;
-}
+#projectsModal .slide-btn:hover { background-color: #fff; border-color: #fff; }
+#projectsModal .slide-btn:hover ion-icon { color: #000; transform: scale(1.2); }
+#projectsModal .prev-btn { left: 25px; }
+#projectsModal .next-btn { right: 25px; }
 
 #projectsModal .project-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex: 1; display: flex; flex-direction: column; justify-content: center;
 }
-
 #projectsModal .project-name {
-  font-size: 2.2rem;
-  margin-bottom: 25px;
-  font-weight: 500;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(20px);
+  font-size: 2.2rem; margin-bottom: 25px; font-weight: 500;
+  text-align: center; opacity: 0; transform: translateY(20px);
 }
-
 #projectsModal .project-description p {
-  margin-bottom: 30px;
-  line-height: 1.7;
-  font-size: 1.1rem;
-  opacity: 0;
-  transform: translateY(20px);
+  margin-bottom: 30px; line-height: 1.7; font-size: 1.1rem;
+  opacity: 0; transform: translateY(20px);
 }
-
-#projectsModal .key-features {
-  list-style: none;
-  padding: 0;
-}
-
+#projectsModal .key-features { list-style: none; padding: 0; }
 #projectsModal .key-features li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 18px;
-  font-size: 1.05rem;
-  opacity: 0;
-  transform: translateX(-20px);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 18px;
+  font-size: 1.05rem; opacity: 0; transform: translateX(-20px);
 }
+#projectsModal .feature-text { opacity: 0; transform: translateX(-10px); }
 
-#projectsModal .feature-text {
-  opacity: 0;
-  transform: translateX(-10px);
-}
-
-/* Animații pentru schimbarea proiectelor în modal */
-#projectsModal .modal-content.changing .modal-title,
-#projectsModal .modal-content.changing .project-details,
-#projectsModal .modal-content.changing .divider-section,
-#projectsModal .modal-content.changing .related-projects {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s ease;
-}
-
-#projectsModal .modal-content .modal-title,
-#projectsModal .modal-content .project-details,
-#projectsModal .modal-content .divider-section,
-#projectsModal .modal-content .related-projects {
-  transition: all 0.6s ease;
-}
-
+/* Animații text typing */
 #projectsModal .modal-content .project-name.typing,
 #projectsModal .modal-content .project-description p.typing,
 #projectsModal .modal-content .key-features li.typing,
 #projectsModal .modal-content .feature-text.typing {
-  opacity: 1;
-  transform: translate(0);
-  transition: all 0.5s ease;
-}
-
-#projectsModal .key-features li.typing {
-  transition-delay: 0.1s;
-}
-
-#projectsModal .feature-text.typing {
-  transition-delay: 0.2s;
+  opacity: 1; transform: translate(0); transition: all 0.5s ease;
 }
 
 #projectsModal .divider-section {
-  margin: 60px 0;
-  position: relative;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 0.5s ease 1.7s forwards;
+  margin: 60px 0; position: relative; opacity: 0;
+  transform: translateY(30px); animation: fadeInUp 0.5s ease 1.7s forwards;
 }
-
 #projectsModal .divider-line {
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.736) 50%, rgba(255,255,255,0) 100%);
+  height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
   margin-bottom: 25px;
 }
-
 #projectsModal .divider-text {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center; gap: 15px; font-size: 1.2rem;
 }
 
 #projectsModal .related-projects {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  opacity: 0;
-  transform: translateY(40px);
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px;
+  opacity: 0; transform: translateY(40px);
   animation: relatedProjectsReveal 0.8s ease 1.9s forwards;
 }
 
 #projectsModal .related-project {
-  position: relative;
-  height: 300px;
-  border-radius: 15px;
-  overflow: hidden;
-  cursor: pointer;
-  filter: grayscale(100%);
-  transition: all 0.5s ease;
-  opacity: 0;
-  transform: translateY(30px);
+  position: relative; height: 300px; border-radius: 15px;
+  overflow: hidden; cursor: pointer; filter: grayscale(100%);
+  transition: all 0.5s ease; opacity: 0; transform: translateY(30px);
 }
-
-#projectsModal .related-projects .related-project:nth-child(1) {
-  animation: fadeInUp 0.6s ease 2.1s forwards;
-}
-
-#projectsModal .related-projects .related-project:nth-child(2) {
-  animation: fadeInUp 0.6s ease 2.3s forwards;
-}
+#projectsModal .related-projects .related-project:nth-child(1) { animation: fadeInUp 0.6s ease 2.1s forwards; }
+#projectsModal .related-projects .related-project:nth-child(2) { animation: fadeInUp 0.6s ease 2.3s forwards; }
 
 #projectsModal .related-project:hover {
-  filter: grayscale(0%);
-  transform: translateY(-10px);
+  filter: grayscale(0%); transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
 }
-
 #projectsModal .related-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.7s ease;
+  width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease;
 }
-
-#projectsModal .related-project:hover .related-image {
-  transform: scale(1.1);
-}
-
+#projectsModal .related-project:hover .related-image { transform: scale(1.1); }
 #projectsModal .related-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  position: absolute; top: 0; left: 0; width: 100%; height: 100%;
   background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 1;
-  transition: opacity 0.5s ease;
+  display: flex; justify-content: center; align-items: center;
+  opacity: 1; transition: opacity 0.5s ease;
 }
-
-#projectsModal .related-project:hover .related-overlay {
-  opacity: 0.8;
-}
-
+#projectsModal .related-project:hover .related-overlay { opacity: 0.8; }
 #projectsModal .related-title {
-  color: #fff;
-  font-size: 1.4rem;
-  font-weight: 500;
-  text-align: center;
-  padding: 0 20px;
+  color: #fff; font-size: 1.4rem; font-weight: 500;
+  text-align: center; padding: 0 20px;
 }
 
-/* Animations personalizate */
-@keyframes titleSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
+/* Animations Keyframes */
+@keyframes titleSlideIn { 0% { opacity: 0; transform: translateX(-50px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes fadeInUp { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes modalTitleSlide { 0% { opacity: 0; transform: translateY(-30px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes modalContentReveal { 0% { opacity: 0; transform: translateY(40px); } 70% { opacity: 0.7; transform: translateY(-5px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes relatedProjectsReveal { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes modalClose { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.98); } 100% { opacity: 0; transform: scale(0.95); } }
 
-@keyframes slideFromLeft {
-  0% {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes projectSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes thumbnailTransition {
-  0% {
-    opacity: 0;
-    transform: translateX(20px) scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0) scale(1);
-  }
-}
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes modalTitleSlide {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes modalContentReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  70% {
-    opacity: 0.7;
-    transform: translateY(-5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes relatedProjectsReveal {
-  0% {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes modalClose {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(0.98);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-
-@keyframes slideGalleryTransition {
-  0% {
-    transform: translateX(0) scale(1);
-  }
-  50% {
-    transform: translateX(0) scale(0.95);
-  }
-  100% {
-    transform: translateX(0) scale(1);
-  }
-}
-
-/* Optimizări de performanță */
-#projectsModal {
-  will-change: opacity, transform;
-}
-
-#projectsModal .gallery-slides,
-#projectsModal .project-main {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-  perspective: 1000;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .projects-content {
-    gap: 40px;
-  }
-  
-  .projects-gallery {
-    width: 1000px;
-  }
-  
-  #projectsModal .project-details {
-    gap: 40px;
-  }
-}
+/* =========================================
+   PERFECT MOBILE OPTIMIZATION
+   ========================================= */
 
 @media (max-width: 1024px) {
-  .projects-content {
-    flex-direction: column;
-  }
+  .projects-content { flex-direction: column; }
+  .projects-gallery { width: 800px; }
   
-  .categories-nav {
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    flex-wrap: wrap;
-  }
+  .project-slide.active { width: 550px; height: 350px; }
+  .project-slide.prev, .project-slide.next { width: 450px; height: 300px; }
+  .project-slide.far-prev, .project-slide.far-next { width: 400px; height: 280px; }
   
-  .category-btn {
-    width: auto;
-    min-width: 200px;
-  }
-  
-  .projects-display {
-    justify-content: center;
-  }
-  
-  .projects-gallery {
-    width: 800px;
-  }
-  
-  .project-slide.active {
-    width: 550px;
-    height: 350px;
-  }
-  
-  .project-slide.prev,
-  .project-slide.next {
-    width: 450px;
-    height: 300px;
-  }
-  
-  .project-slide.far-prev,
-  .project-slide.far-next {
-    width: 400px;
-    height: 280px;
-  }
-  
-  #projectsModal .project-details {
-    flex-direction: column;
-  }
-  
-  #projectsModal .gallery-container {
-    height: 400px;
-  }
+  #projectsModal .project-details { flex-direction: column; }
+  #projectsModal .gallery-container { height: 400px; }
 }
 
 @media (max-width: 768px) {
-  .projects-container {
-    padding: 0 20px;
+  /* 1. Layout General Mobil */
+  #projects {
+    height: auto; /* Foarte important pentru a nu lăsa spații goale */
+    min-height: 100vh;
+    padding: 60px 0;
+  }
+
+  .projects-container { padding: 0 20px; }
+  
+  .projects-title { 
+    font-size: 1.8rem; 
+    transform: translateX(0); /* Reset transform */
+    margin-top: 20px;
   }
   
-  .projects-title {
-    font-size: 2.2rem;
+  .confidence { font-size: 2.2rem; }
+
+  /* 2. Galeria 3D - Adaptată pentru Mobil */
+  .projects-display {
+    height: 400px;
+    margin-top: 20px;
   }
-  
-  .confidence {
-    font-size: 2.5rem;
-  }
-  
-  .categories-nav {
-    flex-direction: column;
-    gap: 15px;
-  }
-  
+
   .projects-gallery {
     width: 100%;
-    height: 350px;
+    height: 100%;
+    perspective: none; /* Elimină perspectiva complexă pe mobil */
   }
-  
+
+  /* Slide Activ - Full Focus */
   .project-slide.active {
-    width: 450px;
-    height: 300px;
+    width: 85vw; /* Ocupă aproape tot ecranul */
+    height: 45vh;
+    max-height: 400px;
+    opacity: 1;
+    transform: translateX(0) scale(1) !important; /* Reset 3D transforms */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 20;
+    left: 7.5vw; /* Centrare (100 - 85) / 2 */
   }
-  
-  .project-slide.prev,
+
+  /* Slide-uri Laterale - Ascunse sau subtile în spate */
+  .project-slide.prev {
+    width: 80vw;
+    height: 45vh;
+    max-height: 400px;
+    transform: translateX(-15px) scale(0.95) !important;
+    opacity: 0.3;
+    z-index: 5;
+    left: 7.5vw;
+    pointer-events: none; /* Nu poate fi dat click din greșeală */
+  }
+
   .project-slide.next {
-    width: 350px;
-    height: 250px;
+    width: 80vw;
+    height: 45vh;
+    max-height: 400px;
+    transform: translateX(15px) scale(0.95) !important;
+    opacity: 0.3;
+    z-index: 5;
+    left: 7.5vw;
+    pointer-events: none;
   }
-  
-  .project-slide.far-prev,
-  .project-slide.far-next {
-    display: none;
+
+  .project-slide.far-prev, 
+  .project-slide.far-next { 
+    display: none; /* Ascundem complet elementele îndepărtate */
   }
-  
+
+  /* Butonul View More - Mereu Vizibil pe Mobil */
+  .view-more {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    background: rgba(0,0,0,0.6); /* Contrast mai bun */
+    border-color: #fff;
+    padding: 12px 25px;
+    font-size: 0.9rem;
+  }
+
+  .project-overlay {
+    opacity: 1 !important; /* Overlay mereu vizibil */
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.9) 100%);
+  }
+
+  /* 3. Modal Mobile */
   #projectsModal .modal-header {
-    padding: 20px;
+    padding: 15px 20px;
+    background: rgba(0,0,0,0.8); /* Background pentru lizibilitate */
+    backdrop-filter: blur(10px);
   }
-  
+
+  #projectsModal .back-btn, 
+  #projectsModal .contact-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
   #projectsModal .modal-content {
     padding: 20px;
-    padding-top: 80px;
+    padding-top: 90px;
   }
-  
+
   #projectsModal .modal-title {
+    font-size: 1.5rem;
+    margin-top: 0;
+  }
+
+  #projectsModal .project-details {
+    gap: 30px;
+    margin-top: 20px;
+  }
+
+  #projectsModal .gallery-container {
+    height: 250px; /* Mai mic pe mobil */
+  }
+
+  #projectsModal .project-name {
     font-size: 1.8rem;
+    margin-bottom: 15px;
   }
-  
-  #projectsModal .title-divider {
-    width: 90%;
+
+  #projectsModal .project-description p {
+    font-size: 1rem;
+    text-align: left;
   }
-  
+
   #projectsModal .related-projects {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr; /* O singură coloană */
+    gap: 20px;
   }
-  
+
   #projectsModal .related-project {
-    height: 250px;
+    height: 220px;
   }
+}
+
+@media (max-width: 480px) {
+  .confidence { font-size: 1.8rem; }
+  .projects-title { font-size: 1.5rem; }
   
-  #projectsModal .slide-btn {
-    width: 50px;
-    height: 50px;
-  }
-  
-  #projectsModal .slide-btn ion-icon {
-    font-size: 20px;
+  .project-slide.active,
+  .project-slide.prev,
+  .project-slide.next {
+    height: 320px; /* Ajustare înălțime pentru ecrane mici */
   }
 }

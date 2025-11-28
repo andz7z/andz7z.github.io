@@ -1,59 +1,66 @@
-// Text carousel (fade-out → switch → fade-in)
-const roles = [
-  "Front-end Developer",
-  "UI/UX Designer",
-  "Content Creator"
-];
+document.addEventListener('DOMContentLoaded', () => {
+  // --- Optimized Text Carousel ---
+  const textEl = document.querySelector(".switch-text");
+  const roles = ["Front-end Developer", "UI/UX Designer", "Content Creator"];
+  let roleIdx = 0;
 
-const switchText = document.querySelector(".switch-text");
-
-let index = 0;
-
-function changeRole() {
-  // fade out
-  switchText.style.opacity = 0;
+  const cycleRoles = () => {
+    textEl.style.opacity = '0';
+    
+    setTimeout(() => {
+      roleIdx = (roleIdx + 1) % roles.length;
+      textEl.textContent = roles[roleIdx];
+      textEl.style.opacity = '1';
+    }, 600);
+  };
 
   setTimeout(() => {
-    switchText.innerHTML = roles[index];
-    // fade in
-    switchText.style.opacity = 1;
+    textEl.textContent = roles[0];
+    textEl.style.opacity = '1';
+    setInterval(cycleRoles, 3000);
+  }, 3500);
 
-    index = (index + 1) % roles.length;
-  }, 600);
-}
+  // --- High-Performance Custom Cursor ---
+  const cursor = document.querySelector('.custom-cursor');
+  const homeSection = document.getElementById('home');
+  let mouseX = 0;
+  let mouseY = 0;
+  let isMoving = false;
 
-// Start sequence after elements have appeared
-setTimeout(() => {
-  switchText.innerHTML = roles[0];
-  switchText.style.opacity = 1;
-  index = 1;
+  // Render loop using requestAnimationFrame (60fps locked)
+  const render = () => {
+    if (isMoving) {
+      cursor.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
+    }
+    requestAnimationFrame(render);
+  };
+  requestAnimationFrame(render);
 
-  setInterval(changeRole, 3000);
-}, 3500);
-// Custom cursor simplu și rapid
-const cursor = document.querySelector('.custom-cursor');
+  // Lightweight Input Listener
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    isMoving = true;
+  }, { passive: true });
 
-// Mișcare cursor INSTANT
-document.addEventListener('mousemove', (e) => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  
-  const isInHomeSection = e.target.closest('#home');
-  if (isInHomeSection) {
-    document.body.classList.add('home-cursor-active');
-  } else {
+  // Efficient Section Detection
+  if (homeSection) {
+    homeSection.addEventListener('mouseenter', () => {
+      document.body.classList.add('home-cursor-active');
+    });
+    
+    homeSection.addEventListener('mouseleave', () => {
+      document.body.classList.remove('home-cursor-active');
+    });
+  }
+
+  // Window Visibility Handling
+  document.addEventListener('mouseleave', () => {
     document.body.classList.remove('home-cursor-active');
-  }
-});
+    cursor.style.opacity = '0';
+  });
 
-// Ascunde cursorul când părăsește fereastra
-document.addEventListener('mouseleave', () => {
-  document.body.classList.remove('home-cursor-active');
-});
-
-document.addEventListener('mouseenter', () => {
-  const isInHomeSection = document.querySelector('#home:hover');
-  if (isInHomeSection) {
-    document.body.classList.add('home-cursor-active');
-  }
+  document.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+  });
 });
