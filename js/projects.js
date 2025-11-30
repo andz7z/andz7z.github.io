@@ -6,12 +6,21 @@ const PROJECTS_DATA = {
       description: 'Personal template for the CORELLE brand, category: nail products. It is a fully responsive website, optimized for both mobile and desktop. It includes systems such as Register, Login, Reviews, Favourites, History, and an Order System.',
       features: ['Advanced User Registration System', 'Interactive Review & Rating System', 'Real-time Chat Functionality', 'Payment Integration System', 'Advanced Analytics Dashboard'],
       images: [
-        'https://andz7z.github.io/assets/corelle/poza1.png', 'https://andz7z.github.io/assets/corelle/poza2.png', 'https://andz7z.github.io/assets/corelle/poza3.png',
-        'https://andz7z.github.io/assets/corelle/poza4.png', 'https://andz7z.github.io/assets/corelle/poza5.png', 'https://andz7z.github.io/assets/corelle/poza6.png',
-        'https://andz7z.github.io/assets/corelle/poza7.png', 'https://andz7z.github.io/assets/corelle/poza8.png', 'https://andz7z.github.io/assets/corelle/poza9.png',
-        'https://andz7z.github.io/assets/corelle/poza10.png', 'https://andz7z.github.io/assets/corelle/poza11.png'
+        'https://andz7z.github.io/assets/corelle/home_land.mp4',
+        'https://res.cloudinary.com/df9syoltz/video/upload/v1764524717/1130_1_2_ptidlk.mp4',
+        'https://andz7z.github.io/assets/corelle/poza3.png',
+        'https://andz7z.github.io/assets/corelle/poza4.png',
+        'https://andz7z.github.io/assets/corelle/poza5.png',
+        'https://andz7z.github.io/assets/corelle/poza6.png',
+        'https://andz7z.github.io/assets/corelle/poza7.png',
+        'https://andz7z.github.io/assets/corelle/poza8.png',
+        'https://andz7z.github.io/assets/corelle/poza9.png',
+        'https://andz7z.github.io/assets/corelle/poza10.png',
+        'https://andz7z.github.io/assets/corelle/poza11.png'
       ],
-      thumbnail: 'https://andz7z.github.io/assets/corelle/poza1.png'
+      // Folosim videoclipul ca thumbnail
+      thumbnail: 'https://andz7z.github.io/assets/corelle/home_land.mp4',
+      isVideoThumbnail: true
     },
     {
       id: 2,
@@ -19,7 +28,8 @@ const PROJECTS_DATA = {
       description: 'A modern portfolio website showcasing creative work with smooth animations and interactive elements to engage visitors.',
       features: ['Smooth Scroll Animations', 'Interactive Gallery', 'Contact Form with Validation', 'Responsive Design', 'SEO Optimization'],
       images: Array(3).fill('https://andz7z.github.io/assets/photos/altele/project_one.jpg'),
-      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_one.jpg'
+      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_one.jpg',
+      isVideoThumbnail: false
     },
     {
       id: 3,
@@ -27,7 +37,8 @@ const PROJECTS_DATA = {
       description: 'A comprehensive business dashboard with real-time data visualization and reporting tools for informed decision-making.',
       features: ['Real-time Data Visualization', 'Custom Reporting Tools', 'User Management System', 'Data Export Functionality', 'Multi-level Access Control'],
       images: Array(3).fill('https://andz7z.github.io/assets/photos/altele/project_two.jpg'),
-      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_two.jpg'
+      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_two.jpg',
+      isVideoThumbnail: false
     },
     {
       id: 4,
@@ -35,7 +46,8 @@ const PROJECTS_DATA = {
       description: 'A user-friendly mobile banking application with intuitive navigation and secure transaction features.',
       features: ['Intuitive Navigation Design', 'Secure Transaction Flow', 'Biometric Authentication', 'Personalized Dashboard', 'Bill Payment System'],
       images: Array(3).fill('https://andz7z.github.io/assets/photos/altele/project_three.jpg'),
-      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_three.jpg'
+      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_three.jpg',
+      isVideoThumbnail: false
     },
     {
       id: 5,
@@ -43,7 +55,8 @@ const PROJECTS_DATA = {
       description: 'A comprehensive fitness tracking application with personalized workout plans and progress monitoring features.',
       features: ['Personalized Workout Plans', 'Progress Tracking Dashboard', 'Social Sharing Features', 'Nutrition Tracking', 'Goal Setting System'],
       images: Array(3).fill('https://andz7z.github.io/assets/photos/altele/project_four.jpg'),
-      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_four.jpg'
+      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_four.jpg',
+      isVideoThumbnail: false
     },
     {
       id: 6,
@@ -51,7 +64,8 @@ const PROJECTS_DATA = {
       description: 'An intuitive travel booking platform with seamless booking flow and personalized recommendations for travelers.',
       features: ['Seamless Booking Flow', 'Personalized Recommendations', 'Interactive Maps Integration', 'Review & Rating System', 'Multi-language Support'],
       images: Array(3).fill('https://andz7z.github.io/assets/photos/altele/project_five.jpg'),
-      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_five.jpg'
+      thumbnail: 'https://andz7z.github.io/assets/photos/altele/project_five.jpg',
+      isVideoThumbnail: false
     }
   ]
 };
@@ -86,16 +100,77 @@ class ProjectManager {
       slideIdx: 0,
       modalOpen: false,
       animating: false,
-      typingTimeouts: []
+      typingTimeouts: [],
+      videoElements: new Map(),
+      isProjectActive: true,
+      galleryVideoObserver: null
     };
 
     if (!this.dom.section) return;
     this.init();
+    
+    this.setupVisibilityListener();
+    this.setupGalleryVideoObserver();
   }
 
   init() {
     this.renderGallery();
     this.setupInteractions();
+  }
+
+  setupVisibilityListener() {
+    document.addEventListener('visibilitychange', () => {
+      this.state.isProjectActive = !document.hidden;
+      this.handleVideoPlayback();
+    });
+  }
+
+  setupGalleryVideoObserver() {
+    // Observer pentru videoclipurile din galeria principală
+    this.state.galleryVideoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target;
+        if (entry.isIntersecting && this.state.isProjectActive) {
+          video.play().catch(e => console.log('Gallery video autoplay prevented:', e));
+        } else {
+          video.pause();
+        }
+      });
+    }, { threshold: 0.5 });
+
+    // Aplicăm observer-ul pe videoclipurile existente din galerie
+    const galleryVideos = this.dom.gallery.querySelectorAll('video');
+    galleryVideos.forEach(video => {
+      this.state.galleryVideoObserver.observe(video);
+    });
+  }
+
+  handleVideoPlayback() {
+    const videos = Array.from(this.dom.modal.querySelectorAll('video'));
+    
+    videos.forEach(video => {
+      if (this.state.isProjectActive && this.state.modalOpen) {
+        const parentSlide = video.closest('.gallery-slide');
+        if (parentSlide && parentSlide.classList.contains('active')) {
+          video.play().catch(e => console.log('Autoplay prevented:', e));
+        }
+      } else {
+        video.pause();
+      }
+    });
+
+    // Gestionăm și videoclipurile din galeria principală
+    const galleryVideos = Array.from(this.dom.gallery.querySelectorAll('video'));
+    galleryVideos.forEach(video => {
+      if (this.state.isProjectActive) {
+        const parentSlide = video.closest('.project-slide');
+        if (parentSlide && parentSlide.classList.contains('active')) {
+          video.play().catch(e => console.log('Gallery video autoplay prevented:', e));
+        }
+      } else {
+        video.pause();
+      }
+    });
   }
 
   getProjects() {
@@ -104,14 +179,40 @@ class ProjectManager {
 
   renderGallery() {
     const projects = this.getProjects();
-    this.dom.gallery.innerHTML = projects.map((p, i) => `
-      <div class="project-slide ${this.getSlideClass(i)}" data-id="${p.id}" data-index="${i}">
-        <img src="${p.thumbnail}" alt="${p.name}" class="project-thumbnail" loading="lazy">
-        <div class="project-overlay">
-          <a href="#" class="view-more" data-id="${p.id}">VIEW MORE DETAILS</a>
-        </div>
-      </div>
-    `).join('');
+    this.dom.gallery.innerHTML = projects.map((p, i) => {
+      if (p.thumbnail.endsWith('.mp4')) {
+        // Thumbnail video
+        return `
+          <div class="project-slide ${this.getSlideClass(i)}" data-id="${p.id}" data-index="${i}">
+            <video class="project-thumbnail video-thumbnail" muted loop playsinline>
+              <source src="${p.thumbnail}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="project-overlay">
+              <a href="#" class="view-more" data-id="${p.id}">VIEW MORE DETAILS</a>
+            </div>
+          </div>
+        `;
+      } else {
+        // Thumbnail image
+        return `
+          <div class="project-slide ${this.getSlideClass(i)}" data-id="${p.id}" data-index="${i}">
+            <img src="${p.thumbnail}" alt="${p.name}" class="project-thumbnail" loading="lazy">
+            <div class="project-overlay">
+              <a href="#" class="view-more" data-id="${p.id}">VIEW MORE DETAILS</a>
+            </div>
+          </div>
+        `;
+      }
+    }).join('');
+
+    // Re-aplicăm observer-ul pentru noile videoclipuri
+    setTimeout(() => {
+      const newGalleryVideos = this.dom.gallery.querySelectorAll('video');
+      newGalleryVideos.forEach(video => {
+        this.state.galleryVideoObserver.observe(video);
+      });
+    }, 100);
   }
 
   getSlideClass(idx) {
@@ -158,6 +259,12 @@ class ProjectManager {
   }
 
   closeModal() {
+    const videos = Array.from(this.dom.modal.querySelectorAll('video'));
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+    });
+
     this.state.modalOpen = false;
     this.dom.modal.classList.add('closing');
     this.clearTyping();
@@ -183,21 +290,83 @@ class ProjectManager {
   }
 
   renderModalSlides(images) {
-    this.dom.slidesContainer.innerHTML = images.map((img, i) => `
-      <div class="gallery-slide ${i === 0 ? 'active' : ''}">
-        <img src="${img}" alt="Slide ${i}" class="gallery-image" loading="lazy">
-      </div>
-    `).join('');
+    this.dom.slidesContainer.innerHTML = images.map((media, i) => {
+      if (media.endsWith('.mp4')) {
+        // Videoclip cu styling corect
+        return `
+          <div class="gallery-slide ${i === 0 ? 'active' : ''}">
+            <div class="video-container">
+              <video class="gallery-video" muted loop playsinline>
+                <source src="${media}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+        `;
+      } else {
+        // Imagine
+        return `
+          <div class="gallery-slide ${i === 0 ? 'active' : ''}">
+            <img src="${media}" alt="Slide ${i}" class="gallery-image" loading="lazy">
+          </div>
+        `;
+      }
+    }).join('');
+    
     this.state.slideIdx = 0;
+    setTimeout(() => this.initializeVideos(), 100);
+  }
+
+  initializeVideos() {
+    const videos = Array.from(this.dom.slidesContainer.querySelectorAll('video'));
+    
+    videos.forEach((video, index) => {
+      const parentSlide = video.closest('.gallery-slide');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && this.state.isProjectActive && this.state.modalOpen) {
+            video.play().catch(e => {
+              console.log('Autoplay prevented for video:', e);
+            });
+          } else {
+            video.pause();
+          }
+        });
+      }, { threshold: 0.5 });
+
+      observer.observe(parentSlide);
+      this.state.videoElements.set(video, observer);
+    });
+    
+    const activeSlide = this.dom.slidesContainer.querySelector('.gallery-slide.active');
+    if (activeSlide) {
+      const activeVideo = activeSlide.querySelector('video');
+      if (activeVideo && this.state.isProjectActive) {
+        activeVideo.play().catch(e => console.log('Autoplay prevented for active video:', e));
+      }
+    }
   }
 
   changeModalSlide(dir) {
     const slides = this.dom.slidesContainer.children;
     if (!slides.length) return;
 
+    const currentSlide = slides[this.state.slideIdx];
+    const currentVideo = currentSlide.querySelector('video');
+    if (currentVideo) {
+      currentVideo.pause();
+    }
+
     slides[this.state.slideIdx].classList.remove('active');
     this.state.slideIdx = (this.state.slideIdx + (dir === 'next' ? 1 : -1) + slides.length) % slides.length;
     slides[this.state.slideIdx].classList.add('active');
+
+    const newSlide = slides[this.state.slideIdx];
+    const newVideo = newSlide.querySelector('video');
+    if (newVideo && this.state.isProjectActive) {
+      newVideo.play().catch(e => console.log('Autoplay prevented when changing slide:', e));
+    }
   }
 
   renderRelated(currentId) {
@@ -205,12 +374,25 @@ class ProjectManager {
     const currentIdx = all.findIndex(p => p.id === currentId);
     const related = [1, 2].map(offset => all[(currentIdx + offset) % all.length]);
 
-    this.dom.related.innerHTML = related.map(p => `
-      <div class="related-project" data-id="${p.id}">
-        <img src="${p.thumbnail}" alt="${p.name}" class="related-image" loading="lazy">
-        <div class="related-overlay"><h4 class="related-title">${p.name}</h4></div>
-      </div>
-    `).join('');
+    this.dom.related.innerHTML = related.map(p => {
+      if (p.thumbnail.endsWith('.mp4')) {
+        return `
+          <div class="related-project" data-id="${p.id}">
+            <video class="related-image video-thumbnail" muted loop playsinline>
+              <source src="${p.thumbnail}" type="video/mp4">
+            </video>
+            <div class="related-overlay"><h4 class="related-title">${p.name}</h4></div>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="related-project" data-id="${p.id}">
+            <img src="${p.thumbnail}" alt="${p.name}" class="related-image" loading="lazy">
+            <div class="related-overlay"><h4 class="related-title">${p.name}</h4></div>
+          </div>
+        `;
+      }
+    }).join('');
   }
 
   animateText() {
@@ -222,7 +404,6 @@ class ProjectManager {
 
     elements.forEach(el => el.classList.remove('typing'));
     
-    // Staggered animation using CSS classes driven by JS timing
     let delay = 300;
     elements.forEach(el => {
       const timeout = setTimeout(() => {
@@ -239,6 +420,12 @@ class ProjectManager {
   clearTyping() {
     this.state.typingTimeouts.forEach(t => clearTimeout(t));
     this.state.typingTimeouts = [];
+    
+    this.state.videoElements.forEach((observer, video) => {
+      observer.unobserve(video);
+      video.pause();
+    });
+    this.state.videoElements.clear();
   }
 
   handleCategory(btn) {
@@ -250,7 +437,6 @@ class ProjectManager {
   }
 
   setupInteractions() {
-    // Gallery Navigation (Delegation)
     this.dom.gallery.addEventListener('click', (e) => {
       const slide = e.target.closest('.project-slide');
       if (!slide) return;
@@ -267,12 +453,10 @@ class ProjectManager {
       }
     });
 
-    // Category Buttons
     this.dom.btns.cats.forEach(btn => 
       btn.addEventListener('click', () => this.handleCategory(btn))
     );
 
-    // Modal Controls
     this.dom.btns.close.addEventListener('click', () => this.closeModal());
     this.dom.btns.prev.addEventListener('click', () => this.changeModalSlide('prev'));
     this.dom.btns.next.addEventListener('click', () => this.changeModalSlide('next'));
@@ -295,7 +479,6 @@ class ProjectManager {
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // Keyboard
     document.addEventListener('keydown', (e) => {
       if (this.state.modalOpen) {
         if (e.key === 'Escape') this.closeModal();

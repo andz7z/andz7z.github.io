@@ -1,66 +1,35 @@
 class ContactManager {
   constructor() {
-    this.db = window.db;
+    this.db = window.db || (typeof firebase !== 'undefined' ? firebase.firestore() : null);
     this.firebase = window.firebase;
-    
     this.dom = {
       form: document.getElementById('contact-form'),
-      socials: document.querySelectorAll('.social-item'),
-      body: document.body
+      socials: document.querySelectorAll('.social-item')
     };
 
-    if (!this.validateSystem()) return;
-
-    this.init();
-  }
-
-  validateSystem() {
-    if (typeof this.db === 'undefined' || !this.db) {
-      console.error('Database connection missing.');
-      return false;
-    }
-    return true;
+    if (this.dom.form) this.init();
   }
 
   init() {
     this.injectStyles();
     this.setupForm();
     this.setupSocials();
-    this.setupRealTimeValidation();
-    
-    window.contactSystem = {
-      showNotification: (msg, type) => this.showNotification(msg, type)
-    };
   }
 
   injectStyles() {
     if (document.getElementById('contact-sys-styles')) return;
-    
     const css = `
-      .sys-notif {
-        position: fixed; top: 20px; right: 20px;
-        padding: 12px 16px; border-radius: 10px;
-        display: flex; align-items: center; gap: 12px;
-        z-index: 10000; font-family: 'Sora', sans-serif; font-size: 0.9rem;
-        max-width: 300px; color: #fff;
-        animation: slideInRight 0.3s ease-out forwards;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      }
+      .sys-notif { position: fixed; top: 20px; right: 20px; padding: 12px 16px; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 10000; font-family: 'Sora', sans-serif; font-size: 0.9rem; max-width: 300px; color: #fff; animation: slideInRight 0.3s ease-out forwards; box-shadow: 0 4px 12px rgba(0,0,0,0.3); pointer-events: all; }
       .sys-notif.success { background: #1a1a1a; border: 1.5px solid #00ff88; }
       .sys-notif.error { background: #331a1a; border: 1.5px solid #ff4444; }
       .sys-notif.hiding { animation: slideOutRight 0.3s ease-in forwards; }
-      .sys-notif button {
-        background: none; border: none; color: #fff; cursor: pointer;
-        padding: 4px; border-radius: 50%; display: flex;
-        transition: background 0.2s;
-      }
+      .sys-notif button { background: none; border: none; color: #fff; cursor: pointer; padding: 4px; border-radius: 50%; display: flex; }
       .sys-notif button:hover { background: rgba(255,255,255,0.1); }
-      .field-error { color: #ff6b6b; font-size: 0.8rem; margin-top: 5px; font-family: 'Sora', sans-serif; }
+      .field-error { color: #ff6b6b; font-size: 0.8rem; margin-top: 5px; font-family: 'Sora', sans-serif; display: block; }
       .input-error { border-color: #ff6b6b !important; }
       @keyframes slideInRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
       @keyframes slideOutRight { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
     `;
-    
     const style = document.createElement('style');
     style.id = 'contact-sys-styles';
     style.textContent = css;
@@ -68,126 +37,105 @@ class ContactManager {
   }
 
   setupForm() {
-    if (!this.dom.form) return;
+    // Real-time validation (Delegated)
+    this.dom.form.addEventListener('focusout', (e) => {
+      if(e.target.hasAttribute('required')) this.checkField(e.target);
+    });
+    
+    this.dom.form.addEventListener('input', (e) => {
+      if(e.target.classList.contains('input-error')) {
+         e.target.classList.remove('input-error');
+         const err = e.target.parentNode.querySelector('.field-error');
+         if(err) err.remove();
+      }
+    });
 
     this.dom.form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!this.db) return this.showNotification('Database unavailable', 'error');
+
       const btn = this.dom.form.querySelector('.submit-btn');
       const originalContent = btn.innerHTML;
 
       if (!this.validateForm()) return;
 
-      this.setLoading(btn, true);
+      btn.disabled = true;
+      btn.innerHTML = '<span>Sending...</span>';
 
       try {
-        const formData = new FormData(this.dom.form);
-        const data = {
-          firstName: formData.get('firstName').trim(),
-          lastName: formData.get('lastName').trim(),
-          email: formData.get('email').trim(),
-          phone: formData.get('phone')?.trim() || '',
-          message: formData.get('message').trim(),
+        const fd = new FormData(this.dom.form);
+        await this.db.collection('contacts').add({
+          firstName: fd.get('firstName').trim(),
+          lastName: fd.get('lastName').trim(),
+          email: fd.get('email').trim(),
+          phone: fd.get('phone')?.trim() || '',
+          message: fd.get('message').trim(),
           timestamp: this.firebase.firestore.FieldValue.serverTimestamp(),
           read: false
-        };
+        });
 
-        await this.db.collection('contacts').add(data);
-        this.showNotification("Message sent successfully! I'll get back to you soon.", 'success');
+        this.showNotification("Message sent successfully!", 'success');
         this.dom.form.reset();
-        this.clearErrors();
+        this.dom.form.querySelectorAll('.input-error').forEach(el => el.classList.remove('input-error'));
       } catch (err) {
         console.error(err);
-        this.showNotification('An error occurred. Please try again.', 'error');
+        this.showNotification('Error sending message.', 'error');
       } finally {
-        this.setLoading(btn, false, originalContent);
+        btn.disabled = false;
+        btn.innerHTML = originalContent;
       }
     });
   }
 
   validateForm() {
     let isValid = true;
-    const required = this.dom.form.querySelectorAll('[required]');
-    
-    required.forEach(field => {
+    this.dom.form.querySelectorAll('[required]').forEach(field => {
       if (!this.checkField(field)) isValid = false;
     });
-
-    if (!isValid) this.showNotification('Please check the highlighted fields.', 'error');
     return isValid;
   }
 
   checkField(field) {
     const val = field.value.trim();
-    this.clearFieldError(field);
-
-    if (!val) {
-      this.showFieldError(field, 'This field is required');
-      return false;
-    }
-
-    if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-      this.showFieldError(field, 'Invalid email address');
-      return false;
-    }
-
-    return true;
-  }
-
-  showFieldError(field, msg) {
-    field.classList.add('input-error');
-    const div = document.createElement('div');
-    div.className = 'field-error';
-    div.textContent = msg;
-    field.parentNode.appendChild(div);
-  }
-
-  clearFieldError(field) {
+    // Remove old error
     field.classList.remove('input-error');
-    const err = field.parentNode.querySelector('.field-error');
-    if (err) err.remove();
-  }
+    const existingErr = field.parentNode.querySelector('.field-error');
+    if(existingErr) existingErr.remove();
 
-  clearErrors() {
-    this.dom.form.querySelectorAll('.field-error').forEach(e => e.remove());
-    this.dom.form.querySelectorAll('.input-error').forEach(e => e.classList.remove('input-error'));
-  }
+    let error = '';
+    if (!val) error = 'Required';
+    else if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) error = 'Invalid email';
 
-  setupRealTimeValidation() {
-    if (!this.dom.form) return;
-    const inputs = this.dom.form.querySelectorAll('input[required], textarea[required]');
-    inputs.forEach(input => {
-      input.addEventListener('blur', () => this.checkField(input));
-      input.addEventListener('input', () => this.clearFieldError(input));
-    });
-  }
-
-  setLoading(btn, isLoading, content = '') {
-    btn.disabled = isLoading;
-    btn.innerHTML = isLoading ? '<span>Sending...</span>' : content;
+    if (error) {
+      field.classList.add('input-error');
+      const div = document.createElement('div');
+      div.className = 'field-error';
+      div.textContent = error;
+      field.parentNode.appendChild(div);
+      return false;
+    }
+    return true;
   }
 
   setupSocials() {
     this.dom.socials.forEach(item => {
-      item.addEventListener('mouseenter', () => item.style.transform = 'scale(1.02)');
+      item.addEventListener('mouseenter', () => item.style.transform = 'scale(1.05)');
       item.addEventListener('mouseleave', () => item.style.transform = 'scale(1)');
     });
   }
 
   showNotification(msg, type) {
-    document.querySelectorAll('.sys-notif').forEach(n => n.remove());
-
     const notif = document.createElement('div');
     notif.className = `sys-notif ${type}`;
-    notif.innerHTML = `<span>${msg}</span><button><ion-icon name="close-outline"></ion-icon></button>`;
+    notif.innerHTML = `<span>${msg}</span><button type="button"><ion-icon name="close-outline"></ion-icon></button>`;
     
-    const close = () => {
-      notif.classList.add('hiding');
-      setTimeout(() => notif.remove(), 300);
+    notif.querySelector('button').onclick = () => {
+       notif.classList.add('hiding');
+       setTimeout(() => notif.remove(), 300);
     };
 
-    notif.querySelector('button').onclick = close;
-    this.dom.body.appendChild(notif);
-    setTimeout(() => { if(notif.isConnected) close(); }, 4000);
+    document.body.appendChild(notif);
+    setTimeout(() => { if(notif.parentNode) notif.querySelector('button').click(); }, 4000);
   }
 }
 

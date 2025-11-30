@@ -98,7 +98,7 @@
 /* --- BOTTOM LEFT --- */
 .bottom-left {
   position: relative;
-  margin-top: 35vh;
+  margin-top: 46.5vh;
   font-size: 70px;
   font-weight: 100;
   opacity: 0;
@@ -225,4 +225,34 @@
 @media (max-width: 380px) {
   .logo-text { font-size: 13vw; }
   .bottom-left { font-size: 28px; }
+}
+.vision-glow {
+  /* Asigură-te că textul este lizibil (alb sau o culoare deschisă funcționează cel mai bine) */
+  color: #ffffff; 
+  
+  /* Animația: nume | durată | tip de viteză | repetiție */
+  animation: vision-pulse 3s infinite ease-in-out;
+}
+
+/* Definirea keyframes pentru pulsație */
+@keyframes vision-pulse {
+  0% {
+    /* Glow minim - starea de "repaus" */
+    text-shadow: 
+      0 0 5px rgba(255, 255, 255, 0.4),
+      0 0 10px rgba(183, 183, 183, 0.2);
+  }
+  50% {
+    /* Glow maxim - intensitate ridicată */
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 30px rgba(255, 255, 255, 0.4);
+  }
+  100% {
+    /* Revenire la glow minim pentru un loop fluid */
+    text-shadow: 
+      0 0 5px rgba(255, 255, 255, 0.4),
+      0 0 10px rgba(183, 183, 183, 0.2);
+  }
 }

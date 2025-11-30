@@ -1,5 +1,5 @@
 /* =========================================
-   PC STYLES (BASE - RĂMÂN NESCHIMBATE)
+   PC STYLES (BASE)
    ========================================= */
 
 #cv-section {
@@ -8,12 +8,12 @@
   font-family: 'Sora', sans-serif;
   padding: 40px 20px;
   width: 100%;
-  height: 140vh; /* PC specific height */
+  height: 140vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: relative; /* Necesar pentru positioning context */
+  position: relative;
 }
 
 /* Scrollbar global */
@@ -60,7 +60,7 @@ html.cv-modal-open {
 
 /* Tech Section */
 .cv-tech-section {
-  margin-top: 20vh; /* Ajustat ușor pentru PC */
+  margin-top: 20vh;
   opacity: 0;
   transform: translateY(20px);
   animation: cvFadeInUp 0.6s ease forwards 0.2s;
@@ -98,7 +98,7 @@ html.cv-modal-open {
   display: flex;
   gap: 40px;
   animation: cvSlide 25s linear infinite;
-  width: max-content; /* Asigură că sliderul nu se rupe */
+  width: max-content;
 }
 
 .cv-tech-item {
@@ -156,11 +156,10 @@ html.cv-modal-open {
   padding: 20px 0;
 }
 
-/* Linia orizontală de PC */
 .cv-timeline-horizontal::before {
   content: '';
   position: absolute;
-  top: 40px; /* Aliniat cu marker-ul */
+  top: 40px;
   left: 50px;
   right: 50px;
   height: 2px;
@@ -181,13 +180,13 @@ html.cv-modal-open {
   cursor: pointer;
 }
 
-/* Delay-uri pentru animație */
 .cv-timeline-item:nth-child(1) { animation: cvFadeInUp 0.6s ease forwards 0.6s; }
 .cv-timeline-item:nth-child(2) { animation: cvFadeInUp 0.6s ease forwards 0.7s; }
 .cv-timeline-item:nth-child(3) { animation: cvFadeInUp 0.6s ease forwards 0.8s; }
 .cv-timeline-item:nth-child(4) { animation: cvFadeInUp 0.6s ease forwards 0.9s; }
 .cv-timeline-item:nth-child(5) { animation: cvFadeInUp 0.6s ease forwards 1s; }
 
+/* Stilul BULEI (Marker) */
 .cv-timeline-marker {
   width: 16px;
   height: 16px;
@@ -197,20 +196,43 @@ html.cv-modal-open {
   margin-bottom: 15px;
   position: relative;
   z-index: 2;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 0 4px #000; /* Mască pentru linia din spate */
+  transition: all 0.4s ease; /* Tranziție fluidă */
+  box-shadow: 0 0 0 4px #000;
 }
 
-.cv-timeline-item:hover .cv-timeline-marker {
+/* Activarea BULEI la hover sau loop automat */
+.cv-timeline-item:hover .cv-timeline-marker,
+.cv-timeline-item.active-auto .cv-timeline-marker {
   border-color: #fff;
   background: #fff;
-  transform: scale(1.2);
+  transform: scale(1.3);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 0 4px #000;
 }
 
+/* Stilul TEXTULUI (Content) - Starea implicită */
 .cv-timeline-content {
   text-align: center;
   max-width: 180px;
+  
+  /* ADĂUGĂRI PENTRU SMOOTHNESS */
+  transition: all 0.4s ease; /* Aceeași durată ca bula pentru sincronizare */
+  padding: 10px; /* Spațiu pentru ca glow-ul să nu fie lipit de text */
+  border-radius: 8px;
+  background: transparent;
+  /* Fix pentru o randare mai clară în timpul scalării */
+  backface-visibility: hidden; 
 }
+
+/* --- NOU: Activarea TEXTULUI la hover sau loop automat --- */
+.cv-timeline-item:hover .cv-timeline-content,
+.cv-timeline-item.active-auto .cv-timeline-content {
+  transform: scale(1.1); /* Mărește textul */
+  /* Glow alb în jurul containerului de text */
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.25); 
+  /* Opțional: un fundal foarte subtil pentru a scoate textul în evidență */
+  background: rgba(255, 255, 255, 0.05);
+}
+/* --------------------------------------------------------- */
 
 .cv-timeline-year {
   font-size: 0.9rem;
@@ -218,7 +240,14 @@ html.cv-modal-open {
   margin-bottom: 8px;
   display: block;
   font-weight: 500;
-  color: #73a4a5; /* Accent color */
+  color: #73a4a5;
+  transition: color 0.4s ease;
+}
+
+/* Opțional: Schimbă culoarea anului când e activ */
+.cv-timeline-item:hover .cv-timeline-year,
+.cv-timeline-item.active-auto .cv-timeline-year {
+    color: #fff;
 }
 
 .cv-timeline-content h3 {
@@ -257,13 +286,11 @@ html.cv-modal-open {
 }
 
 @media (max-width: 768px) {
-  /* 1. Layout general */
   #cv-section {
     padding: 60px 15px;
-    height: auto; /* Foarte important: înălțime dinamică pe mobil */
+    height: auto;
   }
 
-  /* 2. Header */
   .cv-header {
     flex-direction: column;
     gap: 20px;
@@ -271,9 +298,8 @@ html.cv-modal-open {
     margin-bottom: 40px;
   }
 
-  /* 3. Tech Section Adjustments */
   .cv-tech-section {
-    margin-top: 40px; /* Reducem spațiul imens de pe PC */
+    margin-top: 40px;
     margin-bottom: 60px;
   }
 
@@ -283,25 +309,23 @@ html.cv-modal-open {
   }
 
   .cv-tech-item {
-    min-width: 60px; /* Mai compact */
+    min-width: 60px;
   }
 
-  /* 4. TRANSFORM TIMELINE: HORIZONTAL -> VERTICAL */
   .cv-timeline-section {
     margin-top: 0;
   }
 
   .cv-timeline-horizontal {
-    flex-direction: column; /* Stivare verticală */
-    gap: 0; /* Controlăm spațiul din padding */
+    flex-direction: column;
+    gap: 0;
     padding-left: 10px;
   }
 
-  /* Linia Verticală */
   .cv-timeline-horizontal::before {
     top: 15px;
     bottom: 0;
-    left: 17px; /* Aliniere cu centrul bulinei */
+    left: 17px;
     right: auto;
     width: 2px;
     height: 100%;
@@ -309,26 +333,35 @@ html.cv-modal-open {
   }
 
   .cv-timeline-item {
-    flex-direction: row; /* Marker în stânga, text în dreapta */
+    flex-direction: row;
     align-items: flex-start;
     text-align: left;
     width: 100%;
-    padding: 0 0 40px 0; /* Spațiu între itemi */
+    padding: 0 0 40px 0;
     gap: 20px;
   }
+  
+  /* Pe mobil, scoatem padding-ul extra de la text pentru a alinia corect */
+  .cv-timeline-content {
+      padding: 0;
+      text-align: left;
+      max-width: 100%;
+  }
+  /* Pe mobil, efectul de scale pe text poate fi prea mult, îl reducem puțin */
+  .cv-timeline-item:hover .cv-timeline-content,
+  .cv-timeline-item.active-auto .cv-timeline-content {
+      transform: scale(1.02);
+      padding: 10px; /* Adăugăm padding doar când e activ pe mobil */
+      margin-left: -10px; /* Compensăm paddingul pentru aliniere */
+  }
+
 
   .cv-timeline-marker {
     margin-bottom: 0;
-    margin-top: 5px; /* Aliniere optică cu titlul */
-    flex-shrink: 0; /* Previne turtirea bulinei */
+    margin-top: 5px;
+    flex-shrink: 0;
   }
 
-  .cv-timeline-content {
-    text-align: left; /* Text aliniat stânga pentru citire ușoară */
-    max-width: 100%;
-  }
-
-  /* Ajustări text mobil */
   .cv-timeline-year {
     font-size: 0.85rem;
     margin-bottom: 4px;

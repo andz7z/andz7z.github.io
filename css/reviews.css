@@ -1,6 +1,6 @@
 /* Reviews Section Styles - FORMULAR CORECTAT */
 #reviews {
-  background-color: #000;
+  background-color: #000000;
   color: #fff;
   height: 150vh;
   display: flex;
@@ -190,7 +190,7 @@
   position: absolute;
   left: 0;
   right: 0;
-  height: 200px;
+  height: 100px;
   z-index: 10;
   pointer-events: none;
 }

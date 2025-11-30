@@ -13,7 +13,7 @@
 .about-video-container {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 300px;
   width: 100%;
   height: 100%;
   z-index: 1;
@@ -31,16 +31,47 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* NU mai ascunde videoul - lasă-l vizibil pentru canvas */
 }
 
-.video-overlay {
+.video-canvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  /* Elimină filter: grayscale de aici - o să-l aplicăm în JS */
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: -300px;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(90deg, #000000 0%, rgba(0,0,0,0.9) 40%, transparent 100%);
   z-index: 2;
+}
+
+/* Custom cursor for video interaction */
+.video-cursor {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  transform: translate(-50%, -50%);
+  mix-blend-mode: screen;
+  display: none;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+#about:hover .video-cursor {
+  display: block;
 }
 
 .about-content {
@@ -416,10 +447,32 @@
     font-size: 0.85rem;
   }
 }
+
 .highlight {
-  font-weight: 1000;       /* ultra bold */
-  color: #fff;             /* optional — culoare */
-  background: #000;        /* optional — highlight */
-  padding: 2px 4px;        /* opțional — spațiu */
-  border-radius: 4px;      /* opțional — colțuri rotunjite */
+  font-weight: 1000;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+.highlight {
+  color: white;
+  animation: white-glow-pulse 3s infinite ease-in-out;
+}
+
+@keyframes white-glow-pulse {
+  0% {
+    color: #cccccc; 
+    text-shadow: 
+      0 0 2px rgba(255, 255, 255, 0.1); 
+  }
+  50% {
+    color: #ffffff; 
+    text-shadow: 
+      0 0 8px rgba(255, 255, 255, 0.6), 
+      0 0 15px rgba(255, 255, 255, 0.3); 
+  }
+  100% {
+    color: #cccccc;
+    text-shadow: 
+      0 0 2px rgba(255, 255, 255, 0.1);
+  }
 }
