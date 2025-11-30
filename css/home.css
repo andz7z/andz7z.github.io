@@ -98,6 +98,7 @@
 /* --- BOTTOM LEFT --- */
 .bottom-left {
   position: relative;
+  margin-left: 1vw;
   margin-top: 41.5vh;
   font-size: 70px;
   font-weight: 100;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A N D Z | Portfolio</title>
+    <title>∀ N D Z | ᵖᵒʳᵗᶠᵒˡⁱᵒ</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/contact.css">
@@ -82,9 +82,12 @@
     <!-- about -->
 <section id="about">
   <div class="about-video-container">
-    <video autoplay muted loop class="about-video">
+    <video autoplay muted loop playsinline class="about-video" id="bgVideo">
       <source src="https://res.cloudinary.com/df9syoltz/video/upload/v1764524587/1130_1_1_owrgeu.mp4" type="video/mp4">
     </video>
+    
+    <canvas id="revealCanvas"></canvas>
+    
     <div class="video-overlay"></div>
   </div>
   
@@ -134,19 +137,20 @@
         </div>
       </div>
       
-<div class="contact-left-container animate-element" data-delay="1200">
-  <button class="about-contact-btn" id="contactBtn">
-    <ion-icon name="call-outline" class="contact-icon"></ion-icon>
-    <div class="contact-hover-content">
-      <span class="contact-text" id="contactText">Contact Now</span>
-      <div class="time-display" id="timeDisplay">
-        <span id="timeStatus">Available for</span>
-        <span class="time-value" id="timeValue">03:37:38</span>
-        <span class="time-unit">hr</span>
+      <div class="contact-left-container animate-element" data-delay="1200">
+        <button class="about-contact-btn" id="contactBtn">
+          <ion-icon name="call-outline" class="contact-icon"></ion-icon>
+          <div class="contact-hover-content">
+            <span class="contact-text" id="contactText">Contact Now</span>
+            <div class="time-display" id="timeDisplay">
+              <span id="timeStatus">Available for</span>
+              <span class="time-value" id="timeValue">00:00:00</span>
+              <span class="time-unit">hr</span>
+            </div>
+          </div>
+        </button>
       </div>
     </div>
-  </button>
-</div>
     
     <div class="about-right">
       <div class="location-minimal animate-element" data-delay="1400">
@@ -489,7 +493,7 @@
               <label class="section-label">Service Used</label>
               <div class="service-options">
                 <label class="service-option">
-                  <input type="radio" name="service" value="web development">
+                  <input type="radio" name="service" value="Web Development">
                   <div class="option-content">
                     <ion-icon name="code-slash-outline" class="option-icon"></ion-icon>
                     <span class="option-text">Web Development</span>
@@ -497,7 +501,7 @@
                   <div class="selection-glow"></div>
                 </label>
                 <label class="service-option">
-                  <input type="radio" name="service" value="brand design">
+                  <input type="radio" name="service" value="Brand Design">
                   <div class="option-content">
                     <ion-icon name="color-palette-outline" class="option-icon"></ion-icon>
                     <span class="option-text">Brand Design</span>
@@ -505,7 +509,7 @@
                   <div class="selection-glow"></div>
                 </label>
                 <label class="service-option">
-                  <input type="radio" name="service" value="video editing">
+                  <input type="radio" name="service" value="Video Editing">
                   <div class="option-content">
                     <ion-icon name="videocam-outline" class="option-icon"></ion-icon>
                     <span class="option-text">Video Editing</span>

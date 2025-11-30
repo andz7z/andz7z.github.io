@@ -1,4 +1,3 @@
-/* About Section CSS - With Animations */
 #about {
   position: relative;
   background: #000000;
@@ -31,17 +30,18 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* NU mai ascunde videoul - lasă-l vizibil pentru canvas */
+  filter: grayscale(100%); /* Baza e alb-negru */
 }
 
-.video-canvas {
+#revealCanvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* Elimină filter: grayscale de aici - o să-l aplicăm în JS */
+  pointer-events: none;
+  z-index: 2; /* Peste video-ul alb-negru */
 }
 
 .video-overlay {
@@ -51,32 +51,13 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(90deg, #000000 0%, rgba(0,0,0,0.9) 40%, transparent 100%);
-  z-index: 2;
-}
-
-/* Custom cursor for video interaction */
-.video-cursor {
-  position: fixed;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
-  border-radius: 50%;
+  z-index: 3; /* Peste canvas */
   pointer-events: none;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: screen;
-  display: none;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-#about:hover .video-cursor {
-  display: block;
 }
 
 .about-content {
   position: relative;
-  z-index: 3;
+  z-index: 4; /* Conținutul text deasupra tuturor */
   width: 100%;
   margin: 0 auto;
   padding: 70px 40px;
@@ -91,7 +72,6 @@
   max-width: 1200px;
 }
 
-/* Animation Base Styles */
 .animate-element {
   opacity: 0;
   transform: translateY(50px);
@@ -103,7 +83,6 @@
   transform: translateY(0);
 }
 
-/* Title */
 .about-main-title {
   font-size: 2rem;
   font-weight: 500;
@@ -114,7 +93,6 @@
   line-height: 1.1;
 }
 
-/* Description */
 .about-description {
   margin-bottom: 8px;
 }
@@ -129,7 +107,6 @@
   margin-bottom: 125px;
 }
 
-/* Qualities Container */
 .qualities-row {
   margin-bottom: 100px;
   margin-top: -10vh;
@@ -192,7 +169,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Contact Button - Far Left */
 .contact-left-container {
   margin-top: 40px;
   margin-left: 0;
@@ -224,10 +200,6 @@
   border-radius: 30px;
   justify-content: flex-start;
   padding-left: 25px;
-}
-
-.about-contact-btn:hover::before {
-  left: 100%;
 }
 
 .contact-icon {
@@ -284,7 +256,6 @@
   margin-left: 1px;
 }
 
-/* Location - Bottom Right */
 .about-right {
   display: flex;
   flex-direction: column;
@@ -292,6 +263,7 @@
   align-items: flex-end;
   height: 100%;
   position: relative;
+  /* Eliminat overflow-ul ca să fim siguri că textul se vede */
 }
 
 .location-minimal {
@@ -300,9 +272,7 @@
   gap: 8px;
   position: absolute;
   bottom: 0;
-  right: 0;
-  margin-right: -14vw;
-  margin-bottom: 0vh;
+  right: 0; 
   white-space: nowrap;
 }
 
@@ -317,162 +287,55 @@
   letter-spacing: 0.5px;
 }
 
-/* Color states for time display */
-.time-green .time-value {
-  color: #4ade80;
-}
+.time-green .time-value { color: #4ade80; }
+.time-yellow .time-value { color: #facc15; }
+.time-orange .time-value { color: #fb923c; }
+.time-red .time-value { color: #f87171; }
+.time-expired .time-value { color: rgba(255, 255, 255, 0.4); }
 
-.time-yellow .time-value {
-  color: #facc15;
-}
+#about.animated .about-main-title { transition-delay: 0.2s; }
+#about.animated .about-description { transition-delay: 0.4s; }
+#about.animated .professional-row { transition-delay: 0.6s; }
+#about.animated .personal-row { transition-delay: 0.8s; }
+#about.animated .hobbies-row { transition-delay: 1s; }
+#about.animated .contact-left-container { transition-delay: 1.2s; }
+#about.animated .location-minimal { transition-delay: 1.4s; }
 
-.time-orange .time-value {
-  color: #fb923c;
-}
-
-.time-red .time-value {
-  color: #f87171;
-}
-
-.time-expired .time-value {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-/* Stagger delays for individual elements */
-#about.animated .about-main-title {
-  transition-delay: 0.2s;
-}
-
-#about.animated .about-description {
-  transition-delay: 0.4s;
-}
-
-#about.animated .professional-row {
-  transition-delay: 0.6s;
-}
-
-#about.animated .personal-row {
-  transition-delay: 0.8s;
-}
-
-#about.animated .hobbies-row {
-  transition-delay: 1s;
-}
-
-#about.animated .contact-left-container {
-  transition-delay: 1.2s;
-}
-
-#about.animated .location-minimal {
-  transition-delay: 1.4s;
-}
-
-/* Responsive Design */
 @media (max-width: 1024px) {
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 50px;
-    padding: 60px 40px;
-  }
-  
-  .about-right {
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-top: 40px;
-    position: relative;
-  }
-  
-  .location-minimal {
-    position: static;
-    margin-bottom: 0;
-  }
+  .about-content { grid-template-columns: 1fr; gap: 50px; padding: 60px 40px; }
+  .about-right { align-items: flex-start; justify-content: flex-start; margin-top: 40px; position: relative; }
+  .location-minimal { position: static; margin-bottom: 0; margin-right: 0; }
 }
 
 @media (max-width: 768px) {
-  .about-content {
-    padding: 40px 30px;
-  }
-  
-  .about-main-title {
-    font-size: 2.2rem;
-  }
-  
-  .quality-category {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  
-  .quality-tags, .hobby-tags {
-    gap: 10px;
-  }
-  
-  .about-contact-btn {
-    width: 50px;
-    height: 50px;
-  }
-  
-  .about-contact-btn:hover {
-    width: 180px;
-  }
-  
-  .contact-icon {
-    font-size: 1.2rem;
-    left: 15px;
-  }
-  
-  .about-contact-btn:hover .contact-icon {
-    left: 20px;
-  }
+  .about-content { padding: 40px 30px; }
+  .about-main-title { font-size: 2.2rem; }
+  .quality-category { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .quality-tags, .hobby-tags { gap: 10px; }
+  .about-contact-btn { width: 50px; height: 50px; }
+  .about-contact-btn:hover { width: 180px; }
+  .contact-icon { font-size: 1.2rem; left: 15px; }
+  .about-contact-btn:hover .contact-icon { left: 20px; }
 }
 
 @media (max-width: 480px) {
-  .about-content {
-    padding: 30px 20px;
-  }
-  
-  .about-main-title {
-    font-size: 1.8rem;
-  }
-  
-  .description-text {
-    font-size: 1rem;
-  }
-  
-  .quality-tags, .hobby-tags {
-    gap: 8px;
-  }
-  
-  .quality-tag, .hobby-tag {
-    font-size: 0.85rem;
-  }
+  .about-content { padding: 30px 20px; }
+  .about-main-title { font-size: 1.8rem; }
+  .description-text { font-size: 1rem; }
+  .quality-tags, .hobby-tags { gap: 8px; }
+  .quality-tag, .hobby-tag { font-size: 0.85rem; }
 }
 
 .highlight {
   font-weight: 1000;
   padding: 2px 4px;
   border-radius: 4px;
-}
-.highlight {
   color: white;
   animation: white-glow-pulse 3s infinite ease-in-out;
 }
 
 @keyframes white-glow-pulse {
-  0% {
-    color: #cccccc; 
-    text-shadow: 
-      0 0 2px rgba(255, 255, 255, 0.1); 
-  }
-  50% {
-    color: #ffffff; 
-    text-shadow: 
-      0 0 8px rgba(255, 255, 255, 0.6), 
-      0 0 15px rgba(255, 255, 255, 0.3); 
-  }
-  100% {
-    color: #cccccc;
-    text-shadow: 
-      0 0 2px rgba(255, 255, 255, 0.1);
-  }
+  0% { color: #cccccc; text-shadow: 0 0 2px rgba(255, 255, 255, 0.1); }
+  50% { color: #ffffff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.3); }
+  100% { color: #cccccc; text-shadow: 0 0 2px rgba(255, 255, 255, 0.1); }
 }

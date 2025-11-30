@@ -8,16 +8,16 @@ class ReviewsSystem {
       isDragging: false,
       config: {
         messages: {
-          1: { text: "Poor - We're sorry to hear that", color: "#ff6b6b", cls: "glow-poor" },
-          2: { text: "Fair - We appreciate your feedback", color: "#ffa726", cls: "glow-fair" },
+          1: { text: "Poor - I'm sorry to hear that", color: "#ff6b6b", cls: "glow-poor" },
+          2: { text: "Fair - I appreciate your feedback", color: "#ffa726", cls: "glow-fair" },
           3: { text: "Good - Glad you had a decent experience", color: "#ffc107", cls: "glow-good" },
           4: { text: "Very Good - Happy to meet your expectations", color: "#66bb6a", cls: "glow-very-good" },
           5: { text: "Excellent - Thrilled to exceed your expectations!", color: "#4CAF50", cls: "glow-excellent" }
         },
         icons: {
-          'web development': 'code-slash-outline',
-          'brand design': 'color-palette-outline',
-          'video editing': 'videocam-outline'
+          'Web Development': 'code-slash-outline',
+          'Brand Design': 'color-palette-outline',
+          'Video Editing': 'videocam-outline'
         }
       }
     };
