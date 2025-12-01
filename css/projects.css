@@ -492,8 +492,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   /* 1. Layout General Mobil */
   #projects {
     height: auto; /* Foarte important pentru a nu lăsa spații goale */
-    min-height: 100vh;
-    padding: 60px 0;
+    height: 140vh;
   }
 
   .projects-container { padding: 0 20px; }
@@ -504,7 +503,7 @@ html.modal-open::-webkit-scrollbar-thumb {
     margin-top: 20px;
   }
   
-  .confidence { font-size: 2.2rem; }
+  .confidence { transform: scale(1.3); }
 
   /* 2. Galeria 3D - Adaptată pentru Mobil */
   .projects-display {
@@ -518,45 +517,47 @@ html.modal-open::-webkit-scrollbar-thumb {
     perspective: none; /* Elimină perspectiva complexă pe mobil */
   }
 
-  /* Slide Activ - Full Focus */
-  .project-slide.active {
-    width: 85vw; /* Ocupă aproape tot ecranul */
-    height: 45vh;
-    max-height: 400px;
-    opacity: 1;
-    transform: translateX(0) scale(1) !important; /* Reset 3D transforms */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    z-index: 20;
-    left: 7.5vw; /* Centrare (100 - 85) / 2 */
-  }
+/* SLIDE ACTIV – Wide și proporție corectă */
+.project-slide.active {
+  width: 80vw;              /* wide */
+  height: 20vh;             /* mai mic pe verticală */
+  opacity: 1;
+  transform: translateX(0) scale(1) !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+  z-index: 20;
+  left: 4vw;               /* (100 - 80) / 2 = 10 */
+}
 
-  /* Slide-uri Laterale - Ascunse sau subtile în spate */
-  .project-slide.prev {
-    width: 80vw;
-    height: 45vh;
-    max-height: 400px;
-    transform: translateX(-15px) scale(0.95) !important;
-    opacity: 0.3;
-    z-index: 5;
-    left: 7.5vw;
-    pointer-events: none; /* Nu poate fi dat click din greșeală */
-  }
+/* SLIDE PREV – Vizibil, puțin mai mic, deplasat stânga */
+.project-slide.prev {
+  width: 65vw;
+  height: 32vh;
+  max-height: 300px;
+  transform: translateX(-50px) scale(0.9) !important;
+  opacity: 0.55;            /* mai vizibil */
+  z-index: 10;
+  left: 0vw;                /* deplasat spre stânga real */
+  pointer-events: none;
+}
 
-  .project-slide.next {
-    width: 80vw;
-    height: 45vh;
-    max-height: 400px;
-    transform: translateX(15px) scale(0.95) !important;
-    opacity: 0.3;
-    z-index: 5;
-    left: 7.5vw;
-    pointer-events: none;
-  }
+/* SLIDE NEXT – Vizibil, puțin mai mic, deplasat dreapta */
+.project-slide.next {
+  width: 65vw;
+  height: 32vh;
+  max-height: 300px;
+  transform: translateX(50px) scale(0.9) !important;
+  opacity: 0.55;
+  z-index: 10;
+  left: 24vw;               /* deplasat spre dreapta real */
+  pointer-events: none;
+}
 
-  .project-slide.far-prev, 
-  .project-slide.far-next { 
-    display: none; /* Ascundem complet elementele îndepărtate */
-  }
+.project-slide.prev,
+.project-slide.next {
+    pointer-events: auto !important; /* ACTIVĂM CLICK-URILE */
+    z-index: 15;                     /* DEASUPRA ACTIV-ULUI DACĂ E NEVOIE */
+}
+
 
   /* Butonul View More - Mereu Vizibil pe Mobil */
   .view-more {
@@ -564,8 +565,10 @@ html.modal-open::-webkit-scrollbar-thumb {
     transform: translateY(0) !important;
     background: rgba(0,0,0,0.6); /* Contrast mai bun */
     border-color: #fff;
-    padding: 12px 25px;
-    font-size: 0.9rem;
+    padding: 6px 12px;
+    font-size: 0.6rem;
+    font-weight: 1000;
+    letter-spacing: 2px;
   }
 
   .project-overlay {
@@ -593,11 +596,11 @@ html.modal-open::-webkit-scrollbar-thumb {
 
   #projectsModal .modal-title {
     font-size: 1.5rem;
-    margin-top: 0;
+    margin-top: -30px;
   }
 
   #projectsModal .project-details {
-    gap: 30px;
+    gap: 0px;
     margin-top: 20px;
   }
 
@@ -606,22 +609,39 @@ html.modal-open::-webkit-scrollbar-thumb {
   }
 
   #projectsModal .project-name {
-    font-size: 1.8rem;
-    margin-bottom: 15px;
+    font-size: 1rem;
+    position: relative;
+    top: -240px;
+    margin-bottom: 30px;
   }
 
   #projectsModal .project-description p {
     font-size: 1rem;
-    text-align: left;
+    text-align: center;
+    position: relative;
+    top: -100px;
   }
 
   #projectsModal .related-projects {
     grid-template-columns: 1fr; /* O singură coloană */
     gap: 20px;
+    position: relative;
+    top: -100px;
   }
 
   #projectsModal .related-project {
     height: 220px;
+  }
+  #projectsModal .back-btn {
+    left: -100px;
+  }
+  #projectsModal .key-features {
+    position: relative;
+    top: -70px;
+  }
+  #projectsModal .divider-section {
+    position: relative;
+    top: -80px;
   }
 }
 

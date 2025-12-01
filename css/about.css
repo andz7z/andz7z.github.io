@@ -307,17 +307,6 @@
   .location-minimal { position: static; margin-bottom: 0; margin-right: 0; }
 }
 
-@media (max-width: 768px) {
-  .about-content { padding: 40px 30px; }
-  .about-main-title { font-size: 2.2rem; }
-  .quality-category { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .quality-tags, .hobby-tags { gap: 10px; }
-  .about-contact-btn { width: 50px; height: 50px; }
-  .about-contact-btn:hover { width: 180px; }
-  .contact-icon { font-size: 1.2rem; left: 15px; }
-  .about-contact-btn:hover .contact-icon { left: 20px; }
-}
-
 @media (max-width: 480px) {
   .about-content { padding: 30px 20px; }
   .about-main-title { font-size: 1.8rem; }
@@ -338,4 +327,80 @@
   0% { color: #cccccc; text-shadow: 0 0 2px rgba(255, 255, 255, 0.1); }
   50% { color: #ffffff; text-shadow: 0 0 8px rgba(255, 255, 255, 0.6), 0 0 15px rgba(255, 255, 255, 0.3); }
   100% { color: #cccccc; text-shadow: 0 0 2px rgba(255, 255, 255, 0.1); }
+}
+@media (max-width: 768px) {
+
+  /* Micșorare & centrare conținut */
+  .about-content {
+    padding: 20px 15px; 
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+    transform: scale(0.9);
+    margin-top: 300px;
+    margin-left: -50px;
+    transform-origin: top center;
+  }
+
+  .about-title {
+    font-size: 1.3rem;
+    margin-left: -25px;
+    margin-top: 100px;
+    text-align: center;
+  }
+  .quality-category {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    left: -10px;
+  }
+
+  .quality-tags, 
+  .hobby-tags {
+    gap: 8px;
+    transform: scale(0.75);
+    justify-content: center;
+  }
+
+  /* Buton contact */
+  .about-contact-btn {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto;
+  }
+
+  .about-contact-btn:hover {
+    width: 150px;
+  }
+
+  .contact-icon {
+    font-size: 1.1rem;
+    left: 12px;
+  }
+
+  .about-contact-btn:hover .contact-icon {
+    left: 18px;
+  }
+
+  /* Videoclip micșorat și centrat */
+  .about-video-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .about-video-container iframe,
+  .about-video-container video {
+    width: 70% !important;   /* mult mai mic */
+    height: auto !important; /* păstrează proporția chiar cu blackbars */
+    max-width: 300px;
+  }
+  .description-text {
+    margin-top: -40px;
+    font-size: 0.8rem;
+    padding: 50px;
+    margin-left: -10px;
+    max-width: 400px;
+  }
 }

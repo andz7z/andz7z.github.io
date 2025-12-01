@@ -12,29 +12,12 @@
     <link rel="stylesheet" href="css/projects.css">
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/services.css">
-<!-- iOS PWA support -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Numele Aplicatiei">
-
-<!-- iOS icon (folosit pentru toate dimensiunile) -->
-<link rel="apple-touch-icon" href="https://andz7z.github.io/assets/photos/favicon/apple-touch-icon.png">
-
-<!-- Android PWA -->
-<link rel="manifest" href="https://andz7z.github.io/assets/photos/favicon/site.webmanifest">
-<link rel="icon" type="image/png" sizes="32x32" href="https://andz7z.github.io/assets/photos/favicon/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://andz7z.github.io/assets/photos/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://andz7z.github.io/assets/photos/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://andz7z.github.io/assets/photos/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://andz7z.github.io/assets/photos/favicon/favicon-16x16.png">
+    <link rel="manifest" href="https://andz7z.github.io/assets/photos/favicon/site.webmanifest">
+</head>
 <body>
-    <div id="ios-install" class="ios-prompt">
-  <div class="ios-card">
-    <span class="close-btn" onclick="closeIOSPrompt()">×</span>
-    <h3>Instalează aplicația</h3>
-    <p>Apasă <strong>Share</strong> 
-       <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/IOS_Share_icon.png" 
-            style="width:18px;vertical-align:middle;"> 
-       și selectează <strong>Add to Home Screen</strong>.</p>
-  </div>
-    </div>
 <header>
   <nav class="navbar">
     <ul class="nav-list">
@@ -110,7 +93,7 @@
   
   <div class="about-content">
     <div class="about-left">
-      <h2 class="about-main-title animate-element" data-delay="200">A few words about me.</h2>
+      <h2 class="about-main-title animate-element" data-delay="200"><p class="about-title">A few words about me.</p></h2>
       
       <div class="about-description animate-element" data-delay="400">
         <p class="description-text">I am a <span class="highlight">21-year-old</span> student currently pursuing a degree in <span class="highlight">Systems Engineering</span> within the Automation faculty. Passionate about <span class="highlight">web development</span> - particularly the front-end side. I enjoy creating clean, intuitive, and visually engaging user experiences. I'm a serious and <span class="highlight">detail-oriented</span> person who doesn't give up until I achieve the result I want. <span class="highlight">Constant growth</span> is important to me, and I'm continuously working on both my <span class="highlight">personal and professional</span> development. I'm always eager to learn new technologies, take on challenges, and refine my skills to become a <span class="highlight">better version of myself.</span></p>
@@ -601,7 +584,7 @@
   <div class="contact-container">
     <div class="contact-left">
       <div class="contact-title">
-        <h2>You got questions? <br>I got <span class="answers">answers</span>.</h2>
+        <h2>You got questions? <br>I got <span class="answers">answers</span></h2>
       </div>
       
       <div class="contact-form-container">
@@ -721,14 +704,5 @@
     <script src="js/home.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/projects.js"></script>
-    <script>
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/service-worker.js");
-}
-    </script>
 </body>
 </html>
-
-
-
-

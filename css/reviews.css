@@ -1280,39 +1280,6 @@
   }
 }
 
-@media (max-width: 768px) {
-  .reviews-title {
-    font-size: 2.5rem;
-  }
-  
-  .form-title {
-    font-size: 2rem;
-  }
-  
-  .form-header {
-    padding: 1rem;
-  }
-  
-  .form-side {
-    padding: 1.5rem;
-  }
-  
-  .gender-options,
-  .service-options {
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-  
-  .reviews-slider {
-    max-width: 95%;
-    padding: 150px 15px;
-  }
-  
-  .review-column {
-    max-width: 250px;
-  }
-}
-
 @media (max-width: 480px) {
   .reviews-title {
     font-size: 2rem;
@@ -1338,5 +1305,60 @@
   .back-btn, .submit-form-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+@media (max-width: 768px) {
+  #reviews {
+    height: 200vh;
+  }
+  .reviews-title {
+    font-size: 2.3rem;
+    position: relative;
+    left: -20px;
+  }
+  .reviews-subtitle {
+    font-size: 0.6rem;
+    margin-top: 12px;
+    position: relative;
+    left: -15px;
+  }
+  .stats-container {
+    position: relative;
+    top: -20px;
+    left: -15px;
+  }
+  .submit-review-btn {
+    position: relative;
+    top: -25px;
+    left: -15px;
+  }
+  .form-title {
+    font-size: 1.4rem;
+  }
+  
+  .form-header {
+    padding: 1rem;
+  }
+  
+  .form-side {
+    padding: 1.5rem;
+  }
+  
+  .gender-options,
+  .service-options {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .reviews-slider {
+    max-width: 95%;
+    padding: 150px 15px;
+  }
+  
+  .review-column {
+    max-width: 250px;
+  }
+  .preview-side {
+    display: none;
   }
 }

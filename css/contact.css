@@ -287,57 +287,6 @@
   }
 }
 
-@media (max-width: 768px) {
-  #contact {
-    padding: 80px 15px 40px 15px; /* Mai mult spațiu sus pentru header */
-    height: auto; /* Permite containerului să crească */
-    min-height: auto;
-  }
-
-  .contact-container {
-    grid-template-columns: 1fr; /* Stivare verticală */
-    gap: 50px;
-    max-width: 500px; /* Limitează lățimea pe tablete portrait */
-  }
-  
-  .contact-left, .contact-right {
-    width: 100%;
-  }
-
-  .contact-title h2 {
-    text-align: center;
-    font-size: 1.8rem;
-  }
-
-  /* Centrare titlu pe mobil */
-  .contact-title {
-    text-align: center;
-  }
-  
-  .form-row {
-    grid-template-columns: 1fr; /* Input-uri unul sub altul */
-    gap: 20px;
-  }
-
-  /* FIX iOS ZOOM: Font size 16px previne zoom-ul automat */
-  .form-group input,
-  .form-group textarea {
-    font-size: 16px; 
-    padding: 14px 16px; /* Touch target mai mare */
-  }
-
-  .submit-btn {
-    width: 100%; /* Buton full width pe mobil */
-    padding: 15px; /* Mai ușor de apăsat */
-    font-size: 1rem;
-    margin-top: 15px;
-  }
-
-  .socials-section {
-    padding: 25px 20px;
-  }
-}
-
 @media (max-width: 480px) {
   #contact {
     padding: 60px 15px;
@@ -385,5 +334,59 @@
   
   .social-name {
     font-size: 0.8rem;
+  }
+}
+@media (max-width: 768px) {
+  #contact {
+    padding: 80px 15px 40px 15px; /* Mai mult spațiu sus pentru header */
+    height: auto; /* Permite containerului să crească */
+    min-height: auto;
+  }
+
+  .contact-container {
+    grid-template-columns: 1fr; /* Stivare verticală */
+    gap: 50px;
+    max-width: 500px; /* Limitează lățimea pe tablete portrait */
+  }
+  
+  .contact-left, .contact-right {
+    width: 100%;
+  }
+
+  .contact-title h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    white-space: nowrap;
+  }
+
+  /* Centrare titlu pe mobil */
+  .contact-title {
+    text-align: center;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr; /* Input-uri unul sub altul */
+    gap: 20px;
+  }
+  .answers {
+    transform: scale(1.7);
+    letter-spacing: 10px;
+  }
+  /* FIX iOS ZOOM: Font size 16px previne zoom-ul automat */
+  .form-group input,
+  .form-group textarea {
+    font-size: 16px; 
+    padding: 14px 16px; /* Touch target mai mare */
+  }
+
+  .submit-btn {
+    width: 100%; /* Buton full width pe mobil */
+    padding: 15px; /* Mai ușor de apăsat */
+    font-size: 1rem;
+    margin-top: 15px;
+  }
+
+  .socials-section {
+    padding: 25px 20px;
   }
 }

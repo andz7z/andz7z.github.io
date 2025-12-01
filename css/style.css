@@ -113,38 +113,13 @@ section {
 body:not(.home-section) .navbar {
   display: none;
 }
-.ios-prompt {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 9999;
-  display: none;
-}
-
-.ios-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 16px 20px;
-  border-radius: 18px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-  max-width: 320px;
-  text-align: center;
-  font-family: system-ui, sans-serif;
-  animation: slideUp 0.4s ease-out;
-  position: relative;
-}
-
-.close-btn {
-  position: absolute;
-  right: 14px;
-  top: 10px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #444;
-}
-
-@keyframes slideUp {
-  from { transform: translate(-50%, 20px); opacity: 0; }
-  to { transform: translate(-50%, 0); opacity: 1; }
+@media (max-width: 768px) {
+  .navbar {
+    top: 0px;
+    right: 0;
+    transform: translateX(50px);
+  }
+  .nav-list {
+    gap: 0px;
+  }
 }
