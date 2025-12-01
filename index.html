@@ -711,7 +711,13 @@
     <script src="js/home.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/projects.js"></script>
+    <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/service-worker.js");
+}
+    </script>
 </body>
 </html>
+
 
 
