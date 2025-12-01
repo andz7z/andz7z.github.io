@@ -4,6 +4,27 @@
  * - Debounced resize events
  * - Optimized Global Cursor using translate3d
  */
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+
+function isSafari() {
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+}
+
+function closeIOSPrompt() {
+  document.getElementById("ios-install").style.display = "none";
+  localStorage.setItem("iosPromptShown", "true");
+}
+
+window.addEventListener("load", () => {
+  // Arată mesajul doar pe iOS + Safari, o singură dată
+  if (isIOS() && isSafari() && !localStorage.getItem("iosPromptShown")) {
+    setTimeout(() => {
+      document.getElementById("ios-install").style.display = "block";
+    }, 1500);
+  }
+});
 
 const firebaseConfig = {
   apiKey: "AIzaSyC0DShqS1R3eqCIVFLKXxU0vmi0mUqprek",
@@ -106,4 +127,5 @@ document.addEventListener('DOMContentLoaded', () => {
   
   // Footer check
   if (typeof window.initFooter === 'function') window.initFooter();
+
 });
