@@ -1,1 +1,1 @@
-navigator.serviceWorker.register("/service-worker.js");
+self.addEventListener("fetch", () => {});
