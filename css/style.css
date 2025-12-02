@@ -51,7 +51,6 @@ section {
   gap: 6px;
   position: relative;
   top: 5vh;
-  left: -2vw;
 }
 
 .nav-item {
@@ -122,4 +121,5 @@ body:not(.home-section) .navbar {
   .nav-list {
     gap: 0px;
   }
+
 }
