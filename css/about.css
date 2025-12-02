@@ -331,76 +331,96 @@
 @media (max-width: 768px) {
 
   /* Micșorare & centrare conținut */
-  .about-content {
-    padding: 20px 15px; 
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: center;
-    transform: scale(0.9);
-    margin-top: 300px;
-    margin-left: -50px;
-    transform-origin: top center;
-  }
+/* Containerul principal */
+.about-content {
+  display: flex;
+  flex-direction: column; /* Așază elementele unul sub altul */
+  align-items: center;    /* Centrează elementele pe orizontală */
+  justify-content: center;
+  
+  width: 100%;
+  max-width: 100%;        /* Folosește toată lățimea ecranului */
+  margin: 50px auto 0;    /* Resetat marginea de sus la ceva rezonabil */
+  padding: 20px;
+  text-align: center;
+  
+  /* Am scos transform: scale și margin-left negative care stricau totul */
+  transform: none; 
+}
 
-  .about-title {
-    font-size: 1.3rem;
-    margin-left: -25px;
-    margin-top: 100px;
-    text-align: center;
-  }
-  .quality-category {
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    position: relative;
-    left: -10px;
-  }
+/* Titlul */
+.about-title {
+  font-size: 1.4rem;
+  margin: 0 0 20px 0; /* Spațiu doar dedesubt */
+  text-align: center;
+  width: 100%;
+}
 
-  .quality-tags, 
-  .hobby-tags {
-    gap: 8px;
-    transform: scale(0.75);
-    justify-content: center;
-  }
+/* Descrierea text */
+.description-text {
+  font-size: 0.9rem;
+  line-height: 1.6;       /* Mai ușor de citit */
+  text-align: center;     /* Text centrat */
+  max-width: 90%;         /* Să nu atingă marginile ecranului */
+  margin: 0 auto 30px;    /* Centrat automat + spațiu jos */
+  padding: 0;
+}
 
-  /* Buton contact */
-  .about-contact-btn {
-    width: 45px;
-    height: 45px;
-    margin: 0 auto;
-  }
+/* Categoriile (Skills/Hobbies) */
+.quality-category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  
+  /* Resetat poziționarea */
+  position: static;
+  gap: 10px;
+}
 
-  .about-contact-btn:hover {
-    width: 150px;
-  }
+/* Tag-urile din interior */
+.quality-tags, 
+.hobby-tags {
+  display: flex;
+  flex-wrap: wrap;        /* Dacă sunt multe, trec pe rândul următor */
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  
+  /* Scos scale pentru claritate, mai bine ajustezi font-size dacă e nevoie */
+  transform: none; 
+}
 
-  .contact-icon {
-    font-size: 1.1rem;
-    left: 12px;
-  }
+/* Butonul de contact */
+.about-contact-btn {
+  width: 45px;
+  height: 45px;
+  margin: 20px auto; /* Centrat perfect */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .about-contact-btn:hover .contact-icon {
-    left: 18px;
-  }
+/* Păstrăm efectul de hover, dar centrat */
+.about-contact-btn:hover {
+  width: 150px;
+}
 
-  /* Videoclip micșorat și centrat */
-  .about-video-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
+.contact-icon {
+  font-size: 1.1rem;
+  /* Centrarea iconiței se face din flex-ul părintelui, nu cu left */
+  position: static; 
+}
 
-  .about-video-container iframe,
-  .about-video-container video {
-    width: 70% !important;   /* mult mai mic */
-    height: auto !important; /* păstrează proporția chiar cu blackbars */
-    max-width: 300px;
-  }
+.about-contact-btn:hover .contact-icon {
+  display: none;
+}
   .description-text {
-    margin-top: -40px;
-    font-size: 0.8rem;
-    padding: 50px;
-    margin-left: -10px;
-    max-width: 400px;
+    margin-bottom: 100px;
+  }
+  .about-video-container {
+    display: none;
   }
 }

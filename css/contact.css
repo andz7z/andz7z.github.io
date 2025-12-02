@@ -341,6 +341,7 @@
     padding: 80px 15px 40px 15px; /* Mai mult spațiu sus pentru header */
     height: auto; /* Permite containerului să crească */
     min-height: auto;
+    overflow: hidden;
   }
 
   .contact-container {

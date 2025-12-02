@@ -51,6 +51,7 @@ section {
   gap: 6px;
   position: relative;
   top: 5vh;
+  left: -2vw;
 }
 
 .nav-item {
@@ -114,12 +115,8 @@ body:not(.home-section) .navbar {
 }
 @media (max-width: 768px) {
   .navbar {
-    top: 0px;
-    right: 0;
-    transform: translateX(50px);
+    position: absolute;
+    top: 0;
+    left: 0;
   }
-  .nav-list {
-    gap: 0px;
-  }
-
 }

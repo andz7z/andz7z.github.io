@@ -567,7 +567,7 @@ html.modal-open::-webkit-scrollbar-thumb {
     border-color: #fff;
     padding: 6px 12px;
     font-size: 0.6rem;
-    font-weight: 1000;
+    font-weight: 100;
     letter-spacing: 2px;
   }
 
@@ -595,8 +595,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   }
 
   #projectsModal .modal-title {
-    font-size: 1.5rem;
-    margin-top: -30px;
+    display: none;
   }
 
   #projectsModal .project-details {
@@ -611,7 +610,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   #projectsModal .project-name {
     font-size: 1rem;
     position: relative;
-    top: -240px;
+    top: -300px;
     margin-bottom: 30px;
   }
 
@@ -619,7 +618,7 @@ html.modal-open::-webkit-scrollbar-thumb {
     font-size: 1rem;
     text-align: center;
     position: relative;
-    top: -100px;
+    top: -50px;
   }
 
   #projectsModal .related-projects {
@@ -633,7 +632,7 @@ html.modal-open::-webkit-scrollbar-thumb {
     height: 220px;
   }
   #projectsModal .back-btn {
-    left: -100px;
+    left: -140px;
   }
   #projectsModal .key-features {
     position: relative;
