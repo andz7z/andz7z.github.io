@@ -332,11 +332,6 @@ class ReviewsSystem {
 
   getSampleReviews() {
     return [
-      { fullName: "Alex Johnson", rating: 5, gender: "male", service: "web development", message: "Exceptional work! The website surpassed all expectations." },
-      { fullName: "Maria Garcia", rating: 4, gender: "female", service: "brand design", message: "Stunning design work. Professional and creative." },
-      { fullName: "David Smith", rating: 5, gender: "male", service: "video editing", message: "Transformed our footage into a cinematic masterpiece!" },
-      { fullName: "Sarah Wilson", rating: 4, gender: "female", service: "web development", message: "Great communication and delivered on time." },
-      { fullName: "Mike Brown", rating: 5, gender: "male", service: "brand design", message: "The branding perfectly captures our company vision." }
     ];
   }
 

@@ -100,7 +100,7 @@
 .description-text {
   font-size: 0.9rem;
   line-height: 1.5;
-  color: rgba(255, 255, 255, 0.814);
+  color: rgb(255, 255, 255);
   letter-spacing: 2px;
   max-width: 580px;
   font-weight: 100;
@@ -121,7 +121,7 @@
 .category-title {
   font-size: 0.8rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.712);
+  color: rgb(255, 255, 255);
   min-width: 90px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -136,7 +136,7 @@
 
 .quality-tag {
   font-size: 0.8rem;
-  color: rgb(255, 255, 255);
+  color: rgb(194, 194, 194);
   display: flex;
   align-items: center;
 }
@@ -152,7 +152,7 @@
   align-items: center;
   gap: 6px;
   font-size: 0.80rem;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgb(194, 194, 194);
   transition: all 0.3s ease;
 }
 
