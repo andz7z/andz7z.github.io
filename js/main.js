@@ -116,14 +116,13 @@ document.addEventListener('DOMContentLoaded', function() {
         "‎ ‎ ‎ ‎ ‎ ‎UI / UX | DESIGN"
     ];
 
-    // TRUC CENTRARE: Adaugă spații aici pentru a împinge textul spre centru
-    // Poți adăuga sau șterge spații din acest șir până îți place cum arată
+    // TRUC CENTRARE
     const spatiereCentrare = "          "; 
 
     // TIMING (milisecunde)
-    const vitezaScriere = 200;  // Ușor mai lent pentru eleganță
-    const vitezaStergere = 100; // Fix pentru problema "ștersului sacadat"
-    const pauzaCitire = 2000;   // Cât stă textul complet
+    const vitezaScriere = 200;  
+    const vitezaStergere = 100; 
+    const pauzaCitire = 2000;   
     const pauzaIntreMesaje = 400; 
 
     // VARIABILE INTERNE
@@ -131,56 +130,61 @@ document.addEventListener('DOMContentLoaded', function() {
     let charIndex = 0;
     let seSterge = false;
 
+    // --- FUNCȚIE DETECTARE MOBIL ---
+    function esteMobil() {
+        // Verificăm dacă ecranul e mai mic de 768px SAU dacă e un device mobil
+        return (window.innerWidth < 768) || 
+               /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
     function animatieTitlu() {
         const mesajCurent = mesaje[mesajIndex];
-        let textFinal = "";
-
+        
         // Logica de tăiere a textului
         if (seSterge) {
             charIndex--;
-            // Fix: Nu lăsa indexul să scadă sub 0
             if (charIndex < 0) charIndex = 0;
         } else {
             charIndex++;
-            // Fix: Nu lăsa indexul să depășească lungimea
             if (charIndex > mesajCurent.length) charIndex = mesajCurent.length;
         }
 
-        // Construim textul parțial
         const textPartial = mesajCurent.substring(0, charIndex);
 
         // --- RANDARE ÎN TITLU ---
         if (textPartial.length === 0) {
-            // Când e gol, punem caracterul invizibil + spațierea
-            // Astfel URL-ul nu apare niciodată
             document.title = "\u200E"; 
         } else {
-            // Aici aplicăm centrarea: Spații + Text
             document.title = spatiereCentrare + textPartial;
         }
 
-        // --- CALCUL TIMP PENTRU URMĂTORUL PAS ---
+        // --- CALCUL TIMP ---
         let timpUrmator = vitezaScriere;
 
         if (!seSterge && charIndex === mesajCurent.length) {
-            // GATA DE SCRIS -> PAUZĂ LUNGĂ
             timpUrmator = pauzaCitire;
             seSterge = true;
         } else if (seSterge && charIndex === 0) {
-            // GATA DE ȘTERS -> TRECEM LA URMĂTORUL
             seSterge = false;
-            mesajIndex = (mesajIndex + 1) % mesaje.length; // Loop infinit
+            mesajIndex = (mesajIndex + 1) % mesaje.length;
             timpUrmator = pauzaIntreMesaje;
         } else if (seSterge) {
-            // ÎN TIMPUL ȘTERGERII
             timpUrmator = vitezaStergere;
         }
 
         setTimeout(animatieTitlu, timpUrmator);
     }
 
-    // Pornire
-    animatieTitlu();
+    // --- PORNIRE CONDIȚIONATĂ ---
+    if (esteMobil()) {
+        // CAZ MOBIL: Setăm doar primul titlu static, fără animație
+        // NOTĂ: Pe mobil nu folosim 'spatiereCentrare' deoarece tab-ul e prea mic
+        // și textul ar dispărea în dreapta. Afișăm direct mesajul.
+        document.title = mesaje[0]; 
+    } else {
+        // CAZ DESKTOP: Pornim animația
+        animatieTitlu();
+    }
 });
 (function () {
   const bar = document.getElementById('scroll-progress-bar');
