@@ -707,7 +707,122 @@
     <script src="js/home.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/projects.js"></script>
+    <div id="ios-install-prompt" style="display: none;">
+    <div class="ios-prompt-content">
+        <button id="close-ios-prompt">×</button>
+        <p>Instalează aplicația pentru o experiență mai bună!</p>
+        <div class="ios-instructions">
+            <span>Apasă pe</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                <polyline points="16 6 12 2 8 6"></polyline>
+                <line x1="12" y1="2" x2="12" y2="15"></line>
+            </svg>
+            <span>și apoi <strong>"Add to Home Screen"</strong> (Adaugă la ecran).</span>
+        </div>
+    </div>
+    <div class="ios-arrow-down"></div>
+</div>
+
+<style>
+    /* Stiluri pentru banner */
+    #ios-install-prompt {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 400px;
+        background-color: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        padding: 15px;
+        z-index: 9999;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        text-align: center;
+        border: 1px solid #e0e0e0;
+        animation: slideUp 0.5s ease-out;
+    }
+
+    .ios-prompt-content p {
+        margin: 0 0 10px 0;
+        font-weight: 600;
+        color: #333;
+        font-size: 16px;
+    }
+
+    .ios-instructions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    /* Butonul X de închidere */
+    #close-ios-prompt {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #999;
+        cursor: pointer;
+    }
+
+    /* Triunghiul de jos (săgeata) */
+    .ios-arrow-down {
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0; 
+        height: 0; 
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid rgba(255, 255, 255, 0.95);
+    }
+
+    @keyframes slideUp {
+        from { bottom: -100px; opacity: 0; }
+        to { bottom: 20px; opacity: 1; }
+    }
+</style>
+
+<script>
+    (function() {
+        // 1. Detectăm dacă este iOS (iPhone, iPad, iPod)
+        const isIos = () => {
+            const userAgent = window.navigator.userAgent.toLowerCase();
+            return /iphone|ipad|ipod/.test(userAgent);
+        }
+
+        // 2. Detectăm dacă site-ul rulează deja ca aplicație (standalone)
+        const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
+
+        // 3. Verificăm dacă utilizatorul a închis deja notificarea în trecut
+        const hasSeenPrompt = localStorage.getItem('iosPromptDismissed');
+
+        // LOGICA PRINCIPALĂ
+        if (isIos() && !isInStandaloneMode() && !hasSeenPrompt) {
+            // Afișăm bannerul
+            const prompt = document.getElementById('ios-install-prompt');
+            prompt.style.display = 'block';
+
+            // Logica butonului de închidere
+            document.getElementById('close-ios-prompt').addEventListener('click', function() {
+                prompt.style.display = 'none';
+                // Salvăm în memorie că l-a închis, ca să nu apară la fiecare refresh
+                localStorage.setItem('iosPromptDismissed', 'true');
+            });
+        }
+    })();
+</script>
 </body>
 </html>
+
 
 
