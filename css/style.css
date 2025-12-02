@@ -120,3 +120,33 @@ body:not(.home-section) .navbar {
     left: 0;
   }
 }
+/* Progress bar container */
+#scroll-progress-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;               /* ajustează grosimea barei */
+  pointer-events: none;      /* nu blochează clickuri */
+  z-index: 9999;
+  background: transparent;
+}
+
+/* Actual progress indicator – gradient de la negru la alb */
+#scroll-progress-bar {
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  transform: scaleX(0);
+  will-change: transform;
+  background: linear-gradient(90deg, #000 0%, #fff 100%);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.12); /* opțional, puțin depth */
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  transition: opacity 200ms ease; /* pentru efect subtil la show/hide */
+}
+
+/* Opțional: ascunde bara când nu se derulează (estetic) */
+#scroll-progress-wrap.idle #scroll-progress-bar {
+  opacity: 0.65;
+}
