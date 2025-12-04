@@ -6,7 +6,6 @@
   padding: 60px 20px;
   position: relative;
   min-height: 100vh;
-  /* Folosim dvh pentru mobile browsers care au bara de jos dinamică */
   min-height: 100dvh; 
   display: flex;
   align-items: center;
@@ -71,6 +70,270 @@
   margin-bottom: 5px;
 }
 
+.phone-input-container {
+  position: relative;
+}
+
+/* Phone Dropdown Styles - FIX pentru pozitionare */
+.phone-dropdown-wrapper {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  width: 120px;
+}
+
+.phone-dropdown-trigger {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid #333;
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-family: 'Sora', sans-serif;
+  color: #fff;
+  position: relative; /* FIX: pentru a preveni miscarea */
+}
+
+/* FIX: Elimina orice transform care ar putea muta trigger-ul */
+.phone-dropdown-trigger:active {
+  transform: none !important;
+}
+
+.selected-country {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.country-flag {
+  width: 20px;
+  height: 15px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.flag-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.country-code {
+  font-size: 0.9rem;
+  font-weight: 500;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.dropdown-icon {
+  font-size: 1rem;
+  color: #888;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.phone-dropdown-wrapper.active .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* Countries Dropdown */
+.countries-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 300px;
+  background: #1a1a1a;
+  border: 1.5px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 101;
+  max-height: 350px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.phone-dropdown-wrapper.active .countries-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-search {
+  position: relative;
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-search ion-icon {
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 1.1rem;
+}
+
+.countries-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 280px;
+  padding: 10px 0;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  user-select: none;
+}
+
+.country-item-flag {
+  width: 24px;
+  height: 18px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.country-item-flag img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.country-item-name {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.country-item-code {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* Scrollbar styling */
+.countries-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.countries-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.countries-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.countries-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.input-checkmark {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background-color: #00ff88;
+  border-radius: 50%;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.textarea-checkmark {
+  top: 30px;
+  transform: translateY(0);
+}
+
+.input-checkmark::after {
+  content: '';
+  width: 6px;
+  height: 10px;
+  border: solid #000;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) translate(-1px, -1px);
+}
+
+.input-checkmark.visible {
+  display: flex;
+  animation: checkmarkFadeIn 0.3s ease forwards;
+}
+
+.input-checkmark.hiding {
+  animation: checkmarkFadeOut 0.3s ease forwards;
+}
+
+@keyframes checkmarkFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+}
+
+@keyframes checkmarkFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.8);
+    display: none;
+  }
+}
+
 .form-group input,
 .form-group textarea {
   width: 100%;
@@ -82,9 +345,24 @@
   font-family: 'Sora', sans-serif;
   border-radius: 12px;
   transition: all 0.3s ease;
-  /* Elimină stilul default pe iOS */
   -webkit-appearance: none; 
   appearance: none;
+  box-sizing: border-box;
+}
+
+/* Padding pentru input-uri cu checkmark */
+.form-group input {
+  padding-right: 45px !important;
+}
+
+/* Padding special pentru telefon */
+.phone-input-container input {
+  padding-left: 140px !important;
+  padding-right: 45px !important;
+}
+
+.form-group textarea {
+  padding-right: 45px !important;
 }
 
 .form-group input:focus,
@@ -96,6 +374,11 @@
   box-shadow: 0 5px 15px rgba(255, 255, 255, 0.05);
 }
 
+.form-group input:valid:not(:placeholder-shown):not(.input-error),
+.form-group textarea:valid:not(:placeholder-shown):not(.input-error) {
+  border-color: #00ff88;
+}
+
 .form-group label {
   position: absolute;
   top: 12px;
@@ -104,11 +387,15 @@
   color: #888;
   pointer-events: none;
   transition: all 0.3s ease;
-  background-color: transparent; /* Fix pentru suprapunere */
+  background-color: transparent;
   padding: 0 6px;
+  z-index: 3;
 }
 
-/* Fix pentru label background ca să nu taie linia inputului urât */
+.phone-input-container label {
+  left: 140px;
+}
+
 .form-group input:focus ~ label,
 .form-group input:valid ~ label,
 .form-group textarea:focus ~ label,
@@ -116,6 +403,12 @@
   top: -8px;
   font-size: 0.75rem;
   color: #fff;
+  background-color: #000;
+}
+
+.phone-input-container input:focus ~ label,
+.phone-input-container input:valid ~ label {
+  left: 16px;
   background-color: #000;
 }
 
@@ -142,7 +435,6 @@
   gap: 8px;
 }
 
-/* Hover effects doar pentru dispozitive cu mouse (PC) */
 @media (hover: hover) {
   .submit-btn:hover {
     background: linear-gradient(135deg, #fff 0%, #ccc 100%);
@@ -156,7 +448,6 @@
   transform: scale(0.98);
 }
 
-/* Right Side Social Media Styles */
 .contact-right {
   display: flex;
   flex-direction: column;
@@ -168,7 +459,7 @@
   border-radius: 20px;
   padding: 30px 25px;
   border: 1px solid #333333;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05); /* Fix alpha la shadow */
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
 }
 
 .socials-header {
@@ -191,7 +482,6 @@
   font-weight: 300;
 }
 
-/* Social Media Grid */
 .socials-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -236,8 +526,6 @@
   transition: all 0.3s ease;
 }
 
-/* --- LOGICA AVANSATĂ PENTRU HOVER --- */
-/* Aceste efecte se aplică DOAR pe PC. Pe telefon blur-ul este enervant. */
 @media (hover: hover) {
   .socials-grid:hover .social-item:not(:hover) {
     filter: blur(2px);
@@ -257,7 +545,6 @@
     transform: scale(1.1);
   }
 
-  /* Platform specific colors on Hover */
   .social-item[data-platform="linkedin"]:hover .social-icon { background: #0077b5; border-color: #0077b5; }
   .social-item[data-platform="github"]:hover .social-icon { background: #333; border-color: #333; }
   .social-item[data-platform="discord"]:hover .social-icon { background: #5865f2; border-color: #5865f2; }
@@ -268,86 +555,17 @@
   .social-item[data-platform="gmail"]:hover .social-icon { background: #ea4335; border-color: #ea4335; }
 }
 
-/* =========================================
-   PERFECT MOBILE OPTIMIZATION
-   ========================================= */
-
-@media (max-width: 1024px) {
-  .contact-container {
-    gap: 40px;
-    padding: 0 20px; /* Extra siguranță la margini */
-  }
-  
-  .contact-title h2 {
-    font-size: 2rem;
-  }
-  
-  .answers {
-    font-size: 2.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  #contact {
-    padding: 60px 15px;
-  }
-  
-  .contact-title h2 {
-    font-size: 1.6rem;
-  }
-  
-  .answers {
-    font-size: 1.8rem;
-    display: block; /* Pe ecrane foarte mici, poate fi pe rând nou */
-    margin-top: 5px;
-  }
-  
-  .socials-header h3 {
-    font-size: 1.3rem;
-  }
-
-  /* IMPORTANT: Păstrăm 2 coloane pe mobil!
-     1 coloană arată urât și ocupă prea mult spațiu vertical.
-  */
-  .socials-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  
-  .social-item {
-    padding: 10px;
-    flex-direction: column; /* Icon sus, text jos pentru aspect compact */
-    text-align: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.03); /* Ușor fundal pentru contrast */
-  }
-  
-  .social-icon {
-    width: 38px;
-    height: 38px;
-    margin-bottom: 2px;
-  }
-  
-  .social-icon ion-icon {
-    font-size: 1.2rem;
-  }
-  
-  .social-name {
-    font-size: 0.8rem;
-  }
-}
 @media (max-width: 768px) {
   #contact {
-    padding: 80px 15px 40px 15px; /* Mai mult spațiu sus pentru header */
-    height: auto; /* Permite containerului să crească */
+    padding: 80px 15px 40px 15px;
+    height: auto;
     min-height: auto;
-    overflow: hidden;
   }
 
   .contact-container {
-    grid-template-columns: 1fr; /* Stivare verticală */
+    grid-template-columns: 1fr;
     gap: 50px;
-    max-width: 500px; /* Limitează lățimea pe tablete portrait */
+    max-width: 500px;
   }
   
   .contact-left, .contact-right {
@@ -357,32 +575,81 @@
   .contact-title h2 {
     text-align: center;
     font-size: 1.8rem;
-    white-space: nowrap;
   }
 
-  /* Centrare titlu pe mobil */
   .contact-title {
     text-align: center;
   }
   
   .form-row {
-    grid-template-columns: 1fr; /* Input-uri unul sub altul */
+    grid-template-columns: 1fr;
     gap: 20px;
   }
+  
   .answers {
-    transform: scale(1.7);
-    letter-spacing: 10px;
+    transform: scale(1);
+    letter-spacing: 1px;
   }
-  /* FIX iOS ZOOM: Font size 16px previne zoom-ul automat */
+  
   .form-group input,
   .form-group textarea {
     font-size: 16px; 
-    padding: 14px 16px; /* Touch target mai mare */
+    padding: 14px 16px;
+  }
+  
+  .phone-dropdown-wrapper {
+    width: 110px;
+  }
+  
+  .phone-input-container input {
+    padding-left: 130px !important;
+    padding-right: 40px !important;
+  }
+
+  .phone-dropdown-trigger {
+    padding: 6px 10px;
+  }
+
+  .country-code {
+    font-size: 0.85rem;
+  }
+
+  .countries-dropdown {
+    width: 280px;
+    max-height: 300px;
+  }
+
+  .form-group input {
+    padding-right: 40px !important;
+  }
+
+  .form-group textarea {
+    padding-right: 40px !important;
+  }
+
+  .input-checkmark {
+    right: 12px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .textarea-checkmark {
+    top: 25px;
+    right: 12px;
+  }
+
+  .phone-input-container label {
+    left: 130px;
+  }
+
+  .phone-input-container input:focus ~ label,
+  .phone-input-container input:valid ~ label {
+    left: 16px;
   }
 
   .submit-btn {
-    width: 100%; /* Buton full width pe mobil */
-    padding: 15px; /* Mai ușor de apăsat */
+    width: 100%;
+    padding: 15px;
     font-size: 1rem;
     margin-top: 15px;
   }
@@ -390,4 +657,269 @@
   .socials-section {
     padding: 25px 20px;
   }
+  .message-minimum {
+  position: relative;
+  letter-spacing: 1px;
+  left: 57vw;
+  }
+}
+.phone-input-container {
+  position: relative;
+}
+
+.phone-length-info {
+  position: absolute;
+  right: 45px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.75rem;
+  color: #888;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 2px 6px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.phone-input-container input:focus ~ .phone-length-info {
+  opacity: 1;
+}
+
+.message-length-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #888;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.form-group textarea:focus ~ .message-length-info,
+.form-group textarea:valid ~ .message-length-info {
+  opacity: 1;
+}
+
+
+.message-minimum {
+  color: #ffffff;
+  position: relative;
+  left: 28.7vw;
+  letter-spacing: 1px;
+}
+
+/* Phone Dropdown Styles - STEAȘ SIMPLU */
+.phone-dropdown-wrapper {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+}
+
+.phone-dropdown-trigger {
+  background: transparent;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  width: auto;
+  font-family: 'Sora', sans-serif;
+  color: #fff;
+  position: relative;
+}
+
+.selected-country {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.country-flag {
+  width: 20px;
+  height: 16px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flag-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dropdown-icon {
+  font-size: 0.7rem;
+  color: #888;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.phone-dropdown-wrapper.active .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* Countries Dropdown */
+.countries-dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 280px;
+  background: #000000;
+  border: 1.5px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 0px 10px rgb(45, 45, 45);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 101;
+  max-height: 350px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.phone-dropdown-wrapper.active .countries-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-search {
+  position: relative;
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1.5px solid #333;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-search ion-icon {
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 1.1rem;
+}
+
+.countries-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 280px;
+  padding: 10px 0;
+}
+
+.country-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  user-select: none;
+}
+
+.country-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: #ffffff;
+}
+
+.country-item.selected {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: #00ff88;
+}
+
+.country-item-flag {
+  width: 24px;
+  height: 18px;
+  border-radius: 2px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.country-item-flag img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.country-item-name {
+  flex-grow: 1;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.country-item-code {
+  font-size: 0.85rem;
+  color: #888;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+/* Scrollbar styling */
+.countries-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.countries-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.countries-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.countries-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Padding special pentru telefon - ajustat pentru steagul simplu */
+.phone-input-container input {
+  padding-left: 50px !important; /* Redus pentru steagul simplu */
+  padding-right: 45px !important;
+}
+
+.phone-input-container label {
+  left: 50px; /* Ajustat pentru steagul simplu */
+}
+
+.message-length-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: #888;
+  opacity: 1 !important; /* FORȚĂ VIZIBILITATE */
+  transition: opacity 0.3s ease;
 }

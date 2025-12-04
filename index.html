@@ -600,28 +600,58 @@
         <form id="contact-form" class="contact-form">
           <div class="form-row">
             <div class="form-group">
-              <input type="text" id="firstName" name="firstName" required>
+              <input type="text" id="firstName" name="firstName" required pattern="[A-Za-z]+" title="Only letters are allowed (no spaces)">
               <label for="firstName">First Name</label>
+              <div class="input-checkmark"></div>
             </div>
             <div class="form-group">
-              <input type="text" id="lastName" name="lastName" required>
+              <input type="text" id="lastName" name="lastName" required pattern="[A-Za-z]+" title="Only letters are allowed (no spaces)">
               <label for="lastName">Last Name</label>
+              <div class="input-checkmark"></div>
             </div>
           </div>
           
           <div class="form-group">
             <input type="email" id="email" name="email" required>
             <label for="email">Email Address</label>
+            <div class="input-checkmark"></div>
           </div>
           
-          <div class="form-group">
-            <input type="tel" id="phone" name="phone" required>
+          <div class="form-group phone-input-container">
+            <div class="phone-dropdown-wrapper">
+              <button type="button" class="phone-dropdown-trigger">
+                <div class="selected-country">
+                  <div class="country-flag">
+                    <img src="https://flagcdn.com/ro.svg" alt="Romania" class="flag-img">
+                  </div>
+                  <ion-icon name="chevron-down-outline" class="dropdown-icon"></ion-icon>
+                </div>
+              </button>
+              
+              <div class="countries-dropdown">
+                <div class="dropdown-search">
+                  <input type="text" placeholder="Search country..." class="search-input">
+                  <ion-icon name="search-outline"></ion-icon>
+                </div>
+                <div class="countries-list">
+                  <!-- Țările vor fi populate din JavaScript -->
+                </div>
+              </div>
+            </div>
+            
+            <input type="tel" id="phone" name="phone" required placeholder=" " autocomplete="tel" maxlength="20">
             <label for="phone">Phone Number</label>
+            <div class="input-checkmark"></div>
+            <div class="phone-length-info"></div>
           </div>
           
           <div class="form-group">
-            <textarea id="message" name="message" rows="3" required></textarea>
+            <textarea id="message" name="message" rows="3" required minlength="5"></textarea>
             <label for="message">Your Message</label>
+            <div class="input-checkmark textarea-checkmark"></div>
+            <div class="message-length-info">
+              <span class="message-minimum">Minimum 5 characters</span>
+            </div>
           </div>
           
           <button type="submit" class="submit-btn">

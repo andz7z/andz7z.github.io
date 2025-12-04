@@ -81,6 +81,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   font-family: 'Great', cursive;
   font-weight: 400;
   font-size: 4rem;
+  letter-spacing: 5px;
   padding: 3px;
   position: relative;
   background: linear-gradient(135deg, #fff, #73a4a5);
