@@ -296,7 +296,7 @@
     font-size: 14vw; /* Font dinamic bazat pe lățimea ecranului */
     top: auto;
     left: auto;
-    margin-top: -400px; /* Ușoară ajustare verticală */
+    margin-top: -365px; /* Ușoară ajustare verticală */
     margin-left: 20px;
     margin-bottom: 20px;
   }
@@ -317,7 +317,7 @@
     font-size: 32px; /* Mult mai mic decât 70px */
     line-height: 1.3;
     position: absolute;
-    top: 700px;
+    top: 600px;
   }
 
   /* 7. Bottom Right (Scroll/Pulse) */
