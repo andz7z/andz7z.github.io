@@ -52,8 +52,8 @@
   display: block;
   margin-bottom: 10px;
   position: relative;
-  top: 2vh;
-  left: 1vw;
+  top: 8.5vh;
+  left: 2.5vw;
 }
 
 .logo-text {
@@ -62,7 +62,7 @@
   color: rgb(226, 226, 226);
   letter-spacing: 5px;
   position: relative;
-  top: -8vh;
+  top: -10vh;
   left: 1vw;
   line-height: 1;
 }
@@ -74,7 +74,7 @@
   font-size: 10px;
   position: relative;
   top: -11.3vh;
-  left: 23vw;
+  left: 1vw;
   font-weight: 800; /* 1000 nu exista standard, am pus 800 (Extra Bold) */
   letter-spacing: 3px;
   opacity: 0;
@@ -287,15 +287,15 @@
     font-size: 20px;
     margin-bottom: 20px;
     position: absolute; /* Îl fixăm sus stânga */
-    top: 40px;
-    left: 20px;
+    top: 35px;
+    left: 25px;
   }
 
   /* 4. Logo Text (Numele Mare) */
   .logo-text {
     font-size: 14vw; /* Font dinamic bazat pe lățimea ecranului */
     position: relative;
-    top: -45px; /* Ușoară ajustare verticală */
+    top: -15px; /* Ușoară ajustare verticală */
     left: 10px;
   }
 
@@ -303,7 +303,7 @@
   .switcher {
     font-size: 8px; /* Mai lizibil pe mobil */
     position: relative;
-    top: -40px;
+    top: -15px;
     left: 8px; /* Aliniere fină cu titlul */
   }
 
