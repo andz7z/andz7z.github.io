@@ -186,7 +186,7 @@
     font-size: 14vw; /* Font dinamic bazat pe lățimea ecranului */
     top: auto;
     left: auto;
-    margin-top: -350px; /* Ușoară ajustare verticală */
+    margin-top: -370px; /* Ușoară ajustare verticală */
     margin-left: 20px;
     margin-bottom: 20px;
   }
@@ -295,7 +295,7 @@
   .logo-text {
     font-size: 14vw; /* Font dinamic bazat pe lățimea ecranului */
     position: relative;
-    top: -5px; /* Ușoară ajustare verticală */
+    top: 0px; /* Ușoară ajustare verticală */
     left: 10px;
   }
 
@@ -303,7 +303,7 @@
   .switcher {
     font-size: 8px; /* Mai lizibil pe mobil */
     position: relative;
-    top: -5px;
+    top: 0px;
     left: 8px; /* Aliniere fină cu titlul */
   }
 
