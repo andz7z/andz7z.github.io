@@ -294,21 +294,17 @@
   /* 4. Logo Text (Numele Mare) */
   .logo-text {
     font-size: 14vw; /* Font dinamic bazat pe lățimea ecranului */
-    top: auto;
-    left: auto;
-    margin-top: -365px; /* Ușoară ajustare verticală */
-    margin-left: 20px;
-    margin-bottom: 20px;
+    position: relative;
+    top: -45px; /* Ușoară ajustare verticală */
+    left: 10px;
   }
 
   /* 5. Switcher (Rolurile) */
   .switcher {
-    top: auto;
-    left: auto;
     font-size: 8px; /* Mai lizibil pe mobil */
-    margin-bottom: 40px;
-    margin-top: -20px;
-    margin-left: 20px; /* Aliniere fină cu titlul */
+    position: relative;
+    top: -40px;
+    left: 8px; /* Aliniere fină cu titlul */
   }
 
   /* 6. Bottom Left (Vision Text) */
