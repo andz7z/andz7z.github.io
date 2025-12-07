@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>_</title>
+    <title>ANDZ - Portfolio</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/contact.css">
@@ -13,13 +13,38 @@
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="manifest" href="https://andz7z.github.io/assets/photos/favicon/site.webmanifest">
-    <meta name="theme-color" content="#ffffff"> <link rel="apple-touch-icon" sizes="180x180" href="https://andz7z.github.io/assets/photos/favicon/apple-touch-icon.png">
+    <meta name="theme-color" content="#ffffff"> 
+    <link rel="apple-touch-icon" sizes="180x180" href="https://andz7z.github.io/assets/photos/favicon/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="∀ N D Z">
 
     <link rel="icon" type="image/png" sizes="32x32" href="https://andz7z.github.io/assets/photos/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://andz7z.github.io/assets/photos/favicon/favicon-16x16.png">
+    
+    <style>
+        /* Ascunde toate secțiunile inițial */
+        section:not(#home) {
+            display: none;
+        }
+        
+        /* Activează animații pentru scroll */
+        .active-section {
+            display: block !important;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* Stil pentru link-urile active din meniu */
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
   <!-- Progress bar -->
@@ -31,31 +56,37 @@
   <nav class="navbar">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="#about" class="nav-link">
+        <a href="/" class="nav-link" data-section="home">
+          <span class="link-text">Home</span>
+          <ion-icon name="home-outline" class="nav-icon"></ion-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="/about" class="nav-link" data-section="about">
           <span class="link-text">About Me</span>
           <ion-icon name="person-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="#cv-section" class="nav-link">
+        <a href="/cv" class="nav-link" data-section="cv-section">
           <span class="link-text">Skills</span>
           <ion-icon name="construct-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="#projects" class="nav-link">
+        <a href="/projects" class="nav-link" data-section="projects">
           <span class="link-text">Projects</span>
           <ion-icon name="folder-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="#reviews" class="nav-link">
+        <a href="/reviews" class="nav-link" data-section="reviews">
           <span class="link-text">Reviews</span>
           <ion-icon name="star-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="#contact" class="nav-link">
+        <a href="/contact" class="nav-link" data-section="contact">
           <span class="link-text">Contact Me</span>
           <ion-icon name="mail-outline" class="nav-icon"></ion-icon>
         </a>
@@ -64,7 +95,8 @@
   </nav>
 </header>
 
-<section id="home">
+<!-- HOME SECTION -->
+<section id="home" class="active-section">
   <video class="bg-video" src="https://res.cloudinary.com/deahos6sr/video/upload/v1763674155/movie_homepage_uwzspd.mp4" autoplay muted loop playsinline></video>
 
   <div class="home-content">
@@ -88,7 +120,8 @@
 
   </div>
 </section>
-    <!-- about -->
+
+<!-- ABOUT SECTION -->
 <section id="about">
   <div class="about-video-container">
     <video autoplay muted loop playsinline class="about-video" id="bgVideo">
@@ -169,7 +202,8 @@
     </div>
   </div>
 </section>
-<!-- cv -->
+
+<!-- CV SECTION -->
 <section id="cv-section">
   <!-- Technologies Slider -->
   <div class="cv-tech-section">
@@ -316,7 +350,8 @@
     </div>
   </div>
 </section>
-<!-- proiecte -->
+
+<!-- PROJECTS SECTION -->
 <section id="projects">
   <div class="projects-container">
     <div class="projects-header">
@@ -409,7 +444,8 @@
     </div>
   </div>
 </section>
-<!-- reviews -->
+
+<!-- REVIEWS SECTION -->
 <section id="reviews">
   <div class="reviews-container">
     <div class="reviews-left">
@@ -588,7 +624,8 @@
     </div>
   </div>
 </section>
-<!-- contact -->
+
+<!-- CONTACT SECTION -->
 <section id="contact">
   <div class="contact-container">
     <div class="contact-left">
@@ -729,7 +766,7 @@
     </div>
   </div>
 </section>
-</main>
+
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -743,6 +780,112 @@
     <script src="js/home.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/projects.js"></script>
+    
+    <!-- SCRIPT PENTRU ROUTING -->
+    <script>
+        // Map URL-uri către secțiuni
+        const routes = {
+            '/': 'home',
+            '/about': 'about',
+            '/cv': 'cv-section',
+            '/projects': 'projects',
+            '/reviews': 'reviews',
+            '/contact': 'contact'
+        };
+        
+        // Funcție pentru a schimba secțiunea activă
+        function showSection(sectionId) {
+            // Ascunde toate secțiunile
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active-section');
+            });
+            
+            // Arată secțiunea dorită
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
+                
+                // Activează link-ul din meniu
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `/${sectionId}` || 
+                        (sectionId === 'home' && link.getAttribute('href') === '/')) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                // Scrollează în partea de sus a paginii
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Actualizează titlul paginii
+                const sectionNames = {
+                    'home': 'ANDZ - Portfolio',
+                    'about': 'About Me - ANDZ',
+                    'cv-section': 'Skills & CV - ANDZ',
+                    'projects': 'Projects - ANDZ',
+                    'reviews': 'Reviews - ANDZ',
+                    'contact': 'Contact - ANDZ'
+                };
+                document.title = sectionNames[sectionId] || 'ANDZ - Portfolio';
+            }
+        }
+        
+        // Funcție pentru a naviga către o secțiune
+        function navigateTo(path) {
+            const sectionId = routes[path] || 'home';
+            
+            // Schimbă URL-ul în browser fără refresh
+            window.history.pushState({ section: sectionId }, '', path);
+            
+            // Arată secțiunea corespunzătoare
+            showSection(sectionId);
+        }
+        
+        // Ascultă evenimentele de click pe link-uri
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ascultă link-urile din meniu
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const path = link.getAttribute('href');
+                    navigateTo(path);
+                });
+            });
+            
+            // Ascultă evenimentele de back/forward în browser
+            window.addEventListener('popstate', (e) => {
+                const path = window.location.pathname;
+                const sectionId = routes[path] || 'home';
+                showSection(sectionId);
+            });
+            
+            // La încărcarea inițială, verifică URL-ul curent
+            const initialPath = window.location.pathname;
+            if (initialPath === '/' || initialPath === '') {
+                showSection('home');
+            } else {
+                const sectionId = routes[initialPath];
+                if (sectionId) {
+                    showSection(sectionId);
+                } else {
+                    // Dacă URL-ul nu există, redirect către home
+                    navigateTo('/');
+                }
+            }
+            
+            // Activează link-ul home inițial
+            document.querySelector('.nav-link[href="/"]').classList.add('active');
+        });
+        
+        // Funcție pentru a primi link-uri din alte părți ale site-ului
+        window.navigateToSection = function(sectionId) {
+            const path = Object.keys(routes).find(key => routes[key] === sectionId);
+            if (path) {
+                navigateTo(path);
+            }
+        };
+    </script>
+
     <div id="ios-install-prompt" style="display: none;">
     <div class="ios-prompt-content">
         <button id="close-ios-prompt">×</button>
