@@ -21,30 +21,6 @@
 
     <link rel="icon" type="image/png" sizes="32x32" href="https://andz7z.github.io/assets/photos/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://andz7z.github.io/assets/photos/favicon/favicon-16x16.png">
-    
-    <style>
-        /* Ascunde toate secțiunile inițial */
-        section:not(#home) {
-            display: none;
-        }
-        
-        /* Activează animații pentru scroll */
-        .active-section {
-            display: block !important;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        /* Stil pentru link-urile active din meniu */
-        .nav-link.active {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        }
-    </style>
 </head>
 <body>
   <!-- Progress bar -->
@@ -56,37 +32,37 @@
   <nav class="navbar">
     <ul class="nav-list">
       <li class="nav-item">
-        <a href="/" class="nav-link" data-section="home">
+        <a href="#home" class="nav-link">
           <span class="link-text">Home</span>
           <ion-icon name="home-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/about" class="nav-link" data-section="about">
+        <a href="#about" class="nav-link">
           <span class="link-text">About Me</span>
           <ion-icon name="person-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/cv" class="nav-link" data-section="cv-section">
+        <a href="#cv-section" class="nav-link">
           <span class="link-text">Skills</span>
           <ion-icon name="construct-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/projects" class="nav-link" data-section="projects">
+        <a href="#projects" class="nav-link">
           <span class="link-text">Projects</span>
           <ion-icon name="folder-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/reviews" class="nav-link" data-section="reviews">
+        <a href="#reviews" class="nav-link">
           <span class="link-text">Reviews</span>
           <ion-icon name="star-outline" class="nav-icon"></ion-icon>
         </a>
       </li>
       <li class="nav-item">
-        <a href="/contact" class="nav-link" data-section="contact">
+        <a href="#contact" class="nav-link">
           <span class="link-text">Contact Me</span>
           <ion-icon name="mail-outline" class="nav-icon"></ion-icon>
         </a>
@@ -95,8 +71,7 @@
   </nav>
 </header>
 
-<!-- HOME SECTION -->
-<section id="home" class="active-section">
+<section id="home">
   <video class="bg-video" src="https://res.cloudinary.com/deahos6sr/video/upload/v1763674155/movie_homepage_uwzspd.mp4" autoplay muted loop playsinline></video>
 
   <div class="home-content">
@@ -121,7 +96,6 @@
   </div>
 </section>
 
-<!-- ABOUT SECTION -->
 <section id="about">
   <div class="about-video-container">
     <video autoplay muted loop playsinline class="about-video" id="bgVideo">
@@ -203,7 +177,6 @@
   </div>
 </section>
 
-<!-- CV SECTION -->
 <section id="cv-section">
   <!-- Technologies Slider -->
   <div class="cv-tech-section">
@@ -351,7 +324,6 @@
   </div>
 </section>
 
-<!-- PROJECTS SECTION -->
 <section id="projects">
   <div class="projects-container">
     <div class="projects-header">
@@ -445,7 +417,6 @@
   </div>
 </section>
 
-<!-- REVIEWS SECTION -->
 <section id="reviews">
   <div class="reviews-container">
     <div class="reviews-left">
@@ -625,7 +596,6 @@
   </div>
 </section>
 
-<!-- CONTACT SECTION -->
 <section id="contact">
   <div class="contact-container">
     <div class="contact-left">
@@ -781,10 +751,20 @@
     <script src="js/reviews.js"></script>
     <script src="js/projects.js"></script>
     
-    <!-- SCRIPT PENTRU ROUTING -->
+    <!-- SCRIPT PENTRU URL HISTORY -->
     <script>
-        // Map URL-uri către secțiuni
-        const routes = {
+        // Map ID-urile secțiunilor la URL-uri
+        const sectionToUrl = {
+            'home': '/',
+            'about': '/about',
+            'cv-section': '/cv',
+            'projects': '/projects',
+            'reviews': '/reviews',
+            'contact': '/contact'
+        };
+        
+        // Map URL-uri către ID-uri
+        const urlToSection = {
             '/': 'home',
             '/about': 'about',
             '/cv': 'cv-section',
@@ -793,32 +773,59 @@
             '/contact': 'contact'
         };
         
-        // Funcție pentru a schimba secțiunea activă
-        function showSection(sectionId) {
-            // Ascunde toate secțiunile
-            document.querySelectorAll('section').forEach(section => {
-                section.classList.remove('active-section');
+        // Variabilă pentru a preveni multiple update-uri
+        let isUpdatingUrl = false;
+        
+        // Funcție pentru a detecta secțiunea curentă în viewport
+        function getCurrentSection() {
+            const sections = document.querySelectorAll('section');
+            const scrollPosition = window.scrollY + window.innerHeight / 3;
+            
+            let currentSection = 'home';
+            let closestDistance = Infinity;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.id;
+                
+                // Calculăm distanța de la scroll la centrul secțiunii
+                const sectionCenter = sectionTop + sectionHeight / 2;
+                const distance = Math.abs(scrollPosition - sectionCenter);
+                
+                if (distance < closestDistance && scrollPosition >= sectionTop) {
+                    closestDistance = distance;
+                    currentSection = sectionId;
+                }
             });
             
-            // Arată secțiunea dorită
-            const targetSection = document.getElementById(sectionId);
-            if (targetSection) {
-                targetSection.classList.add('active-section');
+            return currentSection;
+        }
+        
+        // Funcție pentru a actualiza URL-ul și meniul
+        function updateUrlAndMenu() {
+            if (isUpdatingUrl) return;
+            
+            isUpdatingUrl = true;
+            
+            const currentSection = getCurrentSection();
+            const newUrl = sectionToUrl[currentSection] || '/';
+            const currentUrl = window.location.pathname;
+            
+            // Dacă URL-ul e diferit, îl actualizăm
+            if (newUrl !== currentUrl) {
+                window.history.replaceState({ section: currentSection }, '', newUrl);
                 
-                // Activează link-ul din meniu
+                // Actualizăm meniul
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.classList.remove('active');
-                    if (link.getAttribute('href') === `/${sectionId}` || 
-                        (sectionId === 'home' && link.getAttribute('href') === '/')) {
+                    if (link.getAttribute('href') === `#${currentSection}`) {
                         link.classList.add('active');
                     }
                 });
                 
-                // Scrollează în partea de sus a paginii
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                // Actualizează titlul paginii
-                const sectionNames = {
+                // Actualizăm titlul paginii
+                const sectionTitles = {
                     'home': 'ANDZ - Portfolio',
                     'about': 'About Me - ANDZ',
                     'cv-section': 'Skills & CV - ANDZ',
@@ -826,64 +833,99 @@
                     'reviews': 'Reviews - ANDZ',
                     'contact': 'Contact - ANDZ'
                 };
-                document.title = sectionNames[sectionId] || 'ANDZ - Portfolio';
+                document.title = sectionTitles[currentSection] || 'ANDZ - Portfolio';
             }
+            
+            setTimeout(() => {
+                isUpdatingUrl = false;
+            }, 100);
         }
         
         // Funcție pentru a naviga către o secțiune
-        function navigateTo(path) {
-            const sectionId = routes[path] || 'home';
-            
-            // Schimbă URL-ul în browser fără refresh
-            window.history.pushState({ section: sectionId }, '', path);
-            
-            // Arată secțiunea corespunzătoare
-            showSection(sectionId);
+        function navigateToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Scrollează către secțiune
+                window.scrollTo({
+                    top: section.offsetTop,
+                    behavior: 'smooth'
+                });
+                
+                // Actualizează URL-ul
+                const newUrl = sectionToUrl[sectionId] || '/';
+                window.history.pushState({ section: sectionId }, '', newUrl);
+                
+                // Actualizează meniul
+                updateUrlAndMenu();
+            }
         }
         
-        // Ascultă evenimentele de click pe link-uri
+        // Inițializare
         document.addEventListener('DOMContentLoaded', () => {
+            // Ascultă scroll-ul
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(updateUrlAndMenu);
+            }, { passive: true });
+            
             // Ascultă link-urile din meniu
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const path = link.getAttribute('href');
-                    navigateTo(path);
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const sectionId = href.substring(1);
+                        navigateToSection(sectionId);
+                    }
                 });
             });
             
-            // Ascultă evenimentele de back/forward în browser
+            // Ascultă evenimentele de back/forward
             window.addEventListener('popstate', (e) => {
                 const path = window.location.pathname;
-                const sectionId = routes[path] || 'home';
-                showSection(sectionId);
+                const sectionId = urlToSection[path] || 'home';
+                
+                if (sectionId) {
+                    const section = document.getElementById(sectionId);
+                    if (section) {
+                        window.scrollTo({
+                            top: section.offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+                
+                // Actualizează meniul
+                setTimeout(updateUrlAndMenu, 300);
             });
             
-            // La încărcarea inițială, verifică URL-ul curent
+            // La încărcare, verifică URL-ul inițial
             const initialPath = window.location.pathname;
-            if (initialPath === '/' || initialPath === '') {
-                showSection('home');
-            } else {
-                const sectionId = routes[initialPath];
+            if (initialPath !== '/') {
+                const sectionId = urlToSection[initialPath];
                 if (sectionId) {
-                    showSection(sectionId);
-                } else {
-                    // Dacă URL-ul nu există, redirect către home
-                    navigateTo('/');
+                    // Scrollează către secțiunea din URL
+                    setTimeout(() => {
+                        const section = document.getElementById(sectionId);
+                        if (section) {
+                            window.scrollTo({
+                                top: section.offsetTop,
+                                behavior: 'instant'
+                            });
+                        }
+                        updateUrlAndMenu();
+                    }, 100);
                 }
             }
             
             // Activează link-ul home inițial
-            document.querySelector('.nav-link[href="/"]').classList.add('active');
+            document.querySelector('.nav-link[href="#home"]').classList.add('active');
+            
+            // Prima actualizare
+            updateUrlAndMenu();
         });
         
-        // Funcție pentru a primi link-uri din alte părți ale site-ului
-        window.navigateToSection = function(sectionId) {
-            const path = Object.keys(routes).find(key => routes[key] === sectionId);
-            if (path) {
-                navigateTo(path);
-            }
-        };
+        // Funcție globală pentru a naviga din alte scripturi
+        window.navigateToSection = navigateToSection;
     </script>
 
     <div id="ios-install-prompt" style="display: none;">
