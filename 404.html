@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page not found - 404</title>
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@800&family=Roboto:wght@100;300&display=swap');
 
         :root {
-            --button: hsl(44, 0%, 70%);
-            --button-color: hsl(0, 0%, 4%);
+            --button-bg: hsl(44, 0%, 70%); 
             --shadow: hsl(0, 0%, 0%);
             --bg: hsl(53, 0%, 45%);
             --header: hsl(53, 0%, 48%);
@@ -23,7 +22,6 @@
             transform-style: preserve-3d;
         }
 
-        /* Aceasta este partea magică pentru animație */
         @property --swing-x {
             initial-value: 0;
             inherits: false;
@@ -38,7 +36,7 @@
         body {
             min-height: 100vh;
             display: flex;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Sora', sans-serif;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -46,19 +44,50 @@
             color: var(--color);
             perspective: 1200px;
             margin: 0;
-            overflow: hidden; /* Important pentru a nu avea scrollbars */
+            overflow: hidden;
         }
 
-        a {
-            text-transform: uppercase;
-            text-decoration: none;
-            background: var(--button);
-            color: var(--button-color);
-            padding: 1rem 4rem;
-            border-radius: 4rem;
-            font-size: 0.875rem;
-            letter-spacing: 0.05rem;
+        .button-creative {
+            position: relative;
             display: inline-block;
+            padding: 1em 2em;
+            background: #000000; 
+            color: white;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            transition: color 0.3s;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 8px;
+            z-index: 10; 
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+        }
+
+        .button-creative::before {
+            content: '';
+            position: absolute;
+            left: var(--x, 50%);
+            top: var(--y, 50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, #ffffff 10%, transparent 70%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.4s ease;
+            border-radius: 50%;
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: -1; 
+        }
+
+        .button-creative:hover::before {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .button-creative:hover {
+            color: #ffffff;
         }
 
         p {
@@ -107,7 +136,7 @@
             bottom: 0;
             right: 0;
             overflow: hidden;
-            pointer-events: none; /* Ca să poți da click pe buton */
+            pointer-events: none;
             z-index: 1;
         }
 
@@ -124,7 +153,7 @@
             text-align: center;
             line-height: 1.5;
             max-width: clamp(16rem, 90vmin, 25rem);
-            z-index: 2; /* Deasupra efectului de umbră */
+            z-index: 2;
             position: relative;
         }
 
@@ -133,17 +162,9 @@
         }
 
         @keyframes swing {
-            0% {
-                --swing-x: -100;
-                --swing-y: -100;
-            }
-            50% {
-                --swing-y: 0;
-            }
-            100% {
-                --swing-x: 100;
-                --swing-y: -100;
-            }
+            0% { --swing-x: -100; --swing-y: -100; }
+            50% { --swing-y: 0; }
+            100% { --swing-x: 100; --swing-y: -100; }
         }
     </style>
 </head>
@@ -163,8 +184,22 @@
             I am fairly sure that page used to be here, but seems to have gone missing. 
             I do apologise on it's behalf.
         </p>
-        <a href="/" target="_self">Înapoi Acasă</a>
+        
+        <a href="/" class="button-creative">Back Home</a>
     </div>
+
+    <script>
+        const button = document.querySelector('.button-creative');
+
+        button.addEventListener('mousemove', (e) => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            button.style.setProperty('--x', `${x}px`);
+            button.style.setProperty('--y', `${y}px`);
+        });
+    </script>
 
 </body>
 </html>
