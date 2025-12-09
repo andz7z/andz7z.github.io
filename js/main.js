@@ -1,228 +1,239 @@
-/**
- * MAIN.JS - Core System Optimization
- * - Singleton pattern for Firebase
- * - Debounced resize events
- * - Optimized Global Cursor using translate3d
- */
-
 const firebaseConfig = {
-  apiKey: "AIzaSyC0DShqS1R3eqCIVFLKXxU0vmi0mUqprek",
-  authDomain: "portfolio-65392.firebaseapp.com",
-  projectId: "portfolio-65392",
-  storageBucket: "portfolio-65392.firebasestorage.app",
-  messagingSenderId: "494719104051",
-  appId: "1:494719104051:web:445c9ec94535e16b4adf46"
+    apiKey: "AIzaSyC0DShqS1R3eqCIVFLKXxU0vmi0mUqprek",
+    authDomain: "portfolio-65392.firebaseapp.com",
+    projectId: "portfolio-65392",
+    storageBucket: "portfolio-65392.firebasestorage.app",
+    messagingSenderId: "494719104051",
+    appId: "1:494719104051:web:445c9ec94535e16b4adf46"
 };
 
-// Initialize Firebase only once
 if (typeof firebase !== 'undefined' && !firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-  window.db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+    window.db = firebase.firestore();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  'use strict';
+    'use strict';
 
-  // --- Utility: Load Scripts ---
-  const loadScripts = () => {
-    if (document.querySelector('script[src*="ionicons"]')) return;
-    
-    const esm = document.createElement('script');
-    esm.type = 'module';
-    esm.src = 'https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js';
-    document.head.appendChild(esm);
-
-    const noModule = document.createElement('script');
-    noModule.nomodule = true;
-    noModule.src = 'https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js';
-    document.head.appendChild(noModule);
-  };
-
-  // --- Scroll Progress (Throttled via rAF) ---
-  const initScrollProgress = () => {
-    const fill = document.querySelector('.progress-fill');
-    const progress = document.getElementById('scroll-progress');
-    if (!fill || !progress) return;
-
-    let ticking = false;
-
-    const update = () => {
-      const doc = document.documentElement;
-      const scrollTop = window.scrollY || doc.scrollTop;
-      const scrollHeight = doc.scrollHeight - doc.clientHeight;
-      const pct = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
-
-      fill.style.transform = `scaleX(${pct})`;
-      progress.setAttribute('aria-valuenow', Math.round(pct * 100));
-      ticking = false;
+    // 1. Load Icons
+    const loadScripts = () => {
+        if (document.querySelector('script[src*="ionicons"]')) return;
+        const esm = document.createElement('script');
+        esm.type = 'module';
+        esm.src = 'https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js';
+        document.head.appendChild(esm);
+        
+        const noModule = document.createElement('script');
+        noModule.nomodule = true;
+        noModule.src = 'https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js';
+        document.head.appendChild(noModule);
     };
 
-    window.addEventListener('scroll', () => {
-      if (!ticking) {
-        window.requestAnimationFrame(update);
-        ticking = true;
-      }
-    }, { passive: true });
-    
-    window.addEventListener('resize', update, { passive: true });
-  };
+    // 2. SCROLL LOGIC FOR STICKY NAVBAR
+    const initStickyNav = () => {
+        const stickyNav = document.getElementById('sticky-nav');
+        const mainBurger = document.getElementById('burger-toggle');
+        const overlay = document.getElementById('nav-overlay');
+        
+        let lastScrollTop = 0;
+        const threshold = window.innerHeight;
 
-  // --- Smooth Scroll (Event Delegation) ---
-  const initSmoothScroll = () => {
-    document.body.addEventListener('click', (e) => {
-      const link = e.target.closest('a[href^="#"]');
-      if (!link) return;
+        window.addEventListener('scroll', () => {
+            if(overlay.classList.contains('open')) return;
 
-      e.preventDefault();
-      const targetId = link.getAttribute('href');
-      if (targetId === '#') return;
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-      const targetSection = document.querySelector(targetId);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    });
-  };
-  // --- Home Observer ---
-  const initHomeObserver = () => {
-    const homeSection = document.getElementById('home');
-    if (!homeSection) return;
+            if (scrollTop <= threshold / 2) {
+                mainBurger.classList.remove('burger-hidden');
+                stickyNav.classList.remove('nav-visible');
+            } 
+            else {
+                if (scrollTop > lastScrollTop) {
+                    mainBurger.classList.add('burger-hidden');
+                    stickyNav.classList.remove('nav-visible');
+                } else {
+                    mainBurger.classList.add('burger-hidden');
+                    stickyNav.classList.add('nav-visible');
+                }
+            }
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }, { passive: true });
+    };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        // Toggle class on body based on visibility
-        document.body.classList.toggle('home-section', entry.isIntersecting);
-      });
-    }, { threshold: 0.1 });
+    // 3. CONTACT BUTTON LOGIC
+    const initContactButton = () => {
+        const button = document.getElementById('sticky-contact-btn');
+        if (!button) return;
 
-    observer.observe(homeSection);
-  };
+        button.addEventListener('mousemove', (e) => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
 
-  // Init
-  loadScripts();
-  initScrollProgress();
-  initSmoothScroll();
-  initHomeObserver();
-  
-  // Footer check
-  if (typeof window.initFooter === 'function') window.initFooter();
+            button.style.setProperty('--x', `${x}px`);
+            button.style.setProperty('--y', `${y}px`);
+        });
+
+        button.addEventListener('click', () => {
+            const contactSection = document.getElementById('contact');
+            if(contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    };
+
+    // 4. Menu Logic (MODIFICAT AICI)
+    const initMenuToggle = () => {
+        const burger = document.getElementById('burger-toggle');
+        const stickyBurger = document.getElementById('sticky-burger-trigger');
+        const overlay = document.getElementById('nav-overlay');
+        const burgerLabel = burger.querySelector('.burger-label');
+        
+        const menuItems = document.querySelectorAll('.menu-item');
+        
+        // --- MODIFICARE: Selectam .nav-preview-card in loc de .preview-card ---
+        const previewCards = document.querySelectorAll('.nav-preview-card'); 
+        
+        const navLinks = document.querySelectorAll('.nav-link-action');
+
+        if(!burger || !overlay) return;
+
+        const toggleMenu = () => {
+            const isOpen = overlay.classList.contains('open');
+            const stickyNav = document.getElementById('sticky-nav');
+
+            if (isOpen) {
+                overlay.classList.remove('open');
+                burger.classList.remove('active');
+                document.body.style.overflow = '';
+                if(burgerLabel) burgerLabel.textContent = "MENU";
+                
+                if(window.pageYOffset > window.innerHeight) {
+                    stickyNav.classList.add('nav-visible');
+                }
+            } else {
+                overlay.classList.add('open');
+                burger.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                if(burgerLabel) burgerLabel.textContent = "CLOSE";
+                
+                stickyNav.classList.remove('nav-visible');
+            }
+        };
+
+        burger.addEventListener('click', toggleMenu);
+        if(stickyBurger) stickyBurger.addEventListener('click', toggleMenu);
+
+        // --- HOVER LOGIC (Desktop) ---
+        menuItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                if(window.innerWidth > 1024) {
+                    menuItems.forEach(i => i.classList.remove('active'));
+                    
+                    // Aici folosim lista noua de carduri
+                    previewCards.forEach(c => c.classList.remove('active'));
+                    
+                    item.classList.add('active');
+                    const target = item.getAttribute('data-target');
+                    
+                    // ID-urile au ramas la fel in HTML (ex: preview-about), deci asta merge
+                    const targetCard = document.getElementById(`preview-${target}`);
+                    if(targetCard) targetCard.classList.add('active');
+                }
+            });
+
+            item.addEventListener('click', (e) => {
+                if(e.target.closest('.nav-link-action')) return;
+
+                if(window.innerWidth <= 1024) {
+                    const isActive = item.classList.contains('mobile-active');
+                    menuItems.forEach(i => i.classList.remove('mobile-active'));
+                    if(!isActive) item.classList.add('mobile-active');
+                }
+            });
+        });
+
+        // --- REDIRECT LOGIC ---
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); 
+                
+                const targetId = link.getAttribute('data-href') || link.getAttribute('href');
+                
+                overlay.classList.remove('open');
+                burger.classList.remove('active');
+                document.body.style.overflow = '';
+                if(burgerLabel) burgerLabel.textContent = "MENU";
+
+                setTimeout(() => {
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 300);
+            });
+        });
+    };
+
+    // 5. Smooth Scroll
+    const initSmoothScroll = () => {
+        document.body.addEventListener('click', (e) => {
+            const link = e.target.closest('a[href^="#"]:not(.nav-link-action)');
+            if (!link) return;
+            e.preventDefault();
+            const targetId = link.getAttribute('href');
+            if (targetId === '#') return;
+            const targetSection = document.querySelector(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    };
+
+    loadScripts();
+    initStickyNav();
+    initContactButton();
+    initMenuToggle();
+    initSmoothScroll();
+
+    if (typeof window.initFooter === 'function') window.initFooter();
 });
+
+// Helper Scripts
 document.addEventListener('DOMContentLoaded', function() {
-    // --- CONFIGURARE ---
-    const mesaje = [
-        "‎ ‎∀ N D Z | PORTFOLIO",
-        "‎ ‎ MADE TO PERFORM",
-        "‎ ‎∀ N D Z | PORTFOLIO",
-        "‎ ‎ ‎ ‎ ‎ ‎UI / UX | DESIGN"
-    ];
-
-    // TRUC CENTRARE
+    const mesaje = [ "‎ ‎∀ N D Z | PORTFOLIO", "‎ ‎ MADE TO PERFORM", "‎ ‎∀ N D Z | PORTFOLIO", "‎ ‎ ‎ ‎ ‎ ‎UI / UX | DESIGN" ];
     const spatiereCentrare = "          "; 
-
-    // TIMING (milisecunde)
-    const vitezaScriere = 200;  
-    const vitezaStergere = 100; 
-    const pauzaCitire = 2000;   
-    const pauzaIntreMesaje = 400; 
-
-    // VARIABILE INTERNE
-    let mesajIndex = 0;
-    let charIndex = 0;
-    let seSterge = false;
-
-    // --- FUNCȚIE DETECTARE MOBIL ---
-    function esteMobil() {
-        // Verificăm dacă ecranul e mai mic de 768px SAU dacă e un device mobil
-        return (window.innerWidth < 768) || 
-               /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
-
+    let mesajIndex = 0, charIndex = 0, seSterge = false;
+    function esteMobil() { return (window.innerWidth < 768) || /Android|webOS|iPhone/i.test(navigator.userAgent); }
     function animatieTitlu() {
         const mesajCurent = mesaje[mesajIndex];
-        
-        // Logica de tăiere a textului
-        if (seSterge) {
-            charIndex--;
-            if (charIndex < 0) charIndex = 0;
-        } else {
-            charIndex++;
-            if (charIndex > mesajCurent.length) charIndex = mesajCurent.length;
-        }
-
+        if (seSterge) charIndex = Math.max(0, charIndex - 1);
+        else charIndex = Math.min(mesajCurent.length, charIndex + 1);
         const textPartial = mesajCurent.substring(0, charIndex);
-
-        // --- RANDARE ÎN TITLU ---
-        if (textPartial.length === 0) {
-            document.title = "\u200E"; 
-        } else {
-            document.title = spatiereCentrare + textPartial;
-        }
-
-        // --- CALCUL TIMP ---
-        let timpUrmator = vitezaScriere;
-
-        if (!seSterge && charIndex === mesajCurent.length) {
-            timpUrmator = pauzaCitire;
-            seSterge = true;
-        } else if (seSterge && charIndex === 0) {
-            seSterge = false;
-            mesajIndex = (mesajIndex + 1) % mesaje.length;
-            timpUrmator = pauzaIntreMesaje;
-        } else if (seSterge) {
-            timpUrmator = vitezaStergere;
-        }
-
-        setTimeout(animatieTitlu, timpUrmator);
+        document.title = textPartial.length === 0 ? "\u200E" : spatiereCentrare + textPartial;
+        let timp = 200;
+        if (!seSterge && charIndex === mesajCurent.length) { timp = 2000; seSterge = true; }
+        else if (seSterge && charIndex === 0) { seSterge = false; mesajIndex = (mesajIndex + 1) % mesaje.length; timp = 400; }
+        else if (seSterge) timp = 100;
+        setTimeout(animatieTitlu, timp);
     }
-
-    // --- PORNIRE CONDIȚIONATĂ ---
-    if (esteMobil()) {
-        // CAZ MOBIL: Setăm doar primul titlu static, fără animație
-        // NOTĂ: Pe mobil nu folosim 'spatiereCentrare' deoarece tab-ul e prea mic
-        // și textul ar dispărea în dreapta. Afișăm direct mesajul.
-        document.title = mesaje[0]; 
-    } else {
-        // CAZ DESKTOP: Pornim animația
-        animatieTitlu();
-    }
+    if (esteMobil()) document.title = mesaje[0]; else animatieTitlu();
 });
+
 (function () {
-  const bar = document.getElementById('scroll-progress-bar');
-  const wrap = document.getElementById('scroll-progress-wrap');
-  if (!bar || !wrap) return;
-
-  let ticking = false;
-  let lastScroll = 0;
-  let idleTimer = null;
-
-  function update() {
-    const doc = document.documentElement;
-    const scrollTop = doc.scrollTop || document.body.scrollTop;
-    const scrollHeight = doc.scrollHeight - doc.clientHeight;
-    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) : 0;
-
-    // Folosim transform pentru performanta
-    bar.style.transform = 'scaleX(' + progress + ')';
-
-    // show idle state subtle (poți elimina)
-    wrap.classList.remove('idle');
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(() => wrap.classList.add('idle'), 800);
-
-    ticking = false;
-  }
-
-  function onScroll() {
-    lastScroll = window.scrollY;
-    if (!ticking) {
-      window.requestAnimationFrame(update);
-      ticking = true;
+    const bar = document.getElementById('scroll-progress-bar');
+    const wrap = document.getElementById('scroll-progress-wrap');
+    if (!bar || !wrap) return;
+    let ticking = false, idleTimer = null;
+    function update() {
+        const doc = document.documentElement;
+        const pct = (doc.scrollTop || document.body.scrollTop) / ((doc.scrollHeight - doc.clientHeight) || 1);
+        bar.style.transform = 'scaleX(' + pct + ')';
+        wrap.classList.remove('idle');
+        clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => wrap.classList.add('idle'), 800);
+        ticking = false;
     }
-  }
-
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll, { passive: true });
-
-  // init
-  update();
+    window.addEventListener('scroll', () => { if(!ticking) { window.requestAnimationFrame(update); ticking = true; } }, { passive: true });
+    update();
 })();

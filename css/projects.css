@@ -84,7 +84,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   letter-spacing: 5px;
   padding: 3px;
   position: relative;
-  background: linear-gradient(135deg, #fff, #73a4a5);
+  background: var(--premium-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -298,13 +298,19 @@ html.modal-open::-webkit-scrollbar-thumb {
   border-radius: 30px;
 }
 
-#projectsModal .back-text,
-#projectsModal .contact-text {
+#projectsModal .back-text {
   opacity: 0;
-  transform: translateX(-10px);
+  transform: translateX(-20px);
   transition: all 0.3s ease;
   font-size: 0.8rem;
-  display: none; /* Ascuns default pe PC până la hover */
+  display: none;
+}
+#projectsModal .contact-text {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease;
+  font-size: 0.8rem;
+  display: none;
 }
 
 @media (min-width: 1025px) {

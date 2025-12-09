@@ -43,7 +43,7 @@
 
 .flawless {
   font-family: 'Great', cursive;
-  background: linear-gradient(135deg, #fff 0%, #40e0d0 100%);
+  background: var(--premium-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -81,7 +81,7 @@
   font-family: 'Sora', sans-serif;
   font-size: 3.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, #fff, #40e0d0);
+  background: var(--premium-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -121,7 +121,7 @@
 .rating-fill {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #40e0d0, #fff);
+  background: var(--premium-gradient);
   border-radius: 3px;
   transition: width 2s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;

@@ -220,7 +220,7 @@ class ContactManager {
     }
     
     if (!value) {
-      this.showFieldError(input, 'This field is required');
+      this.showFieldError(input, '');
       return false;
     }
     

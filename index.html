@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANDZ - Portfolio</title>
+    <title>ANDZ</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/contact.css">
@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="css/reviews.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="manifest" href="https://andz7z.github.io/assets/photos/favicon/site.webmanifest">
-    <meta name="theme-color" content="#ffffff"> 
-    <link rel="apple-touch-icon" sizes="180x180" href="https://andz7z.github.io/assets/photos/favicon/apple-touch-icon.png">
+    <meta name="theme-color" content="#ffffff"> <link rel="apple-touch-icon" sizes="180x180" href="https://andz7z.github.io/assets/photos/favicon/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="∀ N D Z">
@@ -29,46 +28,156 @@
 </div>
 
 <header>
-  <nav class="navbar">
-    <ul class="nav-list">
-      <li class="nav-item">
-        <a href="#home" class="nav-link">
-          <span class="link-text">Home</span>
-          <ion-icon name="home-outline" class="nav-icon"></ion-icon>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#about" class="nav-link">
-          <span class="link-text">About Me</span>
-          <ion-icon name="person-outline" class="nav-icon"></ion-icon>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#cv-section" class="nav-link">
-          <span class="link-text">Skills</span>
-          <ion-icon name="construct-outline" class="nav-icon"></ion-icon>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#projects" class="nav-link">
-          <span class="link-text">Projects</span>
-          <ion-icon name="folder-outline" class="nav-icon"></ion-icon>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#reviews" class="nav-link">
-          <span class="link-text">Reviews</span>
-          <ion-icon name="star-outline" class="nav-icon"></ion-icon>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#contact" class="nav-link">
-          <span class="link-text">Contact Me</span>
-          <ion-icon name="mail-outline" class="nav-icon"></ion-icon>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <nav class="sticky-nav" id="sticky-nav">
+        <a href="https://andz7z.github.io" class="sticky-logo">᯽</a>
+        
+        <button class="button-creative" id="sticky-contact-btn">
+            <span>Contact Now</span>
+        </button>
+        
+        <div class="sticky-burger" id="sticky-burger-trigger">
+            <svg viewBox="0 0 80 80" width="30" height="30">
+                <path class="line lineTop" d="M15 25 H65" />
+                <path class="line lineMid" d="M15 40 H65" />
+                <path class="line lineBottom" d="M15 55 H65" />
+            </svg>
+        </div>
+    </nav>
+
+    <div class="hamburger" id="burger-toggle">
+        <svg viewBox="0 0 80 80" width="50" height="50">
+            <path class="line lineTop" d="M15 25 H65" />
+            <path class="line lineMid" d="M15 40 H65" />
+            <path class="line lineBottom" d="M15 55 H65" />
+        </svg>
+        <span class="burger-label">MENU</span>
+    </div>
+
+    <div class="nav-overlay" id="nav-overlay">
+        <div class="nav-bg-texture"></div>
+
+        <div class="split-layout">
+            
+            <div class="nav-left">
+                <div class="nav-header">
+                    <span class="nav-subtitle">Navigation</span>
+                    <h1 class="nav-title">Sections</h1>
+                </div>
+
+                <div class="menu-list">
+                    <div class="menu-item active" data-target="about">
+                        <div class="menu-link nav-link-action" data-href="#about">
+                            <span class="item-number">●</span><span class="item-name">About Me</span>
+                            <ion-icon name="arrow-forward-outline" class="mobile-arrow"></ion-icon>
+                        </div>
+                        <div class="mobile-dropdown">
+                            <p>Discover who I am, my background, and my passion for development.</p>
+                            <a href="#about" class="mobile-btn nav-link-action" data-href="#about">Go to Section</a>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-target="skills">
+                        <div class="menu-link nav-link-action" data-href="#cv-section">
+                            <span class="item-number">●</span><span class="item-name">Skills</span>
+                            <ion-icon name="arrow-forward-outline" class="mobile-arrow"></ion-icon>
+                        </div>
+                        <div class="mobile-dropdown">
+                            <p>A technical breakdown of my stack, tools, and capabilities.</p>
+                            <a href="#cv-section" class="mobile-btn nav-link-action" data-href="#cv-section">Go to Section</a>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-target="projects">
+                        <div class="menu-link nav-link-action" data-href="#projects">
+                            <span class="item-number">●</span><span class="item-name">Projects</span>
+                            <ion-icon name="arrow-forward-outline" class="mobile-arrow"></ion-icon>
+                        </div>
+                        <div class="mobile-dropdown">
+                            <p>Showcase of my recent work, case studies, and code implementations.</p>
+                            <a href="#projects" class="mobile-btn nav-link-action" data-href="#projects">Go to Section</a>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-target="reviews">
+                        <div class="menu-link nav-link-action" data-href="#reviews">
+                            <span class="item-number">●</span><span class="item-name">Reviews</span>
+                            <ion-icon name="arrow-forward-outline" class="mobile-arrow"></ion-icon>
+                        </div>
+                        <div class="mobile-dropdown">
+                            <p>Feedback and testimonials from clients and collaborators.</p>
+                            <a href="#reviews" class="mobile-btn nav-link-action" data-href="#reviews">Go to Section</a>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" data-target="contact">
+                        <div class="menu-link nav-link-action" data-href="#contact">
+                            <span class="item-number">●</span><span class="item-name">Contact</span>
+                            <ion-icon name="arrow-forward-outline" class="mobile-arrow"></ion-icon>
+                        </div>
+                        <div class="mobile-dropdown">
+                            <p>Get in touch for collaborations, opportunities, or just to say hi.</p>
+                            <a href="#contact" class="mobile-btn nav-link-action" data-href="#contact">Go to Section</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-footer">
+                    <span class="connect-text">Connect with me -</span>
+                    <div class="social-icons-premium">
+                        <a href="https://linkedin.com/in/lehadus-andrei-25a807372/" target="_blank"><ion-icon name="logo-linkedin"></ion-icon></a>
+                        <a href="https://github.com/andz7z" target="_blank"><ion-icon name="logo-github"></ion-icon></a>
+                        <a href="https://wa.me/40748594335" target="_blank"><ion-icon name="logo-whatsapp"></ion-icon></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="nav-right">
+                
+                <div class="nav-preview-card active" id="preview-about">
+                    <div class="nav-preview-bg">
+                        <img src="https://andz7z.github.io/assets/photos/andz_about.jpg" alt="About">
+                        <div class="overlay-gradient"></div>
+                    </div>
+                    <div class="nav-preview-content">
+                        <p class="nav-preview-desc">I am a 21-year-old student currently pursuing a degree in Systems Engineering. Passionate about web development - particularly the front-end side.</p>
+                        <div class="nav-preview-tags"><span>Detail-oriented</span><span>Problem-solving</span></div>
+                    </div>
+                </div>
+                
+                <div class="nav-preview-card" id="preview-skills">
+                    <div class="nav-preview-bg"><img src="https://andz7z.github.io/assets/photos/andz_skills.jpg" alt="Skills"><div class="overlay-gradient"></div></div>
+                    <div class="nav-preview-content">
+                        <p class="nav-preview-desc">My extensive tech stack includes proficiency in LUA, Python, C++, HTML5, modern CSS3, and JavaScript (ES6+).</p>
+                        <div class="nav-preview-tags"><span>HTML/CSS</span><span>Firebase</span><span>JavaScript</span></div>
+                    </div>
+                </div>
+
+                <div class="nav-preview-card" id="preview-projects">
+                    <div class="nav-preview-bg"><img src="https://andz7z.github.io/assets/photos/andz_projects.jpg" alt="Projects"><div class="overlay-gradient"></div></div>
+                    <div class="nav-preview-content">
+                        <p class="nav-preview-desc">Make your users feel the same confidence you feel in your brand. I build highly responsive, modern websites.</p>
+                        <div class="nav-preview-tags"><span>UI/UX Design</span><span>Web Development</span></div>
+                    </div>
+                </div>
+
+                <div class="nav-preview-card" id="preview-reviews">
+                    <div class="nav-preview-bg"><img src="https://andz7z.github.io/assets/photos/andz_reviews.jpg" alt="Reviews"><div class="overlay-gradient"></div></div>
+                    <div class="nav-preview-content">
+                        <p class="nav-preview-desc">Reputation is everything - Mine is flawless. Real People. Real Results.</p>
+                        <div class="nav-preview-tags"><span>5.0 Rating</span><span>Verified Clients</span></div>
+                    </div>
+                </div>
+
+                <div class="nav-preview-card" id="preview-contact">
+                    <div class="nav-preview-bg"><img src="https://andz7z.github.io/assets/photos/andz_contact.jpg" alt="Contact"><div class="overlay-gradient"></div></div>
+                    <div class="nav-preview-content">
+                        <p class="nav-preview-desc">You've seen my work, now let's talk about yours. Whether it's via email, Whatsapp, Facebook, or Instagram - let's connect.</p>
+                        <div class="nav-preview-tags"><span>Available</span><span>Collaboration</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </header>
 
 <section id="home">
@@ -95,7 +204,7 @@
 
   </div>
 </section>
-
+    <!-- about -->
 <section id="about">
   <div class="about-video-container">
     <video autoplay muted loop playsinline class="about-video" id="bgVideo">
@@ -176,7 +285,7 @@
     </div>
   </div>
 </section>
-
+<!-- cv -->
 <section id="cv-section">
   <!-- Technologies Slider -->
   <div class="cv-tech-section">
@@ -323,7 +432,7 @@
     </div>
   </div>
 </section>
-
+<!-- proiecte -->
 <section id="projects">
   <div class="projects-container">
     <div class="projects-header">
@@ -416,7 +525,7 @@
     </div>
   </div>
 </section>
-
+<!-- reviews -->
 <section id="reviews">
   <div class="reviews-container">
     <div class="reviews-left">
@@ -595,7 +704,7 @@
     </div>
   </div>
 </section>
-
+<!-- contact -->
 <section id="contact">
   <div class="contact-container">
     <div class="contact-left">
@@ -736,7 +845,7 @@
     </div>
   </div>
 </section>
-
+</main>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -750,297 +859,5 @@
     <script src="js/home.js"></script>
     <script src="js/reviews.js"></script>
     <script src="js/projects.js"></script>
-    
-    <!-- SCRIPT PENTRU URL HISTORY -->
-    <script>
-        // Map ID-urile secțiunilor la URL-uri
-        const sectionToUrl = {
-            'home': '/',
-            'about': '/about',
-            'cv-section': '/cv',
-            'projects': '/projects',
-            'reviews': '/reviews',
-            'contact': '/contact'
-        };
-        
-        // Map URL-uri către ID-uri
-        const urlToSection = {
-            '/': 'home',
-            '/about': 'about',
-            '/cv': 'cv-section',
-            '/projects': 'projects',
-            '/reviews': 'reviews',
-            '/contact': 'contact'
-        };
-        
-        // Variabilă pentru a preveni multiple update-uri
-        let isUpdatingUrl = false;
-        
-        // Funcție pentru a detecta secțiunea curentă în viewport
-        function getCurrentSection() {
-            const sections = document.querySelectorAll('section');
-            const scrollPosition = window.scrollY + window.innerHeight / 3;
-            
-            let currentSection = 'home';
-            let closestDistance = Infinity;
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                const sectionId = section.id;
-                
-                // Calculăm distanța de la scroll la centrul secțiunii
-                const sectionCenter = sectionTop + sectionHeight / 2;
-                const distance = Math.abs(scrollPosition - sectionCenter);
-                
-                if (distance < closestDistance && scrollPosition >= sectionTop) {
-                    closestDistance = distance;
-                    currentSection = sectionId;
-                }
-            });
-            
-            return currentSection;
-        }
-        
-        // Funcție pentru a actualiza URL-ul și meniul
-        function updateUrlAndMenu() {
-            if (isUpdatingUrl) return;
-            
-            isUpdatingUrl = true;
-            
-            const currentSection = getCurrentSection();
-            const newUrl = sectionToUrl[currentSection] || '/';
-            const currentUrl = window.location.pathname;
-            
-            // Dacă URL-ul e diferit, îl actualizăm
-            if (newUrl !== currentUrl) {
-                window.history.replaceState({ section: currentSection }, '', newUrl);
-                
-                // Actualizăm meniul
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${currentSection}`) {
-                        link.classList.add('active');
-                    }
-                });
-                
-                // Actualizăm titlul paginii
-                const sectionTitles = {
-                    'home': 'ANDZ - Portfolio',
-                    'about': 'About Me - ANDZ',
-                    'cv-section': 'Skills & CV - ANDZ',
-                    'projects': 'Projects - ANDZ',
-                    'reviews': 'Reviews - ANDZ',
-                    'contact': 'Contact - ANDZ'
-                };
-                document.title = sectionTitles[currentSection] || 'ANDZ - Portfolio';
-            }
-            
-            setTimeout(() => {
-                isUpdatingUrl = false;
-            }, 100);
-        }
-        
-        // Funcție pentru a naviga către o secțiune
-        function navigateToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                // Scrollează către secțiune
-                window.scrollTo({
-                    top: section.offsetTop,
-                    behavior: 'smooth'
-                });
-                
-                // Actualizează URL-ul
-                const newUrl = sectionToUrl[sectionId] || '/';
-                window.history.pushState({ section: sectionId }, '', newUrl);
-                
-                // Actualizează meniul
-                updateUrlAndMenu();
-            }
-        }
-        
-        // Inițializare
-        document.addEventListener('DOMContentLoaded', () => {
-            // Ascultă scroll-ul
-            window.addEventListener('scroll', () => {
-                requestAnimationFrame(updateUrlAndMenu);
-            }, { passive: true });
-            
-            // Ascultă link-urile din meniu
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    const href = link.getAttribute('href');
-                    if (href.startsWith('#')) {
-                        e.preventDefault();
-                        const sectionId = href.substring(1);
-                        navigateToSection(sectionId);
-                    }
-                });
-            });
-            
-            // Ascultă evenimentele de back/forward
-            window.addEventListener('popstate', (e) => {
-                const path = window.location.pathname;
-                const sectionId = urlToSection[path] || 'home';
-                
-                if (sectionId) {
-                    const section = document.getElementById(sectionId);
-                    if (section) {
-                        window.scrollTo({
-                            top: section.offsetTop,
-                            behavior: 'smooth'
-                        });
-                    }
-                }
-                
-                // Actualizează meniul
-                setTimeout(updateUrlAndMenu, 300);
-            });
-            
-            // La încărcare, verifică URL-ul inițial
-            const initialPath = window.location.pathname;
-            if (initialPath !== '/') {
-                const sectionId = urlToSection[initialPath];
-                if (sectionId) {
-                    // Scrollează către secțiunea din URL
-                    setTimeout(() => {
-                        const section = document.getElementById(sectionId);
-                        if (section) {
-                            window.scrollTo({
-                                top: section.offsetTop,
-                                behavior: 'instant'
-                            });
-                        }
-                        updateUrlAndMenu();
-                    }, 100);
-                }
-            }
-            
-            // Activează link-ul home inițial
-            document.querySelector('.nav-link[href="#home"]').classList.add('active');
-            
-            // Prima actualizare
-            updateUrlAndMenu();
-        });
-        
-        // Funcție globală pentru a naviga din alte scripturi
-        window.navigateToSection = navigateToSection;
-    </script>
-
-    <div id="ios-install-prompt" style="display: none;">
-    <div class="ios-prompt-content">
-        <button id="close-ios-prompt">×</button>
-        <p>Instalează aplicația pentru o experiență mai bună!</p>
-        <div class="ios-instructions">
-            <span>Apasă pe</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007aff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                <polyline points="16 6 12 2 8 6"></polyline>
-                <line x1="12" y1="2" x2="12" y2="15"></line>
-            </svg>
-            <span>și apoi <strong>"Add to Home Screen"</strong> (Adaugă la ecran).</span>
-        </div>
-    </div>
-    <div class="ios-arrow-down"></div>
-</div>
-
-<style>
-    /* Stiluri pentru banner */
-    #ios-install-prompt {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        max-width: 400px;
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        padding: 15px;
-        z-index: 9999;
-        font-family: 'Sora' sans-serif;
-        text-align: center;
-        border: 1px solid #e0e0e0;
-        animation: slideUp 0.5s ease-out;
-    }
-
-    .ios-prompt-content p {
-        margin: 0 0 10px 0;
-        font-weight: 600;
-        color: #333;
-        font-size: 16px;
-    }
-
-    .ios-instructions {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        font-size: 14px;
-        color: #555;
-    }
-
-    /* Butonul X de închidere */
-    #close-ios-prompt {
-        position: absolute;
-        top: 5px;
-        right: 10px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: #999;
-        cursor: pointer;
-    }
-
-    /* Triunghiul de jos (săgeata) */
-    .ios-arrow-down {
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0; 
-        height: 0; 
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid rgba(255, 255, 255, 0.95);
-    }
-
-    @keyframes slideUp {
-        from { bottom: -100px; opacity: 0; }
-        to { bottom: 20px; opacity: 1; }
-    }
-</style>
-
-<script>
-    (function() {
-        // 1. Detectăm dacă este iOS (iPhone, iPad, iPod)
-        const isIos = () => {
-            const userAgent = window.navigator.userAgent.toLowerCase();
-            return /iphone|ipad|ipod/.test(userAgent);
-        }
-
-        // 2. Detectăm dacă site-ul rulează deja ca aplicație (standalone)
-        const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
-
-        // 3. Verificăm dacă utilizatorul a închis deja notificarea în trecut
-        const hasSeenPrompt = localStorage.getItem('iosPromptDismissed');
-
-        // LOGICA PRINCIPALĂ
-        if (isIos() && !isInStandaloneMode() && !hasSeenPrompt) {
-            // Afișăm bannerul
-            const prompt = document.getElementById('ios-install-prompt');
-            prompt.style.display = 'block';
-
-            // Logica butonului de închidere
-            document.getElementById('close-ios-prompt').addEventListener('click', function() {
-                prompt.style.display = 'none';
-                // Salvăm în memorie că l-a închis, ca să nu apară la fiecare refresh
-                localStorage.setItem('iosPromptDismissed', 'true');
-            });
-        }
-    })();
-</script>
 </body>
 </html>

@@ -102,12 +102,21 @@
             margin-bottom: 1rem;
             letter-spacing: 1rem;
             transform: translate3d(0, 0, 0vmin);
+
             --x: calc(50% + (var(--swing-x) * 0.5) * 1%);
             background: radial-gradient(var(--lit-header), var(--header) 45%) var(--x) 100% / 200% 200%;
+
+            /* WebKit */
             -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+
+            /* Standard */
+            background-clip: text;
             color: transparent;
+
             position: relative;
         }
+
 
         h1:after {
             animation: swing var(--speed) infinite alternate ease-in-out;
