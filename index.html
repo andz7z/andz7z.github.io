@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANDZ</title>
+    <base href="/"> 
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/about.css">
     <link rel="stylesheet" href="css/contact.css">
@@ -22,16 +24,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://andz7z.github.io/assets/photos/favicon/favicon-16x16.png">
 </head>
 <body>
-  <!-- Progress bar -->
-<div id="scroll-progress-wrap" aria-hidden="true">
+  <div id="scroll-progress-wrap" aria-hidden="true">
   <div id="scroll-progress-bar"></div>
 </div>
 
 <header>
     <nav class="sticky-nav" id="sticky-nav">
-        <a href="https://andz7z.github.io" class="sticky-logo">᯽</a>
+        <a href="/" class="sticky-logo">⚜</a>
         
-        <button class="button-creative" id="sticky-contact-btn">
+        <button class="button-creative" id="sticky-contact-btn" onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})">
             <span>Contact Now</span>
         </button>
         
@@ -78,7 +79,7 @@
 
                     <div class="menu-item" data-target="skills">
                         <div class="menu-link nav-link-action" data-href="#cv-section">
-                            <span class="item-number">●</span><span class="item-name">Skills</span>
+                            <span class="item-number">●</span><span class="item-name">Technologies</span>
                             <ion-icon name="arrow-forward-outline" class="mobile-arrow"></ion-icon>
                         </div>
                         <div class="mobile-dropdown">
@@ -180,13 +181,13 @@
     </div>
 </header>
 
-<section id="home">
+<section id="home" data-page-url="/home">
   <video class="bg-video" src="https://res.cloudinary.com/deahos6sr/video/upload/v1763674155/movie_homepage_uwzspd.mp4" autoplay muted loop playsinline></video>
 
   <div class="home-content">
 
     <div class="logo-wrapper">
-      <span class="logo-symbol">᯽</span>
+      <span class="logo-symbol">⚜</span>
       <h1 class="logo-text">ANDZ</h1>
       <div class="switcher">
         <span class="dot"></span><span class="switch-text"></span>
@@ -199,13 +200,13 @@
     </div>
 
     <div class="bottom-right">
-      <span class="pulse-dot"></span> Available for project
+      Available for project<span class="pulse-dot"></span> 
     </div>
 
   </div>
 </section>
-    <!-- about -->
-<section id="about">
+
+<section id="about" data-page-url="/about-me">
   <div class="about-video-container">
     <video autoplay muted loop playsinline class="about-video" id="bgVideo">
       <source src="https://res.cloudinary.com/df9syoltz/video/upload/v1764524587/1130_1_1_owrgeu.mp4" type="video/mp4">
@@ -285,105 +286,32 @@
     </div>
   </div>
 </section>
-<!-- cv -->
-<section id="cv-section">
-  <!-- Technologies Slider -->
+
+<section id="cv-section" data-page-url="/tools">
   <div class="cv-tech-section">
     <h2>Technologies & Tools</h2>
     <div class="cv-tech-slider-container">
       <div class="cv-tech-slider-mask left-mask"></div>
       <div class="cv-tech-slider-mask right-mask"></div>
       <div class="cv-tech-slider">
-
-        <!-- LUA -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="LUA">
-          <span>LUA</span>
-        </div>
-
-        <!-- Python -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python">
-          <span>Python</span>
-        </div>
-
-        <!-- C++ -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++">
-          <span>C++</span>
-        </div>
-
-        <!-- HTML -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML">
-          <span>HTML</span>
-        </div>
-
-        <!-- CSS -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS">
-          <span>CSS</span>
-        </div>
-
-        <!-- JavaScript -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-          <span>JavaScript</span>
-        </div>
-
-        <!-- Firebase -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase">
-          <span>Firebase</span>
-        </div>
-
-        <!-- React.js -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js">
-          <span>React.js</span>
-        </div>
-
-        <!-- GitHub -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub">
-          <span>GitHub</span>
-        </div>
-
-        <!-- Figma -->
-        <div class="cv-tech-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Figma">
-          <span>Figma</span>
-        </div>
-
-        <!-- DaVinci Resolve -->
-        <div class="cv-tech-item">
-          <img src="https://cdn-icons-png.flaticon.com/512/5968/5968472.png" alt="DaVinci Resolve">
-          <span>DaVinci Resolve</span>
-        </div>
-
-        <!-- Photoshop -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop">
-          <span>Photoshop</span>
-        </div>
-
-        <!-- Illustrator -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Adobe Illustrator">
-          <span>Adobe Illustrator</span>
-        </div>
-
-        <!-- Premiere Pro -->
-        <div class="cv-tech-item">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg" alt="Premiere Pro">
-          <span>Premiere Pro</span>
-        </div>
-
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="LUA"><span>LUA</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python"><span>Python</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++"><span>C++</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML"><span>HTML</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS"><span>CSS</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript"><span>JavaScript</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase"><span>Firebase</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React.js"><span>React.js</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"><span>GitHub</span></div>
+        <div class="cv-tech-item"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Figma"><span>Figma</span></div>
+        <div class="cv-tech-item"><img src="https://cdn-icons-png.flaticon.com/512/5968/5968472.png" alt="DaVinci Resolve"><span>DaVinci Resolve</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Photoshop"><span>Photoshop</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" alt="Adobe Illustrator"><span>Adobe Illustrator</span></div>
+        <div class="cv-tech-item"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg" alt="Premiere Pro"><span>Premiere Pro</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Horizontal Timeline -->
   <div class="cv-timeline-section">
     <div class="cv-timeline-card cv-card">
       <h2>My Journey</h2>
@@ -432,8 +360,8 @@
     </div>
   </div>
 </section>
-<!-- proiecte -->
-<section id="projects">
+
+<section id="projects" data-page-url="/portfolio">
   <div class="projects-container">
     <div class="projects-header">
       <h2 class="projects-title">My goal? Make your users feel the <br>same <span class="confidence">confidence</span> you feel in <br>your brand.</h2>
@@ -441,13 +369,11 @@
       
       <div class="projects-display">
         <div class="projects-gallery">
-          <!-- Toate cele 6 slide-uri vor fi incarcate dinamic -->
-        </div>
+          </div>
       </div>
     </div>
   </div>
   
-  <!-- Modal pentru proiecte -->
   <div class="project-modal" id="projectsModal">
     <div class="modal-header">
       <button class="back-btn" id="projectsBackBtn">
@@ -473,8 +399,7 @@
             </button>
             
             <div class="gallery-slides" id="projectsGallerySlides">
-              <!-- Imaginile vor fi incarcate dinamic -->
-            </div>
+              </div>
             
             <button class="slide-btn next-btn" id="projectsNextBtn">
               <ion-icon name="chevron-forward"></ion-icon>
@@ -525,8 +450,8 @@
     </div>
   </div>
 </section>
-<!-- reviews -->
-<section id="reviews">
+
+<section id="reviews" data-page-url="/reviews">
   <div class="reviews-container">
     <div class="reviews-left">
       <div class="reviews-content">
@@ -567,7 +492,6 @@
     </div>
   </div>
   
-  <!-- Formular review -->
   <div class="review-form-overlay" id="review-form">
     <div class="form-header">
       <button class="back-btn" id="back-btn">
@@ -704,8 +628,8 @@
     </div>
   </div>
 </section>
-<!-- contact -->
-<section id="contact">
+
+<section id="contact" data-page-url="/contact-me">
   <div class="contact-container">
     <div class="contact-left">
       <div class="contact-title">
@@ -750,8 +674,7 @@
                   <ion-icon name="search-outline"></ion-icon>
                 </div>
                 <div class="countries-list">
-                  <!-- Țările vor fi populate din JavaScript -->
-                </div>
+                  </div>
               </div>
             </div>
             

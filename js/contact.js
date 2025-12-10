@@ -17,7 +17,8 @@ class ContactManager {
       selectedCode: document.querySelector('.country-code'),
       phoneLengthInfo: document.querySelector('.phone-length-info'),
       messageCounter: document.querySelector('.message-counter'),
-      messageTextarea: document.querySelector('#message')
+      messageTextarea: document.querySelector('#message'),
+      submitBtn: document.querySelector('.submit-btn') // Adăugat referința la buton
     };
 
     this.countryConfigs = {
@@ -124,10 +125,30 @@ class ContactManager {
     this.setupNameValidation();
     this.setupEmailValidation();
     this.detectUserCountry();
+    this.setupSubmitButtonGlowEffect(); // Adăugat inițializarea efectului glow pentru submit button
     
     this.updatePhoneInput();
     this.updatePhoneLengthInfo();
     this.updateMessageCounter(); // Inițializează counter-ul la load
+  }
+
+  // Adăugat funcția pentru efectul glow pe butonul submit
+  setupSubmitButtonGlowEffect() {
+    if (!this.dom.submitBtn) return;
+    
+    this.dom.submitBtn.addEventListener('mousemove', (e) => {
+      const rect = this.dom.submitBtn.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      this.dom.submitBtn.style.setProperty('--x', `${x}px`);
+      this.dom.submitBtn.style.setProperty('--y', `${y}px`);
+    });
+
+    this.dom.submitBtn.addEventListener('mouseleave', () => {
+      this.dom.submitBtn.style.setProperty('--x', '50%');
+      this.dom.submitBtn.style.setProperty('--y', '50%');
+    });
   }
 
   setupMessageCounter() {

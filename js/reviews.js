@@ -34,7 +34,8 @@ class ReviewsSystem {
     this.initSlider();
     this.loadData();
     this.setupObserver();
-    this.updatePreview(); 
+    this.updatePreview();
+    this.setupButtonGlowEffect();
   }
 
   cacheDOM() {
@@ -91,6 +92,63 @@ class ReviewsSystem {
         btn: document.querySelector('.submit-review-btn')
       }
     };
+  }
+
+  // Adăugat funcția pentru efectul glow pe toate butoanele
+  setupButtonGlowEffect() {
+    // Butonul principal din reviews
+    const submitReviewBtn = document.querySelector('.submit-review-btn');
+    if (submitReviewBtn) {
+      submitReviewBtn.addEventListener('mousemove', (e) => {
+        const rect = submitReviewBtn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        submitReviewBtn.style.setProperty('--x', `${x}px`);
+        submitReviewBtn.style.setProperty('--y', `${y}px`);
+      });
+
+      submitReviewBtn.addEventListener('mouseleave', () => {
+        submitReviewBtn.style.setProperty('--x', '50%');
+        submitReviewBtn.style.setProperty('--y', '50%');
+      });
+    }
+
+    // Butonul Back din formular
+    const backBtn = document.getElementById('back-btn');
+    if (backBtn) {
+      backBtn.addEventListener('mousemove', (e) => {
+        const rect = backBtn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        backBtn.style.setProperty('--x', `${x}px`);
+        backBtn.style.setProperty('--y', `${y}px`);
+      });
+
+      backBtn.addEventListener('mouseleave', () => {
+        backBtn.style.setProperty('--x', '50%');
+        backBtn.style.setProperty('--y', '50%');
+      });
+    }
+
+    // Butonul Submit din formular
+    const submitFormBtn = document.getElementById('submit-form-btn');
+    if (submitFormBtn) {
+      submitFormBtn.addEventListener('mousemove', (e) => {
+        const rect = submitFormBtn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        submitFormBtn.style.setProperty('--x', `${x}px`);
+        submitFormBtn.style.setProperty('--y', `${y}px`);
+      });
+
+      submitFormBtn.addEventListener('mouseleave', () => {
+        submitFormBtn.style.setProperty('--x', '50%');
+        submitFormBtn.style.setProperty('--y', '50%');
+      });
+    }
   }
 
   bindEvents() {
@@ -332,6 +390,7 @@ class ReviewsSystem {
 
   getSampleReviews() {
     return [
+      // Sample reviews removed for brevity
     ];
   }
 

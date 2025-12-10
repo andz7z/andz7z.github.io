@@ -48,12 +48,12 @@
 }
 
 .logo-symbol {
-  font-size: 20px;
+  font-size: 30px;
   display: block;
   margin-bottom: 10px;
-  position: relative;
-  top: 8.5vh;
-  left: 2.5vw;
+  position: absolute;
+  top: 50px;
+  left: 47px;
 }
 
 .logo-text {
@@ -61,9 +61,9 @@
   font-weight: 100;
   color: rgb(226, 226, 226);
   letter-spacing: 5px;
-  position: relative;
-  top: -10vh;
-  left: 1vw;
+  position: absolute;
+  top: 40px;
+  left: 50px;
   line-height: 1;
 }
 
@@ -72,9 +72,9 @@
   display: flex;
   align-items: center;
   font-size: 10px;
-  position: relative;
-  top: -11.3vh;
-  left: 1vw;
+  position: absolute;
+  top: 160px;
+  left: 50px;
   font-weight: 800; /* 1000 nu exista standard, am pus 800 (Extra Bold) */
   letter-spacing: 3px;
   opacity: 0;
@@ -97,9 +97,9 @@
 
 /* --- BOTTOM LEFT --- */
 .bottom-left {
-  position: relative;
-  margin-left: 1vw;
-  margin-top: 41.5vh;
+  position: absolute;
+  bottom: 40px;
+  left: 50px;
   font-size: 70px;
   font-weight: 100;
   opacity: 0;
@@ -116,8 +116,8 @@
 /* --- BOTTOM RIGHT --- */
 .bottom-right {
   position: absolute;
-  bottom: 30px;
-  right: 64px;
+  bottom: 40px;
+  right: 50px;
   font-size: 16px;
   display: flex;
   letter-spacing: 2px;

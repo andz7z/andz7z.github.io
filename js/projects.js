@@ -111,6 +111,7 @@ class ProjectManager {
     
     this.setupVisibilityListener();
     this.setupGalleryVideoObserver();
+    this.setupButtonGlowEffect(); // Adăugat inițializarea efectului glow
   }
 
   init() {
@@ -142,6 +143,28 @@ class ProjectManager {
     const galleryVideos = this.dom.gallery.querySelectorAll('video');
     galleryVideos.forEach(video => {
       this.state.galleryVideoObserver.observe(video);
+    });
+  }
+
+  // Adăugat funcția pentru efectul glow pe buton
+  setupButtonGlowEffect() {
+    const buttons = document.querySelectorAll('.view-more');
+    
+    buttons.forEach(button => {
+      button.addEventListener('mousemove', (e) => {
+        const rect = button.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        button.style.setProperty('--x', `${x}px`);
+        button.style.setProperty('--y', `${y}px`);
+      });
+
+      // Resetăm poziția când mouse-ul părăsește butonul
+      button.addEventListener('mouseleave', () => {
+        button.style.setProperty('--x', '50%');
+        button.style.setProperty('--y', '50%');
+      });
     });
   }
 
@@ -212,6 +235,9 @@ class ProjectManager {
       newGalleryVideos.forEach(video => {
         this.state.galleryVideoObserver.observe(video);
       });
+      
+      // Reinițializăm efectul glow pentru noile butoane
+      this.setupButtonGlowEffect();
     }, 100);
   }
 

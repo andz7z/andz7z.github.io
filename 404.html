@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page not found - 404</title>
+    
+    <script>
+        (function(){
+            // Definim caile valide din site-ul tau (trebuie sa coincida cu data-page-url din HTML)
+            var validPaths = [
+                "/about",
+                "/skills",
+                "/projects",
+                "/reviews",
+                "/contact-me"
+            ];
+            
+            var currentPath = window.location.pathname;
+            
+            // GitHub Pages poate avea un nume de repo in cale (ex: /my-repo/projects)
+            // Daca esti pe domeniu custom (andz7z.github.io), path-ul e direct /projects
+            
+            // Verificam daca calea curenta este una valida
+            if (validPaths.includes(currentPath)) {
+                // Redirectionam catre home dar pastram informatia despre unde voia sa ajunga
+                // Folosim ?p=... pentru a comunica cu main.js
+                window.location.replace("/?p=" + currentPath);
+            }
+            // Daca nu e o cale valida, scriptul continua si afiseaza pagina 404 de mai jos
+        })();
+    </script>
+
     <link rel="stylesheet" href="css/style.css">
     <style>
-
         :root {
             --button-bg: hsl(44, 0%, 70%); 
             --shadow: hsl(0, 0%, 0%);

@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // 4. Menu Logic (MODIFICAT AICI)
+    // 4. Menu Logic
     const initMenuToggle = () => {
         const burger = document.getElementById('burger-toggle');
         const stickyBurger = document.getElementById('sticky-burger-trigger');
@@ -90,10 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const burgerLabel = burger.querySelector('.burger-label');
         
         const menuItems = document.querySelectorAll('.menu-item');
-        
-        // --- MODIFICARE: Selectam .nav-preview-card in loc de .preview-card ---
         const previewCards = document.querySelectorAll('.nav-preview-card'); 
-        
         const navLinks = document.querySelectorAll('.nav-link-action');
 
         if(!burger || !overlay) return;
@@ -129,14 +126,10 @@ document.addEventListener('DOMContentLoaded', () => {
             item.addEventListener('mouseenter', () => {
                 if(window.innerWidth > 1024) {
                     menuItems.forEach(i => i.classList.remove('active'));
-                    
-                    // Aici folosim lista noua de carduri
                     previewCards.forEach(c => c.classList.remove('active'));
                     
                     item.classList.add('active');
                     const target = item.getAttribute('data-target');
-                    
-                    // ID-urile au ramas la fel in HTML (ex: preview-about), deci asta merge
                     const targetCard = document.getElementById(`preview-${target}`);
                     if(targetCard) targetCard.classList.add('active');
                 }
@@ -190,11 +183,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // 6. DYNAMIC URL ROUTING & SCROLL OBSERVER (NOU)
+    const initDynamicRouting = () => {
+        // A. Verifica daca venim dintr-un redirect (din 404.html)
+        const params = new URLSearchParams(window.location.search);
+        const redirectPath = params.get('p');
+        
+        if (redirectPath) {
+            // Curatam URL-ul de parametrul ?p=/ceva
+            window.history.replaceState(null, null, redirectPath);
+            
+            // Gasim sectiunea care are acest data-page-url
+            const targetSection = document.querySelector(`section[data-page-url="${redirectPath}"]`);
+            if (targetSection) {
+                // Asteptam putin sa se incarce tot DOM-ul
+                setTimeout(() => {
+                    targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
+                }, 100);
+            }
+        }
+
+        // B. Observer pentru a schimba URL-ul in timp ce dai scroll
+        const sections = document.querySelectorAll('section[data-page-url]');
+        
+        const observerOptions = {
+            root: null,
+            rootMargin: '-40% 0px -40% 0px', // Activeaza cand elementul e in mijlocul ecranului
+            threshold: 0
+        };
+
+        const observerCallback = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const pageUrl = entry.target.getAttribute('data-page-url');
+                    // Schimbam URL-ul fara refresh doar daca e diferit de cel curent
+                    if (pageUrl && window.location.pathname !== pageUrl) {
+                        window.history.replaceState(null, null, pageUrl);
+                    }
+                }
+            });
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+        sections.forEach(section => observer.observe(section));
+    };
+
     loadScripts();
     initStickyNav();
     initContactButton();
     initMenuToggle();
     initSmoothScroll();
+    initDynamicRouting(); // Initializam noua functie
 
     if (typeof window.initFooter === 'function') window.initFooter();
 });

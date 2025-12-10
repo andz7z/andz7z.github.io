@@ -4,7 +4,7 @@
     --text-muted: rgba(255, 255, 255, 0.5);
     --easing: cubic-bezier(0.76, 0, 0.24, 1);
     --crimson: rgb(255, 0, 0); 
-    --premium-gradient: linear-gradient(135deg, #ffd000, #ff8c00);
+    --premium-gradient: linear-gradient(135deg, #ffffff, #ffffff);
     --premium-solid: #ffffff; 
     --border-gradient: linear-gradient(to right, black 0%, white 50%, black 100%);
     --border-gradient-title: linear-gradient(to right, black 0%, rgb(84, 84, 84) 50%, black 100%);
@@ -32,7 +32,7 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
     position: fixed;
     top: 20px;
     left: 50%;
-    transform: translateX(-50%) translateY(-150%); /* Ascuns initial deasupra ecranului */
+    transform: translateX(-50%) translateY(-200%); /* Ascuns initial deasupra ecranului */
     
     width: 90%;
     max-width: 500px;
@@ -45,7 +45,7 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 0px 100px rgba(255, 255, 255, 0.182);
     
     display: flex;
     align-items: center;
