@@ -414,7 +414,7 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
 
 /* === MOBILE LAYOUT (< 1024px) === */
 @media screen and (max-width: 1024px) {
-    .hamburger { top: 20px; right: 20px; left: auto; }
+    .hamburger { top: 40px; right: 20px; left: auto; }
     .hamburger.active { left: auto; right: 20px; } 
     
     .nav-overlay { transform: translateX(0); opacity: 0; visibility: hidden; transition: 0.4s; }
@@ -437,7 +437,6 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
     
     /* Pe mobil, de obicei sticky-nav este mai mic sau ascuns, dar il lasam activ pentru consistenta */
     .sticky-nav { width: 95%; height: 50px; }
-    
     /* ASCUNDEM BUTONUL CREATIV PE ECRANE MICI PENTRU A NU STRICA LAYOUT-UL COMPACT */
     .button-creative { display: none; }
 }
