@@ -23,6 +23,7 @@
   height: 90%;
   transform: translate(-50%, -50%);
   object-fit: cover;
+  filter: brightness(0.8) blur(2px);
   border-radius: 40px;
   overflow: hidden;
   opacity: 0;
@@ -38,66 +39,10 @@
   height: 100%;
   padding: 40px;
 }
-
-/* --- LOGO AREA --- */
-.logo-wrapper {
-  opacity: 0;
-  animation: fadeIn 1.5s ease forwards;
-  animation-delay: 1.5s;
-}
-
-.logo-symbol {
-  font-size: 30px;
-  display: block;
-  margin-bottom: 10px;
-  position: absolute;
-  top: 50px;
-  left: 47px;
-}
-
-.logo-text {
-  font-size: 120px;
-  font-weight: 100;
-  color: rgb(226, 226, 226);
-  letter-spacing: 5px;
-  position: absolute;
-  top: 40px;
-  left: 50px;
-  line-height: 1;
-}
-
-/* --- SWITCH TEXT --- */
-.switcher {
-  display: flex;
-  align-items: center;
-  font-size: 10px;
-  position: absolute;
-  top: 160px;
-  left: 50px;
-  font-weight: 800; /* 1000 nu exista standard, am pus 800 (Extra Bold) */
-  letter-spacing: 3px;
-  opacity: 0;
-  animation: fadeIn 1.5s ease forwards;
-  animation-delay: 2.5s;
-}
-
-.switcher .dot {
-  width: 4px;
-  height: 4px;
-  background: #fff;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.switch-text {
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
-
 /* --- BOTTOM LEFT --- */
 .bottom-left {
   position: absolute;
-  bottom: 40px;
+  top: 50px;
   left: 50px;
   font-size: 70px;
   font-weight: 100;
@@ -106,6 +51,15 @@
   animation-delay: 3s;
   color: rgb(195, 195, 195);
   line-height: 1.1;
+}
+.logo-symbol {
+  position: absolute;
+  top: 157px; 
+  left: 280px;
+  font-size: 2rem;
+  opacity: 0; /* foarte important! */
+  animation: fadeIn 1.5s forwards ease;
+  animation-delay: 3s;
 }
 
 .vision {
@@ -139,7 +93,15 @@
 
 /* --- ANIMATIONS --- */
 @keyframes fadeInVideo { to { opacity: 1; } }
-@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes pulse {
   0% { transform: scale(0.9); opacity: 0.8; }
   50% { transform: scale(1.3); opacity: 1; }

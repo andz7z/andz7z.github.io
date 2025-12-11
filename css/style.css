@@ -407,7 +407,7 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
 }
 .nav-preview-tags span::before {
     content: '✓';
-    background: var(--premium-gradient);
+    background: var(--premium-gradient);    
     background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     font-size: 1.2rem; line-height: 1;
 }
@@ -439,4 +439,35 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
     .sticky-nav { width: 95%; height: 50px; }
     /* ASCUNDEM BUTONUL CREATIV PE ECRANE MICI PENTRU A NU STRICA LAYOUT-UL COMPACT */
     .button-creative { display: none; }
+}
+/* Pentru scroll smooth */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
+}
+
+/* Împiedică scroll-ul nativ */
+html {
+    overflow: hidden;
+}
+
+body {
+    overflow-y: auto;
+    overflow-x: hidden;
 }

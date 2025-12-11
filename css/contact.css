@@ -5,8 +5,7 @@
   color: #fff;
   padding: 60px 20px;
   position: relative;
-  min-height: 100vh;
-  min-height: 100dvh; 
+  height: 120vh;
   display: flex;
   align-items: center;
 }
@@ -37,7 +36,7 @@
 
 .answers {
   font-family: 'Great', cursive;
-  font-size: 2.5rem;
+  font-size: 7rem;
   position: relative;
   font-weight: 500;
   letter-spacing: 3px;
@@ -484,6 +483,7 @@
   padding: 30px 25px;
   border: 1px solid #333333;
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+  transform: translateY(-40px); /* +dreapta, -sus */
 }
 
 .socials-header {
