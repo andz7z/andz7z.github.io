@@ -1,30 +1,3 @@
-// Inițializează Lenis pentru scroll smooth
-const lenis = new Lenis({
-    duration: 1.2,
-    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    direction: 'vertical',
-    gestureDirection: 'vertical',
-    smooth: true,
-    smoothTouch: false,
-    touchMultiplier: 2,
-});
-
-// Funcție pentru animație frame
-function raf(time) {
-    lenis.raf(time);
-    requestAnimationFrame(raf);
-}
-requestAnimationFrame(raf);
-
-// Conectează GSAP ScrollTrigger cu Lenis
-lenis.on('scroll', ScrollTrigger.update);
-
-// Spune ScrollTrigger să folosească scroll-ul personalizat al lui Lenis
-gsap.ticker.add((time) => {
-    lenis.raf(time * 1000);
-});
-
-gsap.ticker.lagSmoothing(0);
 const firebaseConfig = {
     apiKey: "AIzaSyC0DShqS1R3eqCIVFLKXxU0vmi0mUqprek",
     authDomain: "portfolio-65392.firebaseapp.com",

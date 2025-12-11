@@ -132,14 +132,6 @@
     width: 100%;
 }
 
-/* Hover-off animation */
-.nav-link:not(:hover) .link-underline {
-    left: auto;
-    right: 0;
-    width: 100%;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* Right section - Contact */
 .footer-right {
     display: flex;

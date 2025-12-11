@@ -91,6 +91,8 @@
   margin-bottom: 40px;
   margin-top: 10vh;
   line-height: 1.1;
+      background: var(--premium-gradient);    
+    background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
 .about-description {
@@ -126,6 +128,8 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-top: 2px;
+      background: var(--premium-gradient);    
+    background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
 }
 
 .quality-tags {
