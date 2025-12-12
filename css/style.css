@@ -434,7 +434,7 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
 /* === MOBILE LAYOUT (< 1024px) === */
 @media screen and (max-width: 1024px) {
     .hamburger { top: 40px; right: 20px; left: auto; }
-    .hamburger.active { left: auto; right: 20px; } 
+    .hamburger.active { left: 0px; top: 10px; } 
     
     .nav-overlay { transform: translateX(0); opacity: 0; visibility: hidden; transition: 0.4s; }
     .nav-overlay.open { opacity: 1; visibility: visible; }
@@ -478,4 +478,36 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
 body {
   background-color: black;
   margin: 0; /* ca să nu rămână spațiu gri pe margini */
+}
+
+@media (max-width: 768px) { 
+    .hamburger {
+        top: 35px;
+        right: 20px;
+    }
+    .hamburger.active { left: 0px; top: 10px; } 
+    
+    .nav-overlay { transform: translateX(0); opacity: 0; visibility: hidden; transition: 0.4s; }
+    .nav-overlay.open { opacity: 1; visibility: visible; }
+    .nav-left .nav-subtitle { left: 50px; }
+    .split-layout { display: block; } .nav-right { display: none; }
+    
+    .nav-left { width: 100%; padding: 8px 30px 40px 30px; margin-top: 50px; border: none; }
+    
+    .menu-list:hover .menu-item { opacity: 1; filter: none; }
+    .menu-item { opacity: 1 !important; filter: none !important; }
+    .menu-link { padding: 20px 0; }
+    
+    .mobile-dropdown { max-height: 0; overflow: hidden; opacity: 0; transition: 0.4s; }
+    .menu-item.mobile-active .mobile-dropdown { display: block; max-height: 300px; opacity: 1; padding-bottom: 30px; }
+    
+    .mobile-btn { display: inline-block; position: relative; padding-bottom: 8px; width: 100%; color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; }
+    .mobile-btn::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100px; height: 2px; background: white; transition: 0.3s; }
+    .mobile-btn:hover::after { width: 100%; background: var(--premium-solid); }
+    .nav-footer { flex-direction: column; align-items: center; gap: 15px; position: relative; top: -100px;}
+    
+    /* Pe mobil, de obicei sticky-nav este mai mic sau ascuns, dar il lasam activ pentru consistenta */
+    .sticky-nav { width: 95%; height: 50px; }
+    /* ASCUNDEM BUTONUL CREATIV PE ECRANE MICI PENTRU A NU STRICA LAYOUT-UL COMPACT */
+    .button-creative { display: none; }
 }

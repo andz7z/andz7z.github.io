@@ -452,14 +452,14 @@
   /* 3. Logo & Header */
   .logo-symbol {
     top: 30px; left: 24px;
-    font-size: 1.5rem;
+    font-size: 2.5rem; 
   }
 
   /* 4. Main Text (Center-ish) */
   .bottom-left {
     position: relative;
     top: auto; left: auto;
-    margin-top: 40vh; /* Push down to visual center */
+    margin-top: 65vh; /* Push down to visual center */
     font-size: 2.8rem;
     line-height: 1.1;
     width: 100%;
