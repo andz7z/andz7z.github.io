@@ -13,22 +13,23 @@
     <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/projects.css">
     <link rel="stylesheet" href="css/reviews.css">
-    <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/footer.css">
     <link rel="manifest" href="https://andz7z.github.io/assets/photos/favicon/site.webmanifest">
     <meta name="theme-color" content="#ffffff"> <link rel="apple-touch-icon" sizes="180x180" href="https://andz7z.github.io/assets/photos/favicon/apple-touch-icon.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="∀ N D Z">
-
     <link rel="icon" type="image/png" sizes="32x32" href="https://andz7z.github.io/assets/photos/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://andz7z.github.io/assets/photos/favicon/favicon-16x16.png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
   <div id="scroll-progress-wrap" aria-hidden="true">
   <div id="scroll-progress-bar"></div>
 </div>
 
+<main>
 <header>
     <nav class="sticky-nav" id="sticky-nav">
         <a href="/" class="sticky-logo">⚜</a>
@@ -183,21 +184,137 @@
 </header>
 
 <section id="home" data-page-url="/home">
+  <!-- Ionicons Script -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+  <!-- Background Video -->
   <video class="bg-video" src="https://res.cloudinary.com/deahos6sr/video/upload/v1763674155/movie_homepage_uwzspd.mp4" autoplay muted loop playsinline></video>
 
   <div class="home-content">
-
     <div class="logo-wrapper">
       <span class="logo-symbol">⚜</span>
     </div>
 
     <div class="bottom-left">
       <span class="vision">Built with <span class="vision-glow">Vision.</span></span>
-      <br>Beyond Visuals <br>
+      <br>Beyond <span class="visuals-glow">Visuals</span>
     </div>
 
-    <div class="bottom-right">
-      Available for project<span class="pulse-dot"></span> 
+    <!-- =========================================
+         1. LEFT BADGE: PROJECTS
+         ========================================= -->
+    <div class="smart-badge-wrapper left">
+      <a href="#projects" class="smart-badge project-badge">
+        <div class="badge-label">
+          <span class="badge-icon">✦</span>
+          <span class="badge-text">Latest Work</span>
+        </div>
+
+        <div class="badge-content">
+          <div class="badge-video-container">
+            <video class="badge-video active" muted playsinline preload="auto">
+              <source src="https://andz7z.github.io/assets/corelle/home_land.mp4" type="video/mp4">
+            </video>
+            <video class="badge-video" muted playsinline preload="auto">
+              <source src="https://res.cloudinary.com/df9syoltz/video/upload/v1764524717/1130_1_2_ptidlk.mp4" type="video/mp4">
+            </video>
+            <div class="badge-mask"></div>
+          </div>
+
+          <div class="badge-info">
+            <div class="info-top">
+              <div class="meta-group">
+                <span class="meta-year">2025</span>
+                <span class="meta-divider">/</span>
+                <span class="meta-role">Design & Dev</span>
+              </div>
+              <div class="tech-stack">
+                <span>WebGL</span> • <span>GSAP</span>
+              </div>
+            </div>
+            
+            <div class="info-bottom">
+              <div class="title-group">
+                <h3 class="project-title">Corelle</h3>
+                <span class="project-tagline">Immersive Portfolio Experience</span>
+              </div>
+              <div class="arrow-btn">
+                 <ion-icon name="arrow-forward-outline"></ion-icon>
+              </div>
+            </div>
+            
+            <div class="progress-track">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+        </div>
+        <div class="magnetic-glow"></div>
+      </a>
+    </div>
+
+    <!-- =========================================
+         2. RIGHT BADGE: CONTACT (CLEAN & PRO)
+         ========================================= -->
+    <div class="smart-badge-wrapper right">
+      <a href="#contact" class="smart-badge contact-badge">
+        
+        <!-- Label Initial -->
+        <div class="badge-label">
+          <span class="badge-text">Get in touch</span>
+          <span class="pulse-dot"></span>
+        </div>
+
+        <!-- Content Expanded -->
+        <div class="badge-content">
+          <!-- Premium Abstract Background -->
+          <div class="badge-abstract-bg">
+            <div class="noise-overlay"></div>
+            <div class="gradient-mesh"></div>
+          </div>
+
+          <!-- Contact Layout (New Structure) -->
+          <div class="badge-info contact-layout">
+            
+            <div class="c-header">
+              <h3 class="c-title">Let's work together.</h3>
+            </div>
+
+            <div class="c-body">
+              <!-- Interactive Contact Row -->
+              <div class="c-row">
+                <div class="c-icon-circle">
+                  <ion-icon name="mail-open-outline"></ion-icon>
+                </div>
+                <div class="c-info">
+                  <span class="c-type">Email Address</span>
+                  <span class="c-value">andz.contact@gmail.com</span>
+                </div>
+              </div>
+
+              <div class="c-row">
+                <div class="c-icon-circle">
+                  <ion-icon name="phone-portrait-outline"></ion-icon>
+                </div>
+                <div class="c-info">
+                  <span class="c-type">Phone Number</span>
+                  <span class="c-value">+40 748 594 335</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="c-footer">
+               <div class="c-location">
+                 <span class="loc-dot"></span> Galati, RO
+               </div>
+               <div class="c-action-text">Go to Contact <ion-icon name="arrow-forward"></ion-icon></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="magnetic-glow"></div>
+      </a>
     </div>
 
   </div>

@@ -29,36 +29,42 @@ document.addEventListener('DOMContentLoaded', () => {
         document.head.appendChild(noModule);
     };
 
-    // 2. SCROLL LOGIC FOR STICKY NAVBAR
-    const initStickyNav = () => {
-        const stickyNav = document.getElementById('sticky-nav');
-        const mainBurger = document.getElementById('burger-toggle');
-        const overlay = document.getElementById('nav-overlay');
-        
-        let lastScrollTop = 0;
-        const threshold = window.innerHeight;
+const initStickyNav = () => {
+    const stickyNav = document.getElementById('sticky-nav');
+    const mainBurger = document.getElementById('burger-toggle');
+    const overlay = document.getElementById('nav-overlay');
+    
+    let lastScroll = 0;
 
-        window.addEventListener('scroll', () => {
-            if(overlay.classList.contains('open')) return;
+    window.addEventListener('scroll', () => {
+        if (overlay.classList.contains('open')) return;
 
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const currentScroll = window.pageYOffset;
 
-            if (scrollTop <= threshold / 2) {
-                mainBurger.classList.remove('burger-hidden');
-                stickyNav.classList.remove('nav-visible');
-            } 
-            else {
-                if (scrollTop > lastScrollTop) {
-                    mainBurger.classList.add('burger-hidden');
-                    stickyNav.classList.remove('nav-visible');
-                } else {
-                    mainBurger.classList.add('burger-hidden');
-                    stickyNav.classList.add('nav-visible');
-                }
-            }
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-        }, { passive: true });
-    };
+        // dacă nu ai scroll deloc, navbar ascuns, hamburger vizibil
+        if (currentScroll <= 50) {
+            stickyNav.classList.remove('nav-visible');
+            mainBurger.classList.remove('burger-hidden');
+            lastScroll = currentScroll;
+            return;
+        }
+
+        // scroll în jos → ascunde tot
+        if (currentScroll > lastScroll) {
+            stickyNav.classList.remove('nav-visible');
+            mainBurger.classList.add('burger-hidden');
+        } 
+        else {
+            // scroll în sus → arată nav
+            stickyNav.classList.add('nav-visible');
+            mainBurger.classList.add('burger-hidden');
+        }
+
+        lastScroll = currentScroll;
+    }, { passive: true });
+};
+
+
 
     // 3. CONTACT BUTTON LOGIC
     const initContactButton = () => {

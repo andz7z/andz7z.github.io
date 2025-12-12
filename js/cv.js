@@ -80,3 +80,23 @@ document.addEventListener('DOMContentLoaded', () => {
   initTimelineLoop();
   initScrollAnimations();
 });
+// Adaugă acest cod în fișierul tău JavaScript existent
+document.addEventListener('DOMContentLoaded', function() {
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('fade-in');
+      }
+    });
+  }, observerOptions);
+
+  // Observă toate elementele care trebuie să apară
+  document.querySelectorAll('.cv-header, .cv-tech-section, .cv-timeline-section, .cv-timeline-item').forEach(el => {
+    observer.observe(el);
+  });
+});

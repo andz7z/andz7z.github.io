@@ -54,14 +54,32 @@ html.modal-open::-webkit-scrollbar-thumb {
   align-items: center;
 }
 
+/* Animații pentru fade-in la scroll */
 .projects-container {
   width: 100%;
   margin: 0 auto;
   padding: 0 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.projects-container.fade-in {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .projects-header {
   margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: 0.2s;
+}
+
+.projects-container.fade-in .projects-header {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .projects-title {
@@ -72,9 +90,14 @@ html.modal-open::-webkit-scrollbar-thumb {
   text-align: center;
   right: 0vw;
   opacity: 0;
-  position: relative;
-  transform: translateX(-50px);
-  animation: titleSlideIn 1s ease forwards;
+  transform: translateY(30px);
+  transition: opacity 1s ease, transform 1s ease;
+  transition-delay: 0.4s;
+}
+
+.projects-container.fade-in .projects-title {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .confidence {
@@ -91,6 +114,15 @@ html.modal-open::-webkit-scrollbar-thumb {
   line-height: 1;
   display: inline-block;
   margin: 0 10px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 1s ease, transform 1s ease;
+  transition-delay: 0.5s;
+}
+
+.projects-container.fade-in .confidence {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .projects-content {
@@ -117,20 +149,100 @@ html.modal-open::-webkit-scrollbar-thumb {
   justify-content: center;
   align-items: center;
   perspective: 1200px;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s ease, transform 1s ease;
+  transition-delay: 0.6s;
 }
 
-/* Slide Styles */
+.projects-container.fade-in .projects-gallery {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animații pentru slide-uri */
 .project-slide {
   position: absolute;
   width: 600px;
   height: 380px;
   border-radius: 30px;
   overflow: hidden;
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   filter: grayscale(100%);
-  opacity: 0.7;
+  opacity: 0;
   transform-style: preserve-3d;
+  transition: opacity 0.5s ease, filter 0.3s ease, transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Clasa specială pentru schimbări rapide */
+.projects-gallery.quick-transition .project-slide,
+.projects-gallery.quick-change .project-slide {
+  transition: opacity 0.2s ease, filter 0.2s ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* Slide-urile apar succesiv când containerul are clasa fade-in */
+.projects-container.fade-in .project-slide {
+  opacity: 0.7;
+}
+
+/* Delay-uri pentru apariția succesivă a slide-urilor */
+.projects-container.fade-in .project-slide:nth-child(1) { transition-delay: 0.8s; }
+.projects-container.fade-in .project-slide:nth-child(2) { transition-delay: 0.9s; }
+.projects-container.fade-in .project-slide:nth-child(3) { transition-delay: 1.0s; }
+.projects-container.fade-in .project-slide:nth-child(4) { transition-delay: 1.1s; }
+.projects-container.fade-in .project-slide:nth-child(5) { transition-delay: 1.2s; }
+
+/* Layout-ul original rămâne NESCHIMBAT pentru PC */
+.project-slide.active {
+  width: 650px !important;
+  height: 400px !important;
+  z-index: 10 !important;
+  opacity: 1 !important;
+  filter: grayscale(0%) !important;
+  transform: translateX(0) scale(1) !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5) !important;
+  pointer-events: auto !important;
+}
+
+.project-slide.prev {
+  width: 550px !important;
+  height: 350px !important;
+  z-index: 5 !important;
+  transform: translateX(-80%) scale(0.85) rotateY(10deg) !important;
+  opacity: 0.8 !important;
+  pointer-events: auto !important;
+}
+
+.project-slide.next {
+  width: 550px !important;
+  height: 350px !important;
+  z-index: 5 !important;
+  transform: translateX(80%) scale(0.85) rotateY(-10deg) !important;
+  opacity: 0.8 !important;
+  pointer-events: auto !important;
+}
+
+.project-slide.far-prev {
+  width: 500px !important;
+  height: 320px !important;
+  z-index: 1 !important;
+  transform: translateX(-160%) scale(0.7) rotateY(15deg) !important;
+  opacity: 0.4 !important;
+  pointer-events: none !important;
+}
+
+.project-slide.far-next {
+  width: 500px !important;
+  height: 320px !important;
+  z-index: 1 !important;
+  transform: translateX(160%) scale(0.7) rotateY(-15deg) !important;
+  opacity: 0.4 !important;
+  pointer-events: none !important;
+}
+
+.project-slide.hidden { 
+  display: none !important;
+  opacity: 0 !important;
 }
 
 /* Hover effect doar pe PC */
@@ -140,50 +252,6 @@ html.modal-open::-webkit-scrollbar-thumb {
     transform: translateY(-10px) scale(1.02);
   }
 }
-
-.project-slide.active {
-  width: 650px;
-  height: 400px;
-  z-index: 10;
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: translateX(0) scale(1);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-}
-
-.project-slide.prev {
-  width: 550px;
-  height: 350px;
-  z-index: 5;
-  transform: translateX(-80%) scale(0.85) rotateY(10deg);
-  opacity: 0.8;
-}
-
-.project-slide.next {
-  width: 550px;
-  height: 350px;
-  z-index: 5;
-  transform: translateX(80%) scale(0.85) rotateY(-10deg);
-  opacity: 0.8;
-}
-
-.project-slide.far-prev {
-  width: 500px;
-  height: 320px;
-  z-index: 1;
-  transform: translateX(-160%) scale(0.7) rotateY(15deg);
-  opacity: 0.4;
-}
-
-.project-slide.far-next {
-  width: 500px;
-  height: 320px;
-  z-index: 1;
-  transform: translateX(160%) scale(0.7) rotateY(-15deg);
-  opacity: 0.4;
-}
-
-.project-slide.hidden { display: none; }
 
 .project-thumbnail {
   width: 100%;
@@ -209,6 +277,7 @@ html.modal-open::-webkit-scrollbar-thumb {
 .project-slide.active .project-overlay {
   opacity: 1;
 }
+
 .view-more {
   color: #fff;
   font-size: 0.8rem;
@@ -243,13 +312,11 @@ html.modal-open::-webkit-scrollbar-thumb {
 
 .view-more:hover::before { left: 0; }
 .view-more:hover {
-  border-color: #fff;
-  transform: translateY(-5px);
-  color: rgb(255, 255, 255);
-  box-shadow: 0 0px 50px rgba(255, 255, 255, 0.479);
+  transform: translateY(-5px) !important;
+  color: rgb(0, 0, 0);
 }
 
-/* Efectul glow pentru buton - Adăugat */
+/* Efectul glow pentru buton */
 .view-more {
   position: relative;
   z-index: 1;
@@ -301,14 +368,13 @@ html.modal-open::-webkit-scrollbar-thumb {
   width: 100%;
   z-index: 1001;
   background: transparent;
-  pointer-events: none; /* Permite click prin header */
+  pointer-events: none;
 }
 
-/* Butoanele trebuie să aibă pointer-events: auto */
 #projectsModal .back-btn,
 #projectsModal .contact-btn {
   pointer-events: auto; 
-  background: rgba(0, 0, 0, 0.3); /* Ușor fundal pentru vizibilitate */
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0);
   color: #fff;
@@ -317,7 +383,6 @@ html.modal-open::-webkit-scrollbar-thumb {
   gap: 10px;
   cursor: pointer;
   position: relative;
-  /* Reset top/left pentru consistență */
   font-family: 'Sora', sans-serif;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -368,7 +433,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   text-align: center;
   font-size: 1.7rem;
   font-weight: 400;
-  margin-top: 20px; /* Reset negative margins */
+  margin-top: 20px;
   margin-bottom: 20px;
   opacity: 0;
   transform: translateY(-30px);
@@ -508,6 +573,46 @@ html.modal-open::-webkit-scrollbar-thumb {
 @keyframes relatedProjectsReveal { 0% { opacity: 0; transform: translateY(40px); } 100% { opacity: 1; transform: translateY(0); } }
 @keyframes modalClose { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(0.98); } 100% { opacity: 0; transform: scale(0.95); } }
 
+/* Stiluri pentru videoclipuri */
+.video-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.gallery-video {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.video-thumbnail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 /* =========================================
    PERFECT MOBILE OPTIMIZATION
    ========================================= */
@@ -516,9 +621,9 @@ html.modal-open::-webkit-scrollbar-thumb {
   .projects-content { flex-direction: column; }
   .projects-gallery { width: 800px; }
   
-  .project-slide.active { width: 550px; height: 350px; }
-  .project-slide.prev, .project-slide.next { width: 450px; height: 300px; }
-  .project-slide.far-prev, .project-slide.far-next { width: 400px; height: 280px; }
+  .project-slide.active { width: 550px !important; height: 350px !important; }
+  .project-slide.prev, .project-slide.next { width: 450px !important; height: 300px !important; }
+  .project-slide.far-prev, .project-slide.far-next { width: 400px !important; height: 280px !important; }
   
   #projectsModal .project-details { flex-direction: column; }
   #projectsModal .gallery-container { height: 400px; }
@@ -527,15 +632,15 @@ html.modal-open::-webkit-scrollbar-thumb {
 @media (max-width: 768px) {
   /* 1. Layout General Mobil */
   #projects {
-    height: auto; /* Foarte important pentru a nu lăsa spații goale */
     height: 140vh;
+    min-height: 800px;
   }
 
   .projects-container { padding: 0 20px; }
   
   .projects-title { 
     font-size: 1.8rem; 
-    transform: translateX(0); /* Reset transform */
+    transform: translateX(0);
     margin-top: 20px;
   }
   
@@ -550,72 +655,75 @@ html.modal-open::-webkit-scrollbar-thumb {
   .projects-gallery {
     width: 100%;
     height: 100%;
-    perspective: none; /* Elimină perspectiva complexă pe mobil */
+    perspective: 800px;
   }
 
-/* SLIDE ACTIV – Wide și proporție corectă */
-.project-slide.active {
-  width: 80vw;              /* wide */
-  height: 20vh;             /* mai mic pe verticală */
-  opacity: 1;
-  transform: translateX(0) scale(1) !important;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.35);
-  z-index: 20;
-  left: 4vw;               /* (100 - 80) / 2 = 10 */
-}
+  /* SLIDE ACTIV pe mobil */
+  .project-slide.active {
+    width: 80vw !important;
+    height: 45vh !important;
+    max-height: 350px !important;
+    opacity: 1 !important;
+    transform: translateX(0) scale(1) !important;
+    left: 10vw !important;
+    z-index: 20 !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+  }
 
-/* SLIDE PREV – Vizibil, puțin mai mic, deplasat stânga */
-.project-slide.prev {
-  width: 65vw;
-  height: 32vh;
-  max-height: 300px;
-  transform: translateX(-50px) scale(0.9) !important;
-  opacity: 0.55;            /* mai vizibil */
-  z-index: 10;
-  left: 0vw;                /* deplasat spre stânga real */
-  pointer-events: none;
-}
+  /* SLIDE PREV pe mobil */
+  .project-slide.prev {
+    width: 65vw !important;
+    height: 38vh !important;
+    max-height: 320px !important;
+    transform: translateX(-60%) scale(0.9) !important;
+    opacity: 0.7 !important;
+    z-index: 15 !important;
+    left: 5vw !important;
+    pointer-events: auto !important;
+  }
 
-/* SLIDE NEXT – Vizibil, puțin mai mic, deplasat dreapta */
-.project-slide.next {
-  width: 65vw;
-  height: 32vh;
-  max-height: 300px;
-  transform: translateX(50px) scale(0.9) !important;
-  opacity: 0.55;
-  z-index: 10;
-  left: 24vw;               /* deplasat spre dreapta real */
-  pointer-events: none;
-}
+  /* SLIDE NEXT pe mobil */
+  .project-slide.next {
+    width: 65vw !important;
+    height: 38vh !important;
+    max-height: 320px !important;
+    transform: translateX(60%) scale(0.9) !important;
+    opacity: 0.7 !important;
+    z-index: 15 !important;
+    left: 30vw !important;
+    pointer-events: auto !important;
+  }
 
-.project-slide.prev,
-.project-slide.next {
-    pointer-events: auto !important; /* ACTIVĂM CLICK-URILE */
-    z-index: 15;                     /* DEASUPRA ACTIV-ULUI DACĂ E NEVOIE */
-}
+  /* Far slides - ascunse pe mobil */
+  .project-slide.far-prev,
+  .project-slide.far-next {
+    opacity: 0.1 !important;
+    pointer-events: none !important;
+    z-index: 5 !important;
+  }
 
-
-  /* Butonul View More - Mereu Vizibil pe Mobil */
+  /* Butonul View More pe mobil */
   .view-more {
     opacity: 1 !important;
     transform: translateY(0) !important;
-    background: rgba(0,0,0,0.6); /* Contrast mai bun */
-    border-color: #fff;
-    padding: 6px 12px;
-    font-size: 0.6rem;
-    font-weight: 100;
-    letter-spacing: 2px;
+    background: rgba(0,0,0,0.7);
+    border-color: rgba(255,255,255,0.8);
+    padding: 10px 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    backdrop-filter: blur(5px);
   }
 
   .project-overlay {
-    opacity: 1 !important; /* Overlay mereu vizibil */
-    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.9) 100%);
+    opacity: 1 !important;
+    background: linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85) 100%);
   }
 
   /* 3. Modal Mobile */
   #projectsModal .modal-header {
     padding: 15px 20px;
-    background: rgba(0,0,0,0.8); /* Background pentru lizibilitate */
+    background: rgba(0,0,0,0.8);
     backdrop-filter: blur(10px);
   }
 
@@ -640,11 +748,11 @@ html.modal-open::-webkit-scrollbar-thumb {
   }
 
   #projectsModal .gallery-container {
-    height: 250px; /* Mai mic pe mobil */
+    height: 250px;
   }
 
   #projectsModal .project-name {
-    font-size: 1rem;
+    font-size: 1.8rem;
     position: relative;
     top: -300px;
     margin-bottom: 30px;
@@ -658,7 +766,7 @@ html.modal-open::-webkit-scrollbar-thumb {
   }
 
   #projectsModal .related-projects {
-    grid-template-columns: 1fr; /* O singură coloană */
+    grid-template-columns: 1fr;
     gap: 20px;
     position: relative;
     top: -100px;
@@ -678,56 +786,32 @@ html.modal-open::-webkit-scrollbar-thumb {
     position: relative;
     top: -80px;
   }
+  
+  /* Ajustări animații pe mobil */
+  .project-slide {
+    transition: opacity 0.3s ease, filter 0.2s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .projects-container.fade-in .project-slide:nth-child(1) { transition-delay: 0.2s !important; }
+  .projects-container.fade-in .project-slide:nth-child(2) { transition-delay: 0.3s !important; }
+  .projects-container.fade-in .project-slide:nth-child(3) { transition-delay: 0.4s !important; }
+  .projects-container.fade-in .project-slide:nth-child(4) { transition-delay: 0.5s !important; }
+  .projects-container.fade-in .project-slide:nth-child(5) { transition-delay: 0.6s !important; }
 }
 
 @media (max-width: 480px) {
   .confidence { font-size: 1.8rem; }
   .projects-title { font-size: 1.5rem; }
   
-  .project-slide.active,
+  .project-slide.active {
+    width: 90vw !important;
+    height: 40vh !important;
+    left: 5vw !important;
+  }
+  
   .project-slide.prev,
   .project-slide.next {
-    height: 320px; /* Ajustare înălțime pentru ecrane mici */
+    width: 75vw !important;
+    height: 35vh !important;
   }
-}
-/* Adaugă acest CSS în fișierul tău de stiluri */
-
-.video-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.gallery-video {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-}
-
-.video-thumbnail {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Asigură-te că slide-urile din modal au dimensiuni corecte */
-.gallery-slide {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.gallery-image {
-  width: auto;
-  height: auto;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
 }

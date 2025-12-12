@@ -5,6 +5,7 @@
     --easing: cubic-bezier(0.76, 0, 0.24, 1);
     --crimson: rgb(255, 0, 0); 
     --premium-gradient: linear-gradient(135deg, #ffffff, #127d8d);
+    --premium-gradient-two: linear-gradient(135deg, #ffffff, #2b2b2b);
     --premium-solid: #ffffff; 
     --border-gradient: linear-gradient(to right, black 0%, white 50%, black 100%);
     --border-gradient-title: linear-gradient(to right, black 0%, rgb(84, 84, 84) 50%, black 100%);
@@ -23,7 +24,7 @@
     font-display: swap;
 }
 
-body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: hidden; }
+body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: hidden; background-color: black; }
 
 /* =========================================
    STICKY NAV (Detached & Glass)
@@ -165,12 +166,21 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
     display: flex;
     align-items: center;
     gap: 15px;
-    flex-direction: row-reverse; 
+    flex-direction: row-reverse;
     
-    /* Tranzitie pentru disparitie/aparitie */
+    opacity: 0;               /* Start invizibil */
+    animation: fadeIn 4s ease forwards; /* Fade-in 3.2s */
+
+    /* Tranzitie deja existentă pentru alte efecte */
     transition: opacity 0.5s ease, transform 0.5s ease;
-    opacity: 1;
+
     pointer-events: all;
+}
+
+/* Definirea animatiei */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 /* Clasa adaugata cand dam scroll in jos (Ascunde Burgerul) */
@@ -178,6 +188,7 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
     opacity: 0;
     pointer-events: none;
     transform: translateY(-20px);
+    animation: none !important;  /* <— FIX CRUCIAL */
 }
 
 .hamburger.active {
@@ -447,4 +458,24 @@ body { background: var(--dark-bg); font-family: 'Sora', sans-serif; overflow-x: 
     .sticky-nav { width: 95%; height: 50px; }
     /* ASCUNDEM BUTONUL CREATIV PE ECRANE MICI PENTRU A NU STRICA LAYOUT-UL COMPACT */
     .button-creative { display: none; }
+}
+.hamburger {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity .5s ease, transform .5s ease;
+}
+
+/* când trebuie să dispară */
+.hamburger.burger-hidden {
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+    animation: none !important; /* OBLIGATORIU — oprește fadeIn-ul tău */
+}
+body {
+  background-color: black;
+  margin: 0; /* ca să nu rămână spațiu gri pe margini */
 }

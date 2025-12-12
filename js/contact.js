@@ -912,3 +912,17 @@ class ContactManager {
 }
 
 document.addEventListener('DOMContentLoaded', () => new ContactManager());
+// Observă secțiunea de contact pentru animații
+const contactObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fade-in');
+    }
+  });
+}, { threshold: 0.2 });
+
+// Observă containerul de contact
+const contactContainer = document.querySelector('.contact-container');
+if (contactContainer) {
+  contactObserver.observe(contactContainer);
+}

@@ -18,7 +18,6 @@ const PROJECTS_DATA = {
         'https://andz7z.github.io/assets/corelle/poza10.png',
         'https://andz7z.github.io/assets/corelle/poza11.png'
       ],
-      // Folosim videoclipul ca thumbnail
       thumbnail: 'https://andz7z.github.io/assets/corelle/home_land.mp4',
       isVideoThumbnail: true
     },
@@ -103,15 +102,20 @@ class ProjectManager {
       typingTimeouts: [],
       videoElements: new Map(),
       isProjectActive: true,
-      galleryVideoObserver: null
+      galleryVideoObserver: null,
+      isChanging: false // Flag nou pentru a preveni animații multiple
     };
+
+    this.resourceCache = new Map();
 
     if (!this.dom.section) return;
     this.init();
     
     this.setupVisibilityListener();
     this.setupGalleryVideoObserver();
-    this.setupButtonGlowEffect(); // Adăugat inițializarea efectului glow
+    this.setupButtonGlowEffect();
+
+    setTimeout(() => this.preloadCategoryResources(), 1000);
   }
 
   init() {
@@ -127,7 +131,6 @@ class ProjectManager {
   }
 
   setupGalleryVideoObserver() {
-    // Observer pentru videoclipurile din galeria principală
     this.state.galleryVideoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target;
@@ -139,14 +142,12 @@ class ProjectManager {
       });
     }, { threshold: 0.5 });
 
-    // Aplicăm observer-ul pe videoclipurile existente din galerie
     const galleryVideos = this.dom.gallery.querySelectorAll('video');
     galleryVideos.forEach(video => {
       this.state.galleryVideoObserver.observe(video);
     });
   }
 
-  // Adăugat funcția pentru efectul glow pe buton
   setupButtonGlowEffect() {
     const buttons = document.querySelectorAll('.view-more');
     
@@ -160,11 +161,62 @@ class ProjectManager {
         button.style.setProperty('--y', `${y}px`);
       });
 
-      // Resetăm poziția când mouse-ul părăsește butonul
       button.addEventListener('mouseleave', () => {
         button.style.setProperty('--x', '50%');
         button.style.setProperty('--y', '50%');
       });
+    });
+  }
+
+  preloadCategoryResources() {
+    const projects = this.getProjects();
+    projects.slice(0, 3).forEach(project => {
+      if (project.thumbnail.endsWith('.mp4')) {
+        if (!this.resourceCache.has(project.thumbnail)) {
+          const video = document.createElement('video');
+          video.src = project.thumbnail;
+          video.preload = 'metadata';
+          this.resourceCache.set(project.thumbnail, video);
+        }
+      } else {
+        if (!this.resourceCache.has(project.thumbnail)) {
+          const img = new Image();
+          img.src = project.thumbnail;
+          this.resourceCache.set(project.thumbnail, img);
+        }
+      }
+      
+      project.images.slice(0, 2).forEach(media => {
+        if (!this.resourceCache.has(media)) {
+          if (media.endsWith('.mp4')) {
+            const video = document.createElement('video');
+            video.src = media;
+            video.preload = 'metadata';
+            this.resourceCache.set(media, video);
+          } else {
+            const img = new Image();
+            img.src = media;
+            this.resourceCache.set(media, img);
+          }
+        }
+      });
+    });
+  }
+
+  preloadProjectResources(project) {
+    project.images.slice(0, 2).forEach(media => {
+      if (!this.resourceCache.has(media)) {
+        if (media.endsWith('.mp4')) {
+          const video = document.createElement('video');
+          video.src = media;
+          video.preload = 'metadata';
+          this.resourceCache.set(media, video);
+        } else {
+          const img = new Image();
+          img.src = media;
+          this.resourceCache.set(media, img);
+        }
+      }
     });
   }
 
@@ -182,7 +234,6 @@ class ProjectManager {
       }
     });
 
-    // Gestionăm și videoclipurile din galeria principală
     const galleryVideos = Array.from(this.dom.gallery.querySelectorAll('video'));
     galleryVideos.forEach(video => {
       if (this.state.isProjectActive) {
@@ -204,10 +255,9 @@ class ProjectManager {
     const projects = this.getProjects();
     this.dom.gallery.innerHTML = projects.map((p, i) => {
       if (p.thumbnail.endsWith('.mp4')) {
-        // Thumbnail video
         return `
           <div class="project-slide ${this.getSlideClass(i)}" data-id="${p.id}" data-index="${i}">
-            <video class="project-thumbnail video-thumbnail" muted loop playsinline>
+            <video class="project-thumbnail video-thumbnail" muted loop playsinline preload="metadata">
               <source src="${p.thumbnail}" type="video/mp4">
               Your browser does not support the video tag.
             </video>
@@ -217,7 +267,6 @@ class ProjectManager {
           </div>
         `;
       } else {
-        // Thumbnail image
         return `
           <div class="project-slide ${this.getSlideClass(i)}" data-id="${p.id}" data-index="${i}">
             <img src="${p.thumbnail}" alt="${p.name}" class="project-thumbnail" loading="lazy">
@@ -229,16 +278,16 @@ class ProjectManager {
       }
     }).join('');
 
-    // Re-aplicăm observer-ul pentru noile videoclipuri
     setTimeout(() => {
       const newGalleryVideos = this.dom.gallery.querySelectorAll('video');
       newGalleryVideos.forEach(video => {
-        this.state.galleryVideoObserver.observe(video);
+        if (this.state.galleryVideoObserver) {
+          this.state.galleryVideoObserver.observe(video);
+        }
       });
       
-      // Reinițializăm efectul glow pentru noile butoane
       this.setupButtonGlowEffect();
-    }, 100);
+    }, 50);
   }
 
   getSlideClass(idx) {
@@ -262,9 +311,21 @@ class ProjectManager {
   }
 
   moveGallery(dir) {
+    if (this.state.isChanging) return; // Previne animații multiple
+    
+    this.state.isChanging = true;
     const total = this.getProjects().length;
     this.state.idx = (this.state.idx + (dir === 'next' ? 1 : -1) + total) % total;
+    
+    // Aplică clasa pentru animație rapidă
+    this.dom.gallery.classList.add('quick-transition');
     this.updateGalleryClasses();
+    
+    // După animație, elimină clasa
+    setTimeout(() => {
+      this.dom.gallery.classList.remove('quick-transition');
+      this.state.isChanging = false;
+    }, 300);
   }
 
   openModal(id) {
@@ -299,7 +360,7 @@ class ProjectManager {
       this.dom.modal.classList.remove('active', 'closing');
       document.body.style.overflow = '';
       document.documentElement.classList.remove('modal-open');
-    }, 600);
+    }, 400);
   }
 
   updateModalContent(project) {
@@ -316,13 +377,27 @@ class ProjectManager {
   }
 
   renderModalSlides(images) {
+    images.slice(0, 2).forEach(media => {
+      if (!this.resourceCache.has(media)) {
+        if (media.endsWith('.mp4')) {
+          const preloadVideo = document.createElement('video');
+          preloadVideo.src = media;
+          preloadVideo.preload = 'metadata';
+          this.resourceCache.set(media, preloadVideo);
+        } else {
+          const preloadImg = new Image();
+          preloadImg.src = media;
+          this.resourceCache.set(media, preloadImg);
+        }
+      }
+    });
+
     this.dom.slidesContainer.innerHTML = images.map((media, i) => {
       if (media.endsWith('.mp4')) {
-        // Videoclip cu styling corect
         return `
           <div class="gallery-slide ${i === 0 ? 'active' : ''}">
             <div class="video-container">
-              <video class="gallery-video" muted loop playsinline>
+              <video class="gallery-video" muted loop playsinline preload="${i === 0 ? 'auto' : 'metadata'}">
                 <source src="${media}" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
@@ -330,24 +405,45 @@ class ProjectManager {
           </div>
         `;
       } else {
-        // Imagine
         return `
           <div class="gallery-slide ${i === 0 ? 'active' : ''}">
-            <img src="${media}" alt="Slide ${i}" class="gallery-image" loading="lazy">
+            <img src="${media}" alt="Slide ${i}" class="gallery-image" loading="${i === 0 ? 'eager' : 'lazy'}">
           </div>
         `;
       }
     }).join('');
     
     this.state.slideIdx = 0;
-    setTimeout(() => this.initializeVideos(), 100);
+    setTimeout(() => this.initializeVideos(), 50);
   }
 
   initializeVideos() {
     const videos = Array.from(this.dom.slidesContainer.querySelectorAll('video'));
     
+    const activeSlide = this.dom.slidesContainer.querySelector('.gallery-slide.active');
+    if (activeSlide) {
+      const activeVideo = activeSlide.querySelector('video');
+      if (activeVideo && this.state.isProjectActive) {
+        setTimeout(() => {
+          activeVideo.play().catch(e => {
+            console.log('Autoplay prevented for active video:', e);
+            if (e.name === 'NotAllowedError') {
+              activeVideo.controls = true;
+            }
+          });
+        }, 100);
+      }
+    }
+    
     videos.forEach((video, index) => {
       const parentSlide = video.closest('.gallery-slide');
+      
+      if (parentSlide.classList.contains('active')) {
+        video.preload = 'auto';
+      } else {
+        video.preload = 'metadata';
+        video.load();
+      }
       
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -359,19 +455,11 @@ class ProjectManager {
             video.pause();
           }
         });
-      }, { threshold: 0.5 });
-
+      }, { threshold: 0.3 });
+      
       observer.observe(parentSlide);
       this.state.videoElements.set(video, observer);
     });
-    
-    const activeSlide = this.dom.slidesContainer.querySelector('.gallery-slide.active');
-    if (activeSlide) {
-      const activeVideo = activeSlide.querySelector('video');
-      if (activeVideo && this.state.isProjectActive) {
-        activeVideo.play().catch(e => console.log('Autoplay prevented for active video:', e));
-      }
-    }
   }
 
   changeModalSlide(dir) {
@@ -404,7 +492,7 @@ class ProjectManager {
       if (p.thumbnail.endsWith('.mp4')) {
         return `
           <div class="related-project" data-id="${p.id}">
-            <video class="related-image video-thumbnail" muted loop playsinline>
+            <video class="related-image video-thumbnail" muted loop playsinline preload="metadata">
               <source src="${p.thumbnail}" type="video/mp4">
             </video>
             <div class="related-overlay"><h4 class="related-title">${p.name}</h4></div>
@@ -430,7 +518,7 @@ class ProjectManager {
 
     elements.forEach(el => el.classList.remove('typing'));
     
-    let delay = 300;
+    let delay = 200;
     elements.forEach(el => {
       const timeout = setTimeout(() => {
         el.classList.add('typing');
@@ -439,7 +527,7 @@ class ProjectManager {
       }, delay);
       
       this.state.typingTimeouts.push(timeout);
-      delay += 150;
+      delay += 100;
     });
   }
 
@@ -460,51 +548,100 @@ class ProjectManager {
     this.state.category = btn.dataset.category;
     this.state.idx = 0;
     this.renderGallery();
+    this.preloadCategoryResources();
   }
 
   setupInteractions() {
+    // 1. Click pe galerie
     this.dom.gallery.addEventListener('click', (e) => {
+      e.preventDefault();
+      
       const slide = e.target.closest('.project-slide');
       if (!slide) return;
       
       const idx = parseInt(slide.dataset.index);
       const isViewBtn = e.target.closest('.view-more');
-
-      if (isViewBtn || idx === this.state.idx) {
-        e.preventDefault();
+      
+      // Dacă e click pe butonul "View More"
+      if (isViewBtn) {
         this.openModal(parseInt(slide.dataset.id));
-      } else {
+        return;
+      }
+      
+      // Dacă e click pe slide-ul activ
+      if (idx === this.state.idx) {
+        this.openModal(parseInt(slide.dataset.id));
+        return;
+      }
+      
+      // Dacă e click pe un slide neactiv (prev sau next)
+      if (this.state.isChanging) return; // Previne click-uri multiple
+      
+      this.state.isChanging = true;
+      
+      // Aplică clasa pentru animație rapidă
+      this.dom.gallery.classList.add('quick-change');
+      
+      // Actualizează indexul cu o mică întârziere
+      setTimeout(() => {
         this.state.idx = idx;
         this.updateGalleryClasses();
-      }
+        
+        // După animație, elimină clasa
+        setTimeout(() => {
+          this.dom.gallery.classList.remove('quick-change');
+          this.state.isChanging = false;
+        }, 300);
+      }, 10);
     });
 
+    // 2. Butoane categorii
     this.dom.btns.cats.forEach(btn => 
       btn.addEventListener('click', () => this.handleCategory(btn))
     );
 
+    // 3. Butoane modal
     this.dom.btns.close.addEventListener('click', () => this.closeModal());
     this.dom.btns.prev.addEventListener('click', () => this.changeModalSlide('prev'));
     this.dom.btns.next.addEventListener('click', () => this.changeModalSlide('next'));
 
+    // 4. Proiecte similare
     this.dom.related.addEventListener('click', (e) => {
       const item = e.target.closest('.related-project');
       if (!item) return;
       
+      const projectId = parseInt(item.dataset.id);
+      const newProject = this.getProjects().find(p => p.id === projectId);
+      
+      if (!newProject) return;
+      
+      this.preloadProjectResources(newProject);
+      
+      this.dom.modalContent.style.opacity = '0.6';
       this.dom.modalContent.classList.add('changing');
+      
       setTimeout(() => {
-        this.updateModalContent(this.getProjects().find(p => p.id === parseInt(item.dataset.id)));
-        this.dom.modalContent.scrollTop = 0;
-        this.dom.modalContent.classList.remove('changing');
-        this.animateText();
-      }, 300);
+        this.updateModalContent(newProject);
+        
+        requestAnimationFrame(() => {
+          this.dom.modalContent.scrollTop = 0;
+          this.animateText();
+          
+          setTimeout(() => {
+            this.dom.modalContent.style.opacity = '1';
+            this.dom.modalContent.classList.remove('changing');
+          }, 50);
+        });
+      }, 150);
     });
 
+    // 5. Buton contact
     this.dom.btns.contact.addEventListener('click', () => {
       this.closeModal();
       document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
     });
 
+    // 6. Navigare cu tastatura
     document.addEventListener('keydown', (e) => {
       if (this.state.modalOpen) {
         if (e.key === 'Escape') this.closeModal();
@@ -519,3 +656,16 @@ class ProjectManager {
 }
 
 document.addEventListener('DOMContentLoaded', () => new ProjectManager());
+
+const projectsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('fade-in');
+    }
+  });
+}, { threshold: 0.2 });
+
+const projectsContainer = document.querySelector('.projects-container');
+if (projectsContainer) {
+  projectsObserver.observe(projectsContainer);
+}

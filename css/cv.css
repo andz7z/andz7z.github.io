@@ -45,15 +45,47 @@ html.cv-modal-open {
   overflow: hidden;
 }
 
+/* Animații pentru fade-in la scroll */
+.cv-header,
+.cv-tech-section,
+.cv-timeline-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.cv-header.fade-in,
+.cv-tech-section.fade-in,
+.cv-timeline-section.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animații pentru elementele din timeline la scroll */
+.cv-timeline-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease, all 0.4s ease;
+}
+
+.cv-timeline-item.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Delay-uri pentru elementele timeline */
+.cv-timeline-item:nth-child(1).fade-in { transition-delay: 0.1s; }
+.cv-timeline-item:nth-child(2).fade-in { transition-delay: 0.2s; }
+.cv-timeline-item:nth-child(3).fade-in { transition-delay: 0.3s; }
+.cv-timeline-item:nth-child(4).fade-in { transition-delay: 0.4s; }
+.cv-timeline-item:nth-child(5).fade-in { transition-delay: 0.5s; }
+
 /* Header */
 .cv-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 60px;
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: cvFadeInDown 0.6s ease forwards;
   width: 100%;
   max-width: 1200px;
 }
@@ -61,9 +93,6 @@ html.cv-modal-open {
 /* Tech Section */
 .cv-tech-section {
   margin-top: 20vh;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: cvFadeInUp 0.6s ease forwards 0.2s;
   width: 100%;
   max-width: 1200px;
 }
@@ -133,9 +162,6 @@ html.cv-modal-open {
 /* Horizontal Timeline (PC Layout) */
 .cv-timeline-section {
   margin-top: 15vh;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: cvFadeInUp 0.6s ease forwards 0.4s;
   width: 100%;
   max-width: 1200px;
 }
@@ -175,16 +201,8 @@ html.cv-modal-open {
   z-index: 2;
   flex: 1;
   padding: 0 15px;
-  opacity: 0;
-  transform: translateY(20px);
   cursor: pointer;
 }
-
-.cv-timeline-item:nth-child(1) { animation: cvFadeInUp 0.6s ease forwards 0.6s; }
-.cv-timeline-item:nth-child(2) { animation: cvFadeInUp 0.6s ease forwards 0.7s; }
-.cv-timeline-item:nth-child(3) { animation: cvFadeInUp 0.6s ease forwards 0.8s; }
-.cv-timeline-item:nth-child(4) { animation: cvFadeInUp 0.6s ease forwards 0.9s; }
-.cv-timeline-item:nth-child(5) { animation: cvFadeInUp 0.6s ease forwards 1s; }
 
 /* Stilul BULEI (Marker) */
 .cv-timeline-marker {
@@ -196,7 +214,7 @@ html.cv-modal-open {
   margin-bottom: 15px;
   position: relative;
   z-index: 2;
-  transition: all 0.4s ease; /* Tranziție fluidă */
+  transition: all 0.4s ease;
   box-shadow: 0 0 0 4px #000;
 }
 
@@ -209,30 +227,24 @@ html.cv-modal-open {
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.6), 0 0 0 4px #000;
 }
 
-/* Stilul TEXTULUI (Content) - Starea implicită */
+/* Stilul TEXTULUI (Content) */
 .cv-timeline-content {
   text-align: center;
   max-width: 180px;
-  
-  /* ADĂUGĂRI PENTRU SMOOTHNESS */
-  transition: all 0.4s ease; /* Aceeași durată ca bula pentru sincronizare */
-  padding: 10px; /* Spațiu pentru ca glow-ul să nu fie lipit de text */
+  transition: all 0.4s ease;
+  padding: 10px;
   border-radius: 8px;
   background: transparent;
-  /* Fix pentru o randare mai clară în timpul scalării */
-  backface-visibility: hidden; 
+  backface-visibility: hidden;
 }
 
-/* --- NOU: Activarea TEXTULUI la hover sau loop automat --- */
+/* Activarea TEXTULUI la hover sau loop automat */
 .cv-timeline-item:hover .cv-timeline-content,
 .cv-timeline-item.active-auto .cv-timeline-content {
-  transform: scale(1.1); /* Mărește textul */
-  /* Glow alb în jurul containerului de text */
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.25); 
-  /* Opțional: un fundal foarte subtil pentru a scoate textul în evidență */
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.05);
 }
-/* --------------------------------------------------------- */
 
 .cv-timeline-year {
   font-size: 0.9rem;
@@ -244,10 +256,10 @@ html.cv-modal-open {
   transition: color 0.4s ease;
 }
 
-/* Opțional: Schimbă culoarea anului când e activ */
+/* Schimbă culoarea anului când e activ */
 .cv-timeline-item:hover .cv-timeline-year,
 .cv-timeline-item.active-auto .cv-timeline-year {
-    color: #fff;
+  color: #fff;
 }
 
 .cv-timeline-content h3 {
@@ -265,9 +277,10 @@ html.cv-modal-open {
 }
 
 /* Animations Keyframes */
-@keyframes cvFadeInDown { to { opacity: 1; transform: translateY(0); } }
-@keyframes cvFadeInUp { to { opacity: 1; transform: translateY(0); } }
-@keyframes cvSlide { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-120px * 8)); } }
+@keyframes cvSlide { 
+  0% { transform: translateX(0); } 
+  100% { transform: translateX(calc(-120px * 8)); } 
+}
 
 /* =========================================
    PERFECT MOBILE OPTIMIZATION
@@ -343,18 +356,18 @@ html.cv-modal-open {
   
   /* Pe mobil, scoatem padding-ul extra de la text pentru a alinia corect */
   .cv-timeline-content {
-      padding: 0;
-      text-align: left;
-      max-width: 100%;
+    padding: 0;
+    text-align: left;
+    max-width: 100%;
   }
+  
   /* Pe mobil, efectul de scale pe text poate fi prea mult, îl reducem puțin */
   .cv-timeline-item:hover .cv-timeline-content,
   .cv-timeline-item.active-auto .cv-timeline-content {
-      transform: scale(1.02);
-      padding: 10px; /* Adăugăm padding doar când e activ pe mobil */
-      margin-left: -10px; /* Compensăm paddingul pentru aliniere */
+    transform: scale(1.02);
+    padding: 10px;
+    margin-left: -10px;
   }
-
 
   .cv-timeline-marker {
     margin-bottom: 0;
@@ -370,4 +383,14 @@ html.cv-modal-open {
   .cv-timeline-content h3 {
     font-size: 1.1rem;
   }
+
+  /* Ajustări pentru animațiile pe mobil */
+  .cv-timeline-item.fade-in {
+    transition-delay: 0s !important;
+  }
+  
+  .cv-timeline-item:nth-child(2).fade-in { transition-delay: 0.1s; }
+  .cv-timeline-item:nth-child(3).fade-in { transition-delay: 0.2s; }
+  .cv-timeline-item:nth-child(4).fade-in { transition-delay: 0.3s; }
+  .cv-timeline-item:nth-child(5).fade-in { transition-delay: 0.4s; }
 }

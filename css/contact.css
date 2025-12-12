@@ -8,6 +8,159 @@
   height: 120vh;
   display: flex;
   align-items: center;
+  overflow: hidden;
+}
+
+/* Animații pentru fade-in la scroll */
+.contact-container {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.contact-container.fade-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: 0.2s;
+}
+
+.contact-container.fade-in .contact-left {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.contact-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: 0.4s;
+}
+
+.contact-container.fade-in .contact-right {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.contact-title h2 {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: 0.3s;
+}
+
+.contact-container.fade-in .contact-title h2 {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.answers {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 1s ease, transform 1s ease;
+  transition-delay: 0.4s;
+}
+
+.contact-container.fade-in .answers {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Animații pentru formular */
+.contact-form-container {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: 0.5s;
+}
+
+.contact-container.fade-in .contact-form-container {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animații pentru input-uri și grupuri de formular */
+.form-group {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* Delay-uri pentru elementele din formular */
+.contact-container.fade-in .form-group:nth-child(1) { transition-delay: 0.6s; }
+.contact-container.fade-in .form-group:nth-child(2) { transition-delay: 0.7s; }
+.contact-container.fade-in .form-group:nth-child(3) { transition-delay: 0.8s; }
+.contact-container.fade-in .form-group:nth-child(4) { transition-delay: 0.9s; }
+.contact-container.fade-in .form-group:nth-child(5) { transition-delay: 1.0s; }
+
+.contact-container.fade-in .form-group {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animație pentru butonul de submit */
+.submit-btn {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.8s ease, transform 0.8s ease, all 0.3s ease;
+  transition-delay: 1.1s;
+}
+
+.contact-container.fade-in .submit-btn {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Animații pentru socials section */
+.socials-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  transition-delay: 0.3s;
+}
+
+.contact-container.fade-in .socials-section {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.socials-header {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: 0.4s;
+}
+
+.contact-container.fade-in .socials-header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Animații pentru item-urile de social */
+.social-item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease, transform 0.5s ease, all 0.3s ease;
+}
+
+/* Delay-uri pentru item-urile din social grid */
+.contact-container.fade-in .social-item:nth-child(1) { transition-delay: 0.5s; }
+.contact-container.fade-in .social-item:nth-child(2) { transition-delay: 0.6s; }
+.contact-container.fade-in .social-item:nth-child(3) { transition-delay: 0.7s; }
+.contact-container.fade-in .social-item:nth-child(4) { transition-delay: 0.8s; }
+.contact-container.fade-in .social-item:nth-child(5) { transition-delay: 0.9s; }
+.contact-container.fade-in .social-item:nth-child(6) { transition-delay: 1.0s; }
+.contact-container.fade-in .social-item:nth-child(7) { transition-delay: 1.1s; }
+.contact-container.fade-in .social-item:nth-child(8) { transition-delay: 1.2s; }
+
+.contact-container.fade-in .social-item {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contact-container {
@@ -417,9 +570,9 @@
 }
 
 .submit-btn {
-  background: linear-gradient(135deg, #000 0%, #000000 100%);
+  background: linear-gradient(135deg, #00000000 0%, #00000000 100%);
   color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0);
   padding: 12px 30px;
   font-size: 0.95rem;
   font-family: 'Sora', sans-serif;
@@ -456,10 +609,8 @@
 
 @media (hover: hover) {
   .submit-btn:hover {
-    background: linear-gradient(135deg, #ffffff00 0%, #cccccc00 100%);
     color: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 0px 50px rgba(255, 255, 255, 0.455);
   }
   
   .submit-btn:hover::after {
@@ -483,7 +634,7 @@
   padding: 30px 25px;
   border: 1px solid #333333;
   box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
-  transform: translateY(-40px); /* +dreapta, -sus */
+  transform: translateY(-40px);
 }
 
 .socials-header {
@@ -679,10 +830,38 @@
   .socials-section {
     padding: 25px 20px;
   }
+  
+  /* Ajustări pentru animații pe mobil */
+  .contact-left,
+  .contact-right {
+    transform: translateY(20px) !important;
+  }
+  
+  .contact-container.fade-in .contact-left,
+  .contact-container.fade-in .contact-right {
+    transform: translateY(0) !important;
+  }
+  
+  /* Reset delay-uri pentru mobil */
+  .contact-container.fade-in .form-group:nth-child(1) { transition-delay: 0.3s; }
+  .contact-container.fade-in .form-group:nth-child(2) { transition-delay: 0.4s; }
+  .contact-container.fade-in .form-group:nth-child(3) { transition-delay: 0.5s; }
+  .contact-container.fade-in .form-group:nth-child(4) { transition-delay: 0.6s; }
+  .contact-container.fade-in .form-group:nth-child(5) { transition-delay: 0.7s; }
+  
+  .contact-container.fade-in .social-item:nth-child(1) { transition-delay: 0.3s; }
+  .contact-container.fade-in .social-item:nth-child(2) { transition-delay: 0.4s; }
+  .contact-container.fade-in .social-item:nth-child(3) { transition-delay: 0.5s; }
+  .contact-container.fade-in .social-item:nth-child(4) { transition-delay: 0.6s; }
+  .contact-container.fade-in .social-item:nth-child(5) { transition-delay: 0.7s; }
+  .contact-container.fade-in .social-item:nth-child(6) { transition-delay: 0.8s; }
+  .contact-container.fade-in .social-item:nth-child(7) { transition-delay: 0.9s; }
+  .contact-container.fade-in .social-item:nth-child(8) { transition-delay: 1.0s; }
+  
   .message-minimum {
-  position: relative;
-  letter-spacing: 1px;
-  left: 57vw;
+    position: relative;
+    letter-spacing: 1px;
+    left: 57vw;
   }
 }
 .phone-input-container {
