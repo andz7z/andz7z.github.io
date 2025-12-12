@@ -238,9 +238,6 @@
     .contact-item {
         justify-content: center;
     }
-        .footer-right {
-       display: none;
-    }
 }
 
 @media (max-width: 768px) {

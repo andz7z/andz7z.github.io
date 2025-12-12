@@ -633,13 +633,12 @@ html.modal-open::-webkit-scrollbar-thumb {
   /* 1. Layout General Mobil */
   #projects {
     height: 140vh;
-    min-height: 800px;
   }
 
   .projects-container { padding: 0 20px; }
   
   .projects-title { 
-    font-size: 1.8rem; 
+    font-size: 1.3rem; 
     transform: translateX(0);
     margin-top: 20px;
   }
@@ -660,12 +659,12 @@ html.modal-open::-webkit-scrollbar-thumb {
 
   /* SLIDE ACTIV pe mobil */
   .project-slide.active {
-    width: 80vw !important;
-    height: 45vh !important;
+    width: 70vw !important;
+    height: 35vh !important;
     max-height: 350px !important;
     opacity: 1 !important;
     transform: translateX(0) scale(1) !important;
-    left: 10vw !important;
+    left: 0vw !important;
     z-index: 20 !important;
     box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
   }
@@ -752,9 +751,9 @@ html.modal-open::-webkit-scrollbar-thumb {
   }
 
   #projectsModal .project-name {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     position: relative;
-    top: -300px;
+    top: -320px;
     margin-bottom: 30px;
   }
 
@@ -762,7 +761,7 @@ html.modal-open::-webkit-scrollbar-thumb {
     font-size: 1rem;
     text-align: center;
     position: relative;
-    top: -50px;
+    top: -30px;
   }
 
   #projectsModal .related-projects {
@@ -780,7 +779,8 @@ html.modal-open::-webkit-scrollbar-thumb {
   }
   #projectsModal .key-features {
     position: relative;
-    top: -70px;
+    top: -30px;
+    font-size: 0.8rem;
   }
   #projectsModal .divider-section {
     position: relative;
@@ -800,11 +800,11 @@ html.modal-open::-webkit-scrollbar-thumb {
 }
 
 @media (max-width: 480px) {
-  .confidence { font-size: 1.8rem; }
-  .projects-title { font-size: 1.5rem; }
+  .confidence { font-size: 2rem; }
+  .projects-title { font-size: 1.1rem; }
   
   .project-slide.active {
-    width: 90vw !important;
+    width: 80vw !important;
     height: 40vh !important;
     left: 5vw !important;
   }
