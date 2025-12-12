@@ -189,57 +189,11 @@ const initStickyNav = () => {
         });
     };
 
-    // 6. DYNAMIC URL ROUTING & SCROLL OBSERVER (NOU)
-    const initDynamicRouting = () => {
-        // A. Verifica daca venim dintr-un redirect (din 404.html)
-        const params = new URLSearchParams(window.location.search);
-        const redirectPath = params.get('p');
-        
-        if (redirectPath) {
-            // Curatam URL-ul de parametrul ?p=/ceva
-            window.history.replaceState(null, null, redirectPath);
-            
-            // Gasim sectiunea care are acest data-page-url
-            const targetSection = document.querySelector(`section[data-page-url="${redirectPath}"]`);
-            if (targetSection) {
-                // Asteptam putin sa se incarce tot DOM-ul
-                setTimeout(() => {
-                    targetSection.scrollIntoView({ behavior: 'auto', block: 'start' });
-                }, 100);
-            }
-        }
-
-        // B. Observer pentru a schimba URL-ul in timp ce dai scroll
-        const sections = document.querySelectorAll('section[data-page-url]');
-        
-        const observerOptions = {
-            root: null,
-            rootMargin: '-40% 0px -40% 0px', // Activeaza cand elementul e in mijlocul ecranului
-            threshold: 0
-        };
-
-        const observerCallback = (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const pageUrl = entry.target.getAttribute('data-page-url');
-                    // Schimbam URL-ul fara refresh doar daca e diferit de cel curent
-                    if (pageUrl && window.location.pathname !== pageUrl) {
-                        window.history.replaceState(null, null, pageUrl);
-                    }
-                }
-            });
-        };
-
-        const observer = new IntersectionObserver(observerCallback, observerOptions);
-        sections.forEach(section => observer.observe(section));
-    };
-
     loadScripts();
     initStickyNav();
     initContactButton();
     initMenuToggle();
     initSmoothScroll();
-    initDynamicRouting(); // Initializam noua functie
 
     if (typeof window.initFooter === 'function') window.initFooter();
 });
